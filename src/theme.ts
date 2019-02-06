@@ -57,4 +57,8 @@ export interface Palette {
     border: string
     shadow: string
   }
+  profile: {
+    avatar: string
+    date: string
+  }
 }

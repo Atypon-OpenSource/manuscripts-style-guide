@@ -72,6 +72,10 @@ export const theme: Theme = {
       border: colors.lightGrey,
       shadow: colors.altoGrey,
     },
+    profile: {
+      avatar: colors.darkGrey, // dustyGrey
+      date: colors.dustyGrey,
+    },
   },
   fontFamily,
   radius: 8,
