@@ -5,19 +5,19 @@ export interface Theme {
   spacing: number
 }
 
-interface DefaultColorStyle {
+export interface DefaultColorStyle {
   default: string
 }
 
-interface HoverableColorStyle {
+export interface HoverableColorStyle {
   hovered: string
 }
 
-interface ErrorColorStyle {
+export interface ErrorColorStyle {
   error: string
 }
 
-interface AlertMessageColorStyle {
+export interface AlertMessageColorStyle {
   background: string
   text: string
   border: string
