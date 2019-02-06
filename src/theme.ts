@@ -52,4 +52,9 @@ export interface Palette {
     info: AlertMessageColorStyle
     warning: AlertMessageColorStyle
   }
+  modal: {
+    overlay: string
+    border: string
+    shadow: string
+  }
 }

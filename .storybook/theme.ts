@@ -67,6 +67,11 @@ export const theme: Theme = {
         dismiss: colors.wheatYellow,
       },
     },
+    modal: {
+      overlay: colors.aquaHaze,
+      border: colors.lightGrey,
+      shadow: colors.altoGrey,
+    },
   },
   fontFamily,
   radius: 8,
