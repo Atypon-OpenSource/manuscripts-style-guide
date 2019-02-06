@@ -13,6 +13,8 @@
     "object-literal-sort-keys": false,
     "only-arrow-functions": true,
     "no-submodule-imports": false,
-    "typedef": true
+    "typedef": true,
+    "cyclomatic-complexity": [true, 8],
+    "max-classes-per-file": false
   }
 }

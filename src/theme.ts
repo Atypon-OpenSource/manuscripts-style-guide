@@ -5,6 +5,25 @@ export interface Theme {
   spacing: number
 }
 
+interface DefaultColorStyle {
+  default: string
+}
+
+interface HoverableColorStyle {
+  hovered: string
+}
+
+interface ErrorColorStyle {
+  error: string
+}
+
+interface AlertMessageColorStyle {
+  background: string
+  text: string
+  border: string
+  dismiss: string
+}
+
 export interface Palette {
   global: {
     background: {
@@ -22,5 +41,15 @@ export interface Palette {
     primary: string
     secondary: string
     danger: string
+  }
+  textField: {
+    placeholder: DefaultColorStyle & HoverableColorStyle
+    border: DefaultColorStyle & ErrorColorStyle
+  }
+  alertMessage: {
+    success: AlertMessageColorStyle
+    error: AlertMessageColorStyle
+    info: AlertMessageColorStyle
+    warning: AlertMessageColorStyle
   }
 }
