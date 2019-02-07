@@ -6,6 +6,7 @@ import { TextFieldError, TextFieldErrorItem } from './TextFieldError'
 interface TextFieldContainerProps {
   label?: string
   error?: string | null | object
+  children: React.ReactElement<ErrorProps>
 }
 
 export const TextFieldContainer: React.FunctionComponent<
