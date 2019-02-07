@@ -1,5 +1,4 @@
 import { Form } from 'formik'
-import { Link } from 'react-router-dom'
 import { styled } from '../styled-components'
 
 export const CenteredForm = styled(Form)`
@@ -22,13 +21,6 @@ export const FormActions = styled.div`
   margin-top: 20px;
   margin-bottom: 20px;
   color: rgba(0, 0, 0, 0.51);
-`
-
-export const FormLink = styled(Link)`
-  text-transform: uppercase;
-  text-decoration: none;
-  color: ${props => props.theme.colors.global.text.link};
-  font-size: 90%;
 `
 
 export const FormError = styled.div`

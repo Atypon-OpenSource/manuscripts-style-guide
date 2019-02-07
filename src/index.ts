@@ -6,8 +6,8 @@ export {
   AlertMessageColorStyle,
 } from './theme'
 export * from './components/Button'
-export { default as AutoSaveInput } from './components/AutoSaveInput'
-export { default as Avatar } from './components/Avatar'
+export * from './components/AutoSaveInput'
+export * from './components/Avatar'
 export * from './components/Form'
 export * from './components/SimpleModal'
 export * from './components/StyledModal'

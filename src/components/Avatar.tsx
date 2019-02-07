@@ -25,7 +25,7 @@ const RoundedImage = styled.img<{ size: number }>`
   justify-content: center;
 `
 
-const Avatar: React.FunctionComponent<AvatarProps> = props => (
+const AvatarComponent: React.FunctionComponent<AvatarProps> = props => (
   <AvatarContainer>
     {props.src ? (
       <RoundedImage {...props} />
@@ -38,4 +38,4 @@ const Avatar: React.FunctionComponent<AvatarProps> = props => (
   </AvatarContainer>
 )
 
-export default withTheme(Avatar)
+export const Avatar = withTheme(AvatarComponent)

@@ -10,7 +10,9 @@ interface AutoSaveInputProps {
   placeholder?: string
 }
 
-class AutoSaveInput extends React.Component<FieldProps & AutoSaveInputProps> {
+export class AutoSaveInput extends React.Component<
+  FieldProps & AutoSaveInputProps
+> {
   // NOTE: this needs to happen in a timeout so the values are updated first
   private handleSubmit = debounce(() => {
     this.props.form.handleSubmit(submitEvent as React.FormEvent<
@@ -48,5 +50,3 @@ class AutoSaveInput extends React.Component<FieldProps & AutoSaveInputProps> {
     }
   }
 }
-
-export default AutoSaveInput
