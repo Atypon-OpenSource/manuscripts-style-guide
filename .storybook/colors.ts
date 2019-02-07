@@ -1,0 +1,7 @@
+export const white = '#fff'
+export const manuscriptsGrey = '#353535'
+export const dustyGrey = '#949494'
+export const manuscriptsBlue = '#7fb5d5'
+export const punchRed = '#dc5030'
+export const chablisRed = '#fff1f0'
+export const darkCoral = '#cd593c'
