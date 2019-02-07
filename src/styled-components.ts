@@ -9,9 +9,10 @@ const {
   css,
   createGlobalStyle,
   ThemeProvider,
+  withTheme,
 } = styledComponents as styledComponents.ThemedStyledComponentsModule<Theme>
 
-export { createGlobalStyle, css, styled, ThemeProvider }
+export { createGlobalStyle, css, styled, ThemeProvider, withTheme }
 
 export type ThemedProps<V> = styledComponents.ThemedStyledProps<
   React.HTMLProps<V>,

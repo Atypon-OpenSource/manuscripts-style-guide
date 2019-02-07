@@ -26,12 +26,63 @@ export const theme: Theme = {
         error: colors.darkCoral,
       },
     },
+
+    textField: {
+      placeholder: {
+        default: '#aaa',
+        hovered: '#777',
+      },
+      border: {
+        default: '#aaa',
+        error: '#d47666',
+      },
+    },
+
     button: {
       primary: colors.manuscriptsBlue,
       secondary: colors.dustyGrey,
       danger: colors.punchRed,
     },
+
+    alertMessage: {
+      success: {
+        background: colors.peppermintGreen,
+        text: colors.killarneyGreen,
+        border: colors.springGreen,
+        dismiss: colors.springGreen,
+      },
+      error: {
+        background: colors.chablisRed,
+        text: colors.punchRed,
+        border: colors.mandysRed,
+        dismiss: colors.mandysRed,
+      },
+      info: {
+        background: colors.powderBlue,
+        text: colors.jellyBeanBlue,
+        border: colors.manuscriptsBlue,
+        dismiss: colors.towerGrey,
+      },
+      warning: {
+        background: colors.butteryYellow,
+        text: colors.zestOrange,
+        border: colors.wheatYellow,
+        dismiss: colors.wheatYellow,
+      },
+    },
+
+    modal: {
+      overlay: colors.aquaHaze,
+      border: colors.lightGrey,
+      shadow: colors.altoGrey,
+    },
+
+    profile: {
+      avatar: colors.darkGrey, // dustyGrey
+      date: colors.dustyGrey,
+    },
   },
+
   fontFamily,
   radius: 8,
   spacing: 4,
