@@ -26,6 +26,7 @@ export const theme: Theme = {
         error: colors.darkCoral,
       },
     },
+
     textField: {
       placeholder: {
         default: '#aaa',
@@ -36,11 +37,13 @@ export const theme: Theme = {
         error: '#d47666',
       },
     },
+
     button: {
       primary: colors.manuscriptsBlue,
       secondary: colors.dustyGrey,
       danger: colors.punchRed,
     },
+
     alertMessage: {
       success: {
         background: colors.peppermintGreen,
@@ -67,16 +70,19 @@ export const theme: Theme = {
         dismiss: colors.wheatYellow,
       },
     },
+
     modal: {
       overlay: colors.aquaHaze,
       border: colors.lightGrey,
       shadow: colors.altoGrey,
     },
+
     profile: {
       avatar: colors.darkGrey, // dustyGrey
       date: colors.dustyGrey,
     },
   },
+
   fontFamily,
   radius: 8,
   spacing: 4,
