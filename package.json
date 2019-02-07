@@ -21,7 +21,7 @@
     "dev": "tsc --outDir dist/es --watch",
     "lint": "tslint --project .",
     "prebuild": "rimraf dist",
-    "prettier": "prettier --write \"{src}/**/*.{ts,tsx}\"",
+    "prettier": "prettier --write \"{src,stories}/**/*.{ts,tsx}\"",
     "preversion": "npm-run-all --parallel lint typecheck test",
     "storybook": "start-storybook -p 6006",
     "test": "jest",
