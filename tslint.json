@@ -12,6 +12,7 @@
     "no-implicit-dependencies": [true, "dev"],
     "object-literal-sort-keys": false,
     "only-arrow-functions": true,
+    "jsx-no-lambda": false,
     "no-submodule-imports": false,
     "typedef": true,
     "cyclomatic-complexity": [true, 8],

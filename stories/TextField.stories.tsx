@@ -2,7 +2,7 @@ import { action } from '@storybook/addon-actions'
 import { storiesOf } from '@storybook/react'
 import { Field, FieldProps, Form, Formik } from 'formik'
 import * as React from 'react'
-import AutoSaveInput from '../src/components/AutoSaveInput'
+import { AutoSaveInput } from '../src/components/AutoSaveInput'
 import { TextField, TextFieldGroup } from '../src/components/TextField'
 import { TextFieldContainer } from '../src/components/TextFieldContainer'
 import {
