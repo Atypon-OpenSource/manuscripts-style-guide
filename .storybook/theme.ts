@@ -71,6 +71,13 @@ export const theme: Theme = {
       },
     },
 
+    dialog: {
+      text: colors.dustyGrey,
+      background: colors.white,
+      icon: colors.butteryYellow,
+      shadow: colors.altoGrey,
+    },
+
     modal: {
       overlay: colors.aquaHaze,
       border: colors.lightGrey,
@@ -80,6 +87,28 @@ export const theme: Theme = {
     profile: {
       avatar: colors.darkGrey, // dustyGrey
       date: colors.dustyGrey,
+    },
+
+    authors: {
+      add: {
+        hovered: colors.salomieYellow,
+      },
+      searchIcon: colors.manuscriptsBlue,
+    },
+
+    sidebar: {
+      background: {
+        default: colors.aliceBlue,
+        selected: colors.powderBlue,
+      },
+      text: {
+        primary: colors.manuscriptsGrey,
+        secondary: colors.dustyGrey,
+        link: colors.manuscriptsBlue,
+      },
+      dropLine: colors.mayaBlue,
+      label: colors.manuscriptsBlue,
+      border: colors.dustyGrey,
     },
   },
 

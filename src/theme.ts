@@ -5,6 +5,14 @@ export interface Theme {
   spacing: number
 }
 
+export interface PrimaryColorStyle {
+  primary: string
+}
+
+export interface SecondaryColorStyle {
+  secondary: string
+}
+
 export interface DefaultColorStyle {
   default: string
 }
@@ -17,12 +25,22 @@ export interface ErrorColorStyle {
   error: string
 }
 
+export interface LinkColorStyle {
+  link: string
+}
+
+export interface SelectableColorStyle {
+  selected: string
+}
+
 export interface AlertMessageColorStyle {
   background: string
   text: string
   border: string
   dismiss: string
 }
+
+export type TextColorStyle = PrimaryColorStyle & SecondaryColorStyle
 
 export interface Palette {
   global: {
@@ -60,5 +78,22 @@ export interface Palette {
   profile: {
     avatar: string
     date: string
+  }
+  authors: {
+    add: HoverableColorStyle
+    searchIcon: string
+  }
+  sidebar: {
+    background: DefaultColorStyle & SelectableColorStyle
+    text: TextColorStyle & LinkColorStyle
+    dropLine: string
+    label: string
+    border: string
+  }
+  dialog: {
+    text: string
+    background: string
+    icon: string
+    shadow: string
   }
 }
