@@ -2,6 +2,7 @@
   "name": "@manuscripts/style-guide",
   "description": "Shared components for Manuscripts applications",
   "version": "0.1.0",
+  "private": true,
   "repository": "https://gitlab.com/mpapp-private/manuscripts-style-guide",
   "license": "Apache-2.0",
   "main": "dist/cjs",
