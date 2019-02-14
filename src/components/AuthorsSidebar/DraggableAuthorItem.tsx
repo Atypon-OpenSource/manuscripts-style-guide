@@ -13,8 +13,8 @@ import {
   DropTargetSpec,
 } from 'react-dnd'
 import { findDOMNode } from 'react-dom'
-import { withDragDropContext } from '../..'
 import { isJointFirstAuthor } from '../../lib/authors'
+import { withDragDropContext } from '../../lib/dnd'
 import { styled, ThemedProps, withTheme } from '../../styled-components'
 import { Theme } from '../../theme'
 import { AuthorName } from '../AuthorName'
