@@ -1,3 +1,1 @@
-import AuthorsSidebar from './AuthorsSidebar'
-
-export default AuthorsSidebar
+export * from './AuthorsSidebar'

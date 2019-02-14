@@ -1,7 +1,7 @@
 import { action } from '@storybook/addon-actions'
 import { storiesOf } from '@storybook/react'
 import * as React from 'react'
-import AuthorsSidebar from '../src/components/AuthorsSidebar'
+import { AuthorsSidebar } from '../src'
 import authors from './data/authors'
 
 storiesOf('AuthorSidebar', module)

@@ -1,7 +1,7 @@
 import { action } from '@storybook/addon-actions'
 import { storiesOf } from '@storybook/react'
 import * as React from 'react'
-import { AuthorForm } from '../src/components/AuthorForm'
+import { AuthorForm } from '../src'
 import { AuthorAffiliation } from '../src/components/Types'
 import {
   buildAffiliationIDs,
