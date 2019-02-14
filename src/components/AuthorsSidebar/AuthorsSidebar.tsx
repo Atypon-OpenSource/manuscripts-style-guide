@@ -84,7 +84,7 @@ interface Props {
   sidebarAlert?: JSX.Element | null
 }
 
-const AuthorsSidebar: React.FunctionComponent<Props> = ({
+export const AuthorsSidebar: React.FunctionComponent<Props> = ({
   authors,
   sidebarAlert,
   selectAuthor,
@@ -149,5 +149,3 @@ const AuthorsSidebar: React.FunctionComponent<Props> = ({
     </SidebarList>
   </Sidebar>
 )
-
-export default AuthorsSidebar

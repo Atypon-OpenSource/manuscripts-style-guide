@@ -2,14 +2,15 @@ import { action } from '@storybook/addon-actions'
 import { storiesOf } from '@storybook/react'
 import { Field, FieldProps, Form, Formik } from 'formik'
 import * as React from 'react'
-import { AutoSaveInput } from '../src/components/AutoSaveInput'
-import { TextField, TextFieldGroup } from '../src/components/TextField'
-import { TextFieldContainer } from '../src/components/TextFieldContainer'
 import {
+  AutoSaveInput,
+  TextField,
+  TextFieldContainer,
   TextFieldError,
   TextFieldErrorItem,
-} from '../src/components/TextFieldError'
-import { TextFieldGroupContainer } from '../src/components/TextFieldGroupContainer'
+  TextFieldGroup,
+  TextFieldGroupContainer,
+} from '../src'
 
 storiesOf('TextField', module)
   .add('default', () => <TextField />)
