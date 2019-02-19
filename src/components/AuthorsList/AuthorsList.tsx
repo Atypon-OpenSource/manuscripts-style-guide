@@ -80,7 +80,9 @@ export const AuthorsList: React.FunctionComponent<Props> = ({
 
     {showEditButton && (
       <AuthorsActions>
-        <EditButton onClick={startEditing}>Edit Authors</EditButton>
+        <EditButton type="button" onClick={startEditing}>
+          Edit Authors
+        </EditButton>
       </AuthorsActions>
     )}
   </AuthorsContainer>

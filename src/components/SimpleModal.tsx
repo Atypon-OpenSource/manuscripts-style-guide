@@ -78,7 +78,7 @@ export const SimpleModal: React.FunctionComponent<Props> = ({
   >
     <ModalContainer>
       <ModalHeader>
-        <CloseButton onClick={handleClose}>
+        <CloseButton type="button" onClick={handleClose}>
           <CloseIconDark />
         </CloseButton>
       </ModalHeader>

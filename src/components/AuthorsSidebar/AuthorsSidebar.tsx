@@ -102,6 +102,7 @@ export const AuthorsSidebar: React.FunctionComponent<Props> = ({
 
     <SidebarAction>
       <AddButton
+        type="button"
         onClick={() => {
           openAddAuthors()
         }}
