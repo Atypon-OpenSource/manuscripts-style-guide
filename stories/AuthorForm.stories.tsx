@@ -36,7 +36,6 @@ storiesOf('AuthorForm', module)
       updateAuthor={action(
         'update author after inviting him to collaborate on project'
       )}
-      getAuthorName={action('get the author name')}
     />
   ))
   .add('with remove author open', () => (
@@ -56,7 +55,6 @@ storiesOf('AuthorForm', module)
       updateAuthor={action(
         'update author after inviting him to collaborate on project'
       )}
-      getAuthorName={action('get the author name')}
     />
   ))
   .add('with form alert', () => (
@@ -76,7 +74,6 @@ storiesOf('AuthorForm', module)
       updateAuthor={action(
         'update author after inviting him to collaborate on project'
       )}
-      getAuthorName={action('get the author name')}
       authorFormAlert={<span>This author has been invited to the project</span>}
     />
   ))
