@@ -113,6 +113,7 @@ export const AuthorForm: React.FunctionComponent<AuthorProps> = ({
     <Formik
       initialValues={buildInitialValues(author, authorAffiliations)}
       onSubmit={handleSave}
+      enableReinitialize={true}
     >
       {({ values }: FormikProps<AuthorValues>) => (
         <Form>
