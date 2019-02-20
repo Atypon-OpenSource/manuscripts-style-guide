@@ -2,7 +2,7 @@ import { Contributor } from '@manuscripts/manuscripts-json-schema'
 import React from 'react'
 import { isJointFirstAuthor } from '../../lib/authors'
 import { styled } from '../../styled-components'
-import { AuthorAffiliation } from '../Types'
+import { AuthorAffiliation } from '../../types'
 import Author from './Author'
 
 const EditButton = styled.button`

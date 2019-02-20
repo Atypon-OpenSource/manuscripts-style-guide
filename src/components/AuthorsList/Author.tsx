@@ -1,8 +1,8 @@
 import { Contributor } from '@manuscripts/manuscripts-json-schema'
 import React from 'react'
 import { styled } from '../../styled-components'
+import { AuthorAffiliation as AuthorAffiliationT } from '../../types'
 import { AuthorName } from '../AuthorName'
-import { AuthorAffiliation as AuthorAffiliationT } from '../Types'
 
 const AuthorNotes = styled.span`
   display: inline-block;

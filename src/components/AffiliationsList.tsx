@@ -1,7 +1,7 @@
 import React from 'react'
 import { styled } from '../styled-components'
 
-import { AffiliationMap } from './Types'
+import { AffiliationMap } from '../types'
 
 const Container = styled.table`
   border: none;
