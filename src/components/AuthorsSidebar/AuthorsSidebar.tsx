@@ -71,7 +71,7 @@ const SidebarAction = styled.div`
 
 const SidebarList = styled.div`
   flex: 1;
-  overflow-y: auto;
+  overflow-y: visible;
 `
 
 interface Props {
