@@ -17,15 +17,15 @@ import { isJointFirstAuthor } from '../../lib/authors'
 import { withDragDropContext } from '../../lib/dnd'
 import { styled, ThemedProps, withTheme } from '../../styled-components'
 import { Theme } from '../../theme'
-import { AuthorName } from '../AuthorName'
-import { Avatar } from '../Avatar'
 import {
   AuthorItem,
   ConnectedDragSourceProps,
   ConnectedDropTargetProps,
   DragSourceProps,
   DropSide,
-} from '../Types'
+} from '../../types'
+import { AuthorName } from '../AuthorName'
+import { Avatar } from '../Avatar'
 
 type ThemedDivProps = ThemedProps<HTMLDivElement>
 

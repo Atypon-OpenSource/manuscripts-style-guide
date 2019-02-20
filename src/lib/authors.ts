@@ -5,7 +5,7 @@ import {
   ObjectTypes,
 } from '@manuscripts/manuscripts-json-schema'
 
-export type AffiliationMap = Map<string, Affiliation>
+import { AffiliationMap } from '../types'
 
 const getModelsByType = <T extends Model>(
   modelMap: Map<string, Model>,
