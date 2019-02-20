@@ -20,7 +20,9 @@ export const ModalHeader = styled.div`
   padding-bottom: 10px;
 `
 
-export const CloseButton = styled.button`
+export const CloseButton = styled.button.attrs({
+  type: 'button',
+})`
   width: 45px;
   height: 35px;
   display: inline-block;
