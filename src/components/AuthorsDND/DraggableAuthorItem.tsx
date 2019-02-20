@@ -116,6 +116,7 @@ interface Props {
   selectAuthor: (item: Contributor) => void
   sidebarItemDecorator?: JSX.Element | null
   theme: Theme
+  renderAuthorName?: React.FunctionComponent
 }
 
 interface State {
@@ -199,9 +200,11 @@ class AuthorComponent extends React.Component<Props & ConnectedProps, State> {
       authorItem,
       sidebarItemDecorator,
       theme,
+      renderAuthorName,
     } = this.props
 
     const opacity = isDragging ? 0 : 1
+    const _AuthorName = renderAuthorName || AuthorName
 
     return connectDragSource(
       <div>
@@ -234,7 +237,7 @@ class AuthorComponent extends React.Component<Props & ConnectedProps, State> {
                 </AvatarContainer>
 
                 <AuthorNameSpace>
-                  <AuthorName name={author.bibliographicName} />
+                  <_AuthorName name={author.bibliographicName} />
                 </AuthorNameSpace>
               </AuthorMetadata>
 
