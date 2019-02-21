@@ -95,7 +95,9 @@ interface AuthorProps {
   removeAuthor: (data: Contributor) => void
   handleSave: (values: AuthorValues) => Promise<void>
   handleRemoveAuthor: () => void
-  authorFormAlert?: JSX.Element | null
+  renderLegend: React.FunctionComponent
+  renderCheckboxLabel: React.FunctionComponent
+  renderTextField: React.FunctionComponent
 }
 
 export const AuthorForm: React.FunctionComponent<AuthorProps> = ({
@@ -107,9 +109,15 @@ export const AuthorForm: React.FunctionComponent<AuthorProps> = ({
   removeAuthor,
   isRemoveAuthorOpen,
   handleRemoveAuthor,
-  authorFormAlert,
-}) => (
-  <React.Fragment>
+  renderLegend,
+  renderCheckboxLabel,
+  renderTextField,
+}) => {
+  const LegendComponent = renderLegend
+  const CheckboxLabelComponent = renderCheckboxLabel
+  const TextFieldComponent = renderTextField
+
+  return (
     <Formik
       initialValues={buildInitialValues(author, authorAffiliations)}
       onSubmit={handleSave}
@@ -120,7 +128,7 @@ export const AuthorForm: React.FunctionComponent<AuthorProps> = ({
           <Fields>
             <Fieldset>
               <Container>
-                <Legend>Details</Legend>
+                <LegendComponent>Details</LegendComponent>
 
                 <RemoveAuthorButton
                   author={author}
@@ -136,7 +144,7 @@ export const AuthorForm: React.FunctionComponent<AuthorProps> = ({
                   {(props: FieldProps) => (
                     <AutoSaveInput
                       {...props}
-                      component={TextField}
+                      component={TextFieldComponent}
                       saveOn={'blur'}
                       placeholder={'Given name'}
                     />
@@ -147,7 +155,7 @@ export const AuthorForm: React.FunctionComponent<AuthorProps> = ({
                   {(props: FieldProps) => (
                     <AutoSaveInput
                       {...props}
-                      component={TextField}
+                      component={TextFieldComponent}
                       saveOn={'blur'}
                       placeholder={'Family name'}
                     />
@@ -155,7 +163,7 @@ export const AuthorForm: React.FunctionComponent<AuthorProps> = ({
                 </Field>
               </TextFieldGroupContainer>
 
-              <CheckboxLabel>
+              <CheckboxLabelComponent>
                 <Field name={'isCorresponding'}>
                   {(props: FieldProps) => (
                     <AutoSaveInput
@@ -166,7 +174,7 @@ export const AuthorForm: React.FunctionComponent<AuthorProps> = ({
                   )}
                 </Field>
                 <LabelText>Corresponding Author</LabelText>
-              </CheckboxLabel>
+              </CheckboxLabelComponent>
 
               {values.isCorresponding && (
                 <Label>
@@ -174,7 +182,7 @@ export const AuthorForm: React.FunctionComponent<AuthorProps> = ({
                     {(props: FieldProps) => (
                       <AutoSaveInput
                         {...props}
-                        component={TextField}
+                        component={TextFieldComponent}
                         saveOn={'blur'}
                         placeholder={'Email address'}
                       />
@@ -183,7 +191,7 @@ export const AuthorForm: React.FunctionComponent<AuthorProps> = ({
                 </Label>
               )}
 
-              <CheckboxLabel>
+              <CheckboxLabelComponent>
                 <Field name={'isJointContributor'}>
                   {(props: FieldProps) => (
                     <AutoSaveInput
@@ -194,11 +202,11 @@ export const AuthorForm: React.FunctionComponent<AuthorProps> = ({
                   )}
                 </Field>
                 <LabelText>Joint Authorship with Next Author</LabelText>
-              </CheckboxLabel>
+              </CheckboxLabelComponent>
             </Fieldset>
 
             <Fieldset>
-              <Legend>Affiliations</Legend>
+              <LegendComponent>Affiliations</LegendComponent>
 
               <Label>
                 <Field name={'affiliations'}>
@@ -216,6 +224,11 @@ export const AuthorForm: React.FunctionComponent<AuthorProps> = ({
         </Form>
       )}
     </Formik>
-    {authorFormAlert}
-  </React.Fragment>
-)
+  )
+}
+
+AuthorForm.defaultProps = {
+  renderLegend: Legend,
+  renderCheckboxLabel: CheckboxLabel,
+  renderTextField: TextField,
+}
