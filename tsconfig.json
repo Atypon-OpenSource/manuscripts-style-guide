@@ -13,12 +13,14 @@
     "removeComments": true,
     "skipLibCheck": true,
     "strict": true,
-    "target": "es2015"
+    "target": "es2015",
+    "typeRoots" : [
+      "./node_modules/@types",
+      "./stories/types"
+    ]
   },
   "include": [
-    "src/**/*"
-  ],
-  "exclude": [
-    "**/__tests__"
+    "./src/**/*",
+    "./stories/**/*"
   ]
 }

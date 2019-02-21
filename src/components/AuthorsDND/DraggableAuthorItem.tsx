@@ -24,23 +24,24 @@ import {
   DragSourceProps,
   DropSide,
 } from '../../types'
-import { AuthorName } from '../AuthorName'
 import { Avatar } from '../Avatar'
+import {
+  AuthorItemComponentOverrides,
+  defaultAuthorItemComponents,
+} from './AuthorItemComponents'
 
 type ThemedDivProps = ThemedProps<HTMLDivElement>
 
-interface OpacityProps {
+const AuthorItemComponent = styled.div<{
   opacity: number
-}
-
-const AuthorItemComponent = styled.div`
+}>`
   padding: 4px 16px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   cursor: pointer;
   transition: background-color 0.25s;
-  opacity: ${(props: OpacityProps) => props.opacity};
+  opacity: ${props => props.opacity};
 
   &:hover,
   &.active {
@@ -116,7 +117,7 @@ interface Props {
   selectAuthor: (item: Contributor) => void
   sidebarItemDecorator?: JSX.Element | null
   theme: Theme
-  renderAuthorName?: React.FunctionComponent
+  components?: AuthorItemComponentOverrides
 }
 
 interface State {
@@ -200,12 +201,15 @@ class AuthorComponent extends React.Component<Props & ConnectedProps, State> {
       authorItem,
       sidebarItemDecorator,
       theme,
-      renderAuthorName,
+      components,
     } = this.props
 
     const opacity = isDragging ? 0 : 1
 
-    const AuthorNameComponent = renderAuthorName || AuthorName
+    const { AuthorName } = {
+      ...defaultAuthorItemComponents,
+      ...components,
+    }
 
     return connectDragSource(
       <div>
@@ -238,7 +242,7 @@ class AuthorComponent extends React.Component<Props & ConnectedProps, State> {
                 </AvatarContainer>
 
                 <AuthorNameSpace>
-                  <AuthorNameComponent name={author.bibliographicName} />
+                  <AuthorName name={author.bibliographicName} />
                 </AuthorNameSpace>
               </AuthorMetadata>
 

@@ -1,13 +1,7 @@
 import { BibliographicName } from '@manuscripts/manuscripts-json-schema'
 import React from 'react'
 import { initials } from '../lib/name'
-import { styled, withTheme } from '../styled-components'
-import { Theme } from '../theme'
-
-interface Props {
-  name: BibliographicName
-  theme: Theme
-}
+import { styled, ThemeProps, withTheme } from '../styled-components'
 
 const NameParts = styled.span`
   line-height: 35px;
@@ -19,7 +13,13 @@ const NameParts = styled.span`
 const buildNameLiteral = (name: BibliographicName) =>
   [initials(name), name.family, name.suffix].filter(part => part).join(' ')
 
-const AuthorNameComponent: React.FunctionComponent<Props> = ({ name, theme }) =>
+export interface AuthorNameProps {
+  name: BibliographicName
+}
+
+const AuthorNameComponent: React.FunctionComponent<
+  AuthorNameProps & ThemeProps
+> = ({ name, theme }) =>
   !name.given && !name.family ? (
     <NameParts color={theme.colors.global.text.secondary}>
       Unknown Author

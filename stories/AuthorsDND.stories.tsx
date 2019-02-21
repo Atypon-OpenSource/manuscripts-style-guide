@@ -2,9 +2,10 @@ import { action } from '@storybook/addon-actions'
 import { storiesOf } from '@storybook/react'
 import * as React from 'react'
 import { AuthorsDND } from '../src'
+import { AuthorNameProps } from '../src/components/AuthorName'
 import authors from './data/authors'
 
-const CustomAuthorName = ({ name }) => (
+const AuthorName: React.FC<AuthorNameProps> = ({ name }) => (
   <span>
     {name.given} <strong>{name.family}</strong>
   </span>
@@ -16,7 +17,6 @@ storiesOf('AuthorsDND', module)
       authors={authors}
       selectAuthor={action('select author')}
       selectedAuthor={null}
-      openAddAuthors={action('start adding')}
       handleDrop={action('dropped the user')}
     />
   ))
@@ -26,7 +26,6 @@ storiesOf('AuthorsDND', module)
       selectAuthor={action('select author')}
       selectedAuthor={null}
       getSidebarItemDecorator={() => <span>Ain't Afraid</span>}
-      openAddAuthors={action('start adding')}
       handleDrop={action('dropped the user')}
     />
   ))
@@ -35,8 +34,7 @@ storiesOf('AuthorsDND', module)
       authors={authors}
       selectAuthor={action('select author')}
       selectedAuthor={null}
-      openAddAuthors={action('start adding')}
       handleDrop={action('dropped the user')}
-      renderAuthorName={CustomAuthorName}
+      components={{ AuthorName }}
     />
   ))
