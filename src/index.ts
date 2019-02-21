@@ -8,7 +8,7 @@ export {
 export * from './components/AffiliationsList'
 export * from './components/AuthorForm'
 export * from './components/AuthorsList'
-export * from './components/AuthorsSidebar'
+export * from './components/AuthorsDND'
 export * from './components/Button'
 export * from './components/AutoSaveInput'
 export * from './components/Avatar'
