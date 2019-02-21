@@ -1,21 +1,3 @@
 {
-  "extends": [
-    "tslint:latest",
-    "tslint-react",
-    "tslint-config-standard",
-    "tslint-config-prettier"
-  ],
-  "rulesDirectory": ["tslint-plugin-prettier"],
-  "rules": {
-    "prettier": true,
-    "interface-name": [true, "never-prefix"],
-    "no-implicit-dependencies": [true, "dev"],
-    "object-literal-sort-keys": false,
-    "only-arrow-functions": true,
-    "jsx-no-lambda": false,
-    "no-submodule-imports": false,
-    "typedef": true,
-    "cyclomatic-complexity": [true, 8],
-    "max-classes-per-file": false
-  }
+  "extends": "@manuscripts/tslint-config"
 }
