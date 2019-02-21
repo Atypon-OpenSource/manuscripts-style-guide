@@ -111,7 +111,7 @@ storiesOf('AuthorForm', module)
       updateAuthor={action(
         'update author after inviting him to collaborate on project'
       )}
-      renderLegend={CustomLegend}
+      components={{ Legend: CustomLegend }}
     />
   ))
   .add('with custom checkbox label', () => (
@@ -131,7 +131,7 @@ storiesOf('AuthorForm', module)
       updateAuthor={action(
         'update author after inviting him to collaborate on project'
       )}
-      renderCheckboxLabel={CustomLabel}
+      components={{ CheckboxLabel: CustomLabel }}
     />
   ))
   .add('with custom TextField', () => (
@@ -151,6 +151,6 @@ storiesOf('AuthorForm', module)
       updateAuthor={action(
         'update author after inviting him to collaborate on project'
       )}
-      renderTextField={CustomInput}
+      components={{ TextField: CustomInput }}
     />
   ))

@@ -4,9 +4,9 @@ import React from 'react'
 import { styled } from '../../styled-components'
 import { AffiliationMap, AuthorAffiliation, AuthorValues } from '../../types'
 import { AutoSaveInput } from '../AutoSaveInput'
-import { TextField } from '../TextField'
 import { TextFieldGroupContainer } from '../TextFieldGroupContainer'
 import AffiliationsSelect from './AffiliationsSelect'
+import defaultComponents from './defaultComponents'
 import RemoveAuthorButton from './RemoveAuthorButton'
 
 const Fields = styled.div`
@@ -19,41 +19,12 @@ const Label = styled.label`
   margin-bottom: 10px;
 `
 
-const LabelText = styled.div`
-  font-size: 14px;
-  letter-spacing: -0.2px;
-  color: ${props => props.theme.colors.global.text.primary};
-`
-
 const CheckboxField = styled.input.attrs({
   type: 'checkbox',
 })<{ type?: string }>``
 
-const CheckboxLabel = styled.label`
-  color: #444;
-  display: flex;
-  flex-wrap: nowrap;
-  align-items: center;
-  margin-bottom: 8px;
-  margin-top: 24px;
-
-  & ${LabelText} {
-    margin-left: 4px;
-  }
-
-  &:not(:last-child) {
-    margin-right: 16px;
-  }
-`
-
 const Fieldset = styled.fieldset`
   border: none;
-`
-
-const Legend = styled.legend`
-  font-size: 20px;
-  letter-spacing: -0.4px;
-  color: ${props => props.theme.colors.global.text.secondary};
 `
 
 const Container = styled.div`
@@ -95,9 +66,11 @@ interface AuthorProps {
   removeAuthor: (data: Contributor) => void
   handleSave: (values: AuthorValues) => Promise<void>
   handleRemoveAuthor: () => void
-  renderLegend: React.FunctionComponent
-  renderCheckboxLabel: React.FunctionComponent
-  renderTextField: React.FunctionComponent
+  components?: {
+    Legend: React.FunctionComponent
+    CheckboxLabel: React.FunctionComponent
+    TextField: React.FunctionComponent
+  }
 }
 
 export const AuthorForm: React.FunctionComponent<AuthorProps> = ({
@@ -109,13 +82,12 @@ export const AuthorForm: React.FunctionComponent<AuthorProps> = ({
   removeAuthor,
   isRemoveAuthorOpen,
   handleRemoveAuthor,
-  renderLegend,
-  renderCheckboxLabel,
-  renderTextField,
+  components,
 }) => {
-  const _Legend = renderLegend || Legend
-  const _CheckboxLabel = renderCheckboxLabel || CheckboxLabel
-  const _TextField = renderTextField || TextField
+  const { TextField, LabelText, CheckboxLabel, Legend } = {
+    ...defaultComponents,
+    ...components,
+  }
 
   return (
     <Formik
@@ -128,7 +100,7 @@ export const AuthorForm: React.FunctionComponent<AuthorProps> = ({
           <Fields>
             <Fieldset>
               <Container>
-                <_Legend>Details</_Legend>
+                <Legend>Details</Legend>
 
                 <RemoveAuthorButton
                   author={author}
@@ -144,7 +116,7 @@ export const AuthorForm: React.FunctionComponent<AuthorProps> = ({
                   {(props: FieldProps) => (
                     <AutoSaveInput
                       {...props}
-                      component={_TextField}
+                      component={TextField}
                       saveOn={'blur'}
                       placeholder={'Given name'}
                     />
@@ -155,7 +127,7 @@ export const AuthorForm: React.FunctionComponent<AuthorProps> = ({
                   {(props: FieldProps) => (
                     <AutoSaveInput
                       {...props}
-                      component={_TextField}
+                      component={TextField}
                       saveOn={'blur'}
                       placeholder={'Family name'}
                     />
@@ -163,7 +135,7 @@ export const AuthorForm: React.FunctionComponent<AuthorProps> = ({
                 </Field>
               </TextFieldGroupContainer>
 
-              <_CheckboxLabel>
+              <CheckboxLabel>
                 <Field name={'isCorresponding'}>
                   {(props: FieldProps) => (
                     <AutoSaveInput
@@ -174,7 +146,7 @@ export const AuthorForm: React.FunctionComponent<AuthorProps> = ({
                   )}
                 </Field>
                 <LabelText>Corresponding Author</LabelText>
-              </_CheckboxLabel>
+              </CheckboxLabel>
 
               {values.isCorresponding && (
                 <Label>
@@ -182,7 +154,7 @@ export const AuthorForm: React.FunctionComponent<AuthorProps> = ({
                     {(props: FieldProps) => (
                       <AutoSaveInput
                         {...props}
-                        component={_TextField}
+                        component={TextField}
                         saveOn={'blur'}
                         placeholder={'Email address'}
                       />
@@ -191,7 +163,7 @@ export const AuthorForm: React.FunctionComponent<AuthorProps> = ({
                 </Label>
               )}
 
-              <_CheckboxLabel>
+              <CheckboxLabel>
                 <Field name={'isJointContributor'}>
                   {(props: FieldProps) => (
                     <AutoSaveInput
@@ -202,11 +174,11 @@ export const AuthorForm: React.FunctionComponent<AuthorProps> = ({
                   )}
                 </Field>
                 <LabelText>Joint Authorship with Next Author</LabelText>
-              </_CheckboxLabel>
+              </CheckboxLabel>
             </Fieldset>
 
             <Fieldset>
-              <_Legend>Affiliations</_Legend>
+              <Legend>Affiliations</Legend>
 
               <Label>
                 <Field name={'affiliations'}>

@@ -37,6 +37,6 @@ storiesOf('AuthorsDND', module)
       selectedAuthor={null}
       openAddAuthors={action('start adding')}
       handleDrop={action('dropped the user')}
-      renderAuthorName={CustomAuthorName}
+      components={{ AuthorName: CustomAuthorName }}
     />
   ))

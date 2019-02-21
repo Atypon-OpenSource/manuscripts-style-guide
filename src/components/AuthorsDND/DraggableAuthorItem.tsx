@@ -24,8 +24,8 @@ import {
   DragSourceProps,
   DropSide,
 } from '../../types'
-import { AuthorName } from '../AuthorName'
 import { Avatar } from '../Avatar'
+import defaultComponents from './defaultComponents'
 
 type ThemedDivProps = ThemedProps<HTMLDivElement>
 
@@ -116,7 +116,9 @@ interface Props {
   selectAuthor: (item: Contributor) => void
   sidebarItemDecorator?: JSX.Element | null
   theme: Theme
-  renderAuthorName?: React.FunctionComponent
+  components?: {
+    AuthorName: React.FunctionComponent
+  }
 }
 
 interface State {
@@ -200,11 +202,14 @@ class AuthorComponent extends React.Component<Props & ConnectedProps, State> {
       authorItem,
       sidebarItemDecorator,
       theme,
-      renderAuthorName,
+      components,
     } = this.props
 
     const opacity = isDragging ? 0 : 1
-    const _AuthorName = renderAuthorName || AuthorName
+    const { AuthorName } = {
+      ...defaultComponents,
+      ...components,
+    }
 
     return connectDragSource(
       <div>
@@ -237,7 +242,7 @@ class AuthorComponent extends React.Component<Props & ConnectedProps, State> {
                 </AvatarContainer>
 
                 <AuthorNameSpace>
-                  <_AuthorName name={author.bibliographicName} />
+                  <AuthorName name={author.bibliographicName} />
                 </AuthorNameSpace>
               </AuthorMetadata>
 
