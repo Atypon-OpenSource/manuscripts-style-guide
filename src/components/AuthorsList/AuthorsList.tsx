@@ -5,7 +5,9 @@ import { styled } from '../../styled-components'
 import { AuthorAffiliation } from '../../types'
 import Author from './Author'
 
-const EditButton = styled.button`
+const EditButton = styled.button.attrs({
+  type: 'button',
+})`
   border-radius: 5px;
   border: solid 1px ${props => props.theme.colors.button.primary};
   background: ${props => props.theme.colors.button.primary};

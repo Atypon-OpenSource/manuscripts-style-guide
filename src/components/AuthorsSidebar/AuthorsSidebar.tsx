@@ -11,7 +11,9 @@ const AddIcon = styled.span`
   margin: 0 16px 0 20px;
 `
 
-const AddButton = styled.button`
+const AddButton = styled.button.attrs({
+  type: 'button',
+})`
   display: flex;
   align-items: center;
   font-size: 14px;

@@ -1,6 +1,8 @@
 import { styled } from '../styled-components'
 
-export const Button = styled.button`
+export const Button = styled.button.attrs({
+  type: 'button',
+})`
   background-color: transparent;
   color: ${props => props.theme.colors.button.primary};
   border: 2px solid transparent;
@@ -105,7 +107,9 @@ export const GreyButton = styled(Button)`
   }
 `
 
-export const IconButton = styled.button<{ size?: number }>`
+export const IconButton = styled.button.attrs({
+  type: 'button',
+})<{ size?: number }>`
   border: none;
   background: none;
   cursor: pointer;
