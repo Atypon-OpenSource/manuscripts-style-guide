@@ -35,8 +35,10 @@ export type ThemedProps<V> = styledComponents.ThemedStyledProps<
   Theme
 >
 
+/* tslint:disable:no-any */
 export type ThemedStyledComponent<
   C extends keyof JSX.IntrinsicElements | React.ComponentType<any>
 > = styledComponents.StyledComponent<C, Theme>
+/* tslint:enable */
 
 export type ThemeProps = styledComponents.ThemeProps<Theme>
