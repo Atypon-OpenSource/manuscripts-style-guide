@@ -34,3 +34,9 @@ export type ThemedProps<V> = styledComponents.ThemedStyledProps<
   React.HTMLProps<V>,
   Theme
 >
+
+export type ThemedStyledComponent<
+  C extends keyof JSX.IntrinsicElements | React.ComponentType<any>
+> = styledComponents.StyledComponent<C, Theme>
+
+export type ThemeProps = styledComponents.ThemeProps<Theme>

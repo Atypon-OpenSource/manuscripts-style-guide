@@ -17,6 +17,7 @@
 import { Contributor, UserProfile } from '@manuscripts/manuscripts-json-schema'
 import React from 'react'
 import { styled } from '../../styled-components'
+import { AuthorItemComponentOverrides } from './AuthorItemComponents'
 import DraggableAuthorItem from './DraggableAuthorItem'
 
 const SidebarList = styled.div`
@@ -30,7 +31,7 @@ interface Props {
   selectedAuthor: Contributor | null
   handleDrop: (oldIndex: number, newIndex: number) => void
   getSidebarItemDecorator?: (authorID: string) => JSX.Element | null
-  renderAuthorName?: React.FunctionComponent
+  components?: AuthorItemComponentOverrides
 }
 
 export const AuthorsDND: React.FunctionComponent<Props> = ({
@@ -39,7 +40,7 @@ export const AuthorsDND: React.FunctionComponent<Props> = ({
   selectedAuthor,
   handleDrop,
   getSidebarItemDecorator,
-  renderAuthorName,
+  components,
 }) => (
   <SidebarList>
     {authors.map((author, index) => {
@@ -71,7 +72,7 @@ export const AuthorsDND: React.FunctionComponent<Props> = ({
           selectedAuthor={selectedAuthor}
           selectAuthor={selectAuthor}
           sidebarItemDecorator={decorator}
-          renderAuthorName={renderAuthorName}
+          components={components}
         />
       )
     })}

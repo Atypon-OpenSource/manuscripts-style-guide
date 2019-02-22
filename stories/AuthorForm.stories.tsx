@@ -35,18 +35,18 @@ const authorAffiliations = buildAuthorAffiliations(
   affiliationIds
 )
 
-const CustomLegend = styled.legend`
+const Legend = styled.legend`
   color: blue;
   text-transform: uppercase;
 `
 
-const CustomLabel = styled.label`
+const CheckboxLabel = styled.label`
   color: blue;
   text-transform: uppercase;
   display: inline;
 `
 
-const CustomInput = styled.input`
+const TextField = styled.input`
   color: blue;
   font-style: italic;
   display: block;
@@ -67,9 +67,6 @@ storiesOf('AuthorForm', module)
       handleRemoveAuthor={action(
         'handle open the remove author confirmation dialog'
       )}
-      updateAuthor={action(
-        'update author after inviting him to collaborate on project'
-      )}
     />
   ))
   .add('with remove author open', () => (
@@ -85,9 +82,6 @@ storiesOf('AuthorForm', module)
       removeAuthor={action('remove author')}
       handleRemoveAuthor={action(
         'handle open the remove author confirmation dialog'
-      )}
-      updateAuthor={action(
-        'update author after inviting him to collaborate on project'
       )}
     />
   ))
@@ -105,10 +99,7 @@ storiesOf('AuthorForm', module)
       handleRemoveAuthor={action(
         'handle open the remove author confirmation dialog'
       )}
-      updateAuthor={action(
-        'update author after inviting him to collaborate on project'
-      )}
-      renderLegend={CustomLegend}
+      components={{ Legend }}
     />
   ))
   .add('with custom checkbox label', () => (
@@ -125,10 +116,7 @@ storiesOf('AuthorForm', module)
       handleRemoveAuthor={action(
         'handle open the remove author confirmation dialog'
       )}
-      updateAuthor={action(
-        'update author after inviting him to collaborate on project'
-      )}
-      renderCheckboxLabel={CustomLabel}
+      components={{ CheckboxLabel }}
     />
   ))
   .add('with custom TextField', () => (
@@ -145,9 +133,6 @@ storiesOf('AuthorForm', module)
       handleRemoveAuthor={action(
         'handle open the remove author confirmation dialog'
       )}
-      updateAuthor={action(
-        'update author after inviting him to collaborate on project'
-      )}
-      renderTextField={CustomInput}
+      components={{ TextField }}
     />
   ))
