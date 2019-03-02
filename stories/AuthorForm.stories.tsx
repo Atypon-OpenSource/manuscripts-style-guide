@@ -35,11 +35,6 @@ const authorAffiliations = buildAuthorAffiliations(
   affiliationIds
 )
 
-const Legend = styled.legend`
-  color: blue;
-  text-transform: uppercase;
-`
-
 const CheckboxLabel = styled.label`
   color: blue;
   text-transform: uppercase;
@@ -85,23 +80,6 @@ storiesOf('AuthorForm', module)
       )}
     />
   ))
-  .add('with custom legend', () => (
-    <AuthorForm
-      author={authors[0]}
-      affiliations={affiliations}
-      authorAffiliations={
-        authorAffiliations.get(authors[0]._id) as AuthorAffiliation[]
-      }
-      handleSave={action('save author')}
-      createAffiliation={action('create affiliation')}
-      isRemoveAuthorOpen={false}
-      removeAuthor={action('remove author')}
-      handleRemoveAuthor={action(
-        'handle open the remove author confirmation dialog'
-      )}
-      components={{ Legend }}
-    />
-  ))
   .add('with custom checkbox label', () => (
     <AuthorForm
       author={authors[0]}
@@ -134,5 +112,20 @@ storiesOf('AuthorForm', module)
         'handle open the remove author confirmation dialog'
       )}
       components={{ TextField }}
+    />
+  ))
+  .add('without affiliations', () => (
+    <AuthorForm
+      author={authors[0]}
+      affiliations={affiliations}
+      authorAffiliations={
+        authorAffiliations.get(authors[0]._id) as AuthorAffiliation[]
+      }
+      handleSave={action('save author')}
+      isRemoveAuthorOpen={false}
+      removeAuthor={action('remove author')}
+      handleRemoveAuthor={action(
+        'handle open the remove author confirmation dialog'
+      )}
     />
   ))

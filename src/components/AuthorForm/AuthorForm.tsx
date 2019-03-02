@@ -63,11 +63,11 @@ interface AuthorProps {
   affiliations: AffiliationMap
   authorAffiliations: AuthorAffiliation[]
   isRemoveAuthorOpen: boolean
-  createAffiliation: (name: string) => Promise<Affiliation>
   removeAuthor: (data: Contributor) => void
   handleSave: (values: AuthorValues) => Promise<void>
   handleRemoveAuthor: () => void
   components?: AuthorFormComponentOverrides
+  createAffiliation?: (name: string) => Promise<Affiliation>
 }
 
 export const AuthorForm: React.FunctionComponent<AuthorProps> = ({
@@ -174,21 +174,27 @@ export const AuthorForm: React.FunctionComponent<AuthorProps> = ({
               </CheckboxLabel>
             </Fieldset>
 
-            <Fieldset>
-              <Legend>Affiliations</Legend>
+            {/*
+              Once the new-and-improved affiliations panel is created,
+              remove this block
+            */}
+            {createAffiliation && (
+              <Fieldset>
+                <Legend>Affiliations</Legend>
 
-              <Label>
-                <Field name={'affiliations'}>
-                  {(props: FieldProps) => (
-                    <AffiliationsSelect
-                      affiliations={affiliations}
-                      createAffiliation={createAffiliation}
-                      {...props}
-                    />
-                  )}
-                </Field>
-              </Label>
-            </Fieldset>
+                <Label>
+                  <Field name={'affiliations'}>
+                    {(props: FieldProps) => (
+                      <AffiliationsSelect
+                        affiliations={affiliations}
+                        createAffiliation={createAffiliation}
+                        {...props}
+                      />
+                    )}
+                  </Field>
+                </Label>
+              </Fieldset>
+            )}
           </Fields>
         </Form>
       )}
