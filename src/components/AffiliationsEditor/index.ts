@@ -14,7 +14,4 @@
  * limitations under the License.
  */
 
-import AffiliationsEditor from './AffiliationsEditor'
-export * from './AffiliationsEditor'
-
-export default AffiliationsEditor
+export { default as AffiliationsEditor } from './AffiliationsEditor'

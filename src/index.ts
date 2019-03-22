@@ -21,6 +21,7 @@ export {
   ErrorColorStyle,
   AlertMessageColorStyle,
 } from './theme'
+export * from './components/AffiliationsEditor'
 export * from './components/AffiliationsList'
 export * from './components/AuthorForm'
 export * from './components/AuthorsList'

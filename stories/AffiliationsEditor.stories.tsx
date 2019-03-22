@@ -19,7 +19,7 @@
 import { action } from '@storybook/addon-actions'
 import { storiesOf } from '@storybook/react'
 import React from 'react'
-import AffiliationsEditor from '../src/components/AffiliationsEditor'
+import { AffiliationsEditor } from '../src'
 import { buildAuthorsAndAffiliations } from '../src/lib/authors'
 
 import submission from './data/submission'
