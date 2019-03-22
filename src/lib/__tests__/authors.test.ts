@@ -21,7 +21,10 @@ import {
   Model,
   ObjectTypes,
 } from '@manuscripts/manuscripts-json-schema'
+import { AuthorAffiliation } from '../../types'
 import {
+  affiliationLabel,
+  affiliationsOptions,
   buildAffiliationIDs,
   buildAffiliationsMap,
   buildAuthorAffiliations,
@@ -318,5 +321,125 @@ describe('author and affiliation helpers', () => {
 
   it('buildAffiliationIDs', () => {
     expect(buildAffiliationIDs(contribs)).toEqual(['MPAffiliation:X'])
+  })
+})
+
+describe('affiliationLabel', () => {
+  const affiliation: Affiliation = {
+    _id: 'MPAffiliation:aff-1',
+    _rev: '3-ab6a5d56246fb3d89ed44c6b3b24a7f7',
+    addressLine1: '',
+    addressLine2: '',
+    addressLine3: '',
+    city: '',
+    country: 'United Kingdom',
+    county: '',
+    createdAt: 1538472835.419208,
+    department: 'Dept of Examples',
+    institution: 'University of Examples',
+    objectType: ObjectTypes.Affiliation,
+    postCode: '',
+    priority: 1,
+    updatedAt: 1538472852.567393,
+    manuscriptID: 'man',
+    containerID: 'container',
+    sessionID: 'session',
+  }
+
+  it('should return the institution name and department', () => {
+    const result = affiliationLabel(affiliation)
+    expect(result).toEqual('University of Examples (Dept of Examples)')
+  })
+
+  it('should exclude the department if it is not present', () => {
+    const affiliation: Affiliation = {
+      _id: 'MPAffiliation:aff-1',
+      _rev: '3-ab6a5d56246fb3d89ed44c6b3b24a7f7',
+      addressLine1: '',
+      addressLine2: '',
+      addressLine3: '',
+      city: '',
+      country: 'United Kingdom',
+      county: '',
+      createdAt: 1538472835.419208,
+      department: '',
+      institution: 'University of Examples',
+      objectType: ObjectTypes.Affiliation,
+      postCode: '',
+      priority: 1,
+      updatedAt: 1538472852.567393,
+      manuscriptID: 'man',
+      containerID: 'container',
+      sessionID: 'session',
+    }
+    const result = affiliationLabel(affiliation)
+    expect(result).toEqual('University of Examples')
+  })
+})
+
+/* tslint:disable:no-any */
+describe('affiliationsOptions', () => {
+  const affiliations: any = new Map([
+    [
+      'MPAffiliation:aff-1',
+      {
+        _id: 'MPAffiliation:aff-1',
+        _rev: '3-ab6a5d56246fb3d89ed44c6b3b24a7f7',
+        addressLine1: '',
+        addressLine2: '',
+        addressLine3: '',
+        city: '',
+        country: 'United Kingdom',
+        county: '',
+        createdAt: 1538472835.419208,
+        department: '',
+        institution: 'University of Examples',
+        objectType: ObjectTypes.Affiliation,
+        postCode: '',
+        priority: 1,
+        updatedAt: 1538472852.567393,
+        manuscriptID: 'man',
+        containerID: 'container',
+        sessionID: 'session',
+      },
+    ],
+  ])
+
+  it('should return an array of affiliations with value and label', () => {
+    const result = affiliationsOptions(affiliations)
+    expect(result).toHaveLength(1)
+    expect(result[0]).toHaveProperty('value', 'MPAffiliation:aff-1')
+    expect(result[0]).toHaveProperty('label', 'University of Examples')
+  })
+
+  it('should exclude any affiliations already associated with the active author', () => {
+    const authorAffiliations: AuthorAffiliation[] = [
+      {
+        ordinal: 1,
+        data: {
+          _id: 'MPAffiliation:aff-1',
+          _rev: '3-ab6a5d56246fb3d89ed44c6b3b24a7f7',
+          addressLine1: '',
+          addressLine2: '',
+          addressLine3: '',
+          city: '',
+          country: 'United Kingdom',
+          county: '',
+          createdAt: 1538472835.419208,
+          department: 'Dept of Examples',
+          institution: 'University of Examples',
+          objectType: ObjectTypes.Affiliation,
+          postCode: '',
+          priority: 1,
+          updatedAt: 1538472852.567393,
+          manuscriptID: 'man',
+          containerID: 'container',
+          sessionID: 'session',
+        },
+      },
+    ]
+
+    const result = affiliationsOptions(affiliations, authorAffiliations)
+    expect(result).toHaveLength(0)
   })
 })
