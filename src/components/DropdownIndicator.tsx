@@ -15,6 +15,7 @@
  */
 
 import ArrowDownBlack from '@manuscripts/assets/react/ArrowDownBlack'
+import React from 'react'
 import { styled } from '../styled-components'
 
 interface Props {
@@ -24,11 +25,20 @@ interface Props {
   encircled?: boolean
 }
 
-export const DropdownIndicator = styled(ArrowDownBlack)<Props>`
+const Container = styled.div<{
+  isOpen?: boolean
+}>`
+  transform: ${props => (props.isOpen ? 'rotate(180deg)' : 'none')};
+`
+
+const StyledDownArrow = styled(ArrowDownBlack)<{
+  color?: string
+  size?: string
+  encircled?: boolean
+}>`
   width: ${props => props.size || '2rem'};
   height: ${props => props.size || '2rem'};
   font-size: ${props => props.size || '2rem'};
-  transform: ${props => (props.isOpen ? 'rotate(180deg)' : 'none')};
 
   path {
     stroke: ${props =>
@@ -43,3 +53,14 @@ export const DropdownIndicator = styled(ArrowDownBlack)<Props>`
         ? props.color || props.theme.colors.alertMessage.info.text
         : 'transparent'};
 `
+
+export const DropdownIndicator: React.FC<Props> = ({
+  color,
+  size,
+  isOpen,
+  encircled,
+}) => (
+  <Container isOpen={isOpen}>
+    <StyledDownArrow color={color} size={size} encircled={encircled} />
+  </Container>
+)

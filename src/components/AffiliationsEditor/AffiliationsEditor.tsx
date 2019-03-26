@@ -23,17 +23,14 @@ import { ValueType } from 'react-select/lib/types'
 import { affiliationsOptions } from '../../lib/authors'
 import { styled, ThemeProps, withTheme } from '../../styled-components'
 import { AffiliationOption, AuthorAffiliation } from '../../types'
+import {
+  AuthorFormComponentOverrides,
+  defaultAuthorFormComponents,
+} from '../AuthorForm/AuthorFormComponents'
 import AffiliationsEditorItem from './AffiliationsEditorItem'
 
 const Container = styled.div`
   margin: 0 1.89rem 1rem;
-`
-
-const Title = styled.h3`
-  font-size: 0.8rem;
-  text-transform: uppercase;
-  font-weight: 400;
-  letter-spacing: 1.6px;
 `
 
 const AddAffiliationContainer = styled(AddAuthor)`
@@ -56,7 +53,7 @@ const AddAffiliationIndicator: React.FC<
   </AddAffiliationContainer>
 )
 
-const components = { IndicatorsContainer: AddAffiliationIndicator }
+const reactSelectComponents = { IndicatorsContainer: AddAffiliationIndicator }
 
 interface SelectedAffiliation {
   value: string
@@ -70,6 +67,7 @@ interface Props {
   addAuthorAffiliation: (affiliation: Affiliation | string) => void
   removeAuthorAffiliation: (affiliation: Affiliation) => void
   updateAffiliation: (affiliation: Affiliation) => void
+  components?: AuthorFormComponentOverrides
 }
 
 export const AffiliationsEditor: React.FC<Props & ThemeProps> = ({
@@ -79,7 +77,13 @@ export const AffiliationsEditor: React.FC<Props & ThemeProps> = ({
   updateAffiliation,
   removeAuthorAffiliation,
   theme,
+  components,
 }) => {
+  const { Legend } = {
+    ...defaultAuthorFormComponents,
+    ...components,
+  }
+
   const [searchText, setSearchText] = useState('')
   const onSelect = (value: ValueType<AffiliationOption>) => {
     if (value) {
@@ -109,7 +113,7 @@ export const AffiliationsEditor: React.FC<Props & ThemeProps> = ({
 
   return (
     <Container>
-      <Title>Affiliations</Title>
+      <Legend>Affiliations</Legend>
       <div>
         {authorAffiliations &&
           authorAffiliations.map(affiliation => {
@@ -136,7 +140,7 @@ export const AffiliationsEditor: React.FC<Props & ThemeProps> = ({
         value={null}
         placeholder={'Add Affiliation'}
         isValidNewOption={currentText => !!currentText}
-        components={components}
+        components={reactSelectComponents}
         styles={selectStyles}
       />
     </Container>
