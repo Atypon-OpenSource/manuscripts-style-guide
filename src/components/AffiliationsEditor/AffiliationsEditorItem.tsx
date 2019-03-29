@@ -14,6 +14,8 @@
  * limitations under the License.
  */
 
+import Trashcan from '@manuscripts/assets/react/AnnotationRemove'
+import ArrowDownBlue from '@manuscripts/assets/react/ArrowDownBlue'
 import { Affiliation } from '@manuscripts/manuscripts-json-schema'
 import { Field, FieldProps, Form, Formik } from 'formik'
 import React, { useCallback } from 'react'
@@ -21,8 +23,6 @@ import React, { useCallback } from 'react'
 import { affiliationLabel } from '../../lib/authors'
 import { styled } from '../../styled-components'
 import { AutoSaveInput } from '../AutoSaveInput'
-import { CloseButton } from '../CloseButton'
-import { DropdownIndicator } from '../DropdownIndicator'
 import { TextField } from '../TextField'
 
 const Section = styled.section`
@@ -36,25 +36,47 @@ const Title = styled.h4`
   margin: 0;
   display: flex;
   align-items: center;
-  padding-right: 0.71rem;
+  font-size: 0.875rem;
+  padding-right: 0.5rem;
 `
 
-const ToggleButton = styled.button`
+const DropdownIndicator = styled(ArrowDownBlue)`
+  padding-right: 0.6em;
+`
+
+const ToggleButton = styled.button<{
+  isOpen: boolean
+}>`
   flex-grow: 1;
   display: flex;
   align-items: center;
   width: 100%;
-  padding: 0.71rem;
   background: transparent;
   border: none;
   text-align: left;
   font-size: 1rem;
+  padding: 0.6em 0.5em;
+
+  svg {
+    transform: ${props => (props.isOpen ? 'rotateX(180deg)' : 'initial')};
+  }
+`
+
+const RemoveButton = styled.button`
+  border: none;
+  background: transparent;
+  padding: 0;
+
+  svg {
+    width: 2rem;
+    height: 2rem;
+  }
 `
 
 const AffiliationsForm = styled(Form)`
   border: 1px solid ${props => props.theme.colors.textField.border.default};
   border-radius: ${props => props.theme.radius}px;
-  margin: 0.71rem;
+  margin: 0.4rem 0.71rem 0.71rem;
 `
 
 const AffiliationsTextField = styled(TextField)`
@@ -104,11 +126,17 @@ export const AffiliationsEditorItem: React.FC<Props> = ({
   return (
     <Section>
       <Title>
-        <ToggleButton type="button" onClick={requestToggle}>
-          <DropdownIndicator isOpen={isOpen} />
+        <ToggleButton type="button" onClick={requestToggle} isOpen={isOpen}>
+          <DropdownIndicator />
           {affiliationLabel(affiliation)}
         </ToggleButton>
-        <CloseButton aria-label="Delete this affiliation" onClick={remove} />
+        <RemoveButton
+          type="button"
+          aria-label="Delete this affiliation"
+          onClick={remove}
+        >
+          <Trashcan />
+        </RemoveButton>
       </Title>
       {isOpen && (
         <Formik initialValues={affiliation} onSubmit={updateAffiliation}>

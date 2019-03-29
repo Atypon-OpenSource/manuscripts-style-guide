@@ -33,8 +33,24 @@ const Container = styled.div`
   margin: 0 1.89rem 1rem;
 `
 
-const AddAffiliationContainer = styled(AddAuthor)`
-  padding: 0.2rem 0.71rem 0.2rem 0;
+const Field = styled.div`
+  margin: 1rem 0;
+`
+
+const List = styled.div`
+  margin-bottom: 0.5rem;
+`
+
+const AddAffiliationContainer = styled.div`
+  padding-right: 0.71rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+
+  svg {
+    width: 1.5rem;
+    height: 1.5rem;
+  }
 
   circle {
     fill: ${props => props.theme.colors.button.primary};
@@ -108,41 +124,44 @@ export const AffiliationsEditor: React.FC<Props & ThemeProps> = ({
     control: (provided: object) => ({
       ...provided,
       border: `1px solid ${theme.colors.textField.border.default}`,
+      borderRadius: `${theme.radius}px`,
     }),
   }
 
   return (
     <Container>
       <Legend>Affiliations</Legend>
-      <div>
-        {authorAffiliations &&
-          authorAffiliations.map(affiliation => {
-            const { _id } = affiliation.data
-            return (
-              <AffiliationsEditorItem
-                key={_id}
-                affiliation={affiliation.data}
-                isOpen={currentSection === _id}
-                requestToggle={() => requestOpen(_id)}
-                updateAffiliation={updateAffiliation}
-                removeAuthorAffiliation={removeAuthorAffiliation}
-              />
-            )
-          })}
-      </div>
-      <CreatableSelect<AffiliationOption>
-        isMulti={false}
-        isClearable={false}
-        options={affiliationsOptions(affiliations, authorAffiliations)}
-        onInputChange={t => setSearchText(t)}
-        inputValue={searchText}
-        onChange={onSelect}
-        value={null}
-        placeholder={'Add Affiliation'}
-        isValidNewOption={currentText => !!currentText}
-        components={reactSelectComponents}
-        styles={selectStyles}
-      />
+      <Field>
+        <List>
+          {authorAffiliations &&
+            authorAffiliations.map(affiliation => {
+              const { _id } = affiliation.data
+              return (
+                <AffiliationsEditorItem
+                  key={_id}
+                  affiliation={affiliation.data}
+                  isOpen={currentSection === _id}
+                  requestToggle={() => requestOpen(_id)}
+                  updateAffiliation={updateAffiliation}
+                  removeAuthorAffiliation={removeAuthorAffiliation}
+                />
+              )
+            })}
+        </List>
+        <CreatableSelect<AffiliationOption>
+          isMulti={false}
+          isClearable={false}
+          options={affiliationsOptions(affiliations, authorAffiliations)}
+          onInputChange={t => setSearchText(t)}
+          inputValue={searchText}
+          onChange={onSelect}
+          value={null}
+          placeholder={'Add Affiliation'}
+          isValidNewOption={currentText => !!currentText}
+          components={reactSelectComponents}
+          styles={selectStyles}
+        />
+      </Field>
     </Container>
   )
 }
