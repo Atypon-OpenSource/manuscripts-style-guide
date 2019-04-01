@@ -14,7 +14,7 @@
     "react"
   ],
   "scripts": {
-    "build": "npm-run-all --parallel 'build:* --project tsconfig.build.json'",
+    "build": "npm-run-all --parallel 'build:* -- --project tsconfig.build.json'",
     "build:cjs": "tsc --outDir dist/cjs --module commonjs",
     "build:es": "tsc --outDir dist/es --declarationDir dist/types --declaration",
     "build-storybook": "build-storybook",
