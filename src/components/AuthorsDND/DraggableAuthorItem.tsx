@@ -30,7 +30,6 @@ import {
 } from 'react-dnd'
 import { findDOMNode } from 'react-dom'
 import { isJointFirstAuthor } from '../../lib/authors'
-import { withDragDropContext } from '../../lib/dnd'
 import { styled, ThemedProps, withTheme } from '../../styled-components'
 import { Theme } from '../../theme'
 import {
@@ -306,7 +305,7 @@ class AuthorComponent extends React.Component<Props & ConnectedProps, State> {
   })
 }
 
-const dragSourceCollector: DragSourceCollector<ConnectedDragSourceProps> = (
+const dragSourceCollector: DragSourceCollector<ConnectedDragSourceProps, {}> = (
   connect,
   monitor
 ) => ({
@@ -315,7 +314,7 @@ const dragSourceCollector: DragSourceCollector<ConnectedDragSourceProps> = (
   item: monitor.getItem() as DragSourceProps,
 })
 
-const dropTargetCollector: DropTargetCollector<ConnectedDropTargetProps> = (
+const dropTargetCollector: DropTargetCollector<ConnectedDropTargetProps, {}> = (
   connect,
   monitor
 ) => ({
@@ -341,4 +340,4 @@ const dropTarget = DropTarget<Props, ConnectedDropTargetProps>(
 
 const DraggableAuthorItem = dragSource(dropTarget(AuthorComponent))
 
-export default withTheme(withDragDropContext(DraggableAuthorItem))
+export default withTheme(DraggableAuthorItem)
