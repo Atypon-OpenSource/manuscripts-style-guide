@@ -52,7 +52,8 @@ const AddAffiliationContainer = styled.div`
     height: 1.5rem;
   }
 
-  circle {
+  circle,
+  use {
     fill: ${props => props.theme.colors.button.primary};
   }
 
