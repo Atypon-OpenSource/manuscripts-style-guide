@@ -45,6 +45,26 @@ const affiliations: Map<string, Affiliation> = new Map([
       updatedAt: 0,
     },
   ],
+  [
+    'affiliation-3',
+    {
+      _id: 'affiliation-3',
+      containerID: 'project-1',
+      manuscriptID: 'manuscript-1',
+      objectType: 'MPAffiliation' as 'MPAffiliation',
+      department: 'Department of Molecular Biology and Biochemistry',
+      institution: 'Simon Fraser University',
+      addressLine1: '8888 University Drive',
+      city: 'Burnaby',
+      county: 'British Columbia',
+      country: 'Canada',
+      postCode: 'V5A 1S6',
+      priority: 0,
+      sessionID: 'story',
+      createdAt: 0,
+      updatedAt: 0,
+    },
+  ],
 ])
 
 export default affiliations
