@@ -40,6 +40,8 @@ export const Tip: React.FC<Pick<Options, 'placement' | 'title'>> = ({
           new Tooltip(node, {
             placement,
             title,
+            container: document.body,
+            boundariesElement: 'window',
           })
         )
       }
