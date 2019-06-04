@@ -44,6 +44,19 @@ storiesOf('AffiliationsEditor', module)
       updateAffiliation={action('update affiliation')}
     />
   ))
+  .add('affiliation with missing institution data', () => (
+    <AffiliationsEditor
+      affiliations={affiliations}
+      authorAffiliations={authorAffiliations.get(authors[1]._id)}
+      addAuthorAffiliation={action(
+        'add affiliation to author and create affiliation if necessary'
+      )}
+      removeAuthorAffiliation={action(
+        'remove affiliation from the author (but dont delete it)'
+      )}
+      updateAffiliation={action('update affiliation')}
+    />
+  ))
   .add('with option to add', () => (
     <AffiliationsEditor
       affiliations={affiliations}

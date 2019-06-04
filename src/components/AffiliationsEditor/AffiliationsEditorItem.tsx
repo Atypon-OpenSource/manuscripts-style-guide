@@ -123,6 +123,19 @@ export const AffiliationsEditorItem: React.FC<Props> = ({
     removeAuthorAffiliation(affiliation)
   }, [affiliation])
 
+  const vivifiedAffiliation = {
+    institution: '',
+    department: '',
+    addressLine1: '',
+    addressLine2: '',
+    addressLine3: '',
+    city: '',
+    county: '',
+    country: '',
+    postCode: '',
+    ...affiliation,
+  }
+
   return (
     <Section>
       <Title>
@@ -139,7 +152,10 @@ export const AffiliationsEditorItem: React.FC<Props> = ({
         </RemoveButton>
       </Title>
       {isOpen && (
-        <Formik initialValues={affiliation} onSubmit={updateAffiliation}>
+        <Formik
+          initialValues={vivifiedAffiliation}
+          onSubmit={updateAffiliation}
+        >
           {() => (
             <AffiliationsForm>
               <Field name="institution">

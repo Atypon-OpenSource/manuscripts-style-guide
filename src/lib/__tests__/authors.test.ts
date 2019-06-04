@@ -362,7 +362,6 @@ describe('affiliationLabel', () => {
       country: 'United Kingdom',
       county: '',
       createdAt: 1538472835.419208,
-      department: '',
       institution: 'University of Examples',
       objectType: ObjectTypes.Affiliation,
       postCode: '',
@@ -374,6 +373,53 @@ describe('affiliationLabel', () => {
     }
     const result = affiliationLabel(affiliation)
     expect(result).toEqual('University of Examples')
+  })
+
+  it('should handle a missing institution', () => {
+    const affiliation: Affiliation = {
+      _id: 'MPAffiliation:aff-1',
+      _rev: '3-ab6a5d56246fb3d89ed44c6b3b24a7f7',
+      addressLine1: '',
+      addressLine2: '',
+      addressLine3: '',
+      city: '',
+      country: 'United Kingdom',
+      county: '',
+      createdAt: 1538472835.419208,
+      department: 'Dept of Examples',
+      objectType: ObjectTypes.Affiliation,
+      postCode: '',
+      priority: 1,
+      updatedAt: 1538472852.567393,
+      manuscriptID: 'man',
+      containerID: 'container',
+      sessionID: 'session',
+    }
+    const result = affiliationLabel(affiliation)
+    expect(result).toEqual('(Dept of Examples)')
+  })
+
+  it('should have a generic label if both institution and department are missing', () => {
+    const affiliation: Affiliation = {
+      _id: 'MPAffiliation:aff-1',
+      _rev: '3-ab6a5d56246fb3d89ed44c6b3b24a7f7',
+      addressLine1: '',
+      addressLine2: '',
+      addressLine3: '',
+      city: '',
+      country: 'United Kingdom',
+      county: '',
+      createdAt: 1538472835.419208,
+      objectType: ObjectTypes.Affiliation,
+      postCode: '',
+      priority: 1,
+      updatedAt: 1538472852.567393,
+      manuscriptID: 'man',
+      containerID: 'container',
+      sessionID: 'session',
+    }
+    const result = affiliationLabel(affiliation)
+    expect(result).toEqual('(unknown affiliation)')
   })
 })
 
