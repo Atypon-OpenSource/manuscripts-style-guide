@@ -38,6 +38,24 @@ const submission: Map<string, Model> = new Map([
     },
   ],
   [
+    'MPAffiliation:aff-2',
+    {
+      _id: 'MPAffiliation:aff-2',
+      _rev: '3-ab6a5d56246fb3d89ed44c6b3b24a7f7',
+      addressLine1: '',
+      addressLine2: '',
+      addressLine3: '',
+      country: 'United Kingdom',
+      county: '',
+      createdAt: 1538472835.419208,
+      department: 'This affiliation is missing institution and city',
+      objectType: 'MPAffiliation',
+      postCode: '',
+      priority: 1,
+      updatedAt: 1538472852.567393,
+    },
+  ],
+  [
     'MPManuscript:8EB79C14-9F61-483A-902F-A0B8EF5973C9',
     {
       _id: 'MPManuscript:8EB79C14-9F61-483A-902F-A0B8EF5973C9',
@@ -98,6 +116,10 @@ const submission: Map<string, Model> = new Map([
     {
       _id: 'MPContributor:8AD5903E-0C9C-4F46-87AE-124142CE12C2',
       _rev: '57-71c71bf50c1031325470337f179e9bf3',
+      affiliations: [
+        'MPAffiliation:DED56C09-42E2-4AB4-BA15-9260389E2B08',
+        'MPAffiliation:aff-2',
+      ],
       bibliographicName: {
         given: 'Corresponding',
         _id: 'MPBibliographicName:E5B649B2-1B97-46FF-AA36-ADDC3B532517',
