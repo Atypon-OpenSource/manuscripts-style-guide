@@ -2,11 +2,16 @@
 
 const { execSync } = require('child_process')
 const { name, version } = require('../package.json')
+const process = require('process')
 
 const versions = execSync(`npm view ${name} versions --json`, {
   encoding: 'utf-8'
 })
 
 if (!JSON.parse(versions).includes(version)) {
-  execSync('npm publish')
+  if (process.env.NPM_REGISTRY) {
+    execSync(`npm publish --registry ${process.env.NPM_REGISTRY}`)
+  } else {
+    execSync('npm publish')
+  }
 }
