@@ -25,7 +25,8 @@ publish_private:
     refs:
       - master
   script:
-    - NPM_REGISTRY='https://atypon-npm-registry.herokuapp.com' bin/publish
+    - export NPM_REGISTRY='https://atypon-npm-registry.herokuapp.com'
+    - bin/publish
   tags:
     - nodejs-8
 
@@ -35,6 +36,7 @@ publish_public:
     refs:
       - master
   script:
-    - NPM_REGISTRY='https://registry.npmjs.org' bin/publish
+    - export NPM_REGISTRY=https://registry.npmjs.org 
+    - bin/publish
   tags:
     - nodejs-8
