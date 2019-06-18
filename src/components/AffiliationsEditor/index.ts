@@ -14,7 +14,4 @@
  * limitations under the License.
  */
 
-import { DragDropContext } from 'react-dnd'
-import HTML5Backend from 'react-dnd-html5-backend'
-
-export const withDragDropContext = DragDropContext(HTML5Backend)
+export { default as AffiliationsEditor } from './AffiliationsEditor'

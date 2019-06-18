@@ -89,3 +89,8 @@ export interface AuthorValues {
   affiliations: AffiliationValues[]
   // grants: GrantValues[]
 }
+
+export interface AffiliationOption {
+  value: string
+  label: string
+}

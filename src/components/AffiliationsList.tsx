@@ -17,6 +17,7 @@
 import React from 'react'
 import { styled } from '../styled-components'
 
+import formatAddress from '../lib/formatAddress'
 import { AffiliationMap } from '../types'
 
 const Container = styled.table`
@@ -24,13 +25,18 @@ const Container = styled.table`
   margin-top: 16px;
   color: ${props => props.theme.colors.global.text.secondary};
   font-size: 15px;
-  line-height: 1.73;
+  line-height: 1.25;
   letter-spacing: -0.1px;
+
+  td {
+    padding-bottom: 0.6em;
+  }
 `
 
 const Header = styled.th`
   font-weight: normal;
   padding-right: 4px;
+  vertical-align: top;
 `
 
 interface Props {
@@ -45,7 +51,7 @@ export const AffiliationsList: React.FunctionComponent<Props> = ({
       {Array.from(affiliations.values()).map((affiliation, index) => (
         <tr key={affiliation._id}>
           <Header>{index + 1}</Header>
-          <td>{affiliation.institution}</td>
+          <td>{formatAddress(affiliation)}</td>
         </tr>
       ))}
     </tbody>
