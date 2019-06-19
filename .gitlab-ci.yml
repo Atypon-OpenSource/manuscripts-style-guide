@@ -1,7 +1,3 @@
-before_script:
-  - npm config set //atypon-npm-registry.herokuapp.com/:_authToken ${ATYPON_REGISTRY_NPM_TOKEN}
-  - npm config set //registry.npmjs.org/:_authToken ${PUBLIC_REGISTRY_NPM_TOKEN}
-
 stages:
   - build
   - deploy
@@ -19,24 +15,13 @@ build:
     paths:
       - dist/
 
-publish_private:
+publish:
   stage: deploy
   only:
     refs:
       - master
   script:
-    - export NPM_REGISTRY='https://atypon-npm-registry.herokuapp.com'
-    - bin/publish
-  tags:
-    - nodejs-8
-
-publish_public:
-  stage: deploy
-  only:
-    refs:
-      - master
-  script:
-    - export NPM_REGISTRY=https://registry.npmjs.org 
-    - bin/publish
+    - yarn install --frozen-lockfile --non-interactive
+    - npx @manuscripts/publish
   tags:
     - nodejs-8
