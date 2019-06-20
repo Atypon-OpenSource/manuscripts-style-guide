@@ -7,6 +7,10 @@ module.exports = (baseConfig, env, config) => {
       loader: require.resolve('babel-loader')
     }]
   });
+  config.module.rules.push({
+    test: /\.(png|jpg|gif)$/,
+    use: ['file-loader'],
+  })
   config.resolve.extensions.push('.ts', '.tsx');
   return config;
 };

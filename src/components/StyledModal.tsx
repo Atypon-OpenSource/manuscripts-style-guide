@@ -18,7 +18,11 @@ import React from 'react'
 import Modal from 'react-modal'
 import { styled, ThemedProps } from '../styled-components'
 
-Modal.setAppElement('#root')
+if (process.env.NODE_ENV !== 'test') {
+  Modal.setAppElement('#root')
+} else {
+  Modal.setAppElement(document.createElement('div'))
+}
 
 const totalTransitionTime = 800
 const transitionDelay = 300

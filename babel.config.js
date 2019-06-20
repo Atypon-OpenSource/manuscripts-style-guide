@@ -4,7 +4,7 @@ module.exports = {
       plugins: [
         'dynamic-import-node',
         'require-context-hook',
-        'transform-es2015-modules-commonjs',
+        'transform-es2015-modules-commonjs'
       ],
     },
   },

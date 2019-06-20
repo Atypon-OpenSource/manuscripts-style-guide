@@ -19,7 +19,11 @@ import React from 'react'
 import Modal from 'react-modal'
 import { styled } from '../styled-components'
 
-Modal.setAppElement('#root')
+if (process.env.NODE_ENV !== 'test') {
+  Modal.setAppElement('#root')
+} else {
+  Modal.setAppElement(document.createElement('div'))
+}
 
 export const ModalContainer = styled.div`
   display: flex;
