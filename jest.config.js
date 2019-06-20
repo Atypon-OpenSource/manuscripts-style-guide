@@ -6,4 +6,6 @@ module.exports = {
     '^.+\\.(j|t)sx?$': 'babel-jest',
   },
   transformIgnorePatterns: ['<rootDir>/node_modules/(?!(lodash-es|@manuscripts)/)'],
+  setupFiles: ['./setupTests.js'],
+  clearMocks: true,
 }

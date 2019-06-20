@@ -16,11 +16,13 @@
     "target": "es2015",
     "typeRoots" : [
       "./node_modules/@types",
-      "./stories/types"
+      "./stories/types",
+      "./types"
     ]
   },
   "include": [
     "./src/**/*",
-    "./stories/**/*"
+    "./stories/**/*",
+    "./types/**/*"
   ]
 }
