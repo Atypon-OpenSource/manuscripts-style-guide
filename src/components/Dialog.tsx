@@ -41,7 +41,7 @@ const ModalBody = styled.div`
 const MessageContainer = styled.div`
   max-width: 297px;
   min-height: 95px;
-  font-family: Barlow;
+  font-family: ${props => props.theme.fontFamily};
   font-size: 16px;
   color: ${props => props.theme.colors.dialog.text};
   margin-top: 15px;
@@ -51,7 +51,7 @@ const MessageContainer = styled.div`
 const HeaderContainer = styled.div`
   display: flex;
   align-items: center;
-  font-family: Barlow;
+  font-family: ${props => props.theme.fontFamily};
   font-size: 16px;
   font-weight: 500;
   padding: 15px 20px 0;
