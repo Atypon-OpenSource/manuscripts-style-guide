@@ -31,8 +31,10 @@ const AuthorAffiliation = styled.a`
   color: inherit;
 `
 
-const AuthorsContainer = styled.div`
+const AuthorsContainer = styled.a`
   display: inline-flex;
+  text-decoration: none;
+  color: inherit;
   &:hover {
     text-decoration: underline;
     cursor: pointer;
@@ -59,6 +61,7 @@ export const Author: React.FunctionComponent<AuthorProps> = ({
   <span key={author._id}>
     {showEditButton ? (
       <AuthorsContainer
+        href="#"
         onClick={() => {
           startEditing()
           selectAuthor(author)
