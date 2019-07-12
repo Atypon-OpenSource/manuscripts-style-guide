@@ -54,6 +54,22 @@ export const CheckboxLabel = styled.label`
   }
 `
 
+export const PlaintextButton = styled.button`
+  margin-top: 24px;
+  color: ${props => props.theme.colors.global.text.link};
+  background: transparent;
+  padding: 0;
+  border: none;
+  text-align: left;
+  font-size: 1rem;
+  cursor: pointer;
+
+  &[disabled] {
+    color: inherit;
+    cursor: not-allowed;
+  }
+`
+
 export const Fieldset = styled.fieldset`
   border: none;
 `

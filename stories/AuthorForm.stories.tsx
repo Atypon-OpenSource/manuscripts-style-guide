@@ -62,6 +62,9 @@ storiesOf('AuthorForm', module)
       handleRemoveAuthor={action(
         'handle open the remove author confirmation dialog'
       )}
+      handleSetAsCorrespondingAuthor={action(
+        'set this author as the corresponding author'
+      )}
     />
   ))
   .add('with remove author open', () => (
@@ -78,6 +81,9 @@ storiesOf('AuthorForm', module)
       handleRemoveAuthor={action(
         'handle open the remove author confirmation dialog'
       )}
+      handleSetAsCorrespondingAuthor={action(
+        'set this author as the corresponding author'
+      )}
     />
   ))
   .add('with custom checkbox label', () => (
@@ -93,6 +99,9 @@ storiesOf('AuthorForm', module)
       removeAuthor={action('remove author')}
       handleRemoveAuthor={action(
         'handle open the remove author confirmation dialog'
+      )}
+      handleSetAsCorrespondingAuthor={action(
+        'set this author as the corresponding author'
       )}
       components={{ CheckboxLabel }}
     />
@@ -111,21 +120,26 @@ storiesOf('AuthorForm', module)
       handleRemoveAuthor={action(
         'handle open the remove author confirmation dialog'
       )}
+      handleSetAsCorrespondingAuthor={action(
+        'set this author as the corresponding author'
+      )}
       components={{ TextField }}
     />
   ))
-  .add('without affiliations', () => (
+  .add('is Corresponding author', () => (
     <AuthorForm
-      author={authors[0]}
-      affiliations={affiliations}
+      author={authors[1]}
       authorAffiliations={
-        authorAffiliations.get(authors[0]._id) as AuthorAffiliation[]
+        authorAffiliations.get(authors[1]._id) as AuthorAffiliation[]
       }
       handleSave={action('save author')}
       isRemoveAuthorOpen={false}
       removeAuthor={action('remove author')}
       handleRemoveAuthor={action(
         'handle open the remove author confirmation dialog'
+      )}
+      handleSetAsCorrespondingAuthor={action(
+        'set this author as the corresponding author'
       )}
     />
   ))

@@ -20,7 +20,6 @@ import React from 'react'
 import { AffiliationMap, AuthorAffiliation, AuthorValues } from '../../types'
 import { AutoSaveInput } from '../AutoSaveInput'
 import { TextFieldGroupContainer } from '../TextFieldGroupContainer'
-import AffiliationsSelect from './AffiliationsSelect'
 import {
   AuthorFormComponentOverrides,
   CheckboxField,
@@ -28,8 +27,8 @@ import {
   defaultAuthorFormComponents,
   Fields,
   Fieldset,
-  Label,
   LabelText,
+  PlaintextButton,
 } from './AuthorFormComponents'
 import RemoveAuthorButton from './RemoveAuthorButton'
 
@@ -60,25 +59,25 @@ const buildInitialValues = (
 
 interface AuthorProps {
   author: Contributor
-  affiliations: AffiliationMap
+  affiliations?: AffiliationMap
   authorAffiliations: AuthorAffiliation[]
   isRemoveAuthorOpen: boolean
   removeAuthor: (data: Contributor) => void
   handleSave: (values: AuthorValues) => Promise<void>
   handleRemoveAuthor: () => void
+  handleSetAsCorrespondingAuthor: () => void
   components?: AuthorFormComponentOverrides
   createAffiliation?: (name: string) => Promise<Affiliation>
 }
 
 export const AuthorForm: React.FunctionComponent<AuthorProps> = ({
   author,
-  affiliations,
   authorAffiliations,
   handleSave,
-  createAffiliation,
   removeAuthor,
   isRemoveAuthorOpen,
   handleRemoveAuthor,
+  handleSetAsCorrespondingAuthor,
   components,
 }) => {
   const { Legend, CheckboxLabel, TextField } = {
@@ -132,33 +131,25 @@ export const AuthorForm: React.FunctionComponent<AuthorProps> = ({
                 </Field>
               </TextFieldGroupContainer>
 
-              <CheckboxLabel>
-                <Field name={'isCorresponding'}>
+              <TextFieldGroupContainer>
+                <PlaintextButton
+                  type="button"
+                  onClick={handleSetAsCorrespondingAuthor}
+                  disabled={values.isCorresponding}
+                >
+                  {values.isCorresponding || 'Set'} Corresponding Author
+                </PlaintextButton>
+                <Field name={'email'} type={'email'}>
                   {(props: FieldProps) => (
                     <AutoSaveInput
                       {...props}
-                      component={CheckboxField}
-                      saveOn={'change'}
+                      component={TextField}
+                      saveOn={'blur'}
+                      placeholder={'Email address'}
                     />
                   )}
                 </Field>
-                <LabelText>Corresponding Author</LabelText>
-              </CheckboxLabel>
-
-              {values.isCorresponding && (
-                <Label>
-                  <Field name={'email'} type={'email'}>
-                    {(props: FieldProps) => (
-                      <AutoSaveInput
-                        {...props}
-                        component={TextField}
-                        saveOn={'blur'}
-                        placeholder={'Email address'}
-                      />
-                    )}
-                  </Field>
-                </Label>
-              )}
+              </TextFieldGroupContainer>
 
               <CheckboxLabel>
                 <Field name={'isJointContributor'}>
@@ -173,28 +164,6 @@ export const AuthorForm: React.FunctionComponent<AuthorProps> = ({
                 <LabelText>Joint Authorship with Next Author</LabelText>
               </CheckboxLabel>
             </Fieldset>
-
-            {/*
-              Once the new-and-improved affiliations panel is created,
-              remove this block
-            */}
-            {createAffiliation && (
-              <Fieldset>
-                <Legend>Affiliations</Legend>
-
-                <Label>
-                  <Field name={'affiliations'}>
-                    {(props: FieldProps) => (
-                      <AffiliationsSelect
-                        affiliations={affiliations}
-                        createAffiliation={createAffiliation}
-                        {...props}
-                      />
-                    )}
-                  </Field>
-                </Label>
-              </Fieldset>
-            )}
           </Fields>
         </Form>
       )}
