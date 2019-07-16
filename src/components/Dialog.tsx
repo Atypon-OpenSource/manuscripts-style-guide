@@ -30,6 +30,8 @@ const Container = styled.div`
 const Icon = styled.div`
   margin-right: 6px;
   color: ${props => props.theme.colors.dialog.icon};
+  display: inline-flex;
+  align-items: center;
 `
 const ModalBody = styled.div`
   border-radius: ${props => props.theme.radius}px;
