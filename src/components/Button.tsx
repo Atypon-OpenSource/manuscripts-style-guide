@@ -154,3 +154,13 @@ export const PrimaryMiniButton = styled(PrimaryButton)`
   font-size: 12px;
   border-radius: 5px;
 `
+
+export const ButtonGroup = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+
+  button:not(:first-child) {
+    margin-left: 4px;
+  }
+`

@@ -17,16 +17,9 @@
 import AttentionRed from '@manuscripts/assets/react/AttentionRed'
 import React from 'react'
 import { styled } from '../styled-components'
-import { GreyButton, PrimaryButton } from './Button'
+import { ButtonGroup, GreyButton, PrimaryButton } from './Button'
 import { StyledModal } from './StyledModal'
 
-const ButtonContainer = styled.div`
-  margin-left: 4px;
-`
-const Container = styled.div`
-  display: flex;
-  margin-top: 20px;
-`
 const Icon = styled.div`
   margin-right: 6px;
   color: ${props => props.theme.colors.dialog.icon};
@@ -58,11 +51,10 @@ const HeaderContainer = styled.div`
   font-weight: 500;
   padding: 15px 20px 0;
 `
-const ButtonsContainer = styled.div`
-  display: flex;
-  justify-content: flex-end;
-  padding-right: 20px;
-  padding-bottom: 20px;
+
+const ButtonsContainer = styled(ButtonGroup)`
+  padding: 20px;
+  padding-left: 0;
 `
 
 interface DialogProps {
@@ -113,27 +105,23 @@ export const Dialog: React.FunctionComponent<DialogProps> = ({
       <ButtonsContainer>
         {category === Category.confirmation && actions.secondary ? (
           !actions.secondary.isDestructive ? (
-            <Container>
+            <>
               <GreyButton onClick={actions.primary.action}>
                 {actions.primary.title || 'Dismiss'}
               </GreyButton>
-              <ButtonContainer>
-                <PrimaryButton onClick={actions.secondary.action}>
-                  {actions.secondary.title}
-                </PrimaryButton>
-              </ButtonContainer>
-            </Container>
+              <PrimaryButton onClick={actions.secondary.action}>
+                {actions.secondary.title}
+              </PrimaryButton>
+            </>
           ) : (
-            <Container>
+            <>
               <GreyButton onClick={actions.secondary.action}>
                 {actions.secondary.title}
               </GreyButton>
-              <ButtonContainer>
-                <PrimaryButton onClick={actions.primary.action}>
-                  {actions.primary.title || 'Dismiss'}
-                </PrimaryButton>
-              </ButtonContainer>
-            </Container>
+              <PrimaryButton onClick={actions.primary.action}>
+                {actions.primary.title || 'Dismiss'}
+              </PrimaryButton>
+            </>
           )
         ) : (
           <PrimaryButton onClick={actions.primary.action}>
