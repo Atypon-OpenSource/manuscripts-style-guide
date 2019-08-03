@@ -16,7 +16,7 @@
 
 import { Contributor } from '@manuscripts/manuscripts-json-schema'
 import React from 'react'
-import { styled } from '../../styled-components'
+import { css, styled } from '../../styled-components'
 import { AuthorAffiliation as AuthorAffiliationT } from '../../types'
 import { AuthorName } from '../AuthorName'
 
@@ -26,15 +26,23 @@ const AuthorNotes = styled.span`
   font-size: 0.75em;
 `
 
-const AuthorAffiliation = styled.a`
+const LinkSharedStyles = css`
   text-decoration: none;
   color: inherit;
+  outline: none;
+  &:focus span,
+  &:focus {
+    color: ${props => props.theme.colors.global.text.link};
+  }
+`
+
+const AuthorAffiliation = styled.a`
+  ${LinkSharedStyles}
 `
 
 const AuthorsContainer = styled.a`
   display: inline-flex;
-  text-decoration: none;
-  color: inherit;
+  ${LinkSharedStyles}
   &:hover {
     text-decoration: underline;
     cursor: pointer;

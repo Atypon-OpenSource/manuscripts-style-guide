@@ -33,6 +33,10 @@ export interface DefaultColorStyle {
   default: string
 }
 
+export interface FocusColorStyle {
+  focused: string
+}
+
 export interface HoverableColorStyle {
   hovered: string
 }
@@ -78,7 +82,7 @@ export interface Palette {
   }
   textField: {
     placeholder: DefaultColorStyle & HoverableColorStyle
-    border: DefaultColorStyle & ErrorColorStyle
+    border: DefaultColorStyle & ErrorColorStyle & FocusColorStyle
   }
   alertMessage: {
     success: AlertMessageColorStyle

@@ -36,6 +36,8 @@ const EditButton = styled.button.attrs({
 
   &:focus {
     outline: none;
+    background-color: white;
+    color: ${props => props.theme.colors.button.primary};
   }
 
   &:hover {
