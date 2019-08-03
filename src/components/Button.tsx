@@ -27,7 +27,7 @@ export const Button = styled.button.attrs({
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 1px 10px 3px;
+  padding: 2px 10px;
   font-family: ${props => props.theme.fontFamily};
   font-size: 16px;
   font-weight: 600;
@@ -35,6 +35,7 @@ export const Button = styled.button.attrs({
   opacity: ${props => (props.disabled ? '0.5' : '1.0')};
   transition: border 0.1s, color 0.1s, background-color 0.1s;
   white-space: nowrap;
+  outline: none;
 
   &:hover:disabled {
     background-color: transparent;
@@ -42,6 +43,7 @@ export const Button = styled.button.attrs({
     border-color: transparent;
   }
 
+  &:focus,
   &:hover {
     background-color: transparent;
     color: ${props => props.theme.colors.button.primary};
@@ -79,6 +81,7 @@ export const DangerButton = styled(Button)`
   border-color: ${props => props.theme.colors.button.danger};
   color: ${props => props.theme.colors.button.danger};
 
+  &:focus,
   &:hover {
     background-color: ${props => props.theme.colors.button.danger};
     border-color: ${props => props.theme.colors.button.danger};
@@ -105,6 +108,7 @@ export const GreyButton = styled(Button)`
   color: ${props => props.theme.colors.button.secondary};
   background-color: transparent;
 
+  &:focus,
   &:hover {
     background-color: transparent;
     border-color: ${props => props.theme.colors.button.primary};

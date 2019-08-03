@@ -57,6 +57,12 @@ const ToggleButton = styled.button<{
   font-size: 1rem;
   padding: 0.6em 0.5em;
 
+  outline: none;
+
+  &:focus {
+    color: ${props => props.theme.colors.button.primary};
+  }
+
   svg {
     transform: ${props => (props.isOpen ? 'rotateX(180deg)' : 'initial')};
   }
@@ -66,6 +72,12 @@ const RemoveButton = styled.button`
   border: none;
   background: transparent;
   padding: 0;
+
+  outline: none;
+
+  &:focus path {
+    fill: ${props => props.theme.colors.button.primary};
+  }
 
   svg {
     width: 2rem;

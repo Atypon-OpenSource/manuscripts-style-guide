@@ -21,6 +21,7 @@ import {
 import { FieldProps } from 'formik'
 import React from 'react'
 import { Creatable as CreatableSelect } from 'react-select'
+import { ThemeProps, withTheme } from '../../styled-components'
 import { submitEvent } from '../Form'
 
 interface OptionType {
@@ -37,42 +38,50 @@ interface Props {
 }
 
 export const AffiliationsSelect: React.FunctionComponent<
-  Props & FieldProps
-> = ({ affiliations, createAffiliation, form, field }) => (
-  <CreatableSelect<OptionType>
-    isMulti={true}
-    noOptionsMessage={() => 'Type institution name to search for it.'}
-    onChange={async (value, actionMeta) => {
-      form.setFieldValue(
-        field.name,
-        await Promise.all(
-          (value as OptionType[]).map(async option => {
-            if (actionMeta.action === 'create-option' && option.__isNew__) {
-              return createAffiliation(option.label)
-            }
+  Props & FieldProps & ThemeProps
+> = ({ affiliations, createAffiliation, form, field, theme }) => {
+  return (
+    <CreatableSelect<OptionType>
+      isMulti={true}
+      noOptionsMessage={() => 'Type institution name to search for it.'}
+      onChange={async (value, actionMeta) => {
+        form.setFieldValue(
+          field.name,
+          await Promise.all(
+            (value as OptionType[]).map(async option => {
+              if (actionMeta.action === 'create-option' && option.__isNew__) {
+                return createAffiliation(option.label)
+              }
 
-            return affiliations.get(option.value)
-          })
+              return affiliations.get(option.value)
+            })
+          )
         )
-      )
 
-      form.handleSubmit(submitEvent as React.FormEvent<HTMLFormElement>)
-    }}
-    options={Array.from(affiliations.values()).map(affiliation => ({
-      value: affiliation._id,
-      label: affiliation.institution || '',
-    }))}
-    value={(field.value || []).map((item: AffiliationType) => ({
-      value: item._id,
-      label: item.institution,
-    }))}
-    styles={{
-      control: base => ({
-        ...base,
-        backgroundColor: '#fff',
-      }),
-    }}
-  />
-)
+        form.handleSubmit(submitEvent as React.FormEvent<HTMLFormElement>)
+      }}
+      options={Array.from(affiliations.values()).map(affiliation => ({
+        value: affiliation._id,
+        label: affiliation.institution || '',
+      }))}
+      value={(field.value || []).map((item: AffiliationType) => ({
+        value: item._id,
+        label: item.institution,
+      }))}
+      styles={{
+        control: (provided, state) => ({
+          ...provided,
+          backgroundColor: '#fff',
+          borderRadius: theme.radius,
+          borderColor:
+            state.isFocused || state.isSelected
+              ? theme.colors.textField.border.focused
+              : theme.colors.textField.border.default,
+          boxShadow: 'none',
+        }),
+      }}
+    />
+  )
+}
 
-export default AffiliationsSelect
+export default withTheme(AffiliationsSelect)

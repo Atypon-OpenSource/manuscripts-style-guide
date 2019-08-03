@@ -31,13 +31,14 @@ export const TextField = styled.input<ErrorProps>`
   border-radius: 5px;
   z-index: ${props => (props.error ? 2 : 1)};
   position: relative;
+  outline: none;
 
   &:invalid {
     box-shadow: none;
   }
 
   &:focus {
-    outline: none;
+    border-color: ${props => props.theme.colors.textField.border.focused};
   }
 
   &::placeholder {
@@ -70,6 +71,10 @@ export const TextFieldGroup = styled.div`
     border-bottom-left-radius: 0;
     border-bottom-right-radius: 0;
     margin-bottom: 0;
+
+    &:focus + ${TextField} {
+      border-top-color: ${props => props.theme.colors.textField.border.focused};
+    }
   }
 `
 

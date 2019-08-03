@@ -121,14 +121,6 @@ export const AffiliationsEditor: React.FC<Props & ThemeProps> = ({
     setCurrentSection(id === currentSection ? '' : id)
   }
 
-  const selectStyles = {
-    control: (provided: object) => ({
-      ...provided,
-      border: `1px solid ${theme.colors.textField.border.default}`,
-      borderRadius: `${theme.radius}px`,
-    }),
-  }
-
   return (
     <Container>
       <Legend>Affiliations</Legend>
@@ -160,7 +152,17 @@ export const AffiliationsEditor: React.FC<Props & ThemeProps> = ({
           placeholder={'Add Affiliation'}
           isValidNewOption={currentText => !!currentText}
           components={reactSelectComponents}
-          styles={selectStyles}
+          styles={{
+            control: (provided, state) => ({
+              ...provided,
+              borderRadius: theme.radius,
+              borderColor:
+                state.isFocused || state.isSelected
+                  ? theme.colors.textField.border.focused
+                  : theme.colors.textField.border.default,
+              boxShadow: 'none',
+            }),
+          }}
         />
       </Field>
     </Container>
