@@ -22,6 +22,7 @@ export const theme: Theme = {
       text: {
         primary: colors.manuscriptsGrey,
         secondary: colors.dustyGrey,
+        tertiary: colors.darkGrey,
         link: colors.manuscriptsBlue,
         error: colors.darkCoral,
       },
