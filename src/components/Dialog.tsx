@@ -15,10 +15,11 @@
  */
 
 import AttentionRed from '@manuscripts/assets/react/AttentionRed'
-import React from 'react'
+import React, { ChangeEvent } from 'react'
 import { styled } from '../styled-components'
 import { ButtonGroup, GreyButton, PrimaryButton } from './Button'
 import { StyledModal } from './StyledModal'
+import { TextField } from './TextField'
 
 const Icon = styled.div`
   margin-right: 6px;
@@ -57,6 +58,9 @@ const ButtonsContainer = styled(ButtonGroup)`
   padding-left: 0;
 `
 
+interface DialogState {
+  primaryActionEnabled: boolean
+}
 interface DialogProps {
   isOpen: boolean
   actions: {
@@ -70,6 +74,7 @@ interface DialogProps {
       isDestructive: boolean
     }
   }
+  confirmFieldText?: string
   category: Category
   header: string
   message: string | React.ReactElement<{}>
@@ -80,55 +85,124 @@ export enum Category {
   confirmation = 'confirmation',
 }
 
-export const Dialog: React.FunctionComponent<DialogProps> = ({
-  isOpen,
-  actions,
-  header,
-  message,
-  category,
-}) => (
-  <StyledModal
-    isOpen={isOpen}
-    onRequestClose={actions.primary.action}
-    shouldCloseOnOverlayClick={true}
-  >
-    <ModalBody>
-      <HeaderContainer>
-        {category === Category.error && (
-          <Icon>
-            <AttentionRed />
-          </Icon>
-        )}
-        {header}
-      </HeaderContainer>
-      <MessageContainer>{message}</MessageContainer>
-      <ButtonsContainer>
-        {category === Category.confirmation && actions.secondary ? (
-          !actions.secondary.isDestructive ? (
-            <>
-              <GreyButton onClick={actions.primary.action}>
-                {actions.primary.title || 'Dismiss'}
-              </GreyButton>
-              <PrimaryButton onClick={actions.secondary.action}>
-                {actions.secondary.title}
-              </PrimaryButton>
-            </>
-          ) : (
-            <>
-              <GreyButton onClick={actions.secondary.action}>
-                {actions.secondary.title}
-              </GreyButton>
-              <PrimaryButton onClick={actions.primary.action}>
-                {actions.primary.title || 'Dismiss'}
-              </PrimaryButton>
-            </>
-          )
-        ) : (
-          <PrimaryButton onClick={actions.primary.action}>
-            {actions.primary.title || 'Dismiss'}
-          </PrimaryButton>
-        )}
-      </ButtonsContainer>
-    </ModalBody>
-  </StyledModal>
+interface ButtonProps {
+  disabled?: boolean
+  title: string
+  action: () => void
+}
+
+const PrimaryAction = (props: ButtonProps) => (
+  <PrimaryButton disabled={props.disabled} onClick={props.action}>
+    {props.title}
+  </PrimaryButton>
 )
+
+const SecondaryAction = (props: ButtonProps) => (
+  <GreyButton disabled={props.disabled} onClick={props.action}>
+    {props.title}
+  </GreyButton>
+)
+
+export class Dialog extends React.Component<DialogProps, DialogState> {
+  public state: DialogState = {
+    primaryActionEnabled: true,
+  }
+
+  public componentDidMount(): void {
+    this.setDisabledBtnState(!!this.props.confirmFieldText)
+  }
+
+  public render() {
+    const {
+      actions,
+      isOpen,
+      header,
+      message,
+      category,
+      confirmFieldText,
+    } = this.props
+    const { primaryActionEnabled } = this.state
+
+    return (
+      <StyledModal
+        isOpen={isOpen}
+        onRequestClose={actions.primary.action}
+        shouldCloseOnOverlayClick={true}
+      >
+        <ModalBody>
+          <HeaderContainer>
+            {category === Category.error && (
+              <Icon>
+                <AttentionRed />
+              </Icon>
+            )}
+            {header}
+          </HeaderContainer>
+          <MessageContainer>
+            {message}
+            {confirmFieldText && (
+              <TextField
+                required={true}
+                placeholder={'Please type: ' + confirmFieldText}
+                onChange={this.checkInputValue}
+                style={{ marginTop: '16px' }}
+              />
+            )}
+          </MessageContainer>
+          {this.renderButtons(this.props, primaryActionEnabled)}
+        </ModalBody>
+      </StyledModal>
+    )
+  }
+
+  private renderButtons = (props: DialogProps, disabled: boolean) => (
+    <ButtonsContainer>
+      {props.actions.secondary ? (
+        !props.actions.secondary.isDestructive ? (
+          <>
+            <SecondaryAction
+              disabled={disabled}
+              action={props.actions.primary.action}
+              title={props.actions.primary.title || 'Dismiss'}
+            />
+            <PrimaryAction
+              action={props.actions.secondary.action}
+              title={props.actions.secondary.title}
+            />
+          </>
+        ) : (
+          <>
+            <SecondaryAction
+              action={props.actions.secondary.action}
+              title={props.actions.secondary.title}
+            />
+            <PrimaryAction
+              disabled={disabled}
+              action={props.actions.primary.action}
+              title={props.actions.primary.title || 'Dismiss'}
+            />
+          </>
+        )
+      ) : (
+        <PrimaryAction
+          disabled={disabled}
+          action={props.actions.primary.action}
+          title={props.actions.primary.title || 'Dismiss'}
+        />
+      )}
+    </ButtonsContainer>
+  )
+
+  private checkInputValue = (event: ChangeEvent<HTMLInputElement>) => {
+    const testingVal =
+      this.props.confirmFieldText && this.props.confirmFieldText.toUpperCase()
+    const target = event.target
+    const newVal = target.value.toUpperCase()
+
+    this.setDisabledBtnState(newVal !== testingVal)
+  }
+
+  private setDisabledBtnState = (state: boolean) => {
+    this.setState({ primaryActionEnabled: state })
+  }
+}

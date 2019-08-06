@@ -39,6 +39,26 @@ storiesOf('Dialog', module)
       }}
     />
   ))
+  .add('With Confirmation Input', () => (
+    <Dialog
+      isOpen={true}
+      category={Category.confirmation}
+      header="Are you sure?"
+      message="This action will cause everything to blow up at 9:00 (9:30 in Newfoundland)"
+      actions={{
+        primary: {
+          action: action('Confirm'),
+          title: 'Confirm',
+        },
+        secondary: {
+          action: action('Cancel'),
+          title: 'Cancel',
+          isDestructive: true,
+        },
+      }}
+      confirmFieldText={'confirm'}
+    />
+  ))
   .add('Desctructive secondary action', () => (
     <Dialog
       isOpen={true}
