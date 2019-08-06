@@ -19,11 +19,11 @@ import { Field, FieldProps, Form, Formik, FormikProps } from 'formik'
 import React from 'react'
 import { AffiliationMap, AuthorAffiliation, AuthorValues } from '../../types'
 import { AutoSaveInput } from '../AutoSaveInput'
+import { CheckboxField, CheckboxLabel } from '../Checkbox'
 import { TextFieldGroupContainer } from '../TextFieldGroupContainer'
 import AffiliationsSelect from './AffiliationsSelect'
 import {
   AuthorFormComponentOverrides,
-  CheckboxField,
   Container,
   defaultAuthorFormComponents,
   Fields,
@@ -81,7 +81,7 @@ export const AuthorForm: React.FunctionComponent<AuthorProps> = ({
   handleRemoveAuthor,
   components,
 }) => {
-  const { Legend, CheckboxLabel, TextField } = {
+  const { Legend, TextField } = {
     ...defaultAuthorFormComponents,
     ...components,
   }

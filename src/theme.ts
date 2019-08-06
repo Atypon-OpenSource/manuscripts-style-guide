@@ -71,6 +71,7 @@ export interface Palette {
     text: {
       primary: string
       secondary: string
+      tertiary: string
       error: string
       link: string
     }
