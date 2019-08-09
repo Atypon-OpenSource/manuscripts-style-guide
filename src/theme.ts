@@ -97,7 +97,10 @@ export interface Palette {
     shadow: string
   }
   profile: {
-    avatar: string
+    avatar: {
+      default: string
+      hovered: string
+    }
     date: string
   }
   authors: {
