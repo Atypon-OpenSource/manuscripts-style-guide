@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
+import AvatarNormal from '@manuscripts/assets/react/AvatarNormal'
 import React from 'react'
 import { styled, withTheme } from '../styled-components'
 import { Theme } from '../theme'
-import UserIcon from './icons/user'
 
 interface AvatarProps {
   src?: string
@@ -41,14 +41,27 @@ const RoundedImage = styled.img<{ size: number }>`
   justify-content: center;
 `
 
+const StyledAvatar = styled(AvatarNormal)<{
+  color?: string
+}>`
+  path {
+    fill: ${props => props.color || props.theme.colors.profile.avatar.default};
+  }
+
+  &:hover path {
+    fill: ${props => props.color || props.theme.colors.profile.avatar.hovered};
+  }
+`
+
 const AvatarComponent: React.FunctionComponent<AvatarProps> = props => (
   <AvatarContainer>
     {props.src ? (
-      <RoundedImage {...props} />
+      <RoundedImage src={props.src} size={props.size} />
     ) : (
-      <UserIcon
-        {...props}
-        color={props.color || props.theme.colors.profile.avatar}
+      <StyledAvatar
+        height={props.size}
+        width={props.size}
+        color={props.color}
       />
     )}
   </AvatarContainer>
