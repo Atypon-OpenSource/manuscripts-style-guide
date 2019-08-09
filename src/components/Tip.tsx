@@ -16,6 +16,13 @@
 
 import React, { useCallback, useEffect, useState } from 'react'
 import Tooltip, { Options } from 'tooltip.js'
+import { styled } from '../styled-components'
+
+const TipContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`
 
 export const Tip: React.FC<Pick<Options, 'placement' | 'title'>> = ({
   children,
@@ -62,8 +69,8 @@ export const Tip: React.FC<Pick<Options, 'placement' | 'title'>> = ({
   }, [tooltip])
 
   return (
-    <div ref={createTooltip} onMouseEnter={show} onMouseLeave={hide}>
+    <TipContainer ref={createTooltip} onMouseEnter={show} onMouseLeave={hide}>
       {children}
-    </div>
+    </TipContainer>
   )
 }
