@@ -14,6 +14,7 @@
  * limitations under the License.
  */
 
+import AttentionOrange from '@manuscripts/assets/react/AttentionOrange'
 import { storiesOf } from '@storybook/react'
 import * as React from 'react'
 import { Tip } from '../src'
@@ -24,7 +25,7 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   margin: 0 100px;
-  width: 100px;
+  width: 300px;
 `
 
 const Child = styled.div`
@@ -45,6 +46,9 @@ storiesOf('Tip', module).add('Tip', () => (
     </Tip>
     <Tip placement={'right'} title={'Right'}>
       <Child>Right</Child>
+    </Tip>
+    <Tip placement={'right'} title={'word count warning '}>
+      <AttentionOrange height={'1em'} />
     </Tip>
   </Container>
 ))
