@@ -17,7 +17,7 @@
 import AttentionRed from '@manuscripts/assets/react/AttentionRed'
 import React, { ChangeEvent } from 'react'
 import { styled } from '../styled-components'
-import { ButtonGroup, GreyButton, PrimaryButton } from './Button'
+import { ButtonGroup, DangerButton, GreyButton, PrimaryButton } from './Button'
 import { StyledModal } from './StyledModal'
 import { TextField } from './TextField'
 
@@ -86,16 +86,22 @@ export enum Category {
 }
 
 interface ButtonProps {
+  isDestructive?: boolean
   disabled?: boolean
   title: string
   action: () => void
 }
 
-const PrimaryAction = (props: ButtonProps) => (
-  <PrimaryButton disabled={props.disabled} onClick={props.action}>
-    {props.title}
-  </PrimaryButton>
-)
+const PrimaryAction = (props: ButtonProps) =>
+  props.isDestructive ? (
+    <DangerButton disabled={props.disabled} onClick={props.action}>
+      {props.title}
+    </DangerButton>
+  ) : (
+    <PrimaryButton disabled={props.disabled} onClick={props.action}>
+      {props.title}
+    </PrimaryButton>
+  )
 
 const SecondaryAction = (props: ButtonProps) => (
   <GreyButton disabled={props.disabled} onClick={props.action}>
@@ -180,6 +186,7 @@ export class Dialog extends React.Component<DialogProps, DialogState> {
               disabled={disabled}
               action={props.actions.primary.action}
               title={props.actions.primary.title || 'Dismiss'}
+              isDestructive={true}
             />
           </>
         )

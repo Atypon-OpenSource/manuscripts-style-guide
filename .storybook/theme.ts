@@ -60,6 +60,7 @@ export const theme: Theme = {
       primary: colors.manuscriptsBlue,
       secondary: colors.dustyGrey,
       danger: colors.punchRed,
+      textOnDark: colors.white,
     },
 
     alertMessage: {

@@ -53,13 +53,13 @@ export const Button = styled.button.attrs({
   &:active {
     background-color: ${props => props.theme.colors.button.primary};
     border-color: ${props => props.theme.colors.button.primary};
-    color: white;
+    color: ${props => props.theme.colors.button.textOnDark};
   }
 `
 
 export const PrimaryButton = styled(Button)`
   background-color: ${props => props.theme.colors.button.primary};
-  color: white;
+  color: ${props => props.theme.colors.button.textOnDark};
 
   &:hover {
     border-color: ${props => props.theme.colors.button.primary};
@@ -67,7 +67,7 @@ export const PrimaryButton = styled(Button)`
 
   &:hover:disabled {
     border-color: ${props => props.theme.colors.button.primary};
-    color: white;
+    color: ${props => props.theme.colors.button.textOnDark};
     background-color: ${props => props.theme.colors.button.primary};
     cursor: unset;
   }
@@ -78,25 +78,26 @@ export const PrimarySubmitButton = styled(PrimaryButton).attrs({
 })``
 
 export const DangerButton = styled(Button)`
-  border-color: ${props => props.theme.colors.button.danger};
-  color: ${props => props.theme.colors.button.danger};
+  background-color: ${props => props.theme.colors.button.danger};
+  color: ${props => props.theme.colors.button.textOnDark};
 
   &:focus,
   &:hover {
-    background-color: ${props => props.theme.colors.button.danger};
     border-color: ${props => props.theme.colors.button.danger};
-    color: white;
+    color: ${props => props.theme.colors.button.danger};
   }
 
   &:active {
     background-color: ${props => props.theme.colors.button.danger};
     border-color: ${props => props.theme.colors.button.danger};
-    color: transparent;
+    color: ${props => props.theme.colors.button.textOnDark};
   }
 
   &:hover:disabled {
     border-color: ${props => props.theme.colors.button.danger};
-    color: ${props => props.theme.colors.button.danger};
+    color: ${props => props.theme.colors.button.textOnDark};
+    background-color: ${props => props.theme.colors.button.danger};
+    cursor: unset;
   }
 `
 
