@@ -80,6 +80,7 @@ export interface Palette {
     primary: string
     secondary: string
     danger: string
+    textOnDark: string
   }
   textField: {
     placeholder: DefaultColorStyle & HoverableColorStyle
