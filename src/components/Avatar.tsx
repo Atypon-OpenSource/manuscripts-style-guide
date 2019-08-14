@@ -15,7 +15,7 @@
  */
 
 import AvatarNormal from '@manuscripts/assets/react/AvatarNormal'
-import React from 'react'
+import React, { useCallback, useState } from 'react'
 import { styled, withTheme } from '../styled-components'
 import { Theme } from '../theme'
 
@@ -53,18 +53,30 @@ const StyledAvatar = styled(AvatarNormal)<{
   }
 `
 
-const AvatarComponent: React.FunctionComponent<AvatarProps> = props => (
-  <AvatarContainer>
-    {props.src ? (
-      <RoundedImage src={props.src} size={props.size} />
-    ) : (
-      <StyledAvatar
-        height={props.size}
-        width={props.size}
-        color={props.color}
-      />
-    )}
-  </AvatarContainer>
-)
+const AvatarComponent: React.FunctionComponent<AvatarProps> = props => {
+  const [srcError, setSrcError] = useState(false)
+
+  const handleSrcError = useCallback(() => {
+    setSrcError(true)
+  }, [])
+
+  return (
+    <AvatarContainer>
+      {props.src && !srcError ? (
+        <RoundedImage
+          src={props.src}
+          size={props.size}
+          onError={handleSrcError}
+        />
+      ) : (
+        <StyledAvatar
+          height={props.size}
+          width={props.size}
+          color={props.color}
+        />
+      )}
+    </AvatarContainer>
+  )
+}
 
 export const Avatar = withTheme(AvatarComponent)
