@@ -56,6 +56,12 @@ const HeaderContainer = styled.div`
 const ButtonsContainer = styled(ButtonGroup)`
   padding: 20px;
   padding-left: 0;
+
+  ${PrimaryButton},
+  ${DangerButton} {
+    order: 2;
+    margin-left: 4px;
+  }
 `
 
 interface DialogState {
@@ -90,15 +96,34 @@ interface ButtonProps {
   disabled?: boolean
   title: string
   action: () => void
+  hasForm?: boolean
 }
 
 const PrimaryAction = (props: ButtonProps) =>
   props.isDestructive ? (
-    <DangerButton disabled={props.disabled} onClick={props.action}>
+    props.hasForm ? (
+      <DangerButton disabled={props.disabled} form="formDialog" type="submit">
+        {props.title}
+      </DangerButton>
+    ) : (
+      <DangerButton
+        disabled={props.disabled}
+        onClick={props.action}
+        autoFocus={true}
+      >
+        {props.title}
+      </DangerButton>
+    )
+  ) : props.hasForm ? (
+    <PrimaryButton disabled={props.disabled} form="formDialog" type="submit">
       {props.title}
-    </DangerButton>
+    </PrimaryButton>
   ) : (
-    <PrimaryButton disabled={props.disabled} onClick={props.action}>
+    <PrimaryButton
+      disabled={props.disabled}
+      onClick={props.action}
+      autoFocus={true}
+    >
       {props.title}
     </PrimaryButton>
   )
@@ -147,12 +172,15 @@ export class Dialog extends React.Component<DialogProps, DialogState> {
           <MessageContainer>
             {message}
             {confirmFieldText && (
-              <TextField
-                required={true}
-                placeholder={'Please type: ' + confirmFieldText}
-                onChange={this.checkInputValue}
-                style={{ marginTop: '16px' }}
-              />
+              <form id="formDialog" onSubmit={this.handleSubmit}>
+                <TextField
+                  autoFocus={true}
+                  onChange={this.checkInputValue}
+                  placeholder={'Please type: ' + confirmFieldText}
+                  required={true}
+                  style={{ marginTop: '16px' }}
+                />
+              </form>
             )}
           </MessageContainer>
           {this.renderButtons(this.props, primaryActionEnabled)}
@@ -166,34 +194,37 @@ export class Dialog extends React.Component<DialogProps, DialogState> {
       {props.actions.secondary ? (
         !props.actions.secondary.isDestructive ? (
           <>
-            <SecondaryAction
-              disabled={disabled}
-              action={props.actions.primary.action}
-              title={props.actions.primary.title || 'Dismiss'}
-            />
             <PrimaryAction
               action={props.actions.secondary.action}
+              hasForm={!!this.props.confirmFieldText}
               title={props.actions.secondary.title}
+            />
+            <SecondaryAction
+              action={props.actions.primary.action}
+              disabled={disabled}
+              title={props.actions.primary.title || 'Dismiss'}
             />
           </>
         ) : (
           <>
+            <PrimaryAction
+              action={props.actions.primary.action}
+              disabled={disabled}
+              isDestructive={true}
+              hasForm={!!this.props.confirmFieldText}
+              title={props.actions.primary.title || 'Dismiss'}
+            />
             <SecondaryAction
               action={props.actions.secondary.action}
               title={props.actions.secondary.title}
-            />
-            <PrimaryAction
-              disabled={disabled}
-              action={props.actions.primary.action}
-              title={props.actions.primary.title || 'Dismiss'}
-              isDestructive={true}
             />
           </>
         )
       ) : (
         <PrimaryAction
-          disabled={disabled}
           action={props.actions.primary.action}
+          disabled={disabled}
+          hasForm={!!this.props.confirmFieldText}
           title={props.actions.primary.title || 'Dismiss'}
         />
       )}
@@ -211,5 +242,16 @@ export class Dialog extends React.Component<DialogProps, DialogState> {
 
   private setDisabledBtnState = (state: boolean) => {
     this.setState({ primaryActionEnabled: state })
+  }
+
+  private handleSubmit = async (
+    e: React.FormEvent<HTMLFormElement>
+  ): Promise<void> => {
+    const { primaryActionEnabled } = this.state
+    e.preventDefault()
+
+    if (primaryActionEnabled) {
+      this.props.actions.primary.action()
+    }
   }
 }

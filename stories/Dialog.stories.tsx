@@ -47,8 +47,8 @@ storiesOf('Dialog', module)
       message="This action will cause everything to blow up at 9:00 (9:30 in Newfoundland)"
       actions={{
         primary: {
-          action: action('Confirm'),
-          title: 'Confirm',
+          action: action('You killed Kenny'),
+          title: 'Blow everything!',
         },
         secondary: {
           action: action('Cancel'),
@@ -56,10 +56,10 @@ storiesOf('Dialog', module)
           isDestructive: true,
         },
       }}
-      confirmFieldText={'confirm'}
+      confirmFieldText={'blow up'}
     />
   ))
-  .add('Desctructive secondary action', () => (
+  .add('Destructive secondary action', () => (
     <Dialog
       isOpen={true}
       category={Category.confirmation}

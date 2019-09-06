@@ -16,9 +16,9 @@
 
 import { styled } from '../styled-components'
 
-export const Button = styled.button.attrs({
-  type: 'button',
-})`
+export const Button = styled.button.attrs(props => ({
+  type: props.type || 'button',
+}))`
   background-color: transparent;
   color: ${props => props.theme.colors.button.primary};
   border: 2px solid transparent;
