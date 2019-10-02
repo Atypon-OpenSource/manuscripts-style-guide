@@ -45,11 +45,11 @@ const StyledAvatar = styled(AvatarNormal)<{
   color?: string
 }>`
   path {
-    fill: ${props => props.color || props.theme.colors.profile.avatar.default};
+    fill: ${props => props.color || props.theme.colors.text.secondary};
   }
 
   &:hover path {
-    fill: ${props => props.color || props.theme.colors.profile.avatar.hovered};
+    fill: ${props => props.color || props.theme.colors.text.info};
   }
 `
 

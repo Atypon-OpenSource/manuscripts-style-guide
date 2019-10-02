@@ -14,13 +14,7 @@
  * limitations under the License.
  */
 
-export {
-  Palette,
-  DefaultColorStyle,
-  HoverableColorStyle,
-  ErrorColorStyle,
-  AlertMessageColorStyle,
-} from './theme'
+export { Theme } from './theme'
 export * from './components/AffiliationsEditor'
 export * from './components/AffiliationsList'
 export * from './components/AuthorForm'
@@ -28,6 +22,7 @@ export * from './components/AuthorsList'
 export * from './components/AuthorsDND'
 export * from './components/AlertMessage'
 export * from './components/Button'
+export * from './components/RadioButton'
 export * from './components/AutoSaveInput'
 export * from './components/Avatar'
 export * from './components/Dialog'

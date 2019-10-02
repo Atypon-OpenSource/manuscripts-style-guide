@@ -22,13 +22,11 @@ import { styled, ThemeProvider } from '../src/styled-components'
 import { GlobalStyle, theme } from './theme'
 
 const Story = styled.div`
-  background-color: ${props => props.theme.colors.global.background.default};
-  color: ${props => props.theme.colors.global.text.primary};
-  font-family: ${props => props.theme.fontFamily};
   padding: 3rem;
 
   & h1,
-  & h2 {
+  & h2,
+  & h3 {
     font-weight: 200;
   }
 `

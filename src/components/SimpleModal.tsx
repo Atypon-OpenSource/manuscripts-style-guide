@@ -14,17 +14,16 @@
  * limitations under the License.
  */
 
-import CloseIconDark from '@manuscripts/assets/react/CloseIconDark'
 import React from 'react'
 import Modal from 'react-modal'
 import { styled } from '../styled-components'
+import { IconButton } from './Button'
 
 Modal.setAppElement('#root')
 
 export const ModalContainer = styled.div`
   display: flex;
   flex-direction: column;
-  font-family: ${props => props.theme.fontFamily};
   width: 800px;
   max-width: 100%;
   margin: auto;
@@ -36,26 +35,48 @@ export const ModalHeader = styled.div`
   padding-bottom: 10px;
 `
 
-export const CloseButton = styled.button.attrs({
-  type: 'button',
-})`
-  width: 45px;
-  height: 35px;
-  display: inline-block;
-  cursor: pointer;
-  background: transparent;
-  border: none;
+export const CloseButton = styled(IconButton)<{ size?: number }>`
+  background: ${props => props.theme.colors.brand.xlight};
+  border: 5px solid ${props => props.theme.colors.background.primary} !important;
+  border-radius: 50%;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.12);
+  box-sizing: border-box;
+  height: 40px;
+  padding: 0;
+  position: relative;
+  text-indent: -99999px;
+  width: 40px;
 
-  &:focus {
-    outline: none;
+  transition: border-color 0.25s;
+
+  &:focus,
+  &:hover {
+    background: ${props => props.theme.colors.brand.light} !important;
+  }
+
+  ::before,
+  ::after {
+    background-color: ${props => props.theme.colors.text.secondary};
+    border-radius: 2px;
+    content: ' ';
+    display: block;
+    height: 14px;
+    transform: rotate(-45deg);
+    width: 2px;
+    position: absolute;
+    top: calc(50% - 7px);
+    left: calc(50% - 1px);
+  }
+  ::after {
+    transform: rotate(45deg);
   }
 `
 
 export const ModalMain = styled.div`
   flex: 1;
   flex-direction: column;
-  border-radius: ${props => props.theme.radius}px;
-  border: 1px solid ${props => props.theme.colors.modal.border};
+  border-radius: ${props => props.theme.grid.radius.default}px;
+  border: 1px solid ${props => props.theme.colors.border.secondary};
   box-shadow: 0 10px 20px 0 rgba(107, 134, 164, 0.19);
   background: #fff;
 `
@@ -96,9 +117,7 @@ export const SimpleModal: React.FunctionComponent<Props> = ({
   >
     <ModalContainer>
       <ModalHeader>
-        <CloseButton onClick={handleClose}>
-          <CloseIconDark />
-        </CloseButton>
+        <CloseButton onClick={handleClose} size={40} />
       </ModalHeader>
       <ModalMain>{children}</ModalMain>
     </ModalContainer>

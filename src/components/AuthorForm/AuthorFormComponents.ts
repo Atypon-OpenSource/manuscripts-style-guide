@@ -29,9 +29,11 @@ export const Label = styled.label`
 `
 
 export const LabelText = styled.div`
-  font-size: 14px;
+  font: ${props => props.theme.font.weight.normal}
+    ${props => props.theme.font.size.normal} / 1
+    ${props => props.theme.font.family.sans};
   letter-spacing: -0.2px;
-  color: ${props => props.theme.colors.global.text.primary};
+  color: ${props => props.theme.colors.text.primary};
 `
 
 export const Fieldset = styled.fieldset`
@@ -39,9 +41,12 @@ export const Fieldset = styled.fieldset`
 `
 
 export const Legend = styled.legend`
-  font-size: 20px;
+  font: ${props => props.theme.font.weight.normal}
+    ${props => props.theme.font.size.xlarge} /
+    ${props => props.theme.font.lineHeight.large}
+    ${props => props.theme.font.family.sans};
   letter-spacing: -0.4px;
-  color: ${props => props.theme.colors.global.text.secondary};
+  color: ${props => props.theme.colors.text.secondary};
 `
 
 export const Container = styled.div`

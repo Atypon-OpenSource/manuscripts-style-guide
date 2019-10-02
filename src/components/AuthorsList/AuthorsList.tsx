@@ -19,43 +19,19 @@ import React from 'react'
 import { isJointFirstAuthor } from '../../lib/authors'
 import { styled } from '../../styled-components'
 import { AuthorAffiliation } from '../../types'
+import { PrimaryButton } from '../Button'
 import Author from './Author'
-
-const EditButton = styled.button.attrs({
-  type: 'button',
-})`
-  border-radius: 5px;
-  border: solid 1px ${props => props.theme.colors.button.primary};
-  background: ${props => props.theme.colors.button.primary};
-  color: white;
-  padding: 1px 7px;
-  margin-left: 8px;
-  cursor: pointer;
-  font-size: 12px;
-  text-transform: uppercase;
-
-  &:focus {
-    outline: none;
-    background-color: white;
-    color: ${props => props.theme.colors.button.primary};
-  }
-
-  &:hover {
-    background: transparent;
-    color: ${props => props.theme.colors.button.primary};
-  }
-`
 
 const AuthorsContainer = styled.div<{ isEmpty: boolean }>`
   display: flex;
   align-items: center;
 
   @media (min-width: 768px) {
-    & ${EditButton} {
+    & ${PrimaryButton} {
       display: ${props => (props.isEmpty ? 'initial' : 'none')};
     }
 
-    &:hover ${EditButton} {
+    &:hover ${PrimaryButton} {
       display: initial;
     }
   }
@@ -100,7 +76,9 @@ export const AuthorsList: React.FunctionComponent<Props> = ({
 
     {showEditButton && (
       <AuthorsActions>
-        <EditButton onClick={startEditing}>Edit Authors</EditButton>
+        <PrimaryButton mini={true} onClick={startEditing}>
+          Edit Authors
+        </PrimaryButton>
       </AuthorsActions>
     )}
   </AuthorsContainer>

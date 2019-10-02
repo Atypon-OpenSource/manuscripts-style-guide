@@ -23,7 +23,7 @@ const NameParts = styled.span`
   line-height: 35px;
   font-size: 18px;
   letter-spacing: -0.3px;
-  color: ${props => props.color || props.theme.colors.global.text.primary};
+  color: ${props => props.color || props.theme.colors.text.primary};
 `
 
 const buildNameLiteral = (name: BibliographicName) =>
@@ -37,9 +37,7 @@ const AuthorNameComponent: React.FunctionComponent<
   AuthorNameProps & ThemeProps
 > = ({ name, theme }) =>
   !name.given && !name.family ? (
-    <NameParts color={theme.colors.global.text.secondary}>
-      Unknown Author
-    </NameParts>
+    <NameParts color={theme.colors.text.secondary}>Unknown Author</NameParts>
   ) : (
     <NameParts>{buildNameLiteral(name)}</NameParts>
   )

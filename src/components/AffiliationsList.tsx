@@ -22,11 +22,12 @@ import { AffiliationMap } from '../types'
 
 const Container = styled.table`
   border: none;
-  margin-top: 16px;
-  color: ${props => props.theme.colors.global.text.secondary};
-  font-size: 15px;
-  line-height: 1.25;
+  font: ${props => props.theme.font.weight.normal}
+    ${props => props.theme.font.size.medium} / 1.25
+    ${props => props.theme.font.family.sans};
+  color: ${props => props.theme.colors.text.secondary};
   letter-spacing: -0.1px;
+  margin-top: 16px;
 
   td {
     padding-bottom: 0.6em;

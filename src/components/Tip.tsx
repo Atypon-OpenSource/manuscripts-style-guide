@@ -19,8 +19,9 @@ import Tooltip, { Options } from 'tooltip.js'
 import { styled } from '../styled-components'
 
 const TipContainer = styled.div`
-  display: flex;
   align-items: center;
+  display: flex;
+  font-family: ${props => props.theme.font.family.sans};
   justify-content: center;
 `
 
