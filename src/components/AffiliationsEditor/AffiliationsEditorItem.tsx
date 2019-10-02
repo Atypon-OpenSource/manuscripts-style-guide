@@ -26,9 +26,9 @@ import { AutoSaveInput } from '../AutoSaveInput'
 import { TextField } from '../TextField'
 
 const Section = styled.section`
-  border: 1px solid ${props => props.theme.colors.textField.border.default};
-  border-radius: ${props => props.theme.radius}px;
-  background: white;
+  border: 1px solid ${props => props.theme.colors.border.field.default};
+  border-radius: ${props => props.theme.grid.radius.default}px;
+  background: ${props => props.theme.colors.background.primary};
   margin-bottom: 2px;
 `
 
@@ -54,13 +54,14 @@ const ToggleButton = styled.button<{
   background: transparent;
   border: none;
   text-align: left;
+  font-family: ${props => props.theme.font.family.sans};
   font-size: 1rem;
   padding: 0.6em 0.5em;
 
   outline: none;
 
   &:focus {
-    color: ${props => props.theme.colors.button.primary};
+    color: ${props => props.theme.colors.button.primary.color.hover};
   }
 
   svg {
@@ -76,7 +77,7 @@ const RemoveButton = styled.button`
   outline: none;
 
   &:focus path {
-    fill: ${props => props.theme.colors.button.primary};
+    fill: ${props => props.theme.colors.button.primary.color.hover};
   }
 
   svg {
@@ -86,8 +87,8 @@ const RemoveButton = styled.button`
 `
 
 const AffiliationsForm = styled(Form)`
-  border: 1px solid ${props => props.theme.colors.textField.border.default};
-  border-radius: ${props => props.theme.radius}px;
+  border: 1px solid ${props => props.theme.colors.border.field.default};
+  border-radius: ${props => props.theme.grid.radius.default}px;
   margin: 0.4rem 0.71rem 0.71rem;
 `
 
@@ -109,8 +110,8 @@ const Columns = styled.div`
 const Column = styled.div`
   flex: 1 1 auto;
   max-width: 50%;
-  border-top: 1px solid ${props => props.theme.colors.textField.border.default};
-  border-left: 1px solid ${props => props.theme.colors.textField.border.default};
+  border-top: 1px solid ${props => props.theme.colors.border.field.default};
+  border-left: 1px solid ${props => props.theme.colors.border.field.default};
   &:first-child {
     border-left: none;
   }

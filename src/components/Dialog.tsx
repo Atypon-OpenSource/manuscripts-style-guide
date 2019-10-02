@@ -17,39 +17,39 @@
 import AttentionRed from '@manuscripts/assets/react/AttentionRed'
 import React, { ChangeEvent } from 'react'
 import { styled } from '../styled-components'
-import { ButtonGroup, DangerButton, GreyButton, PrimaryButton } from './Button'
+import { ButtonGroup, PrimaryButton, SecondaryButton } from './Button'
 import { StyledModal } from './StyledModal'
 import { TextField } from './TextField'
 
 const Icon = styled.div`
   margin-right: 6px;
-  color: ${props => props.theme.colors.dialog.icon};
+  color: red // ===
   display: inline-flex;
   align-items: center;
 `
 const ModalBody = styled.div`
-  border-radius: ${props => props.theme.radius}px;
-  box-shadow: 0 4px 9px 0 ${props => props.theme.colors.dialog.shadow};
-  background: ${props => props.theme.colors.dialog.background};
+  border-radius: ${props => props.theme.grid.radius.default};
+  box-shadow: ${props => props.theme.shadow.dropShadow};
+  background: ${props => props.theme.colors.background.primary};
   min-width: 200px;
 `
 
 const MessageContainer = styled.div`
-  max-width: 297px;
-  min-height: 95px;
-  font-family: ${props => props.theme.fontFamily};
-  font-size: 16px;
-  color: ${props => props.theme.colors.dialog.text};
-  margin-top: 15px;
-  margin-left: 20px;
-  margin-right: 20px;
+  max-width: 300px;
+  min-height: 90px;
+  font: ${props => props.theme.font.weight.normal}
+    ${props => props.theme.font.size.medium} / 1
+    ${props => props.theme.font.family.sans};
+  color: ${props => props.theme.colors.text.secondary};
+  padding: 15px 20px 0;
 `
 const HeaderContainer = styled.div`
-  display: flex;
   align-items: center;
-  font-family: ${props => props.theme.fontFamily};
-  font-size: 16px;
-  font-weight: 500;
+  color: ${props => props.theme.colors.text.primary};
+  display: flex;
+  font: ${props => props.theme.font.weight.bold}
+    ${props => props.theme.font.size.medium} / 1
+    ${props => props.theme.font.family.sans};
   padding: 15px 20px 0;
 `
 
@@ -57,8 +57,7 @@ const ButtonsContainer = styled(ButtonGroup)`
   padding: 20px;
   padding-left: 0;
 
-  ${PrimaryButton},
-  ${DangerButton} {
+  ${PrimaryButton} {
     order: 2;
     margin-left: 4px;
   }
@@ -102,17 +101,23 @@ interface ButtonProps {
 const PrimaryAction = (props: ButtonProps) =>
   props.isDestructive ? (
     props.hasForm ? (
-      <DangerButton disabled={props.disabled} form="formDialog" type="submit">
+      <PrimaryButton
+        danger={true}
+        disabled={props.disabled}
+        form="formDialog"
+        type="submit"
+      >
         {props.title}
-      </DangerButton>
+      </PrimaryButton>
     ) : (
-      <DangerButton
+      <PrimaryButton
+        danger={true}
         disabled={props.disabled}
         onClick={props.action}
         autoFocus={true}
       >
         {props.title}
-      </DangerButton>
+      </PrimaryButton>
     )
   ) : props.hasForm ? (
     <PrimaryButton disabled={props.disabled} form="formDialog" type="submit">
@@ -129,9 +134,9 @@ const PrimaryAction = (props: ButtonProps) =>
   )
 
 const SecondaryAction = (props: ButtonProps) => (
-  <GreyButton disabled={props.disabled} onClick={props.action}>
+  <SecondaryButton disabled={props.disabled} onClick={props.action}>
     {props.title}
-  </GreyButton>
+  </SecondaryButton>
 )
 
 export class Dialog extends React.Component<DialogProps, DialogState> {

@@ -14,42 +14,50 @@
  * limitations under the License.
  */
 
-import { styled } from '../styled-components'
+import { css, styled } from '../styled-components'
 import { ErrorProps } from './Form'
 
-export const TextField = styled.input<ErrorProps>`
-  display: block;
-  font-size: 16px;
-  padding: 10px 15px;
-  width: 100%;
-  box-sizing: border-box;
+const commonStyles = css<ErrorProps>`
   border: 1px solid
     ${props =>
       props.error
-        ? props.theme.colors.textField.border.error
-        : props.theme.colors.textField.border.default};
-  border-radius: 5px;
-  z-index: ${props => (props.error ? 2 : 1)};
-  position: relative;
+        ? props.theme.colors.border.error
+        : props.theme.colors.border.primary};
+  border-radius: ${props => props.theme.grid.radius.small};
+  box-sizing: border-box;
+  font: ${props => props.theme.font.weight.normal}
+    ${props => props.theme.font.size.medium} / 1
+    ${props => props.theme.font.family.sans};
   outline: none;
+  padding: 10px 15px;
+  position: relative;
+  width: 100%;
+  z-index: ${props => (props.error ? 2 : 1)};
+
+  &:focus {
+    border-color: ${props => props.theme.colors.border.field.hover};
+  }
+
+  &:hover::placeholder {
+    color: ${props => props.theme.colors.text.tertiary};
+  }
 
   &:invalid {
     box-shadow: none;
   }
 
-  &:focus {
-    border-color: ${props => props.theme.colors.textField.border.focused};
-  }
-
   &::placeholder {
-    color: ${props => props.theme.colors.textField.placeholder.default};
+    color: ${props => props.theme.colors.text.secondary};
   }
+`
 
-  &:hover {
-    &::placeholder {
-      color: ${props => props.theme.colors.textField.placeholder.hovered};
-    }
-  }
+export const TextField = styled.input<ErrorProps>`
+  display: block;
+  ${commonStyles}
+`
+
+export const TextArea = styled.textarea`
+  ${commonStyles}
 `
 
 export const TextFieldGroup = styled.div`
@@ -73,36 +81,13 @@ export const TextFieldGroup = styled.div`
     margin-bottom: 0;
 
     &:focus + ${TextField} {
-      border-top-color: ${props => props.theme.colors.textField.border.focused};
-    }
-  }
-`
-
-export const TextArea = styled.textarea`
-  font-size: 16px;
-  padding: 10px 15px;
-  width: 100%;
-  box-sizing: border-box;
-  border: 1px solid ${props => props.theme.colors.textField.border.default};
-  border-radius: 5px;
-  height: 170px;
-
-  &:focus {
-    outline: none;
-  }
-
-  &::placeholder {
-    color: ${props => props.theme.colors.textField.placeholder.default};
-  }
-
-  &:hover {
-    &::placeholder {
-      color: ${props => props.theme.colors.textField.placeholder.hovered};
+      border-top-color: ${props => props.theme.colors.border.field.hover};
     }
   }
 `
 
 export const TextFieldLabel = styled.label`
+  font-family: ${props => props.theme.font.family.sans};
   text-transform: uppercase;
   color: gray;
 

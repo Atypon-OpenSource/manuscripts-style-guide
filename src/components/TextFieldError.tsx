@@ -24,16 +24,16 @@ const Arrow = styled.div`
   border: 5px solid transparent;
   top: -5px;
   left: calc(16px);
-  border-bottom-color: ${props =>
-    props.theme.colors.alertMessage.error.background};
+  border-bottom-color: ${props => props.theme.colors.background.error};
   border-top-width: 0;
   margin: 0 5px;
 `
 
 const Container = styled.div`
-  background: ${props => props.theme.colors.alertMessage.error.background};
-  color: ${props => props.theme.colors.alertMessage.error.text};
+  background: ${props => props.theme.colors.background.error};
   border-radius: 2px;
+  color: ${props => props.theme.colors.text.error};
+  font-family: ${props => props.theme.font.family.sans};
   margin-top: 5px;
   margin-bottom: 5px;
   position: relative;

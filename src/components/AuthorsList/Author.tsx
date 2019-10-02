@@ -32,7 +32,7 @@ const LinkSharedStyles = css`
   outline: none;
   &:focus span,
   &:focus {
-    color: ${props => props.theme.colors.global.text.link};
+    color: ${props => props.theme.colors.text.info};
   }
 `
 

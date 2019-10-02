@@ -54,7 +54,7 @@ const AddAffiliationContainer = styled.div`
 
   circle,
   use {
-    fill: ${props => props.theme.colors.button.primary};
+    fill: ${props => props.theme.colors.brand.default};
   }
 
   path {
@@ -155,12 +155,14 @@ export const AffiliationsEditor: React.FC<Props & ThemeProps> = ({
           styles={{
             control: (provided, state) => ({
               ...provided,
-              borderRadius: theme.radius,
+              backgroundColor: theme.colors.background.primary,
               borderColor:
                 state.isFocused || state.isSelected
-                  ? theme.colors.textField.border.focused
-                  : theme.colors.textField.border.default,
+                  ? theme.colors.border.field.active
+                  : theme.colors.border.field.default,
+              borderRadius: theme.grid.radius.default,
               boxShadow: 'none',
+              fontFamily: theme.font.family.sans,
             }),
           }}
         />

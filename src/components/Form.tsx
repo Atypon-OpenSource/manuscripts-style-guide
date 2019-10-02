@@ -40,9 +40,9 @@ export const FormActions = styled.div`
 `
 
 export const FormError = styled.div`
-  background: ${props => props.theme.colors.alertMessage.error.background};
-  color: ${props => props.theme.colors.alertMessage.error.text};
-  border-radius: ${props => props.theme.radius}px;
+  background: ${props => props.theme.colors.background.error};
+  color: ${props => props.theme.colors.text.error};
+  border-radius: ${props => props.theme.grid.radius.default}px;
   margin-top: 5px;
   margin-bottom: 5px;
   position: relative;

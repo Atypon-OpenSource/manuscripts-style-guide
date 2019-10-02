@@ -15,110 +15,116 @@
  */
 
 export interface Theme {
-  colors: Palette
-  fontFamily: string
-  radius: number
-  spacing: number
+  name: string
+  colors: Colors
+  font: Font
+  grid: Grid
+  shadow: Shadow
 }
 
-export interface PrimaryColorStyle {
+interface Colors {
+  background: Background & Alerts & Variations
+  border: Border & Alerts & Variations
+  brand: Brand
+  button: Button
+  text: Text & Alerts & Variations
+}
+interface Font {
+  family: FontFamily
+  lineHeight: LineHeight
+  size: FontSize
+  weight: FontWeight
+}
+interface Radius {
+  default: string
+  small: string
+  rounder: string
+}
+interface Grid {
+  radius: Radius
+  unit: number
+  mobile: number
+  tablet: number
+  smallDesktop: number
+  desktop: number
+  largeDesktop: number
+}
+interface Shadow {
+  boxShadow: string
+  dropShadow: string
+}
+
+interface Alerts {
+  error: string
+  info: string
+  success: string
+  warning: string
+}
+interface Elements {
+  background: States
+  border: States
+  color: States
+}
+interface States {
+  active: string
+  default: string
+  hover: string
+}
+interface Variations {
   primary: string
+  secondary: string
+  tertiary: string
+  fifth?: string
 }
 
-export interface SecondaryColorStyle {
+interface Background {
+  dark: string
+}
+interface Border {
+  field: States
+}
+interface Brand {
+  dark: string
+  default: string
+  medium: string
+  light: string
+  xlight: string
   secondary: string
 }
-
-export interface DefaultColorStyle {
-  default: string
+interface Button {
+  default: Elements
+  primary: Elements
+  secondary: Elements
+  error: Elements
+}
+interface Text {
+  muted: string
+  onDark: string
+  onLight: string
 }
 
-export interface FocusColorStyle {
-  focused: string
+interface FontFamily {
+  sans: string
+  serif: string
 }
-
-export interface HoverableColorStyle {
-  hovered: string
+interface FontSize {
+  xlarge: string
+  large: string
+  medium: string
+  normal: string
+  small: string
 }
-
-export interface ErrorColorStyle {
-  error: string
+interface LineHeight {
+  large: string
+  normal: string
+  small: string
 }
-
-export interface LinkColorStyle {
-  link: string
-}
-
-export interface SelectableColorStyle {
-  selected: string
-}
-
-export interface AlertMessageColorStyle {
-  background: string
-  text: string
-  border: string
-  dismiss: string
-}
-
-export type TextColorStyle = PrimaryColorStyle & SecondaryColorStyle
-
-export interface Palette {
-  global: {
-    background: {
-      default: string
-      error: string
-    }
-    text: {
-      primary: string
-      secondary: string
-      tertiary: string
-      error: string
-      link: string
-    }
-  }
-  button: {
-    primary: string
-    secondary: string
-    danger: string
-    textOnDark: string
-  }
-  textField: {
-    placeholder: DefaultColorStyle & HoverableColorStyle
-    border: DefaultColorStyle & ErrorColorStyle & FocusColorStyle
-  }
-  alertMessage: {
-    success: AlertMessageColorStyle
-    error: AlertMessageColorStyle
-    info: AlertMessageColorStyle
-    warning: AlertMessageColorStyle
-  }
-  modal: {
-    overlay: string
-    border: string
-    shadow: string
-  }
-  profile: {
-    avatar: {
-      default: string
-      hovered: string
-    }
-    date: string
-  }
-  authors: {
-    add: HoverableColorStyle
-    searchIcon: string
-  }
-  sidebar: {
-    background: DefaultColorStyle & SelectableColorStyle
-    text: TextColorStyle & LinkColorStyle
-    dropLine: string
-    label: string
-    border: string
-  }
-  dialog: {
-    text: string
-    background: string
-    icon: string
-    shadow: string
-  }
+interface FontWeight {
+  xbold: number
+  bold: number
+  semibold: number
+  medium: number
+  normal: number
+  light: number
+  xlight: number
 }

@@ -54,6 +54,10 @@ const CloseIcon = styled.div`
   display: flex;
   cursor: pointer;
   padding-right: 10px;
+
+  g[fill] {
+    fill: currentColor;
+  }
 `
 
 const InformativeIcon = styled.div`
@@ -79,16 +83,17 @@ const CloseContainer = styled.div`
 const AlertContainer = styled.div<{
   type: string
 }>`
-  display: flex;
-  color: ${props => props.theme.colors.alertMessage[props.type].text};
-  background-color: ${props =>
-    props.theme.colors.alertMessage[props.type].background};
-  border: solid 1px
-    ${props => props.theme.colors.alertMessage[props.type].border};
-  border-radius: 3px;
   align-items: center;
-  white-space: normal;
+  background-color: ${props => props.theme.colors.background[props.type]};
+  border: solid 1px ${props => props.theme.colors.border[props.type]};
+  border-radius: 3px;
+  color: ${props => props.theme.colors.text[props.type]};
+  display: flex;
   flex-shrink: 0;
+  font: ${props => props.theme.font.weight.normal}
+    ${props => props.theme.font.size.medium} / 1
+    ${props => props.theme.font.family.sans};
+  white-space: normal;
 `
 
 const TextContainer = styled.div`

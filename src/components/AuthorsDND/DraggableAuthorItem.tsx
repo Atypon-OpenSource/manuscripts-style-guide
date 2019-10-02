@@ -61,7 +61,7 @@ const AuthorItemComponent = styled.div<{
   &:hover,
   &.active {
     background: ${(props: ThemedDivProps) =>
-      props.theme.colors.sidebar.background.selected};
+      props.theme.colors.background.secondary};
   }
 `
 
@@ -103,7 +103,8 @@ const InvitedContainer = styled.div`
 
 const AuthorDropPreview = styled.div`
   width: 100%;
-  background: ${(props: ThemedDivProps) => props.theme.colors.sidebar.dropLine};
+  background: ${(props: ThemedDivProps) =>
+    props.theme.colors.background.tertiary};
   height: 1px;
   position: relative;
 `
@@ -265,7 +266,7 @@ class AuthorComponent extends React.Component<Props & ConnectedProps, State> {
                 {sidebarItemDecorator}
                 {this.selectedAuthorClass() && (
                   <DragHandle>
-                    <VerticalEllipsis color={theme.colors.global.text.link} />
+                    <VerticalEllipsis color={theme.colors.brand.default} />
                   </DragHandle>
                 )}
               </InvitedContainer>
