@@ -29,23 +29,23 @@ const Input = styled.input`
       font-size: ${props => props.theme.font.size.large};
       color: ${props => props.theme.colors.text.primary};
       line-height: ${props => props.theme.font.lineHeight.large};
-      margin-bottom: 4px;
+      margin-bottom: ${props => props.theme.grid.unit}px;
       position: relative;
-      padding-left: 28px;
+      padding-left: ${props => props.theme.grid.unit * 7}px;
       text-align: left;
 
       &::before {
-        border: 2px solid white;
+        border: 2px solid ${props => props.theme.colors.background.primary};
         border-radius: 50%;
         box-shadow: 0 0 0 1px
-          ${props => props.theme.colors.border.field.default};
+          ${props => props.theme.colors.text.primary};
         box-sizing: border-box;
         content: ' ';
         display: block;
         height: 18px;
         position: absolute;
         left: 0;
-        top: 4px;
+        top: ${props => props.theme.grid.unit}px;
         width: 18px;
         z-index: 0;
       }
@@ -53,10 +53,12 @@ const Input = styled.input`
 
     &:checked + label::before {
       background: ${props => props.theme.colors.brand.default};
+      box-shadow: 0 0 0 1px ${props => props.theme.colors.brand.default};
     }
     &:hover,
     &:focus {
       + label::before {
+        box-shadow: 0 0 0 1px ${props => props.theme.colors.brand.default};
       }
     }
   }
@@ -65,8 +67,8 @@ const Input = styled.input`
 interface RadioProps {
   checked?: boolean
   id: string
-  label: string
-  name: string
+  label: string | JSX.Element
+  name?: string
 }
 
 export const RadioButton: React.FunctionComponent<RadioProps> = ({
@@ -74,9 +76,10 @@ export const RadioButton: React.FunctionComponent<RadioProps> = ({
   id,
   label,
   name,
+  ...rest
 }) => (
   <>
-    <Input checked={checked} type="radio" name={name} id={id} />
+    <Input checked={checked} type="radio" name={name} id={id} {...rest} />
     <label htmlFor={id}>{label}</label>
   </>
 )

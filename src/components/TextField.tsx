@@ -22,14 +22,14 @@ const commonStyles = css<ErrorProps>`
     ${props =>
       props.error
         ? props.theme.colors.border.error
-        : props.theme.colors.border.primary};
+        : props.theme.colors.border.field.default};
   border-radius: ${props => props.theme.grid.radius.small};
   box-sizing: border-box;
   font: ${props => props.theme.font.weight.normal}
     ${props => props.theme.font.size.medium} / 1
     ${props => props.theme.font.family.sans};
   outline: none;
-  padding: 10px 15px;
+  padding: 10px ${props => props.theme.grid.unit * 4}px;
   position: relative;
   width: 100%;
   z-index: ${props => (props.error ? 2 : 1)};
@@ -39,7 +39,7 @@ const commonStyles = css<ErrorProps>`
   }
 
   &:hover::placeholder {
-    color: ${props => props.theme.colors.text.tertiary};
+    color: ${props => props.theme.colors.text.primary};
   }
 
   &:invalid {
@@ -62,11 +62,11 @@ export const TextArea = styled.textarea`
 
 export const TextFieldGroup = styled.div`
   & ${TextField}:first-of-type {
-    margin-top: 5px;
+    margin-top: ${props => props.theme.grid.unit}px;
   }
 
   & ${TextField}:last-of-type {
-    margin-bottom: 5px;
+    margin-bottom: ${props => props.theme.grid.unit}px;
   }
 
   & ${TextField}:not(:first-of-type) {
@@ -89,13 +89,13 @@ export const TextFieldGroup = styled.div`
 export const TextFieldLabel = styled.label`
   font-family: ${props => props.theme.font.family.sans};
   text-transform: uppercase;
-  color: gray;
+  color: ${props => props.theme.colors.text.secondary};
 
   & ${TextField} {
-    margin-top: 5px;
+    margin-top: ${props => props.theme.grid.unit}px;
   }
 
   & ${TextArea} {
-    margin-top: 5px;
+    margin-top: ${props => props.theme.grid.unit}px;
   }
 `

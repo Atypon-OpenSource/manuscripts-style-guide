@@ -27,7 +27,7 @@ const Story = styled.div`
   & h1,
   & h2,
   & h3 {
-    font-weight: 200;
+    font-weight: 300;
   }
 `
 

@@ -47,14 +47,15 @@ const dangerBtnStyles = css`
 
 const disabledBtnStyles = css`
   cursor: default;
-  background-color: ${props => props.theme.colors.text.muted} !important;
-  border-color: ${props => props.theme.colors.text.muted} !important;
+  background-color: ${props =>
+    props.theme.colors.background.tertiary} !important;
+  border-color: ${props => props.theme.colors.border.secondary} !important;
   color: ${props => props.theme.colors.text.onDark} !important;
 `
 
 const miniBtnStyles = css`
   padding: 2px 6px;
-  margin: 0 5px;
+  margin: 0 ${props => props.theme.grid.unit}px;
   font-size: ${props => props.theme.font.size.small};
   line-height: 1;
 `
@@ -76,8 +77,7 @@ const btnStyles = css<{
     ${props => props.theme.font.family.sans};
   justify-content: center;
   outline: none;
-  padding: 7px 12px;
-  text-transform: uppercase;
+  padding: 7px ${props => props.theme.grid.unit * 3}px;
   transition: border 0.1s, color 0.1s, background-color 0.1s;
   vertical-align: middle;
   white-space: nowrap;
@@ -114,18 +114,18 @@ const ButtonTemplate = styled.button.attrs(props => ({
 export const SecondaryButton = styled(ButtonTemplate)`
   ${props =>
     btnColors(
-      props.theme.colors.button.default.color.default,
-      props.theme.colors.button.default.background.default,
-      props.theme.colors.button.default.border.default,
+      props.theme.colors.button.secondary.color.default,
+      props.theme.colors.button.secondary.background.default,
+      props.theme.colors.button.secondary.border.default,
       false
     )}
 
   &:not([disabled]):hover, &:not([disabled]):focus {
     ${props =>
       btnColors(
-        props.theme.colors.button.default.color.hover,
-        props.theme.colors.button.default.background.hover,
-        props.theme.colors.button.default.border.hover,
+        props.theme.colors.button.secondary.color.hover,
+        props.theme.colors.button.secondary.background.hover,
+        props.theme.colors.button.secondary.border.hover,
         false
       )}
   }
@@ -133,9 +133,9 @@ export const SecondaryButton = styled(ButtonTemplate)`
   &:not([disabled]):active {
     ${props =>
       btnColors(
-        props.theme.colors.button.default.color.active,
-        props.theme.colors.button.default.background.active,
-        props.theme.colors.button.default.border.active,
+        props.theme.colors.button.secondary.color.active,
+        props.theme.colors.button.secondary.background.active,
+        props.theme.colors.button.secondary.border.active,
         false
       )}
   }
@@ -174,18 +174,18 @@ export const PrimaryButton = styled(ButtonTemplate)`
 export const TertiaryButton = styled(ButtonTemplate)`
   ${props =>
     btnColors(
-      props.theme.colors.button.secondary.color.default,
-      props.theme.colors.button.secondary.background.default,
-      props.theme.colors.button.secondary.border.default,
+      props.theme.colors.button.default.color.default,
+      props.theme.colors.button.default.background.default,
+      props.theme.colors.button.default.border.default,
       false
     )}
 
   &:not([disabled]):hover, &:not([disabled]):focus {
     ${props =>
       btnColors(
-        props.theme.colors.button.secondary.color.hover,
-        props.theme.colors.button.secondary.background.hover,
-        props.theme.colors.button.secondary.border.hover,
+        props.theme.colors.button.default.color.hover,
+        props.theme.colors.button.default.background.hover,
+        props.theme.colors.button.default.border.hover,
         false
       )}
   }
@@ -193,9 +193,9 @@ export const TertiaryButton = styled(ButtonTemplate)`
   &:not([disabled]):active {
     ${props =>
       btnColors(
-        props.theme.colors.button.secondary.color.active,
-        props.theme.colors.button.secondary.background.active,
-        props.theme.colors.button.secondary.border.active,
+        props.theme.colors.button.default.color.active,
+        props.theme.colors.button.default.background.active,
+        props.theme.colors.button.default.border.active,
         false
       )}
   }
@@ -205,40 +205,32 @@ export const IconTextButton = styled(ButtonTemplate)`
   border: none;
   color: ${props => props.theme.colors.text.primary};
   padding: 0;
-  text-transform: none;
 
   svg {
     max-height: 18px;
     max-width: 18px;
-    margin-right: 12px;
+    margin-right: ${props => props.theme.grid.unit * 3}px;
   }
 `
 
 export const ToggleButton = styled(ButtonTemplate)<{ selected?: boolean }>`
-  color: ${props =>
-    props.selected
-      ? props.theme.colors.brand.default
-      : props.theme.colors.text.primary};
+  color: ${props => props.theme.colors.text.primary};
   background-color: ${props =>
-    props.selected ? props.theme.colors.brand.xlight : 'transparent'};
+    props.selected ? props.theme.colors.background.fifth : 'transparent'};
   border-color: ${props =>
     props.selected
-      ? props.theme.colors.brand.default
+      ? props.theme.colors.border.primary
       : props.theme.colors.border.secondary};
 
   &:not([disabled]):hover,
   &:not([disabled]):focus {
-    color: ${props => props.theme.colors.text.primary};
-    background-color: ${props => props.theme.colors.brand.xlight};
-    border-color: ${props => props.theme.colors.brand.xlight};
+    background-color: ${props => props.theme.colors.background.fifth};
+    border-color: ${props => props.theme.colors.border.primary};
   }
 `
-
-const IconButtonTemplate = styled(ButtonTemplate)<{ size?: number }>`
-  padding: 0;
-  height: ${props => props.size || 40}px;
-  width: ${props => props.size || 40}px;
-
+const svgColors = css<{
+  iconColor?: string
+}>`
   svg {
     g[stroke] {
       stroke: currentColor;
@@ -250,25 +242,36 @@ const IconButtonTemplate = styled(ButtonTemplate)<{ size?: number }>`
 
   svg {
     path[stroke] {
-      stroke: currentColor;
+      stroke: ${props => props.iconColor || 'currentColor'};
     }
     text[fill],
     rect[fill],
     path[fill] {
-      fill: $currentColor;
+      fill: ${props => props.iconColor || 'currentColor'};
     }
   }
+`
+const IconButtonTemplate = styled(ButtonTemplate)<{
+  defaultColor?: boolean
+  size?: number
+  iconColor?: string
+}>`
+  padding: 0;
+  height: ${props => props.size || 40}px;
+  width: ${props => props.size || 40}px;
 
   & svg {
     width: 100%;
     height: 100%;
   }
+
+  ${props => !props.defaultColor && svgColors}
 `
 
 export const IconButton = styled(IconButtonTemplate)`
   ${props =>
     btnColors(
-      props.theme.colors.button.default.color.default,
+      props.theme.colors.text.primary,
       props.theme.colors.button.default.background.default,
       props.theme.colors.button.default.border.default,
       false
@@ -277,9 +280,9 @@ export const IconButton = styled(IconButtonTemplate)`
   &:not([disabled]):hover, &:not([disabled]):focus {
     ${props =>
       btnColors(
-        props.theme.colors.button.default.color.active,
-        props.theme.colors.button.default.background.default,
-        props.theme.colors.button.default.border.default,
+        props.theme.colors.brand.default,
+        'transparent',
+        'transparent',
         false
       )}
   }
@@ -287,39 +290,40 @@ export const IconButton = styled(IconButtonTemplate)`
   &:not([disabled]):active {
     ${props =>
       btnColors(
-        props.theme.colors.button.default.color.active,
-        props.theme.colors.button.default.background.default,
-        props.theme.colors.button.default.border.default,
+        props.theme.colors.brand.default,
+        'transparent',
+        'transparent',
         false
       )}
   }
 `
 
-export const SecondaryIconButton = styled(IconButtonTemplate)`
+export const SecondaryIconButton = styled(IconButton)`
   ${props =>
     btnColors(
-      props.theme.colors.button.secondary.color.default,
-      props.theme.colors.button.default.background.hover,
-      props.theme.colors.button.default.border.default,
+      props.theme.colors.text.secondary,
+      props.theme.colors.background.primary,
+      'transparent',
       false
     )}
 
   &:not([disabled]):hover, &:not([disabled]):focus {
     ${props =>
       btnColors(
-        props.theme.colors.button.secondary.color.hover,
-        props.theme.colors.button.default.background.hover,
-        props.theme.colors.button.default.border.default,
+        props.theme.colors.text.secondary,
+        props.theme.colors.background.fifth,
+        'transparent',
         false
       )}
   }
 
+  &:not([disabled]).active,
   &:not([disabled]):active {
     ${props =>
       btnColors(
-        props.theme.colors.button.secondary.color.active,
+        props.theme.colors.text.secondary,
         props.theme.colors.background.fifth,
-        props.theme.colors.button.default.border.default,
+        'transparent',
         false
       )}
   }
@@ -331,6 +335,6 @@ export const ButtonGroup = styled.div`
   align-items: center;
 
   button:not(:first-child) {
-    margin-left: 4px;
+    margin-left: ${props => props.theme.grid.unit}px;
   }
 `

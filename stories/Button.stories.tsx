@@ -71,7 +71,7 @@ storiesOf('Buttons', module)
       <StorySectionInner>
         <h2>Mini</h2>
         <Div>
-          <PrimaryButton mini={true} onClick={action('clicked Primary')}>
+          <PrimaryButton mini={true} onClick={action('clicked PrimaryButton')}>
             PrimaryButton
           </PrimaryButton>
         </Div>
@@ -84,7 +84,10 @@ storiesOf('Buttons', module)
           </SecondaryButton>
         </Div>
         <Div>
-          <TertiaryButton mini={true} onClick={action('clicked Grey')}>
+          <TertiaryButton
+            mini={true}
+            onClick={action('clicked TertiaryButton')}
+          >
             TertiaryButton
           </TertiaryButton>
         </Div>
@@ -92,7 +95,10 @@ storiesOf('Buttons', module)
       <StorySectionInner>
         <h2>Disabled</h2>
         <Div>
-          <PrimaryButton disabled={true} onClick={action('clicked Primary')}>
+          <PrimaryButton
+            disabled={true}
+            onClick={action('clicked PrimaryButton')}
+          >
             PrimaryButton
           </PrimaryButton>
         </Div>
@@ -105,7 +111,10 @@ storiesOf('Buttons', module)
           </SecondaryButton>
         </Div>
         <Div>
-          <TertiaryButton disabled={true} onClick={action('clicked Grey')}>
+          <TertiaryButton
+            disabled={true}
+            onClick={action('clicked TertiaryButton')}
+          >
             TertiaryButton
           </TertiaryButton>
         </Div>
@@ -113,7 +122,10 @@ storiesOf('Buttons', module)
       <StorySectionInner>
         <h2>Type "error"</h2>
         <Div>
-          <PrimaryButton danger={true} onClick={action('clicked Primary')}>
+          <PrimaryButton
+            danger={true}
+            onClick={action('clicked PrimaryButton')}
+          >
             PrimaryButton
           </PrimaryButton>
         </Div>
@@ -161,7 +173,7 @@ storiesOf('Buttons', module)
           <h2>CloseButton</h2>
           <h3>Default</h3>
           <Div>
-            <CloseButton onClick={action('clicked Close SecondaryButton')} />
+            <CloseButton onClick={action('clicked CloseButton')} />
           </Div>
         </StorySectionInner>
         <StorySectionInner>
@@ -210,7 +222,7 @@ storiesOf('Buttons', module)
       <TertiaryButton onClick={action('clicked TertiaryButton')}>
         TertiaryButton
       </TertiaryButton>
-      <PrimaryButton onClick={action('clicked Primary SecondaryButton')}>
+      <PrimaryButton onClick={action('clicked PrimaryButton')}>
         PrimaryButton
       </PrimaryButton>
     </ButtonGroup>

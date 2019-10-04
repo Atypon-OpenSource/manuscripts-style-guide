@@ -23,11 +23,12 @@ import React, { useCallback } from 'react'
 import { affiliationLabel } from '../../lib/authors'
 import { styled } from '../../styled-components'
 import { AutoSaveInput } from '../AutoSaveInput'
+import { SecondaryIconButton } from '../Button'
 import { TextField } from '../TextField'
 
 const Section = styled.section`
   border: 1px solid ${props => props.theme.colors.border.field.default};
-  border-radius: ${props => props.theme.grid.radius.default}px;
+  border-radius: ${props => props.theme.grid.radius.default};
   background: ${props => props.theme.colors.background.primary};
   margin-bottom: 2px;
 `
@@ -40,8 +41,13 @@ const Title = styled.h4`
   padding-right: 0.5rem;
 `
 
-const DropdownIndicator = styled(ArrowDownBlue)`
-  padding-right: 0.6em;
+const DropdownIndicator = styled(SecondaryIconButton).attrs({
+  size: 20,
+})`
+  border: 0;
+  border-radius: 50%;
+  margin-right: 0.6em;
+  min-width: 20px;
 `
 
 const ToggleButton = styled.button<{
@@ -88,7 +94,7 @@ const RemoveButton = styled.button`
 
 const AffiliationsForm = styled(Form)`
   border: 1px solid ${props => props.theme.colors.border.field.default};
-  border-radius: ${props => props.theme.grid.radius.default}px;
+  border-radius: ${props => props.theme.grid.radius.default};
   margin: 0.4rem 0.71rem 0.71rem;
 `
 
@@ -153,7 +159,9 @@ export const AffiliationsEditorItem: React.FC<Props> = ({
     <Section>
       <Title>
         <ToggleButton type="button" onClick={requestToggle} isOpen={isOpen}>
-          <DropdownIndicator />
+          <DropdownIndicator>
+            <ArrowDownBlue />
+          </DropdownIndicator>
           {affiliationLabel(affiliation)}
         </ToggleButton>
         <RemoveButton
