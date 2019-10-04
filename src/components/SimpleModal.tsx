@@ -22,25 +22,28 @@ import { IconButton } from './Button'
 Modal.setAppElement('#root')
 
 export const ModalContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  width: 800px;
-  max-width: 100%;
-  margin: auto;
+  background: ${props => props.theme.colors.background.primary};
+  border-radius: ${props => props.theme.grid.radius.default};
+  box-shadow: ${props => props.theme.shadow.dropShadow};
+  font-family: ${props => props.theme.font.family.sans};
+  overflow: hidden;
+  margin: ${props => props.theme.grid.unit * 3}px;
 `
 
 export const ModalHeader = styled.div`
-  display: flex;
-  justify-content: flex-end;
-  padding-bottom: 10px;
+  position: absolute;
+  right: 0;
+  top: 0;
+  z-index: 1;
 `
 
 export const CloseButton = styled(IconButton)<{ size?: number }>`
-  background: ${props => props.theme.colors.brand.xlight};
+  background: ${props => props.theme.colors.background.primary};
   border: 5px solid ${props => props.theme.colors.background.primary} !important;
   border-radius: 50%;
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.12);
   box-sizing: border-box;
+  display: inline-block;
   height: 40px;
   padding: 0;
   position: relative;
@@ -51,7 +54,7 @@ export const CloseButton = styled(IconButton)<{ size?: number }>`
 
   &:focus,
   &:hover {
-    background: ${props => props.theme.colors.brand.light} !important;
+    background: ${props => props.theme.colors.background.fifth} !important;
   }
 
   ::before,
@@ -73,51 +76,61 @@ export const CloseButton = styled(IconButton)<{ size?: number }>`
 `
 
 export const ModalMain = styled.div`
-  flex: 1;
-  flex-direction: column;
-  border-radius: ${props => props.theme.grid.radius.default}px;
-  border: 1px solid ${props => props.theme.colors.border.secondary};
-  box-shadow: 0 10px 20px 0 rgba(107, 134, 164, 0.19);
-  background: #fff;
+  padding: ${props => props.theme.grid.unit * 4}px;
 `
 
-const modalStyle = {
-  overlay: {
-    position: 'fixed',
-    top: 0,
-    left: 0,
-    right: 0,
-    bottom: 0,
-    backgroundColor: 'rgba(217, 224, 243, 1)',
-    opacity: 0.91,
-  },
-  content: {
-    background: 'transparent',
-    border: 'none',
-    width: 800,
-    maxWidth: '100%',
-    padding: 0,
-    margin: 'auto',
-  },
+const modalStyle = (width: string) => {
+  const parameters = {
+    overlay: {
+      alignItems: 'center',
+      backgroundColor: 'rgba(0,0,0,0.5)',
+      bottom: 0,
+      display: 'flex',
+      justifyContent: 'center',
+      left: 0,
+      position: 'fixed',
+      right: 0,
+      top: 0,
+    },
+    content: {
+      background: 'transparent',
+      border: 'none',
+      bottom: 0,
+      left: 0,
+      margin: 'auto',
+      maxHeight: '70vh',
+      maxWidth: '70vw',
+      padding: 0,
+      position: 'relative',
+      right: 0,
+      top: 0,
+      width,
+    },
+  }
+  return parameters
 }
 
 interface Props {
   handleClose: () => void
+  closeWithOverlay: boolean
+  width?: string
 }
 
 export const SimpleModal: React.FunctionComponent<Props> = ({
   children,
+  closeWithOverlay,
   handleClose,
+  width,
 }) => (
   <Modal
     isOpen={true}
     onRequestClose={handleClose}
-    shouldCloseOnOverlayClick={true}
-    style={modalStyle}
+    shouldCloseOnOverlayClick={closeWithOverlay}
+    style={modalStyle(width || 'auto')}
   >
     <ModalContainer>
       <ModalHeader>
-        <CloseButton onClick={handleClose} size={40} />
+        <CloseButton onClick={handleClose} />
       </ModalHeader>
       <ModalMain>{children}</ModalMain>
     </ModalContainer>

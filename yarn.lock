@@ -1053,10 +1053,10 @@
   resolved "https://registry.yarnpkg.com/@emotion/weak-memoize/-/weak-memoize-0.1.3.tgz#b700d97385fa91affed60c71dfd51c67e9dad762"
   integrity sha512-QsYGKdhhuDFNq7bjm2r44y0mp5xW3uO3csuTPDWZc0OIiMQv+AIY5Cqwd4mJiC5N8estVl7qlvOx1hbtOuUWbw==
 
-"@manuscripts/assets@^0.5.2":
-  version "0.5.2"
-  resolved "https://registry.npmjs.org/@manuscripts/assets/-/assets-0.5.2.tgz#273d307b681e83041194fc581eb530402ab0dc53"
-  integrity sha512-XwwbM2AjVHNNAiqi4fgH/MO9By+9FFC0QVgZIJPwxnV+Eun1D7KFAQ8x7bnqjPOG6cAp47zIaQps8wY+i8M3UQ==
+"@manuscripts/assets@^0.5.3":
+  version "0.5.3"
+  resolved "https://registry.yarnpkg.com/@manuscripts/assets/-/assets-0.5.3.tgz#5b2905c9441e732c167ff9a300598e2292534634"
+  integrity sha512-WQ01rsO5yzWv965423RsJrN18Fq1wXttuyNCP2FA5Nt+TGY47YA6iShhMOncyvIAd+q6fHC/Tyqxbmlc1ft4Ag==
 
 "@manuscripts/manuscripts-json-schema@^1.17.2":
   version "1.17.2"

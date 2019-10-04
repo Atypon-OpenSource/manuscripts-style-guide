@@ -52,13 +52,6 @@ storiesOf('Theme/Colors', module)
         <StorySectionInner>
           <h1>Brand</h1>
           <Div
-            bgColor={(props: ThemedDivProps) =>
-              props.theme.colors.brand.default
-            }
-          >
-            default
-          </Div>
-          <Div
             bgColor={(props: ThemedDivProps) => props.theme.colors.brand.dark}
           >
             dark
@@ -69,9 +62,21 @@ storiesOf('Theme/Colors', module)
             medium
           </Div>
           <Div
+            bgColor={(props: ThemedDivProps) =>
+              props.theme.colors.brand.default
+            }
+          >
+            default
+          </Div>
+          <Div
             bgColor={(props: ThemedDivProps) => props.theme.colors.brand.light}
           >
             light
+          </Div>
+          <Div
+            bgColor={(props: ThemedDivProps) => props.theme.colors.brand.xlight}
+          >
+            xlight
           </Div>
           <Div
             bgColor={(props: ThemedDivProps) =>
@@ -103,6 +108,15 @@ storiesOf('Theme/Colors', module)
             }
           >
             tertiary
+          </Div>
+          <Div
+            bgColor={(props: ThemedDivProps) =>
+              props.theme.colors.background.fifth
+                ? props.theme.colors.background.fifth
+                : ''
+            }
+          >
+            fifth
           </Div>
           <Div
             bgColor={(props: ThemedDivProps) =>
@@ -574,138 +588,130 @@ storiesOf('Theme/Colors', module)
     </>
   ))
   .add('Colors Palette', () => (
-    <>
-      <StorySection>
-        <StorySectionInner>
-          <h1>PRIMARY</h1>
-          <Div bgColor={(props: ThemedDivProps) => '#48bee7'}>
-            {' '}
-            manuscriptsBlue{' '}
-          </Div>
-          <Div
-            bgColor={(props: ThemedDivProps) => '#353535'}
-            style={{ color: 'white' }}
-          >
-            manuscriptsGrey
-          </Div>
-        </StorySectionInner>
-        <StorySectionInner>
-          <h1>SECONDARY</h1>
-          <Div bgColor={(props: ThemedDivProps) => '#fe8f1f'}> zestOrange </Div>
-          <Div bgColor={(props: ThemedDivProps) => '#f35143'}> punchRed </Div>
-          <Div bgColor={(props: ThemedDivProps) => '#36b260'}>
-            {' '}
-            killarneyGreen{' '}
-          </Div>
-          <Div bgColor={(props: ThemedDivProps) => '#ffbd26'}>
-            {' '}
-            brightSunYellow{' '}
-          </Div>
-        </StorySectionInner>
-      </StorySection>
-      <StorySection>
-        <StorySectionInner>
-          <h1>GREYS</h1>
-          <Div
-            bgColor={(props: ThemedDivProps) => '#000'}
-            style={{ color: 'white' }}
-          >
-            black
-          </Div>
-          <Div
-            bgColor={(props: ThemedDivProps) => '#353535'}
-            style={{ color: 'white' }}
-          >
-            manuscriptsGrey
-          </Div>
-          <Div
-            bgColor={(props: ThemedDivProps) => '#585858'}
-            style={{ color: 'white' }}
-          >
-            scorpionGrey
-          </Div>
-          <Div
-            bgColor={(props: ThemedDivProps) => '#6c6c6c'}
-            style={{ color: 'white' }}
-          >
-            lightGrey
-          </Div>
-          <Div bgColor={(props: ThemedDivProps) => '#949494'}> dustyGrey </Div>
-          <Div bgColor={(props: ThemedDivProps) => '#d8d8d8'}> altoGrey </Div>
-          <Div bgColor={(props: ThemedDivProps) => '#d8d8d8'}>
-            {' '}
-            mercuryGrey{' '}
-          </Div>
-          <Div bgColor={(props: ThemedDivProps) => '#e2e2e2'}>
-            {' '}
-            seashellGrey{' '}
-          </Div>
-          <Div bgColor={(props: ThemedDivProps) => '#fcfcfc'}>
-            {' '}
-            alabasterGrey{' '}
-          </Div>
-          <Div bgColor={(props: ThemedDivProps) => '#fff'}> white </Div>
-        </StorySectionInner>
-        <StorySectionInner>
-          <h1>BLUES</h1>
-          <Div
-            bgColor={(props: ThemedDivProps) => '#2781a1'}
-            style={{ color: 'white' }}
-          >
-            jellyBeanBlue
-          </Div>
-          <Div bgColor={(props: ThemedDivProps) => '#e1f5fe'}> iceBlue </Div>
-          <Div bgColor={(props: ThemedDivProps) => '#edf1f4'}>
-            {' '}
-            linkWaterBlue{' '}
-          </Div>
-          <Div bgColor={(props: ThemedDivProps) => '#f0fafe'}> powderBlue </Div>
-          <Div bgColor={(props: ThemedDivProps) => '#f2fbff'}> aliceBlue </Div>
-        </StorySectionInner>
-        <StorySectionInner>
-          <h1>GREENS</h1>
-          <Div bgColor={(props: ThemedDivProps) => '#8dd439'}>
-            {' '}
-            deYorkGreen{' '}
-          </Div>
-          <Div bgColor={(props: ThemedDivProps) => '#a8cd95'}>
-            {' '}
-            pineGladeGreen{' '}
-          </Div>
-          <Div bgColor={(props: ThemedDivProps) => '#b2c0ac'}>
-            {' '}
-            springGreen{' '}
-          </Div>
-          <Div bgColor={(props: ThemedDivProps) => '#dff0d7'}>
-            {' '}
-            peppermintGreen{' '}
-          </Div>
-        </StorySectionInner>
-        <StorySectionInner>
-          <h1>REDS</h1>
-          <Div bgColor={(props: ThemedDivProps) => '#cd593c'}> darkCoral </Div>
-          <Div bgColor={(props: ThemedDivProps) => '#e26969'}> sungloRed </Div>
-          <Div bgColor={(props: ThemedDivProps) => '#d2a1a1'}> eunryRed </Div>
-          <Div bgColor={(props: ThemedDivProps) => '#f5c1b7'}> mandysRed </Div>
-        </StorySectionInner>
-        <StorySectionInner>
-          <h1>YELLOWS</h1>
-          <Div bgColor={(props: ThemedDivProps) => '#b6a651'}> huskYellow </Div>
-          <Div bgColor={(props: ThemedDivProps) => '#ffe08b'}>
-            {' '}
-            salomieYellow{' '}
-          </Div>
-          <Div bgColor={(props: ThemedDivProps) => '#ffe0b2'}>
-            {' '}
-            wheatYellow{' '}
-          </Div>
-          <Div bgColor={(props: ThemedDivProps) => '#fffcdb'}>
-            {' '}
-            butteryYellow{' '}
-          </Div>
-        </StorySectionInner>
-      </StorySection>
-    </>
+    <StorySection>
+      <StorySectionInner>
+        <h1>GREYS</h1>
+        <Div
+          bgColor={(props: ThemedDivProps) => '#000'}
+          style={{ color: 'white' }}
+        >
+          black
+        </Div>
+        <Div
+          bgColor={(props: ThemedDivProps) => '#353535'}
+          style={{ color: 'white' }}
+        >
+          greyDark
+        </Div>
+        <Div
+          bgColor={(props: ThemedDivProps) => '#6e6e6e'}
+          style={{ color: 'white' }}
+        >
+          greyMuted
+        </Div>
+        {/*<Div*/}
+        {/*  bgColor={(props: ThemedDivProps) => '#585858'}*/}
+        {/*  style={{ color: 'white' }}*/}
+        {/*>*/}
+        {/*  scorpionGrey*/}
+        {/*</Div>*/}
+        {/*<Div*/}
+        {/*  bgColor={(props: ThemedDivProps) => '#6c6c6c'}*/}
+        {/*  style={{ color: 'white' }}*/}
+        {/*>*/}
+        {/*  lightGrey*/}
+        {/*</Div>*/}
+        {/*<Div bgColor={(props: ThemedDivProps) => '#949494'}> dustyGrey </Div>*/}
+        {/*<Div bgColor={(props: ThemedDivProps) => '#d8d8d8'}> altoGrey </Div>*/}
+        <Div bgColor={(props: ThemedDivProps) => '#d8d8d8'}> mercuryGrey </Div>
+        <Div bgColor={(props: ThemedDivProps) => '#e2e2e2'}> seashellGrey </Div>
+        <Div bgColor={(props: ThemedDivProps) => '#fcfcfc'}>
+          {' '}
+          alabasterGrey{' '}
+        </Div>
+        <Div bgColor={(props: ThemedDivProps) => '#fff'}> white </Div>
+      </StorySectionInner>
+      <StorySectionInner>
+        <h1>BLUES</h1>
+        <Div
+          bgColor={(props: ThemedDivProps) => '#2781a1'}
+          style={{ color: 'white' }}
+        >
+          jellyBeanBlue
+        </Div>
+        <Div
+          bgColor={(props: ThemedDivProps) => '#0d79d0'}
+          style={{ color: 'white' }}
+        >
+          manuscriptsBlueDark
+        </Div>
+        <Div
+          bgColor={(props: ThemedDivProps) => '#1a9bc7'}
+          style={{ color: 'white' }}
+        >
+          manuscriptsBlue
+        </Div>
+        <Div bgColor={(props: ThemedDivProps) => '#bce7f6'}>
+          manuscriptsLight
+        </Div>
+        <Div bgColor={(props: ThemedDivProps) => '#f5fbfc'}>
+          manuscriptsXLight2
+        </Div>
+        {/*<Div bgColor={(props: ThemedDivProps) => '#e1f5fe'}> iceBlue </Div>*/}
+        {/*<Div bgColor={(props: ThemedDivProps) => '#edf1f4'}>*/}
+        {/*  {' '}*/}
+        {/*  linkWaterBlue{' '}*/}
+        {/*</Div>*/}
+        {/*<Div bgColor={(props: ThemedDivProps) => '#f0fafe'}> powderBlue </Div>*/}
+        {/*<Div bgColor={(props: ThemedDivProps) => '#f2fbff'}> aliceBlue </Div>*/}
+      </StorySectionInner>
+      <StorySectionInner>
+        <h1>GREENS</h1>
+        {/*<Div bgColor={(props: ThemedDivProps) => '#8dd439'}>*/}
+        {/*  {' '}*/}
+        {/*  deYorkGreen{' '}*/}
+        {/*</Div>*/}
+        {/*<Div bgColor={(props: ThemedDivProps) => '#a8cd95'}>*/}
+        {/*  {' '}*/}
+        {/*  pineGladeGreen{' '}*/}
+        {/*</Div>*/}
+        <Div bgColor={(props: ThemedDivProps) => '#36b260'}>
+          {' '}
+          killarneyGreen{' '}
+        </Div>
+        <Div bgColor={(props: ThemedDivProps) => '#b2c0ac'}> springGreen </Div>
+        <Div bgColor={(props: ThemedDivProps) => '#dff0d7'}>
+          {' '}
+          peppermintGreen{' '}
+        </Div>
+      </StorySectionInner>
+      <StorySectionInner>
+        <h1>REDS</h1>
+        <Div bgColor={(props: ThemedDivProps) => '#f35143'}> punchRed </Div>
+        {/*<Div bgColor={(props: ThemedDivProps) => '#cd593c'}> darkCoral </Div>*/}
+        {/*<Div bgColor={(props: ThemedDivProps) => '#e26969'}> sungloRed </Div>*/}
+        {/*<Div bgColor={(props: ThemedDivProps) => '#d2a1a1'}> eunryRed </Div>*/}
+        <Div bgColor={(props: ThemedDivProps) => '#f5c1b7'}> mandysRed </Div>
+        <Div bgColor={(props: ThemedDivProps) => '#fff1f0'}> chablisRed </Div>
+      </StorySectionInner>
+      <StorySectionInner>
+        <h1>YELLOWS</h1>
+        <Div bgColor={(props: ThemedDivProps) => '#fe8f1f'}>zestOrange</Div>
+        <Div bgColor={(props: ThemedDivProps) => '#ffbd26'}>
+          manuscriptsSecondary
+        </Div>
+        {/*<Div bgColor={(props: ThemedDivProps) => '#b6a651'}> huskYellow </Div>*/}
+        {/*<Div bgColor={(props: ThemedDivProps) => '#ffe08b'}>*/}
+        {/*  {' '}*/}
+        {/*  salomieYellow{' '}*/}
+        {/*</Div>*/}
+        <Div bgColor={(props: ThemedDivProps) => '#ffe0b2'}> wheatYellow </Div>
+        <Div bgColor={(props: ThemedDivProps) => '#fffcdb'}>
+          {' '}
+          butteryYellow{' '}
+        </Div>
+      </StorySectionInner>
+    </StorySection>
   ))
 storiesOf('Theme', module)
   .add('Typography', () => (

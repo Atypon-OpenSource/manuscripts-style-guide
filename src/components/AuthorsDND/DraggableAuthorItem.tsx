@@ -61,7 +61,7 @@ const AuthorItemComponent = styled.div<{
   &:hover,
   &.active {
     background: ${(props: ThemedDivProps) =>
-      props.theme.colors.background.secondary};
+      props.theme.colors.background.fifth};
   }
 `
 
@@ -103,8 +103,7 @@ const InvitedContainer = styled.div`
 
 const AuthorDropPreview = styled.div`
   width: 100%;
-  background: ${(props: ThemedDivProps) =>
-    props.theme.colors.background.tertiary};
+  background: ${(props: ThemedDivProps) => props.theme.colors.brand.dark};
   height: 1px;
   position: relative;
 `

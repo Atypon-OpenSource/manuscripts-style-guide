@@ -17,7 +17,7 @@
 import { action } from '@storybook/addon-actions'
 import { storiesOf } from '@storybook/react'
 import * as React from 'react'
-import { Category, Dialog } from '../src'
+import { Category, Dialog, SimpleModal } from '../src'
 
 storiesOf('Dialog', module)
   .add('Confirmation Dialog', () => (
@@ -105,4 +105,9 @@ storiesOf('Dialog', module)
         },
       }}
     />
+  ))
+  .add('Simple Modal', () => (
+    <SimpleModal handleClose={action('Close')} closeWithOverlay={false}>
+      Simple Modal contents
+    </SimpleModal>
   ))
