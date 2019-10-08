@@ -44,7 +44,9 @@ class RemoveAuthorButton extends React.Component<Props> {
     }
     return (
       <React.Fragment>
-        <PrimaryButton onClick={this.props.handleOpen}>Delete</PrimaryButton>
+        <PrimaryButton danger={true} onClick={this.props.handleOpen}>
+          Delete
+        </PrimaryButton>
         {isOpen && (
           <Dialog
             isOpen={isOpen}
