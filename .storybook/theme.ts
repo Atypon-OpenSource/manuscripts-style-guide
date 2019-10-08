@@ -35,7 +35,7 @@ export const theme: Theme = {
   colors: {
     background: {
       primary: colors.white,
-      secondary: colors.greyMuted,
+      secondary: colors.alabasterGrey,
       tertiary: colors.mercuryGrey,
       fifth: colors.manuscriptsXLight2,
       dark: 'rgba(0,0,0,0.5)',
@@ -60,7 +60,7 @@ export const theme: Theme = {
     },
     brand: {
       dark: colors.manuscriptsBlueDark,
-      medium: colors.manuscriptsBlueDark,
+      medium: colors.manuscriptsBlue,
       default: colors.manuscriptsBlue,
       light: colors.manuscriptsLight,
       xlight: colors.manuscriptsXLight,
@@ -79,21 +79,21 @@ export const theme: Theme = {
           hover: colors.manuscriptsXLight2,
         },
         color: {
-          active: colors.manuscriptsBlueDark,
-          default: colors.manuscriptsBlueDark,
-          hover: colors.manuscriptsBlueDark,
+          active: colors.manuscriptsBlue,
+          default: colors.manuscriptsBlue,
+          hover: colors.manuscriptsBlue,
         },
       },
       primary: {
         background: {
-          active: colors.manuscriptsBlue,
-          default: colors.manuscriptsBlueDark,
-          hover: colors.manuscriptsBlue,
+          active: colors.manuscriptsBlueDark,
+          default: colors.manuscriptsBlue,
+          hover: colors.manuscriptsBlueDark,
         },
         border: {
-          active: colors.manuscriptsBlue,
-          default: colors.manuscriptsBlueDark,
-          hover: colors.manuscriptsBlue,
+          active: colors.manuscriptsBlueDark,
+          default: colors.manuscriptsBlue,
+          hover: colors.manuscriptsBlueDark,
         },
         color: {
           active: colors.white,
@@ -103,9 +103,9 @@ export const theme: Theme = {
       },
       secondary: {
         background: {
-          active: 'transparent',
-          default: 'transparent',
-          hover: 'transparent',
+          active: colors.white,
+          default: colors.white,
+          hover: colors.white,
         },
         border: {
           active: colors.mercuryGrey,
@@ -113,9 +113,9 @@ export const theme: Theme = {
           hover: colors.mercuryGrey,
         },
         color: {
-          active: colors.manuscriptsBlueDark,
+          active: colors.manuscriptsBlue,
           default: colors.greyDark,
-          hover: colors.manuscriptsBlueDark,
+          hover: colors.manuscriptsBlue,
         },
       },
       error: {
@@ -139,7 +139,7 @@ export const theme: Theme = {
     text: {
       primary: colors.greyDark,
       secondary: colors.greyMuted,
-      tertiary: colors.manuscriptsBlueDark,
+      tertiary: colors.manuscriptsBlue,
       muted: colors.mercuryGrey,
       onDark: colors.white,
       onLight: colors.greyMuted,
