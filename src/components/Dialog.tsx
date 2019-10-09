@@ -64,7 +64,7 @@ const ButtonsContainer = styled(ButtonGroup)`
 `
 
 interface DialogState {
-  primaryActionEnabled: boolean
+  primaryActionDisabled: boolean
 }
 interface DialogProps {
   isOpen: boolean
@@ -78,6 +78,7 @@ interface DialogProps {
       title: string
       isDestructive: boolean
     }
+    onClose?: () => void
   }
   confirmFieldText?: string
   category: Category
@@ -141,7 +142,7 @@ const SecondaryAction = (props: ButtonProps) => (
 
 export class Dialog extends React.Component<DialogProps, DialogState> {
   public state: DialogState = {
-    primaryActionEnabled: true,
+    primaryActionDisabled: true,
   }
 
   public componentDidMount(): void {
@@ -157,12 +158,12 @@ export class Dialog extends React.Component<DialogProps, DialogState> {
       category,
       confirmFieldText,
     } = this.props
-    const { primaryActionEnabled } = this.state
+    const { primaryActionDisabled } = this.state
 
     return (
       <StyledModal
         isOpen={isOpen}
-        onRequestClose={actions.primary.action}
+        onRequestClose={actions.onClose}
         shouldCloseOnOverlayClick={true}
       >
         <ModalBody>
@@ -188,7 +189,7 @@ export class Dialog extends React.Component<DialogProps, DialogState> {
               </form>
             )}
           </MessageContainer>
-          {this.renderButtons(this.props, primaryActionEnabled)}
+          {this.renderButtons(this.props, primaryActionDisabled)}
         </ModalBody>
       </StyledModal>
     )
@@ -246,16 +247,16 @@ export class Dialog extends React.Component<DialogProps, DialogState> {
   }
 
   private setDisabledBtnState = (state: boolean) => {
-    this.setState({ primaryActionEnabled: state })
+    this.setState({ primaryActionDisabled: state })
   }
 
   private handleSubmit = async (
     e: React.FormEvent<HTMLFormElement>
   ): Promise<void> => {
-    const { primaryActionEnabled } = this.state
+    const { primaryActionDisabled } = this.state
     e.preventDefault()
 
-    if (primaryActionEnabled) {
+    if (!primaryActionDisabled) {
       this.props.actions.primary.action()
     }
   }
