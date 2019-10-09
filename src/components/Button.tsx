@@ -86,8 +86,8 @@ const btnStyles = css<{
     margin-left: ${props => props.theme.grid.unit}px;
   }
 
-  ${props => props.disabled && disabledBtnStyles}
   ${props => props.danger && dangerBtnStyles}
+  ${props => props.disabled && disabledBtnStyles}
   ${props => props.mini && miniBtnStyles}
 `
 
