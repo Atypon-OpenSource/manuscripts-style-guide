@@ -54,9 +54,8 @@ const disabledBtnStyles = css`
 `
 
 const miniBtnStyles = css`
-  padding: 2px 6px;
+  padding: 3px 16px;
   margin: 0 ${props => props.theme.grid.unit}px;
-  font-size: ${props => props.theme.font.size.small};
   line-height: 1;
 `
 
@@ -225,7 +224,6 @@ export const ToggleButton = styled(ButtonTemplate)<{ selected?: boolean }>`
   &:not([disabled]):hover,
   &:not([disabled]):focus {
     background-color: ${props => props.theme.colors.background.fifth};
-    border-color: ${props => props.theme.colors.border.primary};
   }
 `
 const svgColors = css<{

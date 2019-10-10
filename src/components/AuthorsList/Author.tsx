@@ -22,17 +22,22 @@ import { AuthorName } from '../AuthorName'
 
 const AuthorNotes = styled.span`
   display: inline-block;
-  vertical-align: top;
   font-size: 0.75em;
+  line-height: 1;
+  vertical-align: top;
 `
 
 const LinkSharedStyles = css`
   text-decoration: none;
   color: inherit;
   outline: none;
-  &:focus span,
+
+  &:hover,
   &:focus {
-    color: ${props => props.theme.colors.text.info};
+    &,
+    span {
+      color: ${props => props.theme.colors.text.tertiary};
+    }
   }
 `
 
