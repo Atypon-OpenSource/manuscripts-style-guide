@@ -41,7 +41,6 @@ export const CloseButton = styled(IconButton)<{ size?: number }>`
   background: ${props => props.theme.colors.background.primary};
   border: 5px solid ${props => props.theme.colors.background.primary} !important;
   border-radius: 50%;
-  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.12);
   box-sizing: border-box;
   display: inline-block;
   height: 40px;

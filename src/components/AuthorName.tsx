@@ -19,12 +19,7 @@ import React from 'react'
 import { initials } from '../lib/name'
 import { styled, ThemeProps, withTheme } from '../styled-components'
 
-const NameParts = styled.span`
-  line-height: 35px;
-  font-size: 18px;
-  letter-spacing: -0.3px;
-  color: ${props => props.color || props.theme.colors.text.primary};
-`
+const NameParts = styled.span``
 
 const buildNameLiteral = (name: BibliographicName) =>
   [initials(name), name.family, name.suffix].filter(part => part).join(' ')

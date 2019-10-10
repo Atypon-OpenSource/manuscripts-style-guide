@@ -21,23 +21,19 @@ import formatAddress from '../lib/formatAddress'
 import { AffiliationMap } from '../types'
 
 const Container = styled.table`
-  border: none;
-  font: ${props => props.theme.font.weight.normal}
-    ${props => props.theme.font.size.medium} / 1.25
-    ${props => props.theme.font.family.sans};
+  border-collapse: collapse;
+  font: inherit;
   color: ${props => props.theme.colors.text.secondary};
-  letter-spacing: -0.1px;
-  margin-top: 16px;
-
-  td {
-    padding-bottom: 0.6em;
-  }
+  margin-top: ${props => props.theme.grid.unit * 4}px;
 `
 
 const Header = styled.th`
-  font-weight: normal;
-  padding-right: 4px;
+  font-weight: ${props => props.theme.font.weight.normal}
+  padding: 0 4px 0 0;
   vertical-align: top;
+`
+const Body = styled.td`
+  padding: 0;
 `
 
 interface Props {
@@ -52,7 +48,7 @@ export const AffiliationsList: React.FunctionComponent<Props> = ({
       {Array.from(affiliations.values()).map((affiliation, index) => (
         <tr key={affiliation._id}>
           <Header>{index + 1}</Header>
-          <td>{formatAddress(affiliation)}</td>
+          <Body>{formatAddress(affiliation)}</Body>
         </tr>
       ))}
     </tbody>

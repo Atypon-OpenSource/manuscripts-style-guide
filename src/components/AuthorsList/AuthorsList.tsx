@@ -23,8 +23,8 @@ import { PrimaryButton } from '../Button'
 import Author from './Author'
 
 const AuthorsContainer = styled.div<{ isEmpty: boolean }>`
-  display: flex;
   align-items: center;
+  display: flex;
 
   @media (min-width: 768px) {
     & ${PrimaryButton} {
@@ -38,8 +38,9 @@ const AuthorsContainer = styled.div<{ isEmpty: boolean }>`
 `
 
 const AuthorsActions = styled.div`
-  display: flex;
   align-items: center;
+  display: flex;
+  margin-left: ${props => props.theme.grid.unit * 2}px;
 `
 
 interface Props {
