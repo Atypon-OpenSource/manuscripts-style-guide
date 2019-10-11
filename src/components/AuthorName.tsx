@@ -32,9 +32,16 @@ const AuthorNameComponent: React.FunctionComponent<
   AuthorNameProps & ThemeProps
 > = ({ name, theme }) =>
   !name.given && !name.family ? (
-    <NameParts color={theme.colors.text.secondary}>Unknown Author</NameParts>
+    <NameParts
+      color={theme.colors.text.secondary}
+      data-testid={`author-name--unknown`}
+    >
+      Unknown Author
+    </NameParts>
   ) : (
-    <NameParts>{buildNameLiteral(name)}</NameParts>
+    <NameParts data-testid={`author-name--${name.given}`}>
+      {buildNameLiteral(name)}
+    </NameParts>
   )
 
 export const AuthorName = withTheme(AuthorNameComponent)
