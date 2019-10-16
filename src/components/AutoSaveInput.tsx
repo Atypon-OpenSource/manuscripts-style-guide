@@ -24,6 +24,7 @@ interface AutoSaveInputProps {
   saveOn: 'change' | 'blur'
   // inputProps?: Exclude<InputHTMLAttributes<HTMLInputElement>, FieldProps>
   placeholder?: string
+  testId?: string
 }
 
 export class AutoSaveInput extends React.Component<
@@ -37,7 +38,7 @@ export class AutoSaveInput extends React.Component<
   }, 1)
 
   public render() {
-    const { component: Component, field, placeholder } = this.props
+    const { component: Component, field, placeholder, testId } = this.props
 
     return (
       <Component
@@ -46,6 +47,7 @@ export class AutoSaveInput extends React.Component<
         checked={!!field.value}
         onBlur={this.handleBlur}
         onChange={this.handleChange}
+        data-testid={testId && `${testId}__input`}
       />
     )
   }
