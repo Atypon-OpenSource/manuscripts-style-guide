@@ -116,6 +116,7 @@ export const AuthorForm: React.FunctionComponent<AuthorProps> = ({
                       component={TextField}
                       saveOn={'blur'}
                       placeholder={'Given name'}
+                      testId="bibliographic-name-given"
                     />
                   )}
                 </Field>
@@ -127,6 +128,7 @@ export const AuthorForm: React.FunctionComponent<AuthorProps> = ({
                       component={TextField}
                       saveOn={'blur'}
                       placeholder={'Family name'}
+                      testId="bibliographic-name-family"
                     />
                   )}
                 </Field>
@@ -139,6 +141,7 @@ export const AuthorForm: React.FunctionComponent<AuthorProps> = ({
                       {...props}
                       component={CheckboxField}
                       saveOn={'change'}
+                      testId="corresponding-checkbox"
                     />
                   )}
                 </Field>
@@ -154,6 +157,7 @@ export const AuthorForm: React.FunctionComponent<AuthorProps> = ({
                         component={TextField}
                         saveOn={'blur'}
                         placeholder={'Email address'}
+                        testId="corresponding-email"
                       />
                     )}
                   </Field>
