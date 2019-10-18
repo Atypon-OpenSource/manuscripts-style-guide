@@ -31,6 +31,7 @@ import {
   SecondaryIconButton,
   TertiaryButton,
   ToggleButton,
+  ToggleButtonAlt,
 } from '../src'
 
 const StorySection = styled.div`
@@ -189,14 +190,28 @@ storiesOf('Buttons', module)
     </>
   ))
   .add('Toggle Button', () => (
-    <>
-      <Div>
-        <ToggleButton selected={true}>Toggle selected</ToggleButton>
-      </Div>
-      <Div>
-        <ToggleButton>Toggle unselected</ToggleButton>
-      </Div>
-    </>
+    <StorySection>
+      <StorySectionInner>
+        <Div>
+          <ToggleButton selected={true}>Toggle selected</ToggleButton>
+        </Div>
+        <Div>
+          <ToggleButton>Toggle unselected</ToggleButton>
+        </Div>
+      </StorySectionInner>
+      <StorySectionInner>
+        <Div>
+          <ToggleButtonAlt selected={true}>
+            Toggle selected - alternativeFormat
+          </ToggleButtonAlt>
+        </Div>
+        <Div>
+          <ToggleButtonAlt>
+            Toggle unselected - alternativeFormat
+          </ToggleButtonAlt>
+        </Div>
+      </StorySectionInner>
+    </StorySection>
   ))
   .add('Radio Button', () => (
     <>

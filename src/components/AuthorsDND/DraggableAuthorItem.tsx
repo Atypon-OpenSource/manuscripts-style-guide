@@ -50,7 +50,7 @@ type ThemedDivProps = ThemedProps<HTMLDivElement>
 const AuthorItemComponent = styled.div<{
   opacity: number
 }>`
-  padding: 4px 16px;
+  padding: ${props => props.theme.grid.unit}px 0;
   display: flex;
   justify-content: space-between;
   align-items: center;
