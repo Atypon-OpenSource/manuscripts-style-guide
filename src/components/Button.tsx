@@ -70,6 +70,7 @@ const btnStyles = css<{
   border-radius: ${props => props.theme.grid.radius.small};
   cursor: pointer;
   display: inline-flex;
+  flex-shrink: 0;
   font: ${props => props.theme.font.weight.normal}
     ${props => props.theme.font.size.medium} / ${props =>
   props.theme.font.lineHeight.large}
@@ -212,7 +213,9 @@ export const IconTextButton = styled(ButtonTemplate)`
   }
 `
 
-export const ToggleButton = styled(ButtonTemplate)<{ selected?: boolean }>`
+export const ToggleButton = styled(ButtonTemplate)<{
+  selected?: boolean
+}>`
   color: ${props => props.theme.colors.text.primary};
   background-color: ${props =>
     props.selected ? props.theme.colors.background.fifth : 'transparent'};
@@ -224,6 +227,25 @@ export const ToggleButton = styled(ButtonTemplate)<{ selected?: boolean }>`
   &:not([disabled]):hover,
   &:not([disabled]):focus {
     background-color: ${props => props.theme.colors.background.fifth};
+  }
+`
+export const ToggleButtonAlt = styled(ButtonTemplate)<{
+  selected?: boolean
+}>`
+  color: ${props => props.theme.colors.text.primary};
+  border-color: transparent;
+  border: none;
+  border-bottom: 1px solid transparent;
+  border-radius: 0;
+  ${props =>
+    props.selected && 'border-color: ' + props.theme.colors.border.info + ';'}
+  
+  font-size:  ${props => props.theme.font.size.normal};
+  padding: 0 ${props => props.theme.grid.unit}px;
+
+  &:not([disabled]):hover,
+  &:not([disabled]):focus {
+    border-color: ${props => props.theme.colors.border.info};
   }
 `
 const svgColors = css<{
