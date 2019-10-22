@@ -17,67 +17,47 @@
 import AttentionBlue from '@manuscripts/assets/react/AttentionBlue'
 import AttentionOrange from '@manuscripts/assets/react/AttentionOrange'
 import AttentionRed from '@manuscripts/assets/react/AttentionRed'
-import Closeblue from '@manuscripts/assets/react/Closeblue'
-import Closegreen from '@manuscripts/assets/react/Closegreen'
-import Closeorange from '@manuscripts/assets/react/Closeorange'
-import Closered from '@manuscripts/assets/react/Closered'
+import CloseIconDark from '@manuscripts/assets/react/CloseIconDark'
 import SuccessGreen from '@manuscripts/assets/react/SuccessGreen'
 import React from 'react'
 import { SizeMe } from 'react-sizeme'
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
+import { IconButton, IconTextButton } from './Button'
 
-export const TextButton = styled.span`
-  border: none;
-  background: transparent;
+const buttonStyles = css`
   color: inherit;
-  text-decoration: underline;
-  cursor: pointer;
-  font-size: 1em;
-  padding-right: 10px;
-  padding-left: 0px;
-  position: relative;
-  top: 1px;
-  white-space: nowrap;
-`
-
-const WideContainerButton = styled(TextButton)`
-  padding-left: 10px;
-`
-
-const SmallContainerButton = styled(TextButton)`
-  position: absolute;
-  right: 10px;
-  top: unset;
-`
-
-const CloseIcon = styled.div`
-  display: flex;
-  cursor: pointer;
-  padding-right: 10px;
+  margin-left: ${props => props.theme.grid.unit * 4}px;
 
   g[fill] {
     fill: currentColor;
   }
+
+  &:not([disabled]):focus,
+  &:not([disabled]):hover {
+    color: inherit;
+    filter: brightness(80%);
+  }
+`
+export const TextButton = styled(IconTextButton)`
+  ${buttonStyles}
+`
+
+const CloseIcon = styled(IconButton).attrs(props => ({
+  defaultColor: true,
+  size: 16,
+}))`
+  ${buttonStyles}
 `
 
 const InformativeIcon = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 0px 10px 0px 10px;
-  width: 32px;
   height: 24px;
+  margin-right: ${props => props.theme.grid.unit * 3}px;
 `
 
 const InnerContainer = styled.div`
-  display: flex;
   align-items: center;
-  padding: 13px 0px;
-`
-
-const CloseContainer = styled.div`
-  position: absolute;
-  right: 10px;
+  display: flex;
+  flex: 1;
 `
 
 const AlertContainer = styled.div<{
@@ -86,19 +66,22 @@ const AlertContainer = styled.div<{
   align-items: center;
   background-color: ${props => props.theme.colors.background[props.type]};
   border: solid 1px ${props => props.theme.colors.border[props.type]};
-  border-radius: 3px;
+  border-radius: ${props => props.theme.grid.radius.small};
   color: ${props => props.theme.colors.text[props.type]};
   display: flex;
   flex-shrink: 0;
   font: ${props => props.theme.font.weight.normal}
     ${props => props.theme.font.size.medium} / 1
     ${props => props.theme.font.family.sans};
+  justify-content: space-between;
+  padding: ${props => props.theme.grid.unit * 3}px;
   white-space: normal;
 `
 
 const TextContainer = styled.div`
+  display: flex;
+  align-items: center;
   max-width: 700px;
-  padding-right: 20px;
 `
 
 const SuccessIcon = styled(SuccessGreen)`
@@ -142,21 +125,6 @@ const AlertIcon: React.FunctionComponent<{ type: AlertMessageType }> = ({
   }
 }
 
-const AlertDismissButton: React.FunctionComponent<{
-  type: AlertMessageType
-}> = ({ type }) => {
-  switch (type) {
-    case AlertMessageType.success:
-      return <Closegreen />
-    case AlertMessageType.error:
-      return <Closered />
-    case AlertMessageType.info:
-      return <Closeblue />
-    default:
-      return <Closeorange />
-  }
-}
-
 export class AlertMessage extends React.Component<Props, State> {
   public state: State = {
     isOpen: true,
@@ -173,43 +141,24 @@ export class AlertMessage extends React.Component<Props, State> {
             <AlertContainer type={type} className={'alert-message'}>
               <InnerContainer>
                 <InformativeIcon>{<AlertIcon type={type} />}</InformativeIcon>
-                {!dismissButton ? (
-                  <TextContainer>{children}</TextContainer>
-                ) : size.width! < 900 ? (
-                  <>
-                    <TextContainer>{children}</TextContainer>
-                    <SmallContainerButton
-                      onClick={
-                        dismissButton.action
-                          ? dismissButton.action
-                          : this.handleClose
-                      }
-                    >
-                      {dismissButton.text}
-                    </SmallContainerButton>
-                  </>
-                ) : (
-                  <TextContainer>
-                    {children}
-                    <WideContainerButton
-                      onClick={
-                        dismissButton.action
-                          ? dismissButton.action
-                          : this.handleClose
-                      }
-                    >
-                      {dismissButton.text}
-                    </WideContainerButton>
-                  </TextContainer>
+                <TextContainer>{children}</TextContainer>
+                {dismissButton && (
+                  <TextButton
+                    onClick={
+                      dismissButton.action
+                        ? dismissButton.action
+                        : this.handleClose
+                    }
+                  >
+                    {dismissButton.text}
+                  </TextButton>
                 )}
               </InnerContainer>
               {!hideCloseButton &&
                 ((size.width! >= 900 || !dismissButton) && (
-                  <CloseContainer>
-                    <CloseIcon onClick={this.handleClose}>
-                      <AlertDismissButton type={type} />
-                    </CloseIcon>
-                  </CloseContainer>
+                  <CloseIcon onClick={this.handleClose}>
+                    <CloseIconDark />
+                  </CloseIcon>
                 ))}
             </AlertContainer>
           )}

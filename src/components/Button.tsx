@@ -78,7 +78,7 @@ const btnStyles = css<{
   justify-content: center;
   outline: none;
   padding: 7px ${props => props.theme.grid.unit * 3}px;
-  transition: border 0.1s, color 0.1s, background-color 0.1s;
+  transition: border 0.1s, color 0.1s, background-color 0.1s, color 0.1s, filter 0.1s;
   vertical-align: middle;
   white-space: nowrap;
 

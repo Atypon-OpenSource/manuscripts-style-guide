@@ -80,7 +80,6 @@ export const StyledModal = styled(ReactModalAdapter).attrs({
     background: transparent;
     border: none;
     position: relative;
-    top: -21px;
     outline: none;
     opacity: 0;
     transition: opacity ${delayedTransitionTime}ms ease-in-out,
@@ -89,13 +88,11 @@ export const StyledModal = styled(ReactModalAdapter).attrs({
 
     &--after-open {
       opacity: 1;
-      top: -35px;
     }
 
     &--before-close {
       transition-delay: 0ms;
       opacity: 0;
-      top: -21px;
     }
   }
 `
