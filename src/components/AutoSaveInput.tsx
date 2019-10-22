@@ -25,6 +25,7 @@ interface AutoSaveInputProps {
   // inputProps?: Exclude<InputHTMLAttributes<HTMLInputElement>, FieldProps>
   placeholder?: string
   testId?: string
+  isInvalid?: boolean | null
 }
 
 export class AutoSaveInput extends React.Component<
@@ -48,6 +49,7 @@ export class AutoSaveInput extends React.Component<
         onBlur={this.handleBlur}
         onChange={this.handleChange}
         data-testid={testId && `${testId}__input`}
+        aria-invalid={this.props.isInvalid || undefined}
       />
     )
   }

@@ -33,17 +33,21 @@ const Section = styled.section`
   margin-bottom: 2px;
 `
 
-const Title = styled.h4`
+const Title = styled.h4<{
+  isInvalid?: boolean
+}>`
   margin: 0;
   display: flex;
   align-items: center;
   font-size: 0.875rem;
   padding-right: 0.5rem;
+  background: ${props =>
+    props.isInvalid ? props.theme.colors.background.warning : 'transparent'};
+  color: ${props =>
+    props.isInvalid ? props.theme.colors.text.warning : 'inherit'};
 `
 
-const DropdownIndicator = styled(SecondaryIconButton).attrs({
-  size: 20,
-})`
+const DropdownIndicator = styled(ArrowDownBlue)`
   border: 0;
   border-radius: 50%;
   margin-right: 0.6em;
@@ -107,6 +111,14 @@ const AffiliationsTextField = styled(TextField)`
   &:first-child {
     border-top: none;
   }
+
+  &[aria-invalid] {
+    background: ${props => props.theme.colors.background.warning};
+  }
+
+  &[aria-invalid]:focus {
+    background: transparent;
+  }
 `
 
 const Columns = styled.div`
@@ -155,9 +167,11 @@ export const AffiliationsEditorItem: React.FC<Props> = ({
     ...affiliation,
   }
 
+  const isInvalid = !vivifiedAffiliation.institution
+
   return (
     <Section>
-      <Title>
+      <Title isInvalid={isInvalid}>
         <ToggleButton type="button" onClick={requestToggle} isOpen={isOpen}>
           <DropdownIndicator>
             <ArrowDownBlue />
@@ -186,6 +200,7 @@ export const AffiliationsEditorItem: React.FC<Props> = ({
                     component={AffiliationsTextField}
                     saveOn="blur"
                     placeholder="Institution Name"
+                    isInvalid={isInvalid}
                   />
                 )}
               </Field>

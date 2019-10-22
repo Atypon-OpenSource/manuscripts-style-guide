@@ -96,9 +96,9 @@ export const theme: Theme = {
           hover: colors.manuscriptsBlueDark,
         },
         color: {
-          active: colors.white,
-          default: colors.white,
-          hover: colors.white,
+          active: colors.manuscriptsBlueDark,
+          default: colors.manuscriptsBlue,
+          hover: colors.manuscriptsBlueDark,
         },
       },
       secondary: {

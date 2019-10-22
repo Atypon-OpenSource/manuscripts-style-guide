@@ -127,7 +127,7 @@ export const isJointFirstAuthor = (authors: Contributor[], index: number) => {
 
 export const affiliationLabel = (affiliation: Affiliation) => {
   const { department, institution = '' } = affiliation
-  if (!department && !institution) return '(unknown affiliation)'
+  if (!institution) return '(unknown institution)'
   return department ? `${institution} (${department})`.trim() : institution
 }
 
