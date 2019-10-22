@@ -396,7 +396,7 @@ describe('affiliationLabel', () => {
       sessionID: 'session',
     }
     const result = affiliationLabel(affiliation)
-    expect(result).toEqual('(Dept of Examples)')
+    expect(result).toEqual('(unknown institution)')
   })
 
   it('should have a generic label if both institution and department are missing', () => {
@@ -419,7 +419,7 @@ describe('affiliationLabel', () => {
       sessionID: 'session',
     }
     const result = affiliationLabel(affiliation)
-    expect(result).toEqual('(unknown affiliation)')
+    expect(result).toEqual('(unknown institution)')
   })
 })
 
