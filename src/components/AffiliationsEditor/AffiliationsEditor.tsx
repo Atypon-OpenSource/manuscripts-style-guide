@@ -85,6 +85,9 @@ interface Props {
   removeAuthorAffiliation: (affiliation: Affiliation) => void
   updateAffiliation: (affiliation: Affiliation) => void
   components?: AuthorFormComponentOverrides
+  styleOverrides?: {
+    menuZIndex?: number
+  }
 }
 
 export const AffiliationsEditor: React.FC<Props & ThemeProps> = ({
@@ -95,6 +98,7 @@ export const AffiliationsEditor: React.FC<Props & ThemeProps> = ({
   removeAuthorAffiliation,
   theme,
   components,
+  styleOverrides,
 }) => {
   const { Legend } = {
     ...defaultAuthorFormComponents,
@@ -163,6 +167,12 @@ export const AffiliationsEditor: React.FC<Props & ThemeProps> = ({
               borderRadius: theme.grid.radius.default,
               boxShadow: 'none',
               fontFamily: theme.font.family.sans,
+            }),
+            menu: (provided, state) => ({
+              ...provided,
+              zIndex:
+                (styleOverrides && styleOverrides.menuZIndex) ||
+                provided.zIndex,
             }),
           }}
         />
