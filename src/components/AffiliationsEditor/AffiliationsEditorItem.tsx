@@ -140,7 +140,7 @@ export const AffiliationsEditorItem: React.FC<Props> = ({
 }) => {
   const remove = useCallback(() => {
     removeAuthorAffiliation(affiliation)
-  }, [affiliation])
+  }, [affiliation, removeAuthorAffiliation])
 
   const vivifiedAffiliation = {
     institution: '',
