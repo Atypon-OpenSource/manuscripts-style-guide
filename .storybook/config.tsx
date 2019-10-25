@@ -16,7 +16,7 @@
 
 import { addDecorator, configure } from '@storybook/react'
 import React from 'react'
-import { DragDropContextProvider } from 'react-dnd'
+import { DndProvider } from 'react-dnd'
 import HTML5Backend from 'react-dnd-html5-backend'
 import { styled, ThemeProvider } from '../src/styled-components'
 import { GlobalStyle, theme } from './theme'
@@ -32,14 +32,14 @@ const Story = styled.div`
 `
 
 addDecorator(story => (
-  <DragDropContextProvider backend={HTML5Backend}>
+  <DndProvider backend={HTML5Backend}>
     <ThemeProvider theme={theme}>
       <Story>
         <GlobalStyle suppressMultiMountWarning={true} />
         <div>{story()}</div>
       </Story>
     </ThemeProvider>
-  </DragDropContextProvider>
+  </DndProvider>
 ))
 
 const req = require.context('../stories', true, /.stories.tsx$/)
