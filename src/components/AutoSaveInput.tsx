@@ -38,6 +38,10 @@ export class AutoSaveInput extends React.Component<
     >)
   }, 1)
 
+  public componentWillUnmount() {
+    this.handleSubmit()
+  }
+
   public render() {
     const { component: Component, field, placeholder, testId } = this.props
 
