@@ -48,4 +48,26 @@ describe('name processing methods', () => {
       })
     ).toMatch('')
   })
+
+  it('initials empty when given name is empty string', () => {
+    expect(
+      initials({
+        _id: 'MPBibliographicName:X',
+        objectType: 'MPBibliographicName',
+        family: 'Dilbert',
+        given: '',
+      })
+    ).toEqual('')
+  })
+
+  it('ignore extra white space', () => {
+    expect(
+      initials({
+        _id: 'MPBibliographicName:X',
+        objectType: 'MPBibliographicName',
+        given: 'Derek ',
+        family: 'Dilbert',
+      })
+    ).toEqual('D.')
+  })
 })
