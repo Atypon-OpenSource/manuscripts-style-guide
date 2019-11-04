@@ -318,6 +318,34 @@ export const IconButton = styled(IconButtonTemplate)`
   }
 `
 
+export const RoundIconButton = styled(IconButton).attrs(props => ({
+  defaultColor: true,
+}))`
+  background: ${props => props.theme.colors.background.primary};
+  border: 5px solid ${props => props.theme.colors.background.primary} !important;
+  border-radius: 50%;
+  box-sizing: border-box;
+  box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.12);
+  display: inline-block;
+  height: 40px;
+  padding: 0;
+  position: relative;
+  width: 40px;
+
+  transition: border-color 0.25s;
+
+  &:focus,
+  &:hover {
+    background: ${props => props.theme.colors.background.fifth} !important;
+  }
+
+  svg {
+    max-height: 16px;
+    max-width: 16px;
+    vertical-align: middle;
+  }
+`
+
 export const SecondaryIconButton = styled(IconButton)`
   ${props =>
     btnColors(

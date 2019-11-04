@@ -16,6 +16,7 @@
 
 import AddIconHighlight from '@manuscripts/assets/react/AddIconHighlight'
 import AddIconInverted from '@manuscripts/assets/react/AddIconInverted'
+import ImportExport from '@manuscripts/assets/react/ImportExport'
 import { action } from '@storybook/addon-actions'
 import { storiesOf } from '@storybook/react'
 import * as React from 'react'
@@ -27,6 +28,7 @@ import {
   IconTextButton,
   PrimaryButton,
   RadioButton,
+  RoundIconButton,
   SecondaryButton,
   SecondaryIconButton,
   TertiaryButton,
@@ -171,8 +173,14 @@ storiesOf('Buttons', module)
           </Div>
         </StorySectionInner>
         <StorySectionInner>
-          <h2>CloseButton</h2>
+          <h2>RoundIconButton</h2>
           <h3>Default</h3>
+          <Div>
+            <RoundIconButton onClick={action('clicked RoundIconButton')}>
+              <ImportExport />
+            </RoundIconButton>
+          </Div>
+          <h3>CloseButton</h3>
           <Div>
             <CloseButton onClick={action('clicked CloseButton')} />
           </Div>

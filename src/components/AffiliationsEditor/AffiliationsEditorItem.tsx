@@ -23,7 +23,6 @@ import React, { useCallback } from 'react'
 import { affiliationLabel } from '../../lib/authors'
 import { styled } from '../../styled-components'
 import { AutoSaveInput } from '../AutoSaveInput'
-import { SecondaryIconButton } from '../Button'
 import { TextField } from '../TextField'
 
 const Section = styled.section`
@@ -31,6 +30,7 @@ const Section = styled.section`
   border-radius: ${props => props.theme.grid.radius.default};
   background: ${props => props.theme.colors.background.primary};
   margin-bottom: 2px;
+  overflow: hidden;
 `
 
 const Title = styled.h4<{
@@ -100,6 +100,7 @@ const AffiliationsForm = styled(Form)`
   border: 1px solid ${props => props.theme.colors.border.field.default};
   border-radius: ${props => props.theme.grid.radius.default};
   margin: 0.4rem 0.71rem 0.71rem;
+  overflow: hidden;
 `
 
 const AffiliationsTextField = styled(TextField)`
