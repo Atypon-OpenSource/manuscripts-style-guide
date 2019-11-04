@@ -17,7 +17,7 @@
 import React from 'react'
 import Modal from 'react-modal'
 import { styled } from '../styled-components'
-import { IconButton } from './Button'
+import { RoundIconButton } from './Button'
 
 Modal.setAppElement('#root')
 
@@ -37,24 +37,9 @@ export const ModalHeader = styled.div`
   z-index: 1;
 `
 
-export const CloseButton = styled(IconButton)<{ size?: number }>`
-  background: ${props => props.theme.colors.background.primary};
-  border: 5px solid ${props => props.theme.colors.background.primary} !important;
-  border-radius: 50%;
-  box-sizing: border-box;
-  display: inline-block;
-  height: 40px;
-  padding: 0;
-  position: relative;
+export const CloseButton = styled(RoundIconButton)<{ size?: number }>`
+  box-shadow: none;
   text-indent: -99999px;
-  width: 40px;
-
-  transition: border-color 0.25s;
-
-  &:focus,
-  &:hover {
-    background: ${props => props.theme.colors.background.fifth} !important;
-  }
 
   ::before,
   ::after {
