@@ -59,7 +59,7 @@ export const CheckboxLabel = styled.label`
     content: '✓';
   }
 
-  input:focus + div {
+  input:focus + div::before {
     border-color: ${props => props.theme.colors.button.primary.border.hover};
   }
 `
