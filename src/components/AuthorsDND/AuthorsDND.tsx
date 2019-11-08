@@ -14,67 +14,88 @@
  * limitations under the License.
  */
 
-import { Contributor, UserProfile } from '@manuscripts/manuscripts-json-schema'
-import React from 'react'
-import { styled } from '../../styled-components'
+import { Contributor } from '@manuscripts/manuscripts-json-schema'
+import React, { useCallback } from 'react'
+import {
+  SortableContainer as sortableContainer,
+  SortableElement as sortableElement,
+} from 'react-sortable-hoc'
+import AuthorItem from './AuthorItem'
 import { AuthorItemComponentOverrides } from './AuthorItemComponents'
-import DraggableAuthorItem from './DraggableAuthorItem'
+import AuthorSortableList from './AuthorSortableList'
 
-const SidebarList = styled.div`
-  flex: 1;
-  overflow-y: visible;
-`
+interface OnSortStartArgs {
+  index: number
+  isKeySorting: boolean
+}
+
+interface OnSortEndArgs {
+  oldIndex: number
+  newIndex: number
+}
+
+const SortableContainer = sortableContainer(AuthorSortableList)
+const SortableItem = sortableElement(AuthorItem)
 
 interface Props {
   authors: Contributor[]
-  selectAuthor: (item: Contributor) => void
-  selectedAuthor: Contributor | null
+  selectAuthor: (author: Contributor) => void
+  selectedAuthor?: Contributor | null
   handleDrop: (oldIndex: number, newIndex: number) => void
-  getSidebarItemDecorator?: (authorID: string) => JSX.Element | null
+  getSidebarItemDecorator?: (id: string) => JSX.Element | null
   components?: AuthorItemComponentOverrides
 }
 
-export const AuthorsDND: React.FunctionComponent<Props> = ({
+export const AuthorsDND: React.FC<Props> = ({
   authors,
-  selectAuthor,
-  selectedAuthor,
   handleDrop,
   getSidebarItemDecorator,
+  selectAuthor,
+  selectedAuthor,
   components,
-}) => (
-  <SidebarList>
-    {authors.map((author, index) => {
-      // const affiliations = authorAffiliations.get(author._id)
-      // const user = users.findOne(author.userID) // TODO
+}) => {
+  const onSortStart = ({ index }: OnSortStartArgs) => {
+    selectAuthor(authors[index])
+  }
 
-      const user: Partial<UserProfile> = {
-        _id: author.userID,
+  const onDrop = useCallback(
+    ({ oldIndex, newIndex }: OnSortEndArgs) => {
+      if (oldIndex !== newIndex) {
+        handleDrop(oldIndex, newIndex)
       }
+    },
+    [authors]
+  )
 
-      const authorItem = {
-        _id: author._id,
-        priority: author.priority || null,
-        index,
-      }
+  return (
+    <SortableContainer
+      onSortStart={onSortStart}
+      onSortEnd={onDrop}
+      keyboardSortingTransitionDuration={50}
+    >
+      {authors.map((author, position) => {
+        const user = {
+          _id: author.userID,
+        }
 
-      const decorator = getSidebarItemDecorator
-        ? getSidebarItemDecorator(author._id)
-        : null
+        const decorator = getSidebarItemDecorator
+          ? getSidebarItemDecorator(author._id)
+          : null
 
-      return (
-        <DraggableAuthorItem
-          key={author._id}
-          authorItem={authorItem}
-          onDrop={handleDrop}
-          author={author}
-          authors={authors}
-          user={user}
-          selectedAuthor={selectedAuthor}
-          selectAuthor={selectAuthor}
-          sidebarItemDecorator={decorator}
-          components={components}
-        />
-      )
-    })}
-  </SidebarList>
-)
+        return (
+          <SortableItem
+            key={author._id}
+            position={position}
+            index={position}
+            author={author}
+            authors={authors}
+            sidebarItemDecorator={decorator}
+            selectedAuthor={selectedAuthor}
+            user={user}
+            components={components}
+          />
+        )
+      })}
+    </SortableContainer>
+  )
+}

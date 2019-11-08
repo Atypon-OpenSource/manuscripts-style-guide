@@ -14,34 +14,16 @@
  * limitations under the License.
  */
 
-import { addDecorator, configure } from '@storybook/react'
 import React from 'react'
-import { styled, ThemeProvider } from '../src/styled-components'
-import { GlobalStyle, theme } from './theme'
+import { styled } from '../../styled-components'
 
-const Story = styled.div`
-  padding: 3rem;
-
-  & h1,
-  & h2,
-  & h3 {
-    font-weight: 300;
-  }
+const StyledDiv = styled.div`
+  flex: 1;
+  overflow-y: visible;
 `
 
-addDecorator(story => (
-  <ThemeProvider theme={theme}>
-    <Story>
-      <GlobalStyle suppressMultiMountWarning={true} />
-      <div>{story()}</div>
-    </Story>
-  </ThemeProvider>
-))
+const AuthorSortableList: React.FC<{}> = ({ children }) => (
+  <StyledDiv>{children}</StyledDiv>
+)
 
-const req = require.context('../stories', true, /.stories.tsx$/)
-
-const loadStories = () => {
-  req.keys().forEach(req)
-}
-
-configure(loadStories, module)
+export default AuthorSortableList

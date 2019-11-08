@@ -20,8 +20,6 @@ import {
   Contributor,
 } from '@manuscripts/manuscripts-json-schema'
 
-import { ConnectDragSource, ConnectDropTarget } from 'react-dnd'
-
 export type AffiliationMap = Map<string, Affiliation>
 
 export interface AuthorItem {
@@ -42,20 +40,6 @@ export type DropHandler = (
 export interface DragSourceProps {
   authorItem: AuthorItem
   position: DropSide
-}
-
-export interface ConnectedDragSourceProps {
-  connectDragSource: ConnectDragSource
-  isDragging: boolean
-  // canDrag: boolean
-  item: DragSourceProps
-}
-
-export interface ConnectedDropTargetProps {
-  connectDropTarget: ConnectDropTarget
-  isOver: boolean
-  isOverCurrent: boolean
-  canDrop: boolean
 }
 
 export interface AuthorAffiliation {
