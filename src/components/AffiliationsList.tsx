@@ -46,7 +46,7 @@ export const AffiliationsList: React.FunctionComponent<Props> = ({
   <Container>
     <tbody>
       {Array.from(affiliations.values()).map((affiliation, index) => (
-        <tr key={affiliation._id}>
+        <tr key={affiliation._id} id={`#affiliation-${index + 1}`}>
           <Header>{index + 1}</Header>
           <Body>{formatAddress(affiliation)}</Body>
         </tr>

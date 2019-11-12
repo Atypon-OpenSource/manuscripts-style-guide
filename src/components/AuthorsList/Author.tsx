@@ -41,7 +41,7 @@ const LinkSharedStyles = css`
   }
 `
 
-const AuthorAffiliation = styled.a`
+const AuthorAffiliation = styled.span`
   ${LinkSharedStyles}
 `
 
@@ -90,7 +90,9 @@ export const Author: React.FunctionComponent<AuthorProps> = ({
         {affiliations.map((affiliation, index) => (
           <React.Fragment key={affiliation.data._id}>
             {!!index && ','}
-            <AuthorAffiliation href={`#affiliation-${affiliation.ordinal}`}>
+            <AuthorAffiliation
+              aria-describedby={`affiliation-${affiliation.ordinal}`}
+            >
               {affiliation.ordinal}
             </AuthorAffiliation>
           </React.Fragment>
