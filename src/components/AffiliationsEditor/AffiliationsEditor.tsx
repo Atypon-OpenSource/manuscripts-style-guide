@@ -153,9 +153,10 @@ export const AffiliationsEditor: React.FC<Props & ThemeProps> = ({
           inputValue={searchText}
           onChange={onSelect}
           value={null}
-          placeholder={'Add Affiliation'}
+          placeholder="Begin typing to add affiliation"
           isValidNewOption={currentText => !!currentText}
           components={reactSelectComponents}
+          noOptionsMessage={() => 'Type the name of an institution'}
           styles={{
             control: (provided, state) => ({
               ...provided,
