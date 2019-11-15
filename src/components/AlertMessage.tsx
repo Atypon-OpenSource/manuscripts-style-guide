@@ -154,12 +154,11 @@ export class AlertMessage extends React.Component<Props, State> {
                   </TextButton>
                 )}
               </InnerContainer>
-              {!hideCloseButton &&
-                ((size.width! >= 900 || !dismissButton) && (
-                  <CloseIcon onClick={this.handleClose}>
-                    <CloseIconDark />
-                  </CloseIcon>
-                ))}
+              {!hideCloseButton && (size.width! >= 900 || !dismissButton) && (
+                <CloseIcon onClick={this.handleClose}>
+                  <CloseIconDark />
+                </CloseIcon>
+              )}
             </AlertContainer>
           )}
         </SizeMe>

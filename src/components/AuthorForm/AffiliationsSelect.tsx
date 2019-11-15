@@ -37,9 +37,9 @@ interface Props {
   createAffiliation: (institution: string) => Promise<AffiliationType>
 }
 
-export const AffiliationsSelect: React.FunctionComponent<
-  Props & FieldProps & ThemeProps
-> = ({ affiliations, createAffiliation, form, field, theme }) => {
+export const AffiliationsSelect: React.FunctionComponent<Props &
+  FieldProps &
+  ThemeProps> = ({ affiliations, createAffiliation, form, field, theme }) => {
   return (
     <CreatableSelect<OptionType>
       isMulti={true}

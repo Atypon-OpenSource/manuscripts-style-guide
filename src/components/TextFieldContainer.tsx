@@ -25,9 +25,11 @@ interface TextFieldContainerProps {
   children: React.ReactElement<ErrorProps>
 }
 
-export const TextFieldContainer: React.FunctionComponent<
-  TextFieldContainerProps
-> = ({ label, error, children }) => {
+export const TextFieldContainer: React.FunctionComponent<TextFieldContainerProps> = ({
+  label,
+  error,
+  children,
+}) => {
   const childrenWithErrorProp = React.Children.map(
     children,
     (child: React.ReactElement<ErrorProps>) =>

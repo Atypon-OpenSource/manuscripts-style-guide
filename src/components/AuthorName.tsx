@@ -28,9 +28,10 @@ export interface AuthorNameProps {
   name: BibliographicName
 }
 
-const AuthorNameComponent: React.FunctionComponent<
-  AuthorNameProps & ThemeProps
-> = ({ name, theme }) =>
+const AuthorNameComponent: React.FC<AuthorNameProps & ThemeProps> = ({
+  name,
+  theme,
+}) =>
   !name.given && !name.family ? (
     <NameParts
       color={theme.colors.text.secondary}
@@ -44,4 +45,6 @@ const AuthorNameComponent: React.FunctionComponent<
     </NameParts>
   )
 
-export const AuthorName = withTheme(AuthorNameComponent)
+export const AuthorName: React.FC<AuthorNameProps> = withTheme(
+  AuthorNameComponent
+)

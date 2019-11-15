@@ -93,12 +93,10 @@ export const buildAffiliationsMap = (
   modelMap: Map<string, Model>
 ): AffiliationMap =>
   new Map(
-    affiliationIDs.map(
-      (id: string): [string, Affiliation] => [
-        id,
-        modelMap.get(id) as Affiliation,
-      ]
-    )
+    affiliationIDs.map((id: string): [string, Affiliation] => [
+      id,
+      modelMap.get(id) as Affiliation,
+    ])
   )
 
 export const buildAuthorsAndAffiliations = (modelMap: Map<string, Model>) => {
