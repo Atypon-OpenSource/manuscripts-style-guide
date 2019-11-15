@@ -62,9 +62,9 @@ const AddAffiliationContainer = styled.div`
   }
 `
 
-const AddAffiliationIndicator: React.FC<
-  IndicatorContainerProps<AffiliationOption>
-> = () => (
+const AddAffiliationIndicator: React.FC<IndicatorContainerProps<
+  AffiliationOption
+>> = () => (
   <AddAffiliationContainer>
     <AddAuthor />
   </AddAffiliationContainer>

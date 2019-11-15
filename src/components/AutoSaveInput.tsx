@@ -33,9 +33,9 @@ export class AutoSaveInput extends React.Component<
 > {
   // NOTE: this needs to happen in a timeout so the values are updated first
   private handleSubmit = debounce(() => {
-    this.props.form.handleSubmit(submitEvent as React.FormEvent<
-      HTMLFormElement
-    >)
+    this.props.form.handleSubmit(
+      submitEvent as React.FormEvent<HTMLFormElement>
+    )
   }, 1)
 
   public componentWillUnmount() {
