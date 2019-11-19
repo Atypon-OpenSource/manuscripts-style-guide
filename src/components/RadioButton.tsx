@@ -52,13 +52,13 @@ const Input = styled.input`
     }
 
     &:checked + label::before {
-      background: ${props => props.theme.colors.brand.default};
-      box-shadow: 0 0 0 1px ${props => props.theme.colors.brand.default};
+      background: ${props => props.theme.colors.brand.medium};
+      box-shadow: 0 0 0 1px ${props => props.theme.colors.brand.medium};
     }
     &:hover,
     &:focus {
       + label::before {
-        box-shadow: 0 0 0 1px ${props => props.theme.colors.brand.default};
+        box-shadow: 0 0 0 1px ${props => props.theme.colors.brand.medium};
       }
     }
   }

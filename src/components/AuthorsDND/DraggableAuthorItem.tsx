@@ -241,7 +241,7 @@ class AuthorComponent extends React.Component<Props & ConnectedProps, State> {
             >
               <AuthorMetadata>
                 <AvatarContainer>
-                  <Avatar src={user.avatar} size={36} />
+                  <Avatar src={user.avatar} size={36} color={'#6e6e6e'} />
                   <AuthorNotes>
                     {author.isCorresponding && (
                       <AuthorBadge>

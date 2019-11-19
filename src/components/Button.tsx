@@ -227,6 +227,34 @@ export const ToggleButton = styled(ButtonTemplate)<{
   &:not([disabled]):hover,
   &:not([disabled]):focus {
     background-color: ${props => props.theme.colors.background.fifth};
+
+    svg {
+      path[stroke] {
+        stroke: ${props => props.theme.colors.brand.medium};
+      }
+      text[fill],
+      rect[fill],
+      path[fill] {
+        fill: ${props => props.theme.colors.brand.medium};
+      }
+    }
+  }
+
+  svg {
+    path[stroke] {
+      stroke: ${props =>
+        props.selected
+          ? props.theme.colors.brand.medium
+          : props.theme.colors.text.primary};
+    }
+    text[fill],
+    rect[fill],
+    path[fill] {
+      fill: ${props =>
+        props.selected
+          ? props.theme.colors.brand.medium
+          : props.theme.colors.text.primary};
+    }
   }
 `
 export const ToggleButtonAlt = styled(ButtonTemplate)<{
@@ -300,7 +328,7 @@ export const IconButton = styled(IconButtonTemplate)`
   &:not([disabled]):hover, &:not([disabled]):focus {
     ${props =>
       btnColors(
-        props.theme.colors.brand.default,
+        props.theme.colors.brand.medium,
         'transparent',
         'transparent',
         false
