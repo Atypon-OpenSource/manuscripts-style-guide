@@ -17,6 +17,7 @@
 import AddIconHighlight from '@manuscripts/assets/react/AddIconHighlight'
 import AddIconInverted from '@manuscripts/assets/react/AddIconInverted'
 import ImportExport from '@manuscripts/assets/react/ImportExport'
+import TemplateCategoryBook from '@manuscripts/assets/react/TemplateCategoryBook'
 import { action } from '@storybook/addon-actions'
 import { storiesOf } from '@storybook/react'
 import * as React from 'react'
@@ -205,6 +206,20 @@ storiesOf('Buttons', module)
         </Div>
         <Div>
           <ToggleButton>Toggle unselected</ToggleButton>
+        </Div>
+      </StorySectionInner>
+      <StorySectionInner>
+        <Div>
+          <ToggleButton selected={true}>
+            <TemplateCategoryBook />
+            &nbsp;Toggle selected
+          </ToggleButton>
+        </Div>
+        <Div>
+          <ToggleButton>
+            <TemplateCategoryBook />
+            &nbsp;Toggle unselected
+          </ToggleButton>
         </Div>
       </StorySectionInner>
       <StorySectionInner>

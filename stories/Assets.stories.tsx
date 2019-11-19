@@ -105,6 +105,7 @@ import Highlights from '@manuscripts/assets/react/Highlights'
 import HorizontalEllipsis from '@manuscripts/assets/react/HorizontalEllipsis'
 import Import from '@manuscripts/assets/react/Import'
 import ImportExport from '@manuscripts/assets/react/ImportExport'
+import InspectorHandle from '@manuscripts/assets/react/InspectorHandle'
 import InvitationPlaceholder from '@manuscripts/assets/react/InvitationPlaceholder'
 import LandingDecorations from '@manuscripts/assets/react/LandingDecorations'
 import LandingDecorationsLeft from '@manuscripts/assets/react/LandingDecorationsLeft'
@@ -140,6 +141,7 @@ import OutlineIconSection from '@manuscripts/assets/react/OutlineIconSection'
 import OutlineIconTable from '@manuscripts/assets/react/OutlineIconTable'
 import OutlineIconTables from '@manuscripts/assets/react/OutlineIconTables'
 import OutlineIconUnorderedList from '@manuscripts/assets/react/OutlineIconUnorderedList'
+import OutlineViewHandle from '@manuscripts/assets/react/OutlineViewHandle'
 import Paragraph from '@manuscripts/assets/react/Paragraph'
 import ParagraphOutline from '@manuscripts/assets/react/ParagraphOutline'
 import PdfDocument from '@manuscripts/assets/react/PdfDocument'
@@ -230,6 +232,7 @@ storiesOf('Assets (svg)', module)
       <ContributorsPlaceholder />
       <InvitationPlaceholder />
       <ManuscriptsIOBrandedPlaceholder />
+      <ManuscriptsLogoConnect />
       <NotFound />
       <ProjectPlaceholder />
       <br />
@@ -263,7 +266,8 @@ storiesOf('Assets (svg)', module)
     </>
   ))
   .add('Logos', () => (
-    <div style={{ background: '#6c6c6c' }}>
+    <div style={{ background: '#bababa' }}>
+      <AppIcon />
       <AtyponLogo />
       <AuthoreaLogoConnect />
       <ConnectLogoMonochrome />
@@ -293,7 +297,7 @@ storiesOf('Assets (svg)', module)
     </div>
   ))
   .add('Actions', () => (
-    <div style={{ background: '#6c6c6c' }}>
+    <div style={{ background: '#bababa' }}>
       <AddAuthor />
       <AddedIcon />
       <AddedIconSmall />
@@ -327,8 +331,6 @@ storiesOf('Assets (svg)', module)
       <Chat />
       <Check />
       <Checklist />
-      <br />
-      <br />
       <CitationSourceDatabase />
       <CitationSourceExternal />
       <CitationSourceLIbrary />
@@ -388,6 +390,7 @@ storiesOf('Assets (svg)', module)
       <br />
       <Import />
       <ImportExport />
+      <InspectorHandle />
       <br />
       <br />
       <MarkdownIcon />
@@ -413,6 +416,7 @@ storiesOf('Assets (svg)', module)
       <OutlineIconTable />
       <OutlineIconTables />
       <OutlineIconUnorderedList />
+      <OutlineViewHandle />
       <br />
       <br />
       <Paragraph />
