@@ -75,7 +75,8 @@ export const Author: React.FunctionComponent<AuthorProps> = ({
     {showEditButton ? (
       <AuthorsContainer
         href="#"
-        onClick={() => {
+        onClick={(e: React.SyntheticEvent) => {
+          e.preventDefault()
           startEditing()
           selectAuthor(author)
         }}
