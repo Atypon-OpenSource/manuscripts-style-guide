@@ -79,9 +79,9 @@ const AlertContainer = styled.div<{
 `
 
 const TextContainer = styled.div`
+  flex: 1 0 auto;
   display: flex;
   align-items: center;
-  max-width: 700px;
 `
 
 const SuccessIcon = styled(SuccessGreen)`
