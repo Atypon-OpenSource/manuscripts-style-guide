@@ -66,3 +66,16 @@ storiesOf('AlertMessage', module)
       </AlertMessage>
     </div>
   ))
+  .add('with small container', () => (
+    <div style={{ width: 250 }}>
+      <AlertMessage
+        type={AlertMessageType.info}
+        dismissButton={{
+          action: action('button clicked'),
+          text: 'Click Here',
+        }}
+      >
+        Example of overall warning message. Lorem ipsum dolor sit amet.
+      </AlertMessage>
+    </div>
+  ))
