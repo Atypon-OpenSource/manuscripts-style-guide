@@ -71,14 +71,6 @@ interface BibliographicNameValues extends Partial<BibliographicName> {
   suffix?: string
 }
 
-interface AffiliationValues extends Partial<Affiliation> {
-  _id: string
-  address?: string
-  city?: string
-  institution?: string
-  department?: string
-}
-
 export interface AuthorValues {
   _id: string
   priority: number
@@ -86,8 +78,6 @@ export interface AuthorValues {
   isCorresponding: boolean
   isJointContributor: boolean
   bibliographicName: BibliographicNameValues
-  affiliations: AffiliationValues[]
-  // grants: GrantValues[]
 }
 
 export interface AffiliationOption {
