@@ -16,12 +16,7 @@
 
 import React, { useState } from 'react'
 import { ValueType } from 'react-select/lib/types'
-import { affiliationsOptions } from '../../lib/authors'
-import {
-  AffiliationGeneric,
-  AffiliationOption,
-  AuthorAffiliation,
-} from '../../types'
+import { AffiliationGeneric, AffiliationOption } from '../../types'
 import { AuthorFormComponentOverrides } from '../AuthorForm/AuthorFormComponents'
 import AffiliationsEditorView from './AffiliationsEditorView'
 
@@ -33,9 +28,8 @@ interface SelectedAffiliation {
 
 interface Props {
   affiliations: Map<string, AffiliationGeneric>
-  authorAffiliations?: AuthorAffiliation[]
-  addAuthorAffiliation: (affiliation: AffiliationGeneric | string) => void
-  removeAuthorAffiliation: (affiliation: AffiliationGeneric) => void
+  addAffiliation: (affiliation: string) => void
+  removeAffiliation: (affiliation: AffiliationGeneric) => void
   updateAffiliation: (affiliation: AffiliationGeneric) => void
   components?: AuthorFormComponentOverrides
   styleOverrides?: {
@@ -43,12 +37,11 @@ interface Props {
   }
 }
 
-const AffiliationsEditor: React.FC<Props> = ({
+const AffiliationsEditorProfile: React.FC<Props> = ({
   affiliations,
-  authorAffiliations,
-  addAuthorAffiliation,
+  addAffiliation,
   updateAffiliation,
-  removeAuthorAffiliation,
+  removeAffiliation,
   components,
   styleOverrides,
 }) => {
@@ -56,28 +49,22 @@ const AffiliationsEditor: React.FC<Props> = ({
   const handleChoose = (value: ValueType<AffiliationOption>) => {
     if (value) {
       const selectedAffiliation = value as SelectedAffiliation
-
-      addAuthorAffiliation(
-        selectedAffiliation.__isNew__
-          ? selectedAffiliation.value
-          : affiliations.get(selectedAffiliation.value) || ''
-      )
+      addAffiliation(selectedAffiliation.value)
     }
 
     setSearchText('')
   }
 
-  const options = affiliationsOptions(affiliations, authorAffiliations)
-  const active = authorAffiliations
-    ? authorAffiliations.map(item => item.data)
-    : []
+  const affiliationsArr: AffiliationGeneric[] = Array.from(
+    affiliations.values()
+  )
 
   return (
     <AffiliationsEditorView
-      options={options}
-      selected={active}
+      options={[]}
+      selected={affiliationsArr}
       updateAffiliation={updateAffiliation}
-      removeAuthorAffiliation={removeAuthorAffiliation}
+      removeAuthorAffiliation={removeAffiliation}
       components={components}
       styleOverrides={styleOverrides}
       handleChoose={handleChoose}
@@ -87,4 +74,4 @@ const AffiliationsEditor: React.FC<Props> = ({
   )
 }
 
-export default AffiliationsEditor
+export default AffiliationsEditorProfile
