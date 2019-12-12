@@ -17,11 +17,10 @@
 import { Affiliation, Contributor } from '@manuscripts/manuscripts-json-schema'
 import { Field, FieldProps, Form, Formik, FormikProps } from 'formik'
 import React from 'react'
-import { AffiliationMap, AuthorAffiliation, AuthorValues } from '../../types'
+import { AuthorValues } from '../../types'
 import { AutoSaveInput } from '../AutoSaveInput'
 import { CheckboxField, CheckboxLabel } from '../Checkbox'
 import { TextFieldGroupContainer } from '../TextFieldGroupContainer'
-import AffiliationsSelect from './AffiliationsSelect'
 import {
   AuthorFormComponentOverrides,
   Container,
@@ -35,18 +34,13 @@ import RemoveAuthorButton from './RemoveAuthorButton'
 
 const ensureString = (value: string | undefined) => value || ''
 
-const buildInitialValues = (
-  author: Contributor,
-  authorAffiliations: AuthorAffiliation[]
-  // authorGrants: AuthorGrant[]
-): AuthorValues => {
+const buildInitialValues = (author: Contributor): AuthorValues => {
   return {
     _id: author._id,
     priority: Number(author.priority), // TODO: ordering = priority
     email: ensureString(author.email),
     isCorresponding: Boolean(author.isCorresponding),
     isJointContributor: Boolean(author.isJointContributor),
-    affiliations: (authorAffiliations || []).map(item => item.data),
     // grants: authorGrants,
     bibliographicName: {
       _id: author.bibliographicName._id,
@@ -60,22 +54,16 @@ const buildInitialValues = (
 
 interface AuthorProps {
   author: Contributor
-  affiliations: AffiliationMap
-  authorAffiliations: AuthorAffiliation[]
   isRemoveAuthorOpen: boolean
   removeAuthor: (data: Contributor) => void
   handleSave: (values: AuthorValues) => Promise<void>
   handleRemoveAuthor: () => void
   components?: AuthorFormComponentOverrides
-  createAffiliation?: (name: string) => Promise<Affiliation>
 }
 
 export const AuthorForm: React.FunctionComponent<AuthorProps> = ({
   author,
-  affiliations,
-  authorAffiliations,
   handleSave,
-  createAffiliation,
   removeAuthor,
   isRemoveAuthorOpen,
   handleRemoveAuthor,
@@ -88,7 +76,7 @@ export const AuthorForm: React.FunctionComponent<AuthorProps> = ({
 
   return (
     <Formik
-      initialValues={buildInitialValues(author, authorAffiliations)}
+      initialValues={buildInitialValues(author)}
       onSubmit={handleSave}
       enableReinitialize={true}
     >
@@ -177,28 +165,6 @@ export const AuthorForm: React.FunctionComponent<AuthorProps> = ({
                 <LabelText>Joint Authorship with Next Author</LabelText>
               </CheckboxLabel>
             </Fieldset>
-
-            {/*
-              Once the new-and-improved affiliations panel is created,
-              remove this block
-            */}
-            {createAffiliation && (
-              <Fieldset>
-                <Legend>Affiliations</Legend>
-
-                <Label>
-                  <Field name={'affiliations'}>
-                    {(props: FieldProps) => (
-                      <AffiliationsSelect
-                        affiliations={affiliations}
-                        createAffiliation={createAffiliation}
-                        {...props}
-                      />
-                    )}
-                  </Field>
-                </Label>
-              </Fieldset>
-            )}
           </Fields>
         </Form>
       )}
