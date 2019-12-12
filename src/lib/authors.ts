@@ -21,7 +21,12 @@ import {
   ObjectTypes,
 } from '@manuscripts/manuscripts-json-schema'
 
-import { AffiliationMap, AffiliationOption, AuthorAffiliation } from '../types'
+import {
+  AffiliationGeneric,
+  AffiliationMap,
+  AffiliationOption,
+  AuthorAffiliation,
+} from '../types'
 
 const getModelsByType = <T extends Model>(
   modelMap: Map<string, Model>,
@@ -123,14 +128,14 @@ export const isJointFirstAuthor = (authors: Contributor[], index: number) => {
   return Boolean(author.isJointContributor)
 }
 
-export const affiliationLabel = (affiliation: Affiliation) => {
+export const affiliationLabel = (affiliation: AffiliationGeneric) => {
   const { department, institution = '' } = affiliation
   if (!institution) return '(unknown institution)'
   return department ? `${institution} (${department})`.trim() : institution
 }
 
 export const affiliationsOptions = (
-  affiliations: Map<string, Affiliation>,
+  affiliations: Map<string, AffiliationGeneric>,
   authorAffiliations?: AuthorAffiliation[] | null
 ): AffiliationOption[] => {
   if (!authorAffiliations) {

@@ -16,12 +16,12 @@
 
 import Trashcan from '@manuscripts/assets/react/AnnotationRemove'
 import ArrowDownBlue from '@manuscripts/assets/react/ArrowDownBlue'
-import { Affiliation } from '@manuscripts/manuscripts-json-schema'
 import { Field, FieldProps, Form, Formik } from 'formik'
 import React, { useCallback } from 'react'
 
 import { affiliationLabel } from '../../lib/authors'
 import { styled } from '../../styled-components'
+import { AffiliationGeneric } from '../../types'
 import { AutoSaveInput } from '../AutoSaveInput'
 import { TextField } from '../TextField'
 
@@ -137,11 +137,11 @@ const Column = styled.div`
 `
 
 interface Props {
-  affiliation: Affiliation
+  affiliation: AffiliationGeneric
   requestToggle: () => void
   isOpen: boolean
-  updateAffiliation: (affiliation: Affiliation) => void
-  removeAuthorAffiliation: (affiliation: Affiliation) => void
+  updateAffiliation: (affiliation: AffiliationGeneric) => void
+  removeAuthorAffiliation: (affiliation: AffiliationGeneric) => void
 }
 
 export const AffiliationsEditorItem: React.FC<Props> = ({

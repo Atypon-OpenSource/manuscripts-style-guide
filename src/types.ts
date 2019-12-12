@@ -19,7 +19,6 @@ import {
   BibliographicName,
   Contributor,
 } from '@manuscripts/manuscripts-json-schema'
-
 import { ConnectDragSource, ConnectDropTarget } from 'react-dnd'
 
 export type AffiliationMap = Map<string, Affiliation>
@@ -58,17 +57,29 @@ export interface ConnectedDropTargetProps {
   canDrop: boolean
 }
 
-export interface AuthorAffiliation {
-  ordinal: number
-  data: Affiliation
-}
-
 interface BibliographicNameValues extends Partial<BibliographicName> {
   _id: string
   objectType: 'MPBibliographicName'
   given: string
   family: string
   suffix?: string
+}
+
+export interface AffiliationGeneric extends Omit<Affiliation, 'manuscriptID'> {
+  manuscriptID?: string
+}
+
+export interface AuthorAffiliation {
+  ordinal: number
+  data: AffiliationGeneric
+}
+
+interface AffiliationValues extends Partial<AffiliationGeneric> {
+  _id: string
+  address?: string
+  city?: string
+  institution?: string
+  department?: string
 }
 
 export interface AuthorValues {

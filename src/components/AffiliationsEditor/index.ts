@@ -15,3 +15,4 @@
  */
 
 export { default as AffiliationsEditor } from './AffiliationsEditor'
+export { default as AffiliationsEditorProfile } from './AffiliationsEditorProfile'

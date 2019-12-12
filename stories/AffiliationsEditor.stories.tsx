@@ -19,9 +19,8 @@
 import { action } from '@storybook/addon-actions'
 import { storiesOf } from '@storybook/react'
 import React from 'react'
-import { AffiliationsEditor } from '../src'
+import { AffiliationsEditor, AffiliationsEditorProfile } from '../src'
 import { buildAuthorsAndAffiliations } from '../src/lib/authors'
-
 import submission from './data/submission'
 
 const {
@@ -70,3 +69,12 @@ storiesOf('AffiliationsEditor', module)
       updateAffiliation={action('update affiliation')}
     />
   ))
+
+storiesOf('AffiliationsEditorProfile', module).add('basic', () => (
+  <AffiliationsEditorProfile
+    affiliations={affiliations}
+    addAffiliation={action('create affiliation')}
+    removeAffiliation={action('remove affiliation')}
+    updateAffiliation={action('update affiliation')}
+  />
+))
