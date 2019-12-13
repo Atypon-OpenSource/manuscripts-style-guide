@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import React, { useState } from 'react'
+import React, { useCallback, useState } from 'react'
 import { ValueType } from 'react-select/lib/types'
 import { affiliationsOptions } from '../../lib/authors'
 import {
@@ -53,19 +53,22 @@ const AffiliationsEditor: React.FC<Props> = ({
   styleOverrides,
 }) => {
   const [searchText, setSearchText] = useState('')
-  const handleChoose = (value: ValueType<AffiliationOption>) => {
-    if (value) {
-      const selectedAffiliation = value as SelectedAffiliation
+  const handleChoose = useCallback(
+    (value: ValueType<AffiliationOption>) => {
+      if (value) {
+        const selectedAffiliation = value as SelectedAffiliation
 
-      addAuthorAffiliation(
-        selectedAffiliation.__isNew__
-          ? selectedAffiliation.value
-          : affiliations.get(selectedAffiliation.value) || ''
-      )
-    }
+        addAuthorAffiliation(
+          selectedAffiliation.__isNew__
+            ? selectedAffiliation.value
+            : affiliations.get(selectedAffiliation.value) || ''
+        )
+      }
 
-    setSearchText('')
-  }
+      setSearchText('')
+    },
+    [addAuthorAffiliation]
+  )
 
   const options = affiliationsOptions(affiliations, authorAffiliations)
   const active = authorAffiliations

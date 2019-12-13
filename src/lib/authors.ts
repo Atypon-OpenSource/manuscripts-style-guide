@@ -19,6 +19,7 @@ import {
   Contributor,
   Model,
   ObjectTypes,
+  UserProfileAffiliation,
 } from '@manuscripts/manuscripts-json-schema'
 
 import {
@@ -128,7 +129,9 @@ export const isJointFirstAuthor = (authors: Contributor[], index: number) => {
   return Boolean(author.isJointContributor)
 }
 
-export const affiliationLabel = (affiliation: AffiliationGeneric) => {
+export const affiliationLabel = (
+  affiliation: Affiliation | AffiliationGeneric | UserProfileAffiliation
+) => {
   const { department, institution = '' } = affiliation
   if (!institution) return '(unknown institution)'
   return department ? `${institution} (${department})`.trim() : institution

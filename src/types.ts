@@ -18,6 +18,7 @@ import {
   Affiliation,
   BibliographicName,
   Contributor,
+  ObjectTypes,
 } from '@manuscripts/manuscripts-json-schema'
 import { ConnectDragSource, ConnectDropTarget } from 'react-dnd'
 
@@ -65,21 +66,14 @@ interface BibliographicNameValues extends Partial<BibliographicName> {
   suffix?: string
 }
 
-export interface AffiliationGeneric extends Omit<Affiliation, 'manuscriptID'> {
+export interface AffiliationGeneric
+  extends Omit<Affiliation, 'manuscriptID' | 'objectType'> {
   manuscriptID?: string
 }
 
 export interface AuthorAffiliation {
   ordinal: number
-  data: AffiliationGeneric
-}
-
-interface AffiliationValues extends Partial<AffiliationGeneric> {
-  _id: string
-  address?: string
-  city?: string
-  institution?: string
-  department?: string
+  data: Affiliation | AffiliationGeneric
 }
 
 export interface AuthorValues {
