@@ -130,7 +130,7 @@ const AffiliationsEditorView: React.FC<Props & ThemeProps> = ({
           isMulti={false}
           isClearable={false}
           options={options}
-          onInputChange={handleInputChange}
+          onInputChange={t => handleInputChange(t)}
           inputValue={inputValue}
           onChange={handleChoose}
           value={null}
