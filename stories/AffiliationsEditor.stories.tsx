@@ -23,6 +23,7 @@ import { AffiliationsEditor, AffiliationsEditorProfile } from '../src'
 import { buildAuthorsAndAffiliations } from '../src/lib/authors'
 import submission from './data/submission'
 
+/* tslint:disable:no-any */
 const {
   authors,
   affiliations,
@@ -72,7 +73,7 @@ storiesOf('AffiliationsEditor', module)
 
 storiesOf('AffiliationsEditorProfile', module).add('basic', () => (
   <AffiliationsEditorProfile
-    affiliations={affiliations}
+    affiliations={affiliations as any}
     addAffiliation={action('create affiliation')}
     removeAffiliation={action('remove affiliation')}
     updateAffiliation={action('update affiliation')}

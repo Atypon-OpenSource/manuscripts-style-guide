@@ -14,7 +14,11 @@
  * limitations under the License.
  */
 
-import React, { useState } from 'react'
+import {
+  ObjectTypes,
+  UserProfileAffiliation,
+} from '@manuscripts/manuscripts-json-schema'
+import React, { useCallback, useState } from 'react'
 import { ValueType } from 'react-select/lib/types'
 import { AffiliationGeneric, AffiliationOption } from '../../types'
 import { AuthorFormComponentOverrides } from '../AuthorForm/AuthorFormComponents'
@@ -27,10 +31,10 @@ interface SelectedAffiliation {
 }
 
 interface Props {
-  affiliations: Map<string, AffiliationGeneric>
+  affiliations: Map<string, UserProfileAffiliation>
   addAffiliation: (affiliation: string) => void
-  removeAffiliation: (affiliation: AffiliationGeneric) => void
-  updateAffiliation: (affiliation: AffiliationGeneric) => void
+  removeAffiliation: (affiliation: UserProfileAffiliation) => void
+  updateAffiliation: (affiliation: UserProfileAffiliation) => void
   components?: AuthorFormComponentOverrides
   styleOverrides?: {
     menuZIndex?: number
@@ -46,25 +50,40 @@ const AffiliationsEditorProfile: React.FC<Props> = ({
   styleOverrides,
 }) => {
   const [searchText, setSearchText] = useState('')
-  const handleChoose = (value: ValueType<AffiliationOption>) => {
-    if (value) {
-      const selectedAffiliation = value as SelectedAffiliation
-      addAffiliation(selectedAffiliation.value)
-    }
+  const handleChoose = useCallback(
+    (value: ValueType<AffiliationOption>) => {
+      if (value) {
+        const selectedAffiliation = value as SelectedAffiliation
+        addAffiliation(selectedAffiliation.value)
+      }
 
-    setSearchText('')
-  }
+      setSearchText('')
+    },
+    [addAffiliation]
+  )
 
-  const affiliationsArr: AffiliationGeneric[] = Array.from(
+  const affiliationsArr = Array.from(
     affiliations.values()
+  ) as AffiliationGeneric[]
+
+  const updateUserProfileAffiliation = useCallback(
+    (data: AffiliationGeneric) => {
+      updateAffiliation({
+        ...data,
+        objectType: ObjectTypes.UserProfileAffiliation,
+      })
+    },
+    [updateAffiliation]
   )
 
   return (
     <AffiliationsEditorView
       options={[]}
       selected={affiliationsArr}
-      updateAffiliation={updateAffiliation}
-      removeAuthorAffiliation={removeAffiliation}
+      updateAffiliation={updateUserProfileAffiliation}
+      removeAuthorAffiliation={
+        removeAffiliation as (affiliation: AffiliationGeneric) => void
+      }
       components={components}
       styleOverrides={styleOverrides}
       handleChoose={handleChoose}
