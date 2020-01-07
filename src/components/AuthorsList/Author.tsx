@@ -58,9 +58,9 @@ interface AuthorProps {
   author: Contributor
   affiliations?: AuthorAffiliationT[]
   jointFirstAuthor: boolean
-  showEditButton: boolean
-  selectAuthor: (data: Contributor) => void
-  startEditing: () => void
+  showEditButton?: boolean
+  selectAuthor?: (data: Contributor) => void
+  startEditing?: () => void
 }
 
 export const Author: React.FunctionComponent<AuthorProps> = ({
@@ -77,8 +77,8 @@ export const Author: React.FunctionComponent<AuthorProps> = ({
         href="#"
         onClick={(e: React.SyntheticEvent) => {
           e.preventDefault()
-          startEditing()
-          selectAuthor(author)
+          startEditing && startEditing()
+          selectAuthor && selectAuthor(author)
         }}
       >
         <AuthorName name={author.bibliographicName} />

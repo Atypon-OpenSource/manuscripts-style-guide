@@ -52,3 +52,6 @@ storiesOf('AuthorsList', module)
       selectAuthor={action('select author')}
     />
   ))
+  .add('Non-interactive', () => (
+    <AuthorsList authors={authors} authorAffiliations={authorAffiliations} />
+  ))

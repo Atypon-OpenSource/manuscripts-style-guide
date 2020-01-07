@@ -46,9 +46,9 @@ const AuthorsActions = styled.div`
 interface Props {
   authors: Contributor[]
   authorAffiliations: Map<string, AuthorAffiliation[]>
-  showEditButton: boolean
-  startEditing: () => void
-  selectAuthor: (data: Contributor) => void
+  showEditButton?: boolean
+  startEditing?: () => void
+  selectAuthor?: (data: Contributor) => void
 }
 
 export const AuthorsList: React.FunctionComponent<Props> = ({
@@ -75,7 +75,7 @@ export const AuthorsList: React.FunctionComponent<Props> = ({
       ))}
     </div>
 
-    {showEditButton && (
+    {showEditButton && startEditing && (
       <AuthorsActions>
         <PrimaryButton mini={true} onClick={startEditing}>
           Edit Authors
