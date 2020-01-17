@@ -71,7 +71,7 @@ const ToggleButton = styled.button<{
   outline: none;
 
   &:focus {
-    color: ${props => props.theme.colors.button.primary.color.hover};
+    color: ${props => props.theme.colors.button.primary.border.hover};
   }
 
   svg {
