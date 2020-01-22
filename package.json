@@ -82,7 +82,7 @@
     "react-dnd": "^9.4.0",
     "react-modal": "^3.11.1",
     "react-select": "^2.4.1",
-    "react-sizeme": "^2.6.10",
+    "react-sizeme": "^2.6.12",
     "tooltip.js": "^1.3.3"
   }
 }
