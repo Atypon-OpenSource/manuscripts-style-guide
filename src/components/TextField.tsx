@@ -32,7 +32,7 @@ const commonStyles = css<ErrorProps>`
   padding: 10px ${props => props.theme.grid.unit * 4}px;
   position: relative;
   width: 100%;
-  z-index: ${props => (props.error ? 2 : 1)};
+  ${props => props.error && 'z-index: 2'};
 
   &:focus {
     border-color: ${props => props.theme.colors.border.field.hover};

@@ -16,21 +16,33 @@
 
 import { FieldProps } from 'formik'
 import { debounce } from 'lodash-es'
-import React, { InputHTMLAttributes } from 'react'
+import React, { InputHTMLAttributes, TextareaHTMLAttributes } from 'react'
 import { submitEvent } from './Form'
 
 interface AutoSaveInputProps {
-  component: React.ComponentType<InputHTMLAttributes<HTMLInputElement>>
+  component: React.ComponentType<
+    | InputHTMLAttributes<HTMLInputElement>
+    | TextareaHTMLAttributes<HTMLTextAreaElement>
+  >
   saveOn: 'change' | 'blur'
   // inputProps?: Exclude<InputHTMLAttributes<HTMLInputElement>, FieldProps>
   placeholder?: string
   testId?: string
   isInvalid?: boolean | null
+  disabled?: boolean
+}
+
+interface State {
+  focused: boolean
 }
 
 export class AutoSaveInput extends React.Component<
-  FieldProps & AutoSaveInputProps
+  FieldProps & AutoSaveInputProps,
+  State
 > {
+  public state = {
+    focused: false,
+  }
   // NOTE: this needs to happen in a timeout so the values are updated first
   private handleSubmit = debounce(() => {
     this.props.form.handleSubmit(
@@ -39,17 +51,27 @@ export class AutoSaveInput extends React.Component<
   }, 1)
 
   public componentWillUnmount() {
-    this.handleSubmit()
+    if (this.state.focused) {
+      this.handleSubmit()
+    }
   }
 
   public render() {
-    const { component: Component, field, placeholder, testId } = this.props
+    const {
+      component: Component,
+      field,
+      placeholder,
+      disabled,
+      testId,
+    } = this.props
 
     return (
       <Component
         {...field}
         placeholder={placeholder}
+        disabled={disabled}
         checked={!!field.value}
+        onFocus={this.handleFocus}
         onBlur={this.handleBlur}
         onChange={this.handleChange}
         data-testid={testId && `${testId}__input`}
@@ -58,7 +80,13 @@ export class AutoSaveInput extends React.Component<
     )
   }
 
+  private handleFocus = () => {
+    this.setState({ focused: true })
+  }
+
   private handleBlur = (event: React.FormEvent<HTMLInputElement>) => {
+    this.setState({ focused: false })
+
     this.props.field.onBlur(event)
 
     if (this.props.saveOn === 'blur') {

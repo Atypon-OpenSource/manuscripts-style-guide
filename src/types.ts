@@ -18,7 +18,6 @@ import {
   Affiliation,
   BibliographicName,
   Contributor,
-  ObjectTypes,
 } from '@manuscripts/manuscripts-json-schema'
 import { ConnectDragSource, ConnectDropTarget } from 'react-dnd'
 
@@ -83,6 +82,10 @@ export interface AuthorValues {
   isCorresponding: boolean
   isJointContributor: boolean
   bibliographicName: BibliographicNameValues
+  role: string // e.g. 'author'
+  // category: string // e.g. 'MPContributorCategory:1' (Author/Editor/Reviewer)
+  roles: string[] // MPContributorRole ids
+  contribution: string // free text contribution description
 }
 
 export interface AffiliationOption {
