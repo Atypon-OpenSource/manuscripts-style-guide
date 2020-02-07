@@ -38,6 +38,10 @@ export const LabelText = styled.div`
 
 export const Fieldset = styled.fieldset`
   border: none;
+
+  &:not(:last-child) {
+    margin-bottom: 16px;
+  }
 `
 
 export const Legend = styled.legend`

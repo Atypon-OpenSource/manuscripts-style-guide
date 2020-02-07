@@ -1787,10 +1787,15 @@
   resolved "https://registry.npmjs.org/@manuscripts/assets/-/assets-0.6.1.tgz#c1d1c88b3e3c030177b8bbff0f6d6e352a045992"
   integrity sha512-neLPcFNE8XcstDR1bj85xlAcB9IpBMOk0oaRzXxD/HeO8N63eqcOCzTMiGz239t+wk4oRnqAHzPbRQTYngdC2A==
 
-"@manuscripts/manuscripts-json-schema@^1.18.2":
-  version "1.18.2"
-  resolved "https://registry.npmjs.org/@manuscripts/manuscripts-json-schema/-/manuscripts-json-schema-1.18.2.tgz#81ce3daab7bfa6b202b4908bc32d68044e329f71"
-  integrity sha512-G1dlWtkCTYjUVL+1P5Noa6KJx/0WdGrfc7dPQWzvJERUxmphe3c1bgUn+OZTcAqLefE6IShNbOlcsbIHoFDcfQ==
+"@manuscripts/data@^0.0.5":
+  version "0.0.5"
+  resolved "https://registry.npmjs.org/@manuscripts/data/-/data-0.0.5.tgz#a8510cc00bba64683b6f9771e7b7891932931524"
+  integrity sha512-PWDYslKO5IigO960Yb8WbR+fNw1XcMVgcSWO4Tpu2n5bBQgJiCdA4hmTcMv/WoDOMwFX21Vo+YZyJCfnhHkaaA==
+
+"@manuscripts/manuscripts-json-schema@^1.24.0":
+  version "1.24.0"
+  resolved "https://registry.npmjs.org/@manuscripts/manuscripts-json-schema/-/manuscripts-json-schema-1.24.0.tgz#5be8fabc014405c7d519b3bcc22d7ba6c08e4f17"
+  integrity sha512-Qi2Z3Gu1UMI/DC7U/8Fcw3IO+MtURd+IRMzi8874MV6xP/WUN7kUx3e0lReXdsk8D13ABBPegrM0aaVnSfkBCg==
   dependencies:
     ajv "^6.10.0"
     deepmerge "^3.2.0"
