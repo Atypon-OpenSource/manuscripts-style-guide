@@ -56,9 +56,3 @@ export interface FormErrors {
 export interface ErrorProps {
   error?: string | null | object
 }
-
-export const submitEvent = {
-  preventDefault: () => {
-    // NOOP
-  },
-}

@@ -22,7 +22,6 @@ import { FieldProps } from 'formik'
 import React from 'react'
 import { Creatable as CreatableSelect } from 'react-select'
 import { ThemeProps, withTheme } from '../../styled-components'
-import { submitEvent } from '../Form'
 
 interface OptionType {
   label: string
@@ -58,7 +57,7 @@ export const AffiliationsSelect: React.FunctionComponent<Props &
           )
         )
 
-        form.handleSubmit(submitEvent as React.FormEvent<HTMLFormElement>)
+        form.submitForm()
       }}
       options={Array.from(affiliations.values()).map(affiliation => ({
         value: affiliation._id,

@@ -141,7 +141,7 @@ export const AuthorForm: React.FunctionComponent<{
                   </Field>
                 </TextFieldGroupContainer>
 
-                <CheckboxLabel>
+                <CheckboxLabel disabled={!isAuthor}>
                   <Field name={'isCorresponding'}>
                     {(props: FieldProps) => (
                       <AutoSaveInput
@@ -173,7 +173,7 @@ export const AuthorForm: React.FunctionComponent<{
                   </Label>
                 )}
 
-                <CheckboxLabel>
+                <CheckboxLabel disabled={!isAuthor}>
                   <Field name={'isJointContributor'}>
                     {(props: FieldProps) => (
                       <AutoSaveInput
@@ -195,8 +195,9 @@ export const AuthorForm: React.FunctionComponent<{
                         checked={isAuthor}
                         onChange={event => {
                           props.form.setFieldValue(
-                            'role',
-                            event.target.checked ? 'author' : 'other'
+                            props.field.name,
+                            event.target.checked ? 'author' : 'other',
+                            false
                           )
                           props.form.submitForm()
                         }}
@@ -219,7 +220,11 @@ export const AuthorForm: React.FunctionComponent<{
                           createContributorRole={createContributorRole}
                           value={values.roles}
                           setFieldValue={value => {
-                            props.form.setFieldValue(props.field.name, value)
+                            props.form.setFieldValue(
+                              props.field.name,
+                              value,
+                              false
+                            )
                             props.form.submitForm()
                           }}
                         />
@@ -234,7 +239,11 @@ export const AuthorForm: React.FunctionComponent<{
                         onBlur={(
                           event: React.FocusEvent<HTMLTextAreaElement>
                         ) => {
-                          props.field.onBlur(event)
+                          props.form.setFieldValue(
+                            props.field.name,
+                            event.target.value,
+                            false
+                          )
                           props.form.submitForm()
                         }}
                         placeholder={
