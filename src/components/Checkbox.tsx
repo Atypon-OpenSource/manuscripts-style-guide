@@ -17,7 +17,9 @@
 import React from 'react'
 import { styled } from '../styled-components'
 
-export const CheckboxLabel = styled.label`
+export const CheckboxLabel = styled.label<{
+  disabled?: boolean
+}>`
   input {
     border: 0;
     clip: rect(0 0 0 0);
@@ -33,7 +35,8 @@ export const CheckboxLabel = styled.label`
 
   div {
     align-items: center;
-    color: ${props => props.theme.colors.text.secondary};
+    color: ${props =>
+      props.disabled ? '#aaa' : props.theme.colors.text.secondary};
     display: flex;
     flex-wrap: nowrap;
     line-height: 16px;

@@ -15,9 +15,7 @@
  */
 
 import { FieldProps } from 'formik'
-import { debounce } from 'lodash-es'
 import React, { InputHTMLAttributes, TextareaHTMLAttributes } from 'react'
-import { submitEvent } from './Form'
 
 interface AutoSaveInputProps {
   component: React.ComponentType<
@@ -43,12 +41,6 @@ export class AutoSaveInput extends React.Component<
   public state = {
     focused: false,
   }
-  // NOTE: this needs to happen in a timeout so the values are updated first
-  private handleSubmit = debounce(() => {
-    this.props.form.handleSubmit(
-      submitEvent as React.FormEvent<HTMLFormElement>
-    )
-  }, 1)
 
   public componentWillUnmount() {
     if (this.state.focused) {
@@ -78,6 +70,11 @@ export class AutoSaveInput extends React.Component<
         aria-invalid={this.props.isInvalid || undefined}
       />
     )
+  }
+
+  // NOTE: this needs to happen in a timeout so the values are updated first
+  private handleSubmit = () => {
+    window.setTimeout(this.props.form.submitForm, 10)
   }
 
   private handleFocus = () => {
