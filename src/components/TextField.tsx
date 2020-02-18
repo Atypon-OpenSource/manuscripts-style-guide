@@ -36,18 +36,15 @@ const commonStyles = css<ErrorProps>`
 
   &:focus {
     border-color: ${props => props.theme.colors.border.field.hover};
+    background-color: ${props => props.theme.colors.background.fifth};
   }
 
-  &:hover::placeholder {
-    color: ${props => props.theme.colors.text.primary};
+  &:hover {
+    background-color: ${props => props.theme.colors.background.fifth};
   }
 
   &:invalid {
     box-shadow: none;
-  }
-
-  &::placeholder {
-    color: ${props => props.theme.colors.text.secondary};
   }
 `
 

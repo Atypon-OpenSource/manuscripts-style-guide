@@ -42,7 +42,7 @@ export const TextButton = styled(IconTextButton)`
   ${buttonStyles}
 `
 
-const CloseIcon = styled(IconButton).attrs(props => ({
+const CloseIconButton = styled(IconButton).attrs(props => ({
   defaultColor: true,
   size: 16,
 }))`
@@ -52,6 +52,8 @@ const CloseIcon = styled(IconButton).attrs(props => ({
 const InformativeIcon = styled.div`
   height: 24px;
   margin-right: ${props => props.theme.grid.unit * 3}px;
+  display: flex;
+  align-items: center;
 `
 
 const InnerContainer = styled.div`
@@ -82,12 +84,17 @@ const TextContainer = styled.div`
   flex: 1 1 auto;
   display: flex;
   align-items: center;
+  word-break: break-word;
 `
 
 const SuccessIcon = styled(SuccessGreen)`
   transform: scale(0.75, 0.75);
 `
 
+const CloseIcon = styled(CloseIconDark)`
+  width: 100%;
+  height: 100%;
+`
 interface State {
   isOpen: boolean
 }
@@ -155,9 +162,9 @@ export class AlertMessage extends React.Component<Props, State> {
                 )}
               </InnerContainer>
               {!hideCloseButton && (size.width! >= 900 || !dismissButton) && (
-                <CloseIcon onClick={this.handleClose}>
-                  <CloseIconDark />
-                </CloseIcon>
+                <CloseIconButton onClick={this.handleClose}>
+                  <CloseIcon />
+                </CloseIconButton>
               )}
             </AlertContainer>
           )}
