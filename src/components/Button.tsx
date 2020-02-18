@@ -308,11 +308,6 @@ const IconButtonTemplate = styled(ButtonTemplate)<{
   height: ${props => props.size || 40}px;
   width: ${props => props.size || 40}px;
 
-  & svg {
-    width: 100%;
-    height: 100%;
-  }
-
   ${props => !props.defaultColor && svgColors}
 `
 

@@ -50,7 +50,9 @@ type ThemedDivProps = ThemedProps<HTMLDivElement>
 const AuthorItemComponent = styled.div<{
   opacity: number
 }>`
-  padding: ${props => props.theme.grid.unit}px 0;
+  margin: 0 -${props => props.theme.grid.unit * 5}px;
+  padding: ${props => props.theme.grid.unit * 2}px
+    ${props => props.theme.grid.unit * 5}px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -62,6 +64,12 @@ const AuthorItemComponent = styled.div<{
   &.active {
     background: ${(props: ThemedDivProps) =>
       props.theme.colors.background.fifth};
+  }
+
+  &.active {
+    border: 1px solid ${props => props.theme.colors.border.primary};
+    border-left: 0;
+    border-right: 0;
   }
 `
 
