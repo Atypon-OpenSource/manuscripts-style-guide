@@ -21,6 +21,7 @@ interface AutoSaveInputProps {
   component: React.ComponentType<
     | InputHTMLAttributes<HTMLInputElement>
     | TextareaHTMLAttributes<HTMLTextAreaElement>
+    | { 'data-testid'?: string }
   >
   saveOn: 'change' | 'blur'
   // inputProps?: Exclude<InputHTMLAttributes<HTMLInputElement>, FieldProps>
