@@ -14,23 +14,25 @@
  * limitations under the License.
  */
 
+import { createGlobalStyle, DefaultTheme } from 'styled-components'
 import 'typeface-lato'
-import { createGlobalStyle } from '../src/styled-components'
-import { Theme } from '../src/theme'
 import * as colors from './colors'
 
 const fontFamily = '"Lato", sans-serif'
 
 export const GlobalStyle = createGlobalStyle`
   body {
+    // @ts-ignore
     background-color: ${props => props.theme.colors.background.primary};
+    // @ts-ignore
     color: ${props => props.theme.colors.text.primary};
+    // @ts-ignore
     font-family: ${props => props.theme.font.family.sans};
     margin: 0;
   }
 `
 
-export const theme: Theme = {
+export const theme: DefaultTheme = {
   name: 'Manuscripts',
   colors: {
     background: {

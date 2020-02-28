@@ -17,8 +17,8 @@
 import AddAuthor from '@manuscripts/assets/react/AddAuthor'
 import React from 'react'
 import { IndicatorContainerProps } from 'react-select/lib/components/containers'
-import { styled, ThemeProps, withTheme } from '../../styled-components'
-import { AffiliationOption, AuthorAffiliation } from '../../types'
+import styled from 'styled-components'
+import { AffiliationOption } from '../../types'
 
 export const Container = styled.div`
   margin: 0 1.89rem 1rem;

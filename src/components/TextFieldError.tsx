@@ -15,7 +15,7 @@
  */
 
 import React from 'react'
-import { styled } from '../styled-components'
+import styled from 'styled-components'
 
 const Arrow = styled.div`
   width: 0;

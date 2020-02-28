@@ -16,7 +16,7 @@
 
 import { Contributor, UserProfile } from '@manuscripts/manuscripts-json-schema'
 import React from 'react'
-import { styled } from '../../styled-components'
+import styled from 'styled-components'
 import { AuthorItemComponentOverrides } from './AuthorItemComponents'
 import DraggableAuthorItem from './DraggableAuthorItem'
 

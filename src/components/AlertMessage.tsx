@@ -21,7 +21,7 @@ import CloseIconDark from '@manuscripts/assets/react/CloseIconDark'
 import SuccessGreen from '@manuscripts/assets/react/SuccessGreen'
 import React from 'react'
 import { SizeMe } from 'react-sizeme'
-import styled, { css } from 'styled-components'
+import styled, { AnyStyledComponent, css } from 'styled-components'
 import { IconButton, IconTextButton } from './Button'
 
 const buttonStyles = css`
@@ -42,10 +42,10 @@ export const TextButton = styled(IconTextButton)`
   ${buttonStyles}
 `
 
-const CloseIconButton = styled(IconButton).attrs(props => ({
+const CloseIconButton = styled(IconButton).attrs({
   defaultColor: true,
   size: 16,
-}))`
+})`
   ${buttonStyles}
 `
 
@@ -62,14 +62,9 @@ const InnerContainer = styled.div`
   flex: 1;
 `
 
-const AlertContainer = styled.div<{
-  type: string
-}>`
+const BaseAlertContainer = styled.div`
   align-items: center;
-  background-color: ${props => props.theme.colors.background[props.type]};
-  border: solid 1px ${props => props.theme.colors.border[props.type]};
   border-radius: ${props => props.theme.grid.radius.small};
-  color: ${props => props.theme.colors.text[props.type]};
   display: flex;
   flex-shrink: 0;
   font: ${props => props.theme.font.weight.normal}
@@ -78,6 +73,30 @@ const AlertContainer = styled.div<{
   justify-content: space-between;
   padding: ${props => props.theme.grid.unit * 3}px;
   white-space: normal;
+`
+
+const SuccessAlertContainer = styled(BaseAlertContainer)`
+  background-color: ${props => props.theme.colors.background.success};
+  border: solid 1px ${props => props.theme.colors.border.success};
+  color: ${props => props.theme.colors.text.success};
+`
+
+const ErrorAlertContainer = styled(BaseAlertContainer)`
+  background-color: ${props => props.theme.colors.background.error};
+  border: solid 1px ${props => props.theme.colors.border.error};
+  color: ${props => props.theme.colors.text.error};
+`
+
+const InfoAlertContainer = styled(BaseAlertContainer)`
+  background-color: ${props => props.theme.colors.background.info};
+  border: solid 1px ${props => props.theme.colors.border.info};
+  color: ${props => props.theme.colors.text.info};
+`
+
+const WarningAlertContainer = styled(BaseAlertContainer)`
+  background-color: ${props => props.theme.colors.background.warning};
+  border: solid 1px ${props => props.theme.colors.border.warning};
+  color: ${props => props.theme.colors.text.warning};
 `
 
 const TextContainer = styled.div`
@@ -95,6 +114,7 @@ const CloseIcon = styled(CloseIconDark)`
   width: 100%;
   height: 100%;
 `
+
 interface State {
   isOpen: boolean
 }
@@ -117,19 +137,18 @@ interface Props {
   hideCloseButton?: boolean
 }
 
-const AlertIcon: React.FunctionComponent<{ type: AlertMessageType }> = ({
-  type,
-}) => {
-  switch (type) {
-    case AlertMessageType.success:
-      return <SuccessIcon />
-    case AlertMessageType.error:
-      return <AttentionRed />
-    case AlertMessageType.info:
-      return <AttentionBlue />
-    default:
-      return <AttentionOrange />
-  }
+const alertIcons: { [key in AlertMessageType]: React.FC } = {
+  success: SuccessIcon,
+  error: AttentionRed,
+  info: AttentionBlue,
+  warning: AttentionOrange,
+}
+
+const alertContainers: { [key in AlertMessageType]: AnyStyledComponent } = {
+  success: SuccessAlertContainer,
+  error: ErrorAlertContainer,
+  info: InfoAlertContainer,
+  warning: WarningAlertContainer,
 }
 
 export class AlertMessage extends React.Component<Props, State> {
@@ -141,13 +160,16 @@ export class AlertMessage extends React.Component<Props, State> {
     const { hideCloseButton, dismissButton, children, type } = this.props
     const { isOpen } = this.state
 
+    const AlertContainer = alertContainers[type]
+    const AlertIcon = alertIcons[type]
+
     return (
       isOpen && (
         <SizeMe>
           {({ size }) => (
-            <AlertContainer type={type} className={'alert-message'}>
+            <AlertContainer className={'alert-message'}>
               <InnerContainer>
-                <InformativeIcon>{<AlertIcon type={type} />}</InformativeIcon>
+                <InformativeIcon>{<AlertIcon />}</InformativeIcon>
                 <TextContainer>{children}</TextContainer>
                 {dismissButton && (
                   <TextButton

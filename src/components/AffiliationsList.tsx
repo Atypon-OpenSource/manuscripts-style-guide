@@ -15,7 +15,7 @@
  */
 
 import React from 'react'
-import { styled } from '../styled-components'
+import styled from 'styled-components'
 
 import formatAddress from '../lib/formatAddress'
 import { AffiliationMap } from '../types'

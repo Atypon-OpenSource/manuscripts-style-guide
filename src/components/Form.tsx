@@ -15,7 +15,7 @@
  */
 
 import { Form } from 'formik'
-import { styled } from '../styled-components'
+import styled from 'styled-components'
 
 export const CenteredForm = styled(Form)`
   width: 100%;

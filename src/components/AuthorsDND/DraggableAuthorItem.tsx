@@ -29,9 +29,8 @@ import {
   DropTargetSpec,
 } from 'react-dnd'
 import { findDOMNode } from 'react-dom'
+import styled, { DefaultTheme, withTheme } from 'styled-components'
 import { isJointFirstAuthor } from '../../lib/authors'
-import { styled, ThemedProps, withTheme } from '../../styled-components'
-import { Theme } from '../../theme'
 import {
   AuthorItem,
   ConnectedDragSourceProps,
@@ -44,8 +43,6 @@ import {
   AuthorItemComponentOverrides,
   defaultAuthorItemComponents,
 } from './AuthorItemComponents'
-
-type ThemedDivProps = ThemedProps<HTMLDivElement>
 
 const AuthorItemComponent = styled.div<{
   opacity: number
@@ -62,8 +59,7 @@ const AuthorItemComponent = styled.div<{
 
   &:hover,
   &.active {
-    background: ${(props: ThemedDivProps) =>
-      props.theme.colors.background.fifth};
+    background: ${props => props.theme.colors.background.fifth};
   }
 
   &.active {
@@ -111,7 +107,7 @@ const InvitedContainer = styled.div`
 
 const AuthorDropPreview = styled.div`
   width: 100%;
-  background: ${(props: ThemedDivProps) => props.theme.colors.brand.dark};
+  background: ${props => props.theme.colors.brand.dark};
   height: 1px;
   position: relative;
 `
@@ -139,7 +135,7 @@ interface Props {
   selectedAuthor: Contributor | null
   selectAuthor: (item: Contributor) => void
   sidebarItemDecorator?: JSX.Element | null
-  theme: Theme
+  theme: DefaultTheme
   components?: AuthorItemComponentOverrides
 }
 

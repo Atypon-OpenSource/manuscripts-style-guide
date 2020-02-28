@@ -16,8 +16,8 @@
 
 import { BibliographicName } from '@manuscripts/manuscripts-json-schema'
 import React from 'react'
+import styled, { DefaultTheme, ThemeProps, withTheme } from 'styled-components'
 import { initials } from '../lib/name'
-import { styled, ThemeProps, withTheme } from '../styled-components'
 
 const NameParts = styled.span``
 
@@ -28,10 +28,8 @@ export interface AuthorNameProps {
   name: BibliographicName
 }
 
-const AuthorNameComponent: React.FC<AuthorNameProps & ThemeProps> = ({
-  name,
-  theme,
-}) =>
+const AuthorNameComponent: React.FC<AuthorNameProps &
+  ThemeProps<DefaultTheme>> = ({ name, theme }) =>
   !name.given && !name.family ? (
     <NameParts
       color={theme.colors.text.secondary}

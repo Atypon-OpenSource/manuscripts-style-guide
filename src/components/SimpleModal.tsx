@@ -16,7 +16,7 @@
 
 import React from 'react'
 import Modal from 'react-modal'
-import { styled } from '../styled-components'
+import styled from 'styled-components'
 import { RoundIconButton } from './Button'
 
 Modal.setAppElement('#root')
@@ -63,37 +63,6 @@ export const ModalMain = styled.div`
   padding: ${props => props.theme.grid.unit * 4}px;
 `
 
-const modalStyle = (width: string) => {
-  const parameters = {
-    overlay: {
-      alignItems: 'center',
-      backgroundColor: 'rgba(0,0,0,0.5)',
-      bottom: 0,
-      display: 'flex',
-      justifyContent: 'center',
-      left: 0,
-      position: 'fixed',
-      right: 0,
-      top: 0,
-    },
-    content: {
-      background: 'transparent',
-      border: 'none',
-      bottom: 0,
-      left: 0,
-      margin: 'auto',
-      maxHeight: '70vh',
-      maxWidth: '70vw',
-      padding: 0,
-      position: 'relative',
-      right: 0,
-      top: 0,
-      width,
-    },
-  }
-  return parameters
-}
-
 interface Props {
   handleClose: () => void
   closeWithOverlay: boolean
@@ -104,13 +73,39 @@ export const SimpleModal: React.FunctionComponent<Props> = ({
   children,
   closeWithOverlay,
   handleClose,
-  width,
+  width = 'auto',
 }) => (
   <Modal
     isOpen={true}
     onRequestClose={handleClose}
     shouldCloseOnOverlayClick={closeWithOverlay}
-    style={modalStyle(width || 'auto')}
+    style={{
+      overlay: {
+        alignItems: 'center',
+        backgroundColor: 'rgba(0,0,0,0.5)',
+        bottom: 0,
+        display: 'flex',
+        justifyContent: 'center',
+        left: 0,
+        position: 'fixed',
+        right: 0,
+        top: 0,
+      },
+      content: {
+        background: 'transparent',
+        border: 'none',
+        bottom: 0,
+        left: 0,
+        margin: 'auto',
+        maxHeight: '70vh',
+        maxWidth: '70vw',
+        padding: 0,
+        position: 'relative',
+        right: 0,
+        top: 0,
+        width,
+      },
+    }}
   >
     <ModalContainer>
       <ModalHeader>
