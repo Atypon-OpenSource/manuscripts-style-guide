@@ -20,7 +20,7 @@ import {
 } from '@manuscripts/manuscripts-json-schema'
 import { Field, FieldProps, Form, Formik } from 'formik'
 import React from 'react'
-import { styled } from '../../styled-components'
+import styled from 'styled-components'
 import { AuthorValues } from '../../types'
 import { AutoSaveInput } from '../AutoSaveInput'
 import { CheckboxField, CheckboxLabel } from '../Checkbox'

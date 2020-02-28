@@ -15,7 +15,7 @@
  */
 
 import React from 'react'
-import { styled } from '../styled-components'
+import styled from 'styled-components'
 
 export const CheckboxLabel = styled.label<{
   disabled?: boolean

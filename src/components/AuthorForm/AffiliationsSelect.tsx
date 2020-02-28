@@ -21,7 +21,7 @@ import {
 import { FieldProps } from 'formik'
 import React from 'react'
 import { Creatable as CreatableSelect } from 'react-select'
-import { ThemeProps, withTheme } from '../../styled-components'
+import { DefaultTheme, ThemeProps, withTheme } from 'styled-components'
 
 interface OptionType {
   label: string
@@ -38,7 +38,13 @@ interface Props {
 
 export const AffiliationsSelect: React.FunctionComponent<Props &
   FieldProps &
-  ThemeProps> = ({ affiliations, createAffiliation, form, field, theme }) => {
+  ThemeProps<DefaultTheme>> = ({
+  affiliations,
+  createAffiliation,
+  form,
+  field,
+  theme,
+}) => {
   return (
     <CreatableSelect<OptionType>
       isMulti={true}

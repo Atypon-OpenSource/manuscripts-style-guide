@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { css, styled } from '../styled-components'
+import styled, { css } from 'styled-components'
 import { ErrorProps } from './Form'
 
 const commonStyles = css<ErrorProps>`

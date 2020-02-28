@@ -15,8 +15,8 @@
  */
 
 import React, { useCallback, useEffect, useState } from 'react'
+import styled from 'styled-components'
 import Tooltip, { Options } from 'tooltip.js'
-import { styled } from '../styled-components'
 
 const TipContainer = styled.div`
   align-items: center;

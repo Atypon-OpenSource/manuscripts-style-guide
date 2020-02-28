@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { css, styled } from '../styled-components'
+import styled, { css } from 'styled-components'
 
 const dangerBtnStyles = css`
   ${props =>
@@ -266,9 +266,9 @@ export const ToggleButtonAlt = styled(ButtonTemplate)<{
   border-bottom: 1px solid transparent;
   border-radius: 0;
   ${props =>
-    props.selected && 'border-color: ' + props.theme.colors.border.info + ';'}
-  
-  font-size:  ${props => props.theme.font.size.normal};
+    props.selected && 'border-color: ' + props.theme.colors.border.info};
+
+  font-size: ${props => props.theme.font.size.normal};
   padding: 0 ${props => props.theme.grid.unit}px;
 
   &:not([disabled]):hover,

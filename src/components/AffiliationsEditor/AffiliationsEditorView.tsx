@@ -19,7 +19,7 @@ import React, { useState } from 'react'
 import { Creatable as CreatableSelect } from 'react-select'
 import { IndicatorContainerProps } from 'react-select/lib/components/containers'
 import { ValueType } from 'react-select/lib/types'
-import { styled, ThemeProps, withTheme } from '../../styled-components'
+import styled, { DefaultTheme, ThemeProps, withTheme } from 'styled-components'
 import { AffiliationGeneric, AffiliationOption } from '../../types'
 import {
   AuthorFormComponentOverrides,
@@ -84,7 +84,7 @@ interface Props {
   }
 }
 
-const AffiliationsEditorView: React.FC<Props & ThemeProps> = ({
+const AffiliationsEditorView: React.FC<Props & ThemeProps<DefaultTheme>> = ({
   options,
   selected,
   updateAffiliation,

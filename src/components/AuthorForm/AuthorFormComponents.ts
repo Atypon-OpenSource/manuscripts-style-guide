@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { styled, ThemedStyledComponent } from '../../styled-components'
+import styled, { DefaultTheme, StyledComponent } from 'styled-components'
 import { CheckboxLabel } from '../Checkbox'
 import { TextField } from '../TextField'
 
@@ -59,9 +59,9 @@ export const Container = styled.div`
 `
 
 export interface AuthorFormComponents {
-  Legend: ThemedStyledComponent<'legend'>
-  CheckboxLabel: ThemedStyledComponent<'label'>
-  TextField: ThemedStyledComponent<'input'>
+  Legend: StyledComponent<'legend', DefaultTheme>
+  CheckboxLabel: StyledComponent<'label', DefaultTheme>
+  TextField: StyledComponent<'input', DefaultTheme>
 }
 
 export type AuthorFormComponentOverrides = {

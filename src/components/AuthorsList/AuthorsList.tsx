@@ -16,8 +16,8 @@
 
 import { Contributor } from '@manuscripts/manuscripts-json-schema'
 import React from 'react'
+import styled from 'styled-components'
 import { isJointFirstAuthor } from '../../lib/authors'
-import { styled } from '../../styled-components'
 import { AuthorAffiliation } from '../../types'
 import { PrimaryButton } from '../Button'
 import Author from './Author'

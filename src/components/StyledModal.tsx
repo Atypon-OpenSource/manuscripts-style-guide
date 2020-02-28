@@ -16,7 +16,7 @@
 
 import React from 'react'
 import Modal from 'react-modal'
-import { styled, ThemedProps } from '../styled-components'
+import styled, { ThemeProps } from 'styled-components'
 
 Modal.setAppElement('#root')
 
@@ -24,22 +24,8 @@ const totalTransitionTime = 800
 const transitionDelay = 300
 const delayedTransitionTime = totalTransitionTime - transitionDelay
 
-interface Props {
-  modalClassName?: Modal.Classes
-}
-
-export const ReactModalAdapter: React.FunctionComponent<Modal.Props &
-  ThemedProps<ReactModal> &
-  Props> = ({ className, modalClassName, ...props }) => (
-  <Modal
-    className={modalClassName}
-    portalClassName={className}
-    closeTimeoutMS={totalTransitionTime}
-    {...props}
-  />
-)
-
-export const StyledModal = styled(ReactModalAdapter).attrs({
+export const StyledModal = styled(Modal).attrs({
+  closeTimeoutMS: totalTransitionTime,
   overlayClassName: {
     base: 'Overlay',
     afterOpen: 'Overlay--after-open',

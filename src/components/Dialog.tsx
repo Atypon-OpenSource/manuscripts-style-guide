@@ -16,14 +16,14 @@
 
 import AttentionRed from '@manuscripts/assets/react/AttentionRed'
 import React, { ChangeEvent } from 'react'
-import { styled } from '../styled-components'
+import styled from 'styled-components'
 import { ButtonGroup, PrimaryButton, SecondaryButton } from './Button'
 import { StyledModal } from './StyledModal'
 import { TextField } from './TextField'
 
 const Icon = styled.div`
   margin-right: 6px;
-  color: red // ===
+  color: red;
   display: inline-flex;
   align-items: center;
 `
