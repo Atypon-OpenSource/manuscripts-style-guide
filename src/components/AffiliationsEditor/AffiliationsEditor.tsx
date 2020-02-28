@@ -15,7 +15,7 @@
  */
 
 import React, { useCallback, useState } from 'react'
-import { ValueType } from 'react-select/lib/types'
+import { ValueType } from 'react-select'
 import { affiliationsOptions } from '../../lib/authors'
 import {
   AffiliationGeneric,

@@ -193,13 +193,13 @@ export const AuthorForm: React.FunctionComponent<{
                       <CheckboxField
                         name={'role'}
                         checked={isAuthor}
-                        onChange={event => {
+                        onChange={async event => {
                           props.form.setFieldValue(
                             props.field.name,
                             event.target.checked ? 'author' : 'other',
                             false
                           )
-                          props.form.submitForm()
+                          await props.form.submitForm()
                         }}
                       />
                     )}
@@ -219,13 +219,13 @@ export const AuthorForm: React.FunctionComponent<{
                           contributorRoles={contributorRoles}
                           createContributorRole={createContributorRole}
                           value={values.roles}
-                          setFieldValue={value => {
+                          setFieldValue={async value => {
                             props.form.setFieldValue(
                               props.field.name,
                               value,
                               false
                             )
-                            props.form.submitForm()
+                            await props.form.submitForm()
                           }}
                         />
                       </RolesContainer>
@@ -236,7 +236,7 @@ export const AuthorForm: React.FunctionComponent<{
                     {(props: FieldProps) => (
                       <TextArea
                         {...props.field}
-                        onBlur={(
+                        onBlur={async (
                           event: React.FocusEvent<HTMLTextAreaElement>
                         ) => {
                           props.form.setFieldValue(
@@ -244,7 +244,7 @@ export const AuthorForm: React.FunctionComponent<{
                             event.target.value,
                             false
                           )
-                          props.form.submitForm()
+                          await props.form.submitForm()
                         }}
                         placeholder={
                           'If needed, describe contributions in more detail…'

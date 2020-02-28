@@ -16,7 +16,7 @@
 
 import AddAuthor from '@manuscripts/assets/react/AddAuthor'
 import React from 'react'
-import { IndicatorContainerProps } from 'react-select/lib/components/containers'
+import { IndicatorContainerProps } from 'react-select/src/components/containers'
 import styled from 'styled-components'
 import { AffiliationOption } from '../../types'
 

@@ -15,10 +15,10 @@
  */
 
 import AddAuthor from '@manuscripts/assets/react/AddAuthor'
-import React, { useState } from 'react'
-import { Creatable as CreatableSelect } from 'react-select'
-import { IndicatorContainerProps } from 'react-select/lib/components/containers'
-import { ValueType } from 'react-select/lib/types'
+import React, { ComponentType, useState } from 'react'
+import { SelectComponentsConfig, ValueType } from 'react-select'
+import CreatableSelect from 'react-select/creatable'
+import { IndicatorContainerProps } from 'react-select/src/components/containers'
 import styled, { DefaultTheme, ThemeProps, withTheme } from 'styled-components'
 import { AffiliationGeneric, AffiliationOption } from '../../types'
 import {
@@ -68,7 +68,9 @@ const AddAffiliationIndicator: React.FC<IndicatorContainerProps<
   </AddAffiliationContainer>
 )
 
-const reactSelectComponents = { IndicatorsContainer: AddAffiliationIndicator }
+const reactSelectComponents: SelectComponentsConfig<AffiliationOption> = {
+  IndicatorsContainer: AddAffiliationIndicator,
+}
 
 interface Props {
   options: AffiliationOption[]
