@@ -16,7 +16,7 @@
 
 import { ContributorRole } from '@manuscripts/manuscripts-json-schema'
 import React, { useMemo, useState } from 'react'
-import { Creatable as CreatableSelect } from 'react-select'
+import CreatableSelect from 'react-select/creatable'
 
 const sortRolesAlphabetical = (a: ContributorRole, b: ContributorRole) =>
   a.name.localeCompare(b.name)

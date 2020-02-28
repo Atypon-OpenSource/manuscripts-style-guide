@@ -20,7 +20,7 @@ import {
 } from '@manuscripts/manuscripts-json-schema'
 import { FieldProps } from 'formik'
 import React from 'react'
-import { Creatable as CreatableSelect } from 'react-select'
+import CreatableSelect from 'react-select/creatable'
 import { DefaultTheme, ThemeProps, withTheme } from 'styled-components'
 
 interface OptionType {
@@ -63,7 +63,7 @@ export const AffiliationsSelect: React.FunctionComponent<Props &
           )
         )
 
-        form.submitForm()
+        await form.submitForm()
       }}
       options={Array.from(affiliations.values()).map(affiliation => ({
         value: affiliation._id,
