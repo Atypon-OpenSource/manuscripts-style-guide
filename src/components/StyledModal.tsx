@@ -24,7 +24,22 @@ const totalTransitionTime = 800
 const transitionDelay = 300
 const delayedTransitionTime = totalTransitionTime - transitionDelay
 
-export const StyledModal = styled(Modal).attrs({
+interface Props {
+  modalClassName?: Modal.Classes
+}
+
+export const ReactModalAdapter: React.FunctionComponent<Modal.Props &
+  ThemeProps<ReactModal> &
+  Props> = ({ className, modalClassName, ...props }) => (
+  <Modal
+    className={modalClassName}
+    portalClassName={className as string}
+    closeTimeoutMS={totalTransitionTime}
+    {...props}
+  />
+)
+
+export const StyledModal = styled(ReactModalAdapter).attrs({
   closeTimeoutMS: totalTransitionTime,
   overlayClassName: {
     base: 'Overlay',
