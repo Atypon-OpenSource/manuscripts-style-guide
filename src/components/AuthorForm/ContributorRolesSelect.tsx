@@ -29,13 +29,15 @@ export const ContributorRolesSelect: React.FC<{
 }> = ({ contributorRoles, createContributorRole, value, setFieldValue }) => {
   const [saving, setSaving] = useState(false)
 
-  const selectedRoles = useMemo(
-    () =>
-      value
-        .map(id => contributorRoles.find(item => item._id === id))
-        .flat() as ContributorRole[],
-    [contributorRoles, value]
-  )
+  const selectedRoles = value.length
+    ? useMemo(
+        () =>
+          value
+            .map(id => contributorRoles.find(item => item._id === id))
+            .flat() as ContributorRole[],
+        [contributorRoles, value]
+      )
+    : []
 
   const options = useMemo(() => {
     const output = { local: [], 'dictionary.casrai.org': [] }
