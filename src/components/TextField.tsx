@@ -14,6 +14,7 @@
  * limitations under the License.
  */
 
+import React from 'react'
 import styled, { css } from 'styled-components'
 import { ErrorProps } from './Form'
 
@@ -96,3 +97,32 @@ export const TextFieldLabel = styled.label`
     margin-top: ${props => props.theme.grid.unit}px;
   }
 `
+
+const TextFieldWrapperStyles = styled.div`
+  position: relative;
+
+  ${TextField} {
+    padding-left: 28px;
+  }
+`
+
+const IconWrapper = styled.div`
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 4px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+`
+
+export const TextFieldWrapper: React.FC<{
+  leftIcon: JSX.Element
+}> = ({ leftIcon, children }) => {
+  return (
+    <TextFieldWrapperStyles>
+      {children}
+      <IconWrapper>{leftIcon}</IconWrapper>
+    </TextFieldWrapperStyles>
+  )
+}
