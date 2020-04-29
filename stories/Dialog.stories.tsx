@@ -106,6 +106,20 @@ storiesOf('Dialog', module)
       }}
     />
   ))
+  .add('Error dialog with overflowing text', () => (
+    <Dialog
+      isOpen={true}
+      category={Category.error}
+      header="Import error"
+      message="There was an error importing SupercalifragilisticexpialidociousSupercalifragilisticexpialidociousSupercalifragilisticexpialidocious.docx"
+      actions={{
+        primary: {
+          action: action('OK'),
+          title: 'OK',
+        },
+      }}
+    />
+  ))
   .add('Simple Modal', () => (
     <SimpleModal handleClose={action('Close')} closeWithOverlay={false}>
       Simple Modal contents
