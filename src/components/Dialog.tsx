@@ -31,18 +31,26 @@ const ModalBody = styled.div`
   border-radius: ${props => props.theme.grid.radius.default};
   box-shadow: ${props => props.theme.shadow.dropShadow};
   background: ${props => props.theme.colors.background.primary};
-  min-width: 200px;
+  width: 350px;
+  max-width: 90vw;
+  overflow: hidden;
+  padding: ${props => props.theme.grid.unit * 4}px;
 `
 
 const MessageContainer = styled.div`
-  max-width: 300px;
   min-height: 90px;
+  max-height: 70vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+  word-wrap: break-word;
+  margin: ${props => props.theme.grid.unit * 4}px 0;
+
   font: ${props => props.theme.font.weight.normal}
     ${props => props.theme.font.size.medium} / 1
     ${props => props.theme.font.family.sans};
   color: ${props => props.theme.colors.text.secondary};
-  padding: 15px 20px 0;
 `
+
 const HeaderContainer = styled.div`
   align-items: center;
   color: ${props => props.theme.colors.text.primary};
@@ -50,12 +58,10 @@ const HeaderContainer = styled.div`
   font: ${props => props.theme.font.weight.bold}
     ${props => props.theme.font.size.medium} / 1
     ${props => props.theme.font.family.sans};
-  padding: 15px 20px 0;
 `
 
 const ButtonsContainer = styled(ButtonGroup)`
-  padding: 20px;
-  padding-left: 0;
+  padding-top: ${props => props.theme.grid.unit * 5}px;
 
   ${PrimaryButton} {
     order: 2;
