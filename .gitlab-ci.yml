@@ -22,6 +22,6 @@ publish:
       - master
   script:
     - yarn install --frozen-lockfile --non-interactive
-    - ./node_modules/.bin/manuscripts-publish
+    - npx @manuscripts/publish
   tags:
     - nodejs-8
