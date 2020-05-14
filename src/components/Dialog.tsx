@@ -34,7 +34,7 @@ const ModalBody = styled.div`
   width: 350px;
   max-width: 90vw;
   overflow: hidden;
-  padding: ${props => props.theme.grid.unit * 4}px;
+  padding: ${props => props.theme.grid.unit * 6}px;
 `
 
 const MessageContainer = styled.div`
@@ -49,6 +49,7 @@ const MessageContainer = styled.div`
     ${props => props.theme.font.size.medium} / 1
     ${props => props.theme.font.family.sans};
   color: ${props => props.theme.colors.text.secondary};
+  line-height: 1.5;
 `
 
 const HeaderContainer = styled.div`
@@ -58,15 +59,16 @@ const HeaderContainer = styled.div`
   font: ${props => props.theme.font.weight.bold}
     ${props => props.theme.font.size.medium} / 1
     ${props => props.theme.font.family.sans};
+  line-height: 1.5;
 `
 
 const ButtonsContainer = styled(ButtonGroup)`
   padding-top: ${props => props.theme.grid.unit * 5}px;
+`
 
-  ${PrimaryButton} {
-    order: 2;
-    margin-left: 4px;
-  }
+const ConfirmationTextField = styled(TextField)`
+  margin-top: ${props => props.theme.grid.unit * 4}px;
+  margin-bottom: ${props => props.theme.grid.unit * 8}px;
 `
 
 interface DialogState {
@@ -78,11 +80,11 @@ interface DialogProps {
     primary: {
       action: () => void
       title?: string
+      isDestructive?: boolean
     }
     secondary?: {
       action: () => void
       title: string
-      isDestructive: boolean
     }
     onClose?: () => void
   }
@@ -185,12 +187,11 @@ export class Dialog extends React.Component<DialogProps, DialogState> {
             {message}
             {confirmFieldText && (
               <form id="formDialog" onSubmit={this.handleSubmit}>
-                <TextField
+                <ConfirmationTextField
                   autoFocus={true}
                   onChange={this.checkInputValue}
                   placeholder={'Please type: ' + confirmFieldText}
                   required={true}
-                  style={{ marginTop: '16px' }}
                 />
               </form>
             )}
@@ -204,14 +205,14 @@ export class Dialog extends React.Component<DialogProps, DialogState> {
   private renderButtons = (props: DialogProps, disabled: boolean) => (
     <ButtonsContainer>
       {props.actions.secondary ? (
-        !props.actions.secondary.isDestructive ? (
+        !props.actions.primary.isDestructive ? (
           <>
-            <PrimaryAction
+            <SecondaryAction
               action={props.actions.secondary.action}
               hasForm={!!this.props.confirmFieldText}
               title={props.actions.secondary.title}
             />
-            <SecondaryAction
+            <PrimaryAction
               action={props.actions.primary.action}
               disabled={disabled}
               title={props.actions.primary.title || 'Dismiss'}
@@ -236,6 +237,7 @@ export class Dialog extends React.Component<DialogProps, DialogState> {
         <PrimaryAction
           action={props.actions.primary.action}
           disabled={disabled}
+          isDestructive={props.actions.primary.isDestructive}
           hasForm={!!this.props.confirmFieldText}
           title={props.actions.primary.title || 'Dismiss'}
         />

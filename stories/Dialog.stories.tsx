@@ -25,7 +25,7 @@ storiesOf('Dialog', module)
       isOpen={true}
       category={Category.confirmation}
       header="Are you sure?"
-      message="This action will cause everything to blow up at 9:00 (9:30 in Newfoundland)"
+      message="This action will update your status"
       actions={{
         primary: {
           action: action('Confirm'),
@@ -34,12 +34,25 @@ storiesOf('Dialog', module)
         secondary: {
           action: action('Cancel'),
           title: 'Cancel',
-          isDestructive: false,
         },
       }}
     />
   ))
-  .add('With Confirmation Input', () => (
+  .add('Confirmation Dialog without secondary action', () => (
+    <Dialog
+      isOpen={true}
+      category={Category.confirmation}
+      header="Are you sure?"
+      message="This action will update your status"
+      actions={{
+        primary: {
+          action: action('Confirm'),
+          title: 'Confirm',
+        },
+      }}
+    />
+  ))
+  .add('Confirmation Dialog with destructive primary action', () => (
     <Dialog
       isOpen={true}
       category={Category.confirmation}
@@ -47,51 +60,40 @@ storiesOf('Dialog', module)
       message="This action will cause everything to blow up at 9:00 (9:30 in Newfoundland)"
       actions={{
         primary: {
-          action: action('You killed Kenny'),
-          title: 'Blow everything!',
-        },
-        secondary: {
-          action: action('Cancel'),
-          title: 'Cancel',
+          action: action('Confirm'),
+          title: 'Confirm',
           isDestructive: true,
         },
-      }}
-      confirmFieldText={'blow up'}
-    />
-  ))
-  .add('Destructive secondary action', () => (
-    <Dialog
-      isOpen={true}
-      category={Category.confirmation}
-      header="Are you sure?"
-      message="This action will cause everything to blow up at 9:00 (9:30 in Newfoundland)"
-      actions={{
-        primary: {
-          action: action('Confirm'),
-          title: 'Confirm',
-        },
         secondary: {
           action: action('Cancel'),
           title: 'Cancel',
-          isDestructive: true,
         },
       }}
     />
   ))
-  .add('No secondary action', () => (
-    <Dialog
-      isOpen={true}
-      category={Category.confirmation}
-      header="Are you sure?"
-      message="This action will cause everything to blow up at 9:00 (9:30 in Newfoundland)"
-      actions={{
-        primary: {
-          action: action('Confirm'),
-          title: 'Confirm',
-        },
-      }}
-    />
-  ))
+  .add(
+    'Confirmation Dialog with destructive primary action and Confirmation Input',
+    () => (
+      <Dialog
+        isOpen={true}
+        category={Category.confirmation}
+        header="Are you sure?"
+        message="This action will cause everything to blow up at 9:00 (9:30 in Newfoundland)"
+        actions={{
+          primary: {
+            action: action('You killed Kenny'),
+            title: 'Blow everything!',
+            isDestructive: true,
+          },
+          secondary: {
+            action: action('Cancel'),
+            title: 'Cancel',
+          },
+        }}
+        confirmFieldText={'blow up'}
+      />
+    )
+  )
   .add('Error dialog', () => (
     <Dialog
       isOpen={true}
