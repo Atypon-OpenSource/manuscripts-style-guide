@@ -16,8 +16,9 @@
 
 import AddAuthor from '@manuscripts/assets/react/AddAuthor'
 import React from 'react'
-import { IndicatorContainerProps } from 'react-select/src/components/containers'
+import { IndicatorContainerProps } from 'react-select'
 import styled from 'styled-components'
+
 import { AffiliationOption } from '../../types'
 
 export const Container = styled.div`
@@ -45,7 +46,7 @@ export const AddAffiliationContainer = styled.div`
 
   circle,
   use {
-    fill: ${props => props.theme.colors.brand.default};
+    fill: ${(props) => props.theme.colors.brand.default};
   }
 
   path {

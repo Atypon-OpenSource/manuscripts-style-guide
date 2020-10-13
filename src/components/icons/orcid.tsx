@@ -15,11 +15,10 @@
  */
 
 import React from 'react'
+
 import { IconProps } from './types'
 
 // https://orcid.org/trademark-and-id-display-guidelines
-
-// tslint:disable:max-line-length
 
 const Orcid = (props: IconProps) => (
   <svg viewBox="0 0 256 256" width={props.size} height={props.size} {...props}>

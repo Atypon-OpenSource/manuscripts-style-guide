@@ -14,16 +14,15 @@
  * limitations under the License.
  */
 
-/* tslint:disable:no-any */
-
+import { UserProfileAffiliation } from '@manuscripts/manuscripts-json-schema'
 import { action } from '@storybook/addon-actions'
 import { storiesOf } from '@storybook/react'
 import React from 'react'
+
 import { AffiliationsEditor, AffiliationsEditorProfile } from '../src'
 import { buildAuthorsAndAffiliations } from '../src/lib/authors'
 import submission from './data/submission'
 
-/* tslint:disable:no-any */
 const {
   authors,
   affiliations,
@@ -73,7 +72,9 @@ storiesOf('AffiliationsEditor', module)
 
 storiesOf('AffiliationsEditorProfile', module).add('basic', () => (
   <AffiliationsEditorProfile
-    affiliations={affiliations as any}
+    affiliations={
+      (affiliations as unknown) as Map<string, UserProfileAffiliation>
+    }
     addAffiliation={action('create affiliation')}
     removeAffiliation={action('remove affiliation')}
     updateAffiliation={action('update affiliation')}

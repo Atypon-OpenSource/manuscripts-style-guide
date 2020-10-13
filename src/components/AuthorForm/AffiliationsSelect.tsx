@@ -36,15 +36,9 @@ interface Props {
   createAffiliation: (institution: string) => Promise<AffiliationType>
 }
 
-export const AffiliationsSelect: React.FunctionComponent<Props &
-  FieldProps &
-  ThemeProps<DefaultTheme>> = ({
-  affiliations,
-  createAffiliation,
-  form,
-  field,
-  theme,
-}) => {
+export const AffiliationsSelect: React.FunctionComponent<
+  Props & FieldProps & ThemeProps<DefaultTheme>
+> = ({ affiliations, createAffiliation, form, field, theme }) => {
   return (
     <CreatableSelect<OptionType>
       isMulti={true}
@@ -53,7 +47,7 @@ export const AffiliationsSelect: React.FunctionComponent<Props &
         form.setFieldValue(
           field.name,
           await Promise.all(
-            (value as OptionType[]).map(async option => {
+            (value as OptionType[]).map(async (option) => {
               if (actionMeta.action === 'create-option' && option.__isNew__) {
                 return createAffiliation(option.label)
               }
@@ -65,7 +59,7 @@ export const AffiliationsSelect: React.FunctionComponent<Props &
 
         await form.submitForm()
       }}
-      options={Array.from(affiliations.values()).map(affiliation => ({
+      options={Array.from(affiliations.values()).map((affiliation) => ({
         value: affiliation._id,
         label: affiliation.institution || '',
       }))}
@@ -78,7 +72,8 @@ export const AffiliationsSelect: React.FunctionComponent<Props &
           ...provided,
           backgroundColor: theme.colors.background.primary,
           borderColor:
-            state.isFocused || state.isSelected
+            // state.isFocused || state.isSelected
+            state.isFocused
               ? theme.colors.border.field.active
               : theme.colors.border.field.default,
           borderRadius: theme.grid.radius.default,

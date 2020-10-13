@@ -22,11 +22,12 @@ import SuccessGreen from '@manuscripts/assets/react/SuccessGreen'
 import React from 'react'
 import { SizeMe } from 'react-sizeme'
 import styled, { AnyStyledComponent, css } from 'styled-components'
+
 import { IconButton, IconTextButton } from './Button'
 
 const buttonStyles = css`
   color: inherit;
-  margin-left: ${props => props.theme.grid.unit * 4}px;
+  margin-left: ${(props) => props.theme.grid.unit * 4}px;
 
   g[fill] {
     fill: currentColor;
@@ -51,7 +52,7 @@ const CloseIconButton = styled(IconButton).attrs({
 
 const InformativeIcon = styled.div`
   height: 24px;
-  margin-right: ${props => props.theme.grid.unit * 3}px;
+  margin-right: ${(props) => props.theme.grid.unit * 3}px;
   display: flex;
   align-items: center;
 `
@@ -64,39 +65,39 @@ const InnerContainer = styled.div`
 
 const BaseAlertContainer = styled.div`
   align-items: center;
-  border-radius: ${props => props.theme.grid.radius.small};
+  border-radius: ${(props) => props.theme.grid.radius.small};
   display: flex;
   flex-shrink: 0;
-  font: ${props => props.theme.font.weight.normal}
-    ${props => props.theme.font.size.medium} / 1
-    ${props => props.theme.font.family.sans};
+  font: ${(props) => props.theme.font.weight.normal}
+    ${(props) => props.theme.font.size.medium} / 1
+    ${(props) => props.theme.font.family.sans};
   justify-content: space-between;
-  padding: ${props => props.theme.grid.unit * 3}px;
+  padding: ${(props) => props.theme.grid.unit * 3}px;
   white-space: normal;
 `
 
 const SuccessAlertContainer = styled(BaseAlertContainer)`
-  background-color: ${props => props.theme.colors.background.success};
-  border: solid 1px ${props => props.theme.colors.border.success};
-  color: ${props => props.theme.colors.text.success};
+  background-color: ${(props) => props.theme.colors.background.success};
+  border: solid 1px ${(props) => props.theme.colors.border.success};
+  color: ${(props) => props.theme.colors.text.success};
 `
 
 const ErrorAlertContainer = styled(BaseAlertContainer)`
-  background-color: ${props => props.theme.colors.background.error};
-  border: solid 1px ${props => props.theme.colors.border.error};
-  color: ${props => props.theme.colors.text.error};
+  background-color: ${(props) => props.theme.colors.background.error};
+  border: solid 1px ${(props) => props.theme.colors.border.error};
+  color: ${(props) => props.theme.colors.text.error};
 `
 
 const InfoAlertContainer = styled(BaseAlertContainer)`
-  background-color: ${props => props.theme.colors.background.info};
-  border: solid 1px ${props => props.theme.colors.border.info};
-  color: ${props => props.theme.colors.text.info};
+  background-color: ${(props) => props.theme.colors.background.info};
+  border: solid 1px ${(props) => props.theme.colors.border.info};
+  color: ${(props) => props.theme.colors.text.info};
 `
 
 const WarningAlertContainer = styled(BaseAlertContainer)`
-  background-color: ${props => props.theme.colors.background.warning};
-  border: solid 1px ${props => props.theme.colors.border.warning};
-  color: ${props => props.theme.colors.text.warning};
+  background-color: ${(props) => props.theme.colors.background.warning};
+  border: solid 1px ${(props) => props.theme.colors.border.warning};
+  color: ${(props) => props.theme.colors.text.warning};
 `
 
 const TextContainer = styled.div`
@@ -183,11 +184,12 @@ export class AlertMessage extends React.Component<Props, State> {
                   </TextButton>
                 )}
               </InnerContainer>
-              {!hideCloseButton && (size.width! >= 900 || !dismissButton) && (
-                <CloseIconButton onClick={this.handleClose}>
-                  <CloseIcon />
-                </CloseIconButton>
-              )}
+              {!hideCloseButton &&
+                ((size.width && size.width >= 900) || !dismissButton) && (
+                  <CloseIconButton onClick={this.handleClose}>
+                    <CloseIcon />
+                  </CloseIconButton>
+                )}
             </AlertContainer>
           )}
         </SizeMe>

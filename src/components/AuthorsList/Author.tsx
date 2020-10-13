@@ -17,6 +17,7 @@
 import { Contributor } from '@manuscripts/manuscripts-json-schema'
 import React from 'react'
 import styled, { css } from 'styled-components'
+
 import { AuthorAffiliation as AuthorAffiliationT } from '../../types'
 import { AuthorName } from '../AuthorName'
 
@@ -36,7 +37,7 @@ const LinkSharedStyles = css`
   &:focus {
     &,
     span {
-      color: ${props => props.theme.colors.text.tertiary};
+      color: ${(props) => props.theme.colors.text.tertiary};
     }
   }
 `

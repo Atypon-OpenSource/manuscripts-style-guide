@@ -27,15 +27,15 @@ export default (affiliation: Affiliation): string => {
     postCode,
   } = affiliation
 
-  return new Array(
+  return [
     department,
     institution,
     addressLine1,
     city,
     county,
     country,
-    postCode
-  )
+    postCode,
+  ]
     .filter(Boolean)
     .join(', ')
 }

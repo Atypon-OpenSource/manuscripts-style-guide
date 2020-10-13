@@ -20,6 +20,7 @@ import {
 } from '@manuscripts/manuscripts-json-schema'
 import React, { useCallback, useState } from 'react'
 import { ValueType } from 'react-select'
+
 import { AffiliationGeneric, AffiliationOption } from '../../types'
 import { AuthorFormComponentOverrides } from '../AuthorForm/AuthorFormComponents'
 import AffiliationsEditorView from './AffiliationsEditorView'

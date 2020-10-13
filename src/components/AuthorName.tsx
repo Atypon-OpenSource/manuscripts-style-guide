@@ -17,19 +17,21 @@
 import { BibliographicName } from '@manuscripts/manuscripts-json-schema'
 import React from 'react'
 import styled, { DefaultTheme, ThemeProps, withTheme } from 'styled-components'
+
 import { initials } from '../lib/name'
 
 const NameParts = styled.span``
 
 const buildNameLiteral = (name: BibliographicName) =>
-  [initials(name), name.family, name.suffix].filter(part => part).join(' ')
+  [initials(name), name.family, name.suffix].filter((part) => part).join(' ')
 
 export interface AuthorNameProps {
   name: BibliographicName
 }
 
-const AuthorNameComponent: React.FC<AuthorNameProps &
-  ThemeProps<DefaultTheme>> = ({ name, theme }) =>
+const AuthorNameComponent: React.FC<
+  AuthorNameProps & ThemeProps<DefaultTheme>
+> = ({ name, theme }) =>
   !name.given && !name.family ? (
     <NameParts
       color={theme.colors.text.secondary}

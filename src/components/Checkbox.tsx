@@ -35,7 +35,7 @@ export const CheckboxLabel = styled.label<{
 
   div {
     align-items: center;
-    color: ${props =>
+    color: ${(props) =>
       props.disabled ? '#aaa' : props.theme.colors.text.secondary};
     display: flex;
     flex-wrap: nowrap;
@@ -48,7 +48,7 @@ export const CheckboxLabel = styled.label<{
       flex-shrink: 0;
       width: 16px;
       height: 16px;
-      border: 1px solid ${props => props.theme.colors.text.secondary};
+      border: 1px solid ${(props) => props.theme.colors.text.secondary};
       border-radius: 4px;
       margin-right: 1em;
       text-align: center;
@@ -56,14 +56,14 @@ export const CheckboxLabel = styled.label<{
   }
 
   input:checked + div::before {
-    background: ${props => props.theme.colors.brand.default};
-    border-color: ${props => props.theme.colors.brand.default};
+    background: ${(props) => props.theme.colors.brand.default};
+    border-color: ${(props) => props.theme.colors.brand.default};
     color: white;
     content: '✓';
   }
 
   input:focus + div::before {
-    border-color: ${props => props.theme.colors.button.primary.border.hover};
+    border-color: ${(props) => props.theme.colors.button.primary.border.hover};
   }
 `
 

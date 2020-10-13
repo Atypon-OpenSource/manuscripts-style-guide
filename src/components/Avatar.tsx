@@ -32,8 +32,8 @@ const AvatarContainer = styled.div`
 `
 
 const RoundedImage = styled.img<{ size: number }>`
-  width: ${props => props.size}px;
-  height: ${props => props.size}px;
+  width: ${(props) => props.size}px;
+  height: ${(props) => props.size}px;
   border-radius: 50%;
   align-items: center;
   justify-content: center;
@@ -43,15 +43,15 @@ const StyledAvatar = styled(AvatarNormal)<{
   color?: string
 }>`
   path {
-    fill: ${props => props.color || props.theme.colors.text.secondary};
+    fill: ${(props) => props.color || props.theme.colors.text.secondary};
   }
 
   &:hover path {
-    fill: ${props => props.color || props.theme.colors.text.info};
+    fill: ${(props) => props.color || props.theme.colors.text.info};
   }
 `
 
-export const Avatar: React.FC<AvatarProps> = props => {
+export const Avatar: React.FC<AvatarProps> = (props) => {
   const [srcError, setSrcError] = useState(false)
 
   const handleSrcError = useCallback(() => {

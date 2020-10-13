@@ -16,6 +16,7 @@
 
 import React, { useCallback, useState } from 'react'
 import { ValueType } from 'react-select'
+
 import { affiliationsOptions } from '../../lib/authors'
 import {
   AffiliationGeneric,
@@ -67,12 +68,12 @@ const AffiliationsEditor: React.FC<Props> = ({
 
       setSearchText('')
     },
-    [addAuthorAffiliation]
+    [addAuthorAffiliation, affiliations]
   )
 
   const options = affiliationsOptions(affiliations, authorAffiliations)
   const active = authorAffiliations
-    ? authorAffiliations.map(item => item.data)
+    ? authorAffiliations.map((item) => item.data)
     : []
 
   return (

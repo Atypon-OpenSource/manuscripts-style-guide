@@ -15,13 +15,14 @@
  */
 
 import React from 'react'
+
 import { ErrorProps } from './Form'
 import { TextFieldLabel } from './TextField'
 import { TextFieldError, TextFieldErrorItem } from './TextFieldError'
 
 interface TextFieldContainerProps {
   label?: string
-  error?: string | null | object
+  error?: string | null | Record<string, unknown>
   children: React.ReactElement<ErrorProps>
 }
 

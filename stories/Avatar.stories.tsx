@@ -16,6 +16,7 @@
 
 import { storiesOf } from '@storybook/react'
 import * as React from 'react'
+
 import { Avatar } from '../src'
 import image from './assets/melnitz.jpg'
 

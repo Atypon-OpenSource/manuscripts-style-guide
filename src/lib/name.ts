@@ -21,6 +21,6 @@ export const initials = (name: BibliographicName): string =>
     ? name.given
         .trim()
         .split(' ')
-        .map(part => part.substr(0, 1).toUpperCase() + '.')
+        .map((part) => part.substr(0, 1).toUpperCase() + '.')
         .join('')
     : ''

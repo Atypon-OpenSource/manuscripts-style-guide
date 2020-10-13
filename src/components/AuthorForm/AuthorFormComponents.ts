@@ -15,6 +15,7 @@
  */
 
 import styled, { DefaultTheme, StyledComponent } from 'styled-components'
+
 import { CheckboxLabel } from '../Checkbox'
 import { TextField } from '../TextField'
 
@@ -29,11 +30,11 @@ export const Label = styled.label`
 `
 
 export const LabelText = styled.div`
-  font: ${props => props.theme.font.weight.normal}
-    ${props => props.theme.font.size.normal} / 1
-    ${props => props.theme.font.family.sans};
+  font: ${(props) => props.theme.font.weight.normal}
+    ${(props) => props.theme.font.size.normal} / 1
+    ${(props) => props.theme.font.family.sans};
   letter-spacing: -0.2px;
-  color: ${props => props.theme.colors.text.primary};
+  color: ${(props) => props.theme.colors.text.primary};
 `
 
 export const Fieldset = styled.fieldset`
@@ -45,12 +46,12 @@ export const Fieldset = styled.fieldset`
 `
 
 export const Legend = styled.legend`
-  font: ${props => props.theme.font.weight.normal}
-    ${props => props.theme.font.size.xlarge} /
-    ${props => props.theme.font.lineHeight.large}
-    ${props => props.theme.font.family.sans};
+  font: ${(props) => props.theme.font.weight.normal}
+    ${(props) => props.theme.font.size.xlarge} /
+    ${(props) => props.theme.font.lineHeight.large}
+    ${(props) => props.theme.font.family.sans};
   letter-spacing: -0.4px;
-  color: ${props => props.theme.colors.text.secondary};
+  color: ${(props) => props.theme.colors.text.secondary};
 `
 
 export const Container = styled.div`
