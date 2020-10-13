@@ -28,9 +28,9 @@ interface Props {
   modalClassName?: Modal.Classes
 }
 
-export const ReactModalAdapter: React.FunctionComponent<Modal.Props &
-  ThemeProps<ReactModal> &
-  Props> = ({ className, modalClassName, ...props }) => (
+export const ReactModalAdapter: React.FunctionComponent<
+  Modal.Props & ThemeProps<ReactModal> & Props
+> = ({ className, modalClassName, ...props }) => (
   <Modal
     className={modalClassName}
     portalClassName={className as string}
@@ -58,7 +58,7 @@ export const StyledModal = styled(ReactModalAdapter).attrs({
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: ${props => props.theme.colors.background.dark};
+    background-color: ${(props) => props.theme.colors.background.dark};
     z-index: 1000;
     display: flex;
     justify-content: center;

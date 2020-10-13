@@ -21,7 +21,7 @@ import Tooltip, { Options } from 'tooltip.js'
 const TipContainer = styled.div`
   align-items: center;
   display: flex;
-  font-family: ${props => props.theme.font.family.sans};
+  font-family: ${(props) => props.theme.font.family.sans};
   justify-content: center;
 `
 

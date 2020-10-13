@@ -15,17 +15,21 @@
  */
 
 import AddAuthor from '@manuscripts/assets/react/AddAuthor'
-import React, { ComponentType, useState } from 'react'
-import { SelectComponentsConfig, ValueType } from 'react-select'
+import React, { useState } from 'react'
+import {
+  IndicatorContainerProps,
+  SelectComponentsConfig,
+  ValueType,
+} from 'react-select'
 import CreatableSelect from 'react-select/creatable'
-import { IndicatorContainerProps } from 'react-select/src/components/containers'
 import styled, { DefaultTheme, ThemeProps, withTheme } from 'styled-components'
+
 import { AffiliationGeneric, AffiliationOption } from '../../types'
 import {
   AuthorFormComponentOverrides,
   defaultAuthorFormComponents,
 } from '../AuthorForm/AuthorFormComponents'
-import AffiliationsEditorItem from './AffiliationsEditorItem'
+import { AffiliationsEditorItem } from './AffiliationsEditorItem'
 
 const Container = styled.div`
   margin: 0 1.89rem 1rem;
@@ -52,7 +56,7 @@ const AddAffiliationContainer = styled.div`
 
   circle,
   use {
-    fill: ${props => props.theme.colors.brand.default};
+    fill: ${(props) => props.theme.colors.brand.default};
   }
 
   path {
@@ -114,7 +118,7 @@ const AffiliationsEditorView: React.FC<Props & ThemeProps<DefaultTheme>> = ({
       <Field>
         <List>
           {selected &&
-            selected.map(affiliation => {
+            selected.map((affiliation) => {
               const { _id } = affiliation
               return (
                 <AffiliationsEditorItem
@@ -132,12 +136,12 @@ const AffiliationsEditorView: React.FC<Props & ThemeProps<DefaultTheme>> = ({
           isMulti={false}
           isClearable={false}
           options={options}
-          onInputChange={t => handleInputChange(t)}
+          onInputChange={(t) => handleInputChange(t)}
           inputValue={inputValue}
           onChange={handleChoose}
           value={null}
           placeholder="Begin typing to add affiliation"
-          isValidNewOption={currentText => !!currentText}
+          isValidNewOption={(currentText) => !!currentText}
           components={reactSelectComponents}
           noOptionsMessage={() => 'Type the name of an institution'}
           styles={{
@@ -156,7 +160,7 @@ const AffiliationsEditorView: React.FC<Props & ThemeProps<DefaultTheme>> = ({
               boxShadow: 'none',
               fontFamily: theme.font.family.sans,
             }),
-            menu: (provided, state) => ({
+            menu: (provided) => ({
               ...provided,
               zIndex:
                 (styleOverrides && styleOverrides.menuZIndex) ||

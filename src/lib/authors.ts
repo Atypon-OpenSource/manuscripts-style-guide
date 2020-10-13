@@ -46,14 +46,16 @@ const getModelsByType = <T extends Model>(
 
 export const buildSortedAuthors = (modelMap: Map<string, Model>) => {
   return getModelsByType<Contributor>(modelMap, ObjectTypes.Contributor)
-    .filter(item => item.role === 'author')
+    .filter((item) => item.role === 'author')
     .sort((a, b) => Number(a.priority) - Number(b.priority))
 }
 
 export const buildAuthorPriority = (authors: Contributor[]) => {
-  if (!authors.length) return 0
+  if (!authors.length) {
+    return 0
+  }
 
-  const priorities = authors.map(author => Number(author.priority))
+  const priorities = authors.map((author) => Number(author.priority))
 
   return Math.max(...priorities) + 1
 }
@@ -61,9 +63,9 @@ export const buildAuthorPriority = (authors: Contributor[]) => {
 export const buildAffiliationIDs = (authors: Contributor[]): string[] => {
   const ids: string[] = []
 
-  authors.forEach(author => {
+  authors.forEach((author) => {
     if (author.affiliations) {
-      author.affiliations.forEach(id => {
+      author.affiliations.forEach((id) => {
         ids.push(id)
       })
     }
@@ -79,10 +81,10 @@ export const buildAuthorAffiliations = (
 ) => {
   const items = new Map()
 
-  authors.forEach(author => {
+  authors.forEach((author) => {
     items.set(
       author._id,
-      (author.affiliations || []).map(id => {
+      (author.affiliations || []).map((id) => {
         return {
           ordinal: uniqueAffiliationIDs.indexOf(id) + 1,
           data: affiliations.get(id) as Affiliation,
@@ -133,7 +135,9 @@ export const affiliationLabel = (
   affiliation: Affiliation | AffiliationGeneric | UserProfileAffiliation
 ) => {
   const { department, institution = '' } = affiliation
-  if (!institution) return '(unknown institution)'
+  if (!institution) {
+    return '(unknown institution)'
+  }
   return department ? `${institution} (${department})`.trim() : institution
 }
 
@@ -146,11 +150,11 @@ export const affiliationsOptions = (
   }
 
   const authorAffiliationsIds = new Set(
-    authorAffiliations.map(authorAffiliation => authorAffiliation.data._id)
+    authorAffiliations.map((authorAffiliation) => authorAffiliation.data._id)
   )
   return Array.from(affiliations.values())
-    .filter(affiliation => !authorAffiliationsIds.has(affiliation._id))
-    .map(affiliation => ({
+    .filter((affiliation) => !authorAffiliationsIds.has(affiliation._id))
+    .map((affiliation) => ({
       value: affiliation._id,
       label: affiliationLabel(affiliation) || '',
     }))

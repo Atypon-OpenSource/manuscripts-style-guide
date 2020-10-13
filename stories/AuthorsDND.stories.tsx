@@ -17,6 +17,7 @@
 import { action } from '@storybook/addon-actions'
 import { storiesOf } from '@storybook/react'
 import * as React from 'react'
+
 import { AuthorsDND } from '../src'
 import { AuthorNameProps } from '../src/components/AuthorName'
 import authors from './data/authors'

@@ -15,15 +15,16 @@
  */
 
 import React from 'react'
+
 import { TextFieldGroup } from './TextField'
 import { TextFieldError, TextFieldErrorItem } from './TextFieldError'
 
 interface Errors {
-  [key: string]: string | object | undefined
+  [key: string]: string | Record<string, unknown> | undefined
 }
 
 const hasErrors = (errors: Errors) =>
-  Object.values(errors).some(error => !!error)
+  Object.values(errors).some((error) => !!error)
 
 interface TextFieldGroupContainerProps {
   errors?: Errors

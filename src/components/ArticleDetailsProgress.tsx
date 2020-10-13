@@ -15,6 +15,7 @@
  */
 import React from 'react'
 import styled from 'styled-components'
+
 import {
   TaskStepCurrentIcon,
   TaskStepDoneIcon,
@@ -22,28 +23,28 @@ import {
 } from './icons'
 
 export const PrimaryBoldHeading = styled.div`
-  font-family: ${props => props.theme.font.family.sans};
-  font-weight: ${props => props.theme.font.weight.bold};
-  font-size: ${props => props.theme.font.size.normal};
-  line-height: ${props => props.theme.font.lineHeight.large};
+  font-family: ${(props) => props.theme.font.family.sans};
+  font-weight: ${(props) => props.theme.font.weight.bold};
+  font-size: ${(props) => props.theme.font.size.normal};
+  line-height: ${(props) => props.theme.font.lineHeight.large};
   letter-spacing: -0.369231px;
-  color: ${props => props.theme.colors.text.primary};
+  color: ${(props) => props.theme.colors.text.primary};
 `
 
 export const SecondaryBoldHeading = styled(PrimaryBoldHeading)`
-  color: ${props => props.theme.colors.text.secondary};
+  color: ${(props) => props.theme.colors.text.secondary};
 `
 
 export const PrimarySmallText = styled.div`
-  font-family: ${props => props.theme.font.family.sans};
-  font-weight: ${props => props.theme.font.weight.normal};
-  font-size: ${props => props.theme.font.size.small};
-  line-height: ${props => props.theme.font.lineHeight.normal};
-  color: ${props => props.theme.colors.text.primary};
+  font-family: ${(props) => props.theme.font.family.sans};
+  font-weight: ${(props) => props.theme.font.weight.normal};
+  font-size: ${(props) => props.theme.font.size.small};
+  line-height: ${(props) => props.theme.font.lineHeight.normal};
+  color: ${(props) => props.theme.colors.text.primary};
 `
 
 export const SecondarySmallText = styled(PrimarySmallText)`
-  color: ${props => props.theme.colors.text.secondary};
+  color: ${(props) => props.theme.colors.text.secondary};
 `
 
 export const ProgressContainer: React.FC = ({ children }) => {
@@ -77,7 +78,7 @@ export const ProgressContainer: React.FC = ({ children }) => {
 const Grid = styled.div`
   display: grid;
   grid-template-columns: max-content auto;
-  gap: 0 ${props => props.theme.grid.unit * 2}px;
+  gap: 0 ${(props) => props.theme.grid.unit * 2}px;
 `
 
 const TaskStatus = styled.div`

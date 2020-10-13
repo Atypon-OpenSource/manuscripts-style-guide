@@ -16,6 +16,7 @@
 
 import { Contributor } from '@manuscripts/manuscripts-json-schema'
 import React from 'react'
+
 import { initials } from '../../lib/name'
 import { PrimaryButton } from '../Button'
 import { Category, Dialog } from '../Dialog'

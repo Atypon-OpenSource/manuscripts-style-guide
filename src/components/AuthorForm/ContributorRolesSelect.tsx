@@ -32,7 +32,7 @@ export const ContributorRolesSelect: React.FC<{
   const selectedRoles = useMemo(
     () =>
       value
-        .map(id => contributorRoles.find(item => item._id === id))
+        .map((id) => contributorRoles.find((item) => item._id === id))
         .flat() as ContributorRole[],
     [contributorRoles, value]
   )
@@ -81,14 +81,14 @@ export const ContributorRolesSelect: React.FC<{
       isLoading={saving}
       placeholder={'Begin typing or choose contribution'}
       noOptionsMessage={() => 'Type the name of a contributor role'}
-      getNewOptionData={inputValue => {
+      getNewOptionData={(inputValue) => {
         const option = {
           name: `Create "${inputValue}" role`,
         }
 
         return option as ContributorRole
       }}
-      onCreateOption={async inputValue => {
+      onCreateOption={async (inputValue) => {
         setSaving(true)
 
         const contribution = await createContributorRole(inputValue)
@@ -97,12 +97,12 @@ export const ContributorRolesSelect: React.FC<{
 
         setFieldValue([...value, contribution._id])
       }}
-      getOptionValue={option => option._id}
-      getOptionLabel={option => option.name}
-      onChange={value => {
+      getOptionValue={(option) => option._id}
+      getOptionLabel={(option) => option.name}
+      onChange={(value) => {
         const items = value as ContributorRole[]
 
-        setFieldValue(items.map(item => item._id))
+        setFieldValue(items.map((item) => item._id))
       }}
     />
   )

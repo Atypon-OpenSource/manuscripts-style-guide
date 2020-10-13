@@ -17,17 +17,18 @@
 import React from 'react'
 import Modal from 'react-modal'
 import styled from 'styled-components'
+
 import { RoundIconButton } from './Button'
 
 Modal.setAppElement('#root')
 
 export const ModalContainer = styled.div`
-  background: ${props => props.theme.colors.background.primary};
-  border-radius: ${props => props.theme.grid.radius.default};
-  box-shadow: ${props => props.theme.shadow.dropShadow};
-  font-family: ${props => props.theme.font.family.sans};
+  background: ${(props) => props.theme.colors.background.primary};
+  border-radius: ${(props) => props.theme.grid.radius.default};
+  box-shadow: ${(props) => props.theme.shadow.dropShadow};
+  font-family: ${(props) => props.theme.font.family.sans};
   overflow: hidden;
-  margin: ${props => props.theme.grid.unit * 3}px;
+  margin: ${(props) => props.theme.grid.unit * 3}px;
 `
 
 export const ModalHeader = styled.div`
@@ -43,7 +44,7 @@ export const CloseButton = styled(RoundIconButton)<{ size?: number }>`
 
   ::before,
   ::after {
-    background-color: ${props => props.theme.colors.text.secondary};
+    background-color: ${(props) => props.theme.colors.text.secondary};
     border-radius: 2px;
     content: ' ';
     display: block;
@@ -60,7 +61,7 @@ export const CloseButton = styled(RoundIconButton)<{ size?: number }>`
 `
 
 export const ModalMain = styled.div`
-  padding: ${props => props.theme.grid.unit * 4}px;
+  padding: ${(props) => props.theme.grid.unit * 4}px;
 `
 
 interface Props {

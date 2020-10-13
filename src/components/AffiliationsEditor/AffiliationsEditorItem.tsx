@@ -18,17 +18,17 @@ import Trashcan from '@manuscripts/assets/react/AnnotationRemove'
 import ArrowDownBlue from '@manuscripts/assets/react/ArrowDownBlue'
 import { Field, FieldProps, Form, Formik } from 'formik'
 import React, { useCallback } from 'react'
-
 import styled from 'styled-components'
+
 import { affiliationLabel } from '../../lib/authors'
 import { AffiliationGeneric } from '../../types'
 import { AutoSaveInput } from '../AutoSaveInput'
 import { TextField } from '../TextField'
 
 const Section = styled.section`
-  border: 1px solid ${props => props.theme.colors.border.field.default};
-  border-radius: ${props => props.theme.grid.radius.default};
-  background: ${props => props.theme.colors.background.primary};
+  border: 1px solid ${(props) => props.theme.colors.border.field.default};
+  border-radius: ${(props) => props.theme.grid.radius.default};
+  background: ${(props) => props.theme.colors.background.primary};
   margin-bottom: 2px;
   overflow: hidden;
 `
@@ -41,9 +41,9 @@ const Title = styled.h4<{
   align-items: center;
   font-size: 0.875rem;
   padding-right: 0.5rem;
-  background: ${props =>
+  background: ${(props) =>
     props.isInvalid ? props.theme.colors.background.warning : 'transparent'};
-  color: ${props =>
+  color: ${(props) =>
     props.isInvalid ? props.theme.colors.text.warning : 'inherit'};
 `
 
@@ -64,18 +64,18 @@ const ToggleButton = styled.button<{
   background: transparent;
   border: none;
   text-align: left;
-  font-family: ${props => props.theme.font.family.sans};
+  font-family: ${(props) => props.theme.font.family.sans};
   font-size: 1rem;
   padding: 0.6em 0.5em;
 
   outline: none;
 
   &:focus {
-    color: ${props => props.theme.colors.button.primary.border.hover};
+    color: ${(props) => props.theme.colors.button.primary.border.hover};
   }
 
   svg {
-    transform: ${props => (props.isOpen ? 'rotateX(180deg)' : 'initial')};
+    transform: ${(props) => (props.isOpen ? 'rotateX(180deg)' : 'initial')};
   }
 `
 
@@ -87,7 +87,7 @@ const RemoveButton = styled.button`
   outline: none;
 
   &:focus path {
-    fill: ${props => props.theme.colors.button.primary.color.hover};
+    fill: ${(props) => props.theme.colors.button.primary.color.hover};
   }
 
   svg {
@@ -97,8 +97,8 @@ const RemoveButton = styled.button`
 `
 
 const AffiliationsForm = styled(Form)`
-  border: 1px solid ${props => props.theme.colors.border.field.default};
-  border-radius: ${props => props.theme.grid.radius.default};
+  border: 1px solid ${(props) => props.theme.colors.border.field.default};
+  border-radius: ${(props) => props.theme.grid.radius.default};
   margin: 0.4rem 0.71rem 0.71rem;
   overflow: hidden;
 `
@@ -114,7 +114,7 @@ const AffiliationsTextField = styled(TextField)`
   }
 
   &[aria-invalid] {
-    background: ${props => props.theme.colors.background.warning};
+    background: ${(props) => props.theme.colors.background.warning};
   }
 
   &[aria-invalid]:focus {
@@ -129,8 +129,8 @@ const Columns = styled.div`
 const Column = styled.div`
   flex: 1 1 auto;
   max-width: 50%;
-  border-top: 1px solid ${props => props.theme.colors.border.field.default};
-  border-left: 1px solid ${props => props.theme.colors.border.field.default};
+  border-top: 1px solid ${(props) => props.theme.colors.border.field.default};
+  border-left: 1px solid ${(props) => props.theme.colors.border.field.default};
   &:first-child {
     border-left: none;
   }

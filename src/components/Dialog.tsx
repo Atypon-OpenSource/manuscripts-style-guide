@@ -17,6 +17,7 @@
 import AttentionRed from '@manuscripts/assets/react/AttentionRed'
 import React, { ChangeEvent } from 'react'
 import styled from 'styled-components'
+
 import { ButtonGroup, PrimaryButton, SecondaryButton } from './Button'
 import { StyledModal } from './StyledModal'
 import { TextField } from './TextField'
@@ -28,13 +29,13 @@ const Icon = styled.div`
   align-items: center;
 `
 const ModalBody = styled.div`
-  border-radius: ${props => props.theme.grid.radius.default};
-  box-shadow: ${props => props.theme.shadow.dropShadow};
-  background: ${props => props.theme.colors.background.primary};
+  border-radius: ${(props) => props.theme.grid.radius.default};
+  box-shadow: ${(props) => props.theme.shadow.dropShadow};
+  background: ${(props) => props.theme.colors.background.primary};
   width: 350px;
   max-width: 90vw;
   overflow: hidden;
-  padding: ${props => props.theme.grid.unit * 6}px;
+  padding: ${(props) => props.theme.grid.unit * 6}px;
 `
 
 const MessageContainer = styled.div`
@@ -43,32 +44,32 @@ const MessageContainer = styled.div`
   overflow-y: auto;
   overflow-x: hidden;
   word-wrap: break-word;
-  margin: ${props => props.theme.grid.unit * 4}px 0;
+  margin: ${(props) => props.theme.grid.unit * 4}px 0;
 
-  font: ${props => props.theme.font.weight.normal}
-    ${props => props.theme.font.size.medium} / 1
-    ${props => props.theme.font.family.sans};
-  color: ${props => props.theme.colors.text.secondary};
+  font: ${(props) => props.theme.font.weight.normal}
+    ${(props) => props.theme.font.size.medium} / 1
+    ${(props) => props.theme.font.family.sans};
+  color: ${(props) => props.theme.colors.text.secondary};
   line-height: 1.5;
 `
 
 const HeaderContainer = styled.div`
   align-items: center;
-  color: ${props => props.theme.colors.text.primary};
+  color: ${(props) => props.theme.colors.text.primary};
   display: flex;
-  font: ${props => props.theme.font.weight.bold}
-    ${props => props.theme.font.size.medium} / 1
-    ${props => props.theme.font.family.sans};
+  font: ${(props) => props.theme.font.weight.bold}
+    ${(props) => props.theme.font.size.medium} / 1
+    ${(props) => props.theme.font.family.sans};
   line-height: 1.5;
 `
 
 const ButtonsContainer = styled(ButtonGroup)`
-  padding-top: ${props => props.theme.grid.unit * 5}px;
+  padding-top: ${(props) => props.theme.grid.unit * 5}px;
 `
 
 const ConfirmationTextField = styled(TextField)`
-  margin-top: ${props => props.theme.grid.unit * 4}px;
-  margin-bottom: ${props => props.theme.grid.unit * 8}px;
+  margin-top: ${(props) => props.theme.grid.unit * 4}px;
+  margin-bottom: ${(props) => props.theme.grid.unit * 8}px;
 `
 
 interface DialogState {
@@ -91,7 +92,7 @@ interface DialogProps {
   confirmFieldText?: string
   category: Category
   header: string
-  message: string | React.ReactElement<{}>
+  message: string | React.ReactElement
 }
 
 export enum Category {

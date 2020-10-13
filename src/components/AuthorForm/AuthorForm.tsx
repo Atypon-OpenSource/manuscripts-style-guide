@@ -21,6 +21,7 @@ import {
 import { Field, FieldProps, Form, Formik } from 'formik'
 import React from 'react'
 import styled from 'styled-components'
+
 import { AuthorValues } from '../../types'
 import { AutoSaveInput } from '../AutoSaveInput'
 import { CheckboxField, CheckboxLabel } from '../Checkbox'
@@ -193,7 +194,7 @@ export const AuthorForm: React.FunctionComponent<{
                       <CheckboxField
                         name={'role'}
                         checked={isAuthor}
-                        onChange={async event => {
+                        onChange={async (event) => {
                           props.form.setFieldValue(
                             props.field.name,
                             event.target.checked ? 'author' : 'other',
@@ -219,7 +220,7 @@ export const AuthorForm: React.FunctionComponent<{
                           contributorRoles={contributorRoles}
                           createContributorRole={createContributorRole}
                           value={values.roles}
-                          setFieldValue={async value => {
+                          setFieldValue={async (value) => {
                             props.form.setFieldValue(
                               props.field.name,
                               value,

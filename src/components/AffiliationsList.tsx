@@ -23,12 +23,12 @@ import { AffiliationMap } from '../types'
 const Container = styled.table`
   border-collapse: collapse;
   font: inherit;
-  color: ${props => props.theme.colors.text.secondary};
-  margin-top: ${props => props.theme.grid.unit * 4}px;
+  color: ${(props) => props.theme.colors.text.secondary};
+  margin-top: ${(props) => props.theme.grid.unit * 4}px;
 `
 
 const Header = styled.th`
-  font-weight: ${props => props.theme.font.weight.normal}
+  font-weight: ${(props) => props.theme.font.weight.normal}
   padding: 0 4px 0 0;
   vertical-align: top;
 `

@@ -17,10 +17,11 @@
 import { Contributor } from '@manuscripts/manuscripts-json-schema'
 import React from 'react'
 import styled from 'styled-components'
+
 import { isJointFirstAuthor } from '../../lib/authors'
 import { AuthorAffiliation } from '../../types'
 import { PrimaryButton } from '../Button'
-import Author from './Author'
+import { Author } from './Author'
 
 const AuthorsContainer = styled.div<{ isEmpty: boolean }>`
   align-items: center;
@@ -28,7 +29,7 @@ const AuthorsContainer = styled.div<{ isEmpty: boolean }>`
 
   @media (min-width: 768px) {
     & ${PrimaryButton} {
-      display: ${props => (props.isEmpty ? 'initial' : 'none')};
+      display: ${(props) => (props.isEmpty ? 'initial' : 'none')};
     }
 
     &:hover ${PrimaryButton} {
@@ -40,7 +41,7 @@ const AuthorsContainer = styled.div<{ isEmpty: boolean }>`
 const AuthorsActions = styled.div`
   align-items: center;
   display: flex;
-  margin-left: ${props => props.theme.grid.unit * 2}px;
+  margin-left: ${(props) => props.theme.grid.unit * 2}px;
 `
 
 interface Props {

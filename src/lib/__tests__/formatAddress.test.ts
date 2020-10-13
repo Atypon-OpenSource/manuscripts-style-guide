@@ -20,7 +20,7 @@ const affiliation = {
   _id: 'affiliation-3',
   containerID: 'project-1',
   manuscriptID: 'manuscript-1',
-  objectType: 'MPAffiliation' as 'MPAffiliation',
+  objectType: 'MPAffiliation' as const,
   department: 'Department of Molecular Biology and Biochemistry',
   institution: 'Simon Fraser University',
   addressLine1: '8888 University Drive',

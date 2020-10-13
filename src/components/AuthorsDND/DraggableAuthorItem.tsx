@@ -30,6 +30,7 @@ import {
 } from 'react-dnd'
 import { findDOMNode } from 'react-dom'
 import styled, { DefaultTheme, withTheme } from 'styled-components'
+
 import { isJointFirstAuthor } from '../../lib/authors'
 import {
   AuthorItem,
@@ -47,23 +48,23 @@ import {
 const AuthorItemComponent = styled.div<{
   opacity: number
 }>`
-  margin: 0 -${props => props.theme.grid.unit * 5}px;
-  padding: ${props => props.theme.grid.unit * 2}px
-    ${props => props.theme.grid.unit * 5}px;
+  margin: 0 -${(props) => props.theme.grid.unit * 5}px;
+  padding: ${(props) => props.theme.grid.unit * 2}px
+    ${(props) => props.theme.grid.unit * 5}px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   cursor: pointer;
   transition: background-color 0.25s;
-  opacity: ${props => props.opacity};
+  opacity: ${(props) => props.opacity};
 
   &:hover,
   &.active {
-    background: ${props => props.theme.colors.background.fifth};
+    background: ${(props) => props.theme.colors.background.fifth};
   }
 
   &.active {
-    border: 1px solid ${props => props.theme.colors.border.primary};
+    border: 1px solid ${(props) => props.theme.colors.border.primary};
     border-left: 0;
     border-right: 0;
   }
@@ -107,7 +108,7 @@ const InvitedContainer = styled.div`
 
 const AuthorDropPreview = styled.div`
   width: 100%;
-  background: ${props => props.theme.colors.brand.dark};
+  background: ${(props) => props.theme.colors.brand.dark};
   height: 1px;
   position: relative;
 `
@@ -162,13 +163,18 @@ const dropTargetSpec: DropTargetSpec<Props> = {
     monitor: DropTargetMonitor,
     component: React.Component<Props>
   ) {
-    if (!monitor.isOver({ shallow: true })) return
+    if (!monitor.isOver({ shallow: true })) {
+      return
+    }
 
+    // eslint-disable-next-line react/no-find-dom-node
     const hoveredNode = findDOMNode(component) as Element
     const { top, bottom } = hoveredNode.getBoundingClientRect()
     const offset = monitor.getClientOffset()
 
-    if (!offset) return
+    if (!offset) {
+      return
+    }
 
     const verticalMiddle = (bottom - top) / 2
     const verticalHover = offset.y - top
@@ -189,7 +195,9 @@ const dropTargetSpec: DropTargetSpec<Props> = {
   },
 
   drop(props: Props, monitor: DropTargetMonitor) {
-    if (monitor.didDrop()) return // already dropped on something else
+    if (monitor.didDrop()) {
+      return
+    } // already dropped on something else
 
     const item = monitor.getItem() as DragSourceProps
 
@@ -309,6 +317,7 @@ class AuthorComponent extends React.Component<Props & ConnectedProps, State> {
   })
 }
 
+// eslint-disable-next-line @typescript-eslint/ban-types
 const dragSourceCollector: DragSourceCollector<ConnectedDragSourceProps, {}> = (
   connect,
   monitor
@@ -318,6 +327,7 @@ const dragSourceCollector: DragSourceCollector<ConnectedDragSourceProps, {}> = (
   item: monitor.getItem() as DragSourceProps,
 })
 
+// eslint-disable-next-line @typescript-eslint/ban-types
 const dropTargetCollector: DropTargetCollector<ConnectedDropTargetProps, {}> = (
   connect,
   monitor

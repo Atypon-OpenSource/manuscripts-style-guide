@@ -13,4 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-declare module '*.jpg'
+
+module.exports = {
+  extends: '@manuscripts/eslint-config',
+  rules: {
+    '@typescript-eslint/explicit-module-boundary-types': 'off',
+    '@typescript-eslint/no-unused-vars': 'off',
+    'react/no-unescaped-entities': 'off',
+    'jsx-a11y/no-autofocus': 'off',
+  },
+}

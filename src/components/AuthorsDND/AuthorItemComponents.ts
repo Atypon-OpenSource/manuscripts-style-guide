@@ -15,6 +15,7 @@
  */
 
 import React from 'react'
+
 import { AuthorName, AuthorNameProps } from '../AuthorName'
 
 export interface AuthorItemComponents {

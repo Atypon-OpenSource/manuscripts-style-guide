@@ -21,6 +21,7 @@ import {
   Model,
   ObjectTypes,
 } from '@manuscripts/manuscripts-json-schema'
+
 import { AuthorAffiliation } from '../../types'
 import {
   affiliationLabel,
@@ -38,7 +39,7 @@ const DEFAULT_BUNDLE = 'MPBundle:www-zotero-org-styles-nature'
 
 const modelMap = (models: Model[]): Map<string, Model> => {
   const map = new Map<string, Model>()
-  models.forEach(x => map.set(x._id, x))
+  models.forEach((x) => map.set(x._id, x))
   return map
 }
 
@@ -68,7 +69,7 @@ const contribs: Contributor[] = [
     manuscriptID: 'MPManuscript:A',
     containerID: 'MPProject:1',
     role: 'author',
-    affiliations: affiliations.map(a => a._id),
+    affiliations: affiliations.map((a) => a._id),
     sessionID: 'test',
     createdAt: 0,
     updatedAt: 0,
@@ -120,16 +121,16 @@ const manuscripts: Manuscript[] = [
 ]
 
 const objs: Model[] = manuscripts
-  // tslint:disable-next-line:no-any
+  /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
   .concat(contribs as any)
-  // tslint:disable-next-line:no-any
+  /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
   .concat(affiliations as any)
 
 describe('author and affiliation helpers', () => {
   it('buildSortedAuthors', () => {
     // FIXME: buildSortedAuthors should not ignore silently encountering contributors with no "role" or "priority" fields present.
-    // tslint:disable-line:no-any
-    expect(buildSortedAuthors(modelMap(objs)).map(x => x._id)).toEqual([
+    /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
+    expect(buildSortedAuthors(modelMap(objs)).map((x) => x._id)).toEqual([
       'MPContributor:y',
       'MPContributor:x',
       'MPContributor:z',
@@ -239,7 +240,7 @@ describe('author and affiliation helpers', () => {
 
   it('buildAffiliationsMap', () => {
     const affMap = buildAffiliationsMap(
-      affiliations.map(x => x._id),
+      affiliations.map((x) => x._id),
       modelMap(objs)
     )
     expect(Array.from(affMap)).toEqual([['MPAffiliation:X', affiliations[0]]])
@@ -247,7 +248,7 @@ describe('author and affiliation helpers', () => {
 
   it('buildAuthorAffiliations', () => {
     const affMap = buildAffiliationsMap(
-      affiliations.map(x => x._id),
+      affiliations.map((x) => x._id),
       modelMap(objs)
     )
     const authorAffMap = buildAuthorAffiliations(
@@ -423,8 +424,8 @@ describe('affiliationLabel', () => {
   })
 })
 
-/* tslint:disable:no-any */
 describe('affiliationsOptions', () => {
+  /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
   const affiliations: any = new Map([
     [
       'MPAffiliation:aff-1',

@@ -14,12 +14,14 @@
  * limitations under the License.
  */
 
+import '../styles/tip.css'
+
 import AttentionOrange from '@manuscripts/assets/react/AttentionOrange'
 import { storiesOf } from '@storybook/react'
 import * as React from 'react'
 import styled from 'styled-components'
+
 import { Tip } from '../src'
-import '../styles/tip.css'
 
 const Container = styled.div`
   display: flex;

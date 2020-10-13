@@ -40,9 +40,9 @@ export const FormActions = styled.div`
 `
 
 export const FormError = styled.div`
-  background: ${props => props.theme.colors.background.error};
-  color: ${props => props.theme.colors.text.error};
-  border-radius: ${props => props.theme.grid.radius.default};
+  background: ${(props) => props.theme.colors.background.error};
+  color: ${(props) => props.theme.colors.text.error};
+  border-radius: ${(props) => props.theme.grid.radius.default};
   margin-top: 5px;
   margin-bottom: 5px;
   position: relative;
@@ -54,5 +54,5 @@ export interface FormErrors {
 }
 
 export interface ErrorProps {
-  error?: string | null | object
+  error?: string | null | Record<string, unknown>
 }

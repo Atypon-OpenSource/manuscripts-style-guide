@@ -16,32 +16,33 @@
 
 import React from 'react'
 import styled, { css } from 'styled-components'
+
 import { ErrorProps } from './Form'
 
 const commonStyles = css<ErrorProps>`
   border: 1px solid
-    ${props =>
+    ${(props) =>
       props.error
         ? props.theme.colors.border.error
         : props.theme.colors.border.field.default};
-  border-radius: ${props => props.theme.grid.radius.small};
+  border-radius: ${(props) => props.theme.grid.radius.small};
   box-sizing: border-box;
-  font: ${props => props.theme.font.weight.normal}
-    ${props => props.theme.font.size.medium} / 1
-    ${props => props.theme.font.family.sans};
+  font: ${(props) => props.theme.font.weight.normal}
+    ${(props) => props.theme.font.size.medium} / 1
+    ${(props) => props.theme.font.family.sans};
   outline: none;
-  padding: 10px ${props => props.theme.grid.unit * 4}px;
+  padding: 10px ${(props) => props.theme.grid.unit * 4}px;
   position: relative;
   width: 100%;
-  ${props => props.error && 'z-index: 2'};
+  ${(props) => props.error && 'z-index: 2'};
 
   &:focus {
-    border-color: ${props => props.theme.colors.border.field.hover};
-    background-color: ${props => props.theme.colors.background.fifth};
+    border-color: ${(props) => props.theme.colors.border.field.hover};
+    background-color: ${(props) => props.theme.colors.background.fifth};
   }
 
   &:hover {
-    background-color: ${props => props.theme.colors.background.fifth};
+    background-color: ${(props) => props.theme.colors.background.fifth};
   }
 
   &:invalid {
@@ -60,11 +61,11 @@ export const TextArea = styled.textarea`
 
 export const TextFieldGroup = styled.div`
   & ${TextField}:first-of-type {
-    margin-top: ${props => props.theme.grid.unit}px;
+    margin-top: ${(props) => props.theme.grid.unit}px;
   }
 
   & ${TextField}:last-of-type {
-    margin-bottom: ${props => props.theme.grid.unit}px;
+    margin-bottom: ${(props) => props.theme.grid.unit}px;
   }
 
   & ${TextField}:not(:first-of-type) {
@@ -79,22 +80,22 @@ export const TextFieldGroup = styled.div`
     margin-bottom: 0;
 
     &:focus + ${TextField} {
-      border-top-color: ${props => props.theme.colors.border.field.hover};
+      border-top-color: ${(props) => props.theme.colors.border.field.hover};
     }
   }
 `
 
 export const TextFieldLabel = styled.label`
-  font-family: ${props => props.theme.font.family.sans};
+  font-family: ${(props) => props.theme.font.family.sans};
   text-transform: uppercase;
-  color: ${props => props.theme.colors.text.secondary};
+  color: ${(props) => props.theme.colors.text.secondary};
 
   & ${TextField} {
-    margin-top: ${props => props.theme.grid.unit}px;
+    margin-top: ${(props) => props.theme.grid.unit}px;
   }
 
   & ${TextArea} {
-    margin-top: ${props => props.theme.grid.unit}px;
+    margin-top: ${(props) => props.theme.grid.unit}px;
   }
 `
 
