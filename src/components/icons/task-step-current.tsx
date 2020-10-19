@@ -16,7 +16,9 @@
 
 import React from 'react'
 
-const TaskStepCurrent: React.FC = () => (
+import { IconProps } from './types'
+
+const TaskStepCurrent: React.FC<IconProps> = (props: IconProps) => (
   <svg
     width="16"
     height="16"
@@ -40,13 +42,13 @@ const TaskStepCurrent: React.FC = () => (
     <g mask="url(#mask0)">
       <path
         d="M8 15.5C12.1421 15.5 15.5 12.1421 15.5 8C15.5 3.85786 12.1421 0.5 8 0.5C3.85786 0.5 0.5 3.85786 0.5 8C0.5 12.1421 3.85786 15.5 8 15.5Z"
-        stroke="#FE8F1F"
+        stroke={props.color || '#353535'}
       />
       <path
         fillRule="evenodd"
         clipRule="evenodd"
         d="M8 -1H22V19L17.6816 16.6104L8 8.83594V-1Z"
-        fill="#FE8F1F"
+        fill={props.color || '#353535'}
       />
     </g>
   </svg>

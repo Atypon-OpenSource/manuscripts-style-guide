@@ -51,7 +51,7 @@ const PdfPreview: React.FC<{ scale?: number; url: string }> = ({
     const proxyPDFPromise: PDFPromise<PDFDocumentProxy> = loadingTask.promise.then(
       (pdfDocument) => pdfViewer.setDocument(pdfDocument)
     )
-  }, [url])
+  }, [scale, url])
 
   useEffect(() => {
     pdfViewer.currentScaleValue = scale
