@@ -13,14 +13,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import React from 'react'
-import styled from 'styled-components'
 
-import {
-  TaskStepCurrentIcon,
-  TaskStepDoneIcon,
-  TaskStepNextIcon,
-} from './icons'
+import styled from 'styled-components'
 
 export const PrimaryBoldHeading = styled.div`
   font-family: ${(props) => props.theme.font.family.sans};
@@ -45,52 +39,4 @@ export const PrimarySmallText = styled.div`
 
 export const SecondarySmallText = styled(PrimarySmallText)`
   color: ${(props) => props.theme.colors.text.secondary};
-`
-
-export const ProgressContainer: React.FC = ({ children }) => {
-  const elements = children as React.ReactElement[]
-  return (
-    <Grid>
-      <TaskStatus>
-        <TaskStepDoneIcon />
-        <Line />
-      </TaskStatus>
-      {React.cloneElement(elements[0], {
-        style: { gridColumn: '2', marginBottom: '8px' },
-      })}
-      <TaskStatus>
-        <TaskStepCurrentIcon />
-        <Line />
-      </TaskStatus>
-      {React.cloneElement(elements[1], {
-        style: { gridColumn: '2', marginBottom: '8px' },
-      })}
-      <TaskStatus>
-        <TaskStepNextIcon />
-      </TaskStatus>
-      {React.cloneElement(elements[2], {
-        style: { gridColumn: '2', marginBottom: '8px' },
-      })}
-    </Grid>
-  )
-}
-
-const Grid = styled.div`
-  display: grid;
-  grid-template-columns: max-content auto;
-  gap: 0 ${(props) => props.theme.grid.unit * 2}px;
-`
-
-const TaskStatus = styled.div`
-  grid-column: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding-top: 5px;
-`
-
-const Line = styled.hr`
-  margin: 5px 0 0 0;
-  flex: 1;
-  border: 1px dashed #c9c9c9;
 `
