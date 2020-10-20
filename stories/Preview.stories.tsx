@@ -20,6 +20,7 @@ import * as React from 'react'
 
 import {
   ArticleDetailsInspector,
+  SubmissionCriticality,
   ZoomButton,
   ZoomButtonGroup,
   ZoomInIcon,
@@ -44,7 +45,7 @@ storiesOf('Preview', module)
           _id: '175639',
           doi: '10.1000/xyz123',
           dueDate: new Date('2020-7-28'),
-          criticality: 2,
+          criticality: SubmissionCriticality.OVERDUE,
           journal: {
             code: 'PMC4172319',
             title: 'Applied Organometallic Chemistry',
@@ -75,7 +76,7 @@ storiesOf('Preview', module)
             assignee: {
               role: 'Automated task',
             },
-            criticality: 3,
+            criticality: SubmissionCriticality.OVERDUE,
           },
           previousStep: {
             type: {
@@ -87,7 +88,7 @@ storiesOf('Preview', module)
             assignee: {
               role: 'Production Editor',
             },
-            criticality: 1,
+            criticality: SubmissionCriticality.DUE_TODAY,
           },
         }}
         handleDateChange={action('Date updated')}

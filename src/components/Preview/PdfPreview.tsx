@@ -27,6 +27,10 @@ import React, { useEffect, useRef, useState } from 'react'
 
 GlobalWorkerOptions.workerSrc = pdfjsWorker
 
+type EventBusType = {
+  on: (eventName: string, eventHandler: () => void) => void
+}
+
 const PdfPreview: React.FC<{ scale?: number; url: string }> = ({
   url,
   scale = 1,
@@ -34,6 +38,8 @@ const PdfPreview: React.FC<{ scale?: number; url: string }> = ({
   const [pdfViewer, setPdfViewer] = useState<{ currentScaleValue: number }>({
     currentScaleValue: scale,
   })
+  const [eventBus, setEventBus] = useState<EventBusType | null>(null)
+
   const nodeRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
@@ -44,18 +50,21 @@ const PdfPreview: React.FC<{ scale?: number; url: string }> = ({
       container,
       eventBus,
     })
-    setPdfViewer(pdfViewer)
 
-    eventBus.on('pagesinit', () => (pdfViewer.currentScaleValue = scale))
+    setPdfViewer(pdfViewer)
+    setEventBus(eventBus)
     const loadingTask = getDocument(url)
     const proxyPDFPromise: PDFPromise<PDFDocumentProxy> = loadingTask.promise.then(
       (pdfDocument) => pdfViewer.setDocument(pdfDocument)
     )
-  }, [scale, url])
+  }, [url])
 
   useEffect(() => {
     pdfViewer.currentScaleValue = scale
-  }, [pdfViewer, scale])
+    if (eventBus) {
+      eventBus.on('pagesinit', () => (pdfViewer.currentScaleValue = scale))
+    }
+  }, [pdfViewer, eventBus, scale])
 
   return (
     <div ref={nodeRef} id={'viewerContainer'}>
