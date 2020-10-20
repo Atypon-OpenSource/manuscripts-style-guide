@@ -19,8 +19,7 @@ import { useState } from 'react'
 import * as React from 'react'
 import styled from 'styled-components'
 
-import { ButtonGroup, PrimaryButton } from '../src'
-import PdfPreview from '../src/components/Preview/PdfPreview'
+import { ButtonGroup, PdfPreview, PrimaryButton } from '../src'
 
 storiesOf('Pdf Preview', module).add('Pdf', () => {
   const [scale, setScale] = useState(1)

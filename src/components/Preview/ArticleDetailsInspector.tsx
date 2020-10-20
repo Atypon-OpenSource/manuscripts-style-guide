@@ -24,10 +24,10 @@ import { Progress } from './Progress'
 // TODO:: will add Submission to manuscripts-json-schema, when GraphQL schema get completed
 
 export enum SubmissionCriticality {
-  ON_SCHEDULE,
-  DUE_TODAY,
-  AT_RISK,
-  OVERDUE,
+  ON_SCHEDULE = 'ON_SCHEDULE',
+  DUE_TODAY = 'DUE_TODAY',
+  AT_RISK = 'AT_RISK',
+  OVERDUE = 'OVERDUE',
 }
 
 interface User {

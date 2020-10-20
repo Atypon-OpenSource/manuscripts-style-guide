@@ -35,10 +35,13 @@ const CriticalityLabel: Record<
   SubmissionCriticality,
   { label: string; color: string }
 > = {
-  0: { label: 'On schedule', color: '#353535' },
-  1: { label: 'Due today', color: '#353535' },
-  2: { label: 'At risk', color: '#FE8F1F' },
-  3: { label: 'Overdue', color: '#F35143' },
+  ON_SCHEDULE: {
+    label: 'On schedule',
+    color: '#353535',
+  },
+  DUE_TODAY: { label: 'Due today', color: '#353535' },
+  AT_RISK: { label: 'At risk', color: '#FE8F1F' },
+  OVERDUE: { label: 'Overdue', color: '#F35143' },
 }
 
 export const Progress: React.FC<{

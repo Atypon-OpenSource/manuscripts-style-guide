@@ -16,3 +16,4 @@
 
 export * from './Button'
 export * from './ArticleDetailsInspector'
+export { default as PdfPreview } from './PdfPreview'
