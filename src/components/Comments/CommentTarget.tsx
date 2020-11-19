@@ -14,12 +14,24 @@
  * limitations under the License.
  */
 
-export * from './Button'
-export * from './ArticleDetailsInspector'
-export * from '../ManuscriptNoteList'
-export * from '../Comments/CommentBody'
-export * from '../Comments/CommentTarget'
-export * from '../Comments/CommentUser'
-export * from '../RelativeDate'
-export * from '../../lib/comments'
-export { default as PdfPreview } from './PdfPreview'
+import React, { useEffect } from 'react'
+
+interface Props {
+  isSelected: boolean
+}
+export const CommentTarget: React.FC<Props> = React.memo(
+  ({ isSelected, children }) => {
+    const threadRef = React.createRef<HTMLDivElement>()
+
+    useEffect(() => {
+      if (threadRef.current && isSelected) {
+        threadRef.current.scrollIntoView({
+          behavior: 'smooth',
+          block: 'start',
+          inline: 'nearest',
+        })
+      }
+    })
+    return <div ref={threadRef}>{children}</div>
+  }
+)

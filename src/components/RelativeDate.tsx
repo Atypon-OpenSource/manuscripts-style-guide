@@ -13,13 +13,24 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+import '@formatjs/intl-relativetimeformat/polyfill-locales'
 
-export * from './Button'
-export * from './ArticleDetailsInspector'
-export * from '../ManuscriptNoteList'
-export * from '../Comments/CommentBody'
-export * from '../Comments/CommentTarget'
-export * from '../Comments/CommentUser'
-export * from '../RelativeDate'
-export * from '../../lib/comments'
-export { default as PdfPreview } from './PdfPreview'
+import { selectUnit } from '@formatjs/intl-utils'
+import React from 'react'
+import { FormattedRelativeTime, IntlProvider } from 'react-intl'
+
+export const RelativeDate: React.FC<{
+  createdAt?: number
+}> = ({ createdAt }) => {
+  if (!createdAt) {
+    return null
+  }
+
+  const { value, unit } = selectUnit(createdAt)
+
+  return (
+    <IntlProvider locale="en">
+      <FormattedRelativeTime value={value} unit={unit} />
+    </IntlProvider>
+  )
+}
