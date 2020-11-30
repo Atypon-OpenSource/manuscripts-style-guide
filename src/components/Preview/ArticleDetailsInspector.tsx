@@ -90,6 +90,5 @@ export const ArticleDetailsInspector: React.FC<{
       <Progress submission={submission} />
     </InspectorSection>
     <InspectorSection title={'Open Access'} />
-    <InspectorSection title={'Production notes'} />
   </>
 )

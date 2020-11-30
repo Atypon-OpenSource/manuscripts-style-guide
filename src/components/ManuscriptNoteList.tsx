@@ -40,9 +40,8 @@ interface Props {
   createKeyword: (name: string) => Promise<Keyword>
   deleteModel: (id: string) => Promise<string>
   doc: ManuscriptNode
-  getCollaborator: (id: string) => UserProfile | undefined
   getCollaboratorById: (id: string) => UserProfile | undefined
-  getCurrentUser: () => UserProfile
+  currentUserId: string
   getKeyword: (id: string) => Keyword | undefined
   listCollaborators: () => UserProfile[]
   listKeywords: () => Keyword[]
@@ -58,9 +57,8 @@ export const ManuscriptNoteList: React.FC<Props> = React.memo(
     createKeyword,
     deleteModel,
     doc,
-    getCollaborator,
     getCollaboratorById,
-    getCurrentUser,
+    currentUserId,
     getKeyword,
     listCollaborators,
     listKeywords,
@@ -76,12 +74,11 @@ export const ManuscriptNoteList: React.FC<Props> = React.memo(
       if (noteTarget && !newComment) {
         const newComment = buildNote(noteTarget) as ManuscriptNote
 
-        const currentUser = getCurrentUser()
-        const contribution = buildContribution(currentUser._id)
+        const contribution = buildContribution(currentUserId)
         newComment.contributions = [contribution]
         setNewComment(newComment)
       }
-    }, [noteTarget, getCurrentUser, doc, newComment])
+    }, [noteTarget, currentUserId, doc, newComment])
 
     const items = useMemo<Array<[string, CommentData[]]>>(() => {
       const combinedComments = [...notes]
@@ -163,7 +160,7 @@ export const ManuscriptNoteList: React.FC<Props> = React.memo(
                             createKeyword={createKeyword}
                             comment={comment}
                             deleteComment={deleteNote}
-                            getCollaborator={getCollaborator}
+                            getCollaborator={getCollaboratorById}
                             getKeyword={getKeyword}
                             listCollaborators={listCollaborators}
                             listKeywords={listKeywords}
@@ -191,7 +188,7 @@ export const ManuscriptNoteList: React.FC<Props> = React.memo(
                               createKeyword={createKeyword}
                               comment={note}
                               deleteComment={deleteNote}
-                              getCollaborator={getCollaborator}
+                              getCollaborator={getCollaboratorById}
                               getKeyword={getKeyword}
                               isReply={true}
                               listCollaborators={listCollaborators}
