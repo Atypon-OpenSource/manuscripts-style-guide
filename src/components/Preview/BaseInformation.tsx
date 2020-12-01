@@ -26,7 +26,7 @@ import styled from 'styled-components'
 import { IconTextButton } from '../Button'
 import { InspectorField } from '../Inspector'
 import { InspectorSubsection } from '../InspectorSection'
-import { Submission, SubmissionCriticality } from './ArticleDetailsInspector'
+import { Submission, SubmissionCriticality } from './types'
 
 export const BaseInformation: React.FC<{
   submission: Submission
@@ -67,7 +67,7 @@ export const BaseInformation: React.FC<{
       </InspectorField>
       <InspectorField>
         <Label>Article ID:</Label>
-        <Value>{submission._id}</Value>
+        <Value>{submission.id}</Value>
       </InspectorField>
       <InspectorField>
         <Label>DOI:</Label>
@@ -79,11 +79,13 @@ export const BaseInformation: React.FC<{
       </InspectorField>
       <InspectorField>
         <Label>Journal ID:</Label>
-        <Value>{submission.journal.code}</Value>
+        <Value>{submission.journal.id}</Value>
       </InspectorField>
       <InspectorField>
         <Label>Corresponding Author:</Label>
-        <Value>{submission.author.firstName}</Value>
+        <Value>
+          {submission.author.firstName.concat(' ', submission.author.lastName)}
+        </Value>
       </InspectorField>
       <InspectorField>
         <Label>Email:</Label>
@@ -91,7 +93,7 @@ export const BaseInformation: React.FC<{
       </InspectorField>
       <InspectorField>
         <Label>Production Editor:</Label>
-        <Value>{submission.productionEditor}</Value>
+        <Value>{submission.journal.productionEditor.displayName}</Value>
       </InspectorField>
     </InspectorSubsection>
   )

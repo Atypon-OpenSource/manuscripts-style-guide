@@ -20,65 +20,12 @@ import { DayValue } from 'react-modern-calendar-datepicker'
 import { InspectorSection } from '../InspectorSection'
 import { BaseInformation } from './BaseInformation'
 import { Progress } from './Progress'
-
-// TODO:: will add Submission to manuscripts-json-schema, when GraphQL schema get completed
-
-export enum SubmissionCriticality {
-  ON_SCHEDULE = 'ON_SCHEDULE',
-  DUE_TODAY = 'DUE_TODAY',
-  AT_RISK = 'AT_RISK',
-  OVERDUE = 'OVERDUE',
-}
-
-interface User {
-  role: string
-}
-
-interface SubmissionStepType {
-  label: string
-  description: string
-}
-
-interface SubmissionStep {
-  type: SubmissionStepType
-  assignee: User
-  dueDate: Date
-  criticality: SubmissionCriticality
-}
-
-interface ProjectedSubmissionStep {
-  type: SubmissionStepType
-  dueDate: Date
-  assignee: User
-}
-
-interface Journal {
-  code: string
-  title: string
-}
-
-interface Author {
-  email: string
-  firstName: string
-}
-
-export interface Submission {
-  _id: string
-  doi: string
-  productionEditor: string
-  journal: Journal
-  author: Author
-  currentStep: SubmissionStep
-  previousStep: SubmissionStep
-  nextStep: ProjectedSubmissionStep
-  dueDate: Date
-  criticality: SubmissionCriticality
-}
+import { Submission } from './types'
 
 export const ArticleDetailsInspector: React.FC<{
   submission: Submission
   handleDateChange: (day: DayValue) => void
-}> = ({ submission, handleDateChange }) => (
+}> = ({ submission, handleDateChange, children }) => (
   <>
     <InspectorSection title={'Article information'}>
       <BaseInformation
@@ -89,6 +36,6 @@ export const ArticleDetailsInspector: React.FC<{
     <InspectorSection title={'Progress'}>
       <Progress submission={submission} />
     </InspectorSection>
-    <InspectorSection title={'Open Access'} />
+    {children}
   </>
 )

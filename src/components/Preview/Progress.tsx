@@ -23,13 +23,13 @@ import {
   TaskStepDoneIcon,
   TaskStepNextIcon,
 } from '../icons'
-import { Submission, SubmissionCriticality } from './ArticleDetailsInspector'
 import {
   PrimaryBoldHeading,
   PrimarySmallText,
   SecondaryBoldHeading,
   SecondarySmallText,
 } from './Text'
+import { Submission, SubmissionCriticality } from './types'
 
 const CriticalityLabel: Record<
   SubmissionCriticality,
@@ -50,18 +50,28 @@ export const Progress: React.FC<{
   const { currentStep, nextStep, previousStep } = submission
   return (
     <Grid>
-      <TaskStatus>
-        <TaskStepDoneIcon />
-        <Line />
-      </TaskStatus>
-      <TaskContainer>
-        <PrimaryBoldHeading>{nextStep.type.label}</PrimaryBoldHeading>
-        <SecondarySmallText>{nextStep.type.description}</SecondarySmallText>
-        <SecondarySmallText>Actor: {nextStep.assignee.role}</SecondarySmallText>
-        <PrimarySmallText>
-          {format(nextStep.dueDate, 'd MMMM, EEEE')}
-        </PrimarySmallText>
-      </TaskContainer>
+      {previousStep && (
+        <>
+          <TaskStatus>
+            <TaskStepDoneIcon />
+            <Line />
+          </TaskStatus>
+          <TaskContainer>
+            <SecondaryBoldHeading>
+              {previousStep.type.label}
+            </SecondaryBoldHeading>
+            <SecondarySmallText>
+              {previousStep.type.description}
+            </SecondarySmallText>
+            <SecondarySmallText>
+              Actor: {previousStep.type.role.label}
+            </SecondarySmallText>
+            <SecondarySmallText>
+              {format(previousStep.dueDate, 'd MMMM, EEEE')}
+            </SecondarySmallText>
+          </TaskContainer>
+        </>
+      )}
 
       <TaskStatus>
         <TaskStepCurrentIcon
@@ -73,7 +83,7 @@ export const Progress: React.FC<{
         <PrimaryBoldHeading>{currentStep.type.label}</PrimaryBoldHeading>
         <SecondarySmallText>{currentStep.type.description}</SecondarySmallText>
         <SecondarySmallText>
-          Actor: {currentStep.assignee.role}
+          Actor: {currentStep.type.role.label}
         </SecondarySmallText>
         <PrimarySmallText>
           {format(currentStep.dueDate, 'd MMMM, EEEE')}
@@ -85,19 +95,23 @@ export const Progress: React.FC<{
         </CriticalityText>
       </TaskContainer>
 
-      <TaskStatus>
-        <TaskStepNextIcon />
-      </TaskStatus>
-      <TaskContainer>
-        <SecondaryBoldHeading>{previousStep.type.label}</SecondaryBoldHeading>
-        <SecondarySmallText>{previousStep.type.description}</SecondarySmallText>
-        <SecondarySmallText>
-          Actor: {previousStep.assignee.role}
-        </SecondarySmallText>
-        <SecondarySmallText>
-          {format(previousStep.dueDate, 'd MMMM, EEEE')}
-        </SecondarySmallText>
-      </TaskContainer>
+      {nextStep && (
+        <>
+          <TaskStatus>
+            <TaskStepNextIcon />
+          </TaskStatus>
+          <TaskContainer>
+            <PrimaryBoldHeading>{nextStep.type.label}</PrimaryBoldHeading>
+            <SecondarySmallText>{nextStep.type.description}</SecondarySmallText>
+            <SecondarySmallText>
+              Actor: {nextStep.type.role.label}
+            </SecondarySmallText>
+            <PrimarySmallText>
+              {format(nextStep.dueDate, 'd MMMM, EEEE')}
+            </PrimarySmallText>
+          </TaskContainer>
+        </>
+      )}
     </Grid>
   )
 }
