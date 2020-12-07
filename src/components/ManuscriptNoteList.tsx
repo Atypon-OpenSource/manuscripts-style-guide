@@ -46,6 +46,7 @@ interface Props {
   listCollaborators: () => UserProfile[]
   listKeywords: () => Keyword[]
   notes: ManuscriptNote[]
+  noteSource: 'EMAIL' | 'EDITOR' | 'DASHBOARD'
   noteTarget?: string
   saveModel: (model: ManuscriptNote) => Promise<ManuscriptNote>
   selected: Selected | null
@@ -64,6 +65,7 @@ export const ManuscriptNoteList: React.FC<Props> = React.memo(
     listKeywords,
     notes,
     noteTarget,
+    noteSource,
     saveModel,
     selected,
     setNoteTarget,
@@ -72,13 +74,13 @@ export const ManuscriptNoteList: React.FC<Props> = React.memo(
 
     useEffect(() => {
       if (noteTarget && !newComment) {
-        const newComment = buildNote(noteTarget) as ManuscriptNote
+        const newComment = buildNote(noteTarget, noteSource) as ManuscriptNote
 
         const contribution = buildContribution(currentUserId)
         newComment.contributions = [contribution]
         setNewComment(newComment)
       }
-    }, [noteTarget, currentUserId, doc, newComment])
+    }, [noteTarget, currentUserId, doc, newComment, noteSource])
 
     const items = useMemo<Array<[string, CommentData[]]>>(() => {
       const combinedComments = [...notes]

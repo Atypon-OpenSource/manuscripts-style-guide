@@ -32,6 +32,7 @@ export const notes: ManuscriptNote[] = [
     updatedAt: Math.floor(new Date('2018-01-23T08:00:00Z').getTime() / 1000),
     sessionID: 'foo',
     originalText: '',
+    source: 'EDITOR',
     contributions: [
       {
         _id: 'MPContribution:1',

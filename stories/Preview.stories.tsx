@@ -158,6 +158,7 @@ storiesOf('Preview', module)
             listKeywords={() => []}
             setNoteTarget={(noteTarget) => undefined}
             selected={null}
+            noteSource="DASHBOARD"
           />
         </InspectorSection>
       </ArticleDetailsInspector>
