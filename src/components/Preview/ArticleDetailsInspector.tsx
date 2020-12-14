@@ -25,12 +25,14 @@ import { Submission } from './types'
 export const ArticleDetailsInspector: React.FC<{
   submission: Submission
   handleDateChange: (day: DayValue) => void
-}> = ({ submission, handleDateChange, children }) => (
+  userRole?: string
+}> = ({ submission, handleDateChange, children, userRole }) => (
   <>
     <InspectorSection title={'Article information'}>
       <BaseInformation
         submission={submission}
         handleDateChange={handleDateChange}
+        userRole={userRole}
       />
     </InspectorSection>
     <InspectorSection title={'Progress'}>

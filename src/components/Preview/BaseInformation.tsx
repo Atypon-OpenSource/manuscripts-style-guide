@@ -31,11 +31,16 @@ import { Submission, SubmissionCriticality } from './types'
 export const BaseInformation: React.FC<{
   submission: Submission
   handleDateChange: (day: DayValue) => void
-}> = ({ submission, handleDateChange }) => {
+  userRole?: string
+}> = ({ submission, handleDateChange, userRole }) => {
   const Button: React.FC<{ ref: React.RefObject<HTMLButtonElement> }> = ({
     ref,
   }) => (
-    <DateButton ref={ref} criticality={submission.currentStep.criticality}>
+    <DateButton
+      ref={ref}
+      criticality={submission.currentStep.criticality}
+      disabled={userRole !== 'pe'}
+    >
       {format(submission.currentStep.dueDate, 'd MMM, EEEE')}
       {submission.currentStep.criticality === SubmissionCriticality.AT_RISK && (
         <AttentionOrange />
@@ -125,7 +130,7 @@ const DateLabel = styled(Label)`
 const DateButton = styled(IconTextButton)<{
   criticality: SubmissionCriticality
 }>`
-  border: 1px solid ${(props) => props.theme.colors.border.secondary};
+  border: 1px solid ${(props) => props.theme.colors.border.secondary}!important;
   box-sizing: border-box;
   border-radius: 6px;
   font-weight: ${(props) => props.theme.font.weight.normal};
@@ -136,16 +141,35 @@ const DateButton = styled(IconTextButton)<{
       props.theme.colors.text.warning) ||
     (props.criticality === SubmissionCriticality.OVERDUE &&
       props.theme.colors.text.error) ||
-    props.theme.colors.text.secondary};
+    props.theme.colors.text.secondary}!important;
   width: ${(props) => props.theme.grid.unit * 61}px;
   height: ${(props) => props.theme.grid.unit * 7.5}px;
   justify-content: space-around;
+  background: transparent !important;
 `
 
 const Calendar = styled.div`
   .DatePicker__calendarContainer {
     position: absolute;
     top: unset;
+    left: unset !important;
+    right: 0 !important;
+    transform: unset !important;
+  }
+
+  .Calendar__weekDay {
+    color: #e6e6e;
+    font-size: ${(props) => props.theme.font.size.normal};
+    line-height: ${(props) => props.theme.font.lineHeight.large};
+    font-weight: ${(props) => props.theme.font.weight.medium};
+  }
+
+  .Calendar__day:not(.-blank):not(.-selected):hover {
+    background: #f2fbfc !important;
+  }
+
+  .Calendar__day.-today:hover::after {
+    opacity: 0.5 !important;
   }
 
   .selected-day {
