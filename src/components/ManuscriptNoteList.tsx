@@ -132,97 +132,90 @@ export const ManuscriptNoteList: React.FC<Props> = React.memo(
     return (
       <>
         <AddNoteButton onClick={handleAddNewNote}>
-          <AddText>Add</AddText>
           <AddNoteIcon />
         </AddNoteButton>
 
         {items !== undefined && items.length >= 0 && (
-          <>
-            <NoteListContainer>
-              {items.map(([target, noteData]) => {
-                const isSelected = selected && selected.node.attrs.id
-                return (
-                  <CommentTarget key={target} isSelected={isSelected}>
-                    {noteData.map(({ comment, children }) => (
-                      <NoteThread key={comment._id}>
-                        <Container isSelected={isSelected}>
+          <NoteListContainer>
+            {items.map(([target, noteData]) => {
+              const isSelected = selected && selected.node.attrs.id
+              return (
+                <CommentTarget key={target} isSelected={isSelected}>
+                  {noteData.map(({ comment, children }) => (
+                    <NoteThread key={comment._id}>
+                      <Container isSelected={isSelected}>
+                        <NoteHeader>
+                          {comment.contributions && (
+                            <CommentUser
+                              contributions={comment.contributions}
+                              getCollaboratorById={getCollaboratorById}
+                            />
+                          )}
+                          <LightRelativeDate
+                            createdAt={comment.createdAt * 1000}
+                          />
+                        </NoteHeader>
+
+                        <CommentBody
+                          createKeyword={createKeyword}
+                          comment={comment}
+                          deleteComment={deleteNote}
+                          getCollaborator={getCollaboratorById}
+                          getKeyword={getKeyword}
+                          listCollaborators={listCollaborators}
+                          listKeywords={listKeywords}
+                          saveComment={saveNote}
+                          setCommentTarget={setNoteTarget}
+                          isNew={isNew(comment as ManuscriptNote)}
+                        />
+                      </Container>
+
+                      {children.map((note) => (
+                        <Reply key={note._id}>
                           <NoteHeader>
-                            {comment.contributions && (
+                            {note.contributions && (
                               <CommentUser
-                                contributions={comment.contributions}
+                                contributions={note.contributions}
                                 getCollaboratorById={getCollaboratorById}
                               />
                             )}
                             <LightRelativeDate
-                              createdAt={comment.createdAt * 1000}
+                              createdAt={note.createdAt * 1000}
                             />
                           </NoteHeader>
 
                           <CommentBody
                             createKeyword={createKeyword}
-                            comment={comment}
+                            comment={note}
                             deleteComment={deleteNote}
                             getCollaborator={getCollaboratorById}
                             getKeyword={getKeyword}
+                            isReply={true}
                             listCollaborators={listCollaborators}
                             listKeywords={listKeywords}
                             saveComment={saveNote}
                             setCommentTarget={setNoteTarget}
-                            isNew={isNew(comment as ManuscriptNote)}
+                            isNew={isNew(note as ManuscriptNote)}
                           />
-                        </Container>
-
-                        {children.map((note) => (
-                          <Reply key={note._id}>
-                            <NoteHeader>
-                              {note.contributions && (
-                                <CommentUser
-                                  contributions={note.contributions}
-                                  getCollaboratorById={getCollaboratorById}
-                                />
-                              )}
-                              <LightRelativeDate
-                                createdAt={note.createdAt * 1000}
-                              />
-                            </NoteHeader>
-
-                            <CommentBody
-                              createKeyword={createKeyword}
-                              comment={note}
-                              deleteComment={deleteNote}
-                              getCollaborator={getCollaboratorById}
-                              getKeyword={getKeyword}
-                              isReply={true}
-                              listCollaborators={listCollaborators}
-                              listKeywords={listKeywords}
-                              saveComment={saveNote}
-                              setCommentTarget={setNoteTarget}
-                              isNew={isNew(note as ManuscriptNote)}
-                            />
-                          </Reply>
-                        ))}
-                      </NoteThread>
-                    ))}
-                  </CommentTarget>
-                )
-              })}
-            </NoteListContainer>
-          </>
+                        </Reply>
+                      ))}
+                    </NoteThread>
+                  ))}
+                </CommentTarget>
+              )
+            })}
+          </NoteListContainer>
         )}
       </>
     )
   }
 )
 
-const AddText = styled.div`
-  float: left;
-  padding: 0px 43px 25px 8px;
-`
-
 const AddNoteButton = styled.button`
   cursor: pointer;
   background: none;
   border-style: none;
+  height: 19px;
   &:focus {
     outline: none;
   }

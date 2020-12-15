@@ -24,7 +24,7 @@ const Section = styled.div`
   border-bottom: 1px solid ${(props) => props.theme.colors.border.tertiary};
   font-size: ${(props) => props.theme.font.size.normal};
   margin: ${(props) => props.theme.grid.unit * 6}px
-    ${(props) => props.theme.grid.unit * 7}px 0;
+    ${(props) => props.theme.grid.unit * 2}px 0;
 `
 
 const Heading = styled.div`

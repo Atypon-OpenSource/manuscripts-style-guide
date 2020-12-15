@@ -28,6 +28,7 @@ import {
   ZoomOutIcon,
 } from '../src'
 import { SubmissionCriticality } from '../src/components/Preview/types'
+import { doc } from './data/doc'
 import { notes } from './data/notes'
 import { people } from './data/people'
 
@@ -152,7 +153,7 @@ storiesOf('Preview', module)
             createKeyword={async () => action('create keyword')}
             deleteModel={async () => action('delete model')}
             saveModel={async () => action('save model')}
-            doc={undefined}
+            doc={doc}
             currentUserId={people[0]._id}
             listCollaborators={() => people}
             listKeywords={() => []}
