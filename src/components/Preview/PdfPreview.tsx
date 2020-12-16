@@ -62,7 +62,10 @@ const PdfPreview: React.FC<{ scale?: number; url: string }> = ({
 
     setPdfViewer(pdfViewer)
     setEventBus(eventBus)
-    const loadingTask = getDocument(url) as PDFLoading<PDFDocumentProxy>
+    const loadingTask = getDocument({
+      url,
+      withCredentials: true,
+    }) as PDFLoading<PDFDocumentProxy>
 
     loadingTask.onProgress = (progressData) => {
       setProgress(progressData)
@@ -88,14 +91,18 @@ const PdfPreview: React.FC<{ scale?: number; url: string }> = ({
   return (
     <div ref={nodeRef} id={'viewerContainer'}>
       <div id="viewer" className="pdfViewer" />
-      {progress && progress.total > progress.loaded && (
-        <Container>
-          <ProgressContainer>
-            <Progress progress={(progress.loaded / progress.total) * 100}>
-              {((progress.loaded / progress.total) * 100).toFixed()}%
-            </Progress>
-          </ProgressContainer>
-        </Container>
+      {progress != null ? (
+        progress.total > progress.loaded && (
+          <Container>
+            <ProgressContainer>
+              <Progress progress={(progress.loaded / progress.total) * 100}>
+                {((progress.loaded / progress.total) * 100).toFixed()}%
+              </Progress>
+            </ProgressContainer>
+          </Container>
+        )
+      ) : (
+        <Container>{'Loading\u2026'}</Container>
       )}
     </div>
   )
