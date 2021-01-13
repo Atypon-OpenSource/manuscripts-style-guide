@@ -23,9 +23,9 @@ import {
 
 export type CommentType = ManuscriptNote | CommentAnnotation
 
-export interface CommentData {
-  comment: CommentType
-  children: CommentType[]
+export interface CommentData<T = CommentType> {
+  comment: T
+  children: T[]
 }
 
 const oldestFirst = (a: CommentType, b: CommentType) =>
@@ -77,7 +77,7 @@ const buildTargetsMap = (commentsMap: CommentsMap) => {
   return map
 }
 
-type CommentsTreeMap = Map<string, CommentData[]>
+export type CommentsTreeMap<T = CommentType> = Map<string, CommentData<T>[]>
 
 const buildCommentsTreeMap = (doc: ManuscriptNode, targetsMap: TargetsMap) => {
   const map: CommentsTreeMap = new Map()

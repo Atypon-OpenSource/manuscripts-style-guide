@@ -35,11 +35,17 @@ const CommentUserName = styled.div`
 `
 
 export const CommentUser: React.FC<{
-  contributions: Contribution[]
+  contributions?: Contribution[]
   getCollaboratorById: (id: string) => UserProfileWithAvatar | undefined
-}> = ({ contributions, getCollaboratorById }) => {
-  if (!contributions.length) {
-    return null
+  displayName?: string
+}> = ({ contributions, getCollaboratorById, displayName }) => {
+  if (!contributions || !contributions.length) {
+    return (
+      <CommentUserContainer>
+        <Avatar size={20} />
+        <CommentUserName>by {displayName || '(unknown user)'}</CommentUserName>
+      </CommentUserContainer>
+    )
   }
 
   const [contribution] = contributions // only one contributor

@@ -29,7 +29,12 @@ import React, { useCallback, useEffect, useMemo, useState } from 'react'
 import styled from 'styled-components'
 import { v4 as uuid } from 'uuid'
 
-import { buildNoteTree, CommentData, CommentType } from '../lib/comments'
+import {
+  buildNoteTree,
+  CommentData,
+  CommentsTreeMap,
+  CommentType,
+} from '../lib/comments'
 import { CommentBody } from './Comments/CommentBody'
 import { CommentTarget } from './Comments/CommentTarget'
 import { CommentUser } from './Comments/CommentUser'
@@ -41,7 +46,8 @@ interface Props {
   deleteModel: (id: string) => Promise<string>
   doc: ManuscriptNode
   getCollaboratorById: (id: string) => UserProfile | undefined
-  currentUserId: string
+  currentUserId?: string
+  displayName?: string
   getKeyword: (id: string) => Keyword | undefined
   listCollaborators: () => UserProfile[]
   listKeywords: () => Keyword[]
@@ -60,6 +66,7 @@ export const ManuscriptNoteList: React.FC<Props> = React.memo(
     doc,
     getCollaboratorById,
     currentUserId,
+    displayName,
     getKeyword,
     listCollaborators,
     listKeywords,
@@ -75,19 +82,30 @@ export const ManuscriptNoteList: React.FC<Props> = React.memo(
     useEffect(() => {
       if (noteTarget && !newComment) {
         const newComment = buildNote(noteTarget, noteSource) as ManuscriptNote
+        newComment.displayName = displayName
 
-        const contribution = buildContribution(currentUserId)
-        newComment.contributions = [contribution]
+        if (currentUserId) {
+          const contribution = buildContribution(currentUserId)
+          newComment.contributions = [contribution]
+        } else {
+          newComment.contributions = []
+        }
+
         setNewComment(newComment)
       }
-    }, [noteTarget, currentUserId, doc, newComment, noteSource])
+    }, [noteTarget, currentUserId, displayName, doc, newComment, noteSource])
 
-    const items = useMemo<Array<[string, CommentData[]]>>(() => {
+    const items = useMemo<
+      Array<[string, CommentData<ManuscriptNote>[]]>
+    >(() => {
       const combinedComments = [...notes]
       if (newComment) {
         combinedComments.push(newComment)
       }
-      const commentsTreeMap = buildNoteTree(doc, combinedComments)
+      const commentsTreeMap = buildNoteTree(
+        doc,
+        combinedComments
+      ) as CommentsTreeMap<ManuscriptNote>
       return Array.from(commentsTreeMap.entries())
     }, [notes, newComment, doc])
 
@@ -145,12 +163,11 @@ export const ManuscriptNoteList: React.FC<Props> = React.memo(
                     <NoteThread key={comment._id}>
                       <Container isSelected={isSelected}>
                         <NoteHeader>
-                          {comment.contributions && (
-                            <CommentUser
-                              contributions={comment.contributions}
-                              getCollaboratorById={getCollaboratorById}
-                            />
-                          )}
+                          <CommentUser
+                            contributions={comment.contributions}
+                            getCollaboratorById={getCollaboratorById}
+                            displayName={comment.displayName}
+                          />
                           <LightRelativeDate
                             createdAt={comment.createdAt * 1000}
                           />
@@ -177,6 +194,7 @@ export const ManuscriptNoteList: React.FC<Props> = React.memo(
                               <CommentUser
                                 contributions={note.contributions}
                                 getCollaboratorById={getCollaboratorById}
+                                displayName={comment.displayName}
                               />
                             )}
                             <LightRelativeDate
