@@ -44,7 +44,6 @@ import { RelativeDate } from './RelativeDate'
 interface Props {
   createKeyword: (name: string) => Promise<Keyword>
   deleteModel: (id: string) => Promise<string>
-  doc: ManuscriptNode
   getCollaboratorById: (id: string) => UserProfile | undefined
   currentUserId?: string
   displayName?: string
@@ -63,7 +62,6 @@ export const ManuscriptNoteList: React.FC<Props> = React.memo(
   ({
     createKeyword,
     deleteModel,
-    doc,
     getCollaboratorById,
     currentUserId,
     displayName,
@@ -93,7 +91,7 @@ export const ManuscriptNoteList: React.FC<Props> = React.memo(
 
         setNewComment(newComment)
       }
-    }, [noteTarget, currentUserId, displayName, doc, newComment, noteSource])
+    }, [noteTarget, currentUserId, displayName, newComment, noteSource])
 
     const items = useMemo<
       Array<[string, CommentData<ManuscriptNote>[]]>
@@ -103,11 +101,10 @@ export const ManuscriptNoteList: React.FC<Props> = React.memo(
         combinedComments.push(newComment)
       }
       const commentsTreeMap = buildNoteTree(
-        doc,
         combinedComments
       ) as CommentsTreeMap<ManuscriptNote>
       return Array.from(commentsTreeMap.entries())
-    }, [notes, newComment, doc])
+    }, [notes, newComment])
 
     const handleAddNewNote = useCallback(
       (event: React.MouseEvent) => {

@@ -110,7 +110,7 @@ const buildCommentsTreeMap = (doc: ManuscriptNode, targetsMap: TargetsMap) => {
   return map
 }
 
-const buildNotesTreeMap = (doc: ManuscriptNode, targetsMap: TargetsMap) => {
+const buildNotesTreeMap = (targetsMap: TargetsMap) => {
   const map: CommentsTreeMap = new Map()
 
   for (const notesData of targetsMap.values()) {
@@ -130,14 +130,11 @@ export const buildCommentTree = (
   return buildCommentsTreeMap(doc, targetsMap)
 }
 
-export const buildNoteTree = (
-  doc: ManuscriptNode,
-  comments: CommentType[]
-): CommentsTreeMap => {
+export const buildNoteTree = (comments: CommentType[]): CommentsTreeMap => {
   const commentsMap = buildCommentsMap(comments)
   const targetsMap = buildTargetsMap(commentsMap)
 
-  return buildNotesTreeMap(doc, targetsMap)
+  return buildNotesTreeMap(targetsMap)
 }
 
 export const buildName = (

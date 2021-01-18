@@ -153,7 +153,6 @@ storiesOf('Preview', module)
             createKeyword={async () => action('create keyword')}
             deleteModel={async () => action('delete model')}
             saveModel={async () => action('save model')}
-            doc={doc}
             currentUserId={people[0]._id}
             listCollaborators={() => people}
             listKeywords={() => []}
