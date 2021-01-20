@@ -19,7 +19,7 @@ import AnnotationReply from '@manuscripts/assets/react/AnnotationReply'
 import { Comment, CommentField } from '@manuscripts/comment-editor'
 import { Keyword, UserProfile } from '@manuscripts/manuscripts-json-schema'
 import { Field, FieldProps, Form, Formik } from 'formik'
-import React, { useEffect, useState } from 'react'
+import React, { Dispatch, SetStateAction, useEffect, useState } from 'react'
 import styled from 'styled-components'
 
 import { CommentType } from '../../lib/comments'
@@ -37,7 +37,7 @@ interface Props {
   listKeywords: () => Keyword[]
   comment: CommentType
   saveComment: (comment: CommentType) => Promise<CommentType>
-  setCommentTarget: (commentTarget?: string) => void
+  setCommentTarget: Dispatch<SetStateAction<string | undefined>>
 }
 
 export const CommentBody: React.FC<Props> = React.memo(

@@ -23,10 +23,10 @@ import React from 'react'
 import styled from 'styled-components'
 
 import { Avatar } from '../Avatar'
+import { LightRelativeDate } from '../ManuscriptNoteList'
 
 const CommentUserContainer = styled.div`
   display: flex;
-  align-items: center;
 `
 
 const CommentUserName = styled.div`
@@ -34,11 +34,25 @@ const CommentUserName = styled.div`
   font-weight: ${(props) => props.theme.font.weight.semibold};
 `
 
+const DateText = styled(CommentUserName)`
+  font-size: ${(props) => props.theme.font.size.small};
+  line-height: ${(props) => props.theme.font.lineHeight.normal};
+  font-weight: ${(props) => props.theme.font.weight.normal};
+  color: ${(props) => props.theme.colors.text.secondary};
+`
+
+const Header = styled.div`
+  display: flex;
+  flex-direction: column;
+  font-size: ${(props) => props.theme.font.size.normal};
+`
+
 export const CommentUser: React.FC<{
   contributions?: Contribution[]
   getCollaboratorById: (id: string) => UserProfileWithAvatar | undefined
   displayName?: string
-}> = ({ contributions, getCollaboratorById, displayName }) => {
+  createdAt?: number
+}> = ({ contributions, getCollaboratorById, displayName, createdAt }) => {
   if (!contributions || !contributions.length) {
     return (
       <CommentUserContainer>
@@ -62,8 +76,17 @@ export const CommentUser: React.FC<{
 
   return (
     <CommentUserContainer>
-      <Avatar src={user.avatar} size={20} />
-      <CommentUserName>by {buildName(user.bibliographicName)}</CommentUserName>
+      <Header>
+        <Avatar src={user.avatar} size={20} />
+      </Header>
+      <Header>
+        <CommentUserName>
+          By {buildName(user.bibliographicName)}
+        </CommentUserName>
+        <DateText>
+          <LightRelativeDate createdAt={createdAt} />
+        </DateText>
+      </Header>
     </CommentUserContainer>
   )
 }

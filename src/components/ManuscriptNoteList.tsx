@@ -16,7 +16,6 @@
 import {
   buildContribution,
   buildNote,
-  ManuscriptNode,
   Selected,
 } from '@manuscripts/manuscript-transform'
 import {
@@ -35,9 +34,11 @@ import {
   CommentsTreeMap,
   CommentType,
 } from '../lib/comments'
+import { CheckboxField, CheckboxLabel } from './Checkbox'
 import { CommentBody } from './Comments/CommentBody'
 import { CommentTarget } from './Comments/CommentTarget'
 import { CommentUser } from './Comments/CommentUser'
+import { ResolveButton } from './Comments/ResolveButton'
 import { AddNoteIcon } from './icons/add-note'
 import { RelativeDate } from './RelativeDate'
 
@@ -52,10 +53,8 @@ interface Props {
   listKeywords: () => Keyword[]
   notes: ManuscriptNote[]
   noteSource: 'EMAIL' | 'EDITOR' | 'DASHBOARD'
-  noteTarget?: string
   saveModel: (model: ManuscriptNote) => Promise<ManuscriptNote>
   selected: Selected | null
-  setNoteTarget: (noteTarget?: string) => void
 }
 
 export const ManuscriptNoteList: React.FC<Props> = React.memo(
@@ -69,13 +68,13 @@ export const ManuscriptNoteList: React.FC<Props> = React.memo(
     listCollaborators,
     listKeywords,
     notes,
-    noteTarget,
     noteSource,
     saveModel,
     selected,
-    setNoteTarget,
   }) => {
     const [newComment, setNewComment] = useState<ManuscriptNote>()
+    const [selectResolved, setSelectResolved] = useState<boolean>(false)
+    const [noteTarget, setNoteTarget] = useState<string>()
 
     useEffect(() => {
       if (noteTarget && !newComment) {
@@ -110,6 +109,7 @@ export const ManuscriptNoteList: React.FC<Props> = React.memo(
       (event: React.MouseEvent) => {
         event.preventDefault()
         setNoteTarget(ObjectTypes.ManuscriptNote + ':' + uuid().toUpperCase())
+        setSelectResolved(false)
       },
       [setNoteTarget]
     )
@@ -119,6 +119,7 @@ export const ManuscriptNoteList: React.FC<Props> = React.memo(
         return deleteModel(comment._id).finally(() => {
           if (newComment && newComment._id === comment._id) {
             setNoteTarget(undefined)
+            setNewComment(undefined)
           }
         })
       },
@@ -130,6 +131,7 @@ export const ManuscriptNoteList: React.FC<Props> = React.memo(
         return saveModel(note as ManuscriptNote).then((note) => {
           if (newComment && newComment._id === note._id) {
             setNoteTarget(undefined)
+            setNewComment(undefined)
           }
           return note
         })
@@ -144,29 +146,58 @@ export const ManuscriptNoteList: React.FC<Props> = React.memo(
       [newComment]
     )
 
+    const handleOnSelectChange = useCallback(
+      (e) => setSelectResolved(e.target.checked),
+      []
+    )
     return (
       <>
-        <AddNoteButton onClick={handleAddNewNote}>
-          <AddNoteIcon />
-        </AddNoteButton>
+        <ActionHeader>
+          <AddNoteButton onClick={handleAddNewNote}>
+            <AddNoteIcon />
+          </AddNoteButton>
 
-        {items !== undefined && items.length >= 0 && (
+          {items.length > 0 && (
+            <Checkbox>
+              <CheckboxField
+                checked={selectResolved}
+                onChange={handleOnSelectChange}
+              />
+              <LabelText>See resolved</LabelText>
+            </Checkbox>
+          )}
+        </ActionHeader>
+
+        {items.length >= 0 && (
           <NoteListContainer>
             {items.map(([target, noteData]) => {
               const isSelected = selected && selected.node.attrs.id
+              const selectedNoteData = !selectResolved
+                ? noteData
+                : noteData.filter((note) => note.comment.resolved)
               return (
                 <CommentTarget key={target} isSelected={isSelected}>
-                  {noteData.map(({ comment, children }) => (
+                  {selectedNoteData.map(({ comment, children }) => (
                     <NoteThread key={comment._id}>
                       <Container isSelected={isSelected}>
                         <NoteHeader>
-                          <CommentUser
-                            contributions={comment.contributions}
-                            getCollaboratorById={getCollaboratorById}
-                            displayName={comment.displayName}
-                          />
-                          <LightRelativeDate
-                            createdAt={comment.createdAt * 1000}
+                          {comment.contributions && (
+                            <CommentUser
+                              contributions={comment.contributions}
+                              getCollaboratorById={getCollaboratorById}
+                              displayName={comment.displayName}
+                              createdAt={comment.createdAt * 1000}
+                            />
+                          )}
+                          <ResolveButton
+                            id={comment._id}
+                            resolved={comment.resolved}
+                            resolvedCallback={async () =>
+                              await saveModel({
+                                ...comment,
+                                resolved: !comment.resolved,
+                              } as ManuscriptNote)
+                            }
                           />
                         </NoteHeader>
 
@@ -275,8 +306,29 @@ const Reply = styled.div`
   border-top: none;
 `
 
-const LightRelativeDate = styled(RelativeDate)`
+export const LightRelativeDate = styled(RelativeDate)`
   font-size: ${(props) => props.theme.font.size.small};
   color: ${(props) => props.theme.colors.text.secondary};
   letter-spacing: -0.2px;
+`
+
+const ActionHeader = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-right: 17px;
+  margin-left: 33px;
+`
+
+export const LabelText = styled.div`
+  font-family: ${(props) => props.theme.font.family.sans};
+  color: ${(props) => props.theme.colors.text.primary};
+  font-size: 14px;
+  line-height: 24px;
+`
+
+const Checkbox = styled(CheckboxLabel)`
+  div {
+    color: ${(props) => props.theme.colors.text.primary};
+  }
 `

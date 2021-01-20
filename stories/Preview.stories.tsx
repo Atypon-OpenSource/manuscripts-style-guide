@@ -28,7 +28,6 @@ import {
   ZoomOutIcon,
 } from '../src'
 import { SubmissionCriticality } from '../src/components/Preview/types'
-import { doc } from './data/doc'
 import { notes } from './data/notes'
 import { people } from './data/people'
 
@@ -160,7 +159,6 @@ storiesOf('Preview', module)
             currentUserId={people[0]._id}
             listCollaborators={() => people}
             listKeywords={() => []}
-            setNoteTarget={(noteTarget) => undefined}
             selected={null}
             noteSource="DASHBOARD"
           />
