@@ -67,8 +67,12 @@ storiesOf('Preview', module)
             id: '28',
             firstName: 'E.J. Baerends',
             lastName: '',
-            orcid: '11',
             email: 'e-baerends@gmail.com',
+            displayName: 'E.J. Baerends',
+            role: {
+              id: '1',
+              label: 'author',
+            },
           },
           nextStep: {
             type: {

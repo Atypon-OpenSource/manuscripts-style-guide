@@ -28,7 +28,7 @@ export type Submission = {
   doi: string
   title: string
   journal: Journal
-  author: SubmissionAuthor
+  author: Person
   currentStep: SubmissionStep
   previousStep?: Maybe<SubmissionStep>
   nextStep?: Maybe<ProjectedSubmissionStep>
@@ -43,15 +43,6 @@ export type Journal = {
   doi: string
   issn: string
   productionEditor: User
-}
-
-export type SubmissionAuthor = {
-  id: string
-  orcid: string
-  email: string
-  prefix?: Maybe<string>
-  firstName: string
-  lastName: string
 }
 
 export type SubmissionStep = {
@@ -71,6 +62,15 @@ export type ProjectedSubmissionStep = {
 export type User = {
   id: string
   displayName: string
+}
+
+export type Person = User & {
+  id: string
+  displayName: string
+  email: string
+  firstName: string
+  lastName: string
+  role: Role
 }
 
 export type Role = {

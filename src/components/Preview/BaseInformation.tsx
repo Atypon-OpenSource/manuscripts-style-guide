@@ -88,9 +88,7 @@ export const BaseInformation: React.FC<{
       </InspectorField>
       <InspectorField>
         <Label>Corresponding Author:</Label>
-        <Value>
-          {submission.author.firstName.concat(' ', submission.author.lastName)}
-        </Value>
+        <Value>{submission.author.displayName}</Value>
       </InspectorField>
       <InspectorField>
         <Label>Email:</Label>
