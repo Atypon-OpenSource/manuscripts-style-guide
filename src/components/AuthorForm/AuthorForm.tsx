@@ -25,7 +25,7 @@ import styled from 'styled-components'
 import { AuthorValues } from '../../types'
 import { AutoSaveInput } from '../AutoSaveInput'
 import { CheckboxField, CheckboxLabel } from '../Checkbox'
-import { TextArea } from '../TextField'
+import { TextArea, TextFieldLabel } from '../TextField'
 import { TextFieldGroupContainer } from '../TextFieldGroupContainer'
 import {
   AuthorFormComponentOverrides,
@@ -58,9 +58,14 @@ const buildInitialValues = (author: Contributor): AuthorValues => {
     },
     role: ensureString(author.role), // e.g. 'author' etc
     contribution: ensureString(author.contribution),
+    ORCIDIdentifier: ensureString(author.ORCIDIdentifier),
     roles: author.roles || [],
   }
 }
+
+const OrcidContainer = styled.div`
+  margin: 16px 0 0;
+`
 
 const RolesContainer = styled.div`
   margin: 16px 0;
@@ -207,6 +212,23 @@ export const AuthorForm: React.FunctionComponent<{
                   </Field>
                   <LabelText>Include in Authors List</LabelText>
                 </CheckboxLabel>
+
+                <OrcidContainer>
+                  <TextFieldLabel>
+                    <LabelText>ORCID</LabelText>
+                    <Field name={'ORCIDIdentifier'} type={'text'}>
+                      {(props: FieldProps) => (
+                        <AutoSaveInput
+                          {...props}
+                          component={TextField}
+                          saveOn={'blur'}
+                          placeholder={'https://orcid.org/...'}
+                          testId="bibliographic-name-family"
+                        />
+                      )}
+                    </Field>
+                  </TextFieldLabel>
+                </OrcidContainer>
               </Fieldset>
 
               {createContributorRole && (

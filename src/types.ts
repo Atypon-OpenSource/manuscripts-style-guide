@@ -85,6 +85,7 @@ export interface AuthorValues {
   role: string // e.g. 'author'
   // category: string // e.g. 'MPContributorCategory:1' (Author/Editor/Reviewer)
   roles: string[] // MPContributorRole ids
+  ORCIDIdentifier: string
   contribution: string // free text contribution description
 }
 
