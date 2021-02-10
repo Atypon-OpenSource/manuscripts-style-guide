@@ -18,7 +18,7 @@ import { action } from '@storybook/addon-actions'
 import { storiesOf } from '@storybook/react'
 import * as React from 'react'
 
-import { Category, Dialog, SimpleModal } from '../src'
+import { Category, Dialog, SimpleModal, TextArea } from '../src'
 
 storiesOf('Dialog', module)
   .add('Confirmation Dialog', () => (
@@ -127,4 +127,24 @@ storiesOf('Dialog', module)
     <SimpleModal handleClose={action('Close')} closeWithOverlay={false}>
       Simple Modal contents
     </SimpleModal>
+  ))
+  .add('Dialog with extra children', () => (
+    <Dialog
+      isOpen={true}
+      category={Category.confirmation}
+      header="Are you sure?"
+      message="Lorem ipsum dolor sit amet"
+      actions={{
+        primary: {
+          action: action('Confirm'),
+          title: 'Confirm',
+        },
+        secondary: {
+          action: action('Cancel'),
+          title: 'Cancel',
+        },
+      }}
+    >
+      <TextArea rows={4} />
+    </Dialog>
   ))

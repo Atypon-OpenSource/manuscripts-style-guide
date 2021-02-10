@@ -57,6 +57,7 @@ export const TextField = styled.input<ErrorProps>`
 
 export const TextArea = styled.textarea`
   ${commonStyles}
+  max-width: 100%;
 `
 
 export const TextFieldGroup = styled.div`

@@ -165,6 +165,7 @@ export class Dialog extends React.Component<DialogProps, DialogState> {
       header,
       message,
       category,
+      children,
       confirmFieldText,
     } = this.props
     const { primaryActionDisabled } = this.state
@@ -196,6 +197,7 @@ export class Dialog extends React.Component<DialogProps, DialogState> {
                 />
               </form>
             )}
+            {children}
           </MessageContainer>
           {this.renderButtons(this.props, primaryActionDisabled)}
         </ModalBody>
