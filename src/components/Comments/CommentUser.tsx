@@ -56,8 +56,17 @@ export const CommentUser: React.FC<{
   if (!contributions || !contributions.length) {
     return (
       <CommentUserContainer>
-        <Avatar size={20} />
-        <CommentUserName>by {displayName || '(unknown user)'}</CommentUserName>
+        <Header>
+          <Avatar size={20} />
+        </Header>
+        <Header>
+          <CommentUserName>
+            By {displayName || '(unknown user)'}
+          </CommentUserName>
+          <DateText>
+            <LightRelativeDate createdAt={createdAt} />
+          </DateText>
+        </Header>
       </CommentUserContainer>
     )
   }

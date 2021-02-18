@@ -222,12 +222,10 @@ export const ManuscriptNoteList: React.FC<Props> = React.memo(
                               <CommentUser
                                 contributions={note.contributions}
                                 getCollaboratorById={getCollaboratorById}
-                                displayName={comment.displayName}
+                                displayName={note.displayName}
+                                createdAt={note.createdAt * 1000}
                               />
                             )}
-                            <LightRelativeDate
-                              createdAt={note.createdAt * 1000}
-                            />
                           </NoteHeader>
 
                           <CommentBody
