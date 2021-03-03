@@ -68,8 +68,8 @@ export type Person = User & {
   id: string
   displayName: string
   email: string
-  firstName: string
-  lastName: string
+  firstName?: Maybe<string>
+  lastName?: Maybe<string>
   role: Role
 }
 
