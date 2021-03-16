@@ -28,7 +28,7 @@ const Icon = styled.div`
   display: inline-flex;
   align-items: center;
 `
-const ModalBody = styled.div`
+export const ModalBody = styled.div`
   border-radius: ${(props) => props.theme.grid.radius.default};
   box-shadow: ${(props) => props.theme.shadow.dropShadow};
   background: ${(props) => props.theme.colors.background.primary};
@@ -38,7 +38,7 @@ const ModalBody = styled.div`
   padding: ${(props) => props.theme.grid.unit * 6}px;
 `
 
-const MessageContainer = styled.div`
+export const MessageContainer = styled.div`
   min-height: 90px;
   max-height: 70vh;
   overflow-y: auto;
@@ -93,6 +93,7 @@ interface DialogProps {
   category: Category
   header: string
   message: string | React.ReactElement
+  className?: string
 }
 
 export enum Category {
@@ -167,6 +168,7 @@ export class Dialog extends React.Component<DialogProps, DialogState> {
       category,
       children,
       confirmFieldText,
+      className,
     } = this.props
     const { primaryActionDisabled } = this.state
 
@@ -175,6 +177,7 @@ export class Dialog extends React.Component<DialogProps, DialogState> {
         isOpen={isOpen}
         onRequestClose={actions.onClose}
         shouldCloseOnOverlayClick={true}
+        className={className}
       >
         <ModalBody>
           <HeaderContainer>

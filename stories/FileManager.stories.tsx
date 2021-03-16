@@ -35,8 +35,8 @@ const handleDownload = (url: string): void => {
 
 const handleReplace = (
   submissionId: string,
-  file: File,
-  name: string
+  name: string,
+  file: File
 ): void => {
   console.log('submissionId --> ' + submissionId)
   console.log('file --> ' + file)
@@ -45,16 +45,17 @@ const handleReplace = (
 
 const changeDesignationHandler = (
   submissionId: string,
-  file: File,
-  designation: string | undefined
+  designation: string | undefined,
+  name: string
 ): void => {
   console.log('submissionId --> ' + submissionId)
-  console.log('file --> ' + file)
+  console.log('name --> ' + name)
   console.log('designation --> ' + designation)
 }
 
 storiesOf('FileManager', module).add('FileManager', () => (
   <FileManager
+    submissionId={'MPManuscript:valid-manuscript-id-1'}
     externalFiles={externalFiles}
     enableDragAndDrop={true}
     handleUpload={handleUpload}

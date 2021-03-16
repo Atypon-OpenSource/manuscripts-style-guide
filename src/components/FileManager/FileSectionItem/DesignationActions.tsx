@@ -13,10 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import React, { useState } from 'react'
+import React, { Dispatch, useState } from 'react'
 import styled from 'styled-components'
 
 import BottomArrowIcon from '../../icons/BottomArrowIcon'
+import { Action } from '../FileSectionState'
 import {
   Designation,
   designationWithReadableNamesMap,
@@ -32,10 +33,20 @@ export const DesignationActions: React.FC<{
   fileExtension?: string
   changeDesignationHandler?: (
     submissionId: string,
-    file: File,
-    designation: string | undefined
+    typeId: string,
+    name: string
   ) => void
-}> = ({ designation, fileExtension, changeDesignationHandler }) => {
+  submissionId: string
+  fileName: string
+  dispatch?: Dispatch<Action>
+}> = ({
+  designation,
+  fileExtension,
+  changeDesignationHandler,
+  submissionId,
+  fileName,
+  dispatch,
+}) => {
   const [isActionsShown, setIsActionsShown] = useState(false)
 
   const toggleActionsList = () => {
@@ -68,6 +79,10 @@ export const DesignationActions: React.FC<{
             <DesignationActionsList
               changeDesignationHandler={changeDesignationHandler}
               designationActionsList={designationActionsList}
+              submissionId={submissionId}
+              fileName={fileName}
+              designation={designation}
+              dispatch={dispatch}
             />
           </ActionsListContainer>
         )}

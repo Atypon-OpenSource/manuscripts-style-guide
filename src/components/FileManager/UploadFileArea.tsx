@@ -15,6 +15,7 @@
  */
 import React, {
   ChangeEvent,
+  Dispatch,
   useCallback,
   useEffect,
   useRef,
@@ -23,6 +24,9 @@ import React, {
 import { DropTargetMonitor, useDrop } from 'react-dnd'
 import { NativeTypes } from 'react-dnd-html5-backend'
 import styled, { css } from 'styled-components'
+
+import { Action, actions } from './FileSectionState'
+import { Designation, FileSectionType, getDesignationName } from './util'
 
 /**
  * This component will show the drag or upload file area
@@ -33,11 +37,14 @@ export const UploadFileArea: React.FC<{
     file: File,
     designation: string
   ) => void
-}> = ({ uploadFileHandler }) => {
+  fileSection: FileSectionType
+  submissionId: string
+  dispatch: Dispatch<Action>
+}> = ({ uploadFileHandler, fileSection, submissionId, dispatch }) => {
   const [selectedFile, setSelectedFile] = useState<File>()
 
   const fileInputRef = useRef<HTMLInputElement>(null)
-
+  const isSupplementFilesTab = fileSection === FileSectionType.Supplements
   const openFileDialog = () => {
     if (fileInputRef && fileInputRef.current) {
       fileInputRef.current.click()
@@ -48,15 +55,20 @@ export const UploadFileArea: React.FC<{
     if (event && event.target && event.target.files) {
       const file = event.target.files[0]
       setSelectedFile(file)
+      dispatch(actions.UPLOAD_FILE(file))
     }
   }
 
-  const handleFileDrop = useCallback((monitor: DropTargetMonitor) => {
-    if (monitor) {
-      const file = monitor.getItem().files[0]
-      setSelectedFile(file)
-    }
-  }, [])
+  const handleFileDrop = useCallback(
+    (monitor: DropTargetMonitor) => {
+      if (monitor) {
+        const file = monitor.getItem().files[0]
+        setSelectedFile(file)
+        dispatch(actions.UPLOAD_FILE(file))
+      }
+    },
+    [dispatch]
+  )
 
   const [{ canDrop, isOver }, dropRef] = useDrop({
     accept: [NativeTypes.FILE],
@@ -70,15 +82,15 @@ export const UploadFileArea: React.FC<{
   })
 
   useEffect(() => {
-    if (selectedFile) {
+    if (selectedFile && isSupplementFilesTab) {
       //todo replace the dummy data with correct one after connect the component on real data and its part from this ticket MAN-610.
       uploadFileHandler(
-        'MPManuscript:valid-manuscript-id-1',
+        submissionId,
         selectedFile,
-        'dummy designation'
+        getDesignationName(Designation.Supplementary)
       )
     }
-  }, [selectedFile, uploadFileHandler])
+  }, [selectedFile, submissionId, isSupplementFilesTab, uploadFileHandler])
 
   const isActive = canDrop && isOver
 

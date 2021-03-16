@@ -20,6 +20,7 @@ import AudioIcon from '../icons/audio-icon'
 import CodeFileIcon from '../icons/code-file-icon'
 import CompressedFileIcon from '../icons/compressed-file-icon'
 import DocumentIcon from '../icons/document-icon'
+import FigureIcon from '../icons/figure-icon'
 import LatexIcon from '../icons/latex-icon'
 import PdfFileIcon from '../icons/pdf-file-icon'
 import TableIcon from '../icons/table-icon'
@@ -339,6 +340,7 @@ export const fileTypesWithIconMap = new Map<FileType | undefined, JSX.Element>([
     FileType.PlainText,
     <DocumentIcon key={FileType.PlainText} color="#FFBD26" />,
   ],
+  [FileType.Image, <FigureIcon key={FileType.Image} />],
   [undefined, <UnknownFormatFileIcon key={undefined} />],
 ])
 
@@ -424,13 +426,61 @@ export const getDesignationActionsList = (
     return []
   }
 }
-export const getDesignationName = (
-  designation: Designation
-): string | undefined => {
+export const getDesignationName = (designation: Designation): string => {
   let result = undefined
   namesWithDesignationMap.forEach((value, key, map) => {
     if (value === designation) {
       result = key
+    }
+  })
+  if (result == undefined) {
+    result = ''
+  }
+  return result
+}
+export const getDesignationByFileSection = (
+  fileSectionType: FileSectionType
+): Array<Designation> => {
+  const result = new Array<Designation>()
+  designationWithFileSectionsMap.forEach((value, key, map) => {
+    if (value === fileSectionType) {
+      result.push(key)
+    }
+  })
+  return result
+}
+
+export const getUploadFileDesignationList = (
+  fileExtension: string,
+  fileSectionType: FileSectionType
+): Array<{ value: number; label: string }> => {
+  const result = new Array<{ value: number; label: string }>()
+  const allowedDesignationByFileSection = getDesignationByFileSection(
+    fileSectionType
+  )
+  allowedDesignationByFileSection.forEach((value) => {
+    const allowedExtension = designationWithAllowedMediaTypesMap.get(value)
+    if (allowedExtension && allowedExtension.length != 0) {
+      if (allowedExtension.includes(fileExtension)) {
+        const label = designationWithReadableNamesMap.get(value)
+        if (label) {
+          result.push({
+            value: value,
+            label: label,
+          })
+        }
+      }
+    } else if (
+      value === Designation.Supplementary ||
+      value === Designation.SubmissionFile
+    ) {
+      const label = designationWithReadableNamesMap.get(value)
+      if (label) {
+        result.push({
+          value: value,
+          label: label,
+        })
+      }
     }
   })
   return result

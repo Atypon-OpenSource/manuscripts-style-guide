@@ -13,8 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import React from 'react'
+import React, { Dispatch } from 'react'
 
+import { Action, actions } from '../FileSectionState'
 import {
   ActionsBox,
   ActionsItem,
@@ -23,34 +24,82 @@ import {
 } from '../ItemsAction'
 import {
   Designation,
+  designationWithFileSectionsMap,
   designationWithReadableNamesMap,
+  FileSectionType,
   getDesignationName,
 } from '../util'
 
 export const DesignationActionsList: React.FC<{
   changeDesignationHandler?: (
     submissionId: string,
-    file: File,
-    designation: string | undefined
+    typeId: string,
+    name: string
   ) => void
   designationActionsList: Array<Designation>
-}> = ({ changeDesignationHandler, designationActionsList }) => {
+  submissionId: string
+  fileName: string
+  designation?: Designation
+  dispatch?: Dispatch<Action>
+}> = ({
+  changeDesignationHandler,
+  designationActionsList,
+  submissionId,
+  fileName,
+  designation,
+  dispatch,
+}) => {
+  const handleChangeOtherFilesTabDesignation = (
+    designation: Designation,
+    isMoveInOtherFileSection: boolean,
+    confirmationPopupHeader: string,
+    confirmationPopupMessage: string,
+    successMoveMessage: string
+  ) => {
+    if (isMoveInOtherFileSection) {
+      if (dispatch) {
+        dispatch(
+          actions.MOVE_FILE(
+            submissionId,
+            getDesignationName(designation),
+            fileName,
+            confirmationPopupHeader,
+            confirmationPopupMessage,
+            successMoveMessage
+          )
+        )
+      }
+    } else {
+      changeDesignationHandler &&
+        changeDesignationHandler(
+          submissionId,
+          getDesignationName(designation),
+          fileName
+        )
+    }
+  }
   const isSupplementaryActionIncluded =
     designationActionsList.indexOf(Designation.Supplementary) !== -1
   const otherFilesActionsList = designationActionsList
     .filter((value) => value !== Designation.Supplementary)
     .map((value) => {
-      //todo replace the dummy data with correct one after connect the component on real data and its part from this ticket MAN-610.
       return (
         <ActionsItem
           key={value}
           onClick={() => {
-            changeDesignationHandler &&
-              changeDesignationHandler(
-                'MPManuscript:valid-manuscript-id-1',
-                new File([], 'test.txt'),
-                getDesignationName(value)
-              )
+            let isMoveToOtherFileSection = true
+            if (designation) {
+              isMoveToOtherFileSection =
+                designationWithFileSectionsMap.get(designation) !==
+                FileSectionType.OtherFile
+            }
+            handleChangeOtherFilesTabDesignation(
+              value,
+              isMoveToOtherFileSection,
+              'Are you sure you want to move this file to "Other"?',
+              'The file will be removed from the "Supplementary" and added to "Other".',
+              'Supplementary file successfully moved to other files'
+            )
           }}
         >
           {designationWithReadableNamesMap.get(value)}
@@ -58,7 +107,6 @@ export const DesignationActionsList: React.FC<{
       )
     })
 
-  //todo replace the dummy data with correct one after connect the component on real data and its part from this ticket MAN-610.
   return (
     <ActionsBox>
       {otherFilesActionsList.length > 0 && (
@@ -73,12 +121,19 @@ export const DesignationActionsList: React.FC<{
           <ActionsSeparator />
           <ActionsItem
             onClick={() => {
-              changeDesignationHandler &&
-                changeDesignationHandler(
-                  'MPManuscript:valid-manuscript-id-1',
-                  new File([], 'test.txt'),
-                  getDesignationName(Designation.Supplementary)
-                )
+              let isMoveToOtherFileSection = true
+              if (designation) {
+                isMoveToOtherFileSection =
+                  designationWithFileSectionsMap.get(designation) !==
+                  FileSectionType.Supplements
+              }
+              handleChangeOtherFilesTabDesignation(
+                Designation.Supplementary,
+                isMoveToOtherFileSection,
+                'Are you sure you want to move this file to "Supplementary"?',
+                'The file will be removed from the "Other" and added to "Supplementary".',
+                'File successfully moved to Supplementary files'
+              )
             }}
           >
             {designationWithReadableNamesMap.get(Designation.Supplementary)}

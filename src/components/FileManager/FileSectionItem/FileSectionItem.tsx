@@ -14,11 +14,12 @@
  * limitations under the License.
  */
 import { ExternalFile } from '@manuscripts/manuscripts-json-schema'
-import React, { CSSProperties, useState } from 'react'
+import React, { CSSProperties, Dispatch, useState } from 'react'
 import { DragElementWrapper, DragSourceOptions } from 'react-dnd'
 import styled from 'styled-components'
 
 import DotsIcon from '../../icons/dots-icon'
+import { Action } from '../FileSectionState'
 import { ActionsBox } from '../ItemsAction'
 import { Designation, namesWithDesignationMap } from '../util'
 import { FileInfo } from './FileInfo'
@@ -30,23 +31,31 @@ import { ItemActions } from './ItemActions'
  * which is contained file-icon, file-designation in other and supplemental tabs, file-name, file title, the file description and etc.
  */
 export interface FileSectionItemProps {
+  submissionId: string
   externalFile: ExternalFile
   title: string
   showAttachmentName: boolean
   showDesignationActions: boolean
   handleDownload: (url: string) => void
-  handleReplace: (submissionId: string, file: File, name: string) => void
+  handleReplace: (
+    submissionId: string,
+    name: string,
+    file: File,
+    typeId: string
+  ) => void
   changeDesignationHandler: (
     submissionId: string,
-    file: File,
-    designation: string | undefined
+    typeId: string,
+    name: string
   ) => void
+  dispatch: Dispatch<Action>
   dragRef?: DragElementWrapper<DragSourceOptions>
   className?: string
   style?: CSSProperties
 }
 
 export const FileSectionItem: React.FC<FileSectionItemProps> = ({
+  submissionId,
   externalFile,
   title,
   showAttachmentName,
@@ -54,6 +63,7 @@ export const FileSectionItem: React.FC<FileSectionItemProps> = ({
   handleDownload,
   handleReplace,
   changeDesignationHandler,
+  dispatch,
   dragRef,
   className,
   style,
@@ -77,7 +87,6 @@ export const FileSectionItem: React.FC<FileSectionItemProps> = ({
   const designation = namesWithDesignationMap.get(externalFile.designation)
   const isSubmissionFile = designation === Designation.SubmissionFile
 
-  //todo replace the dummy data for download and replace handlers with correct one after connect the component on real data and its part from this ticket MAN-610.
   return (
     <Item
       ref={dragRef}
@@ -100,6 +109,8 @@ export const FileSectionItem: React.FC<FileSectionItemProps> = ({
           designation={designation}
           description={externalFile.description}
           changeDesignationHandler={changeDesignationHandler}
+          submissionId={submissionId}
+          dispatch={dispatch}
         />
       </ItemContainer>
       <ActionsContainer>
@@ -108,18 +119,13 @@ export const FileSectionItem: React.FC<FileSectionItemProps> = ({
         </ActionsIcon>
         {isActionsShown && (
           <ItemActions
-            replaceAttachmentHandler={() => {
-              handleReplace(
-                'MPManuscript:valid-manuscript-id-1',
-                new File([], 'test.txt'),
-                'test.txt'
-              )
-              hideActionsList()
-            }}
-            downloadAttachmentHandler={() => {
-              handleDownload('https://siam-x5432.ciplit.com')
-              hideActionsList()
-            }}
+            replaceAttachmentHandler={handleReplace}
+            downloadAttachmentHandler={handleDownload}
+            submissionId={submissionId}
+            fileName={externalFile.filename}
+            designation={externalFile.designation}
+            publicUrl={externalFile.publicUrl}
+            hideActionList={hideActionsList}
           />
         )}
       </ActionsContainer>

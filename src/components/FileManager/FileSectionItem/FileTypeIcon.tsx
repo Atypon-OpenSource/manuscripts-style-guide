@@ -19,11 +19,7 @@ import styled from 'styled-components'
 
 import UnknownFormatFileIcon from '../../icons/unknown-format-file-icon'
 import { TooltipDiv } from '../TooltipDiv'
-import {
-  extensionsWithFileTypesMap,
-  FileType,
-  fileTypesWithIconMap,
-} from '../util'
+import { extensionsWithFileTypesMap, fileTypesWithIconMap } from '../util'
 
 /**
  * Each file item has an icon to represent besides the file info based on the file extension,
@@ -40,29 +36,6 @@ export const FileTypeIcon: React.FC<{
     const fileType = extensionsWithFileTypesMap.get(fileExtension.toLowerCase())
 
     fileIcon = fileTypesWithIconMap.get(fileType)
-
-    if (fileType === FileType.Image) {
-      // todo This is just an initial implementation, and need to be fixed after we set the component with real data.
-      // fileIcon = <Img src={submissionAttachment.link} alt={alt}/>
-      fileIcon = (
-        <Img
-          src="https://www.thoughtco.com/thmb/mik7Z00SAYN786BQbieXWOzZmc8=/2121x1414/filters:fill(auto,1)/lotus-flower-828457262-5c6334b646e0fb0001dcd75a.jpg"
-          alt={alt}
-        />
-      )
-    } else if (fileType === FileType.Video) {
-      // todo This is just an initial implementation, and need to be fixed after we set the component with real data.
-      // fileIcon = <Img src={submissionAttachment.link} alt={alt}/>
-      fileIcon = (
-        <>
-          <Img
-            src="https://www.thoughtco.com/thmb/mik7Z00SAYN786BQbieXWOzZmc8=/2121x1414/filters:fill(auto,1)/lotus-flower-828457262-5c6334b646e0fb0001dcd75a.jpg"
-            alt={alt}
-          />
-          <VideoIconContainer>{fileIcon}</VideoIconContainer>
-        </>
-      )
-    }
   }
 
   return (

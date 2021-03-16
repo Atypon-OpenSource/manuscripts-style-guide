@@ -14,20 +14,27 @@
  * limitations under the License.
  */
 import { ExternalFile } from '@manuscripts/manuscripts-json-schema'
-import React from 'react'
+import React, { useReducer, useState } from 'react'
+import styled from 'styled-components'
 
+import { AlertMessage, AlertMessageType } from '../AlertMessage'
+import { ConfirmationPopUp } from './ConfirmationPopUp'
 import { DragItemArea } from './DragItemArea'
 import { DraggableFileSectionItem } from './FileSectionItem/DraggableFileSectionItem'
 import {
   FileSectionItem,
   FileSectionItemProps,
 } from './FileSectionItem/FileSectionItem'
+import { FileSectionUploadItem } from './FileSectionItem/FileSectionUploadItem'
+import { actions, getInitialState, reducer } from './FileSectionState'
+import { SelectDialogDesignation } from './SelectDialogDesignation'
 import { UploadFileArea } from './UploadFileArea'
 import {
   Designation,
   designationWithFileSectionsMap,
   FileSectionType,
   generateExternalFilesTitles,
+  getDesignationName,
   namesWithDesignationMap,
   sortExternalFiles,
 } from './util'
@@ -36,32 +43,46 @@ import {
  *  This component represents the other files in the file section.
  */
 export const FilesSection: React.FC<{
+  submissionId: string
   externalFiles: ExternalFile[]
   enableDragAndDrop: boolean
   handleUpload: (submissionId: string, file: File, designation: string) => void
   handleDownload: (url: string) => void
-  handleReplace: (submissionId: string, file: File, name: string) => void
+  handleReplace: (
+    submissionId: string,
+    name: string,
+    file: File,
+    typeId: string
+  ) => void
   changeDesignationHandler: (
     submissionId: string,
-    file: File,
-    designation: string | undefined
+    typeId: string,
+    name: string
   ) => void
-  fileSectionDesignation: FileSectionType
+  fileSection: FileSectionType
 }> = ({
+  submissionId,
   externalFiles,
   enableDragAndDrop,
   handleUpload,
   handleDownload,
   handleReplace,
   changeDesignationHandler,
-  fileSectionDesignation,
+  fileSection,
 }) => {
-  const isInlineFilesTab = fileSectionDesignation === FileSectionType.Inline
+  const [state, dispatch] = useReducer(reducer, getInitialState())
+  let uploadedFileExtension = ''
+  if (state.uploadedFile) {
+    uploadedFileExtension = state.uploadedFile.name.substring(
+      state.uploadedFile.name.lastIndexOf('.') + 1
+    )
+  }
 
-  const isSupplementFilesTab =
-    fileSectionDesignation === FileSectionType.Supplements
+  const isInlineFilesTab = fileSection === FileSectionType.Inline
 
-  const isOtherFileTab = fileSectionDesignation === FileSectionType.OtherFile
+  const isSupplementFilesTab = fileSection === FileSectionType.Supplements
+
+  const isOtherFileTab = fileSection === FileSectionType.OtherFile
 
   const showAttachmentNameAndDesignationActions =
     isSupplementFilesTab || isOtherFileTab
@@ -73,7 +94,7 @@ export const FilesSection: React.FC<{
     )
     return (
       designation !== undefined &&
-      designationWithFileSectionsMap.get(designation) === fileSectionDesignation
+      designationWithFileSectionsMap.get(designation) === fileSection
     )
   })
 
@@ -84,6 +105,7 @@ export const FilesSection: React.FC<{
 
   const filesItems = itemsDataWithTitle.map((element) => {
     const itemProps: FileSectionItemProps = {
+      submissionId: submissionId,
       externalFile: element.externalFile,
       title: element.title,
       showAttachmentName: showAttachmentNameAndDesignationActions,
@@ -91,6 +113,7 @@ export const FilesSection: React.FC<{
       handleDownload: handleDownload,
       handleReplace: handleReplace,
       changeDesignationHandler: changeDesignationHandler,
+      dispatch: dispatch,
     }
 
     if (enableDragAndDrop && (isSupplementFilesTab || isOtherFileTab)) {
@@ -107,7 +130,69 @@ export const FilesSection: React.FC<{
 
   return (
     <div>
-      <UploadFileArea uploadFileHandler={handleUpload} />
+      {(isOtherFileTab || isSupplementFilesTab) && (
+        <UploadFileArea
+          uploadFileHandler={handleUpload}
+          fileSection={fileSection}
+          submissionId={submissionId}
+          dispatch={dispatch}
+        />
+      )}
+      {state.isUploadFile &&
+        state.uploadedFile &&
+        state.selectDesignation != undefined && (
+          <FileSectionUploadItem
+            submissionId={submissionId}
+            fileName={state.uploadedFile.name}
+            isLoading={state.isUploadFile}
+          />
+        )}
+
+      <ConfirmationPopUp
+        popupHeader={
+          state.confirmationPopupData
+            ? state.confirmationPopupData.popupHeader
+            : ''
+        }
+        popUpMessage={
+          state.confirmationPopupData
+            ? state.confirmationPopupData.popupMessage
+            : ''
+        }
+        isOpen={state.isOpenPopup}
+        handleClose={() => dispatch(actions.HANDLE_CANCEL_MOVE())}
+        handleMove={() => {
+          dispatch(actions.HANDLE_MOVE_ACTION())
+          state.moveToOtherState &&
+            changeDesignationHandler(
+              state.moveToOtherState.submissionId,
+              state.moveToOtherState.typeId,
+              state.moveToOtherState.name
+            )
+        }}
+      />
+      {state.uploadedFile && isOtherFileTab && (
+        <SelectDialogDesignation
+          isOpen={state.isOpenSelectDesignationPopup}
+          fileExtension={uploadedFileExtension}
+          handleCancel={() => {
+            dispatch(actions.HANDLE_CANCEL_UPLOAD())
+          }}
+          uploadFileHandler={() => {
+            state.uploadedFile &&
+              state.selectDesignation != undefined &&
+              handleUpload(
+                submissionId,
+                state.uploadedFile,
+                getDesignationName(state.selectDesignation)
+              )
+            dispatch(actions.HANDLE_UPLOAD_ACTION())
+          }}
+          dispatch={dispatch}
+          fileSection={fileSection}
+        />
+      )}
+
       {filesItems}
       {enableDragAndDrop && (isSupplementFilesTab || isOtherFileTab) && (
         <DragItemArea
@@ -118,6 +203,14 @@ export const FilesSection: React.FC<{
           }
         />
       )}
+      <MessageContainer hidden={!state.isShowSuccessMessage}>
+        <AlertMessage type={AlertMessageType.info} hideCloseButton={false}>
+          {state.successMessage}
+        </AlertMessage>
+      </MessageContainer>
     </div>
   )
 }
+const MessageContainer = styled.div`
+  margin-top: 8px;
+`

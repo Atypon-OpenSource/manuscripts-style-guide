@@ -17,7 +17,6 @@ import React, { CSSProperties, useState } from 'react'
 import { DragElementWrapper, DragSourceOptions } from 'react-dnd'
 import styled from 'styled-components'
 
-import CloseIcon from '../../icons/close-icon'
 import { DesignationActions } from './DesignationActions'
 import { FileInfoContainer, FileName, FileNameContainer } from './FileInfo'
 import {
@@ -31,6 +30,7 @@ import { FileTypeIcon } from './FileTypeIcon'
 export interface FileSectionItemProps {
   fileName: string
   isLoading: boolean
+  submissionId: string
   dragRef?: DragElementWrapper<DragSourceOptions>
   className?: string
   style?: CSSProperties
@@ -42,12 +42,12 @@ export interface FileSectionItemProps {
 export const FileSectionUploadItem: React.FC<FileSectionItemProps> = ({
   fileName,
   isLoading,
+  submissionId,
   dragRef,
   className,
   style,
 }) => {
   const fileExtension = fileName.substring(fileName.lastIndexOf('.') + 1)
-
   fileName = fileName.substring(0, fileName.lastIndexOf('.'))
 
   return (
@@ -55,7 +55,12 @@ export const FileSectionUploadItem: React.FC<FileSectionItemProps> = ({
       <UploadItemContainer>
         <FileTypeIcon withDot={false} />
         <FileInfoContainer>
-          {!isLoading && <DesignationActions />}
+          {!isLoading && (
+            <DesignationActions
+              submissionId={submissionId}
+              fileName={fileName}
+            />
+          )}
           <FileNameContainer>
             <FileName>{fileName}</FileName>
             <div>.{fileExtension}</div>
@@ -67,11 +72,6 @@ export const FileSectionUploadItem: React.FC<FileSectionItemProps> = ({
           )}
         </FileInfoContainer>
       </UploadItemContainer>
-      <ActionsContainer>
-        <IconButton>
-          <CloseIcon color={'#6E6E6E'} />
-        </IconButton>
-      </ActionsContainer>
     </Item>
   )
 }

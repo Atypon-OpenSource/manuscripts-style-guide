@@ -13,9 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import React from 'react'
+import React, { Dispatch } from 'react'
 import styled from 'styled-components'
 
+import { Action } from '../FileSectionState'
 import { Designation } from '../util'
 import { DesignationActions } from './DesignationActions'
 
@@ -29,9 +30,11 @@ export const FileInfo: React.FC<{
   designation?: Designation
   changeDesignationHandler: (
     submissionId: string,
-    file: File,
-    designation: string | undefined
+    typeId: string,
+    name: string
   ) => void
+  submissionId: string
+  dispatch: Dispatch<Action>
 }> = ({
   showAttachmentName,
   showDesignationActions,
@@ -41,6 +44,8 @@ export const FileInfo: React.FC<{
   designation,
   description,
   changeDesignationHandler,
+  submissionId,
+  dispatch,
 }) => {
   const fileName = submissionAttachmentName.substring(
     0,
@@ -54,6 +59,9 @@ export const FileInfo: React.FC<{
           designation={designation}
           fileExtension={fileExtension}
           changeDesignationHandler={changeDesignationHandler}
+          submissionId={submissionId}
+          fileName={submissionAttachmentName}
+          dispatch={dispatch}
         />
       )}
       <FileNameTitleContainer>

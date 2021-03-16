@@ -16,7 +16,6 @@
 import { ExternalFile } from '@manuscripts/manuscripts-json-schema'
 import React from 'react'
 import ReactTooltip from 'react-tooltip'
-import styled from 'styled-components'
 
 import {
   InspectorTab,
@@ -42,17 +41,24 @@ import { FileSectionType } from './util'
  * 3- Other files.
  */
 export const FileManager: React.FC<{
+  submissionId: string
   externalFiles: ExternalFile[]
   enableDragAndDrop: boolean
   handleUpload: (submissionId: string, file: File, designation: string) => void
   handleDownload: (url: string) => void
-  handleReplace: (submissionId: string, file: File, name: string) => void
+  handleReplace: (
+    submissionId: string,
+    name: string,
+    file: File,
+    typeId: string
+  ) => void
   changeDesignationHandler: (
     submissionId: string,
-    file: File,
-    designation: string | undefined
+    typeId: string,
+    name: string
   ) => void
 }> = ({
+  submissionId,
   externalFiles,
   enableDragAndDrop,
   handleUpload,
@@ -114,35 +120,38 @@ export const FileManager: React.FC<{
           <InspectorTabPanels>
             <InspectorTabPanel>
               <FilesSection
+                submissionId={submissionId}
                 externalFiles={externalFiles}
                 enableDragAndDrop={false}
                 handleUpload={handleUpload}
                 handleDownload={handleDownload}
                 handleReplace={handleReplace}
                 changeDesignationHandler={changeDesignationHandler}
-                fileSectionDesignation={FileSectionType.Inline}
+                fileSection={FileSectionType.Inline}
               />
             </InspectorTabPanel>
             <InspectorTabPanel>
               <FilesSection
+                submissionId={submissionId}
                 externalFiles={externalFiles}
                 enableDragAndDrop={enableDragAndDrop}
                 handleUpload={handleUpload}
                 handleDownload={handleDownload}
                 handleReplace={handleReplace}
                 changeDesignationHandler={changeDesignationHandler}
-                fileSectionDesignation={FileSectionType.Supplements}
+                fileSection={FileSectionType.Supplements}
               />
             </InspectorTabPanel>
             <InspectorTabPanel>
               <FilesSection
+                submissionId={submissionId}
                 externalFiles={externalFiles}
                 enableDragAndDrop={enableDragAndDrop}
                 handleUpload={handleUpload}
                 handleDownload={handleDownload}
                 handleReplace={handleReplace}
                 changeDesignationHandler={changeDesignationHandler}
-                fileSectionDesignation={FileSectionType.OtherFile}
+                fileSection={FileSectionType.OtherFile}
               />
             </InspectorTabPanel>
           </InspectorTabPanels>
