@@ -27,11 +27,12 @@ const buildNameLiteral = (name: BibliographicName) =>
 
 export interface AuthorNameProps {
   name: BibliographicName
+  email?: string
 }
 
 const AuthorNameComponent: React.FC<
   AuthorNameProps & ThemeProps<DefaultTheme>
-> = ({ name, theme }) =>
+> = ({ name, email, theme }) =>
   !name.given && !name.family ? (
     <NameParts
       color={theme.colors.text.secondary}
@@ -41,7 +42,8 @@ const AuthorNameComponent: React.FC<
     </NameParts>
   ) : (
     <NameParts data-testid={`author-name--${name.given}`}>
-      {buildNameLiteral(name)}
+      {(email && buildNameLiteral(name).concat(' ').concat(`(${email})`)) ||
+        buildNameLiteral(name)}
     </NameParts>
   )
 

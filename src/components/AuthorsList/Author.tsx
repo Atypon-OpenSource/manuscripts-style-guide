@@ -82,10 +82,16 @@ export const Author: React.FunctionComponent<AuthorProps> = ({
           selectAuthor && selectAuthor(author)
         }}
       >
-        <AuthorName name={author.bibliographicName} />
+        <AuthorName
+          name={author.bibliographicName}
+          email={(author.isCorresponding && author.email) || undefined}
+        />
       </AuthorsContainer>
     ) : (
-      <AuthorName name={author.bibliographicName} />
+      <AuthorName
+        name={author.bibliographicName}
+        email={(author.isCorresponding && author.email) || undefined}
+      />
     )}
     {affiliations && (
       <AuthorNotes>
