@@ -23,6 +23,17 @@ import { ConnectDragSource, ConnectDropTarget } from 'react-dnd'
 
 export type AffiliationMap = Map<string, Affiliation>
 
+interface AffiliationData {
+  ordinal: number
+  data: Affiliation
+}
+
+export interface AuthorData {
+  authors: Contributor[]
+  affiliations: AffiliationMap
+  authorAffiliations: Map<string, AffiliationData[]>
+}
+
 export interface AuthorItem {
   _id: string
   index: number
