@@ -94,8 +94,8 @@ export const namesWithDesignationMap = new Map<string | undefined, Designation>(
     ['graphical-abstract-image', Designation.GraphicalAbstractImage],
     ['graphical-abstract-text', Designation.GraphicalAbstractText],
     ['metadata', Designation.Metadata],
-    ['submission_file', Designation.SubmissionFile],
-    ['submission_pdf', Designation.SubmissionPdf],
+    ['submission-file', Designation.SubmissionFile],
+    ['submission-pdf', Designation.SubmissionPdf],
     ['title-page', Designation.TitlePage],
   ]
 )
