@@ -17,7 +17,6 @@ import { ExternalFile } from '@manuscripts/manuscripts-json-schema'
 import React, { useReducer, useState } from 'react'
 import styled from 'styled-components'
 
-import { AlertMessage, AlertMessageType } from '../AlertMessage'
 import { ConfirmationPopUp } from './ConfirmationPopUp'
 import { DragItemArea } from './DragItemArea'
 import { DraggableFileSectionItem } from './FileSectionItem/DraggableFileSectionItem'
@@ -46,19 +45,23 @@ export const FilesSection: React.FC<{
   submissionId: string
   externalFiles: ExternalFile[]
   enableDragAndDrop: boolean
-  handleUpload: (submissionId: string, file: File, designation: string) => void
+  handleUpload: (
+    submissionId: string,
+    file: File,
+    designation: string
+  ) => Promise<boolean>
   handleDownload: (url: string) => void
   handleReplace: (
     submissionId: string,
     name: string,
     file: File,
     typeId: string
-  ) => void
+  ) => Promise<boolean>
   changeDesignationHandler: (
     submissionId: string,
     typeId: string,
     name: string
-  ) => void
+  ) => Promise<boolean>
   fileSection: FileSectionType
 }> = ({
   submissionId,
@@ -163,12 +166,20 @@ export const FilesSection: React.FC<{
         handleClose={() => dispatch(actions.HANDLE_CANCEL_MOVE())}
         handleMove={() => {
           dispatch(actions.HANDLE_MOVE_ACTION())
-          state.moveToOtherState &&
+          if (state.moveToOtherState) {
             changeDesignationHandler(
               state.moveToOtherState.submissionId,
               state.moveToOtherState.typeId,
               state.moveToOtherState.name
             )
+              .then((res) => {
+                if (res) {
+                  dispatch(actions.HANDLE_SUCCESS_MESSAGE())
+                }
+                return res
+              })
+              .catch((e) => console.error(e))
+          }
         }}
       />
       {state.uploadedFile && isOtherFileTab && (
@@ -179,6 +190,7 @@ export const FilesSection: React.FC<{
             dispatch(actions.HANDLE_CANCEL_UPLOAD())
           }}
           uploadFileHandler={() => {
+            dispatch(actions.HANDLE_UPLOAD_ACTION())
             state.uploadedFile &&
               state.selectDesignation != undefined &&
               handleUpload(
@@ -186,7 +198,11 @@ export const FilesSection: React.FC<{
                 state.uploadedFile,
                 getDesignationName(state.selectDesignation)
               )
-            dispatch(actions.HANDLE_UPLOAD_ACTION())
+                .then((res) => {
+                  dispatch(actions.HANDLE_FINISH_UPLOAD())
+                  return true
+                })
+                .catch((e) => console.error(e))
           }}
           dispatch={dispatch}
           fileSection={fileSection}
@@ -203,14 +219,7 @@ export const FilesSection: React.FC<{
           }
         />
       )}
-      <MessageContainer hidden={!state.isShowSuccessMessage}>
-        <AlertMessage type={AlertMessageType.info} hideCloseButton={false}>
-          {state.successMessage}
-        </AlertMessage>
-      </MessageContainer>
+      {state.successMessageElement}
     </div>
   )
 }
-const MessageContainer = styled.div`
-  margin-top: 8px;
-`

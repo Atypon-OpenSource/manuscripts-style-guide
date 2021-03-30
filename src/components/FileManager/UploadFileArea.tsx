@@ -17,7 +17,6 @@ import React, {
   ChangeEvent,
   Dispatch,
   useCallback,
-  useEffect,
   useRef,
   useState,
 } from 'react'
@@ -36,13 +35,26 @@ export const UploadFileArea: React.FC<{
     submissionId: string,
     file: File,
     designation: string
-  ) => void
+  ) => Promise<boolean>
   fileSection: FileSectionType
   submissionId: string
   dispatch: Dispatch<Action>
 }> = ({ uploadFileHandler, fileSection, submissionId, dispatch }) => {
   const [selectedFile, setSelectedFile] = useState<File>()
+  const handleUpload = useCallback(
+    (submissionId, file, designation) => {
+      dispatch(actions.HANDLE_UPLOAD_ACTION())
+      dispatch(actions.SELECT_DESIGNATION(Designation.Supplementary))
 
+      return uploadFileHandler(submissionId, file, designation)
+        .then((res) => {
+          dispatch(actions.HANDLE_FINISH_UPLOAD())
+          return res
+        })
+        .catch((e) => console.error(e))
+    },
+    [dispatch, uploadFileHandler]
+  )
   const fileInputRef = useRef<HTMLInputElement>(null)
   const isSupplementFilesTab = fileSection === FileSectionType.Supplements
   const openFileDialog = () => {
@@ -56,6 +68,13 @@ export const UploadFileArea: React.FC<{
       const file = event.target.files[0]
       setSelectedFile(file)
       dispatch(actions.UPLOAD_FILE(file))
+      if (file && isSupplementFilesTab) {
+        handleUpload(
+          submissionId,
+          file,
+          getDesignationName(Designation.Supplementary)
+        )
+      }
     }
   }
 
@@ -65,9 +84,16 @@ export const UploadFileArea: React.FC<{
         const file = monitor.getItem().files[0]
         setSelectedFile(file)
         dispatch(actions.UPLOAD_FILE(file))
+        if (selectedFile && isSupplementFilesTab) {
+          handleUpload(
+            submissionId,
+            selectedFile,
+            getDesignationName(Designation.Supplementary)
+          )
+        }
       }
     },
-    [dispatch]
+    [dispatch, handleUpload, isSupplementFilesTab, selectedFile, submissionId]
   )
 
   const [{ canDrop, isOver }, dropRef] = useDrop({
@@ -80,17 +106,6 @@ export const UploadFileArea: React.FC<{
       canDrop: monitor.canDrop(),
     }),
   })
-
-  useEffect(() => {
-    if (selectedFile && isSupplementFilesTab) {
-      //todo replace the dummy data with correct one after connect the component on real data and its part from this ticket MAN-610.
-      uploadFileHandler(
-        submissionId,
-        selectedFile,
-        getDesignationName(Designation.Supplementary)
-      )
-    }
-  }, [selectedFile, submissionId, isSupplementFilesTab, uploadFileHandler])
 
   const isActive = canDrop && isOver
 

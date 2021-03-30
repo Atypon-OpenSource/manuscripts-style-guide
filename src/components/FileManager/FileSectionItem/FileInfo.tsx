@@ -32,7 +32,7 @@ export const FileInfo: React.FC<{
     submissionId: string,
     typeId: string,
     name: string
-  ) => void
+  ) => Promise<boolean>
   submissionId: string
   dispatch: Dispatch<Action>
 }> = ({

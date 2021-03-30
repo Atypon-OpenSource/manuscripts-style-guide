@@ -27,7 +27,7 @@ export const ItemActions: React.FC<{
     name: string,
     file: File,
     typeId: string
-  ) => void
+  ) => Promise<boolean>
   submissionId: string
   fileName: string
   designation?: string | undefined
@@ -50,6 +50,12 @@ export const ItemActions: React.FC<{
     if (event && event.target && event.target.files) {
       const file = event.target.files[0]
       setSelectedFile(file)
+      replaceAttachmentHandler(
+        submissionId,
+        fileName,
+        file,
+        attachmentDesignation
+      )
     }
   }
   const openFileDialog = () => {
@@ -57,23 +63,6 @@ export const ItemActions: React.FC<{
       fileInputRef.current.click()
     }
   }
-  useEffect(() => {
-    if (selectedFile) {
-      //todo replace the dummy data with correct one after connect the component on real data and its part from this ticket MAN-610.
-      replaceAttachmentHandler(
-        submissionId,
-        fileName,
-        selectedFile,
-        attachmentDesignation
-      )
-    }
-  }, [
-    selectedFile,
-    replaceAttachmentHandler,
-    submissionId,
-    fileName,
-    attachmentDesignation,
-  ])
   return (
     <ActionsBox>
       <ActionsItem

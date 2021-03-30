@@ -18,39 +18,45 @@ import React from 'react'
 
 import { FileManager } from '../src'
 import { externalFiles } from './data/externalFiles'
-
-const handleUpload = (
+const sleep = (milliseconds: number) => {
+  return new Promise((resolve) => setTimeout(resolve, milliseconds))
+}
+const handleUpload = async (
   submissionId: string,
   file: File,
   designation: string
-): void => {
+): Promise<boolean> => {
+  await sleep(5000) //test the upload file item in storybook
   console.log('submissionId --> ' + submissionId)
   console.log('file --> ' + file)
   console.log('designation --> ' + designation)
+  return true
 }
 
 const handleDownload = (url: string): void => {
   console.log('url --> ' + url)
 }
 
-const handleReplace = (
+const handleReplace = async (
   submissionId: string,
   name: string,
   file: File
-): void => {
+): Promise<boolean> => {
   console.log('submissionId --> ' + submissionId)
   console.log('file --> ' + file)
   console.log('name --> ' + name)
+  return true
 }
 
-const changeDesignationHandler = (
+const changeDesignationHandler = async (
   submissionId: string,
   designation: string | undefined,
   name: string
-): void => {
+): Promise<boolean> => {
   console.log('submissionId --> ' + submissionId)
   console.log('name --> ' + name)
   console.log('designation --> ' + designation)
+  return true
 }
 
 storiesOf('FileManager', module).add('FileManager', () => (

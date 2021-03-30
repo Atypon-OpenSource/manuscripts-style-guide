@@ -35,7 +35,7 @@ export const DesignationActionsList: React.FC<{
     submissionId: string,
     typeId: string,
     name: string
-  ) => void
+  ) => Promise<boolean>
   designationActionsList: Array<Designation>
   submissionId: string
   fileName: string

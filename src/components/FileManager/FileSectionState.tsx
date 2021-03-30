@@ -13,6 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+import React from 'react'
+
+import { AlertMessage, AlertMessageType } from '../AlertMessage'
 import { Designation } from './util'
 
 export const getInitialState = (): State => ({
@@ -25,6 +28,7 @@ export const getInitialState = (): State => ({
   isShowSuccessMessage: false,
   selectDesignation: undefined,
   isOpenSelectDesignationPopup: false,
+  successMessageElement: undefined,
 })
 
 export interface State {
@@ -41,6 +45,7 @@ export interface State {
   isShowSuccessMessage: boolean
   selectDesignation: Designation | undefined
   isOpenSelectDesignationPopup: boolean
+  successMessageElement: JSX.Element | undefined
 }
 
 enum ActionTypes {
@@ -51,6 +56,8 @@ enum ActionTypes {
   HANDLE_UPLOAD_ACTION = 'handleUpload',
   HANDLE_MOVE_ACTION = 'handleMove',
   HANDLE_CANCEL_MOVE = 'handleCancelMove',
+  HANDLE_FINISH_UPLOAD = 'handleFinishUpload',
+  HANDLE_SUCCESS_MESSAGE = 'handleSuccessMessage',
 }
 
 export const reducer = (state: State, action: Action): State => {
@@ -78,6 +85,7 @@ export const reducer = (state: State, action: Action): State => {
         },
         isOpenPopup: true,
         successMessage: action.successMoveMessage,
+        successMessageElement: undefined,
       }
     }
 
@@ -114,8 +122,24 @@ export const reducer = (state: State, action: Action): State => {
         isShowSuccessMessage: true,
       }
     }
+    case ActionTypes.HANDLE_FINISH_UPLOAD: {
+      return {
+        ...state,
+        isUploadFile: false,
+      }
+    }
+    case ActionTypes.HANDLE_SUCCESS_MESSAGE: {
+      return {
+        ...state,
+        isShowSuccessMessage: true,
+        successMessageElement: (
+          <AlertMessage type={AlertMessageType.info} hideCloseButton={false}>
+            {state.successMessage}
+          </AlertMessage>
+        ),
+      }
+    }
   }
-
   return state
 }
 
@@ -160,5 +184,17 @@ export const actions = {
   }),
   HANDLE_CANCEL_MOVE: (): Action => ({
     type: ActionTypes.HANDLE_CANCEL_MOVE,
+  }),
+  /**
+   * To hide the upload progress item when the file upload is finished.
+   */
+  HANDLE_FINISH_UPLOAD: (): Action => ({
+    type: ActionTypes.HANDLE_FINISH_UPLOAD,
+  }),
+  /**
+   * To handle transfer file success message from other file to supplementary file and vice versa.
+   */
+  HANDLE_SUCCESS_MESSAGE: (): Action => ({
+    type: ActionTypes.HANDLE_SUCCESS_MESSAGE,
   }),
 }

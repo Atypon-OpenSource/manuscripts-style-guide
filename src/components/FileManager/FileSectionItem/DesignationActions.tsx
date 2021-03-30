@@ -35,7 +35,7 @@ export const DesignationActions: React.FC<{
     submissionId: string,
     typeId: string,
     name: string
-  ) => void
+  ) => Promise<boolean>
   submissionId: string
   fileName: string
   dispatch?: Dispatch<Action>

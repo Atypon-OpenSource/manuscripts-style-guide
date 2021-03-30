@@ -42,12 +42,12 @@ export interface FileSectionItemProps {
     name: string,
     file: File,
     typeId: string
-  ) => void
+  ) => Promise<boolean>
   changeDesignationHandler: (
     submissionId: string,
     typeId: string,
     name: string
-  ) => void
+  ) => Promise<boolean>
   dispatch: Dispatch<Action>
   dragRef?: DragElementWrapper<DragSourceOptions>
   className?: string

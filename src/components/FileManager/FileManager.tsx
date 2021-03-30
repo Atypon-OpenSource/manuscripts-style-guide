@@ -44,19 +44,23 @@ export const FileManager: React.FC<{
   submissionId: string
   externalFiles: ExternalFile[]
   enableDragAndDrop: boolean
-  handleUpload: (submissionId: string, file: File, designation: string) => void
+  handleUpload: (
+    submissionId: string,
+    file: File,
+    designation: string
+  ) => Promise<boolean>
   handleDownload: (url: string) => void
   handleReplace: (
     submissionId: string,
     name: string,
     file: File,
     typeId: string
-  ) => void
+  ) => Promise<boolean>
   changeDesignationHandler: (
     submissionId: string,
     typeId: string,
     name: string
-  ) => void
+  ) => Promise<boolean>
 }> = ({
   submissionId,
   externalFiles,

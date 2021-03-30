@@ -26,6 +26,7 @@ import {
   ItemContainer,
 } from './FileSectionItem'
 import { FileTypeIcon } from './FileTypeIcon'
+import { ProgressBarUploadItem } from './ProgressBarUploadItem'
 
 export interface FileSectionItemProps {
   fileName: string
@@ -55,21 +56,11 @@ export const FileSectionUploadItem: React.FC<FileSectionItemProps> = ({
       <UploadItemContainer>
         <FileTypeIcon withDot={false} />
         <FileInfoContainer>
-          {!isLoading && (
-            <DesignationActions
-              submissionId={submissionId}
-              fileName={fileName}
-            />
-          )}
           <FileNameContainer>
             <FileName>{fileName}</FileName>
             <div>.{fileExtension}</div>
           </FileNameContainer>
-          {isLoading && (
-            <ProgressBarContainer>
-              <ProgressBar />
-            </ProgressBarContainer>
-          )}
+          {isLoading && <ProgressBarUploadItem />}
         </FileInfoContainer>
       </UploadItemContainer>
     </Item>
