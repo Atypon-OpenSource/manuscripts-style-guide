@@ -13,18 +13,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import 'pdfjs-dist/web/pdf_viewer.css'
+import 'pdfjs-dist/es5/web/pdf_viewer.css'
 
+// NOTE when upgrading https://github.com/mozilla/pdf.js/issues/13190
+import { getDocument, GlobalWorkerOptions } from 'pdfjs-dist/es5/build/pdf'
+import * as pdfjsWorker from 'pdfjs-dist/es5/build/pdf.worker.entry'
+import { EventBus, PDFViewer } from 'pdfjs-dist/es5/web/pdf_viewer'
 import {
-  getDocument,
-  GlobalWorkerOptions,
+  PDFDocumentLoadingTask,
   PDFDocumentProxy,
-  PDFLoadingTask,
-  PDFProgressData,
-  PDFPromise,
-} from 'pdfjs-dist'
-import * as pdfjsWorker from 'pdfjs-dist/build/pdf.worker.entry'
-import { EventBus, PDFViewer } from 'pdfjs-dist/web/pdf_viewer'
+  // eslint-disable-next-line import/no-unresolved
+} from 'pdfjs-dist/types/display/api'
 import React, { useEffect, useRef, useState } from 'react'
 import styled from 'styled-components'
 
@@ -34,8 +33,9 @@ type EventBusType = {
   on: (eventName: string, eventHandler: () => void) => void
 }
 
-interface PDFLoading<T> extends PDFLoadingTask<T> {
-  onProgress: (progressData: PDFProgressData) => void
+type ProgressData = {
+  loaded: number
+  total: number
 }
 
 const PdfPreview: React.FC<{ scale?: number; url: string }> = ({
@@ -46,7 +46,7 @@ const PdfPreview: React.FC<{ scale?: number; url: string }> = ({
     currentScaleValue: scale,
   })
   const [error, setError] = useState<string | null>(null)
-  const [progress, setProgress] = useState<PDFProgressData | null>(null)
+  const [progress, setProgress] = useState<ProgressData | null>(null)
   const [eventBus, setEventBus] = useState<EventBusType | null>(null)
 
   const nodeRef = useRef<HTMLDivElement>(null)
@@ -62,19 +62,29 @@ const PdfPreview: React.FC<{ scale?: number; url: string }> = ({
 
     setPdfViewer(pdfViewer)
     setEventBus(eventBus)
-    const loadingTask = getDocument({
-      url,
-      withCredentials: true,
-    }) as PDFLoading<PDFDocumentProxy>
-
-    loadingTask.onProgress = (progressData) => {
-      setProgress(progressData)
+    const loadingTask: PDFDocumentLoadingTask = {
+      ...getDocument({
+        url,
+        withCredentials: true,
+      }),
+      onProgress: (progressData: ProgressData) => {
+        setProgress(progressData)
+      },
     }
 
-    const proxyPDFPromise: PDFPromise<PDFDocumentProxy> = loadingTask.promise.then(
-      (pdfDocument) => pdfViewer.setDocument(pdfDocument),
-      (exception) => setError(exception)
-    )
+    loadingTask.promise
+      .then(
+        (pdfDocument: PDFDocumentProxy) => {
+          pdfViewer.setDocument(pdfDocument)
+          return true
+        },
+        (exception: string) => {
+          setError(exception)
+        }
+      )
+      .catch((err: string) => {
+        setError(err)
+      })
   }, [url])
 
   useEffect(() => {
