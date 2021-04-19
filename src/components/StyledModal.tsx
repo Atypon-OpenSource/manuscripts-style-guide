@@ -18,8 +18,6 @@ import React from 'react'
 import Modal from 'react-modal'
 import styled, { ThemeProps } from 'styled-components'
 
-Modal.setAppElement('#root')
-
 const totalTransitionTime = 800
 const transitionDelay = 300
 const delayedTransitionTime = totalTransitionTime - transitionDelay
@@ -35,6 +33,7 @@ export const ReactModalAdapter: React.FunctionComponent<
     className={modalClassName}
     portalClassName={className as string}
     closeTimeoutMS={totalTransitionTime}
+    appElement={document.getElementById('root') as HTMLElement}
     {...props}
   />
 )

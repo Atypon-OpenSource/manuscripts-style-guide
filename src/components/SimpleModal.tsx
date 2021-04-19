@@ -20,8 +20,6 @@ import styled from 'styled-components'
 
 import { RoundIconButton } from './Button'
 
-Modal.setAppElement('#root')
-
 export const ModalContainer = styled.div`
   background: ${(props) => props.theme.colors.background.primary};
   border-radius: ${(props) => props.theme.grid.radius.default};
@@ -80,6 +78,7 @@ export const SimpleModal: React.FunctionComponent<Props> = ({
     isOpen={true}
     onRequestClose={handleClose}
     shouldCloseOnOverlayClick={closeWithOverlay}
+    appElement={document.getElementById('root') as HTMLElement}
     style={{
       overlay: {
         alignItems: 'center',
