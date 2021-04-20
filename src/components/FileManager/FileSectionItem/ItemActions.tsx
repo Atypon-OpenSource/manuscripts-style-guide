@@ -79,6 +79,7 @@ export const ItemActions: React.FC<{
           type="file"
           style={{ display: 'none' }}
           onChange={(e) => handleChange(e)}
+          value={''}
         />
       </>
     </ActionsBox>

@@ -43,7 +43,7 @@ export interface FileSectionItemProps {
     file: File,
     typeId: string
   ) => Promise<boolean>
-  changeDesignationHandler: (
+  handleChangeDesignation: (
     submissionId: string,
     typeId: string,
     name: string
@@ -62,7 +62,7 @@ export const FileSectionItem: React.FC<FileSectionItemProps> = ({
   showDesignationActions,
   handleDownload,
   handleReplace,
-  changeDesignationHandler,
+  handleChangeDesignation,
   dispatch,
   dragRef,
   className,
@@ -108,7 +108,7 @@ export const FileSectionItem: React.FC<FileSectionItemProps> = ({
           title={title}
           designation={designation}
           description={externalFile.description}
-          changeDesignationHandler={changeDesignationHandler}
+          handleChangeDesignation={handleChangeDesignation}
           submissionId={submissionId}
           dispatch={dispatch}
         />

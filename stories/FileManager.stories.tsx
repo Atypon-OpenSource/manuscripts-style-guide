@@ -28,7 +28,7 @@ const handleUpload = async (
 ): Promise<boolean> => {
   await sleep(5000) //test the upload file item in storybook
   console.log('submissionId --> ' + submissionId)
-  console.log('file --> ' + file)
+  console.log('file --> ' + file.name)
   console.log('designation --> ' + designation)
   return true
 }
@@ -43,12 +43,12 @@ const handleReplace = async (
   file: File
 ): Promise<boolean> => {
   console.log('submissionId --> ' + submissionId)
-  console.log('file --> ' + file)
+  console.log('file --> ' + file.name)
   console.log('name --> ' + name)
   return true
 }
 
-const changeDesignationHandler = async (
+const handleChangeDesignation = async (
   submissionId: string,
   designation: string | undefined,
   name: string
@@ -67,6 +67,6 @@ storiesOf('FileManager', module).add('FileManager', () => (
     handleUpload={handleUpload}
     handleDownload={handleDownload}
     handleReplace={handleReplace}
-    changeDesignationHandler={changeDesignationHandler}
+    handleChangeDesignation={handleChangeDesignation}
   />
 ))

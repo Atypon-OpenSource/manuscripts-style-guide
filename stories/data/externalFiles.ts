@@ -29,6 +29,7 @@ export const externalFiles: ExternalFile[] = [
       "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
     designation: 'supplementary',
     objectType: 'MPExternalFile',
+    publicUrl: 'supplementary-file.docx/url',
   },
 
   {
@@ -44,6 +45,7 @@ export const externalFiles: ExternalFile[] = [
       "test 2 Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
     designation: 'figure',
     objectType: 'MPExternalFile',
+    publicUrl: 'my-figure.jpeg/url',
   },
 
   {
@@ -59,6 +61,7 @@ export const externalFiles: ExternalFile[] = [
       "test 1 Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
     designation: 'table',
     objectType: 'MPExternalFile',
+    publicUrl: 'my-table.xls/url',
   },
 
   {
@@ -74,6 +77,7 @@ export const externalFiles: ExternalFile[] = [
       "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
     designation: 'supplementary',
     objectType: 'MPExternalFile',
+    publicUrl: 'my-supplementary-file.docx/url',
   },
 
   {
@@ -89,6 +93,7 @@ export const externalFiles: ExternalFile[] = [
       "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
     designation: 'supplemental',
     objectType: 'MPExternalFile',
+    publicUrl: 'supplemental-file.docx/url',
   },
 
   {
@@ -104,6 +109,7 @@ export const externalFiles: ExternalFile[] = [
       "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
     designation: 'conflict-of-interest',
     objectType: 'MPExternalFile',
+    publicUrl: 'my-conflict-of-interest-file.pdf/url',
   },
 
   {
@@ -119,6 +125,7 @@ export const externalFiles: ExternalFile[] = [
       "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
     designation: 'document',
     objectType: 'MPExternalFile',
+    publicUrl: 'my-document.tex/url',
   },
 
   {
@@ -134,6 +141,7 @@ export const externalFiles: ExternalFile[] = [
       "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
     designation: 'graphical-abstract',
     objectType: 'MPExternalFile',
+    publicUrl: 'my-graphical-abstract-file.doc/url',
   },
 
   {
@@ -149,6 +157,7 @@ export const externalFiles: ExternalFile[] = [
       "test 3 Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
     designation: 'figure',
     objectType: 'MPExternalFile',
+    publicUrl: 'my-figure-new.png/url',
   },
 
   {
@@ -164,6 +173,7 @@ export const externalFiles: ExternalFile[] = [
       "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
     designation: 'graphical-abstract-image',
     objectType: 'MPExternalFile',
+    publicUrl: 'my-graphical-abstract-image-file.gif/url',
   },
 
   {
@@ -179,6 +189,7 @@ export const externalFiles: ExternalFile[] = [
       "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
     designation: 'graphical-abstract-text',
     objectType: 'MPExternalFile',
+    publicUrl: 'my-graphical-abstract-text-file.txt/url',
   },
 
   {
@@ -194,6 +205,7 @@ export const externalFiles: ExternalFile[] = [
       "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
     designation: 'metadata',
     objectType: 'MPExternalFile',
+    publicUrl: 'my-metadata-file.xml/url',
   },
 
   {
@@ -209,6 +221,7 @@ export const externalFiles: ExternalFile[] = [
       "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
     designation: 'submission_file',
     objectType: 'MPExternalFile',
+    publicUrl: 'my-submission-file.docx/url',
   },
 
   {
@@ -224,6 +237,7 @@ export const externalFiles: ExternalFile[] = [
       "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
     designation: 'submission_pdf',
     objectType: 'MPExternalFile',
+    publicUrl: 'my-submission-pdf.pdf/url',
   },
 
   {
@@ -237,6 +251,7 @@ export const externalFiles: ExternalFile[] = [
       'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
     designation: 'title-page',
     objectType: 'MPExternalFile',
+    publicUrl: 'my-title-page.pdf/url',
   },
   {
     containerID: 'MPProject:valid-project-id-2',
@@ -249,6 +264,7 @@ export const externalFiles: ExternalFile[] = [
       'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
     designation: 'title-page',
     objectType: 'MPExternalFile',
+    publicUrl: 'my-title-packageFile.zip/url',
   },
 
   {
@@ -262,5 +278,6 @@ export const externalFiles: ExternalFile[] = [
       'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
     designation: 'title-page',
     objectType: 'MPExternalFile',
+    publicUrl: 'my-title-unknownFile.exe/url',
   },
 ]

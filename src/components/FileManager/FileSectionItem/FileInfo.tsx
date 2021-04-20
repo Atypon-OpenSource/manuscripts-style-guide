@@ -28,7 +28,7 @@ export const FileInfo: React.FC<{
   submissionAttachmentName: string
   fileExtension: string
   designation?: Designation
-  changeDesignationHandler: (
+  handleChangeDesignation: (
     submissionId: string,
     typeId: string,
     name: string
@@ -43,7 +43,7 @@ export const FileInfo: React.FC<{
   fileExtension,
   designation,
   description,
-  changeDesignationHandler,
+  handleChangeDesignation,
   submissionId,
   dispatch,
 }) => {
@@ -58,7 +58,7 @@ export const FileInfo: React.FC<{
         <DesignationActions
           designation={designation}
           fileExtension={fileExtension}
-          changeDesignationHandler={changeDesignationHandler}
+          handleChangeDesignation={handleChangeDesignation}
           submissionId={submissionId}
           fileName={submissionAttachmentName}
           dispatch={dispatch}
