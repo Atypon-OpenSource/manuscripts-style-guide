@@ -17,6 +17,7 @@ import React, { Dispatch, useState } from 'react'
 import styled from 'styled-components'
 
 import BottomArrowIcon from '../../icons/BottomArrowIcon'
+import { ConfirmationPopUp } from '../ConfirmationPopUp'
 import { Action } from '../FileSectionState'
 import {
   Designation,
@@ -31,7 +32,7 @@ import { DesignationActionsList } from './DesignationActionsList'
 export const DesignationActions: React.FC<{
   designation?: Designation
   fileExtension?: string
-  changeDesignationHandler?: (
+  handleChangeDesignation?: (
     submissionId: string,
     typeId: string,
     name: string
@@ -42,12 +43,18 @@ export const DesignationActions: React.FC<{
 }> = ({
   designation,
   fileExtension,
-  changeDesignationHandler,
+  handleChangeDesignation,
   submissionId,
   fileName,
   dispatch,
 }) => {
   const [isActionsShown, setIsActionsShown] = useState(false)
+  const [confirmationPopUpData, setConfirmationPopUpData] = useState({
+    isConfirmationPopUpOpen: false,
+    confirmationPopUpMessage: '',
+    confirmationPopUpHeader: '',
+    selectedDesignation: '',
+  })
 
   const toggleActionsList = () => {
     setIsActionsShown((prevState) => {
@@ -59,13 +66,46 @@ export const DesignationActions: React.FC<{
     setIsActionsShown(false)
   }
 
-  if (designation && fileExtension) {
-    const designationActionsList = getDesignationActionsList(
-      designation,
-      fileExtension
-    )
+  if (!designation || !fileExtension) {
+    return null
+  }
 
-    return (
+  const designationActionsList = getDesignationActionsList(
+    designation,
+    fileExtension
+  )
+  const handleOpenConfirmationPopup = (
+    popupHeader: string,
+    popupMessage: string,
+    designation: string
+  ) => {
+    setConfirmationPopUpData({
+      confirmationPopUpMessage: popupMessage,
+      confirmationPopUpHeader: popupHeader,
+      isConfirmationPopUpOpen: true,
+      selectedDesignation: designation,
+    })
+  }
+  const handleMoveAction = () => {
+    handleChangeDesignation &&
+      handleChangeDesignation(
+        submissionId,
+        confirmationPopUpData.selectedDesignation,
+        fileName
+      )
+    handleCloseAction()
+  }
+  const handleCloseAction = () => {
+    setConfirmationPopUpData({
+      confirmationPopUpMessage: '',
+      confirmationPopUpHeader: '',
+      selectedDesignation: '',
+      isConfirmationPopUpOpen: false,
+    })
+  }
+
+  return (
+    <>
       <SecondaryActionsContainer
         onClick={toggleActionsList}
         onBlur={hideActionsList}
@@ -77,20 +117,36 @@ export const DesignationActions: React.FC<{
         {isActionsShown && (
           <ActionsListContainer>
             <DesignationActionsList
-              changeDesignationHandler={changeDesignationHandler}
+              handleChangeDesignation={handleChangeDesignation}
               designationActionsList={designationActionsList}
               submissionId={submissionId}
               fileName={fileName}
               designation={designation}
               dispatch={dispatch}
+              handleOpenConfirmationPopup={handleOpenConfirmationPopup}
             />
           </ActionsListContainer>
         )}
       </SecondaryActionsContainer>
-    )
-  } else {
-    return null
-  }
+      {confirmationPopUpData.isConfirmationPopUpOpen && (
+        <ConfirmationPopUp
+          popupHeader={
+            confirmationPopUpData.confirmationPopUpHeader !== undefined
+              ? confirmationPopUpData.confirmationPopUpHeader
+              : ''
+          }
+          popUpMessage={
+            confirmationPopUpData.confirmationPopUpMessage !== undefined
+              ? confirmationPopUpData.confirmationPopUpMessage
+              : ''
+          }
+          isOpen={confirmationPopUpData.isConfirmationPopUpOpen}
+          handleClose={handleCloseAction}
+          handleMove={handleMoveAction}
+        />
+      )}
+    </>
+  )
 }
 
 const SecondaryActionsContainer = styled.button`
@@ -99,11 +155,11 @@ const SecondaryActionsContainer = styled.button`
   background: transparent;
   border: none;
   padding: 0;
-  font-family: Lato;
+  font-family: ${(props) => props.theme.font.family.Lato};
   font-weight: normal;
   font-size: 14px;
   line-height: 20px;
-  color: #6e6e6e;
+  color: ${(props) => props.theme.colors.text.secondary};
   cursor: pointer;
 
   &:focus {

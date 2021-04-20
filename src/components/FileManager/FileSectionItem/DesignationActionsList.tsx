@@ -31,7 +31,7 @@ import {
 } from '../util'
 
 export const DesignationActionsList: React.FC<{
-  changeDesignationHandler?: (
+  handleChangeDesignation?: (
     submissionId: string,
     typeId: string,
     name: string
@@ -41,13 +41,19 @@ export const DesignationActionsList: React.FC<{
   fileName: string
   designation?: Designation
   dispatch?: Dispatch<Action>
+  handleOpenConfirmationPopup: (
+    popupHeader: string,
+    popupMessage: string,
+    designation: string
+  ) => void
 }> = ({
-  changeDesignationHandler,
+  handleChangeDesignation,
   designationActionsList,
   submissionId,
   fileName,
   designation,
   dispatch,
+  handleOpenConfirmationPopup,
 }) => {
   const handleChangeOtherFilesTabDesignation = (
     designation: Designation,
@@ -63,15 +69,18 @@ export const DesignationActionsList: React.FC<{
             submissionId,
             getDesignationName(designation),
             fileName,
-            confirmationPopupHeader,
-            confirmationPopupMessage,
             successMoveMessage
           )
         )
+        handleOpenConfirmationPopup(
+          confirmationPopupHeader,
+          confirmationPopupMessage,
+          getDesignationName(designation)
+        )
       }
     } else {
-      changeDesignationHandler &&
-        changeDesignationHandler(
+      handleChangeDesignation &&
+        handleChangeDesignation(
           submissionId,
           getDesignationName(designation),
           fileName

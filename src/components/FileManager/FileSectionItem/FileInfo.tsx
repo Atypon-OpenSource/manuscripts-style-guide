@@ -28,7 +28,7 @@ export const FileInfo: React.FC<{
   submissionAttachmentName: string
   fileExtension: string
   designation?: Designation
-  changeDesignationHandler: (
+  handleChangeDesignation: (
     submissionId: string,
     typeId: string,
     name: string
@@ -43,7 +43,7 @@ export const FileInfo: React.FC<{
   fileExtension,
   designation,
   description,
-  changeDesignationHandler,
+  handleChangeDesignation,
   submissionId,
   dispatch,
 }) => {
@@ -58,7 +58,7 @@ export const FileInfo: React.FC<{
         <DesignationActions
           designation={designation}
           fileExtension={fileExtension}
-          changeDesignationHandler={changeDesignationHandler}
+          handleChangeDesignation={handleChangeDesignation}
           submissionId={submissionId}
           fileName={submissionAttachmentName}
           dispatch={dispatch}
@@ -95,7 +95,7 @@ const FileNameTitleContainer = styled.div`
   width: 100%;
 `
 const FileTitle = styled.div`
-  color: #353535;
+  color: ${(props) => props.theme.colors.text.primary};
   font-weight: bold;
   font-size: 16px;
   line-height: 20px;
@@ -104,7 +104,7 @@ const FileTitle = styled.div`
 `
 export const FileNameContainer = styled.div`
   display: flex;
-  color: #353535;
+  color: ${(props) => props.theme.colors.text.primary};
   font-weight: normal;
   font-size: 16px;
   line-height: 20px;
@@ -117,7 +117,7 @@ export const FileName = styled.div`
   overflow: hidden;
 `
 const FileDescription = styled.div`
-  color: #6e6e6e;
+  color: ${(props) => props.theme.colors.text.secondary};
   font-size: 14px;
   line-height: 20px;
   text-overflow: ellipsis;

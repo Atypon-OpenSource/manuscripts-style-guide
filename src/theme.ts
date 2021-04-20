@@ -106,6 +106,7 @@ interface Text {
 interface FontFamily {
   sans: string
   serif: string
+  Lato: string
 }
 interface FontSize {
   xlarge: string

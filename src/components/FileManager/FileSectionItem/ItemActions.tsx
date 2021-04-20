@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import React, { ChangeEvent, useEffect, useRef, useState } from 'react'
+import React, { ChangeEvent, useRef, useState } from 'react'
 
 import { ActionsBox, ActionsItem } from '../ItemsAction'
 
@@ -56,6 +56,7 @@ export const ItemActions: React.FC<{
         file,
         attachmentDesignation
       )
+      hideActionList()
     }
   }
   const openFileDialog = () => {
@@ -68,6 +69,7 @@ export const ItemActions: React.FC<{
       <ActionsItem
         onClick={() => {
           publicUrl !== undefined ? downloadAttachmentHandler(publicUrl) : {}
+          hideActionList()
         }}
       >
         Download
@@ -79,6 +81,7 @@ export const ItemActions: React.FC<{
           type="file"
           style={{ display: 'none' }}
           onChange={(e) => handleChange(e)}
+          value={''}
         />
       </>
     </ActionsBox>

@@ -31,7 +31,7 @@ import { Designation, FileSectionType, getDesignationName } from './util'
  * This component will show the drag or upload file area
  */
 export const UploadFileArea: React.FC<{
-  uploadFileHandler: (
+  handleUploadFile: (
     submissionId: string,
     file: File,
     designation: string
@@ -39,22 +39,8 @@ export const UploadFileArea: React.FC<{
   fileSection: FileSectionType
   submissionId: string
   dispatch: Dispatch<Action>
-}> = ({ uploadFileHandler, fileSection, submissionId, dispatch }) => {
+}> = ({ handleUploadFile, fileSection, submissionId, dispatch }) => {
   const [selectedFile, setSelectedFile] = useState<File>()
-  const handleUpload = useCallback(
-    (submissionId, file, designation) => {
-      dispatch(actions.HANDLE_UPLOAD_ACTION())
-      dispatch(actions.SELECT_DESIGNATION(Designation.Supplementary))
-
-      return uploadFileHandler(submissionId, file, designation)
-        .then((res) => {
-          dispatch(actions.HANDLE_FINISH_UPLOAD())
-          return res
-        })
-        .catch((e) => console.error(e))
-    },
-    [dispatch, uploadFileHandler]
-  )
   const fileInputRef = useRef<HTMLInputElement>(null)
   const isSupplementFilesTab = fileSection === FileSectionType.Supplements
   const openFileDialog = () => {
@@ -69,7 +55,7 @@ export const UploadFileArea: React.FC<{
       setSelectedFile(file)
       dispatch(actions.UPLOAD_FILE(file))
       if (file && isSupplementFilesTab) {
-        handleUpload(
+        handleUploadFile(
           submissionId,
           file,
           getDesignationName(Designation.Supplementary)
@@ -85,7 +71,7 @@ export const UploadFileArea: React.FC<{
         setSelectedFile(file)
         dispatch(actions.UPLOAD_FILE(file))
         if (selectedFile && isSupplementFilesTab) {
-          handleUpload(
+          handleUploadFile(
             submissionId,
             selectedFile,
             getDesignationName(Designation.Supplementary)
@@ -93,7 +79,13 @@ export const UploadFileArea: React.FC<{
         }
       }
     },
-    [dispatch, handleUpload, isSupplementFilesTab, selectedFile, submissionId]
+    [
+      dispatch,
+      handleUploadFile,
+      isSupplementFilesTab,
+      selectedFile,
+      submissionId,
+    ]
   )
 
   const [{ canDrop, isOver }, dropRef] = useDrop({
@@ -116,6 +108,7 @@ export const UploadFileArea: React.FC<{
         type="file"
         style={{ display: 'none' }}
         onChange={(e) => handleChange(e)}
+        value={''}
       />
       Drag or click to upload a new file
     </Container>
@@ -128,7 +121,7 @@ const activeBoxStyle = css`
 `
 
 const Container = styled.div<{ active: boolean }>`
-  background: #fafafa;
+  background: ${(props) => props.theme.colors.background.secondary};
   border: 1px dashed #e2e2e2;
   box-sizing: border-box;
   border-radius: 8px;
@@ -138,8 +131,8 @@ const Container = styled.div<{ active: boolean }>`
   justify-content: center;
   font-size: 14px;
   line-height: 24px;
-  font-family: Lato;
-  color: #6e6e6e;
+  font-family: ${(props) => props.theme.font.family.Lato};
+  color: ${(props) => props.theme.colors.text.onLight};
   cursor: pointer;
   margin-bottom: 7px;
   margin-top: 16px;

@@ -460,7 +460,7 @@ export const getUploadFileDesignationList = (
   )
   allowedDesignationByFileSection.forEach((value) => {
     const allowedExtension = designationWithAllowedMediaTypesMap.get(value)
-    if (allowedExtension && allowedExtension.length != 0) {
+    if (allowedExtension && allowedExtension.length !== 0) {
       if (allowedExtension.includes(fileExtension)) {
         const label = designationWithReadableNamesMap.get(value)
         if (label) {

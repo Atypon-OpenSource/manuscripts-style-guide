@@ -70,17 +70,6 @@ export const FileSectionUploadItem: React.FC<FileSectionItemProps> = ({
 export const UploadItemContainer = styled(ItemContainer)`
   min-width: calc(100% - 16px);
 `
-export const IconButton = styled(ActionsIcon)`
-  visibility: visible;
-`
-export const ProgressBarContainer = styled.div`
-  background: #e2e2e2;
-  opacity: 0.7;
-  border-radius: 8px;
-  width: 100%;
-  height: 4px;
-  margin-top: 8px;
-`
 export const ProgressBar = styled.div`
   background: #1a9bc7;
   opacity: 0.7;

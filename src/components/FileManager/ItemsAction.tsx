@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import React from 'react'
 import styled from 'styled-components'
 
 export const ActionsBox = styled.ul`
@@ -22,7 +21,7 @@ export const ActionsBox = styled.ul`
   box-shadow: 0px 4px 9px rgba(0, 0, 0, 0.3);
   border-radius: 4px;
   min-width: 180px;
-  background: #ffffff;
+  background: ${(props) => props.theme.colors.background.primary};
   margin: 0;
   padding: 8px 0;
   z-index: 999;
@@ -31,11 +30,11 @@ export const ActionsBox = styled.ul`
 `
 
 export const ActionsItem = styled.li`
-  font-family: Lato;
+  font-family: ${(props) => props.theme.font.family.Lato};
   cursor: pointer;
   font-size: 16px;
   line-height: 24px;
-  color: #353535;
+  color: ${(props) => props.theme.colors.text.primary};
   list-style: none;
   padding: 8px 16px;
   &:hover,
@@ -45,10 +44,10 @@ export const ActionsItem = styled.li`
 `
 
 export const ActionsLabel = styled.li`
-  font-family: Lato;
+  font-family: ${(props) => props.theme.font.family.Lato};
   font-size: 12px;
   line-height: 16px;
-  color: #6e6e6e;
+  color: ${(props) => props.theme.colors.text.onLight};
   list-style: none;
   padding: 8px 16px;
   cursor: default;
@@ -56,7 +55,7 @@ export const ActionsLabel = styled.li`
 
 export const ActionsSeparator = styled.li`
   height: 1px;
-  background: #e2e2e2;
+  background: ${(props) => props.theme.colors.background.tertiary};
   margin: 8px 0;
   cursor: default;
 `

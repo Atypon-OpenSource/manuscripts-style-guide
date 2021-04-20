@@ -21,23 +21,16 @@ import { Designation } from './util'
 export const getInitialState = (): State => ({
   uploadedFile: undefined,
   isUploadFile: false,
-  isOpenPopup: false,
-  confirmationPopupData: undefined,
   moveToOtherState: undefined,
   successMessage: '',
   isShowSuccessMessage: false,
   selectDesignation: undefined,
   isOpenSelectDesignationPopup: false,
-  successMessageElement: undefined,
 })
 
 export interface State {
   uploadedFile: File | undefined
   isUploadFile: boolean
-  isOpenPopup: boolean
-  confirmationPopupData:
-    | { popupHeader: string; popupMessage: string }
-    | undefined
   moveToOtherState:
     | { submissionId: string; typeId: string; name: string }
     | undefined
@@ -45,7 +38,6 @@ export interface State {
   isShowSuccessMessage: boolean
   selectDesignation: Designation | undefined
   isOpenSelectDesignationPopup: boolean
-  successMessageElement: JSX.Element | undefined
 }
 
 enum ActionTypes {
@@ -54,8 +46,6 @@ enum ActionTypes {
   SELECT_DESIGNATION = 'selectDesignation',
   HANDLE_CANCEL_UPLOAD = 'handleCancel',
   HANDLE_UPLOAD_ACTION = 'handleUpload',
-  HANDLE_MOVE_ACTION = 'handleMove',
-  HANDLE_CANCEL_MOVE = 'handleCancelMove',
   HANDLE_FINISH_UPLOAD = 'handleFinishUpload',
   HANDLE_SUCCESS_MESSAGE = 'handleSuccessMessage',
 }
@@ -79,13 +69,8 @@ export const reducer = (state: State, action: Action): State => {
           typeId: action.typeId,
           name: action.name,
         },
-        confirmationPopupData: {
-          popupHeader: action.confirmationPopupHeader,
-          popupMessage: action.confirmationPopupMessage,
-        },
-        isOpenPopup: true,
         successMessage: action.successMoveMessage,
-        successMessageElement: undefined,
+        isShowSuccessMessage: false,
       }
     }
 
@@ -109,34 +94,18 @@ export const reducer = (state: State, action: Action): State => {
         isOpenSelectDesignationPopup: false,
       }
     }
-    case ActionTypes.HANDLE_CANCEL_MOVE: {
-      return {
-        ...state,
-        isOpenPopup: false,
-      }
-    }
-    case ActionTypes.HANDLE_MOVE_ACTION: {
-      return {
-        ...state,
-        isOpenPopup: false,
-        isShowSuccessMessage: true,
-      }
-    }
     case ActionTypes.HANDLE_FINISH_UPLOAD: {
       return {
         ...state,
         isUploadFile: false,
+        uploadedFile: undefined,
+        selectDesignation: undefined,
       }
     }
     case ActionTypes.HANDLE_SUCCESS_MESSAGE: {
       return {
         ...state,
         isShowSuccessMessage: true,
-        successMessageElement: (
-          <AlertMessage type={AlertMessageType.info} hideCloseButton={false}>
-            {state.successMessage}
-          </AlertMessage>
-        ),
       }
     }
   }
@@ -167,23 +136,13 @@ export const actions = {
     submissionId: string,
     typeId: string,
     name: string,
-    confirmationPopupHeader: string,
-    confirmationPopupMessage: string,
     successMoveMessage: string
   ): Action => ({
     type: ActionTypes.MOVE_FILE,
     submissionId,
     typeId,
     name,
-    confirmationPopupHeader,
-    confirmationPopupMessage,
     successMoveMessage,
-  }),
-  HANDLE_MOVE_ACTION: (): Action => ({
-    type: ActionTypes.HANDLE_MOVE_ACTION,
-  }),
-  HANDLE_CANCEL_MOVE: (): Action => ({
-    type: ActionTypes.HANDLE_CANCEL_MOVE,
   }),
   /**
    * To hide the upload progress item when the file upload is finished.
