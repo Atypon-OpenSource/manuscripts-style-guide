@@ -156,7 +156,7 @@ export const ActionsIcon = styled.button`
 `
 export const Item = styled.div`
   display: flex;
-  font-family: Lato;
+  font-family: ${(props) => props.theme.font.family.Lato};
   padding: 20px 15px;
   cursor: pointer;
   box-sizing: border-box;

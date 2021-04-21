@@ -38,8 +38,8 @@ const Container = styled.div`
   justify-content: center;
   font-size: 14px;
   line-height: 24px;
-  font-family: Lato;
-  color: #6e6e6e;
+  font-family: ${(props) => props.theme.font.family.Lato};
+  color: ${(props) => props.theme.colors.text.onLight};
   padding: 32px 0;
   text-align: center;
 `

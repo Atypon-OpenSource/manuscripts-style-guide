@@ -81,7 +81,7 @@ export const DraggableFileSectionItem: React.FC<FileSectionItemProps> = (
 }
 
 const ItemDraggingPlaceholderContainer = styled.div`
-  background: #fff;
+  background: ${(props) => props.theme.colors.background.primary};
   width: 100%;
   position: relative;
 `

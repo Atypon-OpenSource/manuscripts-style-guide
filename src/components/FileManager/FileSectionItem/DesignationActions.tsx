@@ -128,12 +128,12 @@ export const DesignationActions: React.FC<{
         {confirmationPopUpData.isConfirmationPopUpOpen && (
           <ConfirmationPopUp
             popupHeader={
-              confirmationPopUpData.confirmationPopUpHeader != undefined
+              confirmationPopUpData.confirmationPopUpHeader !== undefined
                 ? confirmationPopUpData.confirmationPopUpHeader
                 : ''
             }
             popUpMessage={
-              confirmationPopUpData.confirmationPopUpMessage != undefined
+              confirmationPopUpData.confirmationPopUpMessage !== undefined
                 ? confirmationPopUpData.confirmationPopUpMessage
                 : ''
             }
@@ -155,11 +155,11 @@ const SecondaryActionsContainer = styled.button`
   background: transparent;
   border: none;
   padding: 0;
-  font-family: Lato;
+  font-family: ${(props) => props.theme.font.family.Lato};
   font-weight: normal;
   font-size: 14px;
   line-height: 20px;
-  color: #6e6e6e;
+  color: ${(props) => props.theme.colors.text.secondary};
   cursor: pointer;
 
   &:focus {

@@ -26,7 +26,6 @@ export const getInitialState = (): State => ({
   isShowSuccessMessage: false,
   selectDesignation: undefined,
   isOpenSelectDesignationPopup: false,
-  successMessageElement: undefined,
 })
 
 export interface State {
@@ -39,7 +38,6 @@ export interface State {
   isShowSuccessMessage: boolean
   selectDesignation: Designation | undefined
   isOpenSelectDesignationPopup: boolean
-  successMessageElement: JSX.Element | undefined
 }
 
 enum ActionTypes {
@@ -72,7 +70,7 @@ export const reducer = (state: State, action: Action): State => {
           name: action.name,
         },
         successMessage: action.successMoveMessage,
-        successMessageElement: undefined,
+        isShowSuccessMessage: false,
       }
     }
 
@@ -108,11 +106,6 @@ export const reducer = (state: State, action: Action): State => {
       return {
         ...state,
         isShowSuccessMessage: true,
-        successMessageElement: (
-          <AlertMessage type={AlertMessageType.info} hideCloseButton={false}>
-            {state.successMessage}
-          </AlertMessage>
-        ),
       }
     }
   }

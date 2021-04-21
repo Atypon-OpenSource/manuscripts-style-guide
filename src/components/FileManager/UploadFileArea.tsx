@@ -121,7 +121,7 @@ const activeBoxStyle = css`
 `
 
 const Container = styled.div<{ active: boolean }>`
-  background: #fafafa;
+  background: ${(props) => props.theme.colors.background.secondary};
   border: 1px dashed #e2e2e2;
   box-sizing: border-box;
   border-radius: 8px;
@@ -131,8 +131,8 @@ const Container = styled.div<{ active: boolean }>`
   justify-content: center;
   font-size: 14px;
   line-height: 24px;
-  font-family: Lato;
-  color: #6e6e6e;
+  font-family: ${(props) => props.theme.font.family.Lato};
+  color: ${(props) => props.theme.colors.text.onLight};
   cursor: pointer;
   margin-bottom: 7px;
   margin-top: 16px;

@@ -17,6 +17,7 @@ import { ExternalFile } from '@manuscripts/manuscripts-json-schema'
 import React, { useCallback, useReducer } from 'react'
 import ReactTooltip from 'react-tooltip'
 
+import { AlertMessage, AlertMessageType } from '../AlertMessage'
 import {
   InspectorTab,
   InspectorTabList,
@@ -182,6 +183,13 @@ export const FileManager: React.FC<{
     })
     return filesItems
   }
+  const handleSuccessMessage = () => {
+    return (
+      <AlertMessage type={AlertMessageType.info} hideCloseButton={false}>
+        {state.successMessage}
+      </AlertMessage>
+    )
+  }
   return (
     <>
       <DragLayer />
@@ -274,7 +282,7 @@ export const FileManager: React.FC<{
           </InspectorTabPanels>
         </InspectorTabs>
       </InspectorSection>
-      {state.successMessageElement}
+      {state.isShowSuccessMessage && handleSuccessMessage()}
     </>
   )
 }

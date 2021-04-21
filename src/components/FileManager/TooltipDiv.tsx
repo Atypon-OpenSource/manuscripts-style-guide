@@ -13,18 +13,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import React from 'react'
 import styled from 'styled-components'
 
 export const TooltipDiv = styled.div`
   .tooltip {
     font-size: 12px;
     line-height: 16px;
-    font-family: Lato;
+    font-family: ${(props) => props.theme.font.family.Lato};
     padding: 8px;
     border-radius: 6px;
     background: #353535;
-    color: #fff;
+    color: ${(props) => props.theme.colors.text.onDark};
     text-align: center;
     white-space: nowrap;
     pointer-events: none;

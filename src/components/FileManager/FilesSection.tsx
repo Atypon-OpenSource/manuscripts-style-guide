@@ -58,7 +58,7 @@ export const FilesSection: React.FC<{
   const handleUploadOtherFile = () => {
     dispatch(actions.HANDLE_UPLOAD_ACTION())
     state.uploadedFile &&
-      state.selectDesignation != undefined &&
+      state.selectDesignation !== undefined &&
       handleUpload(
         submissionId,
         state.uploadedFile,
@@ -77,7 +77,7 @@ export const FilesSection: React.FC<{
       )}
       {state.isUploadFile &&
         state.uploadedFile &&
-        state.selectDesignation != undefined && (
+        state.selectDesignation !== undefined && (
           <FileSectionUploadItem
             submissionId={submissionId}
             fileName={state.uploadedFile.name}

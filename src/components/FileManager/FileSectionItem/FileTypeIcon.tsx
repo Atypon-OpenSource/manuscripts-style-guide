@@ -61,7 +61,7 @@ const Container = styled.div`
   width: 40px;
   min-width: 40px;
   height: 40px;
-  background-color: #fafafa;
+  background-color: ${(props) => props.theme.colors.background.secondary};
   display: flex;
   justify-content: center;
   align-items: center;

@@ -29,7 +29,7 @@ export const ProgressBarUploadItem: React.FC = () => {
 }
 
 export const LinearProgress = styled.div`
-  background: #e2e2e2;
+  background: ${(props) => props.theme.colors.background.tertiary};
   opacity: 0.7;
   height: 4px;
   position: relative;
