@@ -14,10 +14,11 @@
  * limitations under the License.
  */
 import { ExternalFile } from '@manuscripts/manuscripts-json-schema'
-import React, { CSSProperties, Dispatch, useState } from 'react'
+import React, { CSSProperties, Dispatch, useCallback, useState } from 'react'
 import { DragElementWrapper, DragSourceOptions } from 'react-dnd'
 import styled from 'styled-components'
 
+import { useDropdown } from '../../../hooks/use-dropdown'
 import DotsIcon from '../../icons/dots-icon'
 import { Action } from '../FileSectionState'
 import { ActionsBox } from '../ItemsAction'
@@ -68,17 +69,7 @@ export const FileSectionItem: React.FC<FileSectionItemProps> = ({
   className,
   style,
 }) => {
-  const [isActionsShown, setIsActionsShown] = useState(false)
-
-  const toggleActionsList = () => {
-    setIsActionsShown((prevState) => {
-      return !prevState
-    })
-  }
-
-  const hideActionsList = () => {
-    setIsActionsShown(false)
-  }
+  const { isOpen, toggleOpen, wrapperRef } = useDropdown()
 
   const fileExtension = externalFile.filename.substring(
     externalFile.filename.lastIndexOf('.') + 1
@@ -88,12 +79,7 @@ export const FileSectionItem: React.FC<FileSectionItemProps> = ({
   const isSubmissionFile = designation === Designation.SubmissionFile
 
   return (
-    <Item
-      ref={dragRef}
-      className={className}
-      style={style}
-      onMouseLeave={hideActionsList}
-    >
+    <Item ref={dragRef} className={className} style={style}>
       <ItemContainer>
         <FileTypeIcon
           withDot={isSubmissionFile}
@@ -113,11 +99,16 @@ export const FileSectionItem: React.FC<FileSectionItemProps> = ({
           dispatch={dispatch}
         />
       </ItemContainer>
-      <ActionsContainer>
-        <ActionsIcon onClick={toggleActionsList}>
+      <ActionsContainer ref={wrapperRef}>
+        <ActionsIcon
+          onClick={toggleOpen}
+          type="button"
+          aria-label="Download or Replace"
+          aria-pressed={isOpen}
+        >
           <DotsIcon />
         </ActionsIcon>
-        {isActionsShown && (
+        {isOpen && (
           <ItemActions
             replaceAttachmentHandler={handleReplace}
             downloadAttachmentHandler={handleDownload}
@@ -125,7 +116,7 @@ export const FileSectionItem: React.FC<FileSectionItemProps> = ({
             fileName={externalFile.filename}
             designation={externalFile.designation}
             publicUrl={externalFile.publicUrl}
-            hideActionList={hideActionsList}
+            hideActionList={toggleOpen}
           />
         )}
       </ActionsContainer>
@@ -138,7 +129,7 @@ export const ActionsContainer = styled.div`
   & ${ActionsBox} {
     position: absolute;
     top: 24px;
-    right: -3px;
+    right: 0px;
   }
 `
 export const ActionsIcon = styled.button`
@@ -146,7 +137,7 @@ export const ActionsIcon = styled.button`
   border: none;
   background: transparent;
   cursor: pointer;
-  padding: 0;
+  padding: 0 8px;
   &:focus {
     outline: none;
   }
@@ -174,7 +165,7 @@ export const Item = styled.div`
 `
 export const ItemContainer = styled.div`
   display: flex;
-  min-width: calc(100% - 4px);
+  min-width: calc(100% - 8px);
   padding-right: 4px;
   box-sizing: border-box;
 `

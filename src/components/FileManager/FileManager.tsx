@@ -194,7 +194,7 @@ export const FileManager: React.FC<{
     <>
       <DragLayer />
       <InspectorSection title={'Files'}>
-        <InspectorTabs defaultIndex={0}>
+        <InspectorTabs defaultIndex={0} style={{ overflow: 'visible' }}>
           <InspectorTabList>
             <InspectorTab data-for="inline" data-tip={true}>
               Inline files
@@ -241,7 +241,9 @@ export const FileManager: React.FC<{
               </ReactTooltip>
             </TooltipDiv>
           </InspectorTabList>
-          <InspectorTabPanels>
+          <InspectorTabPanels
+            style={{ overflowY: 'visible', position: 'relative' }}
+          >
             <InspectorTabPanel>
               <FilesSection
                 submissionId={submissionId}
