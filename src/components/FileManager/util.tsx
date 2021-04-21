@@ -398,13 +398,9 @@ export const sortExternalFiles = (
 }
 
 export const getDesignationActionsList = (
-  designation?: Designation,
-  fileExtension?: string
+  designation: Designation,
+  fileExtension: string
 ): Array<Designation> => {
-  if (!designation || !fileExtension) {
-    return []
-  }
-
   const allowedDesignationsToTransition = designationWithAllowedDesignationsToTransitionMap.get(
     designation
   )

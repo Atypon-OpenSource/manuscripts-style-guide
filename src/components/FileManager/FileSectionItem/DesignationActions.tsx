@@ -66,6 +66,10 @@ export const DesignationActions: React.FC<{
     setIsActionsShown(false)
   }
 
+  if (!designation || !fileExtension) {
+    return null
+  }
+
   const designationActionsList = getDesignationActionsList(
     designation,
     fileExtension
@@ -98,10 +102,6 @@ export const DesignationActions: React.FC<{
       selectedDesignation: '',
       isConfirmationPopUpOpen: false,
     })
-  }
-
-  if (!designationActionsList.length || !designation) {
-    return null
   }
 
   return (

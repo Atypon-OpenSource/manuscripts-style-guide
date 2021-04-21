@@ -177,7 +177,7 @@ test('Checking designations name', () => {
   expect(designationName).toEqual<string>('figure')
 
   designationName = getDesignationName(Designation.SubmissionFile)
-  expect(designationName).toEqual<string>('submission_file')
+  expect(designationName).toEqual<string>('submission-file')
 
   designationName = getDesignationName(Designation.ConflictOfInterest)
   expect(designationName).toEqual<string>('conflict-of-interest')
