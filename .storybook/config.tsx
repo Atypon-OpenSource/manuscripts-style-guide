@@ -17,7 +17,7 @@
 import { addDecorator, configure } from '@storybook/react'
 import React from 'react'
 import { DndProvider } from 'react-dnd'
-import HTML5Backend from 'react-dnd-html5-backend'
+import { HTML5Backend } from 'react-dnd-html5-backend'
 import styled, { ThemeProvider } from 'styled-components'
 import { GlobalStyle, theme } from './theme'
 
