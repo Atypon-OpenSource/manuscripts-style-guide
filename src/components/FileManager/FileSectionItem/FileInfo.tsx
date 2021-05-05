@@ -33,7 +33,7 @@ export const FileInfo: React.FC<{
     typeId: string,
     name: string
   ) => Promise<boolean>
-  submissionId: string
+  submissionId?: string
   dispatch: Dispatch<Action>
 }> = ({
   showAttachmentName,
@@ -54,7 +54,7 @@ export const FileInfo: React.FC<{
 
   return (
     <FileInfoContainer>
-      {showDesignationActions && designation && (
+      {showDesignationActions && designation && submissionId && (
         <DesignationActions
           designation={designation}
           fileExtension={fileExtension}

@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 import { ExternalFile } from '@manuscripts/manuscripts-json-schema'
-import React, { CSSProperties, Dispatch, useCallback, useState } from 'react'
+import React, { CSSProperties, Dispatch } from 'react'
 import { DragElementWrapper, DragSourceOptions } from 'react-dnd'
 import styled from 'styled-components'
 
-import { useDropdown } from '../../../hooks/use-dropdown'
+import { useDropdown } from '../../../hooks/useDropdown'
 import DotsIcon from '../../icons/dots-icon'
 import { Action } from '../FileSectionState'
 import { ActionsBox } from '../ItemsAction'
@@ -32,13 +32,14 @@ import { ItemActions } from './ItemActions'
  * which is contained file-icon, file-designation in other and supplemental tabs, file-name, file title, the file description and etc.
  */
 export interface FileSectionItemProps {
-  submissionId: string
+  submissionId?: string
   externalFile: ExternalFile
   title: string
-  showAttachmentName: boolean
-  showDesignationActions: boolean
-  handleDownload: (url: string) => void
-  handleReplace: (
+  showAttachmentName?: boolean
+  showDesignationActions?: boolean
+  showActions?: boolean
+  handleDownload?: (url: string) => void
+  handleReplace?: (
     submissionId: string,
     name: string,
     file: File,
@@ -59,8 +60,9 @@ export const FileSectionItem: React.FC<FileSectionItemProps> = ({
   submissionId,
   externalFile,
   title,
-  showAttachmentName,
-  showDesignationActions,
+  showAttachmentName = false,
+  showDesignationActions = false,
+  showActions = false,
   handleDownload,
   handleReplace,
   handleChangeDesignation,
@@ -99,27 +101,29 @@ export const FileSectionItem: React.FC<FileSectionItemProps> = ({
           dispatch={dispatch}
         />
       </ItemContainer>
-      <ActionsContainer ref={wrapperRef}>
-        <ActionsIcon
-          onClick={toggleOpen}
-          type="button"
-          aria-label="Download or Replace"
-          aria-pressed={isOpen}
-        >
-          <DotsIcon />
-        </ActionsIcon>
-        {isOpen && (
-          <ItemActions
-            replaceAttachmentHandler={handleReplace}
-            downloadAttachmentHandler={handleDownload}
-            submissionId={submissionId}
-            fileName={externalFile.filename}
-            designation={externalFile.designation}
-            publicUrl={externalFile.publicUrl}
-            hideActionList={toggleOpen}
-          />
-        )}
-      </ActionsContainer>
+      {handleDownload && handleReplace && submissionId && (
+        <ActionsContainer ref={wrapperRef}>
+          <ActionsIcon
+            onClick={toggleOpen}
+            type="button"
+            aria-label="Download or Replace"
+            aria-pressed={isOpen}
+          >
+            <DotsIcon />
+          </ActionsIcon>
+          {isOpen && (
+            <ItemActions
+              replaceAttachmentHandler={handleReplace}
+              downloadAttachmentHandler={handleDownload}
+              submissionId={submissionId}
+              fileName={externalFile.filename}
+              designation={externalFile.designation}
+              publicUrl={externalFile.publicUrl}
+              hideActionList={toggleOpen}
+            />
+          )}
+        </ActionsContainer>
+      )}
     </Item>
   )
 }

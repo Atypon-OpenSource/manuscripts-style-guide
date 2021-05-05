@@ -59,6 +59,7 @@ export enum Designation {
   SubmissionFile,
   SubmissionPdf,
   TitlePage,
+  Dataset,
 }
 
 export const designationWithFileSectionsMap = new Map<
@@ -79,6 +80,7 @@ export const designationWithFileSectionsMap = new Map<
   [Designation.SubmissionFile, FileSectionType.OtherFile],
   [Designation.SubmissionPdf, FileSectionType.OtherFile],
   [Designation.TitlePage, FileSectionType.OtherFile],
+  [Designation.Dataset, FileSectionType.OtherFile],
 ])
 
 export const namesWithDesignationMap = new Map<string | undefined, Designation>(
@@ -97,6 +99,7 @@ export const namesWithDesignationMap = new Map<string | undefined, Designation>(
     ['submission-file', Designation.SubmissionFile],
     ['submission-pdf', Designation.SubmissionPdf],
     ['title-page', Designation.TitlePage],
+    ['dataset', Designation.Dataset],
   ]
 )
 
@@ -115,6 +118,7 @@ export const designationWithReadableNamesMap = new Map<Designation, string>([
   [Designation.SubmissionFile, 'Submission File'],
   [Designation.SubmissionPdf, 'Submission PDF'],
   [Designation.TitlePage, 'Title Page'],
+  [Designation.Dataset, 'Dataset'],
 ])
 
 export const designationWithAllowedMediaTypesMap = new Map<
@@ -141,6 +145,7 @@ export const designationWithAllowedMediaTypesMap = new Map<
   [Designation.SubmissionFile, []],
   [Designation.SubmissionPdf, ['pdf']],
   [Designation.TitlePage, ['doc', 'docx', 'pdf', 'tex', 'txt']],
+  [Designation.Dataset, ['csv', 'tsv', 'json', 'sql', 'xml', 'xls', 'tex']],
 ])
 
 export const designationWithAllowedDesignationsToTransitionMap = new Map<
@@ -484,4 +489,35 @@ export const getUploadFileDesignationList = (
     }
   })
   return result
+}
+
+export const droppableSections = [
+  FileSectionType.Supplements,
+  FileSectionType.OtherFile,
+]
+
+export const isFileDroppable = (file: ExternalFile) => {
+  for (const [designation, sectionType] of designationWithFileSectionsMap) {
+    namesWithDesignationMap.get(file.designation)
+    if (
+      droppableSections.includes(sectionType) &&
+      designation == namesWithDesignationMap.get(file.designation)
+    ) {
+      return true
+    }
+  }
+  return false
+}
+
+const isOfDesignation = (file: ExternalFile, designation: Designation) => {
+  const formats = designationWithAllowedMediaTypesMap.get(designation)
+  return !!formats?.find((type) => file.MIME.indexOf('/' + type) >= 0)
+}
+
+export const isDataset = (file: ExternalFile) => {
+  return isOfDesignation(file, Designation.Dataset)
+}
+
+export const isFigure = (file: ExternalFile) => {
+  return isOfDesignation(file, Designation.Figure)
 }
