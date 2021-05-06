@@ -1420,24 +1420,34 @@
   resolved "https://registry.yarnpkg.com/@manuscripts/examples/-/examples-0.0.7.tgz#f7f0cef173fb2c83fbf283a2c2962b5d6ea32874"
   integrity sha512-7a1y6H/wnvn4hTh7S+TEyC8R5tLHHNiWYJnbeS43JCMYS/6qhMCzJTS0PwQynoep7PWwi2LdgaSZ3qALxzgg0g==
 
-"@manuscripts/manuscript-transform@^0.39.0":
-  version "0.39.0"
-  resolved "https://registry.yarnpkg.com/@manuscripts/manuscript-transform/-/manuscript-transform-0.39.0.tgz#60d4065962ff0d74df11a848eea3b238d9c008fd"
-  integrity sha512-iF6WYK019Z0zIvO1kkM0fNQ1GvCj2Q3sCKL6VS5mFybnTBxozFG29g3rdb+aBJM0Rvd9Kvee42zDzCq28j/vzQ==
+"@manuscripts/manuscript-transform@^0.42.11":
+  version "0.42.11"
+  resolved "https://registry.yarnpkg.com/@manuscripts/manuscript-transform/-/manuscript-transform-0.42.11.tgz#b9c245702af247935d998fb2d48d7b32bff1b3fc"
+  integrity sha512-xco1GVA6QsmVWrhSHoF/SlSNi6t8yaFny8E+yfsJigJvzqZjOazUR0yE/5qFT1OjwgF3O8lvyaIx5/ecRBqhBw==
   dependencies:
     "@manuscripts/data" "^0.1.3"
-    "@manuscripts/manuscripts-json-schema" "^1.42.0"
+    "@manuscripts/manuscripts-json-schema" "^1.46.2"
     debug "^4.1.1"
+    lodash.pickby "^4.6.0"
     mathjax-full "^3.1.2"
     mime "^2.4.6"
-    prosemirror-model "^1.11.0"
+    prosemirror-model "~1.14.0"
     uuid "^8.2.0"
     w3c-xmlserializer "^2.0.0"
 
-"@manuscripts/manuscripts-json-schema@^1.42.0", "@manuscripts/manuscripts-json-schema@^1.45.3":
+"@manuscripts/manuscripts-json-schema@^1.45.3":
   version "1.45.3"
   resolved "https://registry.yarnpkg.com/@manuscripts/manuscripts-json-schema/-/manuscripts-json-schema-1.45.3.tgz#903f1c5f3108376ab0413f264de10f9a3997bc13"
   integrity sha512-JmIwd4o/XNDnGvDc1Swihce+3oz+Do188U669b8HeqEHeca8Kb5iupnQo1JKayXoOhs6NeZD14g0NWCdrh5Ydw==
+  dependencies:
+    ajv "^6.10.0"
+    deepmerge "^3.2.0"
+    js-beautify "^1.9.0"
+
+"@manuscripts/manuscripts-json-schema@^1.46.2":
+  version "1.46.5"
+  resolved "https://registry.yarnpkg.com/@manuscripts/manuscripts-json-schema/-/manuscripts-json-schema-1.46.5.tgz#e16ec00230353644221eaa433d9781488d5f3f82"
+  integrity sha512-lmqLxtRPe0J7ZvP8GEdoZ/C7P77ZmJbynp0CQfypxTPk7HkBl71EtNdtmPRcO7dk+rs9ouTh7NMOgcFkvJ8JuA==
   dependencies:
     ajv "^6.10.0"
     deepmerge "^3.2.0"
@@ -8078,6 +8088,11 @@ lodash.memoize@^4.1.2:
   resolved "https://registry.yarnpkg.com/lodash.memoize/-/lodash.memoize-4.1.2.tgz#bcc6c49a42a2840ed997f323eada5ecd182e0bfe"
   integrity sha1-vMbEmkKihA7Zl/Mj6tpezRguC/4=
 
+lodash.pickby@^4.6.0:
+  version "4.6.0"
+  resolved "https://registry.yarnpkg.com/lodash.pickby/-/lodash.pickby-4.6.0.tgz#7dea21d8c18d7703a27c704c15d3b84a67e33aff"
+  integrity sha1-feoh2MGNdwOifHBMFdO4SmfjOv8=
+
 lodash.sortby@^4.7.0:
   version "4.7.0"
   resolved "https://registry.yarnpkg.com/lodash.sortby/-/lodash.sortby-4.7.0.tgz#edd14c824e2cc9c1e0b0a1b42bb5210516a42438"
@@ -9585,10 +9600,17 @@ prosemirror-keymap@^1.1.4:
     prosemirror-state "^1.0.0"
     w3c-keyname "^2.2.0"
 
-prosemirror-model@^1.0.0, prosemirror-model@^1.1.0, prosemirror-model@^1.11.0, prosemirror-model@^1.11.2:
+prosemirror-model@^1.0.0, prosemirror-model@^1.1.0, prosemirror-model@^1.11.2:
   version "1.12.0"
   resolved "https://registry.yarnpkg.com/prosemirror-model/-/prosemirror-model-1.12.0.tgz#deb6acbce5c62ea35ef3d59c7d4c54f65d6d9fba"
   integrity sha512-B5syrXluQwEPfih8PqZcVg2VWRUf8Rj97K/VNSkQtjUPL1BCoTUgdLERIlxdWHkwqvujFsT3Pw5ubc4/ofF1jQ==
+  dependencies:
+    orderedmap "^1.1.0"
+
+prosemirror-model@~1.14.0:
+  version "1.14.1"
+  resolved "https://registry.yarnpkg.com/prosemirror-model/-/prosemirror-model-1.14.1.tgz#d784c67f95a5d66b853e82ff9a87a50353ef9cd5"
+  integrity sha512-vZcbI+24VloFefKZkDnMaEpipL/vSKKPdFiik4KOnTzq3e6AO7+CAOixZ2G/SsfRaYC965XvnOIEbhIQdgki7w==
   dependencies:
     orderedmap "^1.1.0"
 

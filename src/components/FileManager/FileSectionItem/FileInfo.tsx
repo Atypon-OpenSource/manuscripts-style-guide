@@ -34,7 +34,7 @@ export const FileInfo: React.FC<{
     name: string
   ) => Promise<boolean>
   submissionId?: string
-  dispatch: Dispatch<Action>
+  dispatch?: Dispatch<Action>
 }> = ({
   showAttachmentName,
   showDesignationActions,

@@ -50,7 +50,7 @@ export interface FileSectionItemProps {
     typeId: string,
     name: string
   ) => Promise<boolean>
-  dispatch: Dispatch<Action>
+  dispatch?: Dispatch<Action>
   dragRef?: DragElementWrapper<DragSourceOptions>
   className?: string
   style?: CSSProperties
@@ -62,7 +62,6 @@ export const FileSectionItem: React.FC<FileSectionItemProps> = ({
   title,
   showAttachmentName = false,
   showDesignationActions = false,
-  showActions = false,
   handleDownload,
   handleReplace,
   handleChangeDesignation,
