@@ -18,10 +18,10 @@ import React, { CSSProperties, Dispatch } from 'react'
 import { DragElementWrapper, DragSourceOptions } from 'react-dnd'
 import styled from 'styled-components'
 
-import { useDropdown } from '../../../hooks/useDropdown'
+import { useDropdown } from '../../../hooks/use-dropdown'
+import { DropdownContainer } from '../../Dropdown'
 import DotsIcon from '../../icons/dots-icon'
 import { Action } from '../FileSectionState'
-import { ActionsBox } from '../ItemsAction'
 import { Designation, namesWithDesignationMap } from '../util'
 import { FileInfo } from './FileInfo'
 import { FileTypeIcon } from './FileTypeIcon'
@@ -101,7 +101,7 @@ export const FileSectionItem: React.FC<FileSectionItemProps> = ({
         />
       </ItemContainer>
       {handleDownload && handleReplace && submissionId && (
-        <ActionsContainer ref={wrapperRef}>
+        <DropdownContainer ref={wrapperRef}>
           <ActionsIcon
             onClick={toggleOpen}
             type="button"
@@ -121,20 +121,12 @@ export const FileSectionItem: React.FC<FileSectionItemProps> = ({
               hideActionList={toggleOpen}
             />
           )}
-        </ActionsContainer>
+        </DropdownContainer>
       )}
     </Item>
   )
 }
 
-export const ActionsContainer = styled.div`
-  position: relative;
-  & ${ActionsBox} {
-    position: absolute;
-    top: 24px;
-    right: 0px;
-  }
-`
 export const ActionsIcon = styled.button`
   visibility: hidden;
   border: none;

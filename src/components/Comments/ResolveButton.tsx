@@ -27,7 +27,7 @@ export const ResolveButton: React.FC<{
   resolvedCallback: () => void
 }> = ({ id, resolved, resolvedCallback }) => {
   return (
-    <Container>
+    <Container className="note-actions">
       <Button
         resolved={resolved}
         data-tip={true}
@@ -53,12 +53,7 @@ const Container = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  .tooltip {
-    border-radius: 6px;
-    width: 70px;
-    padding: 8px 0 8px 0;
-    text-align: center;
-  }
+  margin-right: ${(props) => props.theme.grid.unit};
 `
 
 const Button = styled(IconTextButton)<{ resolved: boolean | undefined }>`

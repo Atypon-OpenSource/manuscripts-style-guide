@@ -15,7 +15,8 @@
  */
 import React, { ChangeEvent, useRef, useState } from 'react'
 
-import { ActionsBox, ActionsItem } from '../ItemsAction'
+import { DropdownList } from '../../Dropdown'
+import { ActionsItem } from '../ItemsAction'
 
 /**
  * This component represents the drop-down list action for each file item.
@@ -65,7 +66,13 @@ export const ItemActions: React.FC<{
     }
   }
   return (
-    <ActionsBox>
+    <DropdownList
+      direction={'right'}
+      width={125}
+      height={96}
+      top={5}
+      onClick={hideActionList}
+    >
       <ActionsItem
         onClick={() => {
           publicUrl !== undefined ? downloadAttachmentHandler(publicUrl) : {}
@@ -84,6 +91,6 @@ export const ItemActions: React.FC<{
           value={''}
         />
       </>
-    </ActionsBox>
+    </DropdownList>
   )
 }

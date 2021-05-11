@@ -13,22 +13,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import AnnotationEdit from '@manuscripts/assets/react/AnnotationEdit'
-import AnnotationRemove from '@manuscripts/assets/react/AnnotationRemove'
 import AnnotationReply from '@manuscripts/assets/react/AnnotationReply'
 import { Comment, CommentField } from '@manuscripts/comment-editor'
 import { Keyword, UserProfile } from '@manuscripts/manuscripts-json-schema'
 import { Field, FieldProps, Form, Formik } from 'formik'
-import React, { Dispatch, SetStateAction, useEffect, useState } from 'react'
+import React, { Dispatch, SetStateAction, useEffect } from 'react'
+import ReactTooltip from 'react-tooltip'
 import styled from 'styled-components'
 
 import { CommentType } from '../../lib/comments'
 import { ButtonGroup, PrimaryButton, SecondaryButton } from '../Button'
 import { FormError } from '../Form'
 
-interface Props {
+export interface CommentBodyProps {
   createKeyword: (name: string) => Promise<Keyword>
-  deleteComment: (comment: CommentType) => void
+  deleteComment: (id: string, target?: string) => void
   getCollaborator: (id: string) => UserProfile | undefined
   getKeyword: (id: string) => Keyword | undefined
   isNew: boolean
@@ -40,7 +39,13 @@ interface Props {
   setCommentTarget: Dispatch<SetStateAction<string | undefined>>
 }
 
-export const CommentBody: React.FC<Props> = React.memo(
+export const CommentBody: React.FC<
+  CommentBodyProps & {
+    setIsEditing: Dispatch<SetStateAction<boolean | undefined>>
+    isEditing?: boolean
+    isDeleting?: boolean
+  }
+> = React.memo(
   ({
     createKeyword,
     comment,
@@ -53,25 +58,19 @@ export const CommentBody: React.FC<Props> = React.memo(
     isReply,
     isNew,
     setCommentTarget,
+    setIsEditing,
+    isEditing,
   }) => {
     useEffect(() => {
       if (isNew) {
         setIsEditing(true)
       }
-    }, [isNew])
-
-    const [isDeleting, setIsDeleting] = useState<boolean>()
-    const [isEditing, setIsEditing] = useState<boolean>()
-
-    const handleDeleteComment = () => {
-      setIsDeleting(true)
-      deleteComment(comment)
-    }
+    }, [isNew, setIsEditing])
 
     const cancelEditing = () => {
       setIsEditing(false)
       if (isNew) {
-        deleteComment(comment)
+        deleteComment(comment._id)
       }
     }
 
@@ -128,34 +127,31 @@ export const CommentBody: React.FC<Props> = React.memo(
               />
             </CommentContent>
 
-            <CommentFooter>
-              <span>
-                <ActionButton
-                  onClick={() => setIsEditing(true)}
-                  title={'Edit comment'}
-                >
-                  <AnnotationEdit />
-                </ActionButton>
-                {!isReply && (
+            {!isReply && (
+              <CommentFooter>
+                <span>
                   <ActionButton
+                    data-tip={true}
+                    data-for={`reply-${comment._id}`}
                     onClick={() => setCommentTarget(comment._id)}
                     title={'Reply'}
+                    aria-label={'reply'}
+                    className="reply-button note-actions"
                   >
                     <AnnotationReply />
                   </ActionButton>
-                )}
-              </span>
-
-              <span>
-                <ActionButton
-                  onClick={handleDeleteComment}
-                  title={'Delete comment'}
-                  disabled={isDeleting}
+                </span>
+                <ReactTooltip
+                  id={`reply-${comment._id}`}
+                  place="bottom"
+                  effect="solid"
+                  offset={{ top: 10 }}
+                  className="tooltip"
                 >
-                  <AnnotationRemove />
-                </ActionButton>
-              </span>
-            </CommentFooter>
+                  Reply
+                </ReactTooltip>
+              </CommentFooter>
+            )}
           </div>
         )}
       </>
@@ -164,12 +160,12 @@ export const CommentBody: React.FC<Props> = React.memo(
 )
 
 const CommentFooter = styled.div`
-  border-top: 1px solid #eee;
-  margin-top: ${(props) => props.theme.grid.unit * 4}px;
+  margin-bottom: ${(props) => props.theme.grid.unit * 2}px;
   padding: ${(props) => props.theme.grid.unit * 2}px
     ${(props) => props.theme.grid.unit * 2}px 0;
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
+  height: ${(props) => props.theme.grid.unit * 6}px;
 `
 
 const EditingCommentFooter = styled(CommentFooter)`
@@ -182,7 +178,11 @@ const ActionButton = styled.button`
   border: none;
   background: none;
   cursor: pointer;
-  height: ${(props) => props.theme.grid.unit * 6}px;
+  &:not([disabled]):hover {
+    path {
+      stroke: ${(props) => props.theme.colors.brand.medium};
+    }
+  }
 `
 
 const CommentContent = styled.div`
@@ -199,10 +199,6 @@ const StyledCommentField = styled(CommentField)`
     letter-spacing: -0.2px;
     color: ${(props) => props.theme.colors.text.primary};
     margin: ${(props) => props.theme.grid.unit * 2}px 0;
-
-    &:focus {
-      outline: none;
-    }
 
     & p:first-child {
       margin-top: 0;
@@ -234,10 +230,6 @@ const StyledCommentViewer = styled(Comment)`
     letter-spacing: -0.2px;
     color: ${(props) => props.theme.colors.text.primary};
     margin: ${(props) => props.theme.grid.unit * 2}px 0;
-
-    &:focus {
-      outline: none;
-    }
 
     & p:first-child {
       margin-top: 0;

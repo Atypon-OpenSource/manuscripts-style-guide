@@ -35,10 +35,8 @@ import {
   CommentType,
 } from '../lib/comments'
 import { CheckboxField, CheckboxLabel } from './Checkbox'
-import { CommentBody } from './Comments/CommentBody'
 import { CommentTarget } from './Comments/CommentTarget'
-import { CommentUser } from './Comments/CommentUser'
-import { ResolveButton } from './Comments/ResolveButton'
+import { CommentWrapper } from './Comments/CommentWrapper'
 import { AddNoteIcon } from './icons/add-note'
 import { RelativeDate } from './RelativeDate'
 
@@ -115,9 +113,9 @@ export const ManuscriptNoteList: React.FC<Props> = React.memo(
     )
 
     const deleteNote = useCallback(
-      (comment: CommentType) => {
-        return deleteModel(comment._id).finally(() => {
-          if (newComment && newComment._id === comment._id) {
+      (id: string) => {
+        return deleteModel(id).finally(() => {
+          if (newComment && newComment._id === id) {
             setNoteTarget(undefined)
             setNewComment(undefined)
           }
@@ -179,32 +177,20 @@ export const ManuscriptNoteList: React.FC<Props> = React.memo(
                 <CommentTarget key={target} isSelected={isSelected}>
                   {selectedNoteData.map(({ comment, children }) => (
                     <NoteThread key={comment._id}>
-                      <Container isSelected={isSelected}>
-                        <NoteHeader>
-                          {comment.contributions && (
-                            <CommentUser
-                              contributions={comment.contributions}
-                              getCollaboratorById={getCollaboratorById}
-                              displayName={comment.displayName}
-                              createdAt={comment.createdAt * 1000}
-                            />
-                          )}
-                          <ResolveButton
-                            id={comment._id}
-                            resolved={comment.resolved}
-                            resolvedCallback={async () =>
-                              await saveModel({
-                                ...comment,
-                                resolved: !comment.resolved,
-                              } as ManuscriptNote)
-                            }
-                          />
-                        </NoteHeader>
-
-                        <CommentBody
+                      <NoteBodyContainer
+                        isSelected={isSelected}
+                        isNew={isNew(comment as ManuscriptNote)}
+                      >
+                        <CommentWrapper
                           createKeyword={createKeyword}
                           comment={comment}
                           deleteComment={deleteNote}
+                          resolvedCallback={async () =>
+                            await saveModel({
+                              ...comment,
+                              resolved: !comment.resolved,
+                            } as ManuscriptNote)
+                          }
                           getCollaborator={getCollaboratorById}
                           getKeyword={getKeyword}
                           listCollaborators={listCollaborators}
@@ -213,22 +199,11 @@ export const ManuscriptNoteList: React.FC<Props> = React.memo(
                           setCommentTarget={setNoteTarget}
                           isNew={isNew(comment as ManuscriptNote)}
                         />
-                      </Container>
+                      </NoteBodyContainer>
 
                       {children.map((note) => (
-                        <Reply key={note._id}>
-                          <NoteHeader>
-                            {note.contributions && (
-                              <CommentUser
-                                contributions={note.contributions}
-                                getCollaboratorById={getCollaboratorById}
-                                displayName={note.displayName}
-                                createdAt={note.createdAt * 1000}
-                              />
-                            )}
-                          </NoteHeader>
-
-                          <CommentBody
+                        <ReplyBodyContainer key={note._id}>
+                          <CommentWrapper
                             createKeyword={createKeyword}
                             comment={note}
                             deleteComment={deleteNote}
@@ -241,7 +216,7 @@ export const ManuscriptNoteList: React.FC<Props> = React.memo(
                             setCommentTarget={setNoteTarget}
                             isNew={isNew(note as ManuscriptNote)}
                           />
-                        </Reply>
+                        </ReplyBodyContainer>
                       ))}
                     </NoteThread>
                   ))}
@@ -260,9 +235,6 @@ const AddNoteButton = styled.button`
   background: none;
   border-style: none;
   height: 19px;
-  &:focus {
-    outline: none;
-  }
   &:focus-visible {
     outline: initial;
   }
@@ -273,34 +245,39 @@ const NoteListContainer = styled.div`
   overflow-y: auto;
 `
 
-const Container = styled.div<{
+export const NoteBodyContainer = styled.div<{
   isSelected: boolean
+  isNew: boolean
 }>`
   padding: ${(props) => props.theme.grid.unit * 4}px 0
     ${(props) => props.theme.grid.unit * 2}px;
   background: ${(props) => props.theme.colors.background.primary};
-  border: 1px solid ${(props) => props.theme.colors.brand.xlight};
-  border-left: 4px solid ${(props) => props.theme.colors.brand.light};
+  cursor: pointer;
+
+  ${(props) => borderStyle(props.theme.colors.border.secondary)};
+  ${(props) => props.isNew && borderStyle(props.theme.colors.border.primary)}
+
+  .tooltip {
+    border-radius: 6px;
+    padding: 8px;
+    text-align: center;
+  }
+`
+
+const borderStyle = (color: string) => `
+    ${'border: 1px solid ' + color};
+    ${'border-left: 4px solid ' + color};
 `
 
 const NoteThread = styled.div`
   margin: 16px 16px 16px 0;
 `
 
-const NoteHeader = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-size: ${(props) => props.theme.font.size.normal};
-  margin-bottom: 16px;
-  padding: 0 16px;
-`
-
-const Reply = styled.div`
+export const ReplyBodyContainer = styled.div`
   padding: ${(props) => props.theme.grid.unit * 4}px 0
     ${(props) => props.theme.grid.unit * 2}px;
   margin-left: ${(props) => props.theme.grid.unit * 4}px;
-  border: 1px solid ${(props) => props.theme.colors.brand.xlight};
+  border: 1px solid ${(props) => props.theme.colors.border.secondary};
   border-top: none;
 `
 

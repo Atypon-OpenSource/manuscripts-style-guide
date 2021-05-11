@@ -54,6 +54,7 @@ storiesOf('Projects/Notes', module).add('notes', () => (
       deleteComment={async () => action('delete model')}
       saveComment={async () => action('save model')}
       createKeyword={async () => action('create keyword')}
+      setIsEditing={async () => action('editing model')}
       getKeyword={(id: string) => keywordMap.get(id)}
       listKeywords={() => keywords}
       listCollaborators={() => people}

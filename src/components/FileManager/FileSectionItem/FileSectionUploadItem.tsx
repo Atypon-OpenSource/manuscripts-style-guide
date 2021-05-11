@@ -19,12 +19,7 @@ import styled from 'styled-components'
 
 import { DesignationActions } from './DesignationActions'
 import { FileInfoContainer, FileName, FileNameContainer } from './FileInfo'
-import {
-  ActionsContainer,
-  ActionsIcon,
-  Item,
-  ItemContainer,
-} from './FileSectionItem'
+import { ActionsIcon, Item, ItemContainer } from './FileSectionItem'
 import { FileTypeIcon } from './FileTypeIcon'
 import { ProgressBarUploadItem } from './ProgressBarUploadItem'
 

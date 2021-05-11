@@ -27,11 +27,11 @@ import {
   ZoomInIcon,
   ZoomOutIcon,
 } from '../src'
-import { SubmissionCriticality } from '../src/components/Preview/types'
+import { SubmissionCriticality } from '../src/components/SubmissionInspector/types'
 import { notes } from './data/notes'
 import { people } from './data/people'
 
-storiesOf('Preview', module)
+storiesOf('Submission Inspector', module)
   .add('Zoom Buttons', () => (
     <ZoomButtonGroup>
       <ZoomButton onClick={action('zoom in clicked')}>
