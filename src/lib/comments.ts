@@ -122,8 +122,12 @@ const buildNotesTreeMap = (targetsMap: TargetsMap) => {
 
 export const buildCommentTree = (
   doc: ManuscriptNode,
-  comments: CommentType[]
+  comments: CommentType[],
+  newComment?: CommentType
 ): CommentsTreeMap => {
+  if (newComment) {
+    return buildCommentTree(doc, [...comments, newComment])
+  }
   const commentsMap = buildCommentsMap(comments)
   const targetsMap = buildTargetsMap(commentsMap)
 
