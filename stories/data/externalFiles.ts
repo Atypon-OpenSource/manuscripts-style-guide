@@ -30,6 +30,8 @@ export const externalFiles: ExternalFile[] = [
     designation: 'supplementary',
     objectType: 'MPExternalFile',
     publicUrl: 'supplementary-file.docx/url',
+    manuscriptID: 'MPManuscript:my-manuscript',
+    sessionID: 'test',
   },
 
   {
@@ -46,6 +48,8 @@ export const externalFiles: ExternalFile[] = [
     designation: 'figure',
     objectType: 'MPExternalFile',
     publicUrl: 'my-figure.jpeg/url',
+    manuscriptID: 'MPManuscript:my-manuscript',
+    sessionID: 'test',
   },
 
   {
@@ -62,6 +66,8 @@ export const externalFiles: ExternalFile[] = [
     designation: 'table',
     objectType: 'MPExternalFile',
     publicUrl: 'my-table.xls/url',
+    manuscriptID: 'MPManuscript:my-manuscript',
+    sessionID: 'test',
   },
 
   {
@@ -78,6 +84,8 @@ export const externalFiles: ExternalFile[] = [
     designation: 'supplementary',
     objectType: 'MPExternalFile',
     publicUrl: 'my-supplementary-file.docx/url',
+    manuscriptID: 'MPManuscript:my-manuscript',
+    sessionID: 'test',
   },
 
   {
@@ -94,6 +102,8 @@ export const externalFiles: ExternalFile[] = [
     designation: 'supplemental',
     objectType: 'MPExternalFile',
     publicUrl: 'supplemental-file.docx/url',
+    manuscriptID: 'MPManuscript:my-manuscript',
+    sessionID: 'test',
   },
 
   {
@@ -110,6 +120,8 @@ export const externalFiles: ExternalFile[] = [
     designation: 'conflict-of-interest',
     objectType: 'MPExternalFile',
     publicUrl: 'my-conflict-of-interest-file.pdf/url',
+    manuscriptID: 'MPManuscript:my-manuscript',
+    sessionID: 'test',
   },
 
   {
@@ -126,6 +138,8 @@ export const externalFiles: ExternalFile[] = [
     designation: 'document',
     objectType: 'MPExternalFile',
     publicUrl: 'my-document.tex/url',
+    manuscriptID: 'MPManuscript:my-manuscript',
+    sessionID: 'test',
   },
 
   {
@@ -142,6 +156,8 @@ export const externalFiles: ExternalFile[] = [
     designation: 'graphical-abstract',
     objectType: 'MPExternalFile',
     publicUrl: 'my-graphical-abstract-file.doc/url',
+    manuscriptID: 'MPManuscript:my-manuscript',
+    sessionID: 'test',
   },
 
   {
@@ -158,6 +174,8 @@ export const externalFiles: ExternalFile[] = [
     designation: 'figure',
     objectType: 'MPExternalFile',
     publicUrl: 'my-figure-new.png/url',
+    manuscriptID: 'MPManuscript:my-manuscript',
+    sessionID: 'test',
   },
 
   {
@@ -174,6 +192,8 @@ export const externalFiles: ExternalFile[] = [
     designation: 'graphical-abstract-image',
     objectType: 'MPExternalFile',
     publicUrl: 'my-graphical-abstract-image-file.gif/url',
+    manuscriptID: 'MPManuscript:my-manuscript',
+    sessionID: 'test',
   },
 
   {
@@ -190,6 +210,8 @@ export const externalFiles: ExternalFile[] = [
     designation: 'graphical-abstract-text',
     objectType: 'MPExternalFile',
     publicUrl: 'my-graphical-abstract-text-file.txt/url',
+    manuscriptID: 'MPManuscript:my-manuscript',
+    sessionID: 'test',
   },
 
   {
@@ -206,6 +228,8 @@ export const externalFiles: ExternalFile[] = [
     designation: 'metadata',
     objectType: 'MPExternalFile',
     publicUrl: 'my-metadata-file.xml/url',
+    manuscriptID: 'MPManuscript:my-manuscript',
+    sessionID: 'test',
   },
 
   {
@@ -222,6 +246,8 @@ export const externalFiles: ExternalFile[] = [
     designation: 'submission-file',
     objectType: 'MPExternalFile',
     publicUrl: 'my-submission-file.docx/url',
+    manuscriptID: 'MPManuscript:my-manuscript',
+    sessionID: 'test',
   },
 
   {
@@ -238,6 +264,8 @@ export const externalFiles: ExternalFile[] = [
     designation: 'submission-pdf',
     objectType: 'MPExternalFile',
     publicUrl: 'my-submission-pdf.pdf/url',
+    manuscriptID: 'MPManuscript:my-manuscript',
+    sessionID: 'test',
   },
 
   {
@@ -252,6 +280,8 @@ export const externalFiles: ExternalFile[] = [
     designation: 'title-page',
     objectType: 'MPExternalFile',
     publicUrl: 'my-title-page.pdf/url',
+    manuscriptID: 'MPManuscript:my-manuscript',
+    sessionID: 'test',
   },
   {
     containerID: 'MPProject:valid-project-id-2',
@@ -265,6 +295,8 @@ export const externalFiles: ExternalFile[] = [
     designation: 'title-page',
     objectType: 'MPExternalFile',
     publicUrl: 'my-title-packageFile.zip/url',
+    manuscriptID: 'MPManuscript:my-manuscript',
+    sessionID: 'test',
   },
 
   {
@@ -279,5 +311,7 @@ export const externalFiles: ExternalFile[] = [
     designation: 'title-page',
     objectType: 'MPExternalFile',
     publicUrl: 'my-title-unknownFile.exe/url',
+    manuscriptID: 'MPManuscript:my-manuscript',
+    sessionID: 'test',
   },
 ]
