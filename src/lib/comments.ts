@@ -14,18 +14,29 @@
  * limitations under the License.
  */
 
-import { ManuscriptNode } from '@manuscripts/manuscript-transform'
+import { Build, ManuscriptNode } from '@manuscripts/manuscript-transform'
 import {
   BibliographicName,
   CommentAnnotation,
+  Contribution,
   ManuscriptNote,
 } from '@manuscripts/manuscripts-json-schema'
 
 export type CommentType = ManuscriptNote | CommentAnnotation
 
+export interface UnsavedComment extends Build<CommentAnnotation> {
+  contributions: Contribution[]
+}
+
 export interface CommentData<T = CommentType> {
   comment: T
   children: T[]
+}
+
+export const isSavedComment = (
+  comment: CommentType | UnsavedComment
+): comment is CommentType => {
+  return !!(comment as CommentType).createdAt
 }
 
 const oldestFirst = (a: CommentType, b: CommentType) =>

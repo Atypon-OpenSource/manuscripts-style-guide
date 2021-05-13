@@ -33,6 +33,7 @@ import {
   CommentData,
   CommentsTreeMap,
   CommentType,
+  UnsavedComment,
 } from '../lib/comments'
 import { CheckboxField, CheckboxLabel } from './Checkbox'
 import { CommentTarget } from './Comments/CommentTarget'
@@ -125,7 +126,7 @@ export const ManuscriptNoteList: React.FC<Props> = React.memo(
     )
 
     const saveNote = useCallback(
-      (note: CommentType) => {
+      (note: CommentType | UnsavedComment) => {
         return saveModel(note as ManuscriptNote).then((note) => {
           if (newComment && newComment._id === note._id) {
             setNoteTarget(undefined)
@@ -185,7 +186,7 @@ export const ManuscriptNoteList: React.FC<Props> = React.memo(
                           createKeyword={createKeyword}
                           comment={comment}
                           deleteComment={deleteNote}
-                          resolvedCallback={async () =>
+                          handleSetResolved={async () =>
                             await saveModel({
                               ...comment,
                               resolved: !comment.resolved,
@@ -196,7 +197,7 @@ export const ManuscriptNoteList: React.FC<Props> = React.memo(
                           listCollaborators={listCollaborators}
                           listKeywords={listKeywords}
                           saveComment={saveNote}
-                          setCommentTarget={setNoteTarget}
+                          handleCreateReply={setNoteTarget}
                           isNew={isNew(comment as ManuscriptNote)}
                         />
                       </NoteBodyContainer>
@@ -213,7 +214,7 @@ export const ManuscriptNoteList: React.FC<Props> = React.memo(
                             listCollaborators={listCollaborators}
                             listKeywords={listKeywords}
                             saveComment={saveNote}
-                            setCommentTarget={setNoteTarget}
+                            handleCreateReply={setNoteTarget}
                             isNew={isNew(note as ManuscriptNote)}
                           />
                         </ReplyBodyContainer>

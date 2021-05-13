@@ -21,7 +21,7 @@ import React, { Dispatch, SetStateAction, useEffect } from 'react'
 import ReactTooltip from 'react-tooltip'
 import styled from 'styled-components'
 
-import { CommentType } from '../../lib/comments'
+import { CommentType, UnsavedComment } from '../../lib/comments'
 import { ButtonGroup, PrimaryButton, SecondaryButton } from '../Button'
 import { FormError } from '../Form'
 
@@ -34,9 +34,9 @@ export interface CommentBodyProps {
   isReply?: boolean
   listCollaborators: () => UserProfile[]
   listKeywords: () => Keyword[]
-  comment: CommentType
-  saveComment: (comment: CommentType) => Promise<CommentType>
-  setCommentTarget: Dispatch<SetStateAction<string | undefined>>
+  comment: CommentType | UnsavedComment
+  saveComment: (comment: CommentType | UnsavedComment) => Promise<CommentType>
+  handleCreateReply: (id: string) => void
 }
 
 export const CommentBody: React.FC<
@@ -57,7 +57,7 @@ export const CommentBody: React.FC<
     deleteComment,
     isReply,
     isNew,
-    setCommentTarget,
+    handleCreateReply,
     setIsEditing,
     isEditing,
   }) => {
@@ -133,7 +133,7 @@ export const CommentBody: React.FC<
                   <ActionButton
                     data-tip={true}
                     data-for={`reply-${comment._id}`}
-                    onClick={() => setCommentTarget(comment._id)}
+                    onClick={() => handleCreateReply(comment._id)}
                     title={'Reply'}
                     aria-label={'reply'}
                     className="reply-button note-actions"

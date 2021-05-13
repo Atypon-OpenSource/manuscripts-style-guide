@@ -27,7 +27,7 @@ export const CommentActions: React.FC<{
   id: string
   target: string
   isResolved?: boolean
-  setIsResolved?: () => void
+  handleSetResolved?: () => void
   deleteComment: (id: string, target?: string) => void
   setIsEditing: Dispatch<SetStateAction<boolean | undefined>>
   dropdownButtonRef: React.RefObject<HTMLButtonElement>
@@ -35,7 +35,7 @@ export const CommentActions: React.FC<{
   id,
   target,
   isResolved,
-  setIsResolved,
+  handleSetResolved,
   deleteComment,
   setIsEditing,
   dropdownButtonRef,
@@ -53,11 +53,11 @@ export const CommentActions: React.FC<{
 
   return (
     <Container>
-      {id && setIsResolved && (
+      {handleSetResolved && (
         <ResolveButton
           id={id}
           resolved={isResolved}
-          resolvedCallback={setIsResolved}
+          resolvedCallback={handleSetResolved}
           aria-label={'resolve comment'}
         />
       )}

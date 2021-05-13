@@ -60,7 +60,7 @@ storiesOf('Projects/Notes', module).add('notes', () => (
       listCollaborators={() => people}
       isReply={false}
       isNew={false}
-      setCommentTarget={action('set Note target')}
+      handleCreateReply={action('set Note target')}
     />
   </div>
 ))

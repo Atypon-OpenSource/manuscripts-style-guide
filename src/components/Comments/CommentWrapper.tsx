@@ -18,13 +18,14 @@ import { ManuscriptNote } from '@manuscripts/manuscripts-json-schema'
 import React, { useCallback, useRef, useState } from 'react'
 import styled from 'styled-components'
 
+import { isSavedComment } from '../SubmissionInspector'
 import { CommentActions } from './CommentActions'
 import { CommentBody, CommentBodyProps } from './CommentBody'
 import { CommentUser } from './CommentUser'
 
 export const CommentWrapper: React.FC<
   CommentBodyProps & {
-    resolvedCallback?: () => void
+    handleSetResolved?: () => void
   }
 > = ({
   createKeyword,
@@ -37,8 +38,8 @@ export const CommentWrapper: React.FC<
   deleteComment,
   isReply,
   isNew,
-  setCommentTarget,
-  resolvedCallback,
+  handleCreateReply,
+  handleSetResolved,
   children,
 }) => {
   const [isEditing, setIsEditing] = useState<boolean>()
@@ -61,7 +62,9 @@ export const CommentWrapper: React.FC<
               contributions={comment.contributions}
               getCollaboratorById={getCollaborator}
               displayName={(comment as ManuscriptNote).displayName}
-              createdAt={comment.createdAt * 1000}
+              createdAt={
+                isSavedComment(comment) ? comment.createdAt * 1000 : undefined
+              }
             />
           )}
         </NoteTitle>
@@ -69,7 +72,7 @@ export const CommentWrapper: React.FC<
           id={comment._id}
           target={comment.target}
           isResolved={comment.resolved}
-          setIsResolved={resolvedCallback}
+          handleSetResolved={handleSetResolved}
           deleteComment={deleteComment}
           setIsEditing={setIsEditing}
           dropdownButtonRef={dropdownButtonRef}
@@ -88,7 +91,7 @@ export const CommentWrapper: React.FC<
         listKeywords={listKeywords}
         isReply={isReply}
         saveComment={saveComment}
-        setCommentTarget={setCommentTarget}
+        handleCreateReply={handleCreateReply}
         isNew={isNew}
         setIsEditing={setIsEditing}
         isEditing={isEditing}
