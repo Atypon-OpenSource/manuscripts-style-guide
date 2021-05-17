@@ -134,7 +134,6 @@ export const CommentBody: React.FC<
                     data-tip={true}
                     data-for={`reply-${comment._id}`}
                     onClick={() => handleCreateReply(comment._id)}
-                    title={'Reply'}
                     aria-label={'reply'}
                     className="reply-button note-actions"
                   >

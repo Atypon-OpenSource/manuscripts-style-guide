@@ -27,7 +27,7 @@ export const ResolveButton: React.FC<{
   resolvedCallback: () => void
 }> = ({ id, resolved, resolvedCallback }) => {
   return (
-    <Container className="note-actions">
+    <Container>
       <Button
         resolved={resolved}
         data-tip={true}
