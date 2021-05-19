@@ -102,9 +102,7 @@ export const FileManager: React.FC<{
           dispatch(actions.SELECT_DESIGNATION(Designation.Supplementary))
         }
         const res = await handleUpload(submissionId, file, designation)
-        if (res) {
-          dispatch(actions.HANDLE_FINISH_UPLOAD())
-        }
+        dispatch(actions.HANDLE_FINISH_UPLOAD())
         return res
       } catch (e) {
         console.error(e)
@@ -154,7 +152,7 @@ export const FileManager: React.FC<{
 
     // Generating a title for the external files and sorting the external files based on the generated title
     const itemsDataWithTitle = sortExternalFiles(
-      generateExternalFilesTitles(itemsData)
+      generateExternalFilesTitles(itemsData, fileSection)
     )
 
     const filesItems = itemsDataWithTitle.map((element) => {

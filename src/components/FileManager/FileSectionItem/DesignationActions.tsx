@@ -66,87 +66,87 @@ export const DesignationActions: React.FC<{
     setIsActionsShown(false)
   }
 
-  if (!designation || !fileExtension) {
+  if (designation && fileExtension) {
+    const designationActionsList = getDesignationActionsList(
+      designation,
+      fileExtension
+    )
+    const handleOpenConfirmationPopup = (
+      popupHeader: string,
+      popupMessage: string,
+      designation: string
+    ) => {
+      setConfirmationPopUpData({
+        confirmationPopUpMessage: popupMessage,
+        confirmationPopUpHeader: popupHeader,
+        isConfirmationPopUpOpen: true,
+        selectedDesignation: designation,
+      })
+    }
+    const handleMoveAction = () => {
+      handleChangeDesignation &&
+        handleChangeDesignation(
+          submissionId,
+          confirmationPopUpData.selectedDesignation,
+          fileName
+        )
+      handleCloseAction()
+    }
+    const handleCloseAction = () => {
+      setConfirmationPopUpData({
+        confirmationPopUpMessage: '',
+        confirmationPopUpHeader: '',
+        selectedDesignation: '',
+        isConfirmationPopUpOpen: false,
+      })
+    }
+
+    return (
+      <>
+        <SecondaryActionsContainer
+          onClick={toggleActionsList}
+          onBlur={hideActionsList}
+        >
+          <SecondaryActionsText>
+            {designationWithReadableNamesMap.get(designation)}
+          </SecondaryActionsText>
+          <BottomArrowIcon />
+          {isActionsShown && (
+            <ActionsListContainer>
+              <DesignationActionsList
+                handleChangeDesignation={handleChangeDesignation}
+                designationActionsList={designationActionsList}
+                submissionId={submissionId}
+                fileName={fileName}
+                designation={designation}
+                dispatch={dispatch}
+                handleOpenConfirmationPopup={handleOpenConfirmationPopup}
+              />
+            </ActionsListContainer>
+          )}
+        </SecondaryActionsContainer>
+        {confirmationPopUpData.isConfirmationPopUpOpen && (
+          <ConfirmationPopUp
+            popupHeader={
+              confirmationPopUpData.confirmationPopUpHeader !== undefined
+                ? confirmationPopUpData.confirmationPopUpHeader
+                : ''
+            }
+            popUpMessage={
+              confirmationPopUpData.confirmationPopUpMessage !== undefined
+                ? confirmationPopUpData.confirmationPopUpMessage
+                : ''
+            }
+            isOpen={confirmationPopUpData.isConfirmationPopUpOpen}
+            handleClose={() => handleCloseAction()}
+            handleMove={() => handleMoveAction()}
+          />
+        )}
+      </>
+    )
+  } else {
     return null
   }
-
-  const designationActionsList = getDesignationActionsList(
-    designation,
-    fileExtension
-  )
-  const handleOpenConfirmationPopup = (
-    popupHeader: string,
-    popupMessage: string,
-    designation: string
-  ) => {
-    setConfirmationPopUpData({
-      confirmationPopUpMessage: popupMessage,
-      confirmationPopUpHeader: popupHeader,
-      isConfirmationPopUpOpen: true,
-      selectedDesignation: designation,
-    })
-  }
-  const handleMoveAction = () => {
-    handleChangeDesignation &&
-      handleChangeDesignation(
-        submissionId,
-        confirmationPopUpData.selectedDesignation,
-        fileName
-      )
-    handleCloseAction()
-  }
-  const handleCloseAction = () => {
-    setConfirmationPopUpData({
-      confirmationPopUpMessage: '',
-      confirmationPopUpHeader: '',
-      selectedDesignation: '',
-      isConfirmationPopUpOpen: false,
-    })
-  }
-
-  return (
-    <>
-      <SecondaryActionsContainer
-        onClick={toggleActionsList}
-        onBlur={hideActionsList}
-      >
-        <SecondaryActionsText>
-          {designationWithReadableNamesMap.get(designation)}
-        </SecondaryActionsText>
-        <BottomArrowIcon />
-        {isActionsShown && (
-          <ActionsListContainer>
-            <DesignationActionsList
-              handleChangeDesignation={handleChangeDesignation}
-              designationActionsList={designationActionsList}
-              submissionId={submissionId}
-              fileName={fileName}
-              designation={designation}
-              dispatch={dispatch}
-              handleOpenConfirmationPopup={handleOpenConfirmationPopup}
-            />
-          </ActionsListContainer>
-        )}
-      </SecondaryActionsContainer>
-      {confirmationPopUpData.isConfirmationPopUpOpen && (
-        <ConfirmationPopUp
-          popupHeader={
-            confirmationPopUpData.confirmationPopUpHeader !== undefined
-              ? confirmationPopUpData.confirmationPopUpHeader
-              : ''
-          }
-          popUpMessage={
-            confirmationPopUpData.confirmationPopUpMessage !== undefined
-              ? confirmationPopUpData.confirmationPopUpMessage
-              : ''
-          }
-          isOpen={confirmationPopUpData.isConfirmationPopUpOpen}
-          handleClose={handleCloseAction}
-          handleMove={handleMoveAction}
-        />
-      )}
-    </>
-  )
 }
 
 const SecondaryActionsContainer = styled.button`

@@ -353,7 +353,8 @@ export const fileTypesWithIconMap = new Map<FileType | undefined, JSX.Element>([
  * In this method we generate the item title based on file type with counter.
  */
 export const generateExternalFilesTitles = (
-  externalFiles: ExternalFile[]
+  externalFiles: ExternalFile[],
+  fileSectionType: FileSectionType
 ): Array<{ title: string; externalFile: ExternalFile }> => {
   const titleCountersMap: Map<string, number> = new Map<string, number>()
 
@@ -370,16 +371,19 @@ export const generateExternalFilesTitles = (
     const fileType = extensionsWithFileTypesMap.get(fileExtension.toLowerCase())
 
     const fileTitle = fileTypesWithTitlesMap.get(fileType)
-
-    if (fileTitle !== undefined) {
-      const oldCount = titleCountersMap.get(fileTitle)
-      if (oldCount) {
-        const newCount = oldCount + 1
-        titleCountersMap.set(fileTitle, newCount)
-        externalFilesWithTitlesMap.set(`${fileTitle} ${newCount}`, element)
-      } else {
-        titleCountersMap.set(fileTitle, 1)
-        externalFilesWithTitlesMap.set(`${fileTitle} 1`, element)
+    if (fileSectionType === FileSectionType.Inline) {
+      externalFilesWithTitlesMap.set(element.filename, element)
+    } else {
+      if (fileTitle !== undefined) {
+        const oldCount = titleCountersMap.get(fileTitle)
+        if (oldCount) {
+          const newCount = oldCount + 1
+          titleCountersMap.set(fileTitle, newCount)
+          externalFilesWithTitlesMap.set(`${fileTitle} ${newCount}`, element)
+        } else {
+          titleCountersMap.set(fileTitle, 1)
+          externalFilesWithTitlesMap.set(`${fileTitle} 1`, element)
+        }
       }
     }
   })
@@ -398,7 +402,9 @@ export const generateExternalFilesTitles = (
 export const sortExternalFiles = (
   externalFilesWithTitles: Array<{ title: string; externalFile: ExternalFile }>
 ): Array<{ title: string; externalFile: ExternalFile }> => {
-  externalFilesWithTitles.sort((a, b) => a.title.localeCompare(b.title))
+  externalFilesWithTitles.sort((a, b) =>
+    a.title.localeCompare(b.title, undefined, { numeric: true })
+  )
   return externalFilesWithTitles
 }
 

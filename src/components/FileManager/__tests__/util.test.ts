@@ -17,6 +17,7 @@ import { ExternalFile } from '@manuscripts/manuscripts-json-schema'
 
 import {
   Designation,
+  FileSectionType,
   generateExternalFilesTitles,
   getDesignationActionsList,
   getDesignationName,
@@ -95,7 +96,10 @@ const externalFiles: ExternalFile[] = [
 ]
 
 test('Checking the generated titles for external files', () => {
-  const data = generateExternalFilesTitles(externalFiles)
+  const data = generateExternalFilesTitles(
+    externalFiles,
+    FileSectionType.OtherFile
+  )
 
   expect(data.length).toBe<number>(4)
   expect(data[0].title).toEqual<string>('Doc 1')
@@ -105,7 +109,10 @@ test('Checking the generated titles for external files', () => {
 })
 
 test('Checking sorting external files', () => {
-  const data = generateExternalFilesTitles(externalFiles)
+  const data = generateExternalFilesTitles(
+    externalFiles,
+    FileSectionType.OtherFile
+  )
   const sortedData = sortExternalFiles(data)
 
   expect(sortedData.length).toBe<number>(4)

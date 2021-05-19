@@ -66,7 +66,7 @@ export const FileInfo: React.FC<{
       )}
       <FileNameTitleContainer>
         <FileTitle>
-          {title}
+          {!showAttachmentName ? fileName : title}
           {showAttachmentName && ':'}
         </FileTitle>
         {showAttachmentName && (

@@ -76,7 +76,6 @@ export const ItemActions: React.FC<{
       <ActionsItem
         onClick={() => {
           publicUrl !== undefined ? downloadAttachmentHandler(publicUrl) : {}
-          hideActionList()
         }}
       >
         Download

@@ -157,6 +157,13 @@ export const Item = styled.div`
   &:hover ${ActionsIcon} {
     visibility: visible;
   }
+
+  ${DropdownContainer} {
+    position: absolute;
+    top: 24px;
+    right: 0px;
+    margin-right: 8px;
+  }
 `
 export const ItemContainer = styled.div`
   display: flex;
