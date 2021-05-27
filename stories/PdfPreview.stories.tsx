@@ -50,6 +50,7 @@ const Container = styled.div`
   flex: 1;
 `
 const PreviewWrapper = styled.div`
+  position: relative;
   width: 80%;
   height: 800px;
   overflow: scroll;

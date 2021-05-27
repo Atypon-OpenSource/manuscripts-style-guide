@@ -62,15 +62,12 @@ const PdfPreview: React.FC<{ scale?: number; url: string }> = ({
 
     setPdfViewer(pdfViewer)
     setEventBus(eventBus)
-    const loadingTask: PDFDocumentLoadingTask = {
-      ...getDocument({
-        url,
-        withCredentials: true,
-      }),
-      onProgress: (progressData: ProgressData) => {
-        setProgress(progressData)
-      },
-    }
+    const loadingTask: PDFDocumentLoadingTask = getDocument({
+      url,
+      withCredentials: true,
+    })
+    loadingTask.onProgress = (progressData: ProgressData) =>
+      setProgress(progressData)
 
     loadingTask.promise
       .then(
@@ -99,7 +96,7 @@ const PdfPreview: React.FC<{ scale?: number; url: string }> = ({
   }
 
   return (
-    <div ref={nodeRef} id={'viewerContainer'}>
+    <ViewerContainer ref={nodeRef} id={'viewerContainer'}>
       <div id="viewer" className="pdfViewer" />
       {progress != null ? (
         progress.total > progress.loaded && (
@@ -114,14 +111,19 @@ const PdfPreview: React.FC<{ scale?: number; url: string }> = ({
       ) : (
         <Container>{'Loading\u2026'}</Container>
       )}
-    </div>
+    </ViewerContainer>
   )
 }
 
 export default PdfPreview
 
-const Container = styled.div`
+const ViewerContainer = styled.div`
   position: absolute;
+  width: 100%;
+`
+
+const Container = styled.div`
+  position: fixed;
   top: 50%;
   right: 50%;
 `
