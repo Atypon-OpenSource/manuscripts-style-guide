@@ -71,6 +71,9 @@ export const DesignationActions: React.FC<{
       designation,
       fileExtension
     )
+    if (!designationActionsList.length) {
+      return null
+    }
     const handleOpenConfirmationPopup = (
       popupHeader: string,
       popupMessage: string,

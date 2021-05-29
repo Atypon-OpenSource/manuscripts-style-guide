@@ -60,6 +60,7 @@ export enum Designation {
   SubmissionPdf,
   TitlePage,
   Dataset,
+  MainManuscript,
 }
 
 export const designationWithFileSectionsMap = new Map<
@@ -81,6 +82,7 @@ export const designationWithFileSectionsMap = new Map<
   [Designation.SubmissionPdf, FileSectionType.OtherFile],
   [Designation.TitlePage, FileSectionType.OtherFile],
   [Designation.Dataset, FileSectionType.OtherFile],
+  [Designation.MainManuscript, FileSectionType.OtherFile],
 ])
 
 export const namesWithDesignationMap = new Map<string | undefined, Designation>(
@@ -100,6 +102,7 @@ export const namesWithDesignationMap = new Map<string | undefined, Designation>(
     ['submission-pdf', Designation.SubmissionPdf],
     ['title-page', Designation.TitlePage],
     ['dataset', Designation.Dataset],
+    ['main-manuscript', Designation.MainManuscript],
   ]
 )
 
@@ -119,6 +122,7 @@ export const designationWithReadableNamesMap = new Map<Designation, string>([
   [Designation.SubmissionPdf, 'Submission PDF'],
   [Designation.TitlePage, 'Title Page'],
   [Designation.Dataset, 'Dataset'],
+  [Designation.MainManuscript, 'Main Manuscript'],
 ])
 
 export const designationWithAllowedMediaTypesMap = new Map<
@@ -146,6 +150,7 @@ export const designationWithAllowedMediaTypesMap = new Map<
   [Designation.SubmissionPdf, ['pdf']],
   [Designation.TitlePage, ['doc', 'docx', 'pdf', 'tex', 'txt']],
   [Designation.Dataset, ['csv', 'tsv', 'json', 'sql', 'xml', 'xls', 'tex']],
+  [Designation.MainManuscript, ['manuproj', 'docx']],
 ])
 
 export const designationWithAllowedDesignationsToTransitionMap = new Map<
@@ -177,6 +182,7 @@ export const designationWithAllowedDesignationsToTransitionMap = new Map<
       Designation.GraphicalAbstract,
       Designation.TitlePage,
       Designation.Table,
+      Designation.Dataset,
     ],
   ],
 
@@ -204,6 +210,8 @@ export const designationWithAllowedDesignationsToTransitionMap = new Map<
       Designation.Metadata,
       Designation.SubmissionFile,
       Designation.SubmissionPdf,
+      Designation.MainManuscript,
+      Designation.Dataset,
     ],
   ],
   [
@@ -242,6 +250,7 @@ export const designationWithAllowedDesignationsToTransitionMap = new Map<
       Designation.GraphicalAbstract,
       Designation.TitlePage,
       Designation.Table,
+      Designation.Dataset,
     ],
   ],
   [
@@ -502,26 +511,9 @@ export const droppableSections = [
   FileSectionType.OtherFile,
 ]
 
-export const isFileDroppable = (file: ExternalFile) => {
-  for (const [designation, sectionType] of designationWithFileSectionsMap) {
-    namesWithDesignationMap.get(file.designation)
-    if (
-      droppableSections.includes(sectionType) &&
-      designation == namesWithDesignationMap.get(file.designation)
-    ) {
-      return true
-    }
-  }
-  return false
-}
-
 const isOfDesignation = (file: ExternalFile, designation: Designation) => {
   const formats = designationWithAllowedMediaTypesMap.get(designation)
   return !!formats?.find((type) => file.MIME.indexOf('/' + type) >= 0)
-}
-
-export const isDataset = (file: ExternalFile) => {
-  return isOfDesignation(file, Designation.Dataset)
 }
 
 export const isFigure = (file: ExternalFile) => {

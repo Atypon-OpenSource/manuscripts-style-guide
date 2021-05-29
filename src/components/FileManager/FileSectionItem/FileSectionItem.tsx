@@ -77,13 +77,13 @@ export const FileSectionItem: React.FC<FileSectionItemProps> = ({
   )
 
   const designation = namesWithDesignationMap.get(externalFile.designation)
-  const isSubmissionFile = designation === Designation.SubmissionFile
+  const isMainManuscript = designation === Designation.MainManuscript
 
   return (
     <Item ref={dragRef} className={className} style={style}>
       <ItemContainer>
         <FileTypeIcon
-          withDot={isSubmissionFile}
+          withDot={isMainManuscript}
           fileExtension={fileExtension}
           alt={externalFile.filename}
         />

@@ -52,10 +52,8 @@ export const SelectDesignationActions: React.FC<{
   const handleInputChange = (value: ValueType<DesignationOption>) => {
     if (value) {
       const selectedDesignation = value as ValueType<DesignationOption>
-      if (selectedDesignation) {
-        if ('value' in selectedDesignation) {
-          dispatch(actions.SELECT_DESIGNATION(selectedDesignation.value))
-        }
+      if (selectedDesignation && 'value' in selectedDesignation) {
+        dispatch(actions.SELECT_DESIGNATION(selectedDesignation.value))
       }
     }
   }
@@ -70,9 +68,7 @@ export const SelectDesignationActions: React.FC<{
       <CreatableSelect<DesignationOption>
         closeMenuOnSelect={true}
         options={designationActionsList}
-        onChange={(event: ValueType<DesignationOption>) =>
-          handleInputChange(event)
-        }
+        onChange={handleInputChange}
         placeholder="Select Designation"
         components={reactSelectComponents}
       />

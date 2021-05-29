@@ -168,7 +168,7 @@ test('Checking designation actions list', () => {
     'png'
   )
 
-  expect(designationActionsList.length).toBe<number>(8)
+  expect(designationActionsList.length).toBe<number>(10)
   expect(
     designationActionsList.includes(Designation.ConflictOfInterest)
   ).toBeTruthy()

@@ -120,7 +120,7 @@ export const capabilitiesLW = (
     uploadFile: isOwner() || isEditor() || isWriter(),
     handleQualityReport: isOwner() || isEditor() || isWriter(),
     /* dashboard actions */
-    completeTask: isLWProdEditor() && allowed(A.proceed),
+    completeTask: allowed(A.proceed),
     rejectTask: isLWProdEditor(),
     acceptTask: isLWProdEditor(),
     resolveOnHoldTask: isLWProdEditor(),
