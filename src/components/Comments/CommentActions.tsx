@@ -22,7 +22,6 @@ import { IconTextButton } from '../Button'
 import { DropdownButton, DropdownContainer, DropdownList } from '../Dropdown'
 import DotsIcon from '../icons/dots-icon'
 import { ResolveButton } from './ResolveButton'
-import { Capabilites } from '../../lib/capabilities'
 
 export const CommentActions: React.FC<{
   id: string

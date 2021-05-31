@@ -28,7 +28,6 @@ import { Capabilites } from '../../lib/capabilities'
 
 export interface CommentBodyProps {
   createKeyword: (name: string) => Promise<Keyword>
-  can: Capabilites
   deleteComment: (id: string, target?: string) => void
   getCollaborator: (id: string) => UserProfile | undefined
   getKeyword: (id: string) => Keyword | undefined

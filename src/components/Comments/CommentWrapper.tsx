@@ -17,6 +17,7 @@
 import { ManuscriptNote } from '@manuscripts/manuscripts-json-schema'
 import React, { useCallback, useRef, useState, useMemo } from 'react'
 import styled from 'styled-components'
+import { Capabilites } from '../../lib/capabilities'
 
 import { isSavedComment } from '../SubmissionInspector'
 import { CommentActions } from './CommentActions'
@@ -25,11 +26,15 @@ import { CommentUser } from './CommentUser'
 import { CommentType, UnsavedComment } from '../../lib/comments'
 
 const isOwn = (comment: CommentType | UnsavedComment, userId: string) =>
-  comment.contributions?.some((c) => c.profileID === userId)
+  comment.contributions
+    ? comment.contributions?.some((c) => c.profileID === userId)
+    : false
 
 export const CommentWrapper: React.FC<
   CommentBodyProps & {
     handleSetResolved?: () => void
+    can: Capabilites
+    currentUserId: string
   }
 > = ({
   createKeyword,
@@ -96,7 +101,6 @@ export const CommentWrapper: React.FC<
 
       <CommentBody
         createKeyword={createKeyword}
-        can={can}
         comment={comment}
         deleteComment={deleteComment}
         getCollaborator={getCollaborator}
