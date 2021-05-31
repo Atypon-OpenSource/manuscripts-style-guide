@@ -15,13 +15,17 @@
  */
 
 import { ManuscriptNote } from '@manuscripts/manuscripts-json-schema'
-import React, { useCallback, useRef, useState } from 'react'
+import React, { useCallback, useRef, useState, useMemo } from 'react'
 import styled from 'styled-components'
 
 import { isSavedComment } from '../SubmissionInspector'
 import { CommentActions } from './CommentActions'
 import { CommentBody, CommentBodyProps } from './CommentBody'
 import { CommentUser } from './CommentUser'
+import { CommentType, UnsavedComment } from '../../lib/comments'
+
+const isOwn = (comment: CommentType | UnsavedComment, userId: string) =>
+  comment.contributions?.some((c) => c.profileID === userId)
 
 export const CommentWrapper: React.FC<
   CommentBodyProps & {
@@ -30,6 +34,8 @@ export const CommentWrapper: React.FC<
 > = ({
   createKeyword,
   comment,
+  can,
+  currentUserId,
   getCollaborator,
   getKeyword,
   listCollaborators,
@@ -53,6 +59,11 @@ export const CommentWrapper: React.FC<
     }
   }, [isNew])
 
+  const isOwnComment = useMemo(() => isOwn(comment, currentUserId), [
+    comment,
+    currentUserId,
+  ])
+
   return (
     <Note>
       <NoteHeader>
@@ -70,6 +81,8 @@ export const CommentWrapper: React.FC<
         </NoteTitle>
         <CommentActions
           id={comment._id}
+          isOwnComment={isOwnComment}
+          can={can}
           target={comment.target}
           isResolved={comment.resolved}
           handleSetResolved={handleSetResolved}
@@ -83,6 +96,7 @@ export const CommentWrapper: React.FC<
 
       <CommentBody
         createKeyword={createKeyword}
+        can={can}
         comment={comment}
         deleteComment={deleteComment}
         getCollaborator={getCollaborator}

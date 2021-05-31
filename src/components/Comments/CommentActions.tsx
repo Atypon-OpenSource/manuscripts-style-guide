@@ -22,11 +22,14 @@ import { IconTextButton } from '../Button'
 import { DropdownButton, DropdownContainer, DropdownList } from '../Dropdown'
 import DotsIcon from '../icons/dots-icon'
 import { ResolveButton } from './ResolveButton'
+import { Capabilites } from '../../lib/capabilities'
 
 export const CommentActions: React.FC<{
   id: string
   target: string
+  can: Capabilites
   isResolved?: boolean
+  isOwnComment: boolean
   handleSetResolved?: () => void
   deleteComment: (id: string, target?: string) => void
   setIsEditing: Dispatch<SetStateAction<boolean | undefined>>
@@ -34,10 +37,12 @@ export const CommentActions: React.FC<{
 }> = ({
   id,
   target,
+  can,
   isResolved,
   handleSetResolved,
   deleteComment,
   setIsEditing,
+  isOwnComment,
   dropdownButtonRef,
 }) => {
   const { isOpen, toggleOpen, wrapperRef } = useDropdown()
@@ -51,9 +56,15 @@ export const CommentActions: React.FC<{
     target,
   ])
 
+  const canResolve =
+    (isOwnComment && can.resolveOwnComment) || can.resolveOthersComment
+
+  const canHandle =
+    (isOwnComment && can.handleOwnComments) || can.handleOthersComments
+
   return (
     <Container>
-      {handleSetResolved && (
+      {canResolve && handleSetResolved && (
         <ResolveButton
           id={id}
           resolved={isResolved}
@@ -61,27 +72,29 @@ export const CommentActions: React.FC<{
           aria-label={'resolve comment'}
         />
       )}
-      <DropdownContainer ref={wrapperRef}>
-        <ActionDropdownButton
-          onClick={toggleOpen}
-          className="note-actions"
-          aria-label={'actions list'}
-          ref={dropdownButtonRef}
-        >
-          <DotsIcon />
-        </ActionDropdownButton>
-        {isOpen && (
-          <DropdownList
-            direction={'right'}
-            width={125}
-            height={96}
+      {canHandle && (
+        <DropdownContainer ref={wrapperRef}>
+          <ActionDropdownButton
             onClick={toggleOpen}
+            className="note-actions"
+            aria-label={'actions list'}
+            ref={dropdownButtonRef}
           >
-            <ActionButton onClick={handleRequestEdit}>Edit</ActionButton>
-            <ActionButton onClick={handleRequestDelete}>Delete</ActionButton>
-          </DropdownList>
-        )}
-      </DropdownContainer>
+            <DotsIcon />
+          </ActionDropdownButton>
+          {isOpen && (
+            <DropdownList
+              direction={'right'}
+              width={125}
+              height={96}
+              onClick={toggleOpen}
+            >
+              <ActionButton onClick={handleRequestEdit}>Edit</ActionButton>
+              <ActionButton onClick={handleRequestDelete}>Delete</ActionButton>
+            </DropdownList>
+          )}
+        </DropdownContainer>
+      )}
     </Container>
   )
 }
