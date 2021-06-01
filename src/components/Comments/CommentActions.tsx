@@ -30,7 +30,6 @@ export const CommentActions: React.FC<{
   handleSetResolved?: () => void
   deleteComment: (id: string, target?: string) => void
   setIsEditing: Dispatch<SetStateAction<boolean | undefined>>
-  dropdownButtonRef: React.RefObject<HTMLButtonElement>
 }> = ({
   id,
   target,
@@ -38,7 +37,6 @@ export const CommentActions: React.FC<{
   handleSetResolved,
   deleteComment,
   setIsEditing,
-  dropdownButtonRef,
 }) => {
   const { isOpen, toggleOpen, wrapperRef } = useDropdown()
 
@@ -66,7 +64,6 @@ export const CommentActions: React.FC<{
           onClick={toggleOpen}
           className="note-actions"
           aria-label={'actions list'}
-          ref={dropdownButtonRef}
         >
           <DotsIcon />
         </ActionDropdownButton>

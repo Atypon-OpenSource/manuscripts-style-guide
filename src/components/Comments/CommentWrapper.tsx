@@ -15,10 +15,10 @@
  */
 
 import { ManuscriptNote } from '@manuscripts/manuscripts-json-schema'
-import React, { useCallback, useRef, useState } from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
 
-import { isSavedComment } from '../SubmissionInspector'
+import { isSavedComment } from '../../lib/comments'
 import { CommentActions } from './CommentActions'
 import { CommentBody, CommentBodyProps } from './CommentBody'
 import { CommentUser } from './CommentUser'
@@ -43,20 +43,11 @@ export const CommentWrapper: React.FC<
   children,
 }) => {
   const [isEditing, setIsEditing] = useState<boolean>()
-  const dropdownButtonRef = useRef<HTMLButtonElement>(null)
-
-  const handleCommentFocus = useCallback(() => {
-    if (isNew) {
-      setIsEditing(true)
-    } else if (dropdownButtonRef.current) {
-      dropdownButtonRef.current.focus()
-    }
-  }, [isNew])
 
   return (
     <Note>
       <NoteHeader>
-        <NoteTitle type="button" onClick={handleCommentFocus}>
+        <NoteTitle>
           {comment.contributions && (
             <CommentUser
               contributions={comment.contributions}
@@ -75,7 +66,6 @@ export const CommentWrapper: React.FC<
           handleSetResolved={handleSetResolved}
           deleteComment={deleteComment}
           setIsEditing={setIsEditing}
-          dropdownButtonRef={dropdownButtonRef}
         />
       </NoteHeader>
 
@@ -111,7 +101,7 @@ const Note = styled.div`
   }
 `
 
-const NoteTitle = styled.button`
+const NoteTitle = styled.div`
   border: none;
   background: transparent;
   padding: 0;
