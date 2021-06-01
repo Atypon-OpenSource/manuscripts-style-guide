@@ -104,5 +104,5 @@ const ActionDropdownButton = styled(DropdownButton)`
       fill: ${(props) => props.theme.colors.brand.medium};
     }
   }
-  margin-left: ${(props) => props.theme.grid.unit * 2}px;
+  margin-left: ${(props) => props.theme.grid.unit}px;
 `

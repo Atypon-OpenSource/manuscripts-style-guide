@@ -115,6 +115,7 @@ const NoteTitle = styled.button`
   border: none;
   background: transparent;
   padding: 0;
+  text-align: left;
 `
 
 const NoteHeader = styled.div`

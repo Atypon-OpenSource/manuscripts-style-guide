@@ -31,7 +31,7 @@ const CommentUserContainer = styled.div`
 
 const CommentUserName = styled.div`
   margin: 0 ${(props) => props.theme.grid.unit * 2}px;
-  font-weight: ${(props) => props.theme.font.weight.semibold};
+  font-weight: ${(props) => props.theme.font.weight.normal};
 `
 
 const DateText = styled(CommentUserName)`
