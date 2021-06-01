@@ -198,6 +198,7 @@ const StyledCommentField = styled(CommentField)`
     letter-spacing: -0.2px;
     color: ${(props) => props.theme.colors.text.primary};
     margin: ${(props) => props.theme.grid.unit * 2}px 0;
+    padding: ${(props) => props.theme.grid.unit}px;
 
     & p:first-child {
       margin-top: 0;
