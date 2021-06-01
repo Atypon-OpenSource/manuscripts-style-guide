@@ -149,7 +149,7 @@ export const designationWithAllowedMediaTypesMap = new Map<
   [Designation.SubmissionFile, []],
   [Designation.SubmissionPdf, ['pdf']],
   [Designation.TitlePage, ['doc', 'docx', 'pdf', 'tex', 'txt']],
-  [Designation.Dataset, ['csv', 'tsv', 'json', 'sql', 'xml', 'xls', 'tex']],
+  [Designation.Dataset, []],
   [Designation.MainManuscript, ['manuproj', 'docx']],
 ])
 
@@ -163,9 +163,17 @@ export const designationWithAllowedDesignationsToTransitionMap = new Map<
       Designation.SubmissionFile,
       Designation.Supplementary,
       Designation.GraphicalAbstractImage,
+      Designation.Dataset,
     ],
   ],
-  [Designation.Table, [Designation.Supplementary, Designation.SubmissionFile]],
+  [
+    Designation.Table,
+    [
+      Designation.Supplementary,
+      Designation.SubmissionFile,
+      Designation.Dataset,
+    ],
+  ],
 
   [
     Designation.Supplementary,
@@ -197,6 +205,7 @@ export const designationWithAllowedDesignationsToTransitionMap = new Map<
       Designation.Metadata,
       Designation.SubmissionFile,
       Designation.SubmissionPdf,
+      Designation.Dataset,
     ],
   ],
   [
@@ -220,11 +229,17 @@ export const designationWithAllowedDesignationsToTransitionMap = new Map<
       Designation.Document,
       Designation.SubmissionFile,
       Designation.Supplementary,
+      Designation.Dataset,
     ],
   ],
   [
     Designation.GraphicalAbstractImage,
-    [Designation.Figure, Designation.SubmissionFile, Designation.Supplementary],
+    [
+      Designation.Figure,
+      Designation.SubmissionFile,
+      Designation.Supplementary,
+      Designation.Dataset,
+    ],
   ],
   [
     Designation.GraphicalAbstractText,
@@ -232,9 +247,10 @@ export const designationWithAllowedDesignationsToTransitionMap = new Map<
       Designation.Document,
       Designation.SubmissionFile,
       Designation.Supplementary,
+      Designation.Dataset,
     ],
   ],
-  [Designation.Metadata, [Designation.SubmissionFile]],
+  [Designation.Metadata, [Designation.SubmissionFile, Designation.Dataset]],
   [
     Designation.SubmissionFile,
     [
@@ -264,6 +280,7 @@ export const designationWithAllowedDesignationsToTransitionMap = new Map<
       Designation.Metadata,
       Designation.SubmissionFile,
       Designation.SubmissionPdf,
+      Designation.Dataset,
     ],
   ],
   [
@@ -272,6 +289,24 @@ export const designationWithAllowedDesignationsToTransitionMap = new Map<
       Designation.Document,
       Designation.SubmissionFile,
       Designation.Supplementary,
+      Designation.Dataset,
+    ],
+  ],
+  [
+    Designation.Dataset,
+    [
+      Designation.Supplementary,
+      Designation.SubmissionFile,
+      Designation.Document,
+      Designation.Figure,
+      Designation.GraphicalAbstractImage,
+      Designation.ConflictOfInterest,
+      Designation.SubmissionPdf,
+      Designation.Metadata,
+      Designation.GraphicalAbstractText,
+      Designation.GraphicalAbstract,
+      Designation.TitlePage,
+      Designation.Table,
     ],
   ],
 ])
@@ -492,7 +527,8 @@ export const getUploadFileDesignationList = (
       }
     } else if (
       value === Designation.Supplementary ||
-      value === Designation.SubmissionFile
+      value === Designation.SubmissionFile ||
+      value === Designation.Dataset
     ) {
       const label = designationWithReadableNamesMap.get(value)
       if (label) {

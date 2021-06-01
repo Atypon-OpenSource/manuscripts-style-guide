@@ -128,7 +128,7 @@ test('Checking designation actions list', () => {
     'txt'
   )
 
-  expect(designationActionsList.length).toBe<number>(3)
+  expect(designationActionsList.length).toBe<number>(4)
   expect(
     designationActionsList.includes(Designation.SubmissionFile)
   ).toBeTruthy()
@@ -138,13 +138,14 @@ test('Checking designation actions list', () => {
   expect(
     designationActionsList.includes(Designation.GraphicalAbstractImage)
   ).toBeTruthy()
+  expect(designationActionsList.includes(Designation.Dataset)).toBeTruthy()
 
   designationActionsList = getDesignationActionsList(
     Designation.GraphicalAbstractImage,
     'tex'
   )
 
-  expect(designationActionsList.length).toBe<number>(3)
+  expect(designationActionsList.length).toBe<number>(4)
   expect(
     designationActionsList.includes(Designation.SubmissionFile)
   ).toBeTruthy()
@@ -152,17 +153,18 @@ test('Checking designation actions list', () => {
     designationActionsList.includes(Designation.Supplementary)
   ).toBeTruthy()
   expect(designationActionsList.includes(Designation.Figure)).toBeTruthy()
+  expect(designationActionsList.includes(Designation.Dataset)).toBeTruthy()
 
   designationActionsList = getDesignationActionsList(
     Designation.Metadata,
     'xml'
   )
 
-  expect(designationActionsList.length).toBe<number>(1)
+  expect(designationActionsList.length).toBe<number>(2)
   expect(
     designationActionsList.includes(Designation.SubmissionFile)
   ).toBeTruthy()
-
+  expect(designationActionsList.includes(Designation.Dataset)).toBeTruthy()
   designationActionsList = getDesignationActionsList(
     Designation.Document,
     'png'
