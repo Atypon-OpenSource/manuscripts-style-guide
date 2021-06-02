@@ -16,12 +16,12 @@
 import React, { Dispatch, useContext } from 'react'
 
 import { DragItemArea } from './DragItemArea'
+import { PermissionsContext } from './FileManager'
 import { FileSectionUploadItem } from './FileSectionItem/FileSectionUploadItem'
 import { Action, actions, State } from './FileSectionState'
 import { SelectDialogDesignation } from './SelectDialogDesignation'
 import { UploadFileArea } from './UploadFileArea'
 import { FileSectionType, getDesignationName } from './util'
-import { PermissionsContext } from './FileManager'
 
 /**
  *  This component represents the other files in the file section.

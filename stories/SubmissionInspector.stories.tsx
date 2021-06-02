@@ -17,7 +17,6 @@
 import { action } from '@storybook/addon-actions'
 import { storiesOf } from '@storybook/react'
 import * as React from 'react'
-import { getAllPermitted } from '../src/lib/capabilities'
 
 import {
   ArticleDetailsInspector,
@@ -29,6 +28,7 @@ import {
   ZoomOutIcon,
 } from '../src'
 import { SubmissionCriticality } from '../src/components/SubmissionInspector/types'
+import { getAllPermitted } from '../src/lib/capabilities'
 import { notes } from './data/notes'
 import { people } from './data/people'
 

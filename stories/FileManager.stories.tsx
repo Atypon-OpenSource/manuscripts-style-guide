@@ -17,8 +17,8 @@ import { storiesOf } from '@storybook/react'
 import React from 'react'
 
 import { FileManager } from '../src'
-import { externalFiles } from './data/externalFiles'
 import { getAllPermitted } from '../src/lib/capabilities'
+import { externalFiles } from './data/externalFiles'
 const sleep = (milliseconds: number) => {
   return new Promise((resolve) => setTimeout(resolve, milliseconds))
 }

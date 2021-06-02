@@ -27,8 +27,8 @@ import {
 import React, { useCallback, useEffect, useMemo, useState } from 'react'
 import styled from 'styled-components'
 import { v4 as uuid } from 'uuid'
-import { Capabilities } from '../lib/capabilities'
 
+import { Capabilities } from '../lib/capabilities'
 import {
   buildNoteTree,
   CommentData,

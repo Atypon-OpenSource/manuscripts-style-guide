@@ -15,15 +15,15 @@
  */
 
 import { ManuscriptNote } from '@manuscripts/manuscripts-json-schema'
-import React, { useCallback, useRef, useState, useMemo } from 'react'
+import React, { useCallback, useMemo, useRef, useState } from 'react'
 import styled from 'styled-components'
-import { Capabilities } from '../../lib/capabilities'
 
+import { Capabilities } from '../../lib/capabilities'
+import { CommentType, UnsavedComment } from '../../lib/comments'
 import { isSavedComment } from '../SubmissionInspector'
 import { CommentActions } from './CommentActions'
 import { CommentBody, CommentBodyProps } from './CommentBody'
 import { CommentUser } from './CommentUser'
-import { CommentType, UnsavedComment } from '../../lib/comments'
 
 const isOwn = (comment: CommentType | UnsavedComment, userId?: string) =>
   comment.contributions

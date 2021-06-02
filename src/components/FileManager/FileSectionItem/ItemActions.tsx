@@ -13,11 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import React, { ChangeEvent, useRef, useState, useContext } from 'react'
+import React, { ChangeEvent, useContext, useRef, useState } from 'react'
 
 import { DropdownList } from '../../Dropdown'
-import { ActionsItem } from '../ItemsAction'
 import { PermissionsContext } from '../FileManager'
+import { ActionsItem } from '../ItemsAction'
 
 /**
  * This component represents the drop-down list action for each file item.

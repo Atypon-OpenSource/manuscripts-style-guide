@@ -18,11 +18,11 @@ import React, { Dispatch, SetStateAction, useCallback, useMemo } from 'react'
 import styled from 'styled-components'
 
 import { useDropdown } from '../../hooks/use-dropdown'
+import { Capabilities } from '../../lib/capabilities'
 import { IconTextButton } from '../Button'
 import { DropdownButton, DropdownContainer, DropdownList } from '../Dropdown'
 import DotsIcon from '../icons/dots-icon'
 import { ResolveButton } from './ResolveButton'
-import { Capabilities } from '../../lib/capabilities'
 
 export const CommentActions: React.FC<{
   id: string

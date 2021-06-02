@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 import { ExternalFile } from '@manuscripts/manuscripts-json-schema'
-import React, { useCallback, useReducer, createContext, useMemo } from 'react'
+import React, { createContext, useCallback, useMemo, useReducer } from 'react'
 import ReactTooltip from 'react-tooltip'
-import { Capabilities } from '../../lib/capabilities'
 
+import { Capabilities } from '../../lib/capabilities'
 import { AlertMessage, AlertMessageType } from '../AlertMessage'
 import {
   InspectorTab,

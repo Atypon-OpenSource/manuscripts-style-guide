@@ -16,10 +16,10 @@
 import React, { Dispatch, useContext } from 'react'
 import styled from 'styled-components'
 
+import { PermissionsContext } from '../FileManager'
 import { Action } from '../FileSectionState'
 import { Designation } from '../util'
 import { DesignationActions } from './DesignationActions'
-import { PermissionsContext } from '../FileManager'
 
 export const FileInfo: React.FC<{
   showAttachmentName: boolean
