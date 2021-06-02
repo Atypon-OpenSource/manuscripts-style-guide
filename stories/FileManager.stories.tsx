@@ -18,6 +18,7 @@ import React from 'react'
 
 import { FileManager } from '../src'
 import { externalFiles } from './data/externalFiles'
+import { getAllPermitted } from '../src/lib/capabilities'
 const sleep = (milliseconds: number) => {
   return new Promise((resolve) => setTimeout(resolve, milliseconds))
 }
@@ -59,9 +60,12 @@ const handleChangeDesignation = async (
   return true
 }
 
+const capabilities = getAllPermitted()
+
 storiesOf('FileManager', module).add('FileManager', () => (
   <FileManager
     submissionId={'MPManuscript:valid-manuscript-id-1'}
+    can={capabilities}
     externalFiles={externalFiles}
     enableDragAndDrop={true}
     handleUpload={handleUpload}

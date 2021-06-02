@@ -17,6 +17,7 @@
 import { action } from '@storybook/addon-actions'
 import { storiesOf } from '@storybook/react'
 import * as React from 'react'
+import { getAllPermitted } from '../src/lib/capabilities'
 
 import {
   ArticleDetailsInspector,
@@ -30,6 +31,8 @@ import {
 import { SubmissionCriticality } from '../src/components/SubmissionInspector/types'
 import { notes } from './data/notes'
 import { people } from './data/people'
+
+const capabilities = getAllPermitted()
 
 storiesOf('Submission Inspector', module)
   .add('Zoom Buttons', () => (
@@ -151,6 +154,7 @@ storiesOf('Submission Inspector', module)
         <InspectorSection title={'Production notes'}>
           <ManuscriptNoteList
             notes={notes}
+            can={capabilities}
             getKeyword={(id: string) => undefined}
             getCollaboratorById={(id: string) => people[0]}
             createKeyword={async () => action('create keyword')}

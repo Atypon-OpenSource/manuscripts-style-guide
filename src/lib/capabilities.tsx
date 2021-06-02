@@ -71,6 +71,7 @@ export interface ProviderProps {
 // all arguments are options to avoid empty object pass one context creation and
 // thusly simplify the consuming of the context: it will help avoiding conditional
 // checks which is helpful because there maybe numerous checks in on component
+
 export const getLWCapabilities = (
   project?: Project,
   profile?: UserProfileWithAvatar,
@@ -130,6 +131,20 @@ export const getLWCapabilities = (
     editNotTracked: false,
     accessEditor: true,
   }
+}
+
+export const getAllPermitted = () => {
+  interface Boolist {
+    [key: string]: boolean
+  }
+
+  const capabilities = getLWCapabilities()
+  const allAllowed = Object.keys(capabilities).reduce((caps, item: string) => {
+    caps[item] = true
+    return caps
+  }, {} as Boolist)
+
+  return allAllowed as Capabilities
 }
 
 const CapabilitiesContext = React.createContext<Capabilities>(
