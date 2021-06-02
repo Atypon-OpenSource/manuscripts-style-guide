@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 import { ExternalFile } from '@manuscripts/manuscripts-json-schema'
-import React, { CSSProperties, Dispatch } from 'react'
+import React, { CSSProperties, Dispatch, useContext } from 'react'
 import { DragElementWrapper, DragSourceOptions } from 'react-dnd'
 import styled from 'styled-components'
 

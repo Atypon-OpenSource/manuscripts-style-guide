@@ -17,7 +17,7 @@
 import { ManuscriptNote } from '@manuscripts/manuscripts-json-schema'
 import React, { useCallback, useRef, useState, useMemo } from 'react'
 import styled from 'styled-components'
-import { Capabilites } from '../../lib/capabilities'
+import { Capabilities } from '../../lib/capabilities'
 
 import { isSavedComment } from '../SubmissionInspector'
 import { CommentActions } from './CommentActions'
@@ -25,7 +25,7 @@ import { CommentBody, CommentBodyProps } from './CommentBody'
 import { CommentUser } from './CommentUser'
 import { CommentType, UnsavedComment } from '../../lib/comments'
 
-const isOwn = (comment: CommentType | UnsavedComment, userId: string) =>
+const isOwn = (comment: CommentType | UnsavedComment, userId?: string) =>
   comment.contributions
     ? comment.contributions?.some((c) => c.profileID === userId)
     : false
@@ -33,8 +33,9 @@ const isOwn = (comment: CommentType | UnsavedComment, userId: string) =>
 export const CommentWrapper: React.FC<
   CommentBodyProps & {
     handleSetResolved?: () => void
-    can: Capabilites
-    currentUserId: string
+    can?: Capabilities
+    currentUserId?: string
+    isProdNote?: boolean
   }
 > = ({
   createKeyword,
@@ -51,6 +52,7 @@ export const CommentWrapper: React.FC<
   isNew,
   handleCreateReply,
   handleSetResolved,
+  isProdNote,
   children,
 }) => {
   const [isEditing, setIsEditing] = useState<boolean>()
@@ -93,6 +95,7 @@ export const CommentWrapper: React.FC<
           handleSetResolved={handleSetResolved}
           deleteComment={deleteComment}
           setIsEditing={setIsEditing}
+          isProdNote={isProdNote}
           dropdownButtonRef={dropdownButtonRef}
         />
       </NoteHeader>

@@ -24,7 +24,6 @@ import styled from 'styled-components'
 import { CommentType, UnsavedComment } from '../../lib/comments'
 import { ButtonGroup, PrimaryButton, SecondaryButton } from '../Button'
 import { FormError } from '../Form'
-import { Capabilites } from '../../lib/capabilities'
 
 export interface CommentBodyProps {
   createKeyword: (name: string) => Promise<Keyword>
@@ -61,7 +60,6 @@ export const CommentBody: React.FC<
     handleCreateReply,
     setIsEditing,
     isEditing,
-    can,
   }) => {
     useEffect(() => {
       if (isNew) {

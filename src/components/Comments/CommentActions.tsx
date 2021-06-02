@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import React, { Dispatch, SetStateAction, useCallback } from 'react'
+import React, { Dispatch, SetStateAction, useCallback, useMemo } from 'react'
 import styled from 'styled-components'
 
 import { useDropdown } from '../../hooks/use-dropdown'
@@ -22,17 +22,19 @@ import { IconTextButton } from '../Button'
 import { DropdownButton, DropdownContainer, DropdownList } from '../Dropdown'
 import DotsIcon from '../icons/dots-icon'
 import { ResolveButton } from './ResolveButton'
+import { Capabilities } from '../../lib/capabilities'
 
 export const CommentActions: React.FC<{
   id: string
   target: string
-  can: Capabilites
+  can?: Capabilities
   isResolved?: boolean
   isOwnComment: boolean
   handleSetResolved?: () => void
   deleteComment: (id: string, target?: string) => void
   setIsEditing: Dispatch<SetStateAction<boolean | undefined>>
   dropdownButtonRef: React.RefObject<HTMLButtonElement>
+  isProdNote?: boolean
 }> = ({
   id,
   target,
@@ -43,6 +45,7 @@ export const CommentActions: React.FC<{
   setIsEditing,
   isOwnComment,
   dropdownButtonRef,
+  isProdNote,
 }) => {
   const { isOpen, toggleOpen, wrapperRef } = useDropdown()
 
@@ -55,11 +58,23 @@ export const CommentActions: React.FC<{
     target,
   ])
 
-  const canResolve =
-    (isOwnComment && can.resolveOwnComment) || can.resolveOthersComment
+  const canResolve = useMemo(() => {
+    if (!isProdNote) {
+      return (
+        (isOwnComment && can?.resolveOwnComment) || can?.resolveOthersComment
+      )
+    }
+    return can?.handleNotes
+  }, [isProdNote, isOwnComment, can])
 
-  const canHandle =
-    (isOwnComment && can.handleOwnComments) || can.handleOthersComments
+  const canHandle = useMemo(() => {
+    if (!isProdNote) {
+      return (
+        (isOwnComment && can?.handleOwnComments) || can?.handleOthersComments
+      )
+    }
+    return can?.handleNotes
+  }, [isProdNote, isOwnComment, can])
 
   return (
     <Container>

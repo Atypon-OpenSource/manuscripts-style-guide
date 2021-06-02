@@ -27,6 +27,7 @@ import {
 import React, { useCallback, useEffect, useMemo, useState } from 'react'
 import styled from 'styled-components'
 import { v4 as uuid } from 'uuid'
+import { Capabilities } from '../lib/capabilities'
 
 import {
   buildNoteTree,
@@ -54,6 +55,7 @@ interface Props {
   noteSource: 'EMAIL' | 'EDITOR' | 'DASHBOARD'
   saveModel: (model: ManuscriptNote) => Promise<ManuscriptNote>
   selected: Selected | null
+  can: Capabilities
 }
 
 export const ManuscriptNoteList: React.FC<Props> = React.memo(
@@ -70,6 +72,7 @@ export const ManuscriptNoteList: React.FC<Props> = React.memo(
     noteSource,
     saveModel,
     selected,
+    can,
   }) => {
     const [newComment, setNewComment] = useState<ManuscriptNote>()
     const [selectResolved, setSelectResolved] = useState<boolean>(false)
@@ -152,10 +155,11 @@ export const ManuscriptNoteList: React.FC<Props> = React.memo(
     return (
       <>
         <ActionHeader>
-          <AddNoteButton onClick={handleAddNewNote}>
-            <AddNoteIcon />
-          </AddNoteButton>
-
+          {can.createNotes && (
+            <AddNoteButton onClick={handleAddNewNote}>
+              <AddNoteIcon />
+            </AddNoteButton>
+          )}
           {items.length > 0 && (
             <Checkbox>
               <CheckboxField
@@ -199,6 +203,7 @@ export const ManuscriptNoteList: React.FC<Props> = React.memo(
                           saveComment={saveNote}
                           handleCreateReply={setNoteTarget}
                           isNew={isNew(comment as ManuscriptNote)}
+                          isProdNote={true}
                         />
                       </NoteBodyContainer>
 
@@ -216,6 +221,7 @@ export const ManuscriptNoteList: React.FC<Props> = React.memo(
                             saveComment={saveNote}
                             handleCreateReply={setNoteTarget}
                             isNew={isNew(note as ManuscriptNote)}
+                            isProdNote={true}
                           />
                         </ReplyBodyContainer>
                       ))}
