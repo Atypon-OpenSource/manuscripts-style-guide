@@ -15,21 +15,33 @@
  */
 
 import { ManuscriptNote } from '@manuscripts/manuscripts-json-schema'
-import React, { useCallback, useRef, useState } from 'react'
+import React, { useCallback, useMemo, useRef, useState } from 'react'
 import styled from 'styled-components'
 
+import { Capabilities } from '../../lib/capabilities'
+import { CommentType, UnsavedComment } from '../../lib/comments'
 import { isSavedComment } from '../SubmissionInspector'
 import { CommentActions } from './CommentActions'
 import { CommentBody, CommentBodyProps } from './CommentBody'
 import { CommentUser } from './CommentUser'
 
+const isOwn = (comment: CommentType | UnsavedComment, userId?: string) =>
+  comment.contributions
+    ? comment.contributions?.some((c) => c.profileID === userId)
+    : false
+
 export const CommentWrapper: React.FC<
   CommentBodyProps & {
     handleSetResolved?: () => void
+    can?: Capabilities
+    currentUserId?: string
+    isProdNote?: boolean
   }
 > = ({
   createKeyword,
   comment,
+  can,
+  currentUserId,
   getCollaborator,
   getKeyword,
   listCollaborators,
@@ -40,6 +52,7 @@ export const CommentWrapper: React.FC<
   isNew,
   handleCreateReply,
   handleSetResolved,
+  isProdNote,
   children,
 }) => {
   const [isEditing, setIsEditing] = useState<boolean>()
@@ -52,6 +65,11 @@ export const CommentWrapper: React.FC<
       dropdownButtonRef.current.focus()
     }
   }, [isNew])
+
+  const isOwnComment = useMemo(() => isOwn(comment, currentUserId), [
+    comment,
+    currentUserId,
+  ])
 
   return (
     <Note>
@@ -70,11 +88,14 @@ export const CommentWrapper: React.FC<
         </NoteTitle>
         <CommentActions
           id={comment._id}
+          isOwnComment={isOwnComment}
+          can={can}
           target={comment.target}
           isResolved={comment.resolved}
           handleSetResolved={handleSetResolved}
           deleteComment={deleteComment}
           setIsEditing={setIsEditing}
+          isProdNote={isProdNote}
           dropdownButtonRef={dropdownButtonRef}
         />
       </NoteHeader>

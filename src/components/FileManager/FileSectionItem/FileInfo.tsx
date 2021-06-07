@@ -13,9 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import React, { Dispatch } from 'react'
+import React, { Dispatch, useContext } from 'react'
 import styled from 'styled-components'
 
+import { PermissionsContext } from '../FileManager'
 import { Action } from '../FileSectionState'
 import { Designation } from '../util'
 import { DesignationActions } from './DesignationActions'
@@ -52,18 +53,23 @@ export const FileInfo: React.FC<{
     submissionAttachmentName.lastIndexOf('.')
   )
 
+  const can = useContext(PermissionsContext)
+
   return (
     <FileInfoContainer>
-      {showDesignationActions && designation && submissionId && (
-        <DesignationActions
-          designation={designation}
-          fileExtension={fileExtension}
-          handleChangeDesignation={handleChangeDesignation}
-          submissionId={submissionId}
-          fileName={submissionAttachmentName}
-          dispatch={dispatch}
-        />
-      )}
+      {can?.changeDesignation &&
+        showDesignationActions &&
+        designation &&
+        submissionId && (
+          <DesignationActions
+            designation={designation}
+            fileExtension={fileExtension}
+            handleChangeDesignation={handleChangeDesignation}
+            submissionId={submissionId}
+            fileName={submissionAttachmentName}
+            dispatch={dispatch}
+          />
+        )}
       <FileNameTitleContainer>
         <FileTitle>
           {!showAttachmentName ? fileName : title}

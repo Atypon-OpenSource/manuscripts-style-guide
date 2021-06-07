@@ -13,9 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import React, { Dispatch } from 'react'
+import React, { Dispatch, useContext } from 'react'
 
 import { DragItemArea } from './DragItemArea'
+import { PermissionsContext } from './FileManager'
 import { FileSectionUploadItem } from './FileSectionItem/FileSectionUploadItem'
 import { Action, actions, State } from './FileSectionState'
 import { SelectDialogDesignation } from './SelectDialogDesignation'
@@ -65,25 +66,32 @@ export const FilesSection: React.FC<{
         getDesignationName(state.selectDesignation)
       )
   }
+  const can = useContext(PermissionsContext)
+
   return (
     <div>
-      {(isOtherFileTab || isSupplementFilesTab) && (
-        <UploadFileArea
-          handleUploadFile={handleUpload}
-          fileSection={fileSection}
-          submissionId={submissionId}
-          dispatch={dispatch}
-        />
+      {can?.uploadFile && (
+        <>
+          {(isOtherFileTab || isSupplementFilesTab) && (
+            <UploadFileArea
+              handleUploadFile={handleUpload}
+              fileSection={fileSection}
+              submissionId={submissionId}
+              dispatch={dispatch}
+            />
+          )}
+          {state.isUploadFile &&
+            state.uploadedFile &&
+            state.selectDesignation !== undefined && (
+              <FileSectionUploadItem
+                submissionId={submissionId}
+                fileName={state.uploadedFile.name}
+                isLoading={state.isUploadFile}
+              />
+            )}
+        </>
       )}
-      {state.isUploadFile &&
-        state.uploadedFile &&
-        state.selectDesignation !== undefined && (
-          <FileSectionUploadItem
-            submissionId={submissionId}
-            fileName={state.uploadedFile.name}
-            isLoading={state.isUploadFile}
-          />
-        )}
+
       {state.uploadedFile && isOtherFileTab && (
         <SelectDialogDesignation
           isOpen={state.isOpenSelectDesignationPopup}
@@ -98,15 +106,17 @@ export const FilesSection: React.FC<{
       )}
 
       {filesItem}
-      {enableDragAndDrop && (isSupplementFilesTab || isOtherFileTab) && (
-        <DragItemArea
-          text={
-            isSupplementFilesTab
-              ? 'Drag the items to place them in the text'
-              : 'Drag the items to place in the Supplements section or in the text'
-          }
-        />
-      )}
+      {can?.changeDesignation &&
+        enableDragAndDrop &&
+        (isSupplementFilesTab || isOtherFileTab) && (
+          <DragItemArea
+            text={
+              isSupplementFilesTab
+                ? 'Drag the items to place them in the text'
+                : 'Drag the items to place in the Supplements section or in the text'
+            }
+          />
+        )}
     </div>
   )
 }

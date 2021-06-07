@@ -13,9 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import React, { ChangeEvent, useRef, useState } from 'react'
+import React, { ChangeEvent, useContext, useRef, useState } from 'react'
 
 import { DropdownList } from '../../Dropdown'
+import { PermissionsContext } from '../FileManager'
 import { ActionsItem } from '../ItemsAction'
 
 /**
@@ -47,6 +48,7 @@ export const ItemActions: React.FC<{
     designation == undefined ? 'undefined' : designation
   const fileInputRef = useRef<HTMLInputElement>(null)
   const [selectedFile, setSelectedFile] = useState<File>()
+  const can = useContext(PermissionsContext)
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     if (event && event.target && event.target.files) {
       const file = event.target.files[0]
@@ -80,16 +82,18 @@ export const ItemActions: React.FC<{
       >
         Download
       </ActionsItem>
-      <>
-        <ActionsItem onClick={openFileDialog}>Replace</ActionsItem>
-        <input
-          ref={fileInputRef}
-          type="file"
-          style={{ display: 'none' }}
-          onChange={(e) => handleChange(e)}
-          value={''}
-        />
-      </>
+      {can?.replaceFile && (
+        <>
+          <ActionsItem onClick={openFileDialog}>Replace</ActionsItem>
+          <input
+            ref={fileInputRef}
+            type="file"
+            style={{ display: 'none' }}
+            onChange={(e) => handleChange(e)}
+            value={''}
+          />
+        </>
+      )}
     </DropdownList>
   )
 }

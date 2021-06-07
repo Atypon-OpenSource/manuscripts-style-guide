@@ -17,7 +17,7 @@ import { UserProfileWithAvatar } from '@manuscripts/manuscript-transform'
 import { Project } from '@manuscripts/manuscripts-json-schema'
 import React from 'react'
 
-export type Capabilites = {
+export type Capabilities = {
   /* suggestions */
   handleSuggestion: boolean
   createSuggestion: boolean
@@ -71,12 +71,13 @@ export interface ProviderProps {
 // all arguments are options to avoid empty object pass one context creation and
 // thusly simplify the consuming of the context: it will help avoiding conditional
 // checks which is helpful because there maybe numerous checks in on component
-export const capabilitiesLW = (
+
+export const getLWCapabilities = (
   project?: Project,
   profile?: UserProfileWithAvatar,
   lwRole?: ProviderProps['lwRole'],
   actions?: string[]
-): Capabilites => {
+): Capabilities => {
   const isEditor = () =>
     !!(
       (profile && project?.editors?.includes(profile.userID)) ||
@@ -132,19 +133,44 @@ export const capabilitiesLW = (
   }
 }
 
-const CapabilitiesContext = React.createContext<Capabilites>(capabilitiesLW())
+export const getAllPermitted = () => {
+  interface Boolist {
+    [key: string]: boolean
+  }
+
+  const capabilities = getLWCapabilities()
+  const allAllowed = Object.keys(capabilities).reduce((caps, item: string) => {
+    caps[item] = true
+    return caps
+  }, {} as Boolist)
+
+  return allAllowed as Capabilities
+}
+
+const CapabilitiesContext = React.createContext<Capabilities>(
+  getLWCapabilities()
+)
 CapabilitiesContext.displayName = 'CapabilitiesContext'
 
 export const usePermissions = () => {
   return React.useContext(CapabilitiesContext)
 }
 
-export const CapabilitiesProvider: React.FC<ProviderProps> = (props) => {
-  const { project, profile, lwRole, permittedActions } = props
-  const permissions = capabilitiesLW(project, profile, lwRole, permittedActions)
+export const useCalcPermission = ({
+  project,
+  profile,
+  lwRole,
+  permittedActions,
+}: ProviderProps) => {
+  return getLWCapabilities(project, profile, lwRole, permittedActions)
+}
 
+export const CapabilitiesProvider: React.FC<{ can: Capabilities }> = (
+  props
+) => {
+  const { can } = props
   return (
-    <CapabilitiesContext.Provider value={permissions}>
+    <CapabilitiesContext.Provider value={can}>
       {props?.children}
     </CapabilitiesContext.Provider>
   )

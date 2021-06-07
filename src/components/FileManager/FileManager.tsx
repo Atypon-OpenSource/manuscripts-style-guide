@@ -14,9 +14,10 @@
  * limitations under the License.
  */
 import { ExternalFile } from '@manuscripts/manuscripts-json-schema'
-import React, { useCallback, useReducer } from 'react'
+import React, { createContext, useCallback, useMemo, useReducer } from 'react'
 import ReactTooltip from 'react-tooltip'
 
+import { Capabilities } from '../../lib/capabilities'
 import { AlertMessage, AlertMessageType } from '../AlertMessage'
 import {
   InspectorTab,
@@ -55,10 +56,14 @@ import {
  * 2- Supplemental files.
  * 3- Other files.
  */
+
+export const PermissionsContext = createContext<null | Capabilities>(null)
+
 export const FileManager: React.FC<{
   submissionId: string
   externalFiles: ExternalFile[]
   enableDragAndDrop: boolean
+  can: Capabilities
   handleUpload: (
     submissionId: string,
     file: File,
@@ -80,6 +85,7 @@ export const FileManager: React.FC<{
   submissionId,
   externalFiles,
   enableDragAndDrop,
+  can,
   handleUpload,
   handleDownload,
   handleReplace,
@@ -191,97 +197,99 @@ export const FileManager: React.FC<{
   return (
     <>
       <DragLayer />
-      <InspectorSection title={'Files'}>
-        <InspectorTabs defaultIndex={0} style={{ overflow: 'visible' }}>
-          <InspectorTabList>
-            <InspectorTab data-for="inline" data-tip={true}>
-              Inline files
-            </InspectorTab>
-            <TooltipDiv>
-              <ReactTooltip
-                id="inline"
-                place="bottom"
-                offset={{ bottom: -11 }}
-                effect="solid"
-                className="tooltip"
-              >
-                <div>
-                  Files that can be found inline <br /> in the manuscript.
-                </div>
-              </ReactTooltip>
-            </TooltipDiv>
-            <InspectorTab data-for="supplements" data-tip={true}>
-              Supplements
-            </InspectorTab>
-            <TooltipDiv>
-              <ReactTooltip
-                id="supplements"
-                place="bottom"
-                offset={{ bottom: -11 }}
-                effect="solid"
-                className="tooltip"
-              >
-                <div>Files that were marked as supplementaries.</div>
-              </ReactTooltip>
-            </TooltipDiv>
-            <InspectorTab data-for="other" data-tip={true}>
-              Other files
-            </InspectorTab>
-            <TooltipDiv>
-              <ReactTooltip
-                id="other"
-                place="bottom"
-                offset={{ bottom: -11 }}
-                effect="solid"
-                className="tooltip"
-              >
-                <div>Files excluded from the final submission.</div>
-              </ReactTooltip>
-            </TooltipDiv>
-          </InspectorTabList>
-          <InspectorTabPanels
-            style={{ overflowY: 'visible', position: 'relative' }}
-          >
-            <InspectorTabPanel>
-              <FilesSection
-                submissionId={submissionId}
-                enableDragAndDrop={false}
-                handleUpload={handleUploadFile}
-                fileSection={FileSectionType.Inline}
-                filesItem={getFileSectionExternalFile(FileSectionType.Inline)}
-                state={state}
-                dispatch={dispatch}
-              />
-            </InspectorTabPanel>
-            <InspectorTabPanel>
-              <FilesSection
-                submissionId={submissionId}
-                enableDragAndDrop={enableDragAndDrop}
-                handleUpload={handleUploadFile}
-                fileSection={FileSectionType.Supplements}
-                filesItem={getFileSectionExternalFile(
-                  FileSectionType.Supplements
-                )}
-                state={state}
-                dispatch={dispatch}
-              />
-            </InspectorTabPanel>
-            <InspectorTabPanel>
-              <FilesSection
-                submissionId={submissionId}
-                enableDragAndDrop={enableDragAndDrop}
-                handleUpload={handleUploadFile}
-                fileSection={FileSectionType.OtherFile}
-                filesItem={getFileSectionExternalFile(
-                  FileSectionType.OtherFile
-                )}
-                state={state}
-                dispatch={dispatch}
-              />
-            </InspectorTabPanel>
-          </InspectorTabPanels>
-        </InspectorTabs>
-      </InspectorSection>
+      <PermissionsContext.Provider value={can}>
+        <InspectorSection title={'Files'}>
+          <InspectorTabs defaultIndex={0} style={{ overflow: 'visible' }}>
+            <InspectorTabList>
+              <InspectorTab data-for="inline" data-tip={true}>
+                Inline files
+              </InspectorTab>
+              <TooltipDiv>
+                <ReactTooltip
+                  id="inline"
+                  place="bottom"
+                  offset={{ bottom: -11 }}
+                  effect="solid"
+                  className="tooltip"
+                >
+                  <div>
+                    Files that can be found inline <br /> in the manuscript.
+                  </div>
+                </ReactTooltip>
+              </TooltipDiv>
+              <InspectorTab data-for="supplements" data-tip={true}>
+                Supplements
+              </InspectorTab>
+              <TooltipDiv>
+                <ReactTooltip
+                  id="supplements"
+                  place="bottom"
+                  offset={{ bottom: -11 }}
+                  effect="solid"
+                  className="tooltip"
+                >
+                  <div>Files that were marked as supplementaries.</div>
+                </ReactTooltip>
+              </TooltipDiv>
+              <InspectorTab data-for="other" data-tip={true}>
+                Other files
+              </InspectorTab>
+              <TooltipDiv>
+                <ReactTooltip
+                  id="other"
+                  place="bottom"
+                  offset={{ bottom: -11 }}
+                  effect="solid"
+                  className="tooltip"
+                >
+                  <div>Files excluded from the final submission.</div>
+                </ReactTooltip>
+              </TooltipDiv>
+            </InspectorTabList>
+            <InspectorTabPanels
+              style={{ overflowY: 'visible', position: 'relative' }}
+            >
+              <InspectorTabPanel>
+                <FilesSection
+                  submissionId={submissionId}
+                  enableDragAndDrop={false}
+                  handleUpload={handleUploadFile}
+                  fileSection={FileSectionType.Inline}
+                  filesItem={getFileSectionExternalFile(FileSectionType.Inline)}
+                  state={state}
+                  dispatch={dispatch}
+                />
+              </InspectorTabPanel>
+              <InspectorTabPanel>
+                <FilesSection
+                  submissionId={submissionId}
+                  enableDragAndDrop={enableDragAndDrop}
+                  handleUpload={handleUploadFile}
+                  fileSection={FileSectionType.Supplements}
+                  filesItem={getFileSectionExternalFile(
+                    FileSectionType.Supplements
+                  )}
+                  state={state}
+                  dispatch={dispatch}
+                />
+              </InspectorTabPanel>
+              <InspectorTabPanel>
+                <FilesSection
+                  submissionId={submissionId}
+                  enableDragAndDrop={enableDragAndDrop}
+                  handleUpload={handleUploadFile}
+                  fileSection={FileSectionType.OtherFile}
+                  filesItem={getFileSectionExternalFile(
+                    FileSectionType.OtherFile
+                  )}
+                  state={state}
+                  dispatch={dispatch}
+                />
+              </InspectorTabPanel>
+            </InspectorTabPanels>
+          </InspectorTabs>
+        </InspectorSection>
+      </PermissionsContext.Provider>
       {state.isShowSuccessMessage &&
         state.successMessage !== '' &&
         handleSuccessMessage()}
