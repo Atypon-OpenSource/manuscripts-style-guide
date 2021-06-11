@@ -15,7 +15,7 @@
  */
 
 import { ManuscriptNote } from '@manuscripts/manuscripts-json-schema'
-import React, { useCallback, useMemo, useRef, useState } from 'react'
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import styled from 'styled-components'
 
 import { Capabilities } from '../../lib/capabilities'
@@ -33,6 +33,8 @@ const isOwn = (comment: CommentType | UnsavedComment, userId?: string) =>
 export const CommentWrapper: React.FC<
   CommentBodyProps & {
     handleSetResolved?: () => void
+    isSelected?: boolean
+    handleRequestSelect?: () => void
     can?: Capabilities
     currentUserId?: string
     isProdNote?: boolean
@@ -53,18 +55,36 @@ export const CommentWrapper: React.FC<
   handleCreateReply,
   handleSetResolved,
   isProdNote,
+  isSelected,
+  handleRequestSelect,
   children,
 }) => {
   const [isEditing, setIsEditing] = useState<boolean>()
-  const dropdownButtonRef = useRef<HTMLButtonElement>(null)
 
-  const handleCommentFocus = useCallback(() => {
+  useEffect(() => {
     if (isNew) {
       setIsEditing(true)
-    } else if (dropdownButtonRef.current) {
-      dropdownButtonRef.current.focus()
     }
   }, [isNew])
+
+  // use MouseDown and Spacebar/Enter key events to avoid taking focus
+  // away from the editor
+  const onTitleMouseDown = useCallback(
+    (e: React.MouseEvent) => {
+      e.preventDefault()
+      handleRequestSelect && handleRequestSelect()
+    },
+    [handleRequestSelect]
+  )
+  const onTitleKeyDown = useCallback(
+    (e: React.KeyboardEvent) => {
+      if ([' ', 'Enter'].includes(e.key)) {
+        e.preventDefault()
+        handleRequestSelect && handleRequestSelect()
+      }
+    },
+    [handleRequestSelect]
+  )
 
   const isOwnComment = useMemo(() => isOwn(comment, currentUserId), [
     comment,
@@ -72,9 +92,13 @@ export const CommentWrapper: React.FC<
   ])
 
   return (
-    <Note>
+    <Note isSelected={isSelected}>
       <NoteHeader>
-        <NoteTitle type="button" onClick={handleCommentFocus}>
+        <NoteTitle
+          type="button"
+          onMouseDown={onTitleMouseDown}
+          onKeyDown={onTitleKeyDown}
+        >
           {comment.contributions && (
             <CommentUser
               contributions={comment.contributions}
@@ -96,7 +120,6 @@ export const CommentWrapper: React.FC<
           deleteComment={deleteComment}
           setIsEditing={setIsEditing}
           isProdNote={isProdNote}
-          dropdownButtonRef={dropdownButtonRef}
         />
       </NoteHeader>
 
@@ -121,12 +144,12 @@ export const CommentWrapper: React.FC<
   )
 }
 
-const Note = styled.div`
+const Note = styled.div<{ isSelected?: boolean }>`
   & .note-actions {
     opacity: 0;
+    ${({ isSelected }) => isSelected && 'opacity: 1'}
     transition: 0.1s ease-in-out opacity;
   }
-  &:focus-within .note-actions,
   &:hover .note-actions {
     opacity: 1;
   }

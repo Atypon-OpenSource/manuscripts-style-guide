@@ -203,6 +203,7 @@ export const ManuscriptNoteList: React.FC<Props> = React.memo(
                           saveComment={saveNote}
                           handleCreateReply={setNoteTarget}
                           isNew={isNew(comment as ManuscriptNote)}
+                          isSelected={isSelected}
                           isProdNote={true}
                         />
                       </NoteBodyContainer>
@@ -262,7 +263,9 @@ export const NoteBodyContainer = styled.div<{
   cursor: pointer;
 
   ${(props) => borderStyle(props.theme.colors.border.secondary)};
-  ${(props) => props.isNew && borderStyle(props.theme.colors.border.primary)}
+  ${(props) =>
+    (props.isNew || props.isSelected) &&
+    borderStyle(props.theme.colors.border.primary)}
 
   .tooltip {
     border-radius: 6px;
