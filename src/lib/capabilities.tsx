@@ -64,7 +64,7 @@ enum A {
 export interface ProviderProps {
   project?: Project
   profile?: UserProfileWithAvatar
-  lwRole?: 'pe' | 'ce' | 'au'
+  lwRole?: string
   permittedActions?: string[]
   children?: React.ReactNode
 }
