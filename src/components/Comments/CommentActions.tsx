@@ -127,6 +127,7 @@ const ActionDropdownButton = styled(DropdownButton)`
     circle {
       fill: ${(props) => props.theme.colors.brand.medium};
     }
+    opacity: 1;
   }
   margin-left: ${(props) => props.theme.grid.unit}px;
 `

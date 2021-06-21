@@ -16,15 +16,15 @@
 
 import ArrowDownBlue from '@manuscripts/assets/react/ArrowDownBlue'
 import React, { useState } from 'react'
-import styled from 'styled-components'
+import styled, { CSSProperties } from 'styled-components'
 
 import { IconButton } from './Button'
 
 const Section = styled.div`
-  border-bottom: 1px solid ${(props) => props.theme.colors.border.tertiary};
   font-size: ${(props) => props.theme.font.size.normal};
-  margin: ${(props) => props.theme.grid.unit * 6}px
-    ${(props) => props.theme.grid.unit * 2}px 0;
+  padding: 0 ${(props) => props.theme.grid.unit * 6}px
+    ${(props) => props.theme.grid.unit * 6}px
+    ${(props) => props.theme.grid.unit * 6}px;
 `
 
 const Heading = styled.div`
@@ -89,14 +89,25 @@ const Content = styled.div`
 
 interface Props {
   title: React.ReactNode
+  sectionStyles?: CSSProperties
+  headingStyles?: CSSProperties
+  contentStyles?: CSSProperties
+  lineStyles?: CSSProperties
 }
 
-export const InspectorSection: React.FC<Props> = ({ title, children }) => {
+export const InspectorSection: React.FC<Props> = ({
+  title,
+  sectionStyles,
+  headingStyles,
+  contentStyles,
+  lineStyles,
+  children,
+}) => {
   const [expanded, setExpanded] = useState(true)
 
   return (
-    <Section>
-      <Heading onClick={() => setExpanded(!expanded)}>
+    <Section style={sectionStyles}>
+      <Heading style={headingStyles} onClick={() => setExpanded(!expanded)}>
         <HeadingText>{title}</HeadingText>
         <ExpanderButton
           aria-label={'Toggle expand section'}
@@ -108,7 +119,14 @@ export const InspectorSection: React.FC<Props> = ({ title, children }) => {
           <ArrowDownBlue />
         </ExpanderButton>
       </Heading>
-      {expanded && <Content>{children}</Content>}
+      {expanded && <Content style={contentStyles}>{children}</Content>}
+      <Line style={lineStyles} />
     </Section>
   )
 }
+
+const Line = styled.hr`
+  flex: 1;
+  border: 1px solid ${(props) => props.theme.colors.border.tertiary};
+  background: ${(props) => props.theme.colors.border.tertiary};
+`

@@ -151,7 +151,13 @@ storiesOf('Submission Inspector', module)
         handleDateChange={action('Date updated')}
       >
         <InspectorSection title={'Open Access'} />
-        <InspectorSection title={'Production notes'}>
+        <InspectorSection
+          title={'Production notes'}
+          sectionStyles={{ padding: '0 0 24px 0' }}
+          headingStyles={{ padding: '0 32px 8px 32px' }}
+          contentStyles={{ margin: '0 24px 0 0' }}
+          lineStyles={{ margin: '8px 24px' }}
+        >
           <ManuscriptNoteList
             notes={notes}
             can={capabilities}

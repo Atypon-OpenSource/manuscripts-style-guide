@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+import GutterAddIconNormal from '@manuscripts/assets/react/GutterAddIconNormal'
 import {
   buildContribution,
   buildNote,
@@ -36,10 +37,10 @@ import {
   CommentType,
   UnsavedComment,
 } from '../lib/comments'
+import { IconTextButton } from './Button'
 import { CheckboxField, CheckboxLabel } from './Checkbox'
 import { CommentTarget } from './Comments/CommentTarget'
 import { CommentWrapper } from './Comments/CommentWrapper'
-import { AddNoteIcon } from './icons/add-note'
 import { RelativeDate } from './RelativeDate'
 
 interface Props {
@@ -157,7 +158,7 @@ export const ManuscriptNoteList: React.FC<Props> = React.memo(
         <ActionHeader>
           {can.createNotes && (
             <AddNoteButton onClick={handleAddNewNote}>
-              <AddNoteIcon />
+              Add <GutterAddIconNormal />
             </AddNoteButton>
           )}
           {items.length > 0 && (
@@ -238,13 +239,13 @@ export const ManuscriptNoteList: React.FC<Props> = React.memo(
   }
 )
 
-const AddNoteButton = styled.button`
-  cursor: pointer;
-  background: none;
-  border-style: none;
-  height: 19px;
-  &:focus-visible {
-    outline: initial;
+const AddNoteButton = styled(IconTextButton)`
+  svg {
+    margin: 0 0 0 ${(props) => props.theme.grid.unit * 4}px;
+    path {
+      fill: ${(props) => props.theme.colors.text.secondary};
+      stroke: ${(props) => props.theme.colors.text.secondary};
+    }
   }
 `
 
@@ -280,13 +281,13 @@ const borderStyle = (color: string) => `
 `
 
 const NoteThread = styled.div`
-  margin: 16px 16px 16px 0;
+  margin: ${(props) => props.theme.grid.unit * 4}px 0;
 `
 
 export const ReplyBodyContainer = styled.div`
   padding: ${(props) => props.theme.grid.unit * 4}px 0
     ${(props) => props.theme.grid.unit * 2}px;
-  margin-left: ${(props) => props.theme.grid.unit * 4}px;
+  margin-left: ${(props) => props.theme.grid.unit * 8}px;
   border: 1px solid ${(props) => props.theme.colors.border.secondary};
   border-top: none;
 `
@@ -301,8 +302,7 @@ const ActionHeader = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-right: 17px;
-  margin-left: 33px;
+  padding-left: ${(props) => props.theme.grid.unit * 8}px;
 `
 
 export const LabelText = styled.div`

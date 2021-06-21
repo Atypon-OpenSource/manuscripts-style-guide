@@ -32,6 +32,10 @@ const CommentUserContainer = styled.div`
 const CommentUserName = styled.div`
   margin: 0 ${(props) => props.theme.grid.unit * 2}px;
   font-weight: ${(props) => props.theme.font.weight.normal};
+  max-width: ${(props) => props.theme.grid.unit * 50}px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 `
 
 const DateText = styled(CommentUserName)`
