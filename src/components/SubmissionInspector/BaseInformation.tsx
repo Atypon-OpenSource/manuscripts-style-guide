@@ -86,14 +86,18 @@ export const BaseInformation: React.FC<{
         <Label>Journal ID:</Label>
         <Value>{submission.journal.id}</Value>
       </InspectorField>
-      <InspectorField>
-        <Label>Corresponding Author:</Label>
-        <Value>{submission.author.displayName}</Value>
-      </InspectorField>
-      <InspectorField>
-        <Label>Email:</Label>
-        <Value>{submission.author.email}</Value>
-      </InspectorField>
+      {submission.author && (
+        <>
+          <InspectorField>
+            <Label>Corresponding Author:</Label>
+            <Value>{submission.author.displayName}</Value>
+          </InspectorField>
+          <InspectorField>
+            <Label>Email:</Label>
+            <Value>{submission.author.email}</Value>
+          </InspectorField>
+        </>
+      )}
       <InspectorField>
         <Label>Production Editor:</Label>
         <Value>{submission.journal.productionEditor.displayName}</Value>

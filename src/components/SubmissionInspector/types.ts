@@ -28,7 +28,7 @@ export type Submission = {
   doi: string
   title: string
   journal: Journal
-  author: Person
+  author?: Maybe<Person>
   currentStep: SubmissionStep
   previousStep?: Maybe<SubmissionStep>
   nextStep?: Maybe<ProjectedSubmissionStep>
