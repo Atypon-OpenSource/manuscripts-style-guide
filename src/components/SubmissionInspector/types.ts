@@ -19,7 +19,6 @@ export type Maybe<T> = T | null
 export enum SubmissionCriticality {
   ON_SCHEDULE = 'ON_SCHEDULE',
   DUE_TODAY = 'DUE_TODAY',
-  AT_RISK = 'AT_RISK',
   OVERDUE = 'OVERDUE',
 }
 
@@ -34,6 +33,7 @@ export type Submission = {
   nextStep?: Maybe<ProjectedSubmissionStep>
   dueDate: Date
   criticality: SubmissionCriticality
+  isAtRisk: boolean
 }
 
 export type Journal = {

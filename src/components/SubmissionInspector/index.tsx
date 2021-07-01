@@ -15,7 +15,8 @@
  */
 
 export * from './Button'
-export * from './ArticleDetailsInspector'
+export * from '../SubmissionInspector/BaseInformation'
+export * from '../SubmissionInspector/Progress'
 export * from '../ManuscriptNoteList'
 export * from '../Comments/CommentBody'
 export * from '../Comments/CommentTarget'

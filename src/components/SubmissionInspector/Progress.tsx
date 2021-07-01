@@ -35,12 +35,8 @@ const CriticalityLabel: Record<
   SubmissionCriticality,
   { label: string; color: string }
 > = {
-  ON_SCHEDULE: {
-    label: 'On schedule',
-    color: '#353535',
-  },
+  ON_SCHEDULE: { label: '', color: '' },
   DUE_TODAY: { label: 'Due today', color: '#353535' },
-  AT_RISK: { label: 'At risk', color: '#FE8F1F' },
   OVERDUE: { label: 'Overdue', color: '#F35143' },
 }
 
@@ -54,7 +50,6 @@ export const Progress: React.FC<{
         <>
           <TaskStatus>
             <TaskStepDoneIcon />
-            <Line />
           </TaskStatus>
           <TaskContainer>
             <SecondaryBoldHeading>
@@ -77,7 +72,6 @@ export const Progress: React.FC<{
         <TaskStepCurrentIcon
           color={CriticalityLabel[currentStep.criticality].color}
         />
-        <Line />
       </TaskStatus>
       <TaskContainer>
         <PrimaryBoldHeading>{currentStep.type.label}</PrimaryBoldHeading>
@@ -88,11 +82,13 @@ export const Progress: React.FC<{
         <PrimarySmallText>
           {format(currentStep.dueDate, 'd MMMM, EEEE')}
         </PrimarySmallText>
-        <CriticalityText
-          color={CriticalityLabel[currentStep.criticality].color}
-        >
-          {CriticalityLabel[currentStep.criticality].label}
-        </CriticalityText>
+        {!(currentStep.criticality === SubmissionCriticality.ON_SCHEDULE) && (
+          <CriticalityText
+            color={CriticalityLabel[currentStep.criticality].color}
+          >
+            {CriticalityLabel[currentStep.criticality].label}
+          </CriticalityText>
+        )}
       </TaskContainer>
 
       {nextStep && (
@@ -133,12 +129,6 @@ const TaskStatus = styled.div`
 const TaskContainer = styled.div`
   grid-column: 2;
   margin-bottom: 8px;
-`
-
-const Line = styled.hr`
-  margin: 5px 0 0 0;
-  flex: 1;
-  border: 1px dashed #c9c9c9;
 `
 
 const CriticalityText = styled(PrimarySmallText)<{ color: string }>`

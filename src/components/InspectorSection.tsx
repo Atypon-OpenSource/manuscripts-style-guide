@@ -15,22 +15,23 @@
  */
 
 import ArrowDownBlue from '@manuscripts/assets/react/ArrowDownBlue'
-import React, { useState } from 'react'
-import styled, { CSSProperties } from 'styled-components'
+import React, { CSSProperties, useState } from 'react'
+import styled from 'styled-components'
 
 import { IconButton } from './Button'
 
 const Section = styled.div`
   font-size: ${(props) => props.theme.font.size.normal};
-  padding: 0 ${(props) => props.theme.grid.unit * 6}px
-    ${(props) => props.theme.grid.unit * 6}px
-    ${(props) => props.theme.grid.unit * 6}px;
 `
 
-const Heading = styled.div`
+const Heading = styled.div<{ marginBottom?: string }>`
   display: flex;
-  padding: ${(props) => props.theme.grid.unit * 2}px;
+  padding: 0 ${(props) => props.theme.grid.unit * 2}px;
   cursor: pointer;
+  margin: ${(props) => props.theme.grid.unit * 4}px
+    ${(props) => props.theme.grid.unit * 6}px
+    ${(props) => props.marginBottom || '32px'}
+    ${(props) => props.theme.grid.unit * 6}px;
 `
 
 const HeadingText = styled.div`
@@ -73,41 +74,26 @@ export const Field = styled.div`
   margin-bottom: ${(props) => props.theme.grid.unit * 4}px;
 `
 
-export const InspectorSubsection = styled.div`
-  margin-left: ${(props) => props.theme.grid.unit * 2}px;
-
-  :not(:first-child) {
-    margin-top: ${(props) => props.theme.grid.unit * 4}px;
-  }
-`
-
-const Content = styled.div`
-  margin: ${(props) => props.theme.grid.unit * 2}px
-    ${(props) => props.theme.grid.unit * 2}px
-    ${(props) => props.theme.grid.unit * 8}px;
-`
-
 interface Props {
   title: React.ReactNode
-  sectionStyles?: CSSProperties
-  headingStyles?: CSSProperties
   contentStyles?: CSSProperties
-  lineStyles?: CSSProperties
 }
 
 export const InspectorSection: React.FC<Props> = ({
   title,
-  sectionStyles,
-  headingStyles,
   contentStyles,
-  lineStyles,
   children,
 }) => {
   const [expanded, setExpanded] = useState(true)
 
   return (
-    <Section style={sectionStyles}>
-      <Heading style={headingStyles} onClick={() => setExpanded(!expanded)}>
+    <Section>
+      <Line />
+
+      <Heading
+        onClick={() => setExpanded(!expanded)}
+        marginBottom={(!(expanded && children) && '40px') || undefined}
+      >
         <HeadingText>{title}</HeadingText>
         <ExpanderButton
           aria-label={'Toggle expand section'}
@@ -119,8 +105,8 @@ export const InspectorSection: React.FC<Props> = ({
           <ArrowDownBlue />
         </ExpanderButton>
       </Heading>
-      {expanded && <Content style={contentStyles}>{children}</Content>}
-      <Line style={lineStyles} />
+
+      {expanded && children && <div style={contentStyles}>{children}</div>}
     </Section>
   )
 }
@@ -129,4 +115,5 @@ const Line = styled.hr`
   flex: 1;
   border: 1px solid ${(props) => props.theme.colors.border.tertiary};
   background: ${(props) => props.theme.colors.border.tertiary};
+  margin: 0 ${(props) => props.theme.grid.unit * 6}px;
 `

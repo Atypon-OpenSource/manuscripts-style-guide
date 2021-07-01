@@ -19,16 +19,17 @@ import { storiesOf } from '@storybook/react'
 import * as React from 'react'
 
 import {
-  ArticleDetailsInspector,
+  BaseInformation,
+  getAllPermitted,
   InspectorSection,
   ManuscriptNoteList,
+  Progress,
   ZoomButton,
   ZoomButtonGroup,
   ZoomInIcon,
   ZoomOutIcon,
 } from '../src'
-import { SubmissionCriticality } from '../src/components/SubmissionInspector/types'
-import { getAllPermitted } from '../src/lib/capabilities'
+import { submission } from './data/lw-submission'
 import { notes } from './data/notes'
 import { people } from './data/people'
 
@@ -46,133 +47,47 @@ storiesOf('Submission Inspector', module)
     </ZoomButtonGroup>
   ))
   .add('Inspector', () => (
-    <div style={{ width: 370 }}>
-      <ArticleDetailsInspector
-        submission={{
-          title: 'Characterization of red ginseng',
-          id: '175639',
-          doi: '10.1000/xyz123',
-          dueDate: new Date('2020-7-28'),
-          criticality: SubmissionCriticality.OVERDUE,
-          journal: {
-            id: 'a35f3849-4c0f-44dd-9fd9-ac3986c658f4',
-            title: 'Applied Organometallic Chemistry',
-            issn: '1540-1235',
-            doi: '10.1137/lw5',
-            code: 'PMC4172319',
-            productionEditor: {
-              id: '1',
-              displayName: 'Paul McCartney',
-            },
-          },
-          author: {
-            id: '28',
-            firstName: 'E.J. Baerends',
-            lastName: '',
-            email: 'e-baerends@gmail.com',
-            displayName: 'E.J. Baerends',
-            role: {
-              id: '1',
-              label: 'author',
-            },
-          },
-          nextStep: {
-            type: {
-              id: '12',
-              stage: {
-                id: '0',
-                label: 'Check In',
-              },
-              role: {
-                id: '5',
-                label: 'Automated task',
-              },
-              label: 'XML Conversion',
-              description:
-                'Automated conversion to JATS with reference & house style rules',
-            },
-            dueDate: new Date('2020-7-05'),
-          },
-          currentStep: {
-            id: '8484',
-            status: {
-              id: '2',
-              label: 'In Progress',
-            },
-            type: {
-              id: '548',
-              stage: {
-                id: '2',
-                label: 'Proofing',
-              },
-              role: {
-                id: '5',
-                label: 'Automated task',
-              },
-              label: 'Quality Report Generation',
-              description:
-                'Technical checks on article to create Quality Report',
-            },
-            dueDate: new Date('2020-5-15'),
-            criticality: SubmissionCriticality.OVERDUE,
-            assignee: {
-              id: '174',
-              displayName: '',
-            },
-          },
-          previousStep: {
-            id: '895',
-            status: {
-              id: '3',
-              label: 'Completed',
-            },
-            type: {
-              id: '548',
-              stage: {
-                id: '2',
-                label: 'Proofing',
-              },
-              role: {
-                id: '4',
-                label: 'Production Editor',
-              },
-              label: 'Production Editor Check',
-              description:
-                'The Production editor checks the validity of the generated article.',
-            },
-            dueDate: new Date('2020-4-26'),
-            criticality: SubmissionCriticality.DUE_TODAY,
-            assignee: {
-              id: '174',
-              displayName: '',
-            },
-          },
-        }}
-        handleDateChange={action('Date updated')}
+    <div
+      style={{ width: 400, border: '1px solid #F2F2F2', paddingTop: '24px' }}
+    >
+      <InspectorSection
+        title={'Article information'}
+        contentStyles={{ padding: '0 32px 24px 32px' }}
       >
-        <InspectorSection title={'Open Access'} />
-        <InspectorSection
-          title={'Production notes'}
-          sectionStyles={{ padding: '0 0 24px 0' }}
-          headingStyles={{ padding: '0 32px 8px 32px' }}
-          contentStyles={{ margin: '0 24px 0 0' }}
-          lineStyles={{ margin: '8px 24px' }}
-        >
-          <ManuscriptNoteList
-            notes={notes}
-            can={capabilities}
-            getKeyword={(id: string) => undefined}
-            getCollaboratorById={(id: string) => people[0]}
-            createKeyword={async () => action('create keyword')}
-            deleteModel={async () => action('delete model')}
-            saveModel={async () => action('save model')}
-            currentUserId={people[0]._id}
-            listCollaborators={() => people}
-            listKeywords={() => []}
-            selected={null}
-            noteSource="DASHBOARD"
-          />
-        </InspectorSection>
-      </ArticleDetailsInspector>
+        <BaseInformation
+          submission={submission}
+          userRole={'pe'}
+          handleDateChange={action('Date updated')}
+        />
+      </InspectorSection>
+
+      <InspectorSection
+        title={'Progress'}
+        contentStyles={{ padding: '0 56px 24px 56px' }}
+      >
+        <Progress submission={submission} />
+      </InspectorSection>
+
+      <InspectorSection title={'Open Access'} />
+
+      <InspectorSection
+        title={'Production notes'}
+        contentStyles={{ margin: '0 25px 24px 0' }}
+      >
+        <ManuscriptNoteList
+          notes={notes}
+          can={capabilities}
+          getKeyword={(id: string) => undefined}
+          getCollaboratorById={(id: string) => people[0]}
+          createKeyword={async () => action('create keyword')}
+          deleteModel={async () => action('delete model')}
+          saveModel={async () => action('save model')}
+          currentUserId={people[0]._id}
+          listCollaborators={() => people}
+          listKeywords={() => []}
+          selected={null}
+          noteSource="DASHBOARD"
+        />
+      </InspectorSection>
     </div>
   ))

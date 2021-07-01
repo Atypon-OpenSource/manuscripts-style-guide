@@ -87,14 +87,3 @@ export const InspectorTab = styled(Tab)`
 export const InspectorTabPanelHeading = styled.div`
   margin-bottom: ${(props) => props.theme.grid.unit * 4}px;
 `
-
-export const InspectorField = styled.div`
-  display: flex;
-  align-items: center;
-  width: 100%;
-  margin-bottom: ${(props) => props.theme.grid.unit * 4}px;
-
-  &:last-child {
-    margin-bottom: 0;
-  }
-`

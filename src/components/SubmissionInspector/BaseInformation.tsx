@@ -18,33 +18,134 @@ import 'react-modern-calendar-datepicker/lib/DatePicker.css'
 
 import AttentionOrange from '@manuscripts/assets/react/AttentionOrange'
 import AttentionRed from '@manuscripts/assets/react/AttentionRed'
-import { format } from 'date-fns'
-import React from 'react'
-import DatePicker, { DayValue } from 'react-modern-calendar-datepicker'
+import { add, format, intervalToDuration } from 'date-fns'
+import React, { RefObject, useCallback, useMemo, useState } from 'react'
+import DatePicker, {
+  Day,
+  DayValue,
+  RenderInputProps,
+} from 'react-modern-calendar-datepicker'
 import styled from 'styled-components'
 
 import { IconTextButton } from '../Button'
-import { InspectorField } from '../Inspector'
-import { InspectorSubsection } from '../InspectorSection'
+import { Category, Dialog, MessageContainer } from '../Dialog'
 import { Submission, SubmissionCriticality } from './types'
+
+const dateFormat = 'd MMM, EEEE'
+
+const criticalityPill: {
+  [key in SubmissionCriticality]: { label: string; color: string }
+} = {
+  [SubmissionCriticality.OVERDUE]: { label: 'Overdue', color: '#F5C1B7' },
+  [SubmissionCriticality.DUE_TODAY]: { label: 'At risk', color: '#FFE0B2' },
+  [SubmissionCriticality.ON_SCHEDULE]: { label: 'At risk', color: '#FFE0B2' },
+}
+
+const CalenderDatePicker: React.FC<{
+  submission: Submission
+  handleDateChange: (day: DayValue) => void
+  Button: React.FC<RenderInputProps>
+}> = ({ submission, handleDateChange, Button }) => {
+  const [dueDate, setDueDate] = useState<DayValue | undefined>(undefined)
+  const [toggleDialog, setToggleDialog] = useState<boolean>(false)
+
+  const onConfirmClick = useCallback(() => {
+    handleDateChange(dueDate)
+    setToggleDialog(false)
+  }, [dueDate, setToggleDialog, handleDateChange])
+
+  const formattedDueDate = useMemo(
+    () =>
+      dueDate &&
+      format(new Date(dueDate.year, dueDate.month, dueDate.day), dateFormat),
+    [dueDate]
+  )
+  const formattedPotentialDueDate = useMemo(
+    () =>
+      dueDate &&
+      format(
+        potentialDueDate(
+          submission.currentStep.dueDate,
+          dueDate,
+          submission.dueDate
+        ),
+        dateFormat
+      ),
+    [submission.dueDate, submission.currentStep.dueDate, dueDate]
+  )
+
+  const onDatePickerChange = useCallback((date: DayValue) => {
+    setDueDate(date)
+    setToggleDialog(true)
+    const button = document.querySelector(
+      '.DatePicker button'
+    ) as HTMLButtonElement
+    button.blur()
+  }, [])
+
+  return (
+    <>
+      <Calendar>
+        <DatePicker
+          value={getDay(submission.currentStep.dueDate)}
+          onChange={onDatePickerChange}
+          calendarPopperPosition={'bottom'}
+          colorPrimary="#f2fbfc"
+          calendarSelectedDayClassName={'selected-day'}
+          calendarClassName={'responsive-calendar'}
+          renderInput={Button}
+        />
+      </Calendar>
+      <Dialog
+        isOpen={toggleDialog}
+        category={Category.confirmation}
+        header="Change the task due date?"
+        message={
+          <>
+            <UpdatedDueDate>{formattedDueDate}</UpdatedDueDate>
+
+            <DueDateMessage>
+              By rescheduling the task, the publication expected date of the
+              article will be modified accordingly:
+            </DueDateMessage>
+
+            <Value>
+              <StrikeDueDate as={'del'}>
+                {format(submission.dueDate, 'd MMM, EEEE')}
+              </StrikeDueDate>
+              {formattedPotentialDueDate}
+            </Value>
+          </>
+        }
+        actions={{
+          primary: {
+            action: onConfirmClick,
+            title: 'Reschedule',
+          },
+          secondary: {
+            action: () => setToggleDialog(false),
+            title: 'Cancel',
+          },
+        }}
+      />
+    </>
+  )
+}
 
 export const BaseInformation: React.FC<{
   submission: Submission
   handleDateChange: (day: DayValue) => void
   userRole?: string
 }> = ({ submission, handleDateChange, userRole }) => {
-  const Button: React.FC<{ ref: React.RefObject<HTMLButtonElement> }> = ({
-    ref,
-  }) => (
+  const Button: React.FC<RenderInputProps> = ({ ref }) => (
     <DateButton
-      ref={ref}
+      ref={ref as RefObject<HTMLButtonElement>}
       criticality={submission.currentStep.criticality}
       disabled={userRole !== 'pe'}
     >
       {format(submission.currentStep.dueDate, 'd MMM, EEEE')}
-      {submission.currentStep.criticality === SubmissionCriticality.AT_RISK && (
-        <AttentionOrange />
-      )}
+      {submission.currentStep.criticality ===
+        SubmissionCriticality.DUE_TODAY && <AttentionOrange />}
       {submission.currentStep.criticality === SubmissionCriticality.OVERDUE && (
         <AttentionRed />
       )}
@@ -52,57 +153,51 @@ export const BaseInformation: React.FC<{
   )
 
   return (
-    <InspectorSubsection>
-      <InspectorField>
-        <DateLabel>Due date</DateLabel>
-        <Value>
-          <Calendar>
-            <DatePicker
-              value={getDay(submission.currentStep.dueDate)}
-              onChange={handleDateChange}
-              calendarPopperPosition={'bottom'}
-              colorPrimary="#f2fbfc"
-              calendarSelectedDayClassName={'selected-day'}
-              calendarClassName={'responsive-calendar'}
-              // @ts-ignore
-              renderInput={Button}
-            />
-          </Calendar>
-        </Value>
-      </InspectorField>
-      <InspectorField>
-        <Label>Article ID:</Label>
-        <Value>{submission.id}</Value>
-      </InspectorField>
-      <InspectorField>
-        <Label>DOI:</Label>
-        <Value>{submission.doi}</Value>
-      </InspectorField>
-      <InspectorField>
-        <Label>Journal:</Label>
-        <Value>{submission.journal.title}</Value>
-      </InspectorField>
-      <InspectorField>
-        <Label>Journal ID:</Label>
-        <Value>{submission.journal.id}</Value>
-      </InspectorField>
+    <Grid>
+      <DateLabel>Due date</DateLabel>
+      <Value>
+        <CalenderDatePicker
+          submission={submission}
+          handleDateChange={handleDateChange}
+          Button={Button}
+        />
+      </Value>
+
+      <Label>Article ID:</Label>
+      <Value>{submission.id}</Value>
+
+      <Label>DOI:</Label>
+      <Value>{submission.doi}</Value>
+
+      <Label>Journal:</Label>
+      <Value>{submission.journal.title}</Value>
+
+      <Label>Journal ID:</Label>
+      <Value>{submission.journal.id}</Value>
+
       {submission.author && (
         <>
-          <InspectorField>
-            <Label>Corresponding Author:</Label>
-            <Value>{submission.author.displayName}</Value>
-          </InspectorField>
-          <InspectorField>
-            <Label>Email:</Label>
-            <Value>{submission.author.email}</Value>
-          </InspectorField>
+          <Label>Corresponding Author:</Label>
+          <Value>{submission.author.displayName}</Value>
+
+          <Label>Email:</Label>
+          <Value>{submission.author.email}</Value>
         </>
       )}
-      <InspectorField>
-        <Label>Production Editor:</Label>
-        <Value>{submission.journal.productionEditor.displayName}</Value>
-      </InspectorField>
-    </InspectorSubsection>
+
+      <Label>Production Editor:</Label>
+      <Value>{submission.journal.productionEditor.displayName}</Value>
+
+      <Label>Publication Due:</Label>
+      <Value>
+        {format(submission.dueDate, 'd MMM, EEEE')}
+        {submission.isAtRisk && (
+          <Pill background={criticalityPill[submission.criticality].color}>
+            {criticalityPill[submission.criticality].label}
+          </Pill>
+        )}
+      </Value>
+    </Grid>
   )
 }
 
@@ -112,17 +207,42 @@ const getDay = (date: Date) => ({
   day: date.getDate(),
 })
 
+const potentialDueDate = (
+  stepDueDate: Date,
+  dueDate: Day,
+  submissionDueDate: Date
+) => {
+  const duration = intervalToDuration({
+    start: stepDueDate,
+    end: new Date(
+      `${dueDate.year}-${
+        dueDate.month < 10 ? `0${dueDate.month}` : dueDate.month
+      }-${dueDate.day < 10 ? `0${dueDate.day}` : dueDate.day}`
+    ),
+  })
+  return add(submissionDueDate, duration)
+}
+
+const Grid = styled.div`
+  display: grid;
+  grid-template-columns: 30% auto;
+  column-gap: ${(props) => props.theme.grid.unit * 2}px;
+  row-gap: ${(props) => props.theme.grid.unit * 4}px;
+`
+
 const Value = styled.div`
   flex: 1;
   display: flex;
   color: ${(props) => props.theme.colors.text.primary};
+  align-items: center;
+  line-height: 1;
 `
 
 const Label = styled.div`
+  align-self: center;
   width: fit-content;
-  margin-right: ${(props) => props.theme.grid.unit * 2}px;
-  flex-shrink: 0;
   color: ${(props) => props.theme.colors.text.secondary};
+  line-height: 1;
 `
 
 const DateLabel = styled(Label)`
@@ -139,18 +259,26 @@ const DateButton = styled(IconTextButton)<{
   font-size: ${(props) => props.theme.font.size.normal};
   line-height: ${(props) => props.theme.font.lineHeight.large};
   color: ${(props) =>
-    (props.criticality === SubmissionCriticality.AT_RISK &&
-      props.theme.colors.text.warning) ||
-    (props.criticality === SubmissionCriticality.OVERDUE &&
-      props.theme.colors.text.error) ||
-    props.theme.colors.text.secondary}!important;
-  width: ${(props) => props.theme.grid.unit * 61}px;
+    props.criticality === SubmissionCriticality.OVERDUE &&
+    props.theme.colors.text.error}!important;
+  width: 100%;
   height: ${(props) => props.theme.grid.unit * 7.5}px;
-  justify-content: space-around;
+  justify-content: space-between;
   background: transparent !important;
+  padding: 0 ${(props) => props.theme.grid.unit * 2}px 0
+    ${(props) => props.theme.grid.unit * 4}px;
+  svg {
+    margin-right: 0;
+  }
 `
 
 const Calendar = styled.div`
+  flex: 1;
+
+  .DatePicker {
+    width: 100%;
+  }
+
   .DatePicker__calendarContainer {
     position: absolute;
     top: unset;
@@ -178,4 +306,36 @@ const Calendar = styled.div`
     color: ${(props) => props.theme.colors.text.primary} !important;
     border: 1px solid ${(props) => props.theme.colors.border.primary} !important;
   }
+`
+
+const Pill = styled.div<{ background?: string }>`
+  ${(props) => props.background && `background: ${props.background}`};
+  padding: ${(props) => props.theme.grid.unit}px;
+  margin-left: ${(props) => props.theme.grid.unit}px;
+  font-size: ${(props) => props.theme.font.size.small};
+  line-height: ${(props) => props.theme.font.lineHeight.normal};
+  font-weight: ${(props) => props.theme.font.weight.normal};
+  border-radius: 6px;
+`
+
+const UpdatedDueDate = styled.div`
+  background: ${(props) => props.theme.colors.background.secondary};
+  color: ${(props) => props.theme.colors.text.primary};
+  width: max-content;
+  border: 1px solid ${(props) => props.theme.colors.border.secondary};
+  box-sizing: border-box;
+  border-radius: ${(props) => props.theme.grid.unit}px;
+  padding: ${(props) => props.theme.grid.unit}px
+    ${(props) => props.theme.grid.unit * 2}px; ;
+`
+
+const DueDateMessage = styled(MessageContainer)`
+  min-height: min-content;
+  margin: ${(props) => props.theme.grid.unit * 6}px 0 0 0;
+`
+
+const StrikeDueDate = styled(MessageContainer)`
+  margin: 0;
+  min-height: min-content;
+  padding-right: ${(props) => props.theme.grid.unit}px;
 `

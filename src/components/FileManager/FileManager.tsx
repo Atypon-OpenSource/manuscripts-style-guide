@@ -198,7 +198,7 @@ export const FileManager: React.FC<{
     <>
       <DragLayer />
       <PermissionsContext.Provider value={can}>
-        <InspectorSection title={'Files'}>
+        <InspectorSection title={'Files'} contentStyles={{ margin: '24px' }}>
           <InspectorTabs defaultIndex={0} style={{ overflow: 'visible' }}>
             <InspectorTabList>
               <InspectorTab data-for="inline" data-tip={true}>

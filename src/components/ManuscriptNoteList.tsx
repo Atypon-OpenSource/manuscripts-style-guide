@@ -155,7 +155,7 @@ export const ManuscriptNoteList: React.FC<Props> = React.memo(
     )
     return (
       <>
-        <ActionHeader>
+        <ActionHeader withAddButton={can.createNotes}>
           {can.createNotes && (
             <AddNoteButton onClick={handleAddNewNote}>
               Add <GutterAddIconNormal />
@@ -247,6 +247,7 @@ const AddNoteButton = styled(IconTextButton)`
       stroke: ${(props) => props.theme.colors.text.secondary};
     }
   }
+  font-size: ${(props) => props.theme.font.size.normal};
 `
 
 const NoteListContainer = styled.div`
@@ -298,10 +299,11 @@ export const LightRelativeDate = styled(RelativeDate)`
   letter-spacing: -0.2px;
 `
 
-const ActionHeader = styled.div`
+const ActionHeader = styled.div<{ withAddButton: boolean }>`
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: ${(props) =>
+    (props.withAddButton && 'space-between') || 'flex-end'};
   padding-left: ${(props) => props.theme.grid.unit * 8}px;
 `
 
@@ -310,6 +312,7 @@ export const LabelText = styled.div`
   color: ${(props) => props.theme.colors.text.primary};
   font-size: 14px;
   line-height: 24px;
+  margin: 0 !important;
 `
 
 const Checkbox = styled(CheckboxLabel)`
