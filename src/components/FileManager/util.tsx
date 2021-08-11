@@ -16,6 +16,7 @@
 import { ExternalFile } from '@manuscripts/manuscripts-json-schema'
 import React from 'react'
 
+import { Capabilities } from '../../lib/capabilities'
 import AudioIcon from '../icons/audio-icon'
 import CodeFileIcon from '../icons/code-file-icon'
 import CompressedFileIcon from '../icons/compressed-file-icon'
@@ -507,13 +508,17 @@ export const getDesignationByFileSection = (
 
 export const getUploadFileDesignationList = (
   fileExtension: string,
-  fileSectionType: FileSectionType
+  fileSectionType: FileSectionType,
+  can: Capabilities | null
 ): Array<{ value: number; label: string }> => {
   const result = new Array<{ value: number; label: string }>()
   const allowedDesignationByFileSection = getDesignationByFileSection(
     fileSectionType
   )
   allowedDesignationByFileSection.forEach((value) => {
+    if (value === Designation.MainManuscript && !can?.setMainManuscript) {
+      return
+    }
     const allowedExtension = designationWithAllowedMediaTypesMap.get(value)
     if (allowedExtension && allowedExtension.length !== 0) {
       if (allowedExtension.includes(fileExtension)) {

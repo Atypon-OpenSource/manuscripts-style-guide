@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import React, { Dispatch } from 'react'
+import React, { Dispatch, useContext } from 'react'
 import {
   IndicatorContainerProps,
   SelectComponentsConfig,
@@ -23,6 +23,7 @@ import CreatableSelect from 'react-select/creatable'
 import styled from 'styled-components'
 
 import BottomArrowIcon from '../icons/BottomArrowIcon'
+import { PermissionsContext } from './FileManager'
 import { Action, actions } from './FileSectionState'
 import { FileSectionType, getUploadFileDesignationList } from './util'
 
@@ -49,6 +50,9 @@ export const SelectDesignationActions: React.FC<{
   const reactSelectComponents: SelectComponentsConfig<DesignationOption> = {
     IndicatorsContainer: DropdownIndicator,
   }
+
+  const can = useContext(PermissionsContext)
+
   const handleInputChange = (value: ValueType<DesignationOption>) => {
     if (value) {
       const selectedDesignation = value as ValueType<DesignationOption>
@@ -61,7 +65,8 @@ export const SelectDesignationActions: React.FC<{
   if (fileExtension) {
     const designationActionsList = getUploadFileDesignationList(
       fileExtension,
-      fileSection
+      fileSection,
+      can
     )
 
     return (

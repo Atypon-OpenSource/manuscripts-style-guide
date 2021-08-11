@@ -42,6 +42,7 @@ export type Capabilities = {
   replaceFile: boolean
   uploadFile: boolean
   handleQualityReport: boolean
+  setMainManuscript: boolean
   /* dashboard actions */
   completeTask: boolean
   rejectTask: boolean
@@ -59,6 +60,7 @@ enum A {
   updateAttachment = 'update-attachment',
   updateDueDate = 'update-due-date',
   addNote = 'add-note',
+  setMainManuscript = 'set-main-manuscript',
 }
 
 export interface ProviderProps {
@@ -120,6 +122,7 @@ export const getLWCapabilities = (
     replaceFile: isOwner() || isEditor() || isWriter(),
     uploadFile: isOwner() || isEditor() || isWriter(),
     handleQualityReport: isOwner() || isEditor() || isWriter(),
+    setMainManuscript: allowed(A.setMainManuscript),
     /* dashboard actions */
     completeTask: allowed(A.proceed),
     rejectTask: isLWProdEditor(),
