@@ -92,7 +92,7 @@ export const CommentWrapper: React.FC<
   ])
 
   return (
-    <Note isSelected={isSelected} onMouseDown={onTitleMouseDown}>
+    <Note isSelected={isSelected}>
       <NoteHeader>
         <NoteTitle
           type="button"

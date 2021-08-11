@@ -101,6 +101,9 @@ export const CommentBody: React.FC<
                         createKeyword={createKeyword}
                         listCollaborators={listCollaborators}
                         listKeywords={listKeywords}
+                        notePlaceholder={
+                          !isReply ? 'Comment or @mention...' : 'Reply...'
+                        }
                       />
                     </CommentContent>
                   )}
@@ -188,16 +191,41 @@ const CommentContent = styled.div`
   padding: 0 ${(props) => props.theme.grid.unit * 4}px;
 `
 
-const StyledCommentField = styled(CommentField)`
+const StyledCommentField = styled(CommentField)<{ notePlaceholder: string }>`
   flex: 1;
 
   & .ProseMirror {
     cursor: text;
     font-family: ${(props) => props.theme.font.family.sans};
-    line-height: 1.06;
-    letter-spacing: -0.2px;
     color: ${(props) => props.theme.colors.text.primary};
     margin: ${(props) => props.theme.grid.unit * 2}px 0;
+
+    outline: 0;
+    border: 1px solid #e2e2e2;
+    border-radius: 6px;
+
+    &:focus {
+      background: #f2fbfc;
+      border: 1px solid #bce7f6;
+      border-radius: 6px;
+    }
+
+    .empty-node::before {
+      position: absolute;
+      color: #c9c9c9;
+      cursor: text;
+      pointer-events: none;
+    }
+
+    ${(props) =>
+      `& p.empty-node:before { content: '${props.notePlaceholder}'; }`};
+
+    box-sizing: border-box;
+    padding: 3px 16px 3px 16px;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 24px;
 
     & p:first-child {
       margin-top: 0;
