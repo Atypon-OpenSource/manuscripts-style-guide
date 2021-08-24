@@ -206,6 +206,7 @@ export const ManuscriptNoteList: React.FC<Props> = React.memo(
                           isNew={isNew(comment as ManuscriptNote)}
                           isSelected={isSelected}
                           isProdNote={true}
+                          can={can}
                         />
                       </NoteBodyContainer>
 
@@ -224,6 +225,7 @@ export const ManuscriptNoteList: React.FC<Props> = React.memo(
                             handleCreateReply={setNoteTarget}
                             isNew={isNew(note as ManuscriptNote)}
                             isProdNote={true}
+                            can={can}
                           />
                         </ReplyBodyContainer>
                       ))}
