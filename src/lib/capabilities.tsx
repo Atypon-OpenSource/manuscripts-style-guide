@@ -20,6 +20,7 @@ import React from 'react'
 export type Capabilities = {
   /* suggestions */
   handleSuggestion: boolean
+  rejectOwnSuggestion: boolean
   createSuggestion: boolean
   viewSuggestion: boolean
   /* comments */
@@ -99,10 +100,11 @@ export const getLWCapabilities = (
   return {
     /* suggestions */
     handleSuggestion: isOwner() || isEditor() || isWriter(),
+    rejectOwnSuggestion: !isViewer(),
     createSuggestion: !isViewer(),
     viewSuggestion: true,
-    /* comments */
     seeEditorToolbar: !isViewer(),
+    /* comments */
     handleOwnComments: !isViewer(),
     handleOthersComments: isOwner(),
     resolveOwnComment: !isViewer(),
