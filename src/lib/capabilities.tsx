@@ -82,11 +82,7 @@ export const getLWCapabilities = (
   actions?: string[]
 ): Capabilities => {
   const isEditor = () =>
-    !!(
-      (profile && project?.editors?.includes(profile.userID)) ||
-      lwRole == 'ce' ||
-      lwRole == 'pe'
-    )
+    !!(profile && project?.editors?.includes(profile.userID))
   const isOwner = () => !!(profile && project?.owners?.includes(profile.userID))
   const isWriter = () =>
     !!(profile && project?.writers?.includes(profile.userID))
