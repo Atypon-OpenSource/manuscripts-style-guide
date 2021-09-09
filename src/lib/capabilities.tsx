@@ -122,7 +122,7 @@ export const getLWCapabilities = (
     handleQualityReport: isOwner() || isEditor() || isWriter(),
     setMainManuscript: allowed(A.setMainManuscript),
     /* dashboard actions */
-    completeTask: allowed(A.proceed),
+    completeTask: !isViewer() && allowed(A.proceed),
     rejectTask: isLWProdEditor(),
     acceptTask: isLWProdEditor(),
     resolveOnHoldTask: isLWProdEditor(),
