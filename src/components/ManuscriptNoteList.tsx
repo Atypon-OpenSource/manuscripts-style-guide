@@ -175,7 +175,11 @@ export const ManuscriptNoteList: React.FC<Props> = React.memo(
         {items.length >= 0 && (
           <NoteListContainer>
             {items.map(([target, noteData]) => {
-              const isSelected = selected && selected.node.attrs.id
+              const isSelected =
+                (selected &&
+                  (selected.node.attrs.id === target ||
+                    selected.node.attrs.rid === target)) ||
+                false
               const selectedNoteData = selectResolved
                 ? noteData
                 : noteData.filter((note) => !note.comment.resolved)
