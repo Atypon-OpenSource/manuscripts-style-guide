@@ -268,7 +268,6 @@ export const NoteBodyContainer = styled.div<{
   padding: ${(props) => props.theme.grid.unit * 4}px 0
     ${(props) => props.theme.grid.unit * 2}px;
   background: ${(props) => props.theme.colors.background.primary};
-  cursor: pointer;
 
   ${(props) => borderStyle(props.theme.colors.border.secondary)};
   ${(props) =>

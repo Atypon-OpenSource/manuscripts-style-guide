@@ -37,6 +37,7 @@ export interface CommentBodyProps {
   comment: CommentType | UnsavedComment
   saveComment: (comment: CommentType | UnsavedComment) => Promise<CommentType>
   handleCreateReply: (id: string) => void
+  scrollIntoHighlight?: (comment: CommentType | UnsavedComment) => void
 }
 
 export const CommentBody: React.FC<
@@ -59,6 +60,7 @@ export const CommentBody: React.FC<
     isNew,
     handleCreateReply,
     setIsEditing,
+    scrollIntoHighlight,
     isEditing,
   }) => {
     useEffect(() => {
@@ -122,7 +124,11 @@ export const CommentBody: React.FC<
           </Formik>
         ) : (
           <div>
-            <CommentContent>
+            <CommentContent
+              onClick={() =>
+                scrollIntoHighlight && scrollIntoHighlight(comment)
+              }
+            >
               <StyledCommentViewer
                 value={comment.contents}
                 getCollaborator={getCollaborator}
@@ -188,6 +194,7 @@ const ActionButton = styled.button`
 `
 
 const CommentContent = styled.div`
+  cursor: pointer;
   padding: 0 ${(props) => props.theme.grid.unit * 4}px;
 `
 

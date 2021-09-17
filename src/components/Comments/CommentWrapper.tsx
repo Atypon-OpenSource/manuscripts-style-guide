@@ -57,6 +57,7 @@ export const CommentWrapper: React.FC<
   isProdNote,
   isSelected,
   handleRequestSelect,
+  scrollIntoHighlight,
   children,
 }) => {
   const [isEditing, setIsEditing] = useState<boolean>()
@@ -136,6 +137,7 @@ export const CommentWrapper: React.FC<
         isReply={isReply}
         saveComment={saveComment}
         handleCreateReply={handleCreateReply}
+        scrollIntoHighlight={scrollIntoHighlight}
         isNew={isNew}
         setIsEditing={setIsEditing}
         isEditing={isEditing}
