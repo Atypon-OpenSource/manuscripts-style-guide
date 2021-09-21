@@ -133,6 +133,59 @@ const errorsExplanations: errorsAssocList = {
     title: 'Internal error',
     description: 'There was an internal error in the system.',
   },
+  CI_CONSUME_NEW_PACKAGE_EXCEPTION: {
+    title: 'The package is not loaded',
+    description:
+      'There was an internal error while reading the source package.',
+  },
+  CI_VALIDATE_PACKAGE_EXCEPTION: {
+    title: 'Invalid package',
+    description:
+      'The content in the package sent from Peer Review system or other external source was invalid.',
+  },
+  CI_READY_FOR_CONVERSION_CHECK_EXCEPTION: {
+    title: 'Package validation failed',
+    description:
+      'There was an internal error while checking whether the package is ready to be converted to JATS XML.',
+  },
+  CI_FAIL_SERVICE_UNAVAILABLE: {
+    title: 'Completeness & Usability check failure',
+    description:
+      'The Completeness & Usability check failed because the service was not available at the time.',
+  },
+  CI_STRUCTURING_FAILED: {
+    title: 'Automated structuring failed',
+    description: 'The automated structuring of the document has failed.',
+  },
+  CI_UPLOAD_TO_EDITOR_EXCEPTION: {
+    title: 'Failed to load the article to the editor',
+    description:
+      'There was an internal exception while trying to load the article to the editor.',
+  },
+  CP_ASSIGN_TO_CS_FOR_IMAGE_PREP: {
+    title: 'Workflow manager error',
+    description:
+      'There was an internal error while trying to assign the task for image preparation.',
+  },
+  CP_ASSIGN_TO_CE_QUEUE_EXCEPTION: {
+    title: 'Workflow manager error',
+    description:
+      'There was an internal error while assigning the task to the Copy Editors queue.',
+  },
+  P_ASSIGN_TO_AUTHOR_EXCEPTION: {
+    title: 'Workflow manager error',
+    description:
+      'There was an internal error while assigning the task to the Author.',
+  },
+  PUB_FAIL_PACKAGE: {
+    title: 'Packaging the content failed',
+    description:
+      'There was an internal error while packaging the content for publication.',
+  },
+  PUB_FAIL_DELIVERY: {
+    title: 'The package was not delivered for publication',
+    description: 'The package could not be delivered for publication.',
+  },
 }
 
 export default (code: string): errorDescription =>
