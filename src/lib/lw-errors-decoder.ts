@@ -186,6 +186,10 @@ const errorsExplanations: errorsAssocList = {
     title: 'The package was not delivered for publication',
     description: 'The package could not be delivered for publication.',
   },
+  CI_FAIL_JATS_CONVERSION: {
+    title: 'Failure on conversion to JATS XML',
+    description: '',
+  },
 }
 
 export default (code: string): errorDescription =>
