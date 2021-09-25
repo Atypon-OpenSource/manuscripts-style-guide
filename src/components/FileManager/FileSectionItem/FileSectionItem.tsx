@@ -14,12 +14,13 @@
  * limitations under the License.
  */
 import { ExternalFile } from '@manuscripts/manuscripts-json-schema'
-import React, { CSSProperties, Dispatch, useContext } from 'react'
+import React, { CSSProperties, Dispatch } from 'react'
 import { DragElementWrapper, DragSourceOptions } from 'react-dnd'
 import styled from 'styled-components'
 
 import { useDropdown } from '../../../hooks/use-dropdown'
 import { DropdownContainer } from '../../Dropdown'
+import { CloseOIcon } from '../../icons/'
 import DotsIcon from '../../icons/dots-icon'
 import { Action } from '../FileSectionState'
 import { Designation, namesWithDesignationMap } from '../util'
@@ -54,6 +55,7 @@ export interface FileSectionItemProps {
   dragRef?: DragElementWrapper<DragSourceOptions>
   className?: string
   style?: CSSProperties
+  onClose?: () => void
 }
 
 export const FileSectionItem: React.FC<FileSectionItemProps> = ({
@@ -69,6 +71,7 @@ export const FileSectionItem: React.FC<FileSectionItemProps> = ({
   dragRef,
   className,
   style,
+  onClose,
 }) => {
   const { isOpen, toggleOpen, wrapperRef } = useDropdown()
 
@@ -100,6 +103,16 @@ export const FileSectionItem: React.FC<FileSectionItemProps> = ({
           dispatch={dispatch}
         />
       </ItemContainer>
+      {onClose && (
+        <IconCloseButton
+          onClick={(e) => {
+            e.preventDefault()
+            onClose()
+          }}
+        >
+          <CloseOIcon color={'#6E6E6E'} />
+        </IconCloseButton>
+      )}
       {handleDownload && handleReplace && submissionId && (
         <DropdownContainer ref={wrapperRef}>
           <ActionsIcon
@@ -126,6 +139,17 @@ export const FileSectionItem: React.FC<FileSectionItemProps> = ({
     </Item>
   )
 }
+
+const IconCloseButton = styled.button`
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  padding: 0 8px;
+  align-self: flex-start;
+  &:hover {
+    opacity: 0.5;
+  }
+`
 
 export const ActionsIcon = styled.button`
   visibility: hidden;
