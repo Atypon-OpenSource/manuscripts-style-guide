@@ -25,7 +25,11 @@ import styled from 'styled-components'
 import BottomArrowIcon from '../icons/BottomArrowIcon'
 import { PermissionsContext } from './FileManager'
 import { Action, actions } from './FileSectionState'
-import { FileSectionType, getUploadFileDesignationList } from './util'
+import {
+  Designation,
+  FileSectionType,
+  getUploadFileDesignationList,
+} from './util'
 
 /**
  * This list represents the transition options per item based on the allowed designation and allowed media types.
@@ -37,7 +41,7 @@ export interface DesignationOption {
 }
 export const SelectDesignationActions: React.FC<{
   fileExtension: string
-  fileSection: FileSectionType
+  fileSection: FileSectionType | Designation[]
   dispatch: Dispatch<Action>
 }> = ({ fileExtension, fileSection, dispatch }) => {
   const DropdownIndicator: React.FC<IndicatorContainerProps<
@@ -68,7 +72,6 @@ export const SelectDesignationActions: React.FC<{
       fileSection,
       can
     )
-
     return (
       <CreatableSelect<DesignationOption>
         closeMenuOnSelect={true}

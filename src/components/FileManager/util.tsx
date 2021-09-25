@@ -508,29 +508,19 @@ export const getDesignationByFileSection = (
 
 export const getUploadFileDesignationList = (
   fileExtension: string,
-  fileSectionType: FileSectionType,
+  fileSectionType: FileSectionType | Designation[],
   can: Capabilities | null
 ): Array<{ value: number; label: string }> => {
   const result = new Array<{ value: number; label: string }>()
-  const allowedDesignationByFileSection = getDesignationByFileSection(
-    fileSectionType
-  )
-  allowedDesignationByFileSection.forEach((value) => {
+
+  const checkDesignation = (value: Designation) => {
     if (value === Designation.MainManuscript && !can?.setMainManuscript) {
       return
     }
     const allowedExtension = designationWithAllowedMediaTypesMap.get(value)
-    if (allowedExtension && allowedExtension.length !== 0) {
-      if (allowedExtension.includes(fileExtension)) {
-        const label = designationWithReadableNamesMap.get(value)
-        if (label) {
-          result.push({
-            value: value,
-            label: label,
-          })
-        }
-      }
-    } else if (
+    const isAllowed = allowedExtension?.includes(fileExtension)
+    if (
+      isAllowed ||
       value === Designation.Supplementary ||
       value === Designation.SubmissionFile ||
       value === Designation.Dataset
@@ -543,7 +533,20 @@ export const getUploadFileDesignationList = (
         })
       }
     }
-  })
+  }
+  if (typeof fileSectionType === 'number') {
+    const allowedDesignationByFileSection = getDesignationByFileSection(
+      fileSectionType
+    )
+    allowedDesignationByFileSection.forEach(checkDesignation)
+  } else if (Array.isArray(fileSectionType)) {
+    designationWithFileSectionsMap.forEach((value, key) => {
+      if (fileSectionType.includes(key)) {
+        checkDesignation(key)
+      }
+    })
+  }
+
   return result
 }
 

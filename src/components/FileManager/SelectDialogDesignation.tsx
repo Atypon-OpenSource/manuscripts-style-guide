@@ -19,7 +19,7 @@ import styled from 'styled-components'
 import { Category, Dialog, MessageContainer, ModalBody } from '../Dialog'
 import { Action } from './FileSectionState'
 import { SelectDesignationActions } from './SelectDesignationActions'
-import { FileSectionType } from './util'
+import { Designation, FileSectionType } from './util'
 
 /**
  *  This component represents the other files in the file section.
@@ -27,7 +27,7 @@ import { FileSectionType } from './util'
 export const SelectDialogDesignation: React.FC<{
   isOpen: boolean
   fileExtension: string
-  fileSection: FileSectionType
+  fileSection: FileSectionType | Designation[]
   handleCancel: () => void
   uploadFileHandler: () => void
   dispatch: Dispatch<Action>
