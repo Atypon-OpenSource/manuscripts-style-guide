@@ -23,6 +23,7 @@ describe('decodedError', () => {
       title: 'Production Notes cannot be updated',
       description:
         'There was an internal error while updating the Production notes.',
+      type: 'System',
     })
   })
   it('should decode unknown error as', () => {
