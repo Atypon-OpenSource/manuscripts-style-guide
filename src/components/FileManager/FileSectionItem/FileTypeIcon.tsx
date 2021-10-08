@@ -49,7 +49,7 @@ export const FileTypeIcon: React.FC<{
           effect="solid"
           className="tooltip"
         >
-          <div>Submission File. Only one file per submission</div>
+          <div>Main manuscript. Only one file per submission</div>
         </ReactTooltip>
       </TooltipDiv>
       {fileIcon}

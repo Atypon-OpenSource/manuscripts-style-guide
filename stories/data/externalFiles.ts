@@ -33,7 +33,23 @@ export const externalFiles: ExternalFile[] = [
     manuscriptID: 'MPManuscript:my-manuscript',
     sessionID: 'test',
   },
-
+  {
+    MIME:
+      'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+    containerID: 'MPProject:abf5946f-f1d8-4ddb-a07b-03d346ce3766',
+    createdAt: 1624692020.657,
+    designation: 'main-manuscript',
+    displayName: 'production cabon ms 31691 text and tables.docx',
+    filename: 'production cabon ms 31691 text and tables.docx',
+    manuscriptID: 'MPManuscript:c2502325-e5d4-40bc-9378-4047518e24b5',
+    objectType: 'MPExternalFile',
+    publicUrl:
+      'https://lean-x7481.ciplit.com/lw/attachment/364a2885-5ee6-4225-9348-65d1843d59c6/production cabon ms 31691 text and tables.docx',
+    sessionID: '4c43bd02-c9e0-42e2-b669-4542721b9585',
+    storeId: 'com.atypon.lw-store',
+    updatedAt: 1624692020.657,
+    _id: 'MPExternalFile:988cf358-699a-4180-80a1',
+  },
   {
     containerID: 'MPProject:valid-project-id-2',
     _id: 'MPManuscript:valid-manuscript-id-2',
