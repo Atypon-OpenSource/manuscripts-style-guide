@@ -222,6 +222,12 @@ const errorsExplanations: errorsAssocList = {
     description: 'The package could not be delivered for publication.',
     type: 'System',
   },
+  CI_CONVERT_TO_JATS_EXCEPTION: {
+    title: 'Failed to convert the article to JATS XML',
+    description:
+      'There was an internal exception while trying to convert the article to JATS XML.',
+    type: 'System',
+  },
   CI_FAIL_JATS_CONVERSION: {
     title: 'Failure on conversion to JATS XML',
     description: '',
