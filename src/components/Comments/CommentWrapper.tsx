@@ -19,8 +19,7 @@ import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import styled from 'styled-components'
 
 import { Capabilities } from '../../lib/capabilities'
-import { CommentType, UnsavedComment } from '../../lib/comments'
-import { isSavedComment } from '../SubmissionInspector'
+import { CommentType, isSavedComment, UnsavedComment } from '../../lib/comments'
 import { CommentActions } from './CommentActions'
 import { CommentBody, CommentBodyProps } from './CommentBody'
 import { CommentUser } from './CommentUser'
@@ -61,10 +60,17 @@ export const CommentWrapper: React.FC<
   children,
 }) => {
   const [isEditing, setIsEditing] = useState<boolean>()
+  const threadRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     if (isNew) {
       setIsEditing(true)
+      if (threadRef.current) {
+        threadRef.current.scrollIntoView({
+          block: 'nearest',
+          inline: 'nearest',
+        })
+      }
     }
   }, [isNew])
 
@@ -93,7 +99,7 @@ export const CommentWrapper: React.FC<
   ])
 
   return (
-    <Note isSelected={isSelected}>
+    <Note ref={threadRef} isSelected={isSelected}>
       <NoteHeader>
         <NoteTitle
           type="button"
