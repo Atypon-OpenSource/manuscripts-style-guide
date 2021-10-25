@@ -83,7 +83,12 @@ export const FileSectionItem: React.FC<FileSectionItemProps> = ({
   const isMainManuscript = designation === Designation.MainManuscript
 
   return (
-    <Item ref={dragRef} className={className} style={style}>
+    <Item
+      ref={dragRef}
+      className={className}
+      style={style}
+      onClick={() => (window.location.hash = `#${externalFile._id}`)}
+    >
       <ItemContainer>
         <FileTypeIcon
           withDot={isMainManuscript}
