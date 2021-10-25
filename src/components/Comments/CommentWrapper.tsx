@@ -66,10 +66,18 @@ export const CommentWrapper: React.FC<
     if (isNew) {
       setIsEditing(true)
       if (threadRef.current) {
-        threadRef.current.scrollIntoView({
-          block: 'nearest',
-          inline: 'nearest',
-        })
+        /**
+         * Timeout added to wait for Inspector to open and show list of comments
+         * to get the right scroll height
+         */
+        setTimeout(
+          () =>
+            threadRef.current?.scrollIntoView({
+              block: 'nearest',
+              inline: 'nearest',
+            }),
+          100
+        )
       }
     }
   }, [isNew])
