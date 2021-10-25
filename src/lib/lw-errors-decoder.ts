@@ -125,6 +125,12 @@ const errorsExplanations: errorsAssocList = {
     description: '',
     type: 'System',
   },
+  FHC_FILES_NOT_APPEARING: {
+    title: 'Error loading the files',
+    description:
+      'There was an internal error while fetching the list of files for the article.',
+    type: 'System',
+  },
   FHC_UPLOAD_FAIL: {
     title: 'Upload of the file failed',
     description: 'There was an internal error while uploading the file.',
