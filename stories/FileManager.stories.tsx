@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+import { action } from '@storybook/addon-actions'
 import { storiesOf } from '@storybook/react'
 import React from 'react'
 
@@ -72,5 +73,6 @@ storiesOf('FileManager', module).add('FileManager', () => (
     handleDownload={handleDownload}
     handleReplace={handleReplace}
     handleChangeDesignation={handleChangeDesignation}
+    setNewUploadedFileName={action('set new File Uploaded')}
   />
 ))

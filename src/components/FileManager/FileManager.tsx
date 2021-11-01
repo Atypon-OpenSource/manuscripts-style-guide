@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 import { ExternalFile } from '@manuscripts/manuscripts-json-schema'
-import React, { createContext, useCallback, useMemo, useReducer } from 'react'
+import React, { createContext, useCallback, useEffect, useReducer } from 'react'
 import ReactTooltip from 'react-tooltip'
 
 import { Capabilities } from '../../lib/capabilities'
@@ -81,6 +81,10 @@ export const FileManager: React.FC<{
     typeId: string,
     name: string
   ) => Promise<boolean>
+  setNewUploadedFileName: React.Dispatch<
+    React.SetStateAction<string | undefined>
+  >
+  stopUploadProgress?: boolean
 }> = ({
   submissionId,
   externalFiles,
@@ -90,6 +94,8 @@ export const FileManager: React.FC<{
   handleDownload,
   handleReplace,
   handleChangeDesignation,
+  setNewUploadedFileName,
+  stopUploadProgress,
 }) => {
   const [state, dispatch] = useReducer(reducer, getInitialState())
   const handleReplaceFile = useCallback(
@@ -108,15 +114,22 @@ export const FileManager: React.FC<{
           dispatch(actions.SELECT_DESIGNATION(Designation.Supplementary))
         }
         const res = await handleUpload(submissionId, file, designation)
-        dispatch(actions.HANDLE_FINISH_UPLOAD())
+        setNewUploadedFileName(file.name)
         return res
       } catch (e) {
         console.error(e)
         return false
       }
     },
-    [handleUpload]
+    [handleUpload, setNewUploadedFileName]
   )
+
+  useEffect(() => {
+    if (stopUploadProgress) {
+      dispatch(actions.HANDLE_FINISH_UPLOAD())
+    }
+  }, [stopUploadProgress])
+
   const handleChangeDesignationFile = useCallback(
     async (submissionId, typeId, name) => {
       try {
