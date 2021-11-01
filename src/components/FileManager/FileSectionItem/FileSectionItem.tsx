@@ -16,6 +16,7 @@
 import { ExternalFile } from '@manuscripts/manuscripts-json-schema'
 import React, { CSSProperties, Dispatch } from 'react'
 import { DragElementWrapper, DragSourceOptions } from 'react-dnd'
+import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 
 import { useDropdown } from '../../../hooks/use-dropdown'
@@ -56,6 +57,7 @@ export interface FileSectionItemProps {
   className?: string
   style?: CSSProperties
   onClose?: () => void
+  isEditor?: boolean
 }
 
 export const FileSectionItem: React.FC<FileSectionItemProps> = ({
@@ -72,6 +74,7 @@ export const FileSectionItem: React.FC<FileSectionItemProps> = ({
   className,
   style,
   onClose,
+  isEditor,
 }) => {
   const { isOpen, toggleOpen, wrapperRef } = useDropdown()
 
@@ -83,13 +86,8 @@ export const FileSectionItem: React.FC<FileSectionItemProps> = ({
   const isMainManuscript = designation === Designation.MainManuscript
 
   return (
-    <Item
-      ref={dragRef}
-      className={className}
-      style={style}
-      onClick={() => (window.location.hash = `#${externalFile._id}`)}
-    >
-      <ItemContainer>
+    <Item ref={dragRef} className={className} style={style}>
+      <ItemContainer to={isEditor ? `#${externalFile._id}` : '#'}>
         <FileTypeIcon
           withDot={isMainManuscript}
           fileExtension={fileExtension}
@@ -194,9 +192,10 @@ export const Item = styled.div`
     margin-right: 8px;
   }
 `
-export const ItemContainer = styled.div`
+export const ItemContainer = styled(Link)`
   display: flex;
   min-width: calc(100% - 8px);
   padding-right: 4px;
   box-sizing: border-box;
+  text-decoration: none;
 `

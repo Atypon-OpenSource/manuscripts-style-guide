@@ -195,7 +195,13 @@ export const FileManager: React.FC<{
           />
         )
       } else {
-        return <FileSectionItem {...itemProps} key={element.externalFile._id} />
+        return (
+          <FileSectionItem
+            {...itemProps}
+            key={element.externalFile._id}
+            isEditor={enableDragAndDrop}
+          />
+        )
       }
     })
     return filesItems
