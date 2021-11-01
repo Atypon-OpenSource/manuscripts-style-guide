@@ -19,7 +19,7 @@ export const externalFiles: ExternalFile[] = [
   {
     containerID: 'MPProject:valid-project-id-2',
     _id: 'MPManuscript:valid-manuscript-id-1',
-    createdAt: 0,
+    createdAt: 1624692040.657,
     updatedAt: 0,
     filename: 'supplementary-file.docx',
     displayName: 'Supplemental file',
@@ -53,7 +53,7 @@ export const externalFiles: ExternalFile[] = [
   {
     containerID: 'MPProject:valid-project-id-2',
     _id: 'MPManuscript:valid-manuscript-id-2',
-    createdAt: 0,
+    createdAt: 1224692020.657,
     updatedAt: 0,
     filename: 'my-figure.jpeg',
     displayName: 'Inline File',
@@ -71,7 +71,7 @@ export const externalFiles: ExternalFile[] = [
   {
     containerID: 'MPProject:valid-project-id-2',
     _id: 'MPManuscript:valid-manuscript-id-3',
-    createdAt: 0,
+    createdAt: 1624692060.657,
     updatedAt: 0,
     filename: 'my-table.xls',
     displayName: 'Inline file',
@@ -89,7 +89,7 @@ export const externalFiles: ExternalFile[] = [
   {
     containerID: 'MPProject:valid-project-id-2',
     _id: 'MPManuscript:valid-manuscript-id-4',
-    createdAt: 0,
+    createdAt: 1624696020.657,
     updatedAt: 0,
     filename: 'my-supplementary-file.docx',
     displayName: 'Supplemental file',
@@ -107,7 +107,7 @@ export const externalFiles: ExternalFile[] = [
   {
     containerID: 'MPProject:valid-project-id-2',
     _id: 'MPManuscript:valid-manuscript-id-5',
-    createdAt: 0,
+    createdAt: 1624612020.657,
     updatedAt: 0,
     filename: 'supplemental-file.docx',
     displayName: 'Supplemental file',
@@ -125,7 +125,7 @@ export const externalFiles: ExternalFile[] = [
   {
     containerID: 'MPProject:valid-project-id-2',
     _id: 'MPManuscript:valid-manuscript-id-6',
-    createdAt: 0,
+    createdAt: 1624792020.657,
     updatedAt: 0,
     filename: 'my-conflict-of-interest-file.pdf',
     displayName: 'Other file',
@@ -143,7 +143,7 @@ export const externalFiles: ExternalFile[] = [
   {
     containerID: 'MPProject:valid-project-id-2',
     _id: 'MPManuscript:valid-manuscript-id-7',
-    createdAt: 0,
+    createdAt: 1624696020.657,
     updatedAt: 0,
     filename: 'my-document.tex',
     displayName: 'Other file',
@@ -161,7 +161,7 @@ export const externalFiles: ExternalFile[] = [
   {
     containerID: 'MPProject:valid-project-id-2',
     _id: 'MPManuscript:valid-manuscript-id-8',
-    createdAt: 0,
+    createdAt: 1624698020.657,
     updatedAt: 0,
     filename: 'my-graphical-abstract-file.doc',
     displayName: 'Other file',
@@ -179,7 +179,7 @@ export const externalFiles: ExternalFile[] = [
   {
     containerID: 'MPProject:valid-project-id-2',
     _id: 'MPManuscript:valid-manuscript-id-9',
-    createdAt: 0,
+    createdAt: 1124692920.657,
     updatedAt: 0,
     filename: 'my-figure-new.png',
     displayName: 'Inline File',
@@ -197,7 +197,7 @@ export const externalFiles: ExternalFile[] = [
   {
     containerID: 'MPProject:valid-project-id-2',
     _id: 'MPManuscript:valid-manuscript-id-10',
-    createdAt: 0,
+    createdAt: 1624692027.657,
     updatedAt: 0,
     filename: 'my-graphical-abstract-image-file.gif',
     displayName: 'Other file',
@@ -215,7 +215,7 @@ export const externalFiles: ExternalFile[] = [
   {
     containerID: 'MPProject:valid-project-id-2',
     _id: 'MPManuscript:valid-manuscript-id-11',
-    createdAt: 0,
+    createdAt: 1624492020.657,
     updatedAt: 0,
     filename: 'my-graphical-abstract-text-file.txt',
     displayName: 'Other file',
@@ -233,7 +233,7 @@ export const externalFiles: ExternalFile[] = [
   {
     containerID: 'MPProject:valid-project-id-2',
     _id: 'MPManuscript:valid-manuscript-id-12',
-    createdAt: 0,
+    createdAt: 1623692020.657,
     updatedAt: 0,
     filename: 'my-metadata-file.xml',
     displayName: 'Other file',
@@ -251,7 +251,7 @@ export const externalFiles: ExternalFile[] = [
   {
     containerID: 'MPProject:valid-project-id-2',
     _id: 'MPManuscript:valid-manuscript-id-13',
-    createdAt: 0,
+    createdAt: 1624698020.657,
     updatedAt: 0,
     filename: 'my-submission-file.docx',
     displayName: 'Other file',
@@ -269,7 +269,7 @@ export const externalFiles: ExternalFile[] = [
   {
     containerID: 'MPProject:valid-project-id-2',
     _id: 'MPManuscript:valid-manuscript-id-14',
-    createdAt: 0,
+    createdAt: 1624782020.657,
     updatedAt: 0,
     filename: 'my-submission-pdf.pdf',
     displayName: 'Other file',
@@ -287,7 +287,7 @@ export const externalFiles: ExternalFile[] = [
   {
     containerID: 'MPProject:valid-project-id-2',
     _id: 'MPManuscript:valid-manuscript-id-15',
-    createdAt: 0,
+    createdAt: 1624332020.657,
     updatedAt: 0,
     filename: 'my-title-page.pdf',
     displayName: 'Other file',
@@ -302,7 +302,7 @@ export const externalFiles: ExternalFile[] = [
   {
     containerID: 'MPProject:valid-project-id-2',
     _id: 'MPManuscript:valid-manuscript-id-16',
-    createdAt: 0,
+    createdAt: 1621192020.657,
     updatedAt: 0,
     filename: 'my-title-packageFile.zip',
     displayName: 'Other file',
@@ -318,7 +318,7 @@ export const externalFiles: ExternalFile[] = [
   {
     containerID: 'MPProject:valid-project-id-2',
     _id: 'MPManuscript:valid-manuscript-id-17',
-    createdAt: 0,
+    createdAt: 1699692020.657,
     updatedAt: 0,
     filename: 'my-title-unknownFile.exe',
     displayName: 'Other file',

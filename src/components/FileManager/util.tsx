@@ -442,14 +442,23 @@ export const generateExternalFilesTitles = (
 }
 
 /**
- * In this method we sort the external files array based on the title alphabetically.
+ * In this method we sort the external files array based on the created date and the manin-manuscript.
  */
 export const sortExternalFiles = (
   externalFilesWithTitles: Array<{ title: string; externalFile: ExternalFile }>
 ): Array<{ title: string; externalFile: ExternalFile }> => {
-  externalFilesWithTitles.sort((a, b) =>
-    a.title.localeCompare(b.title, undefined, { numeric: true })
-  )
+  externalFilesWithTitles
+    .sort(
+      (a, b) =>
+        Number(a.externalFile.createdAt) - Number(b.externalFile.createdAt)
+    )
+    .sort((a, b) =>
+      b.externalFile.designation === 'main-manuscript'
+        ? 1
+        : a.externalFile.designation === 'main-manuscript'
+        ? -1
+        : 0
+    )
   return externalFilesWithTitles
 }
 

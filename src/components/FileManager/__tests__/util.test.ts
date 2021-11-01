@@ -117,9 +117,9 @@ test('Checking sorting external files', () => {
 
   expect(sortedData.length).toBe<number>(4)
   expect(sortedData[0].title).toEqual<string>('Doc 1')
-  expect(sortedData[1].title).toEqual<string>('Doc 2')
-  expect(sortedData[2].title).toEqual<string>('Doc 3')
-  expect(sortedData[3].title).toEqual<string>('Image 1')
+  expect(sortedData[1].title).toEqual<string>('Image 1')
+  expect(sortedData[2].title).toEqual<string>('Doc 2')
+  expect(sortedData[3].title).toEqual<string>('Doc 3')
 })
 
 test('Checking designation actions list', () => {
