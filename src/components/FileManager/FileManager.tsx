@@ -158,8 +158,9 @@ export const FileManager: React.FC<{
     })
 
     // Generating a title for the external files and sorting the external files based on the generated title
-    const itemsDataWithTitle = sortExternalFiles(
-      generateExternalFilesTitles(itemsData, fileSection)
+    const itemsDataWithTitle = generateExternalFilesTitles(
+      sortExternalFiles(itemsData),
+      fileSection
     )
 
     const filesItems = itemsDataWithTitle.map((element) => {

@@ -445,22 +445,17 @@ export const generateExternalFilesTitles = (
  * In this method we sort the external files array based on the created date and the manin-manuscript.
  */
 export const sortExternalFiles = (
-  externalFilesWithTitles: Array<{ title: string; externalFile: ExternalFile }>
-): Array<{ title: string; externalFile: ExternalFile }> => {
-  externalFilesWithTitles
-    .sort(
-      (a, b) =>
-        Number(a.externalFile.createdAt) - Number(b.externalFile.createdAt)
-    )
+  externalFile: ExternalFile[]
+): ExternalFile[] =>
+  externalFile
+    .sort((a, b) => Number(a.createdAt) - Number(b.createdAt))
     .sort((a, b) =>
-      b.externalFile.designation === 'main-manuscript'
+      b.designation === 'main-manuscript'
         ? 1
-        : a.externalFile.designation === 'main-manuscript'
+        : a.designation === 'main-manuscript'
         ? -1
         : 0
     )
-  return externalFilesWithTitles
-}
 
 export const getDesignationActionsList = (
   designation: Designation,

@@ -109,17 +109,18 @@ test('Checking the generated titles for external files', () => {
 })
 
 test('Checking sorting external files', () => {
+  const sortedData = sortExternalFiles(externalFiles)
+
   const data = generateExternalFilesTitles(
-    externalFiles,
+    sortedData,
     FileSectionType.OtherFile
   )
-  const sortedData = sortExternalFiles(data)
 
-  expect(sortedData.length).toBe<number>(4)
-  expect(sortedData[0].title).toEqual<string>('Doc 1')
-  expect(sortedData[1].title).toEqual<string>('Image 1')
-  expect(sortedData[2].title).toEqual<string>('Doc 2')
-  expect(sortedData[3].title).toEqual<string>('Doc 3')
+  expect(data.length).toBe<number>(4)
+  expect(data[0].title).toEqual<string>('Doc 1')
+  expect(data[1].title).toEqual<string>('Image 1')
+  expect(data[2].title).toEqual<string>('Doc 2')
+  expect(data[3].title).toEqual<string>('Doc 3')
 })
 
 test('Checking designation actions list', () => {
