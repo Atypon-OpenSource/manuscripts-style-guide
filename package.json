@@ -15,9 +15,9 @@
     "react"
   ],
   "scripts": {
-    "build": "npm-run-all --parallel 'build:* --project tsconfig.build.json'",
-    "build:cjs": "tsc --outDir dist/cjs --module commonjs",
-    "build:es": "tsc --outDir dist/es --declarationDir dist/types --declaration",
+    "build": "npm-run-all --parallel 'build:*'",
+    "build:cjs": "tsc --outDir dist/cjs --module commonjs --p tsconfig.build.json",
+    "build:es": "tsc --outDir dist/es --declarationDir dist/types --declaration --p tsconfig.build.json",
     "build-storybook": "build-storybook",
     "dev": "npm-run-all --parallel 'build:* --project tsconfig.build.json --watch'",
     "lint": "eslint src stories --ext .ts,.tsx --max-warnings=0",
