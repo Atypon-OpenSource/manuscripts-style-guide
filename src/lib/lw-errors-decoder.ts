@@ -27,7 +27,8 @@ interface errorsAssocList {
 const errorsExplanations: errorsAssocList = {
   ANY_ERR_AUTHORIZATION: {
     title: 'Authorization issue',
-    description: "It seems you don't have access to this page. If you think...",
+    description:
+      "It seems you don't have access to this resource. If you think you should have access, please contact the support team.",
     type: 'System',
   },
   PREVIEW_HTML_GENERATION_FAILED: {
