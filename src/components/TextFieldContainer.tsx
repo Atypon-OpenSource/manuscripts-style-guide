@@ -35,20 +35,20 @@ export const TextFieldContainer: React.FunctionComponent<
       React.cloneElement(child, { error })
   )
 
-  return (
-    <React.Fragment>
-      {label ? (
-        <TextFieldLabel>
-          {label} {childrenWithErrorProp}
-        </TextFieldLabel>
-      ) : (
-        childrenWithErrorProp
-      )}
-      {error && (
-        <TextFieldError>
-          <TextFieldErrorItem>{error}</TextFieldErrorItem>
-        </TextFieldError>
-      )}
-    </React.Fragment>
-  )
-}
+    return (
+      <React.Fragment>
+        {label ? (
+          <TextFieldLabel>
+            {label} {childrenWithErrorProp}
+          </TextFieldLabel>
+        ) : (
+          childrenWithErrorProp
+        )}
+        {error && (
+          <TextFieldError>
+            <TextFieldErrorItem>{error}</TextFieldErrorItem>
+          </TextFieldError>
+        )}
+      </React.Fragment>
+    )
+  }
