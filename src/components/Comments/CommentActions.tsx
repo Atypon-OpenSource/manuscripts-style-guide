@@ -50,11 +50,10 @@ export const CommentActions: React.FC<{
   const handleRequestEdit = useCallback(() => {
     setIsEditing(true)
   }, [setIsEditing])
-  const handleRequestDelete = useCallback(() => deleteComment(id, target), [
-    deleteComment,
-    id,
-    target,
-  ])
+  const handleRequestDelete = useCallback(
+    () => deleteComment(id, target),
+    [deleteComment, id, target]
+  )
 
   const canResolve = useMemo(() => {
     if (!isProdNote) {

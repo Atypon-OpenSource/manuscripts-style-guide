@@ -44,9 +44,9 @@ export const SelectDesignationActions: React.FC<{
   fileSection: FileSectionType | Designation[]
   dispatch: Dispatch<Action>
 }> = ({ fileExtension, fileSection, dispatch }) => {
-  const DropdownIndicator: React.FC<IndicatorContainerProps<
-    DesignationOption
-  >> = () => (
+  const DropdownIndicator: React.FC<
+    IndicatorContainerProps<DesignationOption>
+  > = () => (
     <SelectDesignationContainer>
       <BottomArrowIcon />
     </SelectDesignationContainer>

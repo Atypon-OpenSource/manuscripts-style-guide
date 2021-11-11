@@ -30,25 +30,23 @@ interface TextFieldGroupContainerProps {
   errors?: Errors
 }
 
-export const TextFieldGroupContainer: React.FunctionComponent<TextFieldGroupContainerProps> = ({
-  children,
-  errors,
-}) => {
-  return (
-    <TextFieldGroup>
-      {children}
-      {errors && hasErrors(errors) && (
-        <TextFieldError>
-          {Object.entries(errors).map(
-            ([key, error]) =>
-              error && (
-                <TextFieldErrorItem id={`${key}-text-field-error`} key={key}>
-                  {error}
-                </TextFieldErrorItem>
-              )
-          )}
-        </TextFieldError>
-      )}
-    </TextFieldGroup>
-  )
-}
+export const TextFieldGroupContainer: React.FunctionComponent<TextFieldGroupContainerProps> =
+  ({ children, errors }) => {
+    return (
+      <TextFieldGroup>
+        {children}
+        {errors && hasErrors(errors) && (
+          <TextFieldError>
+            {Object.entries(errors).map(
+              ([key, error]) =>
+                error && (
+                  <TextFieldErrorItem id={`${key}-text-field-error`} key={key}>
+                    {error}
+                  </TextFieldErrorItem>
+                )
+            )}
+          </TextFieldError>
+        )}
+      </TextFieldGroup>
+    )
+  }

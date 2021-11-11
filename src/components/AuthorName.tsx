@@ -47,6 +47,5 @@ const AuthorNameComponent: React.FC<
     </NameParts>
   )
 
-export const AuthorName: React.FC<AuthorNameProps> = withTheme(
-  AuthorNameComponent
-)
+export const AuthorName: React.FC<AuthorNameProps> =
+  withTheme(AuthorNameComponent)
