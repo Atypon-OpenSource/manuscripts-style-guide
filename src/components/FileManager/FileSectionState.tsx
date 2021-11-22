@@ -50,6 +50,7 @@ enum ActionTypes {
   HANDLE_UPLOAD_ACTION = 'handleUpload',
   HANDLE_FINISH_UPLOAD = 'handleFinishUpload',
   HANDLE_SUCCESS_MESSAGE = 'handleSuccessMessage',
+  SHOW_FILE_UPLOADED_ALERT = 'showFileUploadedAlert',
   CLOSE_FILE_UPLOADED_ALERT = 'closeFileUploadedAlert',
 }
 
@@ -101,9 +102,14 @@ export const reducer = (state: State, action: Action): State => {
       return {
         ...state,
         isUploadFile: false,
-        isFileUploaded: true,
         uploadedFile: undefined,
         selectDesignation: undefined,
+      }
+    }
+    case ActionTypes.SHOW_FILE_UPLOADED_ALERT: {
+      return {
+        ...state,
+        isFileUploaded: true,
       }
     }
     case ActionTypes.HANDLE_SUCCESS_MESSAGE: {
@@ -159,6 +165,12 @@ export const actions = {
    */
   HANDLE_FINISH_UPLOAD: (): Action => ({
     type: ActionTypes.HANDLE_FINISH_UPLOAD,
+  }),
+  /**
+   * Show message when file uploaded
+   */
+  SHOW_FILE_UPLOADED_ALERT: (): Action => ({
+    type: ActionTypes.CLOSE_FILE_UPLOADED_ALERT,
   }),
   /**
    * Close Alert shown after file uploaded

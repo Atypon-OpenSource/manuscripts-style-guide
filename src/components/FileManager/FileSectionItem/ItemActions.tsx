@@ -13,10 +13,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import React, { ChangeEvent, useContext, useRef, useState } from 'react'
+import React, {
+  ChangeEvent,
+  Dispatch,
+  useContext,
+  useRef,
+  useState,
+} from 'react'
 
 import { DropdownList } from '../../Dropdown'
 import { PermissionsContext } from '../FileManager'
+import { Action, actions } from '../FileSectionState'
 import { ActionsItem } from '../ItemsAction'
 
 /**
@@ -35,6 +42,7 @@ export const ItemActions: React.FC<{
   designation?: string | undefined
   publicUrl: string | undefined
   hideActionList: () => void
+  dispatch?: Dispatch<Action>
 }> = ({
   downloadAttachmentHandler,
   replaceAttachmentHandler,
@@ -43,6 +51,7 @@ export const ItemActions: React.FC<{
   designation,
   publicUrl,
   hideActionList,
+  dispatch,
 }) => {
   const attachmentDesignation =
     designation == undefined ? 'undefined' : designation
@@ -53,6 +62,9 @@ export const ItemActions: React.FC<{
     if (event && event.target && event.target.files) {
       const file = event.target.files[0]
       setSelectedFile(file)
+      if (dispatch) {
+        dispatch(actions.UPLOAD_FILE(file))
+      }
       replaceAttachmentHandler(
         submissionId,
         fileName,

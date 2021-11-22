@@ -93,8 +93,21 @@ export const FileManager: React.FC<{
 }) => {
   const [state, dispatch] = useReducer(reducer, getInitialState())
   const handleReplaceFile = useCallback(
-    (submissionId, name, file, typeId) => {
-      return handleReplace(submissionId, name, file, typeId)
+    async (submissionId, name, file, typeId) => {
+      dispatch(actions.HANDLE_UPLOAD_ACTION())
+      dispatch(
+        actions.SELECT_DESIGNATION(
+          namesWithDesignationMap.get(typeId) || Designation.Document
+        )
+      )
+      const res = await handleReplace(submissionId, name, file, typeId)
+      if (res) {
+        dispatch(actions.SHOW_FILE_UPLOADED_ALERT())
+        dispatch(actions.HANDLE_FINISH_UPLOAD())
+      } else {
+        dispatch(actions.HANDLE_FINISH_UPLOAD())
+      }
+      return res
     },
     [handleReplace]
   )
@@ -108,7 +121,12 @@ export const FileManager: React.FC<{
           dispatch(actions.SELECT_DESIGNATION(Designation.Supplementary))
         }
         const res = await handleUpload(submissionId, file, designation)
-        dispatch(actions.HANDLE_FINISH_UPLOAD())
+        if (res) {
+          dispatch(actions.SHOW_FILE_UPLOADED_ALERT())
+          dispatch(actions.HANDLE_FINISH_UPLOAD())
+        } else {
+          dispatch(actions.HANDLE_FINISH_UPLOAD())
+        }
         return res
       } catch (e) {
         console.error(e)

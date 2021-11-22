@@ -135,6 +135,7 @@ export const FileSectionItem: React.FC<FileSectionItemProps> = ({
               designation={externalFile.designation}
               publicUrl={externalFile.publicUrl}
               hideActionList={toggleOpen}
+              dispatch={dispatch}
             />
           )}
         </DropdownContainer>
