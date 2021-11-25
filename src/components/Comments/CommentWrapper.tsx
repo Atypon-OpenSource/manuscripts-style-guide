@@ -101,10 +101,10 @@ export const CommentWrapper: React.FC<
     [handleRequestSelect]
   )
 
-  const isOwnComment = useMemo(() => isOwn(comment, currentUserId), [
-    comment,
-    currentUserId,
-  ])
+  const isOwnComment = useMemo(
+    () => isOwn(comment, currentUserId),
+    [comment, currentUserId]
+  )
 
   return (
     <Note ref={threadRef} isSelected={isSelected}>

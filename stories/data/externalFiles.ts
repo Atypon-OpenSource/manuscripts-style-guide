@@ -23,8 +23,7 @@ export const externalFiles: ExternalFile[] = [
     updatedAt: 0,
     filename: 'supplementary-file.docx',
     displayName: 'Supplemental file',
-    MIME:
-      'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+    MIME: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
     description:
       "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
     designation: 'supplementary',
@@ -34,8 +33,7 @@ export const externalFiles: ExternalFile[] = [
     sessionID: 'test',
   },
   {
-    MIME:
-      'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+    MIME: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
     containerID: 'MPProject:abf5946f-f1d8-4ddb-a07b-03d346ce3766',
     createdAt: 1624692020.657,
     designation: 'main-manuscript',
@@ -57,8 +55,7 @@ export const externalFiles: ExternalFile[] = [
     updatedAt: 0,
     filename: 'my-figure.jpeg',
     displayName: 'Inline File',
-    MIME:
-      'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+    MIME: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
     description:
       "test 2 Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
     designation: 'figure',
@@ -75,8 +72,7 @@ export const externalFiles: ExternalFile[] = [
     updatedAt: 0,
     filename: 'my-table.xls',
     displayName: 'Inline file',
-    MIME:
-      'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+    MIME: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
     description:
       "test 1 Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
     designation: 'table',
@@ -93,8 +89,7 @@ export const externalFiles: ExternalFile[] = [
     updatedAt: 0,
     filename: 'my-supplementary-file.docx',
     displayName: 'Supplemental file',
-    MIME:
-      'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+    MIME: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
     description:
       "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
     designation: 'supplementary',
@@ -111,8 +106,7 @@ export const externalFiles: ExternalFile[] = [
     updatedAt: 0,
     filename: 'supplemental-file.docx',
     displayName: 'Supplemental file',
-    MIME:
-      'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+    MIME: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
     description:
       "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
     designation: 'supplemental',
@@ -129,8 +123,7 @@ export const externalFiles: ExternalFile[] = [
     updatedAt: 0,
     filename: 'my-conflict-of-interest-file.pdf',
     displayName: 'Other file',
-    MIME:
-      'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+    MIME: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
     description:
       "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
     designation: 'conflict-of-interest',
@@ -147,8 +140,7 @@ export const externalFiles: ExternalFile[] = [
     updatedAt: 0,
     filename: 'my-document.tex',
     displayName: 'Other file',
-    MIME:
-      'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+    MIME: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
     description:
       "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
     designation: 'document',
@@ -165,8 +157,7 @@ export const externalFiles: ExternalFile[] = [
     updatedAt: 0,
     filename: 'my-graphical-abstract-file.doc',
     displayName: 'Other file',
-    MIME:
-      'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+    MIME: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
     description:
       "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
     designation: 'graphical-abstract',
@@ -183,8 +174,7 @@ export const externalFiles: ExternalFile[] = [
     updatedAt: 0,
     filename: 'my-figure-new.png',
     displayName: 'Inline File',
-    MIME:
-      'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+    MIME: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
     description:
       "test 3 Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
     designation: 'figure',
@@ -201,8 +191,7 @@ export const externalFiles: ExternalFile[] = [
     updatedAt: 0,
     filename: 'my-graphical-abstract-image-file.gif',
     displayName: 'Other file',
-    MIME:
-      'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+    MIME: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
     description:
       "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
     designation: 'graphical-abstract-image',
@@ -219,8 +208,7 @@ export const externalFiles: ExternalFile[] = [
     updatedAt: 0,
     filename: 'my-graphical-abstract-text-file.txt',
     displayName: 'Other file',
-    MIME:
-      'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+    MIME: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
     description:
       "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
     designation: 'graphical-abstract-text',
@@ -237,8 +225,7 @@ export const externalFiles: ExternalFile[] = [
     updatedAt: 0,
     filename: 'my-metadata-file.xml',
     displayName: 'Other file',
-    MIME:
-      'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+    MIME: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
     description:
       "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
     designation: 'metadata',
@@ -255,8 +242,7 @@ export const externalFiles: ExternalFile[] = [
     updatedAt: 0,
     filename: 'my-submission-file.docx',
     displayName: 'Other file',
-    MIME:
-      'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+    MIME: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
     description:
       "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
     designation: 'submission-file',
@@ -273,8 +259,7 @@ export const externalFiles: ExternalFile[] = [
     updatedAt: 0,
     filename: 'my-submission-pdf.pdf',
     displayName: 'Other file',
-    MIME:
-      'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+    MIME: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
     description:
       "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
     designation: 'submission-pdf',
@@ -291,8 +276,7 @@ export const externalFiles: ExternalFile[] = [
     updatedAt: 0,
     filename: 'my-title-page.pdf',
     displayName: 'Other file',
-    MIME:
-      'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+    MIME: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
     designation: 'title-page',
     objectType: 'MPExternalFile',
     publicUrl: 'my-title-page.pdf/url',
@@ -306,8 +290,7 @@ export const externalFiles: ExternalFile[] = [
     updatedAt: 0,
     filename: 'my-title-packageFile.zip',
     displayName: 'Other file',
-    MIME:
-      'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+    MIME: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
     designation: 'title-page',
     objectType: 'MPExternalFile',
     publicUrl: 'my-title-packageFile.zip/url',
@@ -322,8 +305,7 @@ export const externalFiles: ExternalFile[] = [
     updatedAt: 0,
     filename: 'my-title-unknownFile.exe',
     displayName: 'Other file',
-    MIME:
-      'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+    MIME: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
     designation: 'title-page',
     objectType: 'MPExternalFile',
     publicUrl: 'my-title-unknownFile.exe/url',

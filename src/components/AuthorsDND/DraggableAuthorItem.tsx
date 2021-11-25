@@ -354,4 +354,4 @@ const dropTarget = DropTarget<Props, ConnectedDropTargetProps>(
 
 const DraggableAuthorItem = dragSource(dropTarget(AuthorComponent))
 
-export default withTheme(DraggableAuthorItem)
+export default DraggableAuthorItem

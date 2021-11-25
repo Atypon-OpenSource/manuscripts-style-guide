@@ -16,6 +16,7 @@
 
 import { ContributorRole } from '@manuscripts/manuscripts-json-schema'
 import React, { useMemo, useState } from 'react'
+import { MultiValue } from 'react-select'
 import CreatableSelect from 'react-select/creatable'
 
 const sortRolesAlphabetical = (a: ContributorRole, b: ContributorRole) =>
@@ -73,7 +74,7 @@ export const ContributorRolesSelect: React.FC<{
   }, [contributorRoles])
 
   return (
-    <CreatableSelect<ContributorRole>
+    <CreatableSelect
       options={options}
       value={selectedRoles}
       isMulti={true}
@@ -99,10 +100,8 @@ export const ContributorRolesSelect: React.FC<{
       }}
       getOptionValue={(option) => option._id}
       getOptionLabel={(option) => option.name}
-      onChange={(value) => {
-        const items = value as ContributorRole[]
-
-        setFieldValue(items.map((item) => item._id))
+      onChange={(value: MultiValue<ContributorRole>) => {
+        setFieldValue(value.map((item) => item._id))
       }}
     />
   )

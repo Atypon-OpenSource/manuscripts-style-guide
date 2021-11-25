@@ -16,7 +16,17 @@ module.exports = ({ config }) => {
     },
   })
 
+  config.module.rules.push({
+    test: /pdfjs-dist.+.js$/,
+    use: {
+      loader: 'babel-loader',
+      options: {
+        cacheDirectory: true,
+      },
+    },
+  })
+
   config.resolve.extensions.push('.ts', '.tsx')
 
-  return config;
-};
+  return config
+}

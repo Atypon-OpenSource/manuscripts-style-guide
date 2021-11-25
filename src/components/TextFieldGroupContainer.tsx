@@ -30,10 +30,9 @@ interface TextFieldGroupContainerProps {
   errors?: Errors
 }
 
-export const TextFieldGroupContainer: React.FunctionComponent<TextFieldGroupContainerProps> = ({
-  children,
-  errors,
-}) => {
+export const TextFieldGroupContainer: React.FunctionComponent<
+  TextFieldGroupContainerProps
+> = ({ children, errors }) => {
   return (
     <TextFieldGroup>
       {children}

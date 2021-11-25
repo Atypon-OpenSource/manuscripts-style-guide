@@ -33,8 +33,7 @@ const externalFiles: ExternalFile[] = [
     filename: 'supplementary-file.docx',
     publicUrl: 'supplementary-file.docx',
     displayName: 'Supplemental file',
-    MIME:
-      'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+    MIME: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
     description:
       "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
     designation: 'supplementary',
@@ -50,8 +49,7 @@ const externalFiles: ExternalFile[] = [
     filename: 'my-figure.jpeg',
     publicUrl: 'my-figure.jpeg',
     displayName: 'Inline File',
-    MIME:
-      'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+    MIME: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
     description:
       "test 2 Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
     designation: 'figure',
@@ -67,8 +65,7 @@ const externalFiles: ExternalFile[] = [
     filename: 'my-submission-file.docx',
     publicUrl: 'my-submission-file.docx',
     displayName: 'Other file',
-    MIME:
-      'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+    MIME: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
     description:
       "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
     designation: 'submission_file',
@@ -84,8 +81,7 @@ const externalFiles: ExternalFile[] = [
     filename: 'my-conflict-of-interest-file.pdf',
     publicUrl: 'my-conflict-of-interest-file.pdf',
     displayName: 'Other file',
-    MIME:
-      'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+    MIME: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
     description:
       "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
     designation: 'conflict-of-interest',

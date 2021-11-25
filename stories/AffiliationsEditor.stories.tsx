@@ -23,11 +23,8 @@ import { AffiliationsEditor, AffiliationsEditorProfile } from '../src'
 import { buildAuthorsAndAffiliations } from '../src/lib/authors'
 import submission from './data/submission'
 
-const {
-  authors,
-  affiliations,
-  authorAffiliations,
-} = buildAuthorsAndAffiliations(submission)
+const { authors, affiliations, authorAffiliations } =
+  buildAuthorsAndAffiliations(submission)
 
 storiesOf('AffiliationsEditor', module)
   .add('basic', () => (
@@ -73,7 +70,7 @@ storiesOf('AffiliationsEditor', module)
 storiesOf('AffiliationsEditorProfile', module).add('basic', () => (
   <AffiliationsEditorProfile
     affiliations={
-      (affiliations as unknown) as Map<string, UserProfileAffiliation>
+      affiliations as unknown as Map<string, UserProfileAffiliation>
     }
     addAffiliation={action('create affiliation')}
     removeAffiliation={action('remove affiliation')}

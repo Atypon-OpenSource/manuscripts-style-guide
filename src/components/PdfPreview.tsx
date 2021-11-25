@@ -13,17 +13,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import 'pdfjs-dist/es5/web/pdf_viewer.css'
+import 'pdfjs-dist/web/pdf_viewer.css'
 
 // NOTE when upgrading https://github.com/mozilla/pdf.js/issues/13190
-import { getDocument, GlobalWorkerOptions } from 'pdfjs-dist/es5/build/pdf'
-import * as pdfjsWorker from 'pdfjs-dist/es5/build/pdf.worker.entry'
-import { EventBus, PDFViewer } from 'pdfjs-dist/es5/web/pdf_viewer'
+import { getDocument, GlobalWorkerOptions } from 'pdfjs-dist/build/pdf'
+import * as pdfjsWorker from 'pdfjs-dist/build/pdf.worker.entry'
 import {
   PDFDocumentLoadingTask,
   PDFDocumentProxy,
   // eslint-disable-next-line import/no-unresolved
-} from 'pdfjs-dist/types/display/api'
+} from 'pdfjs-dist/types/src/display/api'
+import { EventBus, PDFViewer } from 'pdfjs-dist/web/pdf_viewer'
 import React, { useEffect, useRef, useState } from 'react'
 import styled from 'styled-components'
 

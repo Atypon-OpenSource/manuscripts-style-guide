@@ -14,11 +14,7 @@
  * limitations under the License.
  */
 import React, { Dispatch, useContext } from 'react'
-import {
-  IndicatorContainerProps,
-  SelectComponentsConfig,
-  ValueType,
-} from 'react-select'
+import { OnChangeValue } from 'react-select'
 import CreatableSelect from 'react-select/creatable'
 import styled from 'styled-components'
 
@@ -35,6 +31,16 @@ import {
  * This list represents the transition options per item based on the allowed designation and allowed media types.
  */
 
+const DropdownIndicator: React.FC = () => (
+  <SelectDesignationContainer>
+    <BottomArrowIcon />
+  </SelectDesignationContainer>
+)
+
+const reactSelectComponents = {
+  IndicatorsContainer: DropdownIndicator,
+}
+
 export interface DesignationOption {
   value: number
   label: string
@@ -44,22 +50,12 @@ export const SelectDesignationActions: React.FC<{
   fileSection: FileSectionType | Designation[]
   dispatch: Dispatch<Action>
 }> = ({ fileExtension, fileSection, dispatch }) => {
-  const DropdownIndicator: React.FC<IndicatorContainerProps<
-    DesignationOption
-  >> = () => (
-    <SelectDesignationContainer>
-      <BottomArrowIcon />
-    </SelectDesignationContainer>
-  )
-  const reactSelectComponents: SelectComponentsConfig<DesignationOption> = {
-    IndicatorsContainer: DropdownIndicator,
-  }
-
   const can = useContext(PermissionsContext)
 
-  const handleInputChange = (value: ValueType<DesignationOption>) => {
-    if (value) {
-      const selectedDesignation = value as ValueType<DesignationOption>
+  const handleInputChange = (
+    selectedDesignation: OnChangeValue<DesignationOption, false>
+  ) => {
+    if (selectedDesignation) {
       if (selectedDesignation && 'value' in selectedDesignation) {
         dispatch(actions.SELECT_DESIGNATION(selectedDesignation.value))
       }

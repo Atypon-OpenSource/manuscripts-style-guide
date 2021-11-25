@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-declare module 'pdfjs-dist/es5/build/pdf' {
+declare module 'pdfjs-dist/build/pdf' {
   export * from 'pdfjs-dist'
 }
-declare module 'pdfjs-dist/es5/build/pdf.worker.entry'
-declare module 'pdfjs-dist/es5/web/pdf_viewer'
+declare module 'pdfjs-dist/build/pdf.worker.entry'
+declare module 'pdfjs-dist/web/pdf_viewer'

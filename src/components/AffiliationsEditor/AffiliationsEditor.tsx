@@ -15,14 +15,9 @@
  */
 
 import React, { useCallback, useState } from 'react'
-import { ValueType } from 'react-select'
 
 import { affiliationsOptions } from '../../lib/authors'
-import {
-  AffiliationGeneric,
-  AffiliationOption,
-  AuthorAffiliation,
-} from '../../types'
+import { AffiliationGeneric, AuthorAffiliation } from '../../types'
 import { AuthorFormComponentOverrides } from '../AuthorForm/AuthorFormComponents'
 import AffiliationsEditorView from './AffiliationsEditorView'
 
@@ -55,7 +50,7 @@ const AffiliationsEditor: React.FC<Props> = ({
 }) => {
   const [searchText, setSearchText] = useState('')
   const handleChoose = useCallback(
-    (value: ValueType<AffiliationOption>) => {
+    (value) => {
       if (value) {
         const selectedAffiliation = value as SelectedAffiliation
 

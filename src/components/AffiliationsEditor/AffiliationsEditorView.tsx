@@ -14,15 +14,10 @@
  * limitations under the License.
  */
 
-import AddAuthor from '@manuscripts/assets/react/AddAuthor'
-import React, { useState } from 'react'
-import {
-  IndicatorContainerProps,
-  SelectComponentsConfig,
-  ValueType,
-} from 'react-select'
+import React, { useContext, useState } from 'react'
+import { OnChangeValue } from 'react-select'
 import CreatableSelect from 'react-select/creatable'
-import styled, { DefaultTheme, ThemeProps, withTheme } from 'styled-components'
+import { ThemeContext } from 'styled-components'
 
 import { AffiliationGeneric, AffiliationOption } from '../../types'
 import {
@@ -30,49 +25,9 @@ import {
   defaultAuthorFormComponents,
 } from '../AuthorForm/AuthorFormComponents'
 import { AffiliationsEditorItem } from './AffiliationsEditorItem'
+import { AddAffiliationIndicator, Container, Field, List } from './styles'
 
-const Container = styled.div`
-  margin: 0 1.89rem 1rem;
-`
-
-const Field = styled.div`
-  margin: 1rem 0;
-`
-
-const List = styled.div`
-  margin-bottom: 0.5rem;
-`
-
-const AddAffiliationContainer = styled.div`
-  padding-right: 0.71rem;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-
-  svg {
-    width: 1.5rem;
-    height: 1.5rem;
-  }
-
-  circle,
-  use {
-    fill: ${(props) => props.theme.colors.brand.default};
-  }
-
-  path {
-    mask: none;
-  }
-`
-
-const AddAffiliationIndicator: React.FC<IndicatorContainerProps<
-  AffiliationOption
->> = () => (
-  <AddAffiliationContainer>
-    <AddAuthor />
-  </AddAffiliationContainer>
-)
-
-const reactSelectComponents: SelectComponentsConfig<AffiliationOption> = {
+const reactSelectComponents = {
   IndicatorsContainer: AddAffiliationIndicator,
 }
 
@@ -81,7 +36,7 @@ interface Props {
   selected: AffiliationGeneric[]
   inputValue: string
   handleInputChange: (text: string) => void
-  handleChoose: (value: ValueType<AffiliationOption>) => void
+  handleChoose: (value: OnChangeValue<AffiliationOption, false>) => void
   updateAffiliation: (affiliation: AffiliationGeneric) => void
   removeAuthorAffiliation: (affiliation: AffiliationGeneric) => void
   components?: AuthorFormComponentOverrides
@@ -90,7 +45,7 @@ interface Props {
   }
 }
 
-const AffiliationsEditorView: React.FC<Props & ThemeProps<DefaultTheme>> = ({
+const AffiliationsEditorView: React.FC<Props> = ({
   options,
   selected,
   updateAffiliation,
@@ -98,7 +53,6 @@ const AffiliationsEditorView: React.FC<Props & ThemeProps<DefaultTheme>> = ({
   handleChoose,
   handleInputChange,
   inputValue,
-  theme,
   components,
   styleOverrides,
 }) => {
@@ -111,6 +65,8 @@ const AffiliationsEditorView: React.FC<Props & ThemeProps<DefaultTheme>> = ({
   const requestOpen = (id: string) => {
     setCurrentSection(id === currentSection ? '' : id)
   }
+
+  const theme = useContext(ThemeContext)
 
   return (
     <Container>
@@ -173,4 +129,4 @@ const AffiliationsEditorView: React.FC<Props & ThemeProps<DefaultTheme>> = ({
   )
 }
 
-export default withTheme(AffiliationsEditorView)
+export default AffiliationsEditorView

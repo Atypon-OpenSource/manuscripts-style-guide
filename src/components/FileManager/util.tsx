@@ -461,9 +461,8 @@ export const getDesignationActionsList = (
   designation: Designation,
   fileExtension: string
 ): Array<Designation> => {
-  const allowedDesignationsToTransition = designationWithAllowedDesignationsToTransitionMap.get(
-    designation
-  )
+  const allowedDesignationsToTransition =
+    designationWithAllowedDesignationsToTransitionMap.get(designation)
 
   if (allowedDesignationsToTransition) {
     if (
@@ -539,9 +538,8 @@ export const getUploadFileDesignationList = (
     }
   }
   if (typeof fileSectionType === 'number') {
-    const allowedDesignationByFileSection = getDesignationByFileSection(
-      fileSectionType
-    )
+    const allowedDesignationByFileSection =
+      getDesignationByFileSection(fileSectionType)
     allowedDesignationByFileSection.forEach(checkDesignation)
   } else if (Array.isArray(fileSectionType)) {
     designationWithFileSectionsMap.forEach((value, key) => {
