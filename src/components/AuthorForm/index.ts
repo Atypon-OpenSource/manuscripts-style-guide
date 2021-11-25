@@ -15,4 +15,3 @@
  */
 
 export * from './AuthorForm'
-export * from './AffiliationsSelect'

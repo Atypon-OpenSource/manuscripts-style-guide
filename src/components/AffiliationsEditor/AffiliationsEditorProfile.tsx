@@ -19,7 +19,6 @@ import {
   UserProfileAffiliation,
 } from '@manuscripts/manuscripts-json-schema'
 import React, { useCallback, useState } from 'react'
-import { ValueType } from 'react-select'
 
 import { AffiliationGeneric, AffiliationOption } from '../../types'
 import { AuthorFormComponentOverrides } from '../AuthorForm/AuthorFormComponents'
@@ -52,7 +51,7 @@ const AffiliationsEditorProfile: React.FC<Props> = ({
 }) => {
   const [searchText, setSearchText] = useState('')
   const handleChoose = useCallback(
-    (value: ValueType<AffiliationOption>) => {
+    (value) => {
       if (value) {
         const selectedAffiliation = value as SelectedAffiliation
         addAffiliation(selectedAffiliation.value)

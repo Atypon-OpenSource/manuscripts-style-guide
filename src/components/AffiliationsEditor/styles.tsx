@@ -16,7 +16,7 @@
 
 import AddAuthor from '@manuscripts/assets/react/AddAuthor'
 import React from 'react'
-import { IndicatorContainerProps } from 'react-select'
+import { IndicatorsContainerProps } from 'react-select'
 import styled from 'styled-components'
 
 import { AffiliationOption } from '../../types'
@@ -55,7 +55,7 @@ export const AddAffiliationContainer = styled.div`
 `
 
 export const AddAffiliationIndicator: React.FC<
-  IndicatorContainerProps<AffiliationOption>
+  IndicatorsContainerProps<AffiliationOption, false>
 > = () => (
   <AddAffiliationContainer>
     <AddAuthor />

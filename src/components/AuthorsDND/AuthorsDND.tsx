@@ -15,8 +15,8 @@
  */
 
 import { Contributor, UserProfile } from '@manuscripts/manuscripts-json-schema'
-import React from 'react'
-import styled from 'styled-components'
+import React, { useContext } from 'react'
+import styled, { ThemeContext } from 'styled-components'
 
 import { AuthorItemComponentOverrides } from './AuthorItemComponents'
 import DraggableAuthorItem from './DraggableAuthorItem'
@@ -35,47 +35,54 @@ interface Props {
   components?: AuthorItemComponentOverrides
 }
 
-export const AuthorsDND: React.FunctionComponent<Props> = ({
+const AuthorsDND: React.FunctionComponent<Props> = ({
   authors,
   selectAuthor,
   selectedAuthor,
   handleDrop,
   getSidebarItemDecorator,
   components,
-}) => (
-  <SidebarList>
-    {authors.map((author, index) => {
-      // const affiliations = authorAffiliations.get(author._id)
-      // const user = users.findOne(author.userID) // TODO
+}) => {
+  const theme = useContext(ThemeContext)
 
-      const user: Partial<UserProfile> = {
-        _id: author.userID,
-      }
+  return (
+    <SidebarList>
+      {authors.map((author, index) => {
+        // const affiliations = authorAffiliations.get(author._id)
+        // const user = users.findOne(author.userID) // TODO
 
-      const authorItem = {
-        _id: author._id,
-        priority: author.priority || null,
-        index,
-      }
+        const user: Partial<UserProfile> = {
+          _id: author.userID,
+        }
 
-      const decorator = getSidebarItemDecorator
-        ? getSidebarItemDecorator(author._id)
-        : null
+        const authorItem = {
+          _id: author._id,
+          priority: author.priority || null,
+          index,
+        }
 
-      return (
-        <DraggableAuthorItem
-          key={author._id}
-          authorItem={authorItem}
-          onDrop={handleDrop}
-          author={author}
-          authors={authors}
-          user={user}
-          selectedAuthor={selectedAuthor}
-          selectAuthor={selectAuthor}
-          sidebarItemDecorator={decorator}
-          components={components}
-        />
-      )
-    })}
-  </SidebarList>
-)
+        const decorator = getSidebarItemDecorator
+          ? getSidebarItemDecorator(author._id)
+          : null
+
+        return (
+          <DraggableAuthorItem
+            key={author._id}
+            authorItem={authorItem}
+            onDrop={handleDrop}
+            author={author}
+            authors={authors}
+            user={user}
+            selectedAuthor={selectedAuthor}
+            selectAuthor={selectAuthor}
+            sidebarItemDecorator={decorator}
+            components={components}
+            theme={theme}
+          />
+        )
+      })}
+    </SidebarList>
+  )
+}
+
+export default AuthorsDND
