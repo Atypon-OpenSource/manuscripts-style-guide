@@ -16,7 +16,6 @@
 import { ExternalFile } from '@manuscripts/manuscripts-json-schema'
 import React, { CSSProperties, Dispatch } from 'react'
 import { DragElementWrapper, DragSourceOptions } from 'react-dnd'
-import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 
 import { useDropdown } from '../../../hooks/use-dropdown'
@@ -87,7 +86,11 @@ export const FileSectionItem: React.FC<FileSectionItemProps> = ({
 
   return (
     <Item ref={dragRef} className={className} style={style}>
-      <ItemContainer to={isEditor ? `#${externalFile._id}` : '#'}>
+      <ItemContainer
+        onClick={() =>
+          (window.location.hash = isEditor ? `#${externalFile._id}` : '#')
+        }
+      >
         <FileTypeIcon
           withDot={isMainManuscript}
           fileExtension={fileExtension}
@@ -193,10 +196,9 @@ export const Item = styled.div`
     margin-right: 8px;
   }
 `
-export const ItemContainer = styled(Link)`
+export const ItemContainer = styled.div`
   display: flex;
   min-width: calc(100% - 8px);
   padding-right: 4px;
   box-sizing: border-box;
-  text-decoration: none;
 `

@@ -48,7 +48,7 @@ export const FileSectionUploadItem: React.FC<FileSectionItemProps> = ({
 
   return (
     <Item ref={dragRef} className={className} style={style}>
-      <UploadItemContainer to={'#'}>
+      <UploadItemContainer>
         <FileTypeIcon withDot={false} />
         <FileInfoContainer>
           <FileNameContainer>
