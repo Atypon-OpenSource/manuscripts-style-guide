@@ -83,13 +83,17 @@ export const FileSectionItem: React.FC<FileSectionItemProps> = ({
 
   const designation = namesWithDesignationMap.get(externalFile.designation)
   const isMainManuscript = designation === Designation.MainManuscript
-
+  const isSelected = externalFile._id == window.location.hash.substr(1)
   return (
     <Item ref={dragRef} className={className} style={style}>
       <ItemContainer
-        onClick={() =>
-          (window.location.hash = isEditor ? `#${externalFile._id}` : '#')
-        }
+        onClick={() => {
+          window.location.hash =
+            isEditor && !isSelected ? `#${externalFile._id}` : '#'
+          if (isSelected) {
+            window.location.hash = `#${externalFile._id}`
+          }
+        }}
       >
         <FileTypeIcon
           withDot={isMainManuscript}
