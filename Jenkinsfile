@@ -60,9 +60,13 @@ spec:
         }
 
         if (VARS.GIT_BRANCH == "origin/master") {
-            stage ("Publish") {
-                sh ("yarn install --frozen-lockfile --non-interactive")
-                sh ("npx @manuscripts/publish")
+            stage("Publish") {
+                withCredentials([string(credentialsId: 'NPM_TOKEN_MANUSCRIPTS_OSS', variable: 'NPM_TOKEN')]) {
+                    container('nodeslim') {
+                        sh ("yarn install --frozen-lockfile --non-interactive")
+                        sh ("npx @manuscripts/publish")
+                    }
+                }
             }
         }
     }
