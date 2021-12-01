@@ -15,9 +15,9 @@
  */
 import { storiesOf } from '@storybook/react'
 import React from 'react'
+import { BrowserRouter } from 'react-router-dom'
 
-import { FileManager } from '../src'
-import { getAllPermitted } from '../src/lib/capabilities'
+import { FileManager, getAllPermitted } from '../src'
 import { externalFiles } from './data/externalFiles'
 const sleep = (milliseconds: number) => {
   return new Promise((resolve) => setTimeout(resolve, milliseconds))
@@ -63,14 +63,16 @@ const handleChangeDesignation = async (
 const capabilities = getAllPermitted()
 
 storiesOf('FileManager', module).add('FileManager', () => (
-  <FileManager
-    submissionId={'MPManuscript:valid-manuscript-id-1'}
-    can={capabilities}
-    externalFiles={externalFiles}
-    enableDragAndDrop={true}
-    handleUpload={handleUpload}
-    handleDownload={handleDownload}
-    handleReplace={handleReplace}
-    handleChangeDesignation={handleChangeDesignation}
-  />
+  <BrowserRouter>
+    <FileManager
+      submissionId={'MPManuscript:valid-manuscript-id-1'}
+      can={capabilities}
+      externalFiles={externalFiles}
+      enableDragAndDrop={true}
+      handleUpload={handleUpload}
+      handleDownload={handleDownload}
+      handleReplace={handleReplace}
+      handleChangeDesignation={handleChangeDesignation}
+    />
+  </BrowserRouter>
 ))
