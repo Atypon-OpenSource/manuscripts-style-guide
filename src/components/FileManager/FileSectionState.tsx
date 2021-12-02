@@ -170,7 +170,7 @@ export const actions = {
    * Show message when file uploaded
    */
   SHOW_FILE_UPLOADED_ALERT: (): Action => ({
-    type: ActionTypes.CLOSE_FILE_UPLOADED_ALERT,
+    type: ActionTypes.SHOW_FILE_UPLOADED_ALERT,
   }),
   /**
    * Close Alert shown after file uploaded

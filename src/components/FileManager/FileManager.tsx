@@ -103,10 +103,8 @@ export const FileManager: React.FC<{
       const res = await handleReplace(submissionId, name, file, typeId)
       if (res) {
         dispatch(actions.SHOW_FILE_UPLOADED_ALERT())
-        dispatch(actions.HANDLE_FINISH_UPLOAD())
-      } else {
-        dispatch(actions.HANDLE_FINISH_UPLOAD())
       }
+      dispatch(actions.HANDLE_FINISH_UPLOAD())
       return res
     },
     [handleReplace]
@@ -123,10 +121,8 @@ export const FileManager: React.FC<{
         const res = await handleUpload(submissionId, file, designation)
         if (res) {
           dispatch(actions.SHOW_FILE_UPLOADED_ALERT())
-          dispatch(actions.HANDLE_FINISH_UPLOAD())
-        } else {
-          dispatch(actions.HANDLE_FINISH_UPLOAD())
         }
+        dispatch(actions.HANDLE_FINISH_UPLOAD())
         return res
       } catch (e) {
         console.error(e)
