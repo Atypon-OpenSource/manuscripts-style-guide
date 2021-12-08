@@ -14,6 +14,8 @@
  * limitations under the License.
  */
 
+// a comment
+
 import { UserProfileAffiliation } from '@manuscripts/manuscripts-json-schema'
 import { action } from '@storybook/addon-actions'
 import { storiesOf } from '@storybook/react'
