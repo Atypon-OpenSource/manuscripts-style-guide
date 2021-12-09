@@ -45,7 +45,7 @@ spec:
                     [credentialsId: '336d4fc3-f420-4a3e-b96c-0d0f36ad12be',
                     name: 'origin',
                     refspec: "${REFSPEC}",
-                    url: 'github.com:Atypon-OpenSource/manuscripts-style-guide.git']
+                    url: 'git@github.com:Atypon-OpenSource/manuscripts-style-guide.git']
                 ]]
             )
         }
