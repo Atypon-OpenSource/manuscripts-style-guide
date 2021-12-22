@@ -246,6 +246,12 @@ const errorsExplanations: errorsAssocList = {
       'The input package is of invalid format. Please contact the source where the submitted article comes from.',
     type: 'Workflow',
   },
+  CI_IMAGES_EXTRACTED: {
+    title: 'Images extracted',
+    description:
+      'There are images extracted from the Word document file. Please check the quality of these images.',
+    type: 'Workflow',
+  },
   FC_FAIL_QA_CHECKLIST: {
     title: 'Quality report checks outstanding',
     description:
