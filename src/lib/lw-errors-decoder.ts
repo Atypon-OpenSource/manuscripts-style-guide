@@ -252,6 +252,22 @@ const errorsExplanations: errorsAssocList = {
       'There are images extracted from the Word document file. Please check the quality of these images.',
     type: 'Workflow',
   },
+  CP_IMAGES_INCOMPLETE: {
+    title: 'Missing images',
+    description:
+      'Some images of the article are either missing, incomplete or corrupted.',
+    type: 'Workflow',
+  },
+  CP_IMAGES_UNSUPPORTED_FORMAT: {
+    title: 'Images of unsupported format',
+    description: 'There are images in the document of unsupported format.',
+    type: 'Workflow',
+  },
+  CP_FIGURES_MULTIPLE_IMAGES: {
+    title: 'Figures with multiple images',
+    description: 'There are figures in the docment containing multiple images.',
+    type: 'Workflow',
+  },
   FC_FAIL_QA_CHECKLIST: {
     title: 'Quality report checks outstanding',
     description:
@@ -261,6 +277,42 @@ const errorsExplanations: errorsAssocList = {
   CI_NO_DOCUMENT: {
     title: 'There is no document file',
     description: 'The package does not contain any  main manuscript file.',
+    type: 'Workflow',
+  },
+  CI_ADDITIONAL_WORD_FILES: {
+    title: 'Multiple word files',
+    description:
+      'The package contains multiple word files. Please have the content of the package adjusted.',
+    type: 'Workflow',
+  },
+  CI_XML_AMENDMENT_FAILED: {
+    title: 'External file references error',
+    description:
+      'The XML document could not be amended with the external file references.',
+    type: 'Workflow',
+  },
+  CI_IMAGES_NOT_MATCHED: {
+    title: 'Images not found',
+    description:
+      'The package does not contain all the images refenenced in the document. Please have the content of the package adjusted.',
+    type: 'Workflow',
+  },
+  CI_METADATA_MISSING: {
+    title: 'Metadata missing',
+    description:
+      'Not all the required metadata could be foundin the content of the package. Please have the content of the package adjusted.',
+    type: 'Workflow',
+  },
+  CI_INVALID_DTD: {
+    title: 'Invalid DTD',
+    description:
+      'The DTD file is invalid. Please have the content of the package adjusted.',
+    type: 'Workflow',
+  },
+  CI_INVALID_FORMAT: {
+    title: 'Invalid Word file',
+    description:
+      'The format or version of the Word file is not correct or supported. Please have the content of the package adjusted.',
     type: 'Workflow',
   },
   CI_UNSUPPORTED_FORMAT: {
