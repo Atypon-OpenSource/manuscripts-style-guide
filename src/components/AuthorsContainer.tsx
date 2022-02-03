@@ -25,9 +25,16 @@ import { AuthorsList } from './AuthorsList'
 export const AuthorsContainer: React.FC<{
   authorData: AuthorData
   showEditButton: boolean
+  disableEditButton?: boolean
   startEditing: () => void
   selectAuthor: (data: Contributor) => void
-}> = ({ authorData, showEditButton, startEditing, selectAuthor }) => {
+}> = ({
+  authorData,
+  showEditButton,
+  startEditing,
+  selectAuthor,
+  disableEditButton,
+}) => {
   const authorAffiliations = useMemo(
     () => authorData.authors.filter((author) => author.role === 'author'),
     [authorData.authors]
@@ -47,6 +54,7 @@ export const AuthorsContainer: React.FC<{
         startEditing={startEditing}
         showEditButton={showEditButton}
         selectAuthor={selectAuthor}
+        disableEditButton={disableEditButton}
       />
 
       <AffiliationsList affiliations={authorData.affiliations} />

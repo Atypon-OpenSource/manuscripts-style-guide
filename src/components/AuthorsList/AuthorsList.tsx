@@ -48,6 +48,7 @@ interface Props {
   authors: Contributor[]
   authorAffiliations: Map<string, AuthorAffiliation[]>
   showEditButton?: boolean
+  disableEditButton?: boolean
   startEditing?: () => void
   selectAuthor?: (data: Contributor) => void
 }
@@ -57,6 +58,7 @@ export const AuthorsList: React.FunctionComponent<Props> = ({
   authorAffiliations,
   startEditing,
   showEditButton,
+  disableEditButton,
   selectAuthor,
 }) => (
   <AuthorsContainer isEmpty={!authors.length}>
@@ -78,7 +80,12 @@ export const AuthorsList: React.FunctionComponent<Props> = ({
 
     {showEditButton && startEditing && (
       <AuthorsActions>
-        <PrimaryButton mini={true} onClick={startEditing}>
+        <PrimaryButton
+          mini={true}
+          onClick={startEditing}
+          className={'edit_authors_button'}
+          disabled={disableEditButton}
+        >
           Edit Authors
         </PrimaryButton>
       </AuthorsActions>
