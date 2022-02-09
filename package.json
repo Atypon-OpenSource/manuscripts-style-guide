@@ -2,7 +2,7 @@
   "name": "@manuscripts/style-guide",
   "description": "Shared components for Manuscripts applications",
   "version": "0.30.22",
-  "repository": "gitlab:mpapp-public/manuscripts-style-guide",
+  "repository": "gitlab:atypon-opensource/manuscripts-style-guide",
   "license": "Apache-2.0",
   "main": "dist/cjs",
   "module": "dist/es",
