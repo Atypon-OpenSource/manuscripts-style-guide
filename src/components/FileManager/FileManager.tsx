@@ -13,7 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { ExternalFile } from '@manuscripts/manuscripts-json-schema'
+import { ManuscriptNode } from '@manuscripts/manuscript-transform'
+import {
+  ExternalFile,
+  FigureElement,
+  TableElement,
+} from '@manuscripts/manuscripts-json-schema'
 import React, { createContext, useCallback, useReducer } from 'react'
 import ReactTooltip from 'react-tooltip'
 
@@ -35,6 +40,7 @@ import {
 } from './FileSectionItem/FileSectionItem'
 import { actions, getInitialState, reducer } from './FileSectionState'
 import { FilesSection } from './FilesSection'
+import { InlineFilesSection } from './InlineFilesSection'
 import { TooltipDiv } from './TooltipDiv'
 import {
   Designation,
@@ -62,6 +68,7 @@ export const PermissionsContext = createContext<null | Capabilities>(null)
 export const FileManager: React.FC<{
   submissionId: string
   externalFiles: ExternalFile[]
+  doc?: ManuscriptNode
   enableDragAndDrop: boolean
   can: Capabilities
   handleUpload: (
@@ -84,6 +91,7 @@ export const FileManager: React.FC<{
 }> = ({
   submissionId,
   externalFiles,
+  doc,
   enableDragAndDrop,
   can,
   handleUpload,
@@ -272,13 +280,11 @@ export const FileManager: React.FC<{
               style={{ overflowY: 'visible', position: 'relative' }}
             >
               <InspectorTabPanel>
-                <FilesSection
+                <InlineFilesSection
+                  doc={doc}
                   submissionId={submissionId}
-                  enableDragAndDrop={false}
-                  handleUpload={handleUploadFile}
-                  fileSection={FileSectionType.Inline}
-                  filesItem={getFileSectionExternalFile(FileSectionType.Inline)}
-                  state={state}
+                  handleReplace={handleReplace}
+                  handleDownload={handleDownload}
                   dispatch={dispatch}
                 />
               </InspectorTabPanel>

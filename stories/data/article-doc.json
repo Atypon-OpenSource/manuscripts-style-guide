@@ -1,0 +1,291 @@
+{
+  "type": "manuscript",
+  "attrs": {
+    "id": "MPManuscript:E5F103B8-8790-4933-AAE2-594A5F26F092"
+  },
+  "content": [
+    {
+      "type": "section",
+      "attrs": {
+        "id": "MPSection:10CB6F7A-1A48-40E2-A41F-B1D4EAD25503",
+        "category": "",
+        "titleSuppressed": false
+      },
+      "content": [
+        {
+          "type": "section_label",
+          "content": [
+            {
+              "type": "text",
+              "text": "3"
+            }
+          ]
+        },
+        {
+          "type": "section_title",
+          "content": [
+            {
+              "type": "text",
+              "text": "Stylized Facts on Growth and Inflation in CAMU and WAMU"
+            }
+          ]
+        },
+        {
+          "type": "figure_element",
+          "attrs": {
+            "figureLayout": "",
+            "figureStyle": "",
+            "id": "MPFigureElement:A477F997-75E0-4DF7-A14D-3C379F742807",
+            "label": "",
+            "sizeFraction": 0,
+            "suppressCaption": false,
+            "suppressTitle": true
+          },
+          "content": [
+            {
+              "type": "figure",
+              "attrs": {
+                "id": "MPFigure:D92457D7-932B-4F66-B8AF-CA2C3523571F",
+                "label": "",
+                "src": "",
+                "contentType": "image/png",
+                "externalFileReferences": [
+                  {
+                    "kind": "imageRepresentation",
+                    "url": "https://nine-lts.literatumonline.com/lw/attachment/c31b3364-e604-423d-8a46-ef38ed642e47/Figure1.png",
+                    "ref": {
+                      "_id": "11",
+                      "MIME": "image/png",
+                      "containerID": "MPProject:f2b41fe5-3504-4baa-a619-abdf2d0527ca",
+                      "createdAt": 1644318672.306,
+                      "designation": "figure",
+                      "displayName": "Figure4.png",
+                      "filename": "Figure4.png",
+                      "manuscriptID": "MPManuscript:c62f6e2d-516f-415c-bebe-76d723dca1ae",
+                      "objectType": "MPExternalFile",
+                      "publicUrl": "https://lean-x7481/Figure4.png"
+                    }
+                  },
+                  {
+                    "kind": "imageRepresentation",
+                    "url": "https://nine-lts.literatumonline.com/lw/attachment/c31b3364-e604-423d-8a46-ef38ed642e47/Figure1.png",
+                    "ref": {
+                      "_id": "12",
+                      "MIME": "image/png",
+                      "containerID": "MPProject:f2b41fe5-3504-4baa-a619-abdf2d0527ca",
+                      "createdAt": 1644318672.306,
+                      "designation": "figure",
+                      "displayName": "Figure5.png",
+                      "filename": "Figure5.png",
+                      "manuscriptID": "MPManuscript:c62f6e2d-516f-415c-bebe-76d723dca1ae",
+                      "objectType": "MPExternalFile",
+                      "publicUrl": "https://lean-x7481/Figure5.png"
+                    }
+                  }, {
+                    "kind": "imageRepresentation",
+                    "url": "https://nine-lts.literatumonline.com/lw/attachment/c31b3364-e604-423d-8a46-ef38ed642e47/Figure1.png",
+                    "ref": {
+                      "_id": "13",
+                      "MIME": "image/png",
+                      "containerID": "MPProject:f2b41fe5-3504-4baa-a619-abdf2d0527ca",
+                      "createdAt": 1644318672.306,
+                      "designation": "figure",
+                      "displayName": "image_filename.tiff",
+                      "filename": "image_filename.tiff",
+                      "manuscriptID": "MPManuscript:c62f6e2d-516f-415c-bebe-76d723dca1ae",
+                      "objectType": "MPExternalFile",
+                      "publicUrl": "https://lean-x7481/Figure6.png"
+                    }
+                  },
+                  {
+                    "kind": "imageRepresentation",
+                    "url": "https://nine-lts.literatumonline.com/lw/attachment/c31b3364-e604-423d-8a46-ef38ed642e47/Figure1.png",
+                    "ref": {
+                      "_id": "14",
+                      "MIME": "application/xml",
+                      "containerID": "MPProject:f2b41fe5-3504-4baa-a619-abdf2d0527ca",
+                      "createdAt": 1644318672.306,
+                      "designation": "metadata",
+                      "displayName": "Helpers.xml",
+                      "filename": "Helpers.xml",
+                      "manuscriptID": "MPManuscript:c62f6e2d-516f-415c-bebe-76d723dca1ae",
+                      "objectType": "MPExternalFile",
+                      "publicUrl": "https://lean-x7481/Helpers.xml"
+                    }
+                  }
+                ],
+                "position": "float"
+              },
+              "content": [
+                {
+                  "type": "figcaption"
+                }
+              ]
+            },
+            {
+              "type": "figcaption",
+              "content": [
+                {
+                  "type": "caption_title",
+                  "attrs": {
+                    "placeholder": "Title..."
+                  }
+                },
+                {
+                  "type": "caption",
+                  "attrs": {
+                    "placeholder": "Caption..."
+                  },
+                  "content": [
+                    {
+                      "type": "text",
+                      "text": "Trends Growth and Inflation Rates in CAMU Countries, 1981-2018"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "listing",
+              "attrs": {
+                "id": "MPListing:CA187A31-CC7E-4D45-BE48-B1E01B39E03B",
+                "contents": "",
+                "language": "",
+                "languageKey": "null",
+                "isExpanded": false,
+                "isExecuting": false
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "graphical_abstract_section",
+      "attrs": {
+        "id": "",
+        "category": ""
+      },
+      "content": [
+        {
+          "type": "section_title",
+          "content": [
+            {
+              "type": "text",
+              "text": "Graphical Abstract"
+            }
+          ]
+        },
+        {
+          "type": "figure_element",
+          "attrs": {
+            "figureLayout": "",
+            "figureStyle": "",
+            "id": "",
+            "label": "",
+            "sizeFraction": 0,
+            "suppressCaption": false
+          },
+          "content": [
+            {
+              "type": "figure",
+              "attrs": {
+                "id": "",
+                "label": "",
+                "src": "",
+                "contentType": ""
+              },
+              "content": [
+                {
+                  "type": "figcaption"
+                }
+              ]
+            },
+            {
+              "type": "figcaption",
+              "content": [
+                {
+                  "type": "caption_title",
+                  "attrs": {
+                    "placeholder": "Title..."
+                  }
+                },
+                {
+                  "type": "caption",
+                  "attrs": {
+                    "placeholder": "Caption..."
+                  }
+                }
+              ]
+            },
+            {
+              "type": "listing",
+              "attrs": {
+                "id": "",
+                "contents": "",
+                "language": "",
+                "languageKey": "null",
+                "isExpanded": false,
+                "isExecuting": false
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "section",
+      "attrs": {
+        "id": "MPSection:1065A767-00C1-4014-88E5-EF4B8CF03594",
+        "category": "",
+        "titleSuppressed": false
+      },
+      "content": [
+        {
+          "type": "section_label",
+          "content": [
+            {
+              "type": "text",
+              "text": "5"
+            }
+          ]
+        },
+        {
+          "type": "section_title",
+          "content": [
+            {
+              "type": "text",
+              "text": "Data Sources"
+            }
+          ]
+        },
+        {
+          "type": "table_element",
+          "attrs": {
+            "id": "MPTableElement:DE154DDF-3F32-4ADB-A379-C5265E850275",
+            "paragraphStyle": "",
+            "tableStyle": "",
+            "label": "",
+            "suppressCaption": false,
+            "suppressTitle": true,
+            "suppressFooter": true,
+            "suppressHeader": false,
+            "expandListing": false
+          },
+          "content": [
+            {
+              "type": "table",
+              "attrs": {
+                "id": "MPTable:A4760F73-BDFD-45E1-886A-73A4C871E43C",
+                "headerRows": 1,
+                "footerRows": 1
+              },
+              "content": [
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

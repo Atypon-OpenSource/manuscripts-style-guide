@@ -19,7 +19,8 @@ import { useCallback, useEffect, useRef, useState } from 'react'
 export const useDropdown = () => {
   const [isOpen, setOpen] = useState(false)
 
-  const toggleOpen = useCallback(() => {
+  const toggleOpen = useCallback((e) => {
+    e?.stopPropagation()
     setOpen((open) => !open)
   }, [])
 

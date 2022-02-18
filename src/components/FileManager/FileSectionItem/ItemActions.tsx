@@ -41,8 +41,9 @@ export const ItemActions: React.FC<{
   fileName: string
   designation?: string | undefined
   publicUrl: string | undefined
-  hideActionList: () => void
+  hideActionList: (e?: React.MouseEvent) => void
   dispatch?: Dispatch<Action>
+  dropDownClassName?: string
 }> = ({
   downloadAttachmentHandler,
   replaceAttachmentHandler,
@@ -52,6 +53,7 @@ export const ItemActions: React.FC<{
   publicUrl,
   hideActionList,
   dispatch,
+  dropDownClassName,
 }) => {
   const attachmentDesignation =
     designation == undefined ? 'undefined' : designation
@@ -82,6 +84,7 @@ export const ItemActions: React.FC<{
   return (
     <DropdownList
       direction={'right'}
+      className={dropDownClassName}
       width={125}
       height={96}
       top={5}
