@@ -14,16 +14,19 @@
  * limitations under the License.
  */
 import {
-  FigureElementNode,
-  FigureNode,
-  ManuscriptNode,
-  ManuscriptNodeType,
-  schema,
-  TableElementNode,
-  TableNode,
+  getModelsByType,
+  hasObjectType,
 } from '@manuscripts/manuscript-transform'
-import { ExternalFile } from '@manuscripts/manuscripts-json-schema'
-import { DOMSerializer } from 'prosemirror-model'
+import {
+  ExternalFile,
+  Figure,
+  FigureElement,
+  Model,
+  ObjectTypes,
+  Section,
+  Table,
+  TableElement,
+} from '@manuscripts/manuscripts-json-schema'
 import React, { Dispatch, useCallback, useMemo } from 'react'
 import styled from 'styled-components'
 
@@ -52,7 +55,7 @@ export interface ExternalFileRef {
 
 export const InlineFilesSection: React.FC<{
   submissionId: string
-  doc?: ManuscriptNode
+  modelMap: Map<string, Model>
   handleReplace: (
     submissionId: string,
     name: string,
@@ -61,8 +64,7 @@ export const InlineFilesSection: React.FC<{
   ) => Promise<boolean>
   handleDownload: (url: string) => void
   dispatch: Dispatch<Action>
-}> = ({ submissionId, handleReplace, handleDownload, doc, dispatch }) => {
-  // TODO:: move to util
+}> = ({ submissionId, handleReplace, handleDownload, modelMap, dispatch }) => {
   const inlineFiles = useMemo(() => {
     const files: {
       id: string
@@ -71,71 +73,79 @@ export const InlineFilesSection: React.FC<{
       caption?: string
       externalFileReferences?: ExternalFileRef[]
     }[] = []
-    const serializer = DOMSerializer.fromSchema(schema)
 
-    const getNodeData = (
-      node: ManuscriptNode,
-      type: ManuscriptNodeType,
-      ignoreCaption?: boolean
-    ) => {
-      let caption = undefined,
-        externalFileReferences = undefined
+    const getCaptionText = (caption?: string) =>
+      caption &&
+      new DOMParser().parseFromString(caption, 'text/html').documentElement
+        .innerText
 
-      node.descendants((node) => {
-        if (node.type === node.type.schema.nodes.caption && !ignoreCaption) {
-          caption = (serializer.serializeNode(node) as HTMLElement).textContent
-        }
-        if (node.type === type) {
-          externalFileReferences = (node as FigureNode | TableNode).attrs
-            .externalFileReferences
-        }
+    const getFigureData = (element: FigureElement) => {
+      const figureId = element.containedObjectIDs.find((e) => {
+        const model = modelMap.get(e)
+        return model && hasObjectType(ObjectTypes.Figure)(model)
       })
+      const { externalFileReferences } = (figureId &&
+        (modelMap.get(figureId) as Figure)) || {
+        externalFileReferences: undefined,
+      }
 
-      return { caption, externalFileReferences }
+      return {
+        id: element._id,
+        externalFileReferences,
+        caption: getCaptionText(element.caption),
+      }
     }
 
-    let figureLabel = 1,
-      tableLabel = 1
-
-    doc?.forEach((node) => {
-      if (node.type === node.type.schema.nodes.graphical_abstract_section) {
-        // TODO:: abstract
-        node.descendants((node) => {
-          if (node.type === node.type.schema.nodes.figure_element) {
+    getModelsByType<Section>(modelMap, ObjectTypes.Section).map((section) => {
+      if (section.category === 'MPSectionCategory:abstract-graphical') {
+        section.elementIDs?.some((elementId) => {
+          const element = modelMap.get(elementId)
+          if (element && hasObjectType(ObjectTypes.FigureElement)(element)) {
             files.unshift({
-              id: (node as FigureElementNode).attrs.id,
+              ...getFigureData(element as FigureElement),
               label: `Graphical Abstract`,
               type: FileType.GraphicalAbstract,
-              ...getNodeData(node, node.type.schema.nodes.figure, true),
             })
+            return true
           }
         })
-      }
-      if (node.type === node.type.schema.nodes.section) {
-        // TODO:: abstract
-        node.descendants((node) => {
-          if (node.type === node.type.schema.nodes.figure_element) {
-            files.push({
-              id: (node as FigureElementNode).attrs.id,
-              label: `Figure ${figureLabel++}`,
-              type: FileType.Figure,
-              ...getNodeData(node, node.type.schema.nodes.figure),
-            })
+      } else {
+        section.elementIDs?.map((elementId) => {
+          const element = modelMap.get(elementId)
+          if (!element) {
+            return
           }
-          // TODO:: abstract
-          if (node.type === node.type.schema.nodes.table_element) {
-            files.push({
-              id: (node as TableElementNode).attrs.id,
-              label: `Table ${tableLabel++}`,
-              type: FileType.SheetsWorkbooks,
-              ...getNodeData(node, node.type.schema.nodes.figure),
-            })
+          switch (element.objectType) {
+            case ObjectTypes.FigureElement: {
+              files.push({
+                ...getFigureData(element as FigureElement),
+                label: `Figure`,
+                type: FileType.Figure,
+              })
+              break
+            }
+            case ObjectTypes.TableElement: {
+              const tableElement = element as TableElement
+              const table = modelMap.get(
+                tableElement.containedObjectID
+              ) as Table
+
+              files.push({
+                id: element._id,
+                label: `Table`,
+                type: FileType.SheetsWorkbooks,
+                externalFileReferences: table.externalFileReferences,
+                caption: getCaptionText(tableElement.caption),
+              })
+              break
+            }
           }
         })
       }
     })
+
     return files
-  }, [doc])
+  }, [modelMap])
 
   const onElementClick = useCallback((e) => {
     const { id } = e.currentTarget

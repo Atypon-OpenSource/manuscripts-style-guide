@@ -17,6 +17,7 @@ import { ManuscriptNode } from '@manuscripts/manuscript-transform'
 import {
   ExternalFile,
   FigureElement,
+  Model,
   TableElement,
 } from '@manuscripts/manuscripts-json-schema'
 import React, { createContext, useCallback, useReducer } from 'react'
@@ -68,7 +69,7 @@ export const PermissionsContext = createContext<null | Capabilities>(null)
 export const FileManager: React.FC<{
   submissionId: string
   externalFiles: ExternalFile[]
-  doc?: ManuscriptNode
+  modelMap: Map<string, Model>
   enableDragAndDrop: boolean
   can: Capabilities
   handleUpload: (
@@ -91,7 +92,7 @@ export const FileManager: React.FC<{
 }> = ({
   submissionId,
   externalFiles,
-  doc,
+  modelMap,
   enableDragAndDrop,
   can,
   handleUpload,
@@ -281,7 +282,7 @@ export const FileManager: React.FC<{
             >
               <InspectorTabPanel>
                 <InlineFilesSection
-                  doc={doc}
+                  modelMap={modelMap}
                   submissionId={submissionId}
                   handleReplace={handleReplace}
                   handleDownload={handleDownload}
