@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 import { ExternalFile, Model } from '@manuscripts/manuscripts-json-schema'
-import React, { Dispatch, useCallback } from 'react'
+import React, { Dispatch, useCallback, useMemo } from 'react'
 import styled from 'styled-components'
 
 import { useDropdown } from '../../hooks/use-dropdown'
@@ -49,8 +49,8 @@ export const InlineFilesSection: React.FC<{
   handleDownload: (url: string) => void
   dispatch: Dispatch<Action>
 }> = ({ submissionId, handleReplace, handleDownload, modelMap, dispatch }) => {
-  const inlineFiles = getInlineFiles(modelMap)
-  console.log(inlineFiles, modelMap)
+  const inlineFiles = useMemo(() => getInlineFiles(modelMap), [modelMap])
+
   const onElementClick = useCallback((e) => {
     const { id } = e.currentTarget
     const isSelected = id == window.location.hash.substr(1)
@@ -120,7 +120,7 @@ const FileReference: React.FC<{
   const { isOpen, toggleOpen, wrapperRef } = useDropdown()
 
   if (!externalFile || !externalFile.filename) {
-    return <></>
+    return null
   }
 
   const fileExtension = externalFile.filename.substring(
