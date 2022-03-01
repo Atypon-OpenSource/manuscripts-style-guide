@@ -13,24 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import {
-  getModelsByType,
-  hasObjectType,
-} from '@manuscripts/manuscript-transform'
-import {
-  ExternalFile,
-  Figure,
-  FigureElement,
-  Model,
-  ObjectTypes,
-  Section,
-  Table,
-  TableElement,
-} from '@manuscripts/manuscripts-json-schema'
-import React, { Dispatch, useCallback, useMemo } from 'react'
+import { ExternalFile, Model } from '@manuscripts/manuscripts-json-schema'
+import React, { Dispatch, useCallback } from 'react'
 import styled from 'styled-components'
 
 import { useDropdown } from '../../hooks/use-dropdown'
+import getInlineFiles from '../../lib/inlineFiles'
 import DotsIcon from '../icons/dots-icon'
 import {
   FileDescription,
@@ -41,11 +29,7 @@ import {
 import { ActionsIcon, Item } from './FileSectionItem/FileSectionItem'
 import { ItemActions } from './FileSectionItem/ItemActions'
 import { Action } from './FileSectionState'
-import {
-  extensionsWithFileTypesMap,
-  FileType,
-  fileTypesWithIconMap,
-} from './util'
+import { extensionsWithFileTypesMap, fileTypesWithIconMap } from './util'
 
 export interface ExternalFileRef {
   url: string
@@ -65,88 +49,8 @@ export const InlineFilesSection: React.FC<{
   handleDownload: (url: string) => void
   dispatch: Dispatch<Action>
 }> = ({ submissionId, handleReplace, handleDownload, modelMap, dispatch }) => {
-  const inlineFiles = useMemo(() => {
-    const files: {
-      id: string
-      label: string
-      type: FileType
-      caption?: string
-      externalFileReferences?: ExternalFileRef[]
-    }[] = []
-
-    const getCaptionText = (caption?: string) =>
-      caption &&
-      new DOMParser().parseFromString(caption, 'text/html').documentElement
-        .innerText
-
-    const getFigureData = (element: FigureElement) => {
-      const figureId = element.containedObjectIDs.find((e) => {
-        const model = modelMap.get(e)
-        return model && hasObjectType(ObjectTypes.Figure)(model)
-      })
-      const { externalFileReferences } = (figureId &&
-        (modelMap.get(figureId) as Figure)) || {
-        externalFileReferences: undefined,
-      }
-
-      return {
-        id: element._id,
-        externalFileReferences,
-        caption: getCaptionText(element.caption),
-      }
-    }
-
-    getModelsByType<Section>(modelMap, ObjectTypes.Section).map((section) => {
-      if (section.category === 'MPSectionCategory:abstract-graphical') {
-        section.elementIDs?.some((elementId) => {
-          const element = modelMap.get(elementId)
-          if (element && hasObjectType(ObjectTypes.FigureElement)(element)) {
-            files.unshift({
-              ...getFigureData(element as FigureElement),
-              label: `Graphical Abstract`,
-              type: FileType.GraphicalAbstract,
-            })
-            return true
-          }
-        })
-      } else {
-        section.elementIDs?.map((elementId) => {
-          const element = modelMap.get(elementId)
-          if (!element) {
-            return
-          }
-          switch (element.objectType) {
-            case ObjectTypes.FigureElement: {
-              files.push({
-                ...getFigureData(element as FigureElement),
-                label: `Figure`,
-                type: FileType.Figure,
-              })
-              break
-            }
-            case ObjectTypes.TableElement: {
-              const tableElement = element as TableElement
-              const table = modelMap.get(
-                tableElement.containedObjectID
-              ) as Table
-
-              files.push({
-                id: element._id,
-                label: `Table`,
-                type: FileType.SheetsWorkbooks,
-                externalFileReferences: table.externalFileReferences,
-                caption: getCaptionText(tableElement.caption),
-              })
-              break
-            }
-          }
-        })
-      }
-    })
-
-    return files
-  }, [modelMap])
-
+  const inlineFiles = getInlineFiles(modelMap)
+  console.log(inlineFiles, modelMap)
   const onElementClick = useCallback((e) => {
     const { id } = e.currentTarget
     const isSelected = id == window.location.hash.substr(1)
