@@ -13,7 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { ExternalFile } from '@manuscripts/manuscripts-json-schema'
+import { ManuscriptNode } from '@manuscripts/manuscript-transform'
+import {
+  ExternalFile,
+  FigureElement,
+  Model,
+  TableElement,
+} from '@manuscripts/manuscripts-json-schema'
 import React, { createContext, useCallback, useReducer } from 'react'
 import ReactTooltip from 'react-tooltip'
 
@@ -35,6 +41,7 @@ import {
 } from './FileSectionItem/FileSectionItem'
 import { actions, getInitialState, reducer } from './FileSectionState'
 import { FilesSection } from './FilesSection'
+import { InlineFilesSection } from './InlineFilesSection'
 import { TooltipDiv } from './TooltipDiv'
 import {
   Designation,
@@ -62,6 +69,7 @@ export const PermissionsContext = createContext<null | Capabilities>(null)
 export const FileManager: React.FC<{
   submissionId: string
   externalFiles: ExternalFile[]
+  modelMap: Map<string, Model>
   enableDragAndDrop: boolean
   can: Capabilities
   handleUpload: (
@@ -84,6 +92,7 @@ export const FileManager: React.FC<{
 }> = ({
   submissionId,
   externalFiles,
+  modelMap,
   enableDragAndDrop,
   can,
   handleUpload,
@@ -272,13 +281,11 @@ export const FileManager: React.FC<{
               style={{ overflowY: 'visible', position: 'relative' }}
             >
               <InspectorTabPanel>
-                <FilesSection
+                <InlineFilesSection
+                  modelMap={modelMap}
                   submissionId={submissionId}
-                  enableDragAndDrop={false}
-                  handleUpload={handleUploadFile}
-                  fileSection={FileSectionType.Inline}
-                  filesItem={getFileSectionExternalFile(FileSectionType.Inline)}
-                  state={state}
+                  handleReplace={handleReplace}
+                  handleDownload={handleDownload}
                   dispatch={dispatch}
                 />
               </InspectorTabPanel>

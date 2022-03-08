@@ -17,6 +17,7 @@ import React from 'react'
 import ReactTooltip from 'react-tooltip'
 import styled from 'styled-components'
 
+import DocumentIconWithDot from '../../icons/document-icon-with-dot'
 import UnknownFormatFileIcon from '../../icons/unknown-format-file-icon'
 import { TooltipDiv } from '../TooltipDiv'
 import { extensionsWithFileTypesMap, fileTypesWithIconMap } from '../util'
@@ -32,54 +33,45 @@ export const FileTypeIcon: React.FC<{
 }> = ({ withDot, fileExtension, alt }) => {
   let fileIcon: JSX.Element | undefined = <UnknownFormatFileIcon />
 
+  if (withDot) {
+    return (
+      <Container>
+        <DocumentIconWithDot />
+        <TooltipDiv>
+          <ReactTooltip
+            id="dot"
+            place="bottom"
+            effect="float"
+            className="tooltip"
+          >
+            <div>Main manuscript. Only one file per submission</div>
+          </ReactTooltip>
+        </TooltipDiv>
+      </Container>
+    )
+  }
+
   if (fileExtension) {
     const fileType = extensionsWithFileTypesMap.get(fileExtension.toLowerCase())
 
     fileIcon = fileTypesWithIconMap.get(fileType)
   }
 
-  return (
-    <Container>
-      {withDot && <Dot data-for="dot" data-tip={true} />}
-      <TooltipDiv>
-        <ReactTooltip
-          id="dot"
-          place="bottom"
-          offset={{ bottom: -7 }}
-          effect="solid"
-          className="tooltip"
-        >
-          <div>Main manuscript. Only one file per submission</div>
-        </ReactTooltip>
-      </TooltipDiv>
-      {fileIcon}
-    </Container>
-  )
+  return <Container>{fileIcon}</Container>
 }
 
 const Container = styled.div`
   width: 40px;
   min-width: 40px;
   height: 40px;
-  background-color: ${(props) => props.theme.colors.background.secondary};
   display: flex;
   justify-content: center;
   align-items: center;
-  border: 1px solid #f2f2f2;
   box-sizing: border-box;
   border-radius: 4px;
   position: relative;
 `
-const Dot = styled.div`
-  width: 12px;
-  height: 12px;
-  background: #1a9bc7;
-  border: 2px solid #ffffff;
-  border-radius: 50%;
-  position: absolute;
-  top: -8px;
-  left: -8px;
-`
+
 const Img = styled.img`
   width: 100%;
   height: 100%;

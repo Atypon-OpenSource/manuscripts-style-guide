@@ -21,16 +21,16 @@ import { IconProps } from './types'
 const VideoIcon: React.FC<IconProps> = (props: IconProps) => (
   <svg
     className={props.className}
-    width="16"
-    height="16"
-    viewBox="0 0 16 16"
+    width="24"
+    height="25"
+    viewBox="0 0 24 25"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
   >
     <path
-      d="M4 3.5L12 8L4 12.5V3.5Z"
-      stroke="white"
-      strokeWidth="1.5"
+      d="M6 5.96973L18 12.7197L6 19.4697V5.96973Z"
+      stroke="#FE8F1F"
+      strokeWidth="2"
       strokeMiterlimit="10"
       strokeLinecap="round"
       strokeLinejoin="round"

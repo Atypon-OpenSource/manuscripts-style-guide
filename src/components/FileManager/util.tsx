@@ -22,6 +22,8 @@ import CodeFileIcon from '../icons/code-file-icon'
 import CompressedFileIcon from '../icons/compressed-file-icon'
 import DocumentIcon from '../icons/document-icon'
 import FigureIcon from '../icons/figure-icon'
+import GraphicalAbstractIcon from '../icons/graphical_abstract_icon'
+import ImageIcon from '../icons/image-icon'
 import LatexIcon from '../icons/latex-icon'
 import PdfFileIcon from '../icons/pdf-file-icon'
 import TableIcon from '../icons/table-icon'
@@ -45,6 +47,8 @@ export enum FileType {
   PdfFile,
   CompressedFile,
   PlainText,
+  Figure,
+  GraphicalAbstract,
 }
 
 export enum Designation {
@@ -390,7 +394,12 @@ export const fileTypesWithIconMap = new Map<FileType | undefined, JSX.Element>([
     FileType.PlainText,
     <DocumentIcon key={FileType.PlainText} color="#FFBD26" />,
   ],
-  [FileType.Image, <FigureIcon key={FileType.Image} />],
+  [FileType.Image, <ImageIcon key={FileType.Image} />],
+  [FileType.Figure, <FigureIcon key={FileType.Figure} />],
+  [
+    FileType.GraphicalAbstract,
+    <GraphicalAbstractIcon key={FileType.GraphicalAbstract} />,
+  ],
   [undefined, <UnknownFormatFileIcon key={undefined} />],
 ])
 

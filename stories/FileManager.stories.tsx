@@ -61,6 +61,9 @@ const handleChangeDesignation = async (
 }
 
 const capabilities = getAllPermitted()
+import { encode, schema } from '@manuscripts/manuscript-transform'
+
+import article from './data/article-doc.json'
 
 storiesOf('FileManager', module).add('FileManager', () => (
   <BrowserRouter>
@@ -68,6 +71,7 @@ storiesOf('FileManager', module).add('FileManager', () => (
       submissionId={'MPManuscript:valid-manuscript-id-1'}
       can={capabilities}
       externalFiles={externalFiles}
+      modelMap={encode(schema.nodeFromJSON(article))}
       enableDragAndDrop={true}
       handleUpload={handleUpload}
       handleDownload={handleDownload}

@@ -96,11 +96,11 @@ export const FileInfoContainer = styled.div`
   align-items: start;
   width: 100%;
 `
-const FileNameTitleContainer = styled.div`
+export const FileNameTitleContainer = styled.div`
   display: flex;
   width: 100%;
 `
-const FileTitle = styled.div`
+export const FileTitle = styled.div`
   color: ${(props) => props.theme.colors.text.primary};
   font-weight: bold;
   font-size: 16px;
@@ -122,7 +122,7 @@ export const FileName = styled.div`
   white-space: nowrap;
   overflow: hidden;
 `
-const FileDescription = styled.div`
+export const FileDescription = styled.div`
   color: ${(props) => props.theme.colors.text.secondary};
   font-size: 14px;
   line-height: 20px;

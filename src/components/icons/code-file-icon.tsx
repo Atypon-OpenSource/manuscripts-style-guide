@@ -21,30 +21,30 @@ import { IconProps } from './types'
 const CodeFileIcon: React.FC<IconProps> = (props: IconProps) => (
   <svg
     className={props.className}
-    width="17"
-    height="16"
-    viewBox="0 0 17 16"
+    width="21"
+    height="21"
+    viewBox="0 0 21 21"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
   >
     <path
-      d="M4.28492 11.6493L0.81779 8.18221L4.36914 4.63086"
+      d="M5.35566 15.2819L1.02175 10.948L5.46094 6.50879"
       stroke="#B3A1FC"
-      strokeWidth="1.5"
+      strokeWidth="2"
       strokeLinecap="round"
       strokeLinejoin="round"
     />
     <path
-      d="M12.3684 11.6493L15.8355 8.18221L12.2842 4.63086"
+      d="M15.4617 15.2819L19.7956 10.948L15.3564 6.50879"
       stroke="#B3A1FC"
-      strokeWidth="1.5"
+      strokeWidth="2"
       strokeLinecap="round"
       strokeLinejoin="round"
     />
     <path
-      d="M10 1L7 15"
+      d="M12.5 1.96973L8.75 19.4697"
       stroke="#B3A1FC"
-      strokeWidth="1.5"
+      strokeWidth="2"
       strokeLinecap="round"
       strokeLinejoin="round"
     />
