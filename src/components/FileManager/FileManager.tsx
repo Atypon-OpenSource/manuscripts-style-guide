@@ -286,6 +286,7 @@ export const FileManager: React.FC<{
                   submissionId={submissionId}
                   handleReplace={handleReplace}
                   handleDownload={handleDownload}
+                  isEditor={enableDragAndDrop}
                   dispatch={dispatch}
                 />
               </InspectorTabPanel>

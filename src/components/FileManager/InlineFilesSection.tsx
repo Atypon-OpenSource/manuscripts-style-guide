@@ -47,19 +47,33 @@ export const InlineFilesSection: React.FC<{
     typeId: string
   ) => Promise<boolean>
   handleDownload: (url: string) => void
+  isEditor: boolean
   dispatch: Dispatch<Action>
-}> = ({ submissionId, handleReplace, handleDownload, modelMap, dispatch }) => {
+}> = ({
+  submissionId,
+  handleReplace,
+  handleDownload,
+  modelMap,
+  isEditor,
+  dispatch,
+}) => {
   const inlineFiles = useMemo(() => getInlineFiles(modelMap), [modelMap])
 
-  const onElementClick = useCallback((e) => {
-    const { id } = e.currentTarget
-    const isSelected = id == window.location.hash.substr(1)
+  const onElementClick = useCallback(
+    (e) => {
+      if (!isEditor) {
+        return
+      }
+      const { id } = e.currentTarget
+      const isSelected = id == window.location.hash.substr(1)
 
-    window.location.hash = !isSelected ? `#${id}` : '#'
-    if (isSelected) {
-      window.location.hash = `#${id}`
-    }
-  }, [])
+      window.location.hash = !isSelected ? `#${id}` : '#'
+      if (isSelected) {
+        window.location.hash = `#${id}`
+      }
+    },
+    [isEditor]
+  )
 
   return (
     <div>
