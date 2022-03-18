@@ -31,9 +31,11 @@ import { DesignationActionsList } from './DesignationActionsList'
  */
 export const DesignationActions: React.FC<{
   designation?: Designation
+  attachmentId: string
   fileExtension?: string
   handleChangeDesignation?: (
     submissionId: string,
+    attachmentId: string,
     typeId: string,
     name: string
   ) => Promise<boolean>
@@ -42,6 +44,7 @@ export const DesignationActions: React.FC<{
   dispatch?: Dispatch<Action>
 }> = ({
   designation,
+  attachmentId,
   fileExtension,
   handleChangeDesignation,
   submissionId,
@@ -66,7 +69,7 @@ export const DesignationActions: React.FC<{
     setIsActionsShown(false)
   }
 
-  if (designation && fileExtension) {
+  if (designation !== undefined && fileExtension) {
     const designationActionsList = getDesignationActionsList(
       designation,
       fileExtension
@@ -90,6 +93,7 @@ export const DesignationActions: React.FC<{
       handleChangeDesignation &&
         handleChangeDesignation(
           submissionId,
+          attachmentId,
           confirmationPopUpData.selectedDesignation,
           fileName
         )
@@ -122,6 +126,7 @@ export const DesignationActions: React.FC<{
                 submissionId={submissionId}
                 fileName={fileName}
                 designation={designation}
+                attachmentId={attachmentId}
                 dispatch={dispatch}
                 handleOpenConfirmationPopup={handleOpenConfirmationPopup}
               />

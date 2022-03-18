@@ -13,13 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { ManuscriptNode } from '@manuscripts/manuscript-transform'
-import {
-  ExternalFile,
-  FigureElement,
-  Model,
-  TableElement,
-} from '@manuscripts/manuscripts-json-schema'
+import { Model } from '@manuscripts/manuscripts-json-schema'
 import React, { createContext, useCallback, useReducer } from 'react'
 import ReactTooltip from 'react-tooltip'
 
@@ -38,6 +32,7 @@ import { DragLayer } from './FileSectionItem/DragLayer'
 import {
   FileSectionItem,
   FileSectionItemProps,
+  SubmissionAttachment,
 } from './FileSectionItem/FileSectionItem'
 import { actions, getInitialState, reducer } from './FileSectionState'
 import { FilesSection } from './FilesSection'
@@ -47,15 +42,14 @@ import {
   Designation,
   designationWithFileSectionsMap,
   FileSectionType,
-  generateExternalFilesTitles,
+  generateAttachmentsTitles,
   namesWithDesignationMap,
-  sortExternalFiles,
 } from './util'
 
 /**
  * This is the main component of the file handling
  * that should be called in the inspector,
- * and it expects to receive an array of external files
+ * and it expects to receive an array of submission attachments
  * and use Drag-and-Drop technique for manuscript-frontend inspector.
  *
  * File section component consist of three types of files which is:
@@ -68,7 +62,7 @@ export const PermissionsContext = createContext<null | Capabilities>(null)
 
 export const FileManager: React.FC<{
   submissionId: string
-  externalFiles: ExternalFile[]
+  attachments: SubmissionAttachment[]
   modelMap: Map<string, Model>
   enableDragAndDrop: boolean
   can: Capabilities
@@ -80,18 +74,20 @@ export const FileManager: React.FC<{
   handleDownload: (url: string) => void
   handleReplace: (
     submissionId: string,
+    attachmentId: string,
     name: string,
     file: File,
     typeId: string
   ) => Promise<boolean>
   handleChangeDesignation: (
     submissionId: string,
+    attachmentId: string,
     typeId: string,
     name: string
   ) => Promise<boolean>
 }> = ({
   submissionId,
-  externalFiles,
+  attachments,
   modelMap,
   enableDragAndDrop,
   can,
@@ -102,19 +98,14 @@ export const FileManager: React.FC<{
 }) => {
   const [state, dispatch] = useReducer(reducer, getInitialState())
   const handleReplaceFile = useCallback(
-    async (submissionId, name, file, typeId) => {
+    async (submissionId, attachmentId, name, file, typeId) => {
       dispatch(actions.HANDLE_UPLOAD_ACTION())
       dispatch(
         actions.SELECT_DESIGNATION(
           namesWithDesignationMap.get(typeId) || Designation.Document
         )
       )
-      const res = await handleReplace(submissionId, name, file, typeId)
-      if (res) {
-        dispatch(actions.SHOW_FILE_UPLOADED_ALERT())
-      }
-      dispatch(actions.HANDLE_FINISH_UPLOAD())
-      return res
+      return await handleReplace(submissionId, attachmentId, name, file, typeId)
     },
     [handleReplace]
   )
@@ -127,12 +118,7 @@ export const FileManager: React.FC<{
         ) {
           dispatch(actions.SELECT_DESIGNATION(Designation.Supplementary))
         }
-        const res = await handleUpload(submissionId, file, designation)
-        if (res) {
-          dispatch(actions.SHOW_FILE_UPLOADED_ALERT())
-        }
-        dispatch(actions.HANDLE_FINISH_UPLOAD())
-        return res
+        return await handleUpload(submissionId, file, designation)
       } catch (e) {
         console.error(e)
         return false
@@ -142,9 +128,14 @@ export const FileManager: React.FC<{
   )
 
   const handleChangeDesignationFile = useCallback(
-    async (submissionId, typeId, name) => {
+    async (submissionId, attachmentId, typeId, name) => {
       try {
-        const res = await handleChangeDesignation(submissionId, typeId, name)
+        const res = await handleChangeDesignation(
+          submissionId,
+          attachmentId,
+          typeId,
+          name
+        )
         if (res) {
           dispatch(actions.HANDLE_SUCCESS_MESSAGE())
         }
@@ -170,9 +161,9 @@ export const FileManager: React.FC<{
       fileSection === FileSectionType.Supplements ||
       fileSection === FileSectionType.OtherFile
     // Here we are filtering the external files to extract the other-files based on the designation.
-    const itemsData = externalFiles.filter((element) => {
+    const itemsData = attachments.filter((element) => {
       const designation: Designation | undefined = namesWithDesignationMap.get(
-        element.designation
+        element.type.label
       )
       return (
         designation !== undefined &&
@@ -181,10 +172,7 @@ export const FileManager: React.FC<{
     })
 
     // Generating a title for the external files and sorting the external files based on the generated title
-    const itemsDataWithTitle = generateExternalFilesTitles(
-      sortExternalFiles(itemsData),
-      fileSection
-    )
+    const itemsDataWithTitle = generateAttachmentsTitles(itemsData, fileSection)
 
     const filesItems = itemsDataWithTitle.map((element) => {
       const itemProps: FileSectionItemProps = {
@@ -203,14 +191,14 @@ export const FileManager: React.FC<{
         return (
           <DraggableFileSectionItem
             {...itemProps}
-            key={element.externalFile._id}
+            key={element.externalFile.id}
           />
         )
       } else {
         return (
           <FileSectionItem
             {...itemProps}
-            key={element.externalFile._id}
+            key={element.externalFile.id}
             isEditor={enableDragAndDrop}
           />
         )

@@ -18,7 +18,7 @@ import React from 'react'
 import { BrowserRouter } from 'react-router-dom'
 
 import { FileManager, getAllPermitted } from '../src'
-import { externalFiles } from './data/externalFiles'
+import { attachments } from './data/attachments'
 const sleep = (milliseconds: number) => {
   return new Promise((resolve) => setTimeout(resolve, milliseconds))
 }
@@ -40,6 +40,7 @@ const handleDownload = (url: string): void => {
 
 const handleReplace = async (
   submissionId: string,
+  attachmentId: string,
   name: string,
   file: File
 ): Promise<boolean> => {
@@ -51,6 +52,7 @@ const handleReplace = async (
 
 const handleChangeDesignation = async (
   submissionId: string,
+  attachmentId: string,
   designation: string | undefined,
   name: string
 ): Promise<boolean> => {
@@ -70,7 +72,7 @@ storiesOf('FileManager', module).add('FileManager', () => (
     <FileManager
       submissionId={'MPManuscript:valid-manuscript-id-1'}
       can={capabilities}
-      externalFiles={externalFiles}
+      attachments={attachments}
       modelMap={encode(schema.nodeFromJSON(article))}
       enableDragAndDrop={true}
       handleUpload={handleUpload}

@@ -15,13 +15,11 @@
  */
 import React from 'react'
 
-import { AlertMessage, AlertMessageType } from '../AlertMessage'
 import { Designation } from './util'
 
 export const getInitialState = (): State => ({
   uploadedFile: undefined,
   isUploadFile: false,
-  isFileUploaded: false,
   moveToOtherState: undefined,
   successMessage: '',
   isShowSuccessMessage: false,
@@ -32,7 +30,6 @@ export const getInitialState = (): State => ({
 export interface State {
   uploadedFile: File | undefined
   isUploadFile: boolean
-  isFileUploaded: boolean
   moveToOtherState:
     | { submissionId: string; typeId: string; name: string }
     | undefined
@@ -50,8 +47,6 @@ enum ActionTypes {
   HANDLE_UPLOAD_ACTION = 'handleUpload',
   HANDLE_FINISH_UPLOAD = 'handleFinishUpload',
   HANDLE_SUCCESS_MESSAGE = 'handleSuccessMessage',
-  SHOW_FILE_UPLOADED_ALERT = 'showFileUploadedAlert',
-  CLOSE_FILE_UPLOADED_ALERT = 'closeFileUploadedAlert',
 }
 
 export const reducer = (state: State, action: Action): State => {
@@ -106,22 +101,10 @@ export const reducer = (state: State, action: Action): State => {
         selectDesignation: undefined,
       }
     }
-    case ActionTypes.SHOW_FILE_UPLOADED_ALERT: {
-      return {
-        ...state,
-        isFileUploaded: true,
-      }
-    }
     case ActionTypes.HANDLE_SUCCESS_MESSAGE: {
       return {
         ...state,
         isShowSuccessMessage: true,
-      }
-    }
-    case ActionTypes.CLOSE_FILE_UPLOADED_ALERT: {
-      return {
-        ...state,
-        isFileUploaded: false,
       }
     }
   }
@@ -150,6 +133,7 @@ export const actions = {
   }),
   MOVE_FILE: (
     submissionId: string,
+    attachmentId: string,
     typeId: string,
     name: string,
     successMoveMessage: string
@@ -165,19 +149,6 @@ export const actions = {
    */
   HANDLE_FINISH_UPLOAD: (): Action => ({
     type: ActionTypes.HANDLE_FINISH_UPLOAD,
-  }),
-  /**
-   * Show message when file uploaded
-   */
-  SHOW_FILE_UPLOADED_ALERT: (): Action => ({
-    type: ActionTypes.SHOW_FILE_UPLOADED_ALERT,
-  }),
-  /**
-   * Close Alert shown after file uploaded
-   * @constructor
-   */
-  CLOSE_FILE_UPLOADED_ALERT: (): Action => ({
-    type: ActionTypes.CLOSE_FILE_UPLOADED_ALERT,
   }),
   /**
    * To handle transfer file success message from other file to supplementary file and vice versa.

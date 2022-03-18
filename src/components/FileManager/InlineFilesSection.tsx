@@ -42,6 +42,7 @@ export const InlineFilesSection: React.FC<{
   modelMap: Map<string, Model>
   handleReplace: (
     submissionId: string,
+    attachmentId: string,
     name: string,
     file: File,
     typeId: string
@@ -118,6 +119,7 @@ const FileReference: React.FC<{
   submissionId: string
   handleReplace: (
     submissionId: string,
+    attachmentId: string,
     name: string,
     file: File,
     typeId: string
@@ -160,11 +162,13 @@ const FileReference: React.FC<{
           >
             <DotsIcon />
           </ActionsIcon>
+          {/* TODO:: replace with other files list */}
           {isOpen && (
             <ItemActions
               replaceAttachmentHandler={handleReplace}
               downloadAttachmentHandler={handleDownload}
               submissionId={submissionId}
+              attachmentId={externalFile._id}
               fileName={externalFile.filename}
               designation={externalFile.designation}
               publicUrl={externalFile.publicUrl}
