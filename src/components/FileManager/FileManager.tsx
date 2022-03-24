@@ -66,11 +66,11 @@ export const FileManager: React.FC<{
   modelMap: Map<string, Model>
   enableDragAndDrop: boolean
   can: Capabilities
-  handleUpload: <FetchResult>(
+  handleUpload: (
     submissionId: string,
     file: File,
     designation: string
-  ) => Promise<FetchResult>
+  ) => Promise<any>
   handleDownload: (url: string) => void
   handleReplace: (
     submissionId: string,
