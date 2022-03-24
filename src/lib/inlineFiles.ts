@@ -39,14 +39,19 @@ const getFigureData = (
   element: FigureElement,
   modelMap: Map<string, Model>
 ) => {
-  const figureId = element.containedObjectIDs.find((e) => {
-    const model = modelMap.get(e)
-    return model && hasObjectType(ObjectTypes.Figure)(model)
+  const externalFileReferences: ExternalFileRef[] = []
+  element.containedObjectIDs.map((e) => {
+    const object = modelMap.get(e)
+    if (object && object.objectType === ObjectTypes.Figure) {
+      const externalFileRef = (object as Figure).externalFileReferences?.find(
+        // TODO:: add interactiveRepresentation image when media alternatives enabled
+        (figure) => figure.kind === 'imageRepresentation'
+      )
+      if (externalFileRef) {
+        externalFileReferences.push(externalFileRef)
+      }
+    }
   })
-  const { externalFileReferences } = (figureId &&
-    (modelMap.get(figureId) as Figure)) || {
-    externalFileReferences: undefined,
-  }
 
   return {
     id: element._id,
@@ -84,7 +89,8 @@ export default (modelMap: Map<string, Model>) => {
           return
         }
         switch (element.objectType) {
-          case ObjectTypes.FigureElement: {
+          case ObjectTypes.FigureElement:
+          case ObjectTypes.MultiGraphicFigureElement: {
             files.push({
               ...getFigureData(element as FigureElement, modelMap),
               label: `Figure`,
@@ -95,14 +101,19 @@ export default (modelMap: Map<string, Model>) => {
           case ObjectTypes.TableElement: {
             const tableElement = element as TableElement
             const table = modelMap.get(tableElement.containedObjectID) as Table
+            const externalFileReferences = table.externalFileReferences?.filter(
+              (file) => file.kind === 'dataset' && file.ref
+            )
 
-            files.push({
-              id: element._id,
-              label: `Table`,
-              type: FileType.SheetsWorkbooks,
-              externalFileReferences: table.externalFileReferences,
-              caption: getCaptionText(tableElement.caption),
-            })
+            if (externalFileReferences && externalFileReferences.length > 0) {
+              files.push({
+                id: element._id,
+                label: `Table`,
+                type: FileType.SheetsWorkbooks,
+                externalFileReferences: table.externalFileReferences,
+                caption: getCaptionText(tableElement.caption),
+              })
+            }
             break
           }
         }

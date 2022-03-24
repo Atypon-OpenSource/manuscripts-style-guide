@@ -162,13 +162,13 @@ const FileReference: React.FC<{
           >
             <DotsIcon />
           </ActionsIcon>
-          {/* TODO:: replace with other files list */}
           {isOpen && (
             <ItemActions
               replaceAttachmentHandler={handleReplace}
               downloadAttachmentHandler={handleDownload}
               submissionId={submissionId}
-              attachmentId={externalFile._id}
+              // @ts-ignore TODO:: pass attachmentID
+              attachmentId={undefined}
               fileName={externalFile.filename}
               designation={externalFile.designation}
               publicUrl={externalFile.publicUrl}

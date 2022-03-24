@@ -24,6 +24,7 @@ import { DropTargetMonitor, useDrop } from 'react-dnd'
 import { NativeTypes } from 'react-dnd-html5-backend'
 import styled, { css } from 'styled-components'
 
+import { SubmissionAttachment } from './FileSectionItem/FileSectionItem'
 import { Action, actions } from './FileSectionState'
 import { Designation, FileSectionType, getDesignationName } from './util'
 
@@ -35,7 +36,7 @@ export const UploadFileArea: React.FC<{
     submissionId: string,
     file: File,
     designation: string
-  ) => Promise<boolean>
+  ) => Promise<any>
   fileSection: FileSectionType
   submissionId: string
   dispatch: Dispatch<Action>

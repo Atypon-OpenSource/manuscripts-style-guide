@@ -26,7 +26,7 @@ const handleUpload = async (
   submissionId: string,
   file: File,
   designation: string
-): Promise<boolean> => {
+): Promise<any> => {
   await sleep(5000) //test the upload file item in storybook
   console.log('submissionId --> ' + submissionId)
   console.log('file --> ' + file.name)

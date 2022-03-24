@@ -66,11 +66,11 @@ export const FileManager: React.FC<{
   modelMap: Map<string, Model>
   enableDragAndDrop: boolean
   can: Capabilities
-  handleUpload: (
+  handleUpload: <FetchResult>(
     submissionId: string,
     file: File,
     designation: string
-  ) => Promise<boolean>
+  ) => Promise<FetchResult>
   handleDownload: (url: string) => void
   handleReplace: (
     submissionId: string,
@@ -105,45 +105,45 @@ export const FileManager: React.FC<{
           namesWithDesignationMap.get(typeId) || Designation.Document
         )
       )
-      return await handleReplace(submissionId, attachmentId, name, file, typeId)
+      const res = await handleReplace(
+        submissionId,
+        attachmentId,
+        name,
+        file,
+        typeId
+      )
+      dispatch(actions.HANDLE_FINISH_UPLOAD())
+      return res
     },
     [handleReplace]
   )
   const handleUploadFile = useCallback(
     async (submissionId, file, designation) => {
-      try {
-        dispatch(actions.HANDLE_UPLOAD_ACTION())
-        if (
-          namesWithDesignationMap.get(designation) == Designation.Supplementary
-        ) {
-          dispatch(actions.SELECT_DESIGNATION(Designation.Supplementary))
-        }
-        return await handleUpload(submissionId, file, designation)
-      } catch (e) {
-        console.error(e)
-        return false
+      dispatch(actions.HANDLE_UPLOAD_ACTION())
+      if (
+        namesWithDesignationMap.get(designation) == Designation.Supplementary
+      ) {
+        dispatch(actions.SELECT_DESIGNATION(Designation.Supplementary))
       }
+      const res = await handleUpload(submissionId, file, designation)
+      dispatch(actions.HANDLE_FINISH_UPLOAD())
+      return res
     },
     [handleUpload]
   )
 
   const handleChangeDesignationFile = useCallback(
     async (submissionId, attachmentId, typeId, name) => {
-      try {
-        const res = await handleChangeDesignation(
-          submissionId,
-          attachmentId,
-          typeId,
-          name
-        )
-        if (res) {
-          dispatch(actions.HANDLE_SUCCESS_MESSAGE())
-        }
-        return res
-      } catch (e) {
-        console.log(e)
-        return false
+      const res = await handleChangeDesignation(
+        submissionId,
+        attachmentId,
+        typeId,
+        name
+      )
+      if (res) {
+        dispatch(actions.HANDLE_SUCCESS_MESSAGE())
       }
+      return res
     },
     [handleChangeDesignation]
   )

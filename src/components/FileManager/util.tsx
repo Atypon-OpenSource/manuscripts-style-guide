@@ -551,15 +551,3 @@ export const droppableSections = [
   FileSectionType.Supplements,
   FileSectionType.OtherFile,
 ]
-
-// const isOfDesignation = (
-//   file: SubmissionAttachment,
-//   designation: Designation
-// ) => {
-//   const formats = designationWithAllowedMediaTypesMap.get(designation)
-//   return !!formats?.find((type) => file.MIME.indexOf('/' + type) >= 0)
-// }
-//
-// export const isFigure = (file: SubmissionAttachment) => {
-//   return isOfDesignation(file, Designation.Figure)
-// }

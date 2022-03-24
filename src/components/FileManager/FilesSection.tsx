@@ -33,7 +33,7 @@ export const FilesSection: React.FC<{
     submissionId: string,
     file: File,
     designation: string
-  ) => Promise<boolean>
+  ) => Promise<any>
   fileSection: FileSectionType
   filesItem: JSX.Element[]
   dispatch: Dispatch<Action>
