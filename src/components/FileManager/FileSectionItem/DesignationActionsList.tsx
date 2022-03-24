@@ -33,6 +33,7 @@ import {
 export const DesignationActionsList: React.FC<{
   handleChangeDesignation?: (
     submissionId: string,
+    attachmentId: string,
     typeId: string,
     name: string
   ) => Promise<boolean>
@@ -40,6 +41,7 @@ export const DesignationActionsList: React.FC<{
   submissionId: string
   fileName: string
   designation?: Designation
+  attachmentId: string
   dispatch?: Dispatch<Action>
   handleOpenConfirmationPopup: (
     popupHeader: string,
@@ -52,6 +54,7 @@ export const DesignationActionsList: React.FC<{
   submissionId,
   fileName,
   designation,
+  attachmentId,
   dispatch,
   handleOpenConfirmationPopup,
 }) => {
@@ -67,6 +70,7 @@ export const DesignationActionsList: React.FC<{
         dispatch(
           actions.MOVE_FILE(
             submissionId,
+            attachmentId,
             getDesignationName(designation),
             fileName,
             successMoveMessage
@@ -82,6 +86,7 @@ export const DesignationActionsList: React.FC<{
       handleChangeDesignation &&
         handleChangeDesignation(
           submissionId,
+          attachmentId,
           getDesignationName(designation),
           fileName
         )
@@ -97,7 +102,7 @@ export const DesignationActionsList: React.FC<{
           key={value}
           onClick={() => {
             let isMoveToOtherFileSection = true
-            if (designation) {
+            if (designation !== undefined) {
               isMoveToOtherFileSection =
                 designationWithFileSectionsMap.get(designation) !==
                 FileSectionType.OtherFile
@@ -131,7 +136,7 @@ export const DesignationActionsList: React.FC<{
           <ActionsItem
             onClick={() => {
               let isMoveToOtherFileSection = true
-              if (designation) {
+              if (designation !== undefined) {
                 isMoveToOtherFileSection =
                   designationWithFileSectionsMap.get(designation) !==
                   FileSectionType.Supplements

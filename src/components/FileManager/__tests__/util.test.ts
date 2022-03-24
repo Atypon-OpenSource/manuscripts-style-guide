@@ -13,110 +13,76 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { ExternalFile } from '@manuscripts/manuscripts-json-schema'
 
+import { SubmissionAttachment } from '../FileSectionItem/FileSectionItem'
 import {
   Designation,
   FileSectionType,
-  generateExternalFilesTitles,
+  generateAttachmentsTitles,
   getDesignationActionsList,
   getDesignationName,
-  sortExternalFiles,
 } from '../util'
 
-const externalFiles: ExternalFile[] = [
+const externalFiles: SubmissionAttachment[] = [
   {
-    containerID: 'MPProject:valid-project-id-2',
-    _id: 'MPManuscript:valid-manuscript-id-1',
-    createdAt: 0,
-    updatedAt: 0,
-    filename: 'supplementary-file.docx',
-    publicUrl: 'supplementary-file.docx',
-    displayName: 'Supplemental file',
-    MIME: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
-    description:
-      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
-    designation: 'supplementary',
-    objectType: 'MPExternalFile',
-    manuscriptID: 'MPManuscript:my-manuscript',
-    sessionID: 'test',
+    id: 'caabc327-25c5-4122-96fd-e38d313345da',
+    name: 'LW4_multiGraphicFigure-S1-doc.zip',
+    type: {
+      id: 'input-package',
+      label: 'input-package',
+    },
+    link: 'https://lean-x7481.ciplit.com/lw/attachment/caabc327-25c5-4122-96fd-e38d313345da',
   },
   {
-    containerID: 'MPProject:valid-project-id-2',
-    _id: 'MPManuscript:valid-manuscript-id-2',
-    createdAt: 0,
-    updatedAt: 0,
-    filename: 'my-figure.jpeg',
-    publicUrl: 'my-figure.jpeg',
-    displayName: 'Inline File',
-    MIME: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
-    description:
-      "test 2 Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
-    designation: 'figure',
-    objectType: 'MPExternalFile',
-    manuscriptID: 'MPManuscript:my-manuscript',
-    sessionID: 'test',
+    id: '9047930d-0a8a-4db7-909e-37b2148e0097',
+    name: 'demo_multigraphicfigure.docx',
+    type: {
+      id: 'main-manuscript',
+      label: 'main-manuscript',
+    },
+    link: 'https://lean-x7481.ciplit.com/lw/attachment/9047930d-0a8a-4db7-909e-37b2148e0097',
   },
   {
-    containerID: 'MPProject:valid-project-id-2',
-    _id: 'MPManuscript:valid-manuscript-id-12',
-    createdAt: 0,
-    updatedAt: 0,
-    filename: 'my-submission-file.docx',
-    publicUrl: 'my-submission-file.docx',
-    displayName: 'Other file',
-    MIME: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
-    description:
-      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
-    designation: 'submission_file',
-    objectType: 'MPExternalFile',
-    manuscriptID: 'MPManuscript:my-manuscript',
-    sessionID: 'test',
+    id: '7d9d686b-5488-44a5-a1c5-46351e7f9312',
+    name: 'final manuscript-hum-huili-dbh-suicide-20200707_figures (9).docx',
+    type: {
+      id: 'supplementary',
+      label: 'supplementary',
+    },
+    link: 'https://lean-x7481.ciplit.com/lw/attachment/7d9d686b-5488-44a5-a1c5-46351e7f9312',
   },
   {
-    containerID: 'MPProject:valid-project-id-2',
-    _id: 'MPManuscript:valid-manuscript-id-6',
-    createdAt: 0,
-    updatedAt: 0,
-    filename: 'my-conflict-of-interest-file.pdf',
-    publicUrl: 'my-conflict-of-interest-file.pdf',
-    displayName: 'Other file',
-    MIME: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
-    description:
-      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
-    designation: 'conflict-of-interest',
-    objectType: 'MPExternalFile',
-    manuscriptID: 'MPManuscript:my-manuscript',
-    sessionID: 'test',
+    id: 'fd554f25-e0d4-4bbb-9169-a263b34ae157',
+    name: 'hup-19-0076.pdf',
+    type: {
+      id: 'submission-pdf',
+      label: 'submission-pdf',
+    },
+    link: 'https://lean-x7481.ciplit.com/lw/attachment/fd554f25-e0d4-4bbb-9169-a263b34ae157',
+  },
+  {
+    id: '4131f16e-e075-41bb-8339-abea02df515d',
+    name: 'ContributorsArtwork@2x.png',
+    type: {
+      id: 'supplementary',
+      label: 'supplementary',
+    },
+    link: 'https://lean-x7481.ciplit.com/lw/attachment/4131f16e-e075-41bb-8339-abea02df515d',
   },
 ]
 
 test('Checking the generated titles for external files', () => {
-  const data = generateExternalFilesTitles(
+  const data = generateAttachmentsTitles(
     externalFiles,
     FileSectionType.OtherFile
   )
 
-  expect(data.length).toBe<number>(4)
-  expect(data[0].title).toEqual<string>('Doc 1')
-  expect(data[1].title).toEqual<string>('Image 1')
+  expect(data.length).toBe<number>(5)
+  expect(data[0].title).toEqual<string>('Compressed File 1')
+  expect(data[1].title).toEqual<string>('Doc 1')
   expect(data[2].title).toEqual<string>('Doc 2')
   expect(data[3].title).toEqual<string>('Doc 3')
-})
-
-test('Checking sorting external files', () => {
-  const sortedData = sortExternalFiles(externalFiles)
-
-  const data = generateExternalFilesTitles(
-    sortedData,
-    FileSectionType.OtherFile
-  )
-
-  expect(data.length).toBe<number>(4)
-  expect(data[0].title).toEqual<string>('Doc 1')
-  expect(data[1].title).toEqual<string>('Image 1')
-  expect(data[2].title).toEqual<string>('Doc 2')
-  expect(data[3].title).toEqual<string>('Doc 3')
+  expect(data[4].title).toEqual<string>('Image 1')
 })
 
 test('Checking designation actions list', () => {

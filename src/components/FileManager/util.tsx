@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { ExternalFile } from '@manuscripts/manuscripts-json-schema'
 import React from 'react'
 
 import { Capabilities } from '../../lib/capabilities'
@@ -29,6 +28,8 @@ import PdfFileIcon from '../icons/pdf-file-icon'
 import TableIcon from '../icons/table-icon'
 import UnknownFormatFileIcon from '../icons/unknown-format-file-icon'
 import VideoIcon from '../icons/video-icon'
+import { Maybe } from '../SubmissionInspector/types'
+import { SubmissionAttachment } from './FileSectionItem/FileSectionItem'
 
 export enum FileSectionType {
   Inline,
@@ -72,8 +73,8 @@ export const designationWithFileSectionsMap = new Map<
   Designation,
   FileSectionType
 >([
-  [Designation.Figure, FileSectionType.Inline],
-  [Designation.Table, FileSectionType.Inline],
+  [Designation.Figure, FileSectionType.OtherFile],
+  [Designation.Table, FileSectionType.OtherFile],
 
   [Designation.Supplementary, FileSectionType.Supplements],
 
@@ -90,26 +91,27 @@ export const designationWithFileSectionsMap = new Map<
   [Designation.MainManuscript, FileSectionType.OtherFile],
 ])
 
-export const namesWithDesignationMap = new Map<string | undefined, Designation>(
-  [
-    ['figure', Designation.Figure],
-    ['table', Designation.Table],
+export const namesWithDesignationMap = new Map<
+  Maybe<string> | undefined,
+  Designation
+>([
+  ['figure', Designation.Figure],
+  ['table', Designation.Table],
 
-    ['supplementary', Designation.Supplementary],
+  ['supplementary', Designation.Supplementary],
 
-    ['conflict-of-interest', Designation.ConflictOfInterest],
-    ['document', Designation.Document],
-    ['graphical-abstract', Designation.GraphicalAbstract],
-    ['graphical-abstract-image', Designation.GraphicalAbstractImage],
-    ['graphical-abstract-text', Designation.GraphicalAbstractText],
-    ['metadata', Designation.Metadata],
-    ['submission-file', Designation.SubmissionFile],
-    ['submission-pdf', Designation.SubmissionPdf],
-    ['title-page', Designation.TitlePage],
-    ['dataset', Designation.Dataset],
-    ['main-manuscript', Designation.MainManuscript],
-  ]
-)
+  ['conflict-of-interest', Designation.ConflictOfInterest],
+  ['document', Designation.Document],
+  ['graphical-abstract', Designation.GraphicalAbstract],
+  ['graphical-abstract-image', Designation.GraphicalAbstractImage],
+  ['graphical-abstract-text', Designation.GraphicalAbstractText],
+  ['metadata', Designation.Metadata],
+  ['submission-file', Designation.SubmissionFile],
+  ['submission-pdf', Designation.SubmissionPdf],
+  ['title-page', Designation.TitlePage],
+  ['dataset', Designation.Dataset],
+  ['main-manuscript', Designation.MainManuscript],
+])
 
 export const designationWithReadableNamesMap = new Map<Designation, string>([
   [Designation.Figure, 'Figure'],
@@ -406,27 +408,27 @@ export const fileTypesWithIconMap = new Map<FileType | undefined, JSX.Element>([
 /**
  * In this method we generate the item title based on file type with counter.
  */
-export const generateExternalFilesTitles = (
-  externalFiles: ExternalFile[],
+export const generateAttachmentsTitles = (
+  externalFiles: SubmissionAttachment[],
   fileSectionType: FileSectionType
-): Array<{ title: string; externalFile: ExternalFile }> => {
+): Array<{ title: string; externalFile: SubmissionAttachment }> => {
   const titleCountersMap: Map<string, number> = new Map<string, number>()
 
-  const externalFilesWithTitlesMap: Map<string, ExternalFile> = new Map<
+  const externalFilesWithTitlesMap: Map<string, SubmissionAttachment> = new Map<
     string,
-    ExternalFile
+    SubmissionAttachment
   >()
 
   externalFiles.forEach((element) => {
-    const fileExtension = element.filename.substring(
-      element.filename.lastIndexOf('.') + 1
+    const fileExtension = element.name.substring(
+      element.name.lastIndexOf('.') + 1
     )
 
     const fileType = extensionsWithFileTypesMap.get(fileExtension.toLowerCase())
 
     const fileTitle = fileTypesWithTitlesMap.get(fileType)
     if (fileSectionType === FileSectionType.Inline) {
-      externalFilesWithTitlesMap.set(element.filename, element)
+      externalFilesWithTitlesMap.set(element.name, element)
     } else {
       if (fileTitle !== undefined) {
         const oldCount = titleCountersMap.get(fileTitle)
@@ -449,22 +451,6 @@ export const generateExternalFilesTitles = (
 
   return result
 }
-
-/**
- * In this method we sort the external files array based on the created date and the manin-manuscript.
- */
-export const sortExternalFiles = (
-  externalFile: ExternalFile[]
-): ExternalFile[] =>
-  externalFile
-    .sort((a, b) => Number(a.createdAt) - Number(b.createdAt))
-    .sort((a, b) =>
-      b.designation === 'main-manuscript'
-        ? 1
-        : a.designation === 'main-manuscript'
-        ? -1
-        : 0
-    )
 
 export const getDesignationActionsList = (
   designation: Designation,
@@ -565,12 +551,3 @@ export const droppableSections = [
   FileSectionType.Supplements,
   FileSectionType.OtherFile,
 ]
-
-const isOfDesignation = (file: ExternalFile, designation: Designation) => {
-  const formats = designationWithAllowedMediaTypesMap.get(designation)
-  return !!formats?.find((type) => file.MIME.indexOf('/' + type) >= 0)
-}
-
-export const isFigure = (file: ExternalFile) => {
-  return isOfDesignation(file, Designation.Figure)
-}

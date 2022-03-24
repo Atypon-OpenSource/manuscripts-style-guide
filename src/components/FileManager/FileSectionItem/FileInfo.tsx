@@ -25,12 +25,13 @@ export const FileInfo: React.FC<{
   showAttachmentName: boolean
   showDesignationActions: boolean
   title: string
-  description?: string
   submissionAttachmentName: string
   fileExtension: string
   designation?: Designation
+  attachmentId: string
   handleChangeDesignation: (
     submissionId: string,
+    attachmentId: string,
     typeId: string,
     name: string
   ) => Promise<boolean>
@@ -43,7 +44,7 @@ export const FileInfo: React.FC<{
   submissionAttachmentName,
   fileExtension,
   designation,
-  description,
+  attachmentId,
   handleChangeDesignation,
   submissionId,
   dispatch,
@@ -59,10 +60,11 @@ export const FileInfo: React.FC<{
     <FileInfoContainer>
       {can?.changeDesignation &&
         showDesignationActions &&
-        designation &&
+        designation !== undefined &&
         submissionId && (
           <DesignationActions
             designation={designation}
+            attachmentId={attachmentId}
             fileExtension={fileExtension}
             handleChangeDesignation={handleChangeDesignation}
             submissionId={submissionId}
@@ -82,7 +84,6 @@ export const FileInfo: React.FC<{
           </FileNameContainer>
         )}
       </FileNameTitleContainer>
-      {description && <FileDescription>{description}</FileDescription>}
     </FileInfoContainer>
   )
 }
