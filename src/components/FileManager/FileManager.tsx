@@ -78,13 +78,13 @@ export const FileManager: React.FC<{
     name: string,
     file: File,
     typeId: string
-  ) => Promise<boolean>
+  ) => Promise<any>
   handleChangeDesignation: (
     submissionId: string,
     attachmentId: string,
     typeId: string,
     name: string
-  ) => Promise<boolean>
+  ) => Promise<any>
 }> = ({
   submissionId,
   attachments,
