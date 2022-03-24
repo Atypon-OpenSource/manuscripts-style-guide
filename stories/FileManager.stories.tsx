@@ -26,6 +26,7 @@ const handleUpload = async (
   submissionId: string,
   file: File,
   designation: string
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
 ): Promise<any> => {
   await sleep(5000) //test the upload file item in storybook
   console.log('submissionId --> ' + submissionId)

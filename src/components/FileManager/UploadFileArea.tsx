@@ -36,6 +36,7 @@ export const UploadFileArea: React.FC<{
     submissionId: string,
     file: File,
     designation: string
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
   ) => Promise<any>
   fileSection: FileSectionType
   submissionId: string

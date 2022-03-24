@@ -70,6 +70,7 @@ export const FileManager: React.FC<{
     submissionId: string,
     file: File,
     designation: string
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
   ) => Promise<any>
   handleDownload: (url: string) => void
   handleReplace: (
@@ -78,12 +79,14 @@ export const FileManager: React.FC<{
     name: string,
     file: File,
     typeId: string
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
   ) => Promise<any>
   handleChangeDesignation: (
     submissionId: string,
     attachmentId: string,
     typeId: string,
     name: string
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
   ) => Promise<any>
 }> = ({
   submissionId,
