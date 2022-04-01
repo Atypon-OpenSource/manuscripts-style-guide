@@ -274,6 +274,7 @@ export const FileManager: React.FC<{
               <InspectorTabPanel>
                 <InlineFilesSection
                   modelMap={modelMap}
+                  attachments={attachments}
                   submissionId={submissionId}
                   handleReplace={handleReplace}
                   handleDownload={handleDownload}
