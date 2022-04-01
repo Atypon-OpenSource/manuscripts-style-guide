@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { ExternalFile, Model } from '@manuscripts/manuscripts-json-schema'
+import { Model } from '@manuscripts/manuscripts-json-schema'
 import React, { Dispatch, useCallback, useMemo } from 'react'
 import styled from 'styled-components'
 
@@ -26,7 +26,11 @@ import {
   FileNameTitleContainer,
   FileTitle,
 } from './FileSectionItem/FileInfo'
-import { ActionsIcon, Item } from './FileSectionItem/FileSectionItem'
+import {
+  ActionsIcon,
+  Item,
+  SubmissionAttachment,
+} from './FileSectionItem/FileSectionItem'
 import { ItemActions } from './FileSectionItem/ItemActions'
 import { Action } from './FileSectionState'
 import { extensionsWithFileTypesMap, fileTypesWithIconMap } from './util'
@@ -34,11 +38,12 @@ import { extensionsWithFileTypesMap, fileTypesWithIconMap } from './util'
 export interface ExternalFileRef {
   url: string
   kind?: string
-  ref?: ExternalFile
+  ref?: SubmissionAttachment
 }
 
 export const InlineFilesSection: React.FC<{
   submissionId: string
+  attachments: SubmissionAttachment[]
   modelMap: Map<string, Model>
   handleReplace: (
     submissionId: string,
@@ -55,10 +60,14 @@ export const InlineFilesSection: React.FC<{
   handleReplace,
   handleDownload,
   modelMap,
+  attachments,
   isEditor,
   dispatch,
 }) => {
-  const inlineFiles = useMemo(() => getInlineFiles(modelMap), [modelMap])
+  const inlineFiles = useMemo(
+    () => getInlineFiles(modelMap, attachments),
+    [modelMap, attachments]
+  )
 
   const onElementClick = useCallback(
     (e) => {
@@ -86,10 +95,10 @@ export const InlineFilesSection: React.FC<{
           onClick={onElementClick}
         >
           <FileReferences className={'refItems'}>
-            {file.externalFileReferences?.map((externalFile, index) => (
+            {file.attachments?.map((attachment) => (
               <FileReference
-                key={index}
-                externalFile={externalFile.ref}
+                key={attachment.id}
+                attachment={attachment}
                 submissionId={submissionId}
                 handleReplace={handleReplace}
                 handleDownload={handleDownload}
@@ -115,7 +124,7 @@ export const InlineFilesSection: React.FC<{
 }
 
 const FileReference: React.FC<{
-  externalFile?: ExternalFile
+  attachment?: SubmissionAttachment
   submissionId: string
   handleReplace: (
     submissionId: string,
@@ -127,7 +136,7 @@ const FileReference: React.FC<{
   handleDownload: (url: string) => void
   dispatch: Dispatch<Action>
 }> = ({
-  externalFile,
+  attachment,
   submissionId,
   handleReplace,
   handleDownload,
@@ -135,21 +144,21 @@ const FileReference: React.FC<{
 }) => {
   const { isOpen, toggleOpen, wrapperRef } = useDropdown()
 
-  if (!externalFile || !externalFile.filename) {
+  if (!attachment || !attachment.name) {
     return null
   }
 
-  const fileExtension = externalFile.filename.substring(
-    externalFile.filename.lastIndexOf('.') + 1
+  const fileExtension = attachment.name.substring(
+    attachment.name.lastIndexOf('.') + 1
   )
 
   return (
-    <FileReferenceItem key={externalFile._id}>
+    <FileReferenceItem key={attachment.id}>
       <Container>
         {fileTypesWithIconMap.get(
           extensionsWithFileTypesMap.get(fileExtension)
         )}
-        <FileReferenceName>{externalFile.filename}</FileReferenceName>
+        <FileReferenceName>{attachment.name}</FileReferenceName>
       </Container>
       {handleDownload && handleReplace && submissionId && (
         <DropdownContainer ref={wrapperRef}>
@@ -167,11 +176,10 @@ const FileReference: React.FC<{
               replaceAttachmentHandler={handleReplace}
               downloadAttachmentHandler={handleDownload}
               submissionId={submissionId}
-              // @ts-ignore TODO:: pass attachmentID
-              attachmentId={undefined}
-              fileName={externalFile.filename}
-              designation={externalFile.designation}
-              publicUrl={externalFile.publicUrl}
+              attachmentId={attachment.id}
+              fileName={attachment.name}
+              designation={attachment.type.label}
+              publicUrl={attachment.link}
               hideActionList={toggleOpen}
               dispatch={dispatch}
               dropDownClassName={'ref_item_dropdown'}
