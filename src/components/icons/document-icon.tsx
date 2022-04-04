@@ -20,47 +20,47 @@ import { IconProps } from './types'
 const DocumentIcon: React.FC<IconProps> = (props: IconProps) => (
   <svg
     className={props.className}
-    width="16"
-    height="18"
-    viewBox="0 0 16 18"
+    width="20"
+    height="25"
+    viewBox="0 0 20 25"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
   >
     <rect
-      x="1.25"
-      y="1.25"
-      width="13.5"
-      height="15.5"
-      rx="1.75"
+      x="1"
+      y="1.71973"
+      width="18"
+      height="22"
+      rx="2"
       stroke={props.color}
-      strokeWidth="1.5"
+      strokeWidth="2"
     />
     <rect
-      x="4.375"
-      y="4.375"
-      width="4.25"
-      height="0.75"
-      rx="0.375"
+      x="5.16699"
+      y="6.07715"
+      width="5.66667"
+      height="1.14286"
+      rx="0.5"
+      fill="#1A9BC7"
       stroke={props.color}
-      strokeWidth="0.75"
     />
     <rect
-      x="4.375"
-      y="8.375"
-      width="7.25"
-      height="0.75"
-      rx="0.375"
+      x="5.16699"
+      y="11.791"
+      width="9.66667"
+      height="1.14286"
+      rx="0.5"
+      fill="#1A9BC7"
       stroke={props.color}
-      strokeWidth="0.75"
     />
     <rect
-      x="4.375"
-      y="12.375"
-      width="7.25"
-      height="0.75"
-      rx="0.375"
+      x="5.16699"
+      y="17.5059"
+      width="9.66667"
+      height="1.14286"
+      rx="0.5"
+      fill="#1A9BC7"
       stroke={props.color}
-      strokeWidth="0.75"
     />
   </svg>
 )

@@ -22,6 +22,7 @@ import React, {
 } from 'react'
 
 import { DropdownList } from '../../Dropdown'
+import { Maybe } from '../../SubmissionInspector/types'
 import { PermissionsContext } from '../FileManager'
 import { Action, actions } from '../FileSectionState'
 import { ActionsItem } from '../ItemsAction'
@@ -33,25 +34,30 @@ export const ItemActions: React.FC<{
   downloadAttachmentHandler: (url: string) => void
   replaceAttachmentHandler: (
     submissionId: string,
+    attachmentId: string,
     name: string,
     file: File,
     typeId: string
   ) => Promise<boolean>
   submissionId: string
+  attachmentId: string
   fileName: string
-  designation?: string | undefined
+  designation?: Maybe<string> | undefined
   publicUrl: string | undefined
-  hideActionList: () => void
+  hideActionList: (e?: React.MouseEvent) => void
   dispatch?: Dispatch<Action>
+  dropDownClassName?: string
 }> = ({
   downloadAttachmentHandler,
   replaceAttachmentHandler,
   submissionId,
+  attachmentId,
   fileName,
   designation,
   publicUrl,
   hideActionList,
   dispatch,
+  dropDownClassName,
 }) => {
   const attachmentDesignation =
     designation == undefined ? 'undefined' : designation
@@ -67,6 +73,7 @@ export const ItemActions: React.FC<{
       }
       replaceAttachmentHandler(
         submissionId,
+        attachmentId,
         fileName,
         file,
         attachmentDesignation
@@ -82,6 +89,7 @@ export const ItemActions: React.FC<{
   return (
     <DropdownList
       direction={'right'}
+      className={dropDownClassName}
       width={125}
       height={96}
       top={5}

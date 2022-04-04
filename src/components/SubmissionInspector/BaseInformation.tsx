@@ -25,7 +25,8 @@ import DatePicker, {
   DayValue,
   RenderInputProps,
 } from 'react-modern-calendar-datepicker'
-import styled from 'styled-components'
+import ReactTooltip from 'react-tooltip'
+import styled, { css } from 'styled-components'
 
 import { IconTextButton } from '../Button'
 import { Category, Dialog, MessageContainer } from '../Dialog'
@@ -138,18 +139,31 @@ export const BaseInformation: React.FC<{
   userRole?: string
 }> = ({ submission, handleDateChange, userRole }) => {
   const Button: React.FC<RenderInputProps> = ({ ref }) => (
-    <DateButton
-      ref={ref as RefObject<HTMLButtonElement>}
-      criticality={submission.currentStep.criticality}
-      disabled={userRole !== 'pe'}
-    >
-      {format(submission.currentStep.dueDate, 'd MMM, EEEE')}
-      {submission.currentStep.criticality ===
-        SubmissionCriticality.DUE_TODAY && <AttentionOrange />}
-      {submission.currentStep.criticality === SubmissionCriticality.OVERDUE && (
-        <AttentionRed />
-      )}
-    </DateButton>
+    <Container>
+      <div data-tip={true} data-for={submission.id}>
+        <DateButton
+          ref={ref as RefObject<HTMLButtonElement>}
+          criticality={submission.currentStep.criticality}
+          disabled={userRole !== 'pe'}
+        >
+          {format(submission.currentStep.dueDate, 'd MMM, EEEE')}
+          {submission.currentStep.criticality ===
+            SubmissionCriticality.DUE_TODAY && <AttentionOrange />}
+          {submission.currentStep.criticality ===
+            SubmissionCriticality.OVERDUE && <AttentionRed />}
+        </DateButton>
+      </div>
+      <ReactTooltip
+        id={submission.id}
+        place="bottom"
+        effect="solid"
+        offset={{ top: 10 }}
+        className="tooltip"
+        disable={userRole == 'pe'}
+      >
+        No permissions to reschedule
+      </ReactTooltip>
+    </Container>
   )
 
   return (
@@ -223,6 +237,13 @@ const potentialDueDate = (
   return add(submissionDueDate, duration)
 }
 
+const Container = styled.div`
+  .tooltip {
+    border-radius: 6px;
+    padding: ${(props) => props.theme.grid.unit * 2}px;
+  }
+`
+
 const Grid = styled.div`
   display: grid;
   grid-template-columns: 30% auto;
@@ -249,6 +270,12 @@ const DateLabel = styled(Label)`
   color: ${(props) => props.theme.colors.text.primary};
 `
 
+const disabledStyle = css`
+  background-color: ${(props) =>
+    props.theme.colors.background.secondary} !important;
+  color: ${(props) => props.theme.colors.text.secondary} !important;
+`
+
 const DateButton = styled(IconTextButton)<{
   criticality: SubmissionCriticality
 }>`
@@ -264,9 +291,20 @@ const DateButton = styled(IconTextButton)<{
   width: 100%;
   height: ${(props) => props.theme.grid.unit * 7.5}px;
   justify-content: space-between;
-  background: transparent !important;
   padding: 0 ${(props) => props.theme.grid.unit * 2}px 0
     ${(props) => props.theme.grid.unit * 4}px;
+
+  ${(props) => props.disabled && disabledStyle}
+
+  &:focus {
+    border-color: ${(props) => props.theme.colors.border.field.hover}!important;
+    background-color: ${(props) => props.theme.colors.background.fifth};
+  }
+
+  &:hover {
+    background-color: ${(props) => props.theme.colors.background.fifth};
+  }
+
   svg {
     margin-right: 0;
   }

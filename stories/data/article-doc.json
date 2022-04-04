@@ -1,0 +1,409 @@
+{
+  "type": "manuscript",
+  "attrs": {
+    "id": "MPManuscript:65B19C8C-0989-4C3A-8F11-39DD11AD601C"
+  },
+  "content": [
+    {
+      "type": "section",
+      "attrs": {
+        "id": "MPSection:2FEA3585-1577-44FD-B462-6956CB2CB971",
+        "category": "MPSectionCategory:abstract-graphical",
+        "titleSuppressed": false
+      },
+      "content": [
+        {
+          "type": "section_title",
+          "content": [
+            {
+              "type": "text",
+              "text": "Graphical Abstract"
+            }
+          ]
+        },
+        {
+          "type": "figure_element",
+          "attrs": {
+            "figureLayout": "",
+            "figureStyle": "",
+            "id": "MPFigureElement:12715929-E205-4B43-86DF-FDC83AF336C3",
+            "label": "",
+            "sizeFraction": 0,
+            "suppressCaption": false
+          },
+          "content": [
+            {
+              "type": "figure",
+              "attrs": {
+                "id": "MPFigure:DC3B2DC1-82A2-4ECF-AD3B-EA3BCD5DC96F",
+                "label": "Figure 1",
+                "src": "",
+                "contentType": "image/png",
+                "originalURL": "graphicalabstract.png",
+                "externalFileReferences": [
+                  {
+                    "url": "graphicalabstract.png",
+                    "kind": "imageRepresentation",
+                    "ref": {
+                      "_id": "MPExternalFiles:1",
+                      "MIME": "image/png",
+                      "containerID": "MPProject:f2b41fe5-3504-4baa-a619-abdf2d0527ca",
+                      "createdAt": 1644318672.306,
+                      "designation": "figure",
+                      "displayName": "Figure1.png",
+                      "filename": "Figure1.png",
+                      "manuscriptID": "MPManuscript:c62f6e2d-516f-415c-bebe-76d723dca1ae",
+                      "objectType": "MPExternalFile",
+                      "publicUrl": "https://lean-x7481/Figure1.png"
+                    }
+                  }
+                ],
+                "missingImage": null,
+                "position": "anchor"
+              }
+            },
+            {
+              "type": "figcaption"
+            },
+            {
+              "type": "listing",
+              "attrs": {
+                "id": "MPListing:300C282F-146C-426D-9B71-D3E855F7C349",
+                "contents": "",
+                "language": "",
+                "languageKey": "null",
+                "isExpanded": false,
+                "isExecuting": false
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "section",
+      "attrs": {
+        "id": "MPSection:031E70AC-0E06-460B-9166-AB07BFF4378A",
+        "category": "MPSectionCategory:abstract",
+        "titleSuppressed": false
+      },
+      "content": [
+        {
+          "type": "section_title",
+          "content": [
+            {
+              "type": "text",
+              "text": "Abstract"
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "attrs": {
+            "id": "MPParagraphElement:9D586A67-3B53-48BF-94A9-598D95A16832",
+            "paragraphStyle": "",
+            "placeholder": ""
+          },
+          "content": [
+            {
+              "type": "text",
+              "text": "This paper examines the growth-inflation nexus in Franc zone currency unions. It aims at estimating the inflation threshold above which additional inflationary pressures adversely affect economic expansion. It uses cointegration methods that are applied to data from 14 African countries from the Franc zone over 1970–2018. Based on country-level data, the results indicate that it is possible to increase the threshold levels used by regional central banks to 5.4-5.6 percent in the Central African Monetary Union and 4.3-4.5 percent in the West African Monetary Union. Homogeneous cointegration panel data analyses confirm the need to increase the threshold in Central African Monetary Union countries but do not in the West African Monetary Union countries."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "section",
+      "attrs": {
+        "id": "MPSection:C7888A1C-0ABC-4A24-8237-8EF91166BC19",
+        "category": "MPSectionCategory:introduction",
+        "titleSuppressed": false
+      },
+      "content": [
+        {
+          "type": "section_label",
+          "content": [
+            {
+              "type": "text",
+              "text": "1"
+            }
+          ]
+        },
+        {
+          "type": "section_title",
+          "content": [
+            {
+              "type": "text",
+              "text": "Introduction"
+            }
+          ]
+        },
+        {
+          "type": "multi_graphic_figure_element",
+          "attrs": {
+            "figureLayout": "",
+            "figureStyle": "",
+            "id": "MPMultiGraphicFigureElement:67F4F5F6-52E2-4BB2-8902-2F2BEB50BC00",
+            "label": "",
+            "sizeFraction": 0,
+            "suppressCaption": false
+          },
+          "content": [
+            {
+              "type": "figure",
+              "attrs": {
+                "id": "MPFigure:111C15BA-B82B-4F96-BEA8-910CC81623AA",
+                "label": "",
+                "src": "",
+                "contentType": "image/png",
+                "originalURL": "https://nine-lts.literatumonline.com/lw/attachment/c31b3364-e604-423d-8a46-ef38ed642e47/Figure1.png",
+                "externalFileReferences": [
+                  {
+                    "url": "https://nine-lts.literatumonline.com/lw/attachment/c31b3364-e604-423d-8a46-ef38ed642e47/Figure1.png",
+                    "kind": "imageRepresentation",
+                    "ref": {
+                      "_id": "MPExternalFiles:2",
+                      "MIME": "image/png",
+                      "containerID": "MPProject:f2b41fe5-3504-4baa-a619-abdf2d0527ca",
+                      "createdAt": 1644318672.306,
+                      "designation": "figure",
+                      "displayName": "Figure2.png",
+                      "filename": "Figure2.png",
+                      "manuscriptID": "MPManuscript:c62f6e2d-516f-415c-bebe-76d723dca1ae",
+                      "objectType": "MPExternalFile",
+                      "publicUrl": "https://lean-x7481/Figure2.png"
+                    }
+                  }
+                ],
+                "missingImage": null,
+                "position": null
+              }
+            },
+            {
+              "type": "figure",
+              "attrs": {
+                "id": "MPFigure:BF945D4D-1B57-4A0B-B4C3-FC0B800685E0",
+                "label": "",
+                "src": "",
+                "contentType": "image/png",
+                "originalURL": "https://nine-lts.literatumonline.com/lw/attachment/c31b3364-e604-423d-8a46-ef38ed642e47/Figure1.png",
+                "externalFileReferences": [
+                  {
+                    "url": "https://nine-lts.literatumonline.com/lw/attachment/c31b3364-e604-423d-8a46-ef38ed642e47/Figure1.png",
+                    "kind": "imageRepresentation",
+                    "ref": {
+                      "_id": "MPExternalFiles:3",
+                      "MIME": "image/png",
+                      "containerID": "MPProject:f2b41fe5-3504-4baa-a619-abdf2d0527ca",
+                      "createdAt": 1644318672.306,
+                      "designation": "figure",
+                      "displayName": "Figure3.png",
+                      "filename": "Figure3.png",
+                      "manuscriptID": "MPManuscript:c62f6e2d-516f-415c-bebe-76d723dca1ae",
+                      "objectType": "MPExternalFile",
+                      "publicUrl": "https://lean-x7481/Figure3.png"
+                    }
+                  }
+                ],
+                "missingImage": null,
+                "position": null
+              }
+            },
+            {
+              "type": "figure",
+              "attrs": {
+                "id": "MPFigure:9A11B456-C03D-43C7-B834-4494E7F71F7D",
+                "label": "Figure 1",
+                "src": "",
+                "contentType": "image/png",
+                "originalURL": "https://nine-lts.literatumonline.com/lw/attachment/c31b3364-e604-423d-8a46-ef38ed642e47/Figure1.png",
+                "externalFileReferences": [
+                  {
+                    "url": "https://nine-lts.literatumonline.com/lw/attachment/c31b3364-e604-423d-8a46-ef38ed642e47/Figure1.png",
+                    "kind": "imageRepresentation",
+                    "ref": {
+                      "_id": "MPExternalFiles:4",
+                      "MIME": "image/png",
+                      "containerID": "MPProject:f2b41fe5-3504-4baa-a619-abdf2d0527ca",
+                      "createdAt": 1644318672.306,
+                      "designation": "figure",
+                      "displayName": "Figure4.png",
+                      "filename": "Figure4.png",
+                      "manuscriptID": "MPManuscript:c62f6e2d-516f-415c-bebe-76d723dca1ae",
+                      "objectType": "MPExternalFile",
+                      "publicUrl": "https://lean-x7481/Figure4.png"
+                    }
+                  }
+                ],
+                "missingImage": null,
+                "position": "float"
+              },
+              "content": [
+                {
+                  "type": "figcaption",
+                  "content": [
+                    {
+                      "type": "caption",
+                      "attrs": {
+                        "placeholder": "Caption..."
+                      },
+                      "content": [
+                        {
+                          "type": "text",
+                          "text": "Trends Growth and Inflation Rates in CAMU Countries, 1981-2018"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "figcaption",
+              "content": [
+                {
+                  "type": "caption",
+                  "attrs": {
+                    "placeholder": "Caption..."
+                  },
+                  "content": [
+                    {
+                      "type": "text",
+                      "text": "Trends Growth and Inflation Rates in CAMU Countries, 1981-2018"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "listing",
+              "attrs": {
+                "id": "MPListing:181587C2-CF61-463F-94B4-22AB70ABA824",
+                "contents": "",
+                "language": "",
+                "languageKey": "null",
+                "isExpanded": false,
+                "isExecuting": false
+              }
+            }
+          ]
+        },
+        {
+          "type": "figure_element",
+          "attrs": {
+            "figureLayout": "",
+            "figureStyle": "",
+            "id": "fig1",
+            "label": "",
+            "sizeFraction": 0,
+            "suppressCaption": false
+          },
+          "content": [
+            {
+              "type": "figure",
+              "attrs": {
+                "id": "MPFigure:9D459B73-1E07-4A88-A378-C4AAF332DF17",
+                "label": "Figure 1",
+                "src": "",
+                "contentType": "image/png",
+                "originalURL": "https://nine-lts.literatumonline.com/lw/attachment/c31b3364-e604-423d-8a46-ef38ed642e47/Figure1.png",
+                "externalFileReferences": [
+                  {
+                    "url": "https://nine-lts.literatumonline.com/lw/attachment/c31b3364-e604-423d-8a46-ef38ed642e47/Figure1.png",
+                    "kind": "imageRepresentation",
+                    "ref": {
+                      "_id": "MPExternalFiles:5",
+                      "MIME": "image/png",
+                      "containerID": "MPProject:f2b41fe5-3504-4baa-a619-abdf2d0527ca",
+                      "createdAt": 1644318672.306,
+                      "designation": "figure",
+                      "displayName": "Figure5.png",
+                      "filename": "Figure5.png",
+                      "manuscriptID": "MPManuscript:c62f6e2d-516f-415c-bebe-76d723dca1ae",
+                      "objectType": "MPExternalFile",
+                      "publicUrl": "https://lean-x7481/Figure5.png"
+                    }
+                  }
+                ],
+                "missingImage": null,
+                "position": "float"
+              }
+            },
+            {
+              "type": "figcaption",
+              "content": [
+                {
+                  "type": "caption",
+                  "attrs": {
+                    "placeholder": "Caption..."
+                  },
+                  "content": [
+                    {
+                      "type": "text",
+                      "text": "Trends Growth and Inflation Rates in CAMU Countries, aaa-2018"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "listing",
+              "attrs": {
+                "id": "MPListing:F0C429A6-4B09-4A84-AB08-E1AB3D005626",
+                "contents": "",
+                "language": "",
+                "languageKey": "null",
+                "isExpanded": false,
+                "isExecuting": false
+              }
+            }
+          ]
+        },
+        {
+          "type": "table_element",
+          "attrs": {
+            "id": "MPTableElement:532AF5F5-29C6-41E3-826C-F00C05107B5E",
+            "paragraphStyle": "",
+            "tableStyle": "",
+            "label": "",
+            "suppressCaption": false,
+            "suppressTitle": true,
+            "suppressFooter": false,
+            "suppressHeader": false,
+            "expandListing": false
+          },
+          "content": [
+            {
+              "type": "table",
+              "attrs": {
+                "id": "MPTable:F60769FF-7676-4167-8857-46BD620547AC",
+                "headerRows": 1,
+                "footerRows": 1,
+                "externalFileReferences": [
+                  {
+                    "ref": {
+                      "MIME": "application/xml",
+                      "containerID": "MPProject:ad88f185-96e8-4900-9da4-fa7d29c31a67",
+                      "designation": "dataset",
+                      "displayName": "manuscript.xml",
+                      "filename": "manuscript.xml",
+                      "manuscriptID": "MPManuscript:AFEC0F9F-E7B4-4450-BC74-6F2F6668426E",
+                      "objectType": "MPExternalFile",
+                      "publicUrl": "http://localhost:4001/external_files/manuscript.xml",
+                      "storeId": "com.atypon.lw-store",
+                      "_id": "MPExternalFile:c2d3e442-0c05-4fbb-9289-80be442c3117"
+                    },
+                    "kind": "dataset",
+                    "url": "http://localhost:4001/external_files/manuscript.xml"
+                  }
+                ]
+              },
+              "content": []
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

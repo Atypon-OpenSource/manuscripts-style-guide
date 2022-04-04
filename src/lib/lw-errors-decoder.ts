@@ -85,6 +85,12 @@ const errorsExplanations: errorsAssocList = {
     description: 'The quality report could not be loaded.',
     type: 'System',
   },
+  TSK_FAILED: {
+    title: 'Internal error',
+    description:
+      'An internal error occured while the system was processing the submission.',
+    type: 'System',
+  },
   TSK_MYTASKS_NOT_LOADED: {
     title: 'Task list cannot be loaded',
     description:

@@ -1538,7 +1538,17 @@
     prosemirror-view "~1.18.2"
     react-select "~3.1.0"
 
-"@manuscripts/data@^0.1.0", "@manuscripts/data@^0.1.3":
+"@manuscripts/csl-locales@^0.0.5":
+  version "0.0.5"
+  resolved "https://registry.yarnpkg.com/@manuscripts/csl-locales/-/csl-locales-0.0.5.tgz#5051467f097cac4ee88a30b2741352ace26b38b4"
+  integrity sha512-g4m25tT6zjFedajG9RLVwMNHGMXTzJqQMR6i5ppK07KyYh65Ra0ulAdTJoFLl+QMgpR+y3TnZjRSzN42dtCzKg==
+
+"@manuscripts/csl-styles@^0.2.1":
+  version "0.2.1"
+  resolved "https://registry.yarnpkg.com/@manuscripts/csl-styles/-/csl-styles-0.2.1.tgz#c499e2b2600811792a0e9172df9e6a3ce1df1a4f"
+  integrity sha512-DUbNRehtEiX1K3qA3swqRNyxv2fIa4zGYz8MasIkSxrMfrBG7f68FSWtERrorz6OyL4tL2WQ+K5hIt3WrIlg2Q==
+
+"@manuscripts/data@^0.1.0", "@manuscripts/data@^0.1.2", "@manuscripts/data@^0.1.3":
   version "0.1.5"
   resolved "https://registry.npmjs.org/@manuscripts/data/-/data-0.1.5.tgz#e0fdbb35d9acb79ae774e056c8b79b75c2f3a003"
   integrity sha512-iTF4CeTncy/jactp+LrQR67Q/tdIVytvJaJ2X6W8tmZyfCcDFVeQadvsbJko+9Y1xDfEdGqEItfJiVOxPYAmWw==
@@ -1557,9 +1567,23 @@
   resolved "https://registry.npmjs.org/@manuscripts/examples/-/examples-0.0.7.tgz#f7f0cef173fb2c83fbf283a2c2962b5d6ea32874"
   integrity sha512-7a1y6H/wnvn4hTh7S+TEyC8R5tLHHNiWYJnbeS43JCMYS/6qhMCzJTS0PwQynoep7PWwi2LdgaSZ3qALxzgg0g==
 
-"@manuscripts/manuscript-transform@^0.42.11":
+"@manuscripts/library@^0.6.2":
+  version "0.6.2"
+  resolved "https://registry.yarnpkg.com/@manuscripts/library/-/library-0.6.2.tgz#5b51fba968a21c5b7d4a481e5258ff3f9efe6b89"
+  integrity sha512-W6sTpI5lRG7m2/cmAwfChr/U4PurP4aNM25SA94mYh13P5dHYq6pBKGP/Ee2iscLcWfiYOpZkUvAUOBSu+NevA==
+  dependencies:
+    "@manuscripts/csl-locales" "^0.0.5"
+    "@manuscripts/csl-styles" "^0.2.1"
+    "@manuscripts/data" "^0.1.2"
+    "@manuscripts/manuscript-transform" "^0.42.12"
+    astrocite-bibtex "^0.16.4"
+    astrocite-ris "^0.16.4"
+    citeproc "^2.4.48"
+    fontoxpath "^3.17.2"
+
+"@manuscripts/manuscript-transform@^0.42.12":
   version "0.42.13"
-  resolved "https://registry.npmjs.org/@manuscripts/manuscript-transform/-/manuscript-transform-0.42.13.tgz#8d196ee5149bd3d6bf7dda0a4e718ccfdb7f9c35"
+  resolved "https://registry.yarnpkg.com/@manuscripts/manuscript-transform/-/manuscript-transform-0.42.13.tgz#8d196ee5149bd3d6bf7dda0a4e718ccfdb7f9c35"
   integrity sha512-WTtBEccdR5+BSKe87Ze6bHk4Hkolz2BpHyVbvli6qC+E/ar6T4oBZGFzWOFawZsGyKviBwnvnjpPLlOE5U6b3g==
   dependencies:
     "@manuscripts/data" "^0.1.3"
@@ -1572,10 +1596,34 @@
     uuid "^8.2.0"
     w3c-xmlserializer "^2.0.0"
 
-"@manuscripts/manuscripts-json-schema@^1.46.2", "@manuscripts/manuscripts-json-schema@^1.46.7":
+"@manuscripts/manuscript-transform@^0.48.16":
+  version "0.48.17"
+  resolved "https://registry.yarnpkg.com/@manuscripts/manuscript-transform/-/manuscript-transform-0.48.17.tgz#e1ba0f3fd27122d2587d25a0a4b601f218a4dc0f"
+  integrity sha512-gbFlZfC+Ns26g2BQbqkqr9pYB9uDUo0I8+5PuOoqymGMQqfwep71eHwxaBOWqW368XLrhI8WKGx5axnbo/R9dw==
+  dependencies:
+    "@manuscripts/data" "^0.1.3"
+    "@manuscripts/library" "^0.6.2"
+    "@manuscripts/manuscripts-json-schema" "^1.49.6"
+    debug "^4.1.1"
+    mathjax-full "^3.1.2"
+    mime "^2.4.6"
+    prosemirror-model "~1.14.0"
+    uuid "^8.2.0"
+    w3c-xmlserializer "^2.0.0"
+
+"@manuscripts/manuscripts-json-schema@^1.46.7":
   version "1.49.4"
   resolved "https://registry.npmjs.org/@manuscripts/manuscripts-json-schema/-/manuscripts-json-schema-1.49.4.tgz#be16ce2ddf0d84311c5b099115f5416f2a17e9b3"
   integrity sha512-Upau9kpGqV4IgXHHpLVxncNRJxRUXK7LUyuuIbr9mwKTr2URE1rRTecjyKwy5w/Nvdw4indEzk875W0dWa5Kuw==
+  dependencies:
+    ajv "^6.10.0"
+    deepmerge "^3.2.0"
+    js-beautify "^1.9.0"
+
+"@manuscripts/manuscripts-json-schema@^1.49.5", "@manuscripts/manuscripts-json-schema@^1.49.6":
+  version "1.49.6"
+  resolved "https://registry.yarnpkg.com/@manuscripts/manuscripts-json-schema/-/manuscripts-json-schema-1.49.6.tgz#61182c77405da77f4fce52a880d1ce19b9da64fc"
+  integrity sha512-riZFbnNwxZQ1M6GJIdPnfJ8soYLiLSTLKtY0Z4MY73L9ZAZU4UeQBzsuQrsDBfyyya3ZQBqHw2N8yd1sAdmnwA==
   dependencies:
     ajv "^6.10.0"
     deepmerge "^3.2.0"
@@ -3174,6 +3222,29 @@ astral-regex@^2.0.0:
   resolved "https://registry.npmjs.org/astral-regex/-/astral-regex-2.0.0.tgz#483143c567aeed4785759c0865786dc77d7d2e31"
   integrity sha512-Z7tMw1ytTXt5jqMcOP+OQteU1VuNK9Y02uuJtKQ1Sv69jXQKKg5cibLwGJow8yzZP+eAc18EmLGPal0bp36rvQ==
 
+astrocite-bibtex@^0.16.4:
+  version "0.16.4"
+  resolved "https://registry.yarnpkg.com/astrocite-bibtex/-/astrocite-bibtex-0.16.4.tgz#e90ba7012cbd41befd633c783691a55e5710e78c"
+  integrity sha512-5u6uNPDzqxYoJL4x2ekGeZbcBPCIHUt3JBKX0nurpOfHzJjP8SMuVO6u/fcUaG92XPoa/oKhUAFHvtwFab49iQ==
+  dependencies:
+    astrocite-core "^0.16.0"
+    csl-json "^0.1.0"
+
+astrocite-core@^0.16.0:
+  version "0.16.0"
+  resolved "https://registry.yarnpkg.com/astrocite-core/-/astrocite-core-0.16.0.tgz#63b1616200e62b1005d5c4e7c5e8472c8b7dd364"
+  integrity sha512-+NOD5Wqtcf89htPyI0iOeaPaTjncbHgBQaF3Yp6Y0l8ynJJzrweZuHVRlX8vBeaxzy+yptI91+w+Lt+ir20pnw==
+  dependencies:
+    csl-json "^0.1.0"
+
+astrocite-ris@^0.16.4:
+  version "0.16.4"
+  resolved "https://registry.yarnpkg.com/astrocite-ris/-/astrocite-ris-0.16.4.tgz#163094b402ef4bc7c63fd3c7f9fb91694996cde8"
+  integrity sha512-O6TjeuJGugxhn07JQSmTl3zTXS67crQr99pXbq+0XYRS+8Z+kYMVJNe6Eam2VZKFl4t6E3jm+0rZN2aUmsSAGA==
+  dependencies:
+    astrocite-core "^0.16.0"
+    csl-json "^0.1.0"
+
 asynckit@^0.4.0:
   version "0.4.0"
   resolved "https://registry.npmjs.org/asynckit/-/asynckit-0.4.0.tgz#c79ed97f7f34cb8f2ba1bc9790bcc366474b4b79"
@@ -4237,6 +4308,11 @@ cipher-base@^1.0.0, cipher-base@^1.0.1, cipher-base@^1.0.3:
     inherits "^2.0.1"
     safe-buffer "^5.0.1"
 
+citeproc@^2.4.48:
+  version "2.4.62"
+  resolved "https://registry.yarnpkg.com/citeproc/-/citeproc-2.4.62.tgz#c2a27eafd7182b95b0812b92c53193b037840ed3"
+  integrity sha512-l3uFfSEwNZp/jlz/TpgyBs85kOww6VlQHbAth0cpbgOn6iulZd+QlFY43LrRelzcYt3FZHTZ3soDyd8lNmkqdw==
+
 class-utils@^0.3.5:
   version "0.3.6"
   resolved "https://registry.npmjs.org/class-utils/-/class-utils-0.3.6.tgz#f93369ae8b9a7ce02fd41faad0ca83033190c463"
@@ -4688,6 +4764,11 @@ crypto-browserify@^3.11.0:
     public-encrypt "^4.0.0"
     randombytes "^2.0.0"
     randomfill "^1.0.3"
+
+csl-json@^0.1.0:
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/csl-json/-/csl-json-0.1.0.tgz#5c625e03171c9232dc3839876c38bf5eef3b4187"
+  integrity sha512-KMvcQ07H0kMpzl2aO1mgyp+F+LVk+z+QMpN01noMUv0Uu4mqg4KyJjeM2u2716qU9ZgPq1Kr30DXqhT4RuEg1w==
 
 css-color-keywords@^1.0.0:
   version "1.0.0"
@@ -6187,6 +6268,14 @@ focus-lock@^0.9.2:
   integrity sha512-YtHxjX7a0IC0ZACL5wsX8QdncXofWpGPNoVMuI/nZUrPGp6LmNI6+D5j0pPj+v8Kw5EpweA+T5yImK0rnWf7oQ==
   dependencies:
     tslib "^2.0.3"
+
+fontoxpath@^3.17.2:
+  version "3.25.1"
+  resolved "https://registry.yarnpkg.com/fontoxpath/-/fontoxpath-3.25.1.tgz#ddde0b67cf1370ea2fbdbf06ce6dc675ded20c23"
+  integrity sha512-LoRuWATH5Mmg1rfJ6QFRveneqLQ5a+wQbffER4W9f+os2WTLcbjfVpXnv0kRMHyGpLDlhxyeJuLptaumGSS2Yw==
+  dependencies:
+    prsc "2.0.1"
+    xspattern "^2.0.0"
 
 for-in@^0.1.3:
   version "0.1.8"
@@ -10061,6 +10150,11 @@ prr@~1.0.1:
   resolved "https://registry.npmjs.org/prr/-/prr-1.0.1.tgz#d3fc114ba06995a45ec6893f484ceb1d78f5f476"
   integrity sha1-0/wRS6BplaRexok/SEzrHXj19HY=
 
+prsc@2.0.1, prsc@^2.0.1:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/prsc/-/prsc-2.0.1.tgz#7b30cc33338b7625381c6ac5a0578bbce937b4c1"
+  integrity sha512-SC6yOsjsSRxPVo/3M6tMykFLCAWvzpCASNbHhkpXQX9expqWJ+GlrarhvF55OX0XwN2U/+b1vKPrhjrdT68dyw==
+
 pseudomap@^1.0.2:
   version "1.0.2"
   resolved "https://registry.npmjs.org/pseudomap/-/pseudomap-1.0.2.tgz#f052a28da70e618917ef0a8ac34c1ae5a68286b3"
@@ -12879,6 +12973,11 @@ which@^2.0.1, which@^2.0.2:
   dependencies:
     isexe "^2.0.0"
 
+whynot@^4.0.0:
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/whynot/-/whynot-4.0.0.tgz#d337ffc8b5f93daa317fec727d688a88ebc3fcf1"
+  integrity sha512-dnIPzjyDaTu1Yjv7koEu0cxKx7Zq9ZuXM7bO3ZvG5PNgFuMp7+E4+ZkVUo4Ei73Zixwu04ahOf58SPcH+KA4oQ==
+
 wicked-good-xpath@^1.3.0:
   version "1.3.0"
   resolved "https://registry.npmjs.org/wicked-good-xpath/-/wicked-good-xpath-1.3.0.tgz#81b0e95e8650e49c94b22298fff8686b5553cf6c"
@@ -12969,6 +13068,14 @@ xmldom-sre@^0.1.31:
   version "0.1.31"
   resolved "https://registry.npmjs.org/xmldom-sre/-/xmldom-sre-0.1.31.tgz#10860d5bab2c603144597d04bf2c4980e98067f4"
   integrity sha512-f9s+fUkX04BxQf+7mMWAp5zk61pciie+fFLC9hX9UVvCeJQfNHRHXpeo5MPcR0EUf57PYLdt+ZO4f3Ipk2oZUw==
+
+xspattern@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/xspattern/-/xspattern-2.0.0.tgz#900b35cd756aa7e27dab0e9a0682af855a6cd404"
+  integrity sha512-qLm7YxG2BV0GFYO9+PaILaTeYLFb72nRNkfYJBGvgMC6q8w8OXElNqMsYBlZGUlPUiUzk6edId7FWj+EZ2ltSQ==
+  dependencies:
+    prsc "^2.0.1"
+    whynot "^4.0.0"
 
 xtend@^4.0.0, xtend@^4.0.1, xtend@~4.0.1:
   version "4.0.2"

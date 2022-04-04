@@ -18,7 +18,7 @@ import React from 'react'
 import { BrowserRouter } from 'react-router-dom'
 
 import { FileManager, getAllPermitted } from '../src'
-import { externalFiles } from './data/externalFiles'
+import { attachments } from './data/attachments'
 const sleep = (milliseconds: number) => {
   return new Promise((resolve) => setTimeout(resolve, milliseconds))
 }
@@ -26,7 +26,8 @@ const handleUpload = async (
   submissionId: string,
   file: File,
   designation: string
-): Promise<boolean> => {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+): Promise<any> => {
   await sleep(5000) //test the upload file item in storybook
   console.log('submissionId --> ' + submissionId)
   console.log('file --> ' + file.name)
@@ -40,6 +41,7 @@ const handleDownload = (url: string): void => {
 
 const handleReplace = async (
   submissionId: string,
+  attachmentId: string,
   name: string,
   file: File
 ): Promise<boolean> => {
@@ -51,6 +53,7 @@ const handleReplace = async (
 
 const handleChangeDesignation = async (
   submissionId: string,
+  attachmentId: string,
   designation: string | undefined,
   name: string
 ): Promise<boolean> => {
@@ -61,13 +64,17 @@ const handleChangeDesignation = async (
 }
 
 const capabilities = getAllPermitted()
+import { encode, schema } from '@manuscripts/manuscript-transform'
+
+import article from './data/article-doc.json'
 
 storiesOf('FileManager', module).add('FileManager', () => (
   <BrowserRouter>
     <FileManager
       submissionId={'MPManuscript:valid-manuscript-id-1'}
       can={capabilities}
-      externalFiles={externalFiles}
+      attachments={attachments}
+      modelMap={encode(schema.nodeFromJSON(article))}
       enableDragAndDrop={true}
       handleUpload={handleUpload}
       handleDownload={handleDownload}

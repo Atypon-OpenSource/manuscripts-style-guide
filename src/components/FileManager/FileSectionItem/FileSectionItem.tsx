@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { ExternalFile } from '@manuscripts/manuscripts-json-schema'
 import React, { CSSProperties, Dispatch } from 'react'
 import { DragElementWrapper, DragSourceOptions } from 'react-dnd'
 import styled from 'styled-components'
@@ -22,6 +21,7 @@ import { useDropdown } from '../../../hooks/use-dropdown'
 import { DropdownContainer } from '../../Dropdown'
 import { CloseOIcon } from '../../icons/'
 import DotsIcon from '../../icons/dots-icon'
+import { Maybe } from '../../SubmissionInspector/types'
 import { Action } from '../FileSectionState'
 import { Designation, namesWithDesignationMap } from '../util'
 import { FileInfo } from './FileInfo'
@@ -32,9 +32,22 @@ import { ItemActions } from './ItemActions'
  * This component will represent individual external file in different tabs,
  * which is contained file-icon, file-designation in other and supplemental tabs, file-name, file title, the file description and etc.
  */
+
+export type SubmissionAttachment = {
+  id: string
+  name: string
+  type: SubmissionAttachmentType
+  link: string
+}
+
+export type SubmissionAttachmentType = {
+  id: string
+  label?: Maybe<string> | undefined
+}
+
 export interface FileSectionItemProps {
   submissionId?: string
-  externalFile: ExternalFile
+  externalFile: SubmissionAttachment
   title: string
   showAttachmentName?: boolean
   showDesignationActions?: boolean
@@ -42,12 +55,14 @@ export interface FileSectionItemProps {
   handleDownload?: (url: string) => void
   handleReplace?: (
     submissionId: string,
+    attachmentId: string,
     name: string,
     file: File,
     typeId: string
   ) => Promise<boolean>
   handleChangeDesignation: (
     submissionId: string,
+    attachmentId: string,
     typeId: string,
     name: string
   ) => Promise<boolean>
@@ -77,37 +92,37 @@ export const FileSectionItem: React.FC<FileSectionItemProps> = ({
 }) => {
   const { isOpen, toggleOpen, wrapperRef } = useDropdown()
 
-  const fileExtension = externalFile.filename.substring(
-    externalFile.filename.lastIndexOf('.') + 1
+  const fileExtension = externalFile.name.substring(
+    externalFile.name.lastIndexOf('.') + 1
   )
 
-  const designation = namesWithDesignationMap.get(externalFile.designation)
+  const designation = namesWithDesignationMap.get(externalFile.type.label)
   const isMainManuscript = designation === Designation.MainManuscript
-  const isSelected = externalFile._id == window.location.hash.substr(1)
+  const isSelected = externalFile.id == window.location.hash.substr(1)
   return (
     <Item ref={dragRef} className={className} style={style}>
       <ItemContainer
         onClick={() => {
           window.location.hash =
-            isEditor && !isSelected ? `#${externalFile._id}` : '#'
+            isEditor && !isSelected ? `#${externalFile.id}` : '#'
           if (isSelected) {
-            window.location.hash = `#${externalFile._id}`
+            window.location.hash = `#${externalFile.id}`
           }
         }}
       >
         <FileTypeIcon
           withDot={isMainManuscript}
           fileExtension={fileExtension}
-          alt={externalFile.filename}
+          alt={externalFile.name}
         />
         <FileInfo
           fileExtension={fileExtension}
           showAttachmentName={showAttachmentName}
           showDesignationActions={showDesignationActions}
-          submissionAttachmentName={externalFile.filename}
+          submissionAttachmentName={externalFile.name}
           title={title}
           designation={designation}
-          description={externalFile.description}
+          attachmentId={externalFile.id}
           handleChangeDesignation={handleChangeDesignation}
           submissionId={submissionId}
           dispatch={dispatch}
@@ -138,9 +153,10 @@ export const FileSectionItem: React.FC<FileSectionItemProps> = ({
               replaceAttachmentHandler={handleReplace}
               downloadAttachmentHandler={handleDownload}
               submissionId={submissionId}
-              fileName={externalFile.filename}
-              designation={externalFile.designation}
-              publicUrl={externalFile.publicUrl}
+              attachmentId={externalFile.id}
+              fileName={externalFile.name}
+              designation={externalFile.type.label}
+              publicUrl={externalFile.link}
               hideActionList={toggleOpen}
               dispatch={dispatch}
             />

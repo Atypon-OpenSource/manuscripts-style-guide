@@ -25,12 +25,13 @@ export const FileInfo: React.FC<{
   showAttachmentName: boolean
   showDesignationActions: boolean
   title: string
-  description?: string
   submissionAttachmentName: string
   fileExtension: string
   designation?: Designation
+  attachmentId: string
   handleChangeDesignation: (
     submissionId: string,
+    attachmentId: string,
     typeId: string,
     name: string
   ) => Promise<boolean>
@@ -43,7 +44,7 @@ export const FileInfo: React.FC<{
   submissionAttachmentName,
   fileExtension,
   designation,
-  description,
+  attachmentId,
   handleChangeDesignation,
   submissionId,
   dispatch,
@@ -59,10 +60,11 @@ export const FileInfo: React.FC<{
     <FileInfoContainer>
       {can?.changeDesignation &&
         showDesignationActions &&
-        designation &&
+        designation !== undefined &&
         submissionId && (
           <DesignationActions
             designation={designation}
+            attachmentId={attachmentId}
             fileExtension={fileExtension}
             handleChangeDesignation={handleChangeDesignation}
             submissionId={submissionId}
@@ -82,7 +84,6 @@ export const FileInfo: React.FC<{
           </FileNameContainer>
         )}
       </FileNameTitleContainer>
-      {description && <FileDescription>{description}</FileDescription>}
     </FileInfoContainer>
   )
 }
@@ -96,11 +97,11 @@ export const FileInfoContainer = styled.div`
   align-items: start;
   width: 100%;
 `
-const FileNameTitleContainer = styled.div`
+export const FileNameTitleContainer = styled.div`
   display: flex;
   width: 100%;
 `
-const FileTitle = styled.div`
+export const FileTitle = styled.div`
   color: ${(props) => props.theme.colors.text.primary};
   font-weight: bold;
   font-size: 16px;
@@ -122,7 +123,7 @@ export const FileName = styled.div`
   white-space: nowrap;
   overflow: hidden;
 `
-const FileDescription = styled.div`
+export const FileDescription = styled.div`
   color: ${(props) => props.theme.colors.text.secondary};
   font-size: 14px;
   line-height: 20px;

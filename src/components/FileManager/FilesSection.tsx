@@ -15,7 +15,6 @@
  */
 import React, { Dispatch, useContext } from 'react'
 
-import { AlertMessage, AlertMessageType } from '../AlertMessage'
 import { DragItemArea } from './DragItemArea'
 import { PermissionsContext } from './FileManager'
 import { FileSectionUploadItem } from './FileSectionItem/FileSectionUploadItem'
@@ -34,7 +33,8 @@ export const FilesSection: React.FC<{
     submissionId: string,
     file: File,
     designation: string
-  ) => Promise<boolean>
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  ) => Promise<any>
   fileSection: FileSectionType
   filesItem: JSX.Element[]
   dispatch: Dispatch<Action>
@@ -90,19 +90,6 @@ export const FilesSection: React.FC<{
                 isLoading={state.isUploadFile}
               />
             )}
-          {state.isFileUploaded && (
-            <AlertMessage
-              type={AlertMessageType.info}
-              hideCloseButton
-              dismissButton={{
-                action: () => dispatch(actions.CLOSE_FILE_UPLOADED_ALERT()),
-                text: 'Close',
-              }}
-            >
-              File uploaded successfully. It may take a few moments to show the
-              new file in the Inspector.
-            </AlertMessage>
-          )}
         </>
       )}
 
