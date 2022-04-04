@@ -73,8 +73,8 @@ export const designationWithFileSectionsMap = new Map<
   Designation,
   FileSectionType
 >([
-  [Designation.Figure, FileSectionType.OtherFile],
-  [Designation.Table, FileSectionType.OtherFile],
+  [Designation.Figure, FileSectionType.Inline],
+  [Designation.Table, FileSectionType.Inline],
 
   [Designation.Supplementary, FileSectionType.Supplements],
 
