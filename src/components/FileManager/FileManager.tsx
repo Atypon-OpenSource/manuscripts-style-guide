@@ -14,10 +14,11 @@
  * limitations under the License.
  */
 import { Model } from '@manuscripts/manuscripts-json-schema'
-import React, { createContext, useCallback, useReducer } from 'react'
+import React, { createContext, useCallback, useMemo, useReducer } from 'react'
 import ReactTooltip from 'react-tooltip'
 
 import { Capabilities } from '../../lib/capabilities'
+import getInlineFiles from '../../lib/inlineFiles'
 import { AlertMessage, AlertMessageType } from '../AlertMessage'
 import {
   InspectorTab,
@@ -157,6 +158,21 @@ export const FileManager: React.FC<{
     [handleDownload]
   )
 
+  const inlineFiles = useMemo(
+    () => getInlineFiles(modelMap, attachments),
+    [modelMap, attachments]
+  )
+
+  const inlineAttachmentsIds = useMemo(() => {
+    const attachmentsIDs: string[] = []
+    inlineFiles.map(({ attachments }) => {
+      if (attachments) {
+        attachments.map((attachment) => attachmentsIDs.push(attachment.id))
+      }
+    })
+    return attachmentsIDs
+  }, [inlineFiles])
+
   const getFileSectionExternalFile = (
     fileSection: FileSectionType
   ): JSX.Element[] => {
@@ -170,7 +186,8 @@ export const FileManager: React.FC<{
       )
       return (
         designation !== undefined &&
-        designationWithFileSectionsMap.get(designation) === fileSection
+        designationWithFileSectionsMap.get(designation) === fileSection &&
+        !inlineAttachmentsIds.includes(element.id)
       )
     })
 
@@ -273,8 +290,7 @@ export const FileManager: React.FC<{
             >
               <InspectorTabPanel>
                 <InlineFilesSection
-                  modelMap={modelMap}
-                  attachments={attachments}
+                  inlineFiles={inlineFiles}
                   submissionId={submissionId}
                   handleReplace={handleReplace}
                   handleDownload={handleDownload}

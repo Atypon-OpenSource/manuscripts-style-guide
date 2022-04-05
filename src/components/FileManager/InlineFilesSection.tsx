@@ -33,7 +33,11 @@ import {
 } from './FileSectionItem/FileSectionItem'
 import { ItemActions } from './FileSectionItem/ItemActions'
 import { Action } from './FileSectionState'
-import { extensionsWithFileTypesMap, fileTypesWithIconMap } from './util'
+import {
+  extensionsWithFileTypesMap,
+  FileType,
+  fileTypesWithIconMap,
+} from './util'
 
 export interface ExternalFileRef {
   url: string
@@ -43,8 +47,13 @@ export interface ExternalFileRef {
 
 export const InlineFilesSection: React.FC<{
   submissionId: string
-  attachments: SubmissionAttachment[]
-  modelMap: Map<string, Model>
+  inlineFiles: {
+    id: string
+    label: string
+    type: FileType
+    caption?: string
+    attachments?: SubmissionAttachment[]
+  }[]
   handleReplace: (
     submissionId: string,
     attachmentId: string,
@@ -59,16 +68,10 @@ export const InlineFilesSection: React.FC<{
   submissionId,
   handleReplace,
   handleDownload,
-  modelMap,
-  attachments,
+  inlineFiles,
   isEditor,
   dispatch,
 }) => {
-  const inlineFiles = useMemo(
-    () => getInlineFiles(modelMap, attachments),
-    [modelMap, attachments]
-  )
-
   const onElementClick = useCallback(
     (e) => {
       if (!isEditor) {
