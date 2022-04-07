@@ -164,10 +164,10 @@ export const FileManager: React.FC<{
   )
 
   const inlineAttachmentsIds = useMemo(() => {
-    const attachmentsIDs: string[] = []
+    const attachmentsIDs = new Set<string>()
     inlineFiles.map(({ attachments }) => {
       if (attachments) {
-        attachments.map((attachment) => attachmentsIDs.push(attachment.id))
+        attachments.map((attachment) => attachmentsIDs.add(attachment.id))
       }
     })
     return attachmentsIDs
@@ -187,7 +187,7 @@ export const FileManager: React.FC<{
       return (
         designation !== undefined &&
         designationWithFileSectionsMap.get(designation) === fileSection &&
-        !inlineAttachmentsIds.includes(element.id)
+        !inlineAttachmentsIds.has(element.id)
       )
     })
 
