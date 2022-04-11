@@ -160,7 +160,7 @@ export const FileManager: React.FC<{
 
   const inlineFiles = useMemo(
     () => getInlineFiles(modelMap, attachments),
-    [modelMap, attachments]
+    [modelMap.values(), attachments]
   )
 
   const inlineAttachmentsIds = useMemo(() => {
