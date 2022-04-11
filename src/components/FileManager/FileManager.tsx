@@ -160,6 +160,7 @@ export const FileManager: React.FC<{
 
   const inlineFiles = useMemo(
     () => getInlineFiles(modelMap, attachments),
+    // eslint-disable-next-line
     [modelMap.values(), attachments]
   )
 
