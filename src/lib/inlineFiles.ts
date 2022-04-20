@@ -79,9 +79,12 @@ const getFigureData = (
 }
 
 /**
- *  return list of inline files with there attachments.
+ *  return list of inline files with their attachments.
  *  order of the list will be:
  *  1. graphical abstract figure
+ *  2. figure elements order based on their position in the editor
+ *  3. table elements order based on their position in the editor
+ *  (and if the table not embedded with external file will not added to this list)
  */
 export default (
   modelMap: Map<string, Model>,
