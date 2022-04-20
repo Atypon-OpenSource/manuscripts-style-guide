@@ -58,20 +58,18 @@ export const FileInfo: React.FC<{
 
   return (
     <FileInfoContainer>
-      {can?.changeDesignation &&
-        showDesignationActions &&
-        designation !== undefined &&
-        submissionId && (
-          <DesignationActions
-            designation={designation}
-            attachmentId={attachmentId}
-            fileExtension={fileExtension}
-            handleChangeDesignation={handleChangeDesignation}
-            submissionId={submissionId}
-            fileName={submissionAttachmentName}
-            dispatch={dispatch}
-          />
-        )}
+      {showDesignationActions && designation !== undefined && submissionId && (
+        <DesignationActions
+          designation={designation}
+          attachmentId={attachmentId}
+          fileExtension={fileExtension}
+          handleChangeDesignation={handleChangeDesignation}
+          submissionId={submissionId}
+          fileName={submissionAttachmentName}
+          dispatch={dispatch}
+          can={can}
+        />
+      )}
       <FileNameTitleContainer>
         <FileTitle>
           {!showAttachmentName ? fileName : title}

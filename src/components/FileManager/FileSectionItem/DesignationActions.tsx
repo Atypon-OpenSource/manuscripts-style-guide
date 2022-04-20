@@ -14,11 +14,14 @@
  * limitations under the License.
  */
 import React, { Dispatch, useState } from 'react'
+import ReactTooltip from 'react-tooltip'
 import styled from 'styled-components'
 
+import { Capabilities } from '../../../lib/capabilities'
 import BottomArrowIcon from '../../icons/BottomArrowIcon'
 import { ConfirmationPopUp } from '../ConfirmationPopUp'
 import { Action } from '../FileSectionState'
+import { TooltipDiv } from '../TooltipDiv'
 import {
   Designation,
   designationWithReadableNamesMap,
@@ -41,6 +44,7 @@ export const DesignationActions: React.FC<{
   ) => Promise<boolean>
   submissionId: string
   fileName: string
+  can: Capabilities | null
   dispatch?: Dispatch<Action>
 }> = ({
   designation,
@@ -49,6 +53,7 @@ export const DesignationActions: React.FC<{
   handleChangeDesignation,
   submissionId,
   fileName,
+  can,
   dispatch,
 }) => {
   const [isActionsShown, setIsActionsShown] = useState(false)
@@ -114,11 +119,24 @@ export const DesignationActions: React.FC<{
           onClick={toggleActionsList}
           onBlur={hideActionsList}
         >
-          <SecondaryActionsText>
+          {!can?.changeDesignation && (
+            <TooltipContainer>
+              <ReactTooltip
+                id="file-designation"
+                place="bottom"
+                offset={{ bottom: -8 }}
+                effect="solid"
+                className="tooltip"
+              >
+                <div>You don’t have permissions to adjust this selection</div>
+              </ReactTooltip>
+            </TooltipContainer>
+          )}
+          <SecondaryActionsText data-for="file-designation" data-tip={true}>
             {designationWithReadableNamesMap.get(designation)}
           </SecondaryActionsText>
           <BottomArrowIcon />
-          {isActionsShown && (
+          {isActionsShown && can?.changeDesignation && (
             <ActionsListContainer>
               <DesignationActionsList
                 handleChangeDesignation={handleChangeDesignation}
@@ -181,4 +199,12 @@ const ActionsListContainer = styled.div`
   position: absolute;
   top: 40px;
   z-index: 999;
+`
+
+const TooltipContainer = styled(TooltipDiv)`
+  .tooltip {
+    white-space: normal;
+    width: 144px;
+    height: 32px;
+  }
 `
