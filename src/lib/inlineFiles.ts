@@ -13,11 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+import { hasObjectType } from '@manuscripts/manuscript-transform'
 import {
-  getModelsByType,
-  hasObjectType,
-} from '@manuscripts/manuscript-transform'
-import {
+  ElementsOrder,
   Figure,
   FigureElement,
   Model,
@@ -80,6 +78,14 @@ const getFigureData = (
   }
 }
 
+/**
+ *  return list of inline files with their attachments.
+ *  order of the list will be:
+ *  1. graphical abstract figure
+ *  2. figure elements order based on their position in the editor
+ *  3. table elements order based on their position in the editor
+ *  (and if the table not embedded with external file will not added to this list)
+ */
 export default (
   modelMap: Map<string, Model>,
   attachments: SubmissionAttachment[]
@@ -96,69 +102,111 @@ export default (
     attachments.map((attachment) => [attachment.id, attachment])
   )
 
-  getModelsByType<Section>(modelMap, ObjectTypes.Section).map((section) => {
-    if (section.category === 'MPSectionCategory:abstract-graphical') {
-      section.elementIDs?.some((elementId) => {
-        const element = modelMap.get(elementId)
-        if (element && hasObjectType(ObjectTypes.FigureElement)(element)) {
-          files.unshift({
-            ...getFigureData(
-              element as FigureElement,
-              modelMap,
-              attachmentsMap
-            ),
-            label: `Graphical Abstract`,
-            type: FileType.GraphicalAbstract,
-          })
-          return true
-        }
-      })
-    } else {
-      section.elementIDs?.map((elementId) => {
-        const element = modelMap.get(elementId)
-        if (!element) {
-          return
-        }
-        switch (element.objectType) {
-          case ObjectTypes.FigureElement:
-          case ObjectTypes.MultiGraphicFigureElement: {
-            files.push({
-              ...getFigureData(
-                element as FigureElement,
-                modelMap,
-                attachmentsMap
-              ),
-              label: `Figure`,
-              type: FileType.Figure,
-            })
-            break
-          }
-          case ObjectTypes.TableElement: {
-            const tableElement = element as TableElement
-            const table = modelMap.get(tableElement.containedObjectID) as Table
-            const externalFileReference = table.externalFileReferences?.find(
-              (file) => file.kind === 'dataset' && file.ref
-            )
-            const attachment = getAttachment(
-              externalFileReference,
-              attachmentsMap
-            )
+  const { graphicalAbstractFigureId, figureElement, tableElement } =
+    getAuxiliaryObjects(modelMap)
 
-            if (attachment) {
-              files.push({
-                id: element._id,
-                label: `Table`,
-                type: FileType.SheetsWorkbooks,
-                attachments: [attachment],
-                caption: getCaptionText(tableElement.caption),
-              })
-            }
-            break
-          }
-        }
+  if (graphicalAbstractFigureId) {
+    const element = modelMap.get(graphicalAbstractFigureId)
+    files.unshift({
+      ...getFigureData(element as FigureElement, modelMap, attachmentsMap),
+      label: `Graphical Abstract`,
+      type: FileType.GraphicalAbstract,
+    })
+  }
+
+  figureElement.map((id, index) => {
+    const element = modelMap.get(id)
+    files.push({
+      ...getFigureData(element as FigureElement, modelMap, attachmentsMap),
+      label: `Figure ${index + 1}`,
+      type: FileType.Figure,
+    })
+  })
+
+  tableElement.map((id) => {
+    const tableElement = modelMap.get(id) as TableElement
+    const table = modelMap.get(tableElement.containedObjectID) as Table
+    const externalFileReference = table?.externalFileReferences?.find(
+      (file) => file.kind === 'dataset' && file.ref
+    )
+    const attachment = getAttachment(externalFileReference, attachmentsMap)
+
+    if (attachment) {
+      files.push({
+        id: tableElement._id,
+        label: `Table`,
+        type: FileType.SheetsWorkbooks,
+        attachments: [attachment],
+        caption: getCaptionText(tableElement.caption),
       })
     }
   })
 
   return files
+}
+
+/**
+ *   return id of figure_element in the `graphical abstract` section,
+ *   and ordered list of figure_elements ids and table_elements ids
+ */
+const getAuxiliaryObjects = (modelMap: Map<string, Model>) => {
+  let graphicalAbstractFigureId: string | undefined,
+    figureElementIds: string[] = []
+  const tableElementIds: string[] = [],
+    orderObjects: Record<string, ElementsOrder> = {}
+
+  for (const model of modelMap.values()) {
+    switch (model.objectType) {
+      case ObjectTypes.Section: {
+        const section = model as Section
+        if (section.category === 'MPSectionCategory:abstract-graphical') {
+          graphicalAbstractFigureId = section.elementIDs?.find((id) => {
+            const obj = modelMap.get(id)
+            return obj && hasObjectType(ObjectTypes.FigureElement)(obj)
+          })
+        }
+        break
+      }
+      case ObjectTypes.FigureElement:
+      case ObjectTypes.MultiGraphicFigureElement:
+        figureElementIds.push(model._id)
+        break
+      case ObjectTypes.TableElement:
+        tableElementIds.push(model._id)
+        break
+      case ObjectTypes.ElementsOrder: {
+        const elementsOrder = model as ElementsOrder
+        orderObjects[elementsOrder.elementType] = elementsOrder
+      }
+    }
+  }
+
+  figureElementIds = figureElementIds.filter(
+    (id) => id !== graphicalAbstractFigureId
+  )
+
+  return {
+    graphicalAbstractFigureId,
+    figureElement: orderObjects[ObjectTypes.FigureElement]
+      ? sortAuxiliaryObject(
+          orderObjects[ObjectTypes.FigureElement],
+          figureElementIds
+        )
+      : figureElementIds,
+    tableElement: orderObjects[ObjectTypes.TableElement]
+      ? sortAuxiliaryObject(
+          orderObjects[ObjectTypes.TableElement],
+          tableElementIds
+        )
+      : tableElementIds,
+  }
+}
+
+const sortAuxiliaryObject = (
+  orderObject: ElementsOrder,
+  auxiliaryObjectIds: string[]
+) => {
+  return auxiliaryObjectIds.sort(
+    (a, b) => orderObject.elements.indexOf(a) - orderObject.elements.indexOf(b)
+  )
 }
