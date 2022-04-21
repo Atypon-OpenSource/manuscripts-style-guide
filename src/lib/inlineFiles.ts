@@ -150,9 +150,9 @@ export default (
  *   and ordered list of figure_elements ids and table_elements ids
  */
 const getAuxiliaryObjects = (modelMap: Map<string, Model>) => {
-  let graphicalAbstractFigureId: string | undefined,
-    figureElementIds: string[] = []
-  const tableElementIds: string[] = [],
+  let graphicalAbstractFigureId: string | undefined
+  const figureElementIds: string[] = [],
+    tableElementIds: string[] = [],
     orderObjects: Record<string, ElementsOrder> = {}
 
   for (const model of modelMap.values()) {
@@ -164,26 +164,31 @@ const getAuxiliaryObjects = (modelMap: Map<string, Model>) => {
             const obj = modelMap.get(id)
             return obj && hasObjectType(ObjectTypes.FigureElement)(obj)
           })
+        } else {
+          section.elementIDs?.map((elementId) => {
+            const element = modelMap.get(elementId)
+            if (!element) {
+              return
+            }
+            switch (element.objectType) {
+              case ObjectTypes.FigureElement:
+              case ObjectTypes.MultiGraphicFigureElement:
+                figureElementIds.push(element._id)
+                break
+              case ObjectTypes.TableElement:
+                tableElementIds.push(element._id)
+                break
+            }
+          })
         }
         break
       }
-      case ObjectTypes.FigureElement:
-      case ObjectTypes.MultiGraphicFigureElement:
-        figureElementIds.push(model._id)
-        break
-      case ObjectTypes.TableElement:
-        tableElementIds.push(model._id)
-        break
       case ObjectTypes.ElementsOrder: {
         const elementsOrder = model as ElementsOrder
         orderObjects[elementsOrder.elementType] = elementsOrder
       }
     }
   }
-
-  figureElementIds = figureElementIds.filter(
-    (id) => id !== graphicalAbstractFigureId
-  )
 
   return {
     graphicalAbstractFigureId,
