@@ -274,6 +274,12 @@ const errorsExplanations: errorsAssocList = {
     description: 'There are figures in the docment containing multiple images.',
     type: 'Workflow',
   },
+  CP_FILES_MERGED: {
+    title: 'Package files were merged',
+    description:
+      'Submission files were merged automatically before conversion. In case of errors please check the merged main manuscript to check the correct files were merged.',
+    type: 'Workflow',
+  },
   FC_FAIL_QA_CHECKLIST: {
     title: 'Quality report checks outstanding',
     description:
