@@ -218,6 +218,12 @@ const errorsExplanations: errorsAssocList = {
       'There was an internal error while assigning the task to the Copy Editors queue.',
     type: 'System',
   },
+  CP_FILES_MERGED: {
+    title: 'Package files were merged',
+    description:
+      'Submission files were merged automatically before conversion. In case of errors please check the merged main manuscript to check the correct files were merged.',
+    type: 'System',
+  },
   P_ASSIGN_TO_AUTHOR_EXCEPTION: {
     title: 'Workflow manager error',
     description:
