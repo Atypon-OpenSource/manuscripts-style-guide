@@ -63,8 +63,10 @@ export const CommentWrapper: React.FC<
   const threadRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
-    if (isNew) {
-      setIsEditing(true)
+    if (isNew || isSelected) {
+      {
+        isNew && setIsEditing(true)
+      }
       if (threadRef.current) {
         /**
          * Timeout added to wait for Inspector to open and show list of comments
@@ -80,7 +82,7 @@ export const CommentWrapper: React.FC<
         )
       }
     }
-  }, [isNew])
+  }, [isNew, isSelected])
 
   // use MouseDown and Spacebar/Enter key events to avoid taking focus
   // away from the editor
