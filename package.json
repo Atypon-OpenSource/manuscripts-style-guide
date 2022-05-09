@@ -63,7 +63,7 @@
     "@manuscripts/comment-editor": "^0.2.3",
     "@manuscripts/data": "^0.1.0",
     "@manuscripts/examples": "^0.0.7",
-    "@manuscripts/manuscript-transform": "^0.48.16",
+    "@manuscripts/manuscript-transform": "^0.48.19",
     "@manuscripts/manuscripts-json-schema": "^1.49.11",
     "@manuscripts/publish": "^0.2.2",
     "@storybook/addon-actions": "^5.3.14",

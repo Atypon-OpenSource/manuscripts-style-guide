@@ -13,7 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { Model } from '@manuscripts/manuscripts-json-schema'
+import {
+  Build,
+  buildSupplementaryMaterial,
+  getModelsByType,
+} from '@manuscripts/manuscript-transform'
+import {
+  Model,
+  ObjectTypes,
+  Supplement,
+} from '@manuscripts/manuscripts-json-schema'
 import React, { createContext, useCallback, useMemo, useReducer } from 'react'
 import ReactTooltip from 'react-tooltip'
 
@@ -65,6 +74,7 @@ export const FileManager: React.FC<{
   submissionId: string
   attachments: SubmissionAttachment[]
   modelMap: Map<string, Model>
+  saveModel: (model: Build<Supplement>) => Promise<Build<Supplement>>
   enableDragAndDrop: boolean
   can: Capabilities
   handleUpload: (
@@ -93,6 +103,7 @@ export const FileManager: React.FC<{
   submissionId,
   attachments,
   modelMap,
+  saveModel,
   enableDragAndDrop,
   can,
   handleUpload,
@@ -136,6 +147,20 @@ export const FileManager: React.FC<{
     [handleUpload]
   )
 
+  const handleUploadFileWithSupplement = useCallback(
+    async (submissionId, file, designation) => {
+      const res = (await handleUploadFile(submissionId, file, designation)) as {
+        data: { uploadAttachment: SubmissionAttachment }
+      }
+      if (res && res.data) {
+        const { id, name } = res.data.uploadAttachment
+        await saveModel(buildSupplementaryMaterial(name, `attachment:${id}`))
+      }
+      return res
+    },
+    [handleUploadFile, saveModel]
+  )
+
   const handleChangeDesignationFile = useCallback(
     async (submissionId, attachmentId, typeId, name) => {
       const res = await handleChangeDesignation(
@@ -174,6 +199,19 @@ export const FileManager: React.FC<{
     return attachmentsIDs
   }, [inlineFiles])
 
+  const supplementFiles = useMemo(() => {
+    const supplements = new Map(
+      getModelsByType<Supplement>(modelMap, ObjectTypes.Supplement).map(
+        (supplement) => [
+          supplement.href?.replace('attachment:', ''),
+          supplement,
+        ]
+      )
+    )
+    return attachments.filter((attachment) => supplements.has(attachment.id))
+    // eslint-disable-next-line
+  }, [attachments, modelMap.size])
+
   const getFileSectionExternalFile = (
     fileSection: FileSectionType
   ): JSX.Element[] => {
@@ -181,16 +219,17 @@ export const FileManager: React.FC<{
       fileSection === FileSectionType.Supplements ||
       fileSection === FileSectionType.OtherFile
     // Here we are filtering the external files to extract the other-files based on the designation.
-    const itemsData = attachments.filter((element) => {
-      const designation: Designation | undefined = namesWithDesignationMap.get(
-        element.type.label
-      )
-      return (
-        designation !== undefined &&
-        designationWithFileSectionsMap.get(designation) === fileSection &&
-        !inlineAttachmentsIds.has(element.id)
-      )
-    })
+    const itemsData =
+      (fileSection === FileSectionType.Supplements && supplementFiles) ||
+      attachments.filter((element) => {
+        const designation: Designation | undefined =
+          namesWithDesignationMap.get(element.type.label)
+        return (
+          designation !== undefined &&
+          designationWithFileSectionsMap.get(designation) === fileSection &&
+          !inlineAttachmentsIds.has(element.id)
+        )
+      })
 
     // Generating a title for the external files and sorting the external files based on the generated title
     const itemsDataWithTitle = generateAttachmentsTitles(itemsData, fileSection)
@@ -303,7 +342,7 @@ export const FileManager: React.FC<{
                 <FilesSection
                   submissionId={submissionId}
                   enableDragAndDrop={enableDragAndDrop}
-                  handleUpload={handleUploadFile}
+                  handleUpload={handleUploadFileWithSupplement}
                   fileSection={FileSectionType.Supplements}
                   filesItem={getFileSectionExternalFile(
                     FileSectionType.Supplements

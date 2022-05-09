@@ -1596,14 +1596,14 @@
     uuid "^8.2.0"
     w3c-xmlserializer "^2.0.0"
 
-"@manuscripts/manuscript-transform@^0.48.16":
-  version "0.48.17"
-  resolved "https://registry.yarnpkg.com/@manuscripts/manuscript-transform/-/manuscript-transform-0.48.17.tgz#e1ba0f3fd27122d2587d25a0a4b601f218a4dc0f"
-  integrity sha512-gbFlZfC+Ns26g2BQbqkqr9pYB9uDUo0I8+5PuOoqymGMQqfwep71eHwxaBOWqW368XLrhI8WKGx5axnbo/R9dw==
+"@manuscripts/manuscript-transform@^0.48.19":
+  version "0.48.22"
+  resolved "https://registry.yarnpkg.com/@manuscripts/manuscript-transform/-/manuscript-transform-0.48.22.tgz#723a8ae936545b1b0b96456ac8642c151a78c48d"
+  integrity sha512-3e0oHWMXXyQ8DkUmW01n5vGJfmLKBjL8nA0kV29rbEx5WMQd7n8fWiB0o7Si1+i3MDSNuW5+XFyZlyCZTOdaaw==
   dependencies:
     "@manuscripts/data" "^0.1.3"
     "@manuscripts/library" "^0.6.2"
-    "@manuscripts/manuscripts-json-schema" "^1.49.6"
+    "@manuscripts/manuscripts-json-schema" "^1.49.11"
     debug "^4.1.1"
     mathjax-full "^3.1.2"
     mime "^2.4.6"
@@ -1624,15 +1624,6 @@
   version "1.49.11"
   resolved "https://registry.yarnpkg.com/@manuscripts/manuscripts-json-schema/-/manuscripts-json-schema-1.49.11.tgz#ea078c9f905b8e9087b40793c79c9f1bf30a1d89"
   integrity sha512-yp3ePJNGE+Ms6bPL8NAsHSKUwZp+q9S8J0U1+0KGOAe/0X2pkJroNB6/hORnFVEXiQN2BTAwNnWeLZGkTf1mPA==
-  dependencies:
-    ajv "^6.10.0"
-    deepmerge "^3.2.0"
-    js-beautify "^1.9.0"
-
-"@manuscripts/manuscripts-json-schema@^1.49.6":
-  version "1.49.6"
-  resolved "https://registry.yarnpkg.com/@manuscripts/manuscripts-json-schema/-/manuscripts-json-schema-1.49.6.tgz#61182c77405da77f4fce52a880d1ce19b9da64fc"
-  integrity sha512-riZFbnNwxZQ1M6GJIdPnfJ8soYLiLSTLKtY0Z4MY73L9ZAZU4UeQBzsuQrsDBfyyya3ZQBqHw2N8yd1sAdmnwA==
   dependencies:
     ajv "^6.10.0"
     deepmerge "^3.2.0"
