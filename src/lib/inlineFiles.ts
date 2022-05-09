@@ -118,7 +118,7 @@ export default (
     const element = modelMap.get(id)
     files.push({
       ...getFigureData(element as FigureElement, modelMap, attachmentsMap),
-      label: `Figure ${index + 1}`,
+      label: `Figure ${(graphicalAbstractFigureId && index + 2) || index + 1}`,
       type: FileType.Figure,
     })
   })
