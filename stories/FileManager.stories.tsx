@@ -64,22 +64,44 @@ const handleChangeDesignation = async (
 }
 
 const capabilities = getAllPermitted()
-import { encode, schema } from '@manuscripts/manuscript-transform'
+import {
+  buildSupplementaryMaterial,
+  encode,
+  schema,
+} from '@manuscripts/manuscript-transform'
+import { Supplement } from '@manuscripts/manuscripts-json-schema'
+import { action } from '@storybook/addon-actions'
 
 import article from './data/article-doc.json'
 
-storiesOf('FileManager', module).add('FileManager', () => (
-  <BrowserRouter>
-    <FileManager
-      submissionId={'MPManuscript:valid-manuscript-id-1'}
-      can={capabilities}
-      attachments={attachments}
-      modelMap={encode(schema.nodeFromJSON(article))}
-      enableDragAndDrop={true}
-      handleUpload={handleUpload}
-      handleDownload={handleDownload}
-      handleReplace={handleReplace}
-      handleChangeDesignation={handleChangeDesignation}
-    />
-  </BrowserRouter>
-))
+storiesOf('FileManager', module).add('FileManager', () => {
+  const modelMap = encode(schema.nodeFromJSON(article))
+  const supplementary1 = buildSupplementaryMaterial(
+    'ContributorsArtwork@2x.png',
+    'attachment:4131f16e-e075-41bb-8339-abea02df515d'
+  )
+  const supplementary2 = buildSupplementaryMaterial(
+    'final manuscript-hum-huili-dbh-suicide-20200707_figures (9).docx',
+    'attachment:7d9d686b-5488-44a5-a1c5-46351e7f9312'
+  )
+
+  modelMap.set(supplementary1._id, supplementary1 as Supplement)
+  modelMap.set(supplementary2._id, supplementary2 as Supplement)
+
+  return (
+    <BrowserRouter>
+      <FileManager
+        submissionId={'MPManuscript:valid-manuscript-id-1'}
+        can={capabilities}
+        attachments={attachments}
+        modelMap={modelMap}
+        saveModel={async () => action('save model')}
+        enableDragAndDrop={true}
+        handleUpload={handleUpload}
+        handleDownload={handleDownload}
+        handleReplace={handleReplace}
+        handleChangeDesignation={handleChangeDesignation}
+      />
+    </BrowserRouter>
+  )
+})
