@@ -115,9 +115,6 @@ export const InlineFilesSection: React.FC<{
               <FileNameTitleContainer>
                 <FileTitle>{file.label}</FileTitle>
               </FileNameTitleContainer>
-              {file.caption && (
-                <FileDescription>{file.caption}</FileDescription>
-              )}
             </FileInfoContainer>
           </Element>
         </ElementItem>
