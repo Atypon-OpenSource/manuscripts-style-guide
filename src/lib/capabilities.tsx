@@ -54,6 +54,7 @@ export type Capabilities = {
   previewAccess: boolean
   editNotTracked: boolean
   accessEditor: boolean
+  formatArticle: boolean
 }
 
 enum A {
@@ -131,6 +132,8 @@ export const getLWCapabilities = (
     previewAccess: true,
     editNotTracked: false,
     accessEditor: true,
+    /* menu */
+    formatArticle: !isViewer(),
   }
 }
 
