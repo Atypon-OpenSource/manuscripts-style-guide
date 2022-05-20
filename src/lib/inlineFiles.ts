@@ -150,9 +150,9 @@ export default (
  *   and ordered list of figure_elements ids and table_elements ids
  */
 const getAuxiliaryObjects = (modelMap: Map<string, Model>) => {
-  let graphicalAbstractFigureId: string | undefined
-  const figureElementIds: string[] = [],
-    tableElementIds: string[] = [],
+  let graphicalAbstractFigureId: string | undefined,
+    figureElementIds: string[] = []
+  const tableElementIds: string[] = [],
     orderObjects: Record<string, ElementsOrder> = {}
 
   for (const model of modelMap.values()) {
@@ -188,6 +188,12 @@ const getAuxiliaryObjects = (modelMap: Map<string, Model>) => {
         orderObjects[elementsOrder.elementType] = elementsOrder
       }
     }
+  }
+
+  if (graphicalAbstractFigureId) {
+    figureElementIds = figureElementIds.filter(
+      (id) => id != graphicalAbstractFigureId
+    )
   }
 
   return {
