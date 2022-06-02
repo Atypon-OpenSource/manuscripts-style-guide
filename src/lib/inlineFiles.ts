@@ -66,6 +66,7 @@ const getFigureData = (
       const attachment = getAttachment(externalFileRef, attachmentsMap)
 
       if (attachment) {
+        attachment.modelId = e
         attachments.push(attachment)
       }
     }

@@ -62,12 +62,17 @@ export const InlineFilesSection: React.FC<{
     typeId: string
   ) => Promise<boolean>
   handleDownload: (url: string) => void
+  handleUpdateInline?: (
+    modelId: string,
+    attachment: SubmissionAttachment
+  ) => void
   isEditor: boolean
   dispatch: Dispatch<Action>
 }> = ({
   submissionId,
   handleReplace,
   handleDownload,
+  handleUpdateInline,
   inlineFiles,
   isEditor,
   dispatch,
@@ -104,6 +109,7 @@ export const InlineFilesSection: React.FC<{
                 attachment={attachment}
                 submissionId={submissionId}
                 handleReplace={handleReplace}
+                handleUpdateInline={handleUpdateInline}
                 handleDownload={handleDownload}
                 dispatch={dispatch}
               />
@@ -134,12 +140,17 @@ const FileReference: React.FC<{
     typeId: string
   ) => Promise<boolean>
   handleDownload: (url: string) => void
+  handleUpdateInline?: (
+    modelId: string,
+    attachment: SubmissionAttachment
+  ) => void
   dispatch: Dispatch<Action>
 }> = ({
   attachment,
   submissionId,
   handleReplace,
   handleDownload,
+  handleUpdateInline,
   dispatch,
 }) => {
   const { isOpen, toggleOpen, wrapperRef } = useDropdown()
@@ -174,6 +185,7 @@ const FileReference: React.FC<{
           {isOpen && (
             <ItemActions
               replaceAttachmentHandler={handleReplace}
+              updateInlineHandler={handleUpdateInline}
               downloadAttachmentHandler={handleDownload}
               submissionId={submissionId}
               attachmentId={attachment.id}
@@ -183,6 +195,7 @@ const FileReference: React.FC<{
               hideActionList={toggleOpen}
               dispatch={dispatch}
               dropDownClassName={'ref_item_dropdown'}
+              modelId={attachment.modelId}
             />
           )}
         </DropdownContainer>

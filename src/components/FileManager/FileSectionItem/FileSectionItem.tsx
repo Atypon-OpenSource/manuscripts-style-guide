@@ -38,6 +38,7 @@ export type SubmissionAttachment = {
   name: string
   type: SubmissionAttachmentType
   link: string
+  modelId?: string
 }
 
 export type SubmissionAttachmentType = {
