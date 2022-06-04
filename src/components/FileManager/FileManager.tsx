@@ -189,6 +189,10 @@ export const FileManager: React.FC<{
     // eslint-disable-next-line
   [attachments, modelMap.size])
 
+  /**
+   * This Set of AttachmentsIds for both inlineFiles and supplement
+   * that will not be shown in other files
+   */
   const excludedAttachmentsIds = useMemo(() => {
     const attachmentsIDs = new Set<string>()
     inlineFiles.map(({ attachments }) => {
