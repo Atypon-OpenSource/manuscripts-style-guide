@@ -13,7 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { hasObjectType } from '@manuscripts/manuscript-transform'
+import {
+  getModelsByType,
+  hasObjectType,
+} from '@manuscripts/manuscript-transform'
 import {
   ElementsOrder,
   Figure,
@@ -21,6 +24,7 @@ import {
   Model,
   ObjectTypes,
   Section,
+  Supplement,
   Table,
   TableElement,
 } from '@manuscripts/manuscripts-json-schema'
@@ -220,4 +224,19 @@ const sortAuxiliaryObject = (
   return auxiliaryObjectIds.sort(
     (a, b) => orderObject.elements.indexOf(a) - orderObject.elements.indexOf(b)
   )
+}
+
+/**
+ * return attachments that are in the modelMap as MPSupplement,
+ */
+export const getSupplementFiles = (
+  modelMap: Map<string, Model>,
+  attachments: SubmissionAttachment[]
+) => {
+  const supplements = new Map(
+    getModelsByType<Supplement>(modelMap, ObjectTypes.Supplement).map(
+      (supplement) => [supplement.href?.replace('attachment:', ''), supplement]
+    )
+  )
+  return attachments.filter((attachment) => supplements.has(attachment.id))
 }
