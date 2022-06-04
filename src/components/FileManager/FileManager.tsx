@@ -16,18 +16,13 @@
 import {
   Build,
   buildSupplementaryMaterial,
-  getModelsByType,
 } from '@manuscripts/manuscript-transform'
-import {
-  Model,
-  ObjectTypes,
-  Supplement,
-} from '@manuscripts/manuscripts-json-schema'
+import { Model, Supplement } from '@manuscripts/manuscripts-json-schema'
 import React, { createContext, useCallback, useMemo, useReducer } from 'react'
 import ReactTooltip from 'react-tooltip'
 
 import { Capabilities } from '../../lib/capabilities'
-import getInlineFiles from '../../lib/inlineFiles'
+import getInlineFiles, { getSupplementFiles } from '../../lib/inlineFiles'
 import { AlertMessage, AlertMessageType } from '../AlertMessage'
 import {
   InspectorTab,
@@ -189,28 +184,21 @@ export const FileManager: React.FC<{
     [modelMap.values(), attachments]
   )
 
-  const inlineAttachmentsIds = useMemo(() => {
+  const supplementFiles = useMemo(
+    () => getSupplementFiles(modelMap, attachments),
+    // eslint-disable-next-line
+  [attachments, modelMap.size])
+
+  const excludedAttachmentsIds = useMemo(() => {
     const attachmentsIDs = new Set<string>()
     inlineFiles.map(({ attachments }) => {
       if (attachments) {
         attachments.map((attachment) => attachmentsIDs.add(attachment.id))
       }
     })
+    supplementFiles.map(({ id }) => attachmentsIDs.add(id))
     return attachmentsIDs
-  }, [inlineFiles])
-
-  const supplementFiles = useMemo(() => {
-    const supplements = new Map(
-      getModelsByType<Supplement>(modelMap, ObjectTypes.Supplement).map(
-        (supplement) => [
-          supplement.href?.replace('attachment:', ''),
-          supplement,
-        ]
-      )
-    )
-    return attachments.filter((attachment) => supplements.has(attachment.id))
-    // eslint-disable-next-line
-  }, [attachments, modelMap.size])
+  }, [inlineFiles, supplementFiles])
 
   const getFileSectionExternalFile = (
     fileSection: FileSectionType
@@ -227,7 +215,7 @@ export const FileManager: React.FC<{
         return (
           designation !== undefined &&
           designationWithFileSectionsMap.get(designation) === fileSection &&
-          !inlineAttachmentsIds.has(element.id)
+          !excludedAttachmentsIds.has(element.id)
         )
       })
 
