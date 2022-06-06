@@ -60,7 +60,7 @@ export const InlineFilesSection: React.FC<{
     name: string,
     file: File,
     typeId: string
-  ) => Promise<boolean>
+  ) => Promise<{ data: { uploadAttachment: SubmissionAttachment } }>
   handleDownload: (url: string) => void
   handleUpdateInline?: (
     modelId: string,
@@ -130,7 +130,7 @@ export const InlineFilesSection: React.FC<{
 }
 
 const FileReference: React.FC<{
-  attachment?: SubmissionAttachment
+  attachment?: SubmissionAttachment & { modelId?: string }
   submissionId: string
   handleReplace: (
     submissionId: string,
@@ -138,7 +138,7 @@ const FileReference: React.FC<{
     name: string,
     file: File,
     typeId: string
-  ) => Promise<boolean>
+  ) => Promise<{ data: { uploadAttachment: SubmissionAttachment } }>
   handleDownload: (url: string) => void
   handleUpdateInline?: (
     modelId: string,
@@ -185,7 +185,11 @@ const FileReference: React.FC<{
           {isOpen && (
             <ItemActions
               replaceAttachmentHandler={handleReplace}
-              updateInlineHandler={handleUpdateInline}
+              handleUpdateInline={(uploadAttachment: SubmissionAttachment) =>
+                handleUpdateInline &&
+                attachment?.modelId &&
+                handleUpdateInline(attachment.modelId, uploadAttachment)
+              }
               downloadAttachmentHandler={handleDownload}
               submissionId={submissionId}
               attachmentId={attachment.id}
@@ -195,7 +199,6 @@ const FileReference: React.FC<{
               hideActionList={toggleOpen}
               dispatch={dispatch}
               dropDownClassName={'ref_item_dropdown'}
-              modelId={attachment.modelId}
             />
           )}
         </DropdownContainer>

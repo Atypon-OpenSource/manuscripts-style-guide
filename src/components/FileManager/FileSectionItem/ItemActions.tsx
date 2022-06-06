@@ -40,12 +40,8 @@ export const ItemActions: React.FC<{
     name: string,
     file: File,
     typeId: string
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  ) => Promise<any>
-  updateInlineHandler?: (
-    modelId: string,
-    attachment: SubmissionAttachment
-  ) => void
+  ) => Promise<{ data: { uploadAttachment: SubmissionAttachment } }>
+  handleUpdateInline?: (attachment: SubmissionAttachment) => void
   submissionId: string
   attachmentId: string
   fileName: string
@@ -54,11 +50,10 @@ export const ItemActions: React.FC<{
   hideActionList: (e?: React.MouseEvent) => void
   dispatch?: Dispatch<Action>
   dropDownClassName?: string
-  modelId?: string
 }> = ({
   downloadAttachmentHandler,
   replaceAttachmentHandler,
-  updateInlineHandler,
+  handleUpdateInline,
   submissionId,
   attachmentId,
   fileName,
@@ -67,7 +62,6 @@ export const ItemActions: React.FC<{
   hideActionList,
   dispatch,
   dropDownClassName,
-  modelId,
 }) => {
   const attachmentDesignation =
     designation == undefined ? 'undefined' : designation
@@ -85,7 +79,7 @@ export const ItemActions: React.FC<{
   const fileInputRef = useRef<HTMLInputElement>(null)
   const [selectedFile, setSelectedFile] = useState<File>()
   const can = useContext(PermissionsContext)
-  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
+  const handleChange = async (event: ChangeEvent<HTMLInputElement>) => {
     if (event && event.target && event.target.files) {
       const file = event.target.files[0]
       setSelectedFile(file)
@@ -97,27 +91,18 @@ export const ItemActions: React.FC<{
           )
         )
       }
-      replaceAttachmentHandler(
+      const result = await replaceAttachmentHandler(
         submissionId,
         attachmentId,
         fileName,
         file,
         attachmentDesignation
       )
-        .then((result) => {
-          if (
-            result?.data?.uploadAttachment &&
-            updateInlineHandler &&
-            modelId
-          ) {
-            const { uploadAttachment } = result.data
-            updateInlineHandler(modelId, uploadAttachment)
-          }
-          return result
-        })
-        .catch((e) => {
-          console.error(e)
-        })
+
+      const { uploadAttachment } = result?.data
+      if (uploadAttachment && handleUpdateInline) {
+        handleUpdateInline(uploadAttachment)
+      }
 
       if (dispatch) {
         dispatch(actions.HANDLE_FINISH_UPLOAD())

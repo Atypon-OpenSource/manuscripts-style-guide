@@ -38,7 +38,6 @@ export type SubmissionAttachment = {
   name: string
   type: SubmissionAttachmentType
   link: string
-  modelId?: string
 }
 
 export type SubmissionAttachmentType = {
@@ -60,7 +59,7 @@ export interface FileSectionItemProps {
     name: string,
     file: File,
     typeId: string
-  ) => Promise<boolean>
+  ) => Promise<{ data: { uploadAttachment: SubmissionAttachment } }>
   handleChangeDesignation: (
     submissionId: string,
     attachmentId: string,
