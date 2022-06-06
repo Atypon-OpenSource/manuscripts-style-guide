@@ -60,14 +60,19 @@ export const InlineFilesSection: React.FC<{
     name: string,
     file: File,
     typeId: string
-  ) => Promise<boolean>
+  ) => Promise<{ data: { uploadAttachment: SubmissionAttachment } }>
   handleDownload: (url: string) => void
+  handleUpdateInline?: (
+    modelId: string,
+    attachment: SubmissionAttachment
+  ) => void
   isEditor: boolean
   dispatch: Dispatch<Action>
 }> = ({
   submissionId,
   handleReplace,
   handleDownload,
+  handleUpdateInline,
   inlineFiles,
   isEditor,
   dispatch,
@@ -104,6 +109,7 @@ export const InlineFilesSection: React.FC<{
                 attachment={attachment}
                 submissionId={submissionId}
                 handleReplace={handleReplace}
+                handleUpdateInline={handleUpdateInline}
                 handleDownload={handleDownload}
                 dispatch={dispatch}
               />
@@ -124,7 +130,7 @@ export const InlineFilesSection: React.FC<{
 }
 
 const FileReference: React.FC<{
-  attachment?: SubmissionAttachment
+  attachment?: SubmissionAttachment & { modelId?: string }
   submissionId: string
   handleReplace: (
     submissionId: string,
@@ -132,14 +138,19 @@ const FileReference: React.FC<{
     name: string,
     file: File,
     typeId: string
-  ) => Promise<boolean>
+  ) => Promise<{ data: { uploadAttachment: SubmissionAttachment } }>
   handleDownload: (url: string) => void
+  handleUpdateInline?: (
+    modelId: string,
+    attachment: SubmissionAttachment
+  ) => void
   dispatch: Dispatch<Action>
 }> = ({
   attachment,
   submissionId,
   handleReplace,
   handleDownload,
+  handleUpdateInline,
   dispatch,
 }) => {
   const { isOpen, toggleOpen, wrapperRef } = useDropdown()
@@ -174,6 +185,11 @@ const FileReference: React.FC<{
           {isOpen && (
             <ItemActions
               replaceAttachmentHandler={handleReplace}
+              handleUpdateInline={(uploadAttachment: SubmissionAttachment) =>
+                handleUpdateInline &&
+                attachment?.modelId &&
+                handleUpdateInline(attachment.modelId, uploadAttachment)
+              }
               downloadAttachmentHandler={handleDownload}
               submissionId={submissionId}
               attachmentId={attachment.id}

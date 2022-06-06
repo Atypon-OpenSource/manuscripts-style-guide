@@ -59,7 +59,7 @@ export interface FileSectionItemProps {
     name: string,
     file: File,
     typeId: string
-  ) => Promise<boolean>
+  ) => Promise<{ data: { uploadAttachment: SubmissionAttachment } }>
   handleChangeDesignation: (
     submissionId: string,
     attachmentId: string,

@@ -94,6 +94,10 @@ export const FileManager: React.FC<{
     name: string
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
   ) => Promise<any>
+  handleUpdateInline?: (
+    modelId: string,
+    attachment: SubmissionAttachment
+  ) => void
 }> = ({
   submissionId,
   attachments,
@@ -105,6 +109,7 @@ export const FileManager: React.FC<{
   handleDownload,
   handleReplace,
   handleChangeDesignation,
+  handleUpdateInline,
 }) => {
   const [state, dispatch] = useReducer(reducer, getInitialState())
   const handleReplaceFile = useCallback(
@@ -326,6 +331,7 @@ export const FileManager: React.FC<{
                   submissionId={submissionId}
                   handleReplace={handleReplace}
                   handleDownload={handleDownload}
+                  handleUpdateInline={handleUpdateInline}
                   isEditor={enableDragAndDrop}
                   dispatch={dispatch}
                 />

@@ -58,18 +58,21 @@ const getFigureData = (
   modelMap: Map<string, Model>,
   attachmentsMap: Map<string, SubmissionAttachment>
 ) => {
-  const attachments: SubmissionAttachment[] = []
-  element.containedObjectIDs.map((e) => {
-    const object = modelMap.get(e)
+  const attachments: (SubmissionAttachment & { modelId?: string })[] = []
+  element.containedObjectIDs.map((id) => {
+    const object = modelMap.get(id)
     if (object && object.objectType === ObjectTypes.Figure) {
       const externalFileRef = (object as Figure).externalFileReferences?.find(
         // TODO:: add interactiveRepresentation image when media alternatives enabled
         (figure) => figure.kind === 'imageRepresentation'
       )
 
-      const attachment = getAttachment(externalFileRef, attachmentsMap)
+      const attachment:
+        | (SubmissionAttachment & { modelId?: string })
+        | undefined = getAttachment(externalFileRef, attachmentsMap)
 
       if (attachment) {
+        attachment.modelId = id
         attachments.push(attachment)
       }
     }

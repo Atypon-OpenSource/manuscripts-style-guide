@@ -26,6 +26,8 @@ import { Maybe } from '../../SubmissionInspector/types'
 import { PermissionsContext } from '../FileManager'
 import { Action, actions } from '../FileSectionState'
 import { ActionsItem } from '../ItemsAction'
+import { Designation, namesWithDesignationMap } from '../util'
+import { SubmissionAttachment } from './FileSectionItem'
 
 /**
  * This component represents the drop-down list action for each file item.
@@ -38,7 +40,8 @@ export const ItemActions: React.FC<{
     name: string,
     file: File,
     typeId: string
-  ) => Promise<boolean>
+  ) => Promise<{ data: { uploadAttachment: SubmissionAttachment } }>
+  handleUpdateInline?: (attachment: SubmissionAttachment) => void
   submissionId: string
   attachmentId: string
   fileName: string
@@ -50,6 +53,7 @@ export const ItemActions: React.FC<{
 }> = ({
   downloadAttachmentHandler,
   replaceAttachmentHandler,
+  handleUpdateInline,
   submissionId,
   attachmentId,
   fileName,
@@ -61,23 +65,48 @@ export const ItemActions: React.FC<{
 }) => {
   const attachmentDesignation =
     designation == undefined ? 'undefined' : designation
+  const attachmentDesignationName =
+    attachmentDesignation !== 'undefined'
+      ? namesWithDesignationMap.get(attachmentDesignation)
+      : undefined
+  const canBeReplaced =
+    attachmentDesignationName == undefined ||
+    ![
+      Designation.MainManuscript,
+      Designation.SubmissionFile,
+      Designation.SubmissionPdf,
+    ].includes(attachmentDesignationName)
   const fileInputRef = useRef<HTMLInputElement>(null)
   const [selectedFile, setSelectedFile] = useState<File>()
   const can = useContext(PermissionsContext)
-  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
+  const handleChange = async (event: ChangeEvent<HTMLInputElement>) => {
     if (event && event.target && event.target.files) {
       const file = event.target.files[0]
       setSelectedFile(file)
       if (dispatch) {
-        dispatch(actions.UPLOAD_FILE(file))
+        dispatch(actions.HANDLE_UPLOAD_ACTION())
+        dispatch(
+          actions.SELECT_DESIGNATION(
+            attachmentDesignationName || Designation.Document
+          )
+        )
       }
-      replaceAttachmentHandler(
+      const result = await replaceAttachmentHandler(
         submissionId,
         attachmentId,
         fileName,
         file,
         attachmentDesignation
       )
+
+      const { uploadAttachment } = result?.data
+      if (uploadAttachment && handleUpdateInline) {
+        handleUpdateInline(uploadAttachment)
+      }
+
+      if (dispatch) {
+        dispatch(actions.HANDLE_FINISH_UPLOAD())
+      }
       hideActionList()
     }
   }
@@ -102,7 +131,7 @@ export const ItemActions: React.FC<{
       >
         Download
       </ActionsItem>
-      {can?.replaceFile && (
+      {can?.replaceFile && canBeReplaced && (
         <>
           <ActionsItem onClick={openFileDialog}>Replace</ActionsItem>
           <input
