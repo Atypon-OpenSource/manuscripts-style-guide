@@ -222,9 +222,7 @@ export const FileManager: React.FC<{
         const designation: Designation | undefined =
           namesWithDesignationMap.get(element.type.label)
         return (
-          designation !== undefined &&
-          designationWithFileSectionsMap.get(designation) === fileSection &&
-          !excludedAttachmentsIds.has(element.id)
+          designation !== undefined && !excludedAttachmentsIds.has(element.id)
         )
       })
 
