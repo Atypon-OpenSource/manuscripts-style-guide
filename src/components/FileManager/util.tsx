@@ -322,6 +322,7 @@ export const extensionsWithFileTypesMap = new Map<string, FileType>([
   ['png', FileType.Image],
   ['jpg', FileType.Image],
   ['jpeg', FileType.Image],
+  ['jfif', FileType.Image],
   ['gif', FileType.Image],
   ['svg', FileType.Image],
   ['tif', FileType.Image],
