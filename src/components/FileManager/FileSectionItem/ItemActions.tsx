@@ -35,14 +35,12 @@ import { SubmissionAttachment } from './FileSectionItem'
 export const ItemActions: React.FC<{
   downloadAttachmentHandler: (url: string) => void
   replaceAttachmentHandler: (
-    submissionId: string,
     attachmentId: string,
     name: string,
     file: File,
     typeId: string
-  ) => Promise<{ data: { uploadAttachment: SubmissionAttachment } }>
+  ) => Promise<boolean | SubmissionAttachment | undefined>
   handleUpdateInline?: (attachment: SubmissionAttachment) => void
-  submissionId: string
   attachmentId: string
   fileName: string
   designation?: Maybe<string> | undefined
@@ -54,7 +52,6 @@ export const ItemActions: React.FC<{
   downloadAttachmentHandler,
   replaceAttachmentHandler,
   handleUpdateInline,
-  submissionId,
   attachmentId,
   fileName,
   designation,
@@ -92,16 +89,14 @@ export const ItemActions: React.FC<{
         )
       }
       const result = await replaceAttachmentHandler(
-        submissionId,
         attachmentId,
         fileName,
         file,
         attachmentDesignation
       )
 
-      const { uploadAttachment } = result?.data
-      if (uploadAttachment && handleUpdateInline) {
-        handleUpdateInline(uploadAttachment)
+      if (!(result instanceof Boolean) && handleUpdateInline) {
+        handleUpdateInline(result as SubmissionAttachment)
       }
 
       if (dispatch) {

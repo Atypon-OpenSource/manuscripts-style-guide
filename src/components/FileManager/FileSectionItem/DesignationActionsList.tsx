@@ -32,13 +32,11 @@ import {
 
 export const DesignationActionsList: React.FC<{
   handleChangeDesignation?: (
-    submissionId: string,
     attachmentId: string,
     typeId: string,
     name: string
   ) => Promise<boolean>
   designationActionsList: Array<Designation>
-  submissionId: string
   fileName: string
   designation?: Designation
   attachmentId: string
@@ -51,7 +49,6 @@ export const DesignationActionsList: React.FC<{
 }> = ({
   handleChangeDesignation,
   designationActionsList,
-  submissionId,
   fileName,
   designation,
   attachmentId,
@@ -69,7 +66,6 @@ export const DesignationActionsList: React.FC<{
       if (dispatch) {
         dispatch(
           actions.MOVE_FILE(
-            submissionId,
             attachmentId,
             getDesignationName(designation),
             fileName,
@@ -85,7 +81,6 @@ export const DesignationActionsList: React.FC<{
     } else {
       handleChangeDesignation &&
         handleChangeDesignation(
-          submissionId,
           attachmentId,
           getDesignationName(designation),
           fileName

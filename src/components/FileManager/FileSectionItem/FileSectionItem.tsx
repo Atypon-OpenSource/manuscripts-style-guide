@@ -46,7 +46,6 @@ export type SubmissionAttachmentType = {
 }
 
 export interface FileSectionItemProps {
-  submissionId?: string
   externalFile: SubmissionAttachment
   title: string
   showAttachmentName?: boolean
@@ -54,14 +53,12 @@ export interface FileSectionItemProps {
   showActions?: boolean
   handleDownload?: (url: string) => void
   handleReplace?: (
-    submissionId: string,
     attachmentId: string,
     name: string,
     file: File,
     typeId: string
-  ) => Promise<{ data: { uploadAttachment: SubmissionAttachment } }>
+  ) => Promise<boolean | SubmissionAttachment | undefined>
   handleChangeDesignation: (
-    submissionId: string,
     attachmentId: string,
     typeId: string,
     name: string
@@ -75,7 +72,6 @@ export interface FileSectionItemProps {
 }
 
 export const FileSectionItem: React.FC<FileSectionItemProps> = ({
-  submissionId,
   externalFile,
   title,
   showAttachmentName = false,
@@ -124,7 +120,6 @@ export const FileSectionItem: React.FC<FileSectionItemProps> = ({
           designation={designation}
           attachmentId={externalFile.id}
           handleChangeDesignation={handleChangeDesignation}
-          submissionId={submissionId}
           dispatch={dispatch}
         />
       </ItemContainer>
@@ -138,7 +133,7 @@ export const FileSectionItem: React.FC<FileSectionItemProps> = ({
           <CloseOIcon color={'#6E6E6E'} />
         </IconCloseButton>
       )}
-      {handleDownload && handleReplace && submissionId && (
+      {handleDownload && handleReplace && (
         <DropdownContainer ref={wrapperRef}>
           <ActionsIcon
             onClick={toggleOpen}
@@ -152,7 +147,6 @@ export const FileSectionItem: React.FC<FileSectionItemProps> = ({
             <ItemActions
               replaceAttachmentHandler={handleReplace}
               downloadAttachmentHandler={handleDownload}
-              submissionId={submissionId}
               attachmentId={externalFile.id}
               fileName={externalFile.name}
               designation={externalFile.type.label}
@@ -212,7 +206,7 @@ export const Item = styled.div`
   ${DropdownContainer} {
     position: absolute;
     top: 24px;
-    right: 0px;
+    right: 0;
     margin-right: 8px;
   }
 `
