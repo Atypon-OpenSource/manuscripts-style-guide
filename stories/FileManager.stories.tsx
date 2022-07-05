@@ -82,7 +82,7 @@ storiesOf('FileManager', module).add('FileManager', () => {
     <BrowserRouter>
       <FileManager
         can={capabilities}
-        attachment={{
+        fileManagement={{
           getAttachments: () => attachments,
           upload,
           replace,

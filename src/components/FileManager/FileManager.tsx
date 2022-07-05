@@ -84,7 +84,7 @@ export interface FileManagement {
 export const PermissionsContext = createContext<null | Capabilities>(null)
 
 export const FileManager: React.FC<{
-  attachment: FileManagement
+  fileManagement: FileManagement
   modelMap: Map<string, Model>
   saveModel: (model: Build<Supplement>) => Promise<Build<Supplement>>
   enableDragAndDrop: boolean
@@ -94,7 +94,7 @@ export const FileManager: React.FC<{
   saveModel,
   enableDragAndDrop,
   can,
-  attachment: { getAttachments, changeDesignation, replace, upload },
+  fileManagement: { getAttachments, changeDesignation, replace, upload },
 }) => {
   const [state, dispatch] = useReducer(reducer, getInitialState())
   const handleReplaceFile = useCallback(
