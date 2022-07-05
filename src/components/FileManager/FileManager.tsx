@@ -50,19 +50,7 @@ import {
   namesWithDesignationMap,
 } from './util'
 
-/**
- * This is the main component of the file handling
- * that should be called in the inspector,
- * and it expects to receive an array of submission attachments
- * and use Drag-and-Drop technique for manuscript-frontend inspector.
- *
- * File section component consist of three types of files which is:
- * 1- Inline files.
- * 2- Supplemental files.
- * 3- Other files.
- */
-
-export interface Attachments {
+export interface FileManagement {
   getAttachments: () => SubmissionAttachment[]
   upload: (
     file: File,
@@ -81,10 +69,22 @@ export interface Attachments {
   ) => Promise<boolean>
 }
 
+/**
+ * This is the main component of the file handling
+ * that should be called in the inspector,
+ * and it expects to receive an array of submission attachments
+ * and use Drag-and-Drop technique for manuscript-frontend inspector.
+ *
+ * File section component consist of three types of files which is:
+ * 1- Inline files.
+ * 2- Supplemental files.
+ * 3- Other files.
+ */
+
 export const PermissionsContext = createContext<null | Capabilities>(null)
 
 export const FileManager: React.FC<{
-  attachment: Attachments
+  attachment: FileManagement
   modelMap: Map<string, Model>
   saveModel: (model: Build<Supplement>) => Promise<Build<Supplement>>
   enableDragAndDrop: boolean
