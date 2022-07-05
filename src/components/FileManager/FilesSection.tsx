@@ -16,7 +16,7 @@
 import React, { Dispatch, useContext } from 'react'
 
 import { DragItemArea } from './DragItemArea'
-import { PermissionsContext } from './FileManager'
+import { PermissionsContext, Upload } from './FileManager'
 import { FileSectionUploadItem } from './FileSectionItem/FileSectionUploadItem'
 import { Action, actions, State } from './FileSectionState'
 import { SelectDialogDesignation } from './SelectDialogDesignation'
@@ -28,11 +28,7 @@ import { FileSectionType, getDesignationName } from './util'
  */
 export const FilesSection: React.FC<{
   enableDragAndDrop: boolean
-  handleUpload: (
-    file: File,
-    designation: string
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  ) => Promise<any>
+  handleUpload: Upload
   fileSection: FileSectionType
   filesItem: JSX.Element[]
   dispatch: Dispatch<Action>

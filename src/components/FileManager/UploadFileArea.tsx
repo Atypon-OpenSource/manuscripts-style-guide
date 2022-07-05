@@ -24,6 +24,7 @@ import { DropTargetMonitor, useDrop } from 'react-dnd'
 import { NativeTypes } from 'react-dnd-html5-backend'
 import styled, { css } from 'styled-components'
 
+import { Upload } from './FileManager'
 import { Action, actions } from './FileSectionState'
 import { Designation, FileSectionType, getDesignationName } from './util'
 
@@ -31,11 +32,7 @@ import { Designation, FileSectionType, getDesignationName } from './util'
  * This component will show the drag or upload file area
  */
 export const UploadFileArea: React.FC<{
-  handleUploadFile: (
-    file: File,
-    designation: string
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  ) => Promise<any>
+  handleUploadFile: Upload
   fileSection: FileSectionType
   dispatch: Dispatch<Action>
 }> = ({ handleUploadFile, fileSection, dispatch }) => {
