@@ -95,8 +95,8 @@ export const ItemActions: React.FC<{
         attachmentDesignation
       )
 
-      if (!(result instanceof Boolean) && handleUpdateInline) {
-        handleUpdateInline(result as SubmissionAttachment)
+      if (typeof result === 'object' && handleUpdateInline) {
+        handleUpdateInline(result)
       }
 
       if (dispatch) {
