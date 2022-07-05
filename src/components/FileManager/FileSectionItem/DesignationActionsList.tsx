@@ -15,6 +15,7 @@
  */
 import React, { Dispatch } from 'react'
 
+import { ChangeDesignation } from '../FileManager'
 import { Action, actions } from '../FileSectionState'
 import {
   ActionsBox,
@@ -31,11 +32,7 @@ import {
 } from '../util'
 
 export const DesignationActionsList: React.FC<{
-  handleChangeDesignation?: (
-    attachmentId: string,
-    typeId: string,
-    name: string
-  ) => Promise<boolean>
+  handleChangeDesignation?: ChangeDesignation
   designationActionsList: Array<Designation>
   fileName: string
   designation?: Designation

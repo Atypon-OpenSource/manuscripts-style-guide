@@ -22,6 +22,7 @@ import { DropdownContainer } from '../../Dropdown'
 import { CloseOIcon } from '../../icons/'
 import DotsIcon from '../../icons/dots-icon'
 import { Maybe } from '../../SubmissionInspector/types'
+import { ChangeDesignation, FileManagement, Replace } from '../FileManager'
 import { Action } from '../FileSectionState'
 import { Designation, namesWithDesignationMap } from '../util'
 import { FileInfo } from './FileInfo'
@@ -52,17 +53,8 @@ export interface FileSectionItemProps {
   showDesignationActions?: boolean
   showActions?: boolean
   handleDownload?: (url: string) => void
-  handleReplace?: (
-    attachmentId: string,
-    name: string,
-    file: File,
-    typeId: string
-  ) => Promise<boolean | SubmissionAttachment | undefined>
-  handleChangeDesignation: (
-    attachmentId: string,
-    typeId: string,
-    name: string
-  ) => Promise<boolean>
+  handleReplace?: Replace
+  handleChangeDesignation: ChangeDesignation
   dispatch?: Dispatch<Action>
   dragRef?: DragElementWrapper<DragSourceOptions>
   className?: string

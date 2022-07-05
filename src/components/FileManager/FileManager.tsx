@@ -50,23 +50,29 @@ import {
   namesWithDesignationMap,
 } from './util'
 
+export type Upload = (
+  file: File,
+  designation: string
+) => Promise<boolean | SubmissionAttachment | undefined>
+
+export type Replace = (
+  attachmentId: string,
+  name: string,
+  file: File,
+  typeId: string
+) => Promise<boolean | SubmissionAttachment | undefined>
+
+export type ChangeDesignation = (
+  attachmentId: string,
+  typeId: string,
+  name: string
+) => Promise<boolean>
+
 export interface FileManagement {
   getAttachments: () => SubmissionAttachment[]
-  upload: (
-    file: File,
-    designation: string
-  ) => Promise<boolean | SubmissionAttachment | undefined>
-  replace: (
-    attachmentId: string,
-    name: string,
-    file: File,
-    typeId: string
-  ) => Promise<boolean | SubmissionAttachment | undefined>
-  changeDesignation: (
-    attachmentId: string,
-    typeId: string,
-    name: string
-  ) => Promise<boolean>
+  upload: Upload
+  replace: Replace
+  changeDesignation: ChangeDesignation
 }
 
 /**

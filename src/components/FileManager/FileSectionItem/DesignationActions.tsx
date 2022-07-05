@@ -20,6 +20,7 @@ import styled from 'styled-components'
 import { Capabilities } from '../../../lib/capabilities'
 import BottomArrowIcon from '../../icons/BottomArrowIcon'
 import { ConfirmationPopUp } from '../ConfirmationPopUp'
+import { ChangeDesignation } from '../FileManager'
 import { Action } from '../FileSectionState'
 import { TooltipDiv } from '../TooltipDiv'
 import {
@@ -36,11 +37,7 @@ export const DesignationActions: React.FC<{
   designation?: Designation
   attachmentId: string
   fileExtension?: string
-  handleChangeDesignation?: (
-    attachmentId: string,
-    typeId: string,
-    name: string
-  ) => Promise<boolean>
+  handleChangeDesignation?: ChangeDesignation
   fileName: string
   can: Capabilities | null
   dispatch?: Dispatch<Action>

@@ -23,7 +23,7 @@ import React, {
 
 import { DropdownList } from '../../Dropdown'
 import { Maybe } from '../../SubmissionInspector/types'
-import { PermissionsContext } from '../FileManager'
+import { PermissionsContext, Replace } from '../FileManager'
 import { Action, actions } from '../FileSectionState'
 import { ActionsItem } from '../ItemsAction'
 import { Designation, namesWithDesignationMap } from '../util'
@@ -34,12 +34,7 @@ import { SubmissionAttachment } from './FileSectionItem'
  */
 export const ItemActions: React.FC<{
   downloadAttachmentHandler: (url: string) => void
-  replaceAttachmentHandler: (
-    attachmentId: string,
-    name: string,
-    file: File,
-    typeId: string
-  ) => Promise<boolean | SubmissionAttachment | undefined>
+  replaceAttachmentHandler: Replace
   handleUpdateInline?: (attachment: SubmissionAttachment) => void
   attachmentId: string
   fileName: string

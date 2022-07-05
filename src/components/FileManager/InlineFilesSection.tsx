@@ -18,6 +18,7 @@ import styled from 'styled-components'
 
 import { useDropdown } from '../../hooks/use-dropdown'
 import DotsIcon from '../icons/dots-icon'
+import { Replace } from './FileManager'
 import {
   FileInfoContainer,
   FileNameTitleContainer,
@@ -50,12 +51,7 @@ export const InlineFilesSection: React.FC<{
     caption?: string
     attachments?: SubmissionAttachment[]
   }[]
-  handleReplace: (
-    attachmentId: string,
-    name: string,
-    file: File,
-    typeId: string
-  ) => Promise<boolean | SubmissionAttachment | undefined>
+  handleReplace: Replace
   handleDownload: (url: string) => void
   handleUpdateInline?: (
     modelId: string,

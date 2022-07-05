@@ -16,7 +16,7 @@
 import React, { Dispatch, useContext } from 'react'
 import styled from 'styled-components'
 
-import { PermissionsContext } from '../FileManager'
+import { ChangeDesignation, PermissionsContext } from '../FileManager'
 import { Action } from '../FileSectionState'
 import { Designation } from '../util'
 import { DesignationActions } from './DesignationActions'
@@ -29,11 +29,7 @@ export const FileInfo: React.FC<{
   fileExtension: string
   designation?: Designation
   attachmentId: string
-  handleChangeDesignation: (
-    attachmentId: string,
-    typeId: string,
-    name: string
-  ) => Promise<boolean>
+  handleChangeDesignation: ChangeDesignation
   dispatch?: Dispatch<Action>
 }> = ({
   showAttachmentName,
