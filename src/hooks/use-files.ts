@@ -42,7 +42,7 @@ const getSupplementFiles = (
 
   return attachments.filter((attachment) => {
     if (supplements.has(attachment.id) && filePredicate) {
-      return filePredicate && filePredicate(attachment.name)
+      return filePredicate(attachment.name)
     } else {
       return supplements.has(attachment.id)
     }
