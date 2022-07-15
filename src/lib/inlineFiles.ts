@@ -13,10 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import {
-  getModelsByType,
-  hasObjectType,
-} from '@manuscripts/manuscript-transform'
+import { hasObjectType } from '@manuscripts/manuscript-transform'
 import {
   ElementsOrder,
   Figure,
@@ -24,7 +21,6 @@ import {
   Model,
   ObjectTypes,
   Section,
-  Supplement,
   Table,
   TableElement,
 } from '@manuscripts/manuscripts-json-schema'
@@ -32,11 +28,6 @@ import {
 import { SubmissionAttachment } from '../components/FileManager/FileSectionItem/FileSectionItem'
 import { ExternalFileRef } from '../components/FileManager/InlineFilesSection'
 import { FileType } from '../components/FileManager/util'
-
-const getCaptionText = (caption?: string) =>
-  caption &&
-  new DOMParser().parseFromString(caption, 'text/html').documentElement
-    .innerText
 
 const getAttachment = (
   externalFileRef: ExternalFileRef | undefined,
@@ -81,8 +72,14 @@ const getFigureData = (
   return {
     id: element._id,
     attachments,
-    caption: getCaptionText(element.caption),
   }
+}
+
+export type InlineFile = {
+  id: string
+  label: string
+  type: FileType
+  attachments?: SubmissionAttachment[]
 }
 
 /**
@@ -97,13 +94,7 @@ export default (
   modelMap: Map<string, Model>,
   attachments: SubmissionAttachment[]
 ) => {
-  const files: {
-    id: string
-    label: string
-    type: FileType
-    caption?: string
-    attachments?: SubmissionAttachment[]
-  }[] = []
+  const files: InlineFile[] = []
 
   const attachmentsMap = new Map(
     attachments.map((attachment) => [attachment.id, attachment])
@@ -144,7 +135,6 @@ export default (
         label: `Table`,
         type: FileType.SheetsWorkbooks,
         attachments: [attachment],
-        caption: getCaptionText(tableElement.caption),
       })
     }
   })
@@ -205,41 +195,26 @@ const getAuxiliaryObjects = (modelMap: Map<string, Model>) => {
 
   return {
     graphicalAbstractFigureId,
-    figureElement: orderObjects[ObjectTypes.FigureElement]
-      ? sortAuxiliaryObject(
-          orderObjects[ObjectTypes.FigureElement],
-          figureElementIds
-        )
-      : figureElementIds,
-    tableElement: orderObjects[ObjectTypes.TableElement]
-      ? sortAuxiliaryObject(
-          orderObjects[ObjectTypes.TableElement],
-          tableElementIds
-        )
-      : tableElementIds,
+    figureElement: sortAuxiliaryObject(
+      figureElementIds,
+      orderObjects[ObjectTypes.FigureElement]
+    ),
+    tableElement: sortAuxiliaryObject(
+      tableElementIds,
+      orderObjects[ObjectTypes.TableElement]
+    ),
   }
 }
 
 const sortAuxiliaryObject = (
-  orderObject: ElementsOrder,
-  auxiliaryObjectIds: string[]
+  auxiliaryObjectIds: string[],
+  orderObject?: ElementsOrder
 ) => {
+  if (!orderObject) {
+    return auxiliaryObjectIds
+  }
+
   return auxiliaryObjectIds.sort(
     (a, b) => orderObject.elements.indexOf(a) - orderObject.elements.indexOf(b)
   )
-}
-
-/**
- * return attachments that are in the modelMap as MPSupplement,
- */
-export const getSupplementFiles = (
-  modelMap: Map<string, Model>,
-  attachments: SubmissionAttachment[]
-) => {
-  const supplements = new Map(
-    getModelsByType<Supplement>(modelMap, ObjectTypes.Supplement).map(
-      (supplement) => [supplement.href?.replace('attachment:', ''), supplement]
-    )
-  )
-  return attachments.filter((attachment) => supplements.has(attachment.id))
 }
