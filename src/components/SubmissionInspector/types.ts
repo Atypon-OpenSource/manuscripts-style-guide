@@ -34,6 +34,8 @@ export type Submission = {
   dueDate: Date
   criticality: SubmissionCriticality
   isAtRisk: boolean
+  isPublished: boolean
+  publishedDate?: Date
 }
 
 export type Journal = {
