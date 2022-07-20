@@ -13,20 +13,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import React, { CSSProperties, useState } from 'react'
+import React, { CSSProperties } from 'react'
 import { DragElementWrapper, DragSourceOptions } from 'react-dnd'
 import styled from 'styled-components'
 
-import { DesignationActions } from './DesignationActions'
 import { FileInfoContainer, FileName, FileNameContainer } from './FileInfo'
-import { ActionsIcon, Item, ItemContainer } from './FileSectionItem'
+import { Item, ItemContainer } from './FileSectionItem'
 import { FileTypeIcon } from './FileTypeIcon'
 import { ProgressBarUploadItem } from './ProgressBarUploadItem'
 
 export interface FileSectionItemProps {
   fileName: string
   isLoading: boolean
-  submissionId: string
   dragRef?: DragElementWrapper<DragSourceOptions>
   className?: string
   style?: CSSProperties
@@ -38,7 +36,6 @@ export interface FileSectionItemProps {
 export const FileSectionUploadItem: React.FC<FileSectionItemProps> = ({
   fileName,
   isLoading,
-  submissionId,
   dragRef,
   className,
   style,
@@ -68,7 +65,7 @@ export const UploadItemContainer = styled(ItemContainer)`
 export const ProgressBar = styled.div`
   background: #1a9bc7;
   opacity: 0.7;
-  border-radius: 8px 0px 0px 8px;
+  border-radius: 8px 0 0 8px;
   width: 20%;
   height: 100%;
 `

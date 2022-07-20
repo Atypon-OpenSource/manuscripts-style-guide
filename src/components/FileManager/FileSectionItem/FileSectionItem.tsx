@@ -22,6 +22,7 @@ import { DropdownContainer } from '../../Dropdown'
 import { CloseOIcon } from '../../icons/'
 import DotsIcon from '../../icons/dots-icon'
 import { Maybe } from '../../SubmissionInspector/types'
+import { ChangeDesignation, FileManagement, Replace } from '../FileManager'
 import { Action } from '../FileSectionState'
 import { Designation, namesWithDesignationMap } from '../util'
 import { FileInfo } from './FileInfo'
@@ -46,26 +47,14 @@ export type SubmissionAttachmentType = {
 }
 
 export interface FileSectionItemProps {
-  submissionId?: string
   externalFile: SubmissionAttachment
   title: string
   showAttachmentName?: boolean
   showDesignationActions?: boolean
   showActions?: boolean
   handleDownload?: (url: string) => void
-  handleReplace?: (
-    submissionId: string,
-    attachmentId: string,
-    name: string,
-    file: File,
-    typeId: string
-  ) => Promise<{ data: { uploadAttachment: SubmissionAttachment } }>
-  handleChangeDesignation: (
-    submissionId: string,
-    attachmentId: string,
-    typeId: string,
-    name: string
-  ) => Promise<boolean>
+  handleReplace?: Replace
+  handleChangeDesignation: ChangeDesignation
   dispatch?: Dispatch<Action>
   dragRef?: DragElementWrapper<DragSourceOptions>
   className?: string
@@ -75,7 +64,6 @@ export interface FileSectionItemProps {
 }
 
 export const FileSectionItem: React.FC<FileSectionItemProps> = ({
-  submissionId,
   externalFile,
   title,
   showAttachmentName = false,
@@ -124,7 +112,6 @@ export const FileSectionItem: React.FC<FileSectionItemProps> = ({
           designation={designation}
           attachmentId={externalFile.id}
           handleChangeDesignation={handleChangeDesignation}
-          submissionId={submissionId}
           dispatch={dispatch}
         />
       </ItemContainer>
@@ -138,7 +125,7 @@ export const FileSectionItem: React.FC<FileSectionItemProps> = ({
           <CloseOIcon color={'#6E6E6E'} />
         </IconCloseButton>
       )}
-      {handleDownload && handleReplace && submissionId && (
+      {handleDownload && handleReplace && (
         <DropdownContainer ref={wrapperRef}>
           <ActionsIcon
             onClick={toggleOpen}
@@ -152,7 +139,6 @@ export const FileSectionItem: React.FC<FileSectionItemProps> = ({
             <ItemActions
               replaceAttachmentHandler={handleReplace}
               downloadAttachmentHandler={handleDownload}
-              submissionId={submissionId}
               attachmentId={externalFile.id}
               fileName={externalFile.name}
               designation={externalFile.type.label}
@@ -212,7 +198,7 @@ export const Item = styled.div`
   ${DropdownContainer} {
     position: absolute;
     top: 24px;
-    right: 0px;
+    right: 0;
     margin-right: 8px;
   }
 `

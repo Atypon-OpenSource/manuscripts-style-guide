@@ -24,7 +24,7 @@ import { DropTargetMonitor, useDrop } from 'react-dnd'
 import { NativeTypes } from 'react-dnd-html5-backend'
 import styled, { css } from 'styled-components'
 
-import { SubmissionAttachment } from './FileSectionItem/FileSectionItem'
+import { Upload } from './FileManager'
 import { Action, actions } from './FileSectionState'
 import { Designation, FileSectionType, getDesignationName } from './util'
 
@@ -32,16 +32,10 @@ import { Designation, FileSectionType, getDesignationName } from './util'
  * This component will show the drag or upload file area
  */
 export const UploadFileArea: React.FC<{
-  handleUploadFile: (
-    submissionId: string,
-    file: File,
-    designation: string
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  ) => Promise<any>
+  handleUploadFile: Upload
   fileSection: FileSectionType
-  submissionId: string
   dispatch: Dispatch<Action>
-}> = ({ handleUploadFile, fileSection, submissionId, dispatch }) => {
+}> = ({ handleUploadFile, fileSection, dispatch }) => {
   const [selectedFile, setSelectedFile] = useState<File>()
   const fileInputRef = useRef<HTMLInputElement>(null)
   const isSupplementFilesTab = fileSection === FileSectionType.Supplements
@@ -57,11 +51,7 @@ export const UploadFileArea: React.FC<{
       setSelectedFile(file)
       dispatch(actions.UPLOAD_FILE(file))
       if (file && isSupplementFilesTab) {
-        handleUploadFile(
-          submissionId,
-          file,
-          getDesignationName(Designation.Supplementary)
-        )
+        handleUploadFile(file, getDesignationName(Designation.Supplementary))
       }
     }
   }
@@ -74,20 +64,13 @@ export const UploadFileArea: React.FC<{
         dispatch(actions.UPLOAD_FILE(file))
         if (selectedFile && isSupplementFilesTab) {
           handleUploadFile(
-            submissionId,
             selectedFile,
             getDesignationName(Designation.Supplementary)
           )
         }
       }
     },
-    [
-      dispatch,
-      handleUploadFile,
-      isSupplementFilesTab,
-      selectedFile,
-      submissionId,
-    ]
+    [dispatch, handleUploadFile, isSupplementFilesTab, selectedFile]
   )
 
   const [{ canDrop, isOver }, dropRef] = useDrop({

@@ -17,7 +17,7 @@ import {
   Build,
   buildSupplementaryMaterial,
 } from '@manuscripts/manuscript-transform'
-import { Model, Supplement } from '@manuscripts/manuscripts-json-schema'
+import { Figure, Model, Supplement } from '@manuscripts/manuscripts-json-schema'
 import React, { createContext, useCallback, useMemo, useReducer } from 'react'
 import ReactTooltip from 'react-tooltip'
 
@@ -45,11 +45,35 @@ import { InlineFilesSection } from './InlineFilesSection'
 import { TooltipDiv } from './TooltipDiv'
 import {
   Designation,
-  designationWithFileSectionsMap,
   FileSectionType,
   generateAttachmentsTitles,
   namesWithDesignationMap,
 } from './util'
+
+export type Upload = (
+  file: File,
+  designation: string
+) => Promise<boolean | SubmissionAttachment | undefined>
+
+export type Replace = (
+  attachmentId: string,
+  name: string,
+  file: File,
+  typeId: string
+) => Promise<boolean | SubmissionAttachment | undefined>
+
+export type ChangeDesignation = (
+  attachmentId: string,
+  typeId: string,
+  name: string
+) => Promise<boolean>
+
+export interface FileManagement {
+  getAttachments: () => SubmissionAttachment[]
+  upload: Upload
+  replace: Replace
+  changeDesignation: ChangeDesignation
+}
 
 /**
  * This is the main component of the file handling
@@ -66,122 +90,96 @@ import {
 export const PermissionsContext = createContext<null | Capabilities>(null)
 
 export const FileManager: React.FC<{
-  submissionId: string
-  attachments: SubmissionAttachment[]
+  fileManagement: FileManagement
   modelMap: Map<string, Model>
   saveModel: (model: Build<Supplement>) => Promise<Build<Supplement>>
   enableDragAndDrop: boolean
   can: Capabilities
-  handleUpload: (
-    submissionId: string,
-    file: File,
-    designation: string
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  ) => Promise<any>
-  handleDownload: (url: string) => void
-  handleReplace: (
-    submissionId: string,
-    attachmentId: string,
-    name: string,
-    file: File,
-    typeId: string
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  ) => Promise<any>
-  handleChangeDesignation: (
-    submissionId: string,
-    attachmentId: string,
-    typeId: string,
-    name: string
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  ) => Promise<any>
-  handleUpdateInline?: (
-    modelId: string,
-    attachment: SubmissionAttachment
-  ) => void
 }> = ({
-  submissionId,
-  attachments,
   modelMap,
   saveModel,
   enableDragAndDrop,
   can,
-  handleUpload,
-  handleDownload,
-  handleReplace,
-  handleChangeDesignation,
-  handleUpdateInline,
+  fileManagement: { getAttachments, changeDesignation, replace, upload },
 }) => {
   const [state, dispatch] = useReducer(reducer, getInitialState())
   const handleReplaceFile = useCallback(
-    async (submissionId, attachmentId, name, file, typeId) => {
+    async (attachmentId, name, file, typeId) => {
       dispatch(actions.HANDLE_UPLOAD_ACTION())
       dispatch(
         actions.SELECT_DESIGNATION(
           namesWithDesignationMap.get(typeId) || Designation.Document
         )
       )
-      const res = await handleReplace(
-        submissionId,
-        attachmentId,
-        name,
-        file,
-        typeId
-      )
+      const res = await replace(attachmentId, name, file, typeId)
       dispatch(actions.HANDLE_FINISH_UPLOAD())
       return res
     },
-    [handleReplace]
+    [replace]
   )
   const handleUploadFile = useCallback(
-    async (submissionId, file, designation) => {
+    async (file, designation) => {
       dispatch(actions.HANDLE_UPLOAD_ACTION())
       if (
         namesWithDesignationMap.get(designation) == Designation.Supplementary
       ) {
         dispatch(actions.SELECT_DESIGNATION(Designation.Supplementary))
       }
-      const res = await handleUpload(submissionId, file, designation)
+      const res = await upload(file, designation)
       dispatch(actions.HANDLE_FINISH_UPLOAD())
       return res
     },
-    [handleUpload]
+    [upload]
   )
 
   const handleUploadFileWithSupplement = useCallback(
-    async (submissionId, file, designation) => {
-      const res = (await handleUploadFile(submissionId, file, designation)) as {
-        data: { uploadAttachment: SubmissionAttachment }
-      }
-      if (res && res.data) {
-        const { id, name } = res.data.uploadAttachment
+    async (file, designation) => {
+      const response = await upload(file, designation)
+      if (typeof response === 'object') {
+        const { id, name } = response
         await saveModel(buildSupplementaryMaterial(name, `attachment:${id}`))
       }
-      return res
+      return response
     },
-    [handleUploadFile, saveModel]
+    [upload, saveModel]
   )
 
   const handleChangeDesignationFile = useCallback(
-    async (submissionId, attachmentId, typeId, name) => {
-      const res = await handleChangeDesignation(
-        submissionId,
-        attachmentId,
-        typeId,
-        name
-      )
+    async (attachmentId, typeId, name) => {
+      const res = await changeDesignation(attachmentId, typeId, name)
       if (res) {
         dispatch(actions.HANDLE_SUCCESS_MESSAGE())
       }
       return res
     },
-    [handleChangeDesignation]
+    [changeDesignation]
   )
-  const handleDownloadFile = useCallback(
-    (publicUrl) => {
-      return handleDownload(publicUrl)
+  const handleDownload = useCallback((url: string) => {
+    window.location.assign(url)
+  }, [])
+
+  const handleUpdateInline = useCallback(
+    async (modelId: string, attachment: SubmissionAttachment) => {
+      const figureModel = modelMap.get(modelId) as Figure
+      const imageExternalFileIndex =
+        figureModel?.externalFileReferences?.findIndex(
+          (file) => file && file.kind === 'imageRepresentation'
+        )
+      if (
+        figureModel.externalFileReferences &&
+        typeof imageExternalFileIndex !== 'undefined' &&
+        imageExternalFileIndex > -1
+      ) {
+        figureModel.externalFileReferences[
+          imageExternalFileIndex
+        ].url = `attachment:${attachment.id}`
+        await saveModel(figureModel)
+      }
     },
-    [handleDownload]
+    [modelMap, saveModel]
   )
+
+  const attachments = getAttachments()
 
   const inlineFiles = useMemo(
     () => getInlineFiles(modelMap, attachments),
@@ -231,12 +229,11 @@ export const FileManager: React.FC<{
 
     const filesItems = itemsDataWithTitle.map((element) => {
       const itemProps: FileSectionItemProps = {
-        submissionId: submissionId,
         externalFile: element.externalFile,
         title: element.title,
         showAttachmentName: isSupplementOrOtherFilesTab,
         showDesignationActions: isSupplementOrOtherFilesTab,
-        handleDownload: handleDownloadFile,
+        handleDownload,
         handleReplace: handleReplaceFile,
         handleChangeDesignation: handleChangeDesignationFile,
         dispatch: dispatch,
@@ -326,8 +323,7 @@ export const FileManager: React.FC<{
               <InspectorTabPanel>
                 <InlineFilesSection
                   inlineFiles={inlineFiles}
-                  submissionId={submissionId}
-                  handleReplace={handleReplace}
+                  handleReplace={replace}
                   handleDownload={handleDownload}
                   handleUpdateInline={handleUpdateInline}
                   isEditor={enableDragAndDrop}
@@ -336,7 +332,6 @@ export const FileManager: React.FC<{
               </InspectorTabPanel>
               <InspectorTabPanel>
                 <FilesSection
-                  submissionId={submissionId}
                   enableDragAndDrop={enableDragAndDrop}
                   handleUpload={handleUploadFileWithSupplement}
                   fileSection={FileSectionType.Supplements}
@@ -349,7 +344,6 @@ export const FileManager: React.FC<{
               </InspectorTabPanel>
               <InspectorTabPanel>
                 <FilesSection
-                  submissionId={submissionId}
                   enableDragAndDrop={enableDragAndDrop}
                   handleUpload={handleUploadFile}
                   fileSection={FileSectionType.OtherFile}

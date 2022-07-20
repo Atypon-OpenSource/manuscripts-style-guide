@@ -30,9 +30,7 @@ export const getInitialState = (): State => ({
 export interface State {
   uploadedFile: File | undefined
   isUploadFile: boolean
-  moveToOtherState:
-    | { submissionId: string; typeId: string; name: string }
-    | undefined
+  moveToOtherState: { typeId: string; name: string } | undefined
   successMessage: string
   isShowSuccessMessage: boolean
   selectDesignation: Designation | undefined
@@ -64,7 +62,6 @@ export const reducer = (state: State, action: Action): State => {
       return {
         ...state,
         moveToOtherState: {
-          submissionId: action.submissionId,
           typeId: action.typeId,
           name: action.name,
         },
@@ -132,14 +129,12 @@ export const actions = {
     designation,
   }),
   MOVE_FILE: (
-    submissionId: string,
     attachmentId: string,
     typeId: string,
     name: string,
     successMoveMessage: string
   ): Action => ({
     type: ActionTypes.MOVE_FILE,
-    submissionId,
     typeId,
     name,
     successMoveMessage,
