@@ -168,14 +168,25 @@ export const BaseInformation: React.FC<{
 
   return (
     <Grid>
-      <DateLabel>Due date</DateLabel>
-      <Value>
-        <CalenderDatePicker
-          submission={submission}
-          handleDateChange={handleDateChange}
-          Button={Button}
-        />
-      </Value>
+      {(!submission.isPublished && (
+        <>
+          <DateLabel>Due date</DateLabel>
+          <Value>
+            <CalenderDatePicker
+              submission={submission}
+              handleDateChange={handleDateChange}
+              Button={Button}
+            />
+          </Value>
+        </>
+      )) || (
+        <>
+          <Label>Published:</Label>
+          <Value>
+            {format(submission.publishedDate || 0, 'd MMM yyyy, EEEE')}
+          </Value>
+        </>
+      )}
 
       <Label>Article ID:</Label>
       <Value>{submission.id}</Value>
@@ -202,15 +213,19 @@ export const BaseInformation: React.FC<{
       <Label>Production Editor:</Label>
       <Value>{submission.journal.productionEditor.displayName}</Value>
 
-      <Label>Publication Due:</Label>
-      <Value>
-        {format(submission.dueDate, 'd MMM, EEEE')}
-        {submission.isAtRisk && (
-          <Pill background={criticalityPill[submission.criticality].color}>
-            {criticalityPill[submission.criticality].label}
-          </Pill>
-        )}
-      </Value>
+      {!submission.isPublished && (
+        <>
+          <Label>Publication Due:</Label>
+          <Value>
+            {format(submission.dueDate, 'd MMM, EEEE')}
+            {submission.isAtRisk && (
+              <Pill background={criticalityPill[submission.criticality].color}>
+                {criticalityPill[submission.criticality].label}
+              </Pill>
+            )}
+          </Value>
+        </>
+      )}
     </Grid>
   )
 }
