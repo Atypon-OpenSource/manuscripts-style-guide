@@ -43,6 +43,7 @@ export const ItemActions: React.FC<{
   hideActionList: (e?: React.MouseEvent) => void
   dispatch?: Dispatch<Action>
   dropDownClassName?: string
+  showReplaceAction?: boolean
 }> = ({
   downloadAttachmentHandler,
   replaceAttachmentHandler,
@@ -54,6 +55,7 @@ export const ItemActions: React.FC<{
   hideActionList,
   dispatch,
   dropDownClassName,
+  showReplaceAction,
 }) => {
   const attachmentDesignation =
     designation == undefined ? 'undefined' : designation
@@ -62,12 +64,14 @@ export const ItemActions: React.FC<{
       ? namesWithDesignationMap.get(attachmentDesignation)
       : undefined
   const canBeReplaced =
-    attachmentDesignationName == undefined ||
-    ![
-      Designation.MainManuscript,
-      Designation.SubmissionFile,
-      Designation.SubmissionPdf,
-    ].includes(attachmentDesignationName)
+    (showReplaceAction == undefined || showReplaceAction) &&
+    (attachmentDesignationName == undefined ||
+      ![
+        Designation.MainManuscript,
+        Designation.SubmissionFile,
+        Designation.SubmissionPdf,
+      ].includes(attachmentDesignationName))
+
   const fileInputRef = useRef<HTMLInputElement>(null)
   const [selectedFile, setSelectedFile] = useState<File>()
   const can = useContext(PermissionsContext)

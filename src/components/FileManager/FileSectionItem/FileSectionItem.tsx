@@ -52,6 +52,7 @@ export interface FileSectionItemProps {
   showAttachmentName?: boolean
   showDesignationActions?: boolean
   showActions?: boolean
+  showReplaceAction?: boolean
   handleDownload?: (url: string) => void
   handleReplace?: Replace
   handleChangeDesignation: ChangeDesignation
@@ -68,6 +69,7 @@ export const FileSectionItem: React.FC<FileSectionItemProps> = ({
   title,
   showAttachmentName = false,
   showDesignationActions = false,
+  showReplaceAction = true,
   handleDownload,
   handleReplace,
   handleChangeDesignation,
@@ -138,6 +140,7 @@ export const FileSectionItem: React.FC<FileSectionItemProps> = ({
           {isOpen && (
             <ItemActions
               replaceAttachmentHandler={handleReplace}
+              showReplaceAction={showReplaceAction}
               downloadAttachmentHandler={handleDownload}
               attachmentId={externalFile.id}
               fileName={externalFile.name}
