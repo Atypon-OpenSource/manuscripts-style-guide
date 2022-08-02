@@ -190,7 +190,8 @@ export const FileManager: React.FC<{
   const supplementFiles = useMemo(
     () => getSupplementFiles(modelMap, attachments),
     // eslint-disable-next-line
-  [attachments, modelMap.size])
+    [attachments, modelMap.size]
+  )
 
   /**
    * This Set of AttachmentsIds for both inlineFiles and supplement
@@ -213,6 +214,7 @@ export const FileManager: React.FC<{
     const isSupplementOrOtherFilesTab =
       fileSection === FileSectionType.Supplements ||
       fileSection === FileSectionType.OtherFile
+    const isOtherFilesTab = fileSection === FileSectionType.OtherFile
     // Here we are filtering the external files to extract the other-files based on the designation.
     const itemsData =
       (fileSection === FileSectionType.Supplements && supplementFiles) ||
@@ -233,6 +235,7 @@ export const FileManager: React.FC<{
         title: element.title,
         showAttachmentName: isSupplementOrOtherFilesTab,
         showDesignationActions: isSupplementOrOtherFilesTab,
+        showReplaceAction: !isOtherFilesTab,
         handleDownload,
         handleReplace: handleReplaceFile,
         handleChangeDesignation: handleChangeDesignationFile,

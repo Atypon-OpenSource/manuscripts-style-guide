@@ -171,6 +171,7 @@ const FileReference: React.FC<{
           {isOpen && (
             <ItemActions
               replaceAttachmentHandler={handleReplace}
+              showReplaceAction={true}
               handleUpdateInline={(uploadAttachment: SubmissionAttachment) =>
                 handleUpdateInline &&
                 attachment?.modelId &&
