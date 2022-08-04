@@ -15,6 +15,7 @@
  */
 import React, { Dispatch, useContext } from 'react'
 
+import { AlertMessage, AlertMessageType } from '../AlertMessage'
 import { DragItemArea } from './DragItemArea'
 import { PermissionsContext, Upload } from './FileManager'
 import { FileSectionUploadItem } from './FileSectionItem/FileSectionUploadItem'
@@ -61,6 +62,18 @@ export const FilesSection: React.FC<{
   }
   const can = useContext(PermissionsContext)
 
+  const handleSuccessMessage = () => {
+    return (
+      <AlertMessage
+        type={AlertMessageType.success}
+        hideCloseButton={true}
+        dismissButton={{ text: 'OK' }}
+      >
+        {state.successMessage}
+      </AlertMessage>
+    )
+  }
+
   return (
     <div>
       {can?.uploadFile && (
@@ -82,6 +95,10 @@ export const FilesSection: React.FC<{
             )}
         </>
       )}
+
+      {state.isShowSuccessMessage &&
+        state.successMessage !== '' &&
+        handleSuccessMessage()}
 
       {state.uploadedFile && isOtherFileTab && (
         <SelectDialogDesignation

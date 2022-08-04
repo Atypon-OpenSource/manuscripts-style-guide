@@ -81,6 +81,8 @@ export const reducer = (state: State, action: Action): State => {
         ...state,
         isOpenSelectDesignationPopup: false,
         isUploadFile: true,
+        isShowSuccessMessage: false,
+        successMessage: '',
       }
     }
 
@@ -102,6 +104,7 @@ export const reducer = (state: State, action: Action): State => {
       return {
         ...state,
         isShowSuccessMessage: true,
+        successMessage: action.successMessage,
       }
     }
   }
@@ -148,7 +151,8 @@ export const actions = {
   /**
    * To handle transfer file success message from other file to supplementary file and vice versa.
    */
-  HANDLE_SUCCESS_MESSAGE: (): Action => ({
+  HANDLE_SUCCESS_MESSAGE: (successMessage: string): Action => ({
     type: ActionTypes.HANDLE_SUCCESS_MESSAGE,
+    successMessage,
   }),
 }

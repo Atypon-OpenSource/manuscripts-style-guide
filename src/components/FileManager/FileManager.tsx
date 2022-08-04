@@ -113,6 +113,7 @@ export const FileManager: React.FC<{
       )
       const res = await replace(attachmentId, name, file, typeId)
       dispatch(actions.HANDLE_FINISH_UPLOAD())
+      dispatch(actions.HANDLE_SUCCESS_MESSAGE('File uploaded successfully.'))
       return res
     },
     [replace]
@@ -127,6 +128,7 @@ export const FileManager: React.FC<{
       }
       const res = await upload(file, designation)
       dispatch(actions.HANDLE_FINISH_UPLOAD())
+      dispatch(actions.HANDLE_SUCCESS_MESSAGE('File uploaded successfully.'))
       return res
     },
     [upload]
@@ -148,7 +150,7 @@ export const FileManager: React.FC<{
     async (attachmentId, typeId, name) => {
       const res = await changeDesignation(attachmentId, typeId, name)
       if (res) {
-        dispatch(actions.HANDLE_SUCCESS_MESSAGE())
+        dispatch(actions.HANDLE_SUCCESS_MESSAGE(''))
       }
       return res
     },
@@ -261,13 +263,7 @@ export const FileManager: React.FC<{
     })
     return filesItems
   }
-  const handleSuccessMessage = () => {
-    return (
-      <AlertMessage type={AlertMessageType.info} hideCloseButton={false}>
-        {state.successMessage}
-      </AlertMessage>
-    )
-  }
+
   return (
     <>
       <DragLayer />
@@ -361,9 +357,6 @@ export const FileManager: React.FC<{
           </InspectorTabs>
         </InspectorSection>
       </PermissionsContext.Provider>
-      {state.isShowSuccessMessage &&
-        state.successMessage !== '' &&
-        handleSuccessMessage()}
     </>
   )
 }
