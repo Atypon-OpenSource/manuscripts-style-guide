@@ -67,7 +67,10 @@ export const FilesSection: React.FC<{
       <AlertMessage
         type={AlertMessageType.success}
         hideCloseButton={true}
-        dismissButton={{ text: 'OK' }}
+        dismissButton={{
+          text: 'OK',
+          action: () => dispatch(actions.HANDLE_SUCCESS_MESSAGE_DISMISS()),
+        }}
       >
         {state.successMessage}
       </AlertMessage>
