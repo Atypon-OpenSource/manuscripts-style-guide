@@ -45,6 +45,7 @@ enum ActionTypes {
   HANDLE_UPLOAD_ACTION = 'handleUpload',
   HANDLE_FINISH_UPLOAD = 'handleFinishUpload',
   HANDLE_SUCCESS_MESSAGE = 'handleSuccessMessage',
+  HANDLE_SUCCESS_MESSAGE_DISMISS = 'handleSuccessMessageDismiss',
 }
 
 export const reducer = (state: State, action: Action): State => {
@@ -107,6 +108,13 @@ export const reducer = (state: State, action: Action): State => {
         successMessage: action.successMessage,
       }
     }
+    case ActionTypes.HANDLE_SUCCESS_MESSAGE_DISMISS: {
+      return {
+        ...state,
+        isShowSuccessMessage: false,
+        successMessage: '',
+      }
+    }
   }
   return state
 }
@@ -154,5 +162,8 @@ export const actions = {
   HANDLE_SUCCESS_MESSAGE: (successMessage: string): Action => ({
     type: ActionTypes.HANDLE_SUCCESS_MESSAGE,
     successMessage,
+  }),
+  HANDLE_SUCCESS_MESSAGE_DISMISS: (): Action => ({
+    type: ActionTypes.HANDLE_SUCCESS_MESSAGE_DISMISS,
   }),
 }
