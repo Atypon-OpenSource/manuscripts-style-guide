@@ -17,13 +17,12 @@ import {
   Build,
   buildSupplementaryMaterial,
 } from '@manuscripts/manuscript-transform'
-import { Model, Supplement } from '@manuscripts/manuscripts-json-schema'
+import { Figure, Model, Supplement } from '@manuscripts/manuscripts-json-schema'
 import React, { createContext, useCallback, useReducer } from 'react'
 import ReactTooltip from 'react-tooltip'
 
 import { useFiles } from '../../index'
 import { Capabilities } from '../../lib/capabilities'
-import { AlertMessage, AlertMessageType } from '../AlertMessage'
 import {
   InspectorTab,
   InspectorTabList,
@@ -181,6 +180,8 @@ export const FileManager: React.FC<{
     [modelMap, saveModel]
   )
 
+  const attachments = getAttachments()
+
   const { otherFiles, supplementFiles, inlineFiles } = useFiles(
     modelMap,
     attachments
@@ -192,6 +193,8 @@ export const FileManager: React.FC<{
     const isSupplementOrOtherFilesTab =
       fileSection === FileSectionType.Supplements ||
       fileSection === FileSectionType.OtherFile
+    const isOtherFilesTab = fileSection === FileSectionType.OtherFile
+
     const itemsData =
       (fileSection === FileSectionType.Supplements && supplementFiles) ||
       otherFiles
