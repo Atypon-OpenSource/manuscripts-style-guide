@@ -18,12 +18,11 @@ import {
   buildSupplementaryMaterial,
 } from '@manuscripts/manuscript-transform'
 import { Figure, Model, Supplement } from '@manuscripts/manuscripts-json-schema'
-import React, { createContext, useCallback, useMemo, useReducer } from 'react'
+import React, { createContext, useCallback, useReducer } from 'react'
 import ReactTooltip from 'react-tooltip'
 
+import { useFiles } from '../../index'
 import { Capabilities } from '../../lib/capabilities'
-import getInlineFiles, { getSupplementFiles } from '../../lib/inlineFiles'
-import { AlertMessage, AlertMessageType } from '../AlertMessage'
 import {
   InspectorTab,
   InspectorTabList,
@@ -183,32 +182,10 @@ export const FileManager: React.FC<{
 
   const attachments = getAttachments()
 
-  const inlineFiles = useMemo(
-    () => getInlineFiles(modelMap, attachments),
-    // eslint-disable-next-line
-    [modelMap.values(), attachments]
+  const { otherFiles, supplementFiles, inlineFiles } = useFiles(
+    modelMap,
+    attachments
   )
-
-  const supplementFiles = useMemo(
-    () => getSupplementFiles(modelMap, attachments),
-    // eslint-disable-next-line
-    [attachments, modelMap.size]
-  )
-
-  /**
-   * This Set of AttachmentsIds for both inlineFiles and supplement
-   * that will not be shown in other files
-   */
-  const excludedAttachmentsIds = useMemo(() => {
-    const attachmentsIDs = new Set<string>()
-    inlineFiles.map(({ attachments }) => {
-      if (attachments) {
-        attachments.map((attachment) => attachmentsIDs.add(attachment.id))
-      }
-    })
-    supplementFiles.map(({ id }) => attachmentsIDs.add(id))
-    return attachmentsIDs
-  }, [inlineFiles, supplementFiles])
 
   const getFileSectionExternalFile = (
     fileSection: FileSectionType
@@ -217,16 +194,10 @@ export const FileManager: React.FC<{
       fileSection === FileSectionType.Supplements ||
       fileSection === FileSectionType.OtherFile
     const isOtherFilesTab = fileSection === FileSectionType.OtherFile
-    // Here we are filtering the external files to extract the other-files based on the designation.
+
     const itemsData =
       (fileSection === FileSectionType.Supplements && supplementFiles) ||
-      attachments.filter((element) => {
-        const designation: Designation | undefined =
-          namesWithDesignationMap.get(element.type.label)
-        return (
-          designation !== undefined && !excludedAttachmentsIds.has(element.id)
-        )
-      })
+      otherFiles
 
     // Generating a title for the external files and sorting the external files based on the generated title
     const itemsDataWithTitle = generateAttachmentsTitles(itemsData, fileSection)

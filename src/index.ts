@@ -46,11 +46,15 @@ export * from './components/Tip'
 export * from './components/icons'
 export * from './components/Inspector'
 export * from './components/InspectorSection'
-export { default as inlineFiles, getSupplementFiles } from './lib/inlineFiles'
 export { default as PdfPreview } from './components/PdfPreview'
 export * from './components/SubmissionInspector'
 export * from './components/Dropdown'
 export * from './hooks/use-dropdown'
+export { default as useFiles } from './hooks/use-files'
+export {
+  useDeepCompareMemo,
+  useDeepCompareCallback,
+} from './hooks/use-deep-compare'
 export * from './lib/authors'
 export * from './lib/capabilities'
 export { default as errorsDecoder } from './lib/lw-errors-decoder'
