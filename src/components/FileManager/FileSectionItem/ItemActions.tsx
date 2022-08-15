@@ -23,7 +23,7 @@ import React, {
 
 import { DropdownList } from '../../Dropdown'
 import { Maybe } from '../../SubmissionInspector/types'
-import { PermissionsContext } from '../FileManager'
+import { PermissionsContext, Replace } from '../FileManager'
 import { Action, actions } from '../FileSectionState'
 import { ActionsItem } from '../ItemsAction'
 import { Designation, namesWithDesignationMap } from '../util'
@@ -34,15 +34,8 @@ import { SubmissionAttachment } from './FileSectionItem'
  */
 export const ItemActions: React.FC<{
   downloadAttachmentHandler: (url: string) => void
-  replaceAttachmentHandler: (
-    submissionId: string,
-    attachmentId: string,
-    name: string,
-    file: File,
-    typeId: string
-  ) => Promise<{ data: { uploadAttachment: SubmissionAttachment } }>
+  replaceAttachmentHandler: Replace
   handleUpdateInline?: (attachment: SubmissionAttachment) => void
-  submissionId: string
   attachmentId: string
   fileName: string
   designation?: Maybe<string> | undefined
@@ -50,11 +43,11 @@ export const ItemActions: React.FC<{
   hideActionList: (e?: React.MouseEvent) => void
   dispatch?: Dispatch<Action>
   dropDownClassName?: string
+  showReplaceAction?: boolean
 }> = ({
   downloadAttachmentHandler,
   replaceAttachmentHandler,
   handleUpdateInline,
-  submissionId,
   attachmentId,
   fileName,
   designation,
@@ -62,6 +55,7 @@ export const ItemActions: React.FC<{
   hideActionList,
   dispatch,
   dropDownClassName,
+  showReplaceAction,
 }) => {
   const attachmentDesignation =
     designation == undefined ? 'undefined' : designation
@@ -70,12 +64,14 @@ export const ItemActions: React.FC<{
       ? namesWithDesignationMap.get(attachmentDesignation)
       : undefined
   const canBeReplaced =
-    attachmentDesignationName == undefined ||
-    ![
-      Designation.MainManuscript,
-      Designation.SubmissionFile,
-      Designation.SubmissionPdf,
-    ].includes(attachmentDesignationName)
+    (showReplaceAction == undefined || showReplaceAction) &&
+    (attachmentDesignationName == undefined ||
+      ![
+        Designation.MainManuscript,
+        Designation.SubmissionFile,
+        Designation.SubmissionPdf,
+      ].includes(attachmentDesignationName))
+
   const fileInputRef = useRef<HTMLInputElement>(null)
   const [selectedFile, setSelectedFile] = useState<File>()
   const can = useContext(PermissionsContext)
@@ -92,16 +88,14 @@ export const ItemActions: React.FC<{
         )
       }
       const result = await replaceAttachmentHandler(
-        submissionId,
         attachmentId,
         fileName,
         file,
         attachmentDesignation
       )
 
-      const { uploadAttachment } = result?.data
-      if (uploadAttachment && handleUpdateInline) {
-        handleUpdateInline(uploadAttachment)
+      if (typeof result === 'object' && handleUpdateInline) {
+        handleUpdateInline(result)
       }
 
       if (dispatch) {

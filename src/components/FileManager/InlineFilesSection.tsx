@@ -13,15 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { Model } from '@manuscripts/manuscripts-json-schema'
-import React, { Dispatch, useCallback, useMemo } from 'react'
+import React, { Dispatch, useCallback } from 'react'
 import styled from 'styled-components'
 
 import { useDropdown } from '../../hooks/use-dropdown'
-import getInlineFiles from '../../lib/inlineFiles'
 import DotsIcon from '../icons/dots-icon'
+import { Replace } from './FileManager'
 import {
-  FileDescription,
   FileInfoContainer,
   FileNameTitleContainer,
   FileTitle,
@@ -46,7 +44,6 @@ export interface ExternalFileRef {
 }
 
 export const InlineFilesSection: React.FC<{
-  submissionId: string
   inlineFiles: {
     id: string
     label: string
@@ -54,13 +51,7 @@ export const InlineFilesSection: React.FC<{
     caption?: string
     attachments?: SubmissionAttachment[]
   }[]
-  handleReplace: (
-    submissionId: string,
-    attachmentId: string,
-    name: string,
-    file: File,
-    typeId: string
-  ) => Promise<{ data: { uploadAttachment: SubmissionAttachment } }>
+  handleReplace: Replace
   handleDownload: (url: string) => void
   handleUpdateInline?: (
     modelId: string,
@@ -69,7 +60,6 @@ export const InlineFilesSection: React.FC<{
   isEditor: boolean
   dispatch: Dispatch<Action>
 }> = ({
-  submissionId,
   handleReplace,
   handleDownload,
   handleUpdateInline,
@@ -107,7 +97,6 @@ export const InlineFilesSection: React.FC<{
               <FileReference
                 key={attachment.id}
                 attachment={attachment}
-                submissionId={submissionId}
                 handleReplace={handleReplace}
                 handleUpdateInline={handleUpdateInline}
                 handleDownload={handleDownload}
@@ -131,14 +120,12 @@ export const InlineFilesSection: React.FC<{
 
 const FileReference: React.FC<{
   attachment?: SubmissionAttachment & { modelId?: string }
-  submissionId: string
   handleReplace: (
-    submissionId: string,
     attachmentId: string,
     name: string,
     file: File,
     typeId: string
-  ) => Promise<{ data: { uploadAttachment: SubmissionAttachment } }>
+  ) => Promise<boolean | SubmissionAttachment | undefined>
   handleDownload: (url: string) => void
   handleUpdateInline?: (
     modelId: string,
@@ -147,7 +134,6 @@ const FileReference: React.FC<{
   dispatch: Dispatch<Action>
 }> = ({
   attachment,
-  submissionId,
   handleReplace,
   handleDownload,
   handleUpdateInline,
@@ -171,7 +157,7 @@ const FileReference: React.FC<{
         )}
         <FileReferenceName>{attachment.name}</FileReferenceName>
       </Container>
-      {handleDownload && handleReplace && submissionId && (
+      {handleDownload && handleReplace && (
         <DropdownContainer ref={wrapperRef}>
           <ActionsIcon
             onClick={toggleOpen}
@@ -185,13 +171,13 @@ const FileReference: React.FC<{
           {isOpen && (
             <ItemActions
               replaceAttachmentHandler={handleReplace}
+              showReplaceAction={true}
               handleUpdateInline={(uploadAttachment: SubmissionAttachment) =>
                 handleUpdateInline &&
                 attachment?.modelId &&
                 handleUpdateInline(attachment.modelId, uploadAttachment)
               }
               downloadAttachmentHandler={handleDownload}
-              submissionId={submissionId}
               attachmentId={attachment.id}
               fileName={attachment.name}
               designation={attachment.type.label}

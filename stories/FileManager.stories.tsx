@@ -22,42 +22,32 @@ import { attachments } from './data/attachments'
 const sleep = (milliseconds: number) => {
   return new Promise((resolve) => setTimeout(resolve, milliseconds))
 }
-const handleUpload = async (
-  submissionId: string,
+const upload = async (
   file: File,
   designation: string
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
 ): Promise<any> => {
   await sleep(5000) //test the upload file item in storybook
-  console.log('submissionId --> ' + submissionId)
   console.log('file --> ' + file.name)
   console.log('designation --> ' + designation)
   return true
 }
 
-const handleDownload = (url: string): void => {
-  console.log('url --> ' + url)
-}
-
-const handleReplace = async (
-  submissionId: string,
+const replace = async (
   attachmentId: string,
   name: string,
   file: File
 ): Promise<boolean> => {
-  console.log('submissionId --> ' + submissionId)
   console.log('file --> ' + file.name)
   console.log('name --> ' + name)
   return true
 }
 
-const handleChangeDesignation = async (
-  submissionId: string,
+const changeDesignation = async (
   attachmentId: string,
   designation: string | undefined,
   name: string
 ): Promise<boolean> => {
-  console.log('submissionId --> ' + submissionId)
   console.log('name --> ' + name)
   console.log('designation --> ' + designation)
   return true
@@ -91,16 +81,16 @@ storiesOf('FileManager', module).add('FileManager', () => {
   return (
     <BrowserRouter>
       <FileManager
-        submissionId={'MPManuscript:valid-manuscript-id-1'}
         can={capabilities}
-        attachments={attachments}
+        fileManagement={{
+          getAttachments: () => attachments,
+          upload,
+          replace,
+          changeDesignation,
+        }}
         modelMap={modelMap}
         saveModel={async () => action('save model')}
         enableDragAndDrop={true}
-        handleUpload={handleUpload}
-        handleDownload={handleDownload}
-        handleReplace={handleReplace}
-        handleChangeDesignation={handleChangeDesignation}
       />
     </BrowserRouter>
   )

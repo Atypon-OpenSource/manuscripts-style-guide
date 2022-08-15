@@ -30,9 +30,7 @@ export const getInitialState = (): State => ({
 export interface State {
   uploadedFile: File | undefined
   isUploadFile: boolean
-  moveToOtherState:
-    | { submissionId: string; typeId: string; name: string }
-    | undefined
+  moveToOtherState: { typeId: string; name: string } | undefined
   successMessage: string
   isShowSuccessMessage: boolean
   selectDesignation: Designation | undefined
@@ -47,6 +45,7 @@ enum ActionTypes {
   HANDLE_UPLOAD_ACTION = 'handleUpload',
   HANDLE_FINISH_UPLOAD = 'handleFinishUpload',
   HANDLE_SUCCESS_MESSAGE = 'handleSuccessMessage',
+  HANDLE_SUCCESS_MESSAGE_DISMISS = 'handleSuccessMessageDismiss',
 }
 
 export const reducer = (state: State, action: Action): State => {
@@ -64,7 +63,6 @@ export const reducer = (state: State, action: Action): State => {
       return {
         ...state,
         moveToOtherState: {
-          submissionId: action.submissionId,
           typeId: action.typeId,
           name: action.name,
         },
@@ -84,6 +82,8 @@ export const reducer = (state: State, action: Action): State => {
         ...state,
         isOpenSelectDesignationPopup: false,
         isUploadFile: true,
+        isShowSuccessMessage: false,
+        successMessage: '',
       }
     }
 
@@ -105,6 +105,14 @@ export const reducer = (state: State, action: Action): State => {
       return {
         ...state,
         isShowSuccessMessage: true,
+        successMessage: action.successMessage,
+      }
+    }
+    case ActionTypes.HANDLE_SUCCESS_MESSAGE_DISMISS: {
+      return {
+        ...state,
+        isShowSuccessMessage: false,
+        successMessage: '',
       }
     }
   }
@@ -132,14 +140,12 @@ export const actions = {
     designation,
   }),
   MOVE_FILE: (
-    submissionId: string,
     attachmentId: string,
     typeId: string,
     name: string,
     successMoveMessage: string
   ): Action => ({
     type: ActionTypes.MOVE_FILE,
-    submissionId,
     typeId,
     name,
     successMoveMessage,
@@ -153,7 +159,11 @@ export const actions = {
   /**
    * To handle transfer file success message from other file to supplementary file and vice versa.
    */
-  HANDLE_SUCCESS_MESSAGE: (): Action => ({
+  HANDLE_SUCCESS_MESSAGE: (successMessage: string): Action => ({
     type: ActionTypes.HANDLE_SUCCESS_MESSAGE,
+    successMessage,
+  }),
+  HANDLE_SUCCESS_MESSAGE_DISMISS: (): Action => ({
+    type: ActionTypes.HANDLE_SUCCESS_MESSAGE_DISMISS,
   }),
 }

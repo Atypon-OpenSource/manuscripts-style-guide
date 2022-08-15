@@ -20,6 +20,7 @@ import styled from 'styled-components'
 import { Capabilities } from '../../../lib/capabilities'
 import BottomArrowIcon from '../../icons/BottomArrowIcon'
 import { ConfirmationPopUp } from '../ConfirmationPopUp'
+import { ChangeDesignation } from '../FileManager'
 import { Action } from '../FileSectionState'
 import { TooltipDiv } from '../TooltipDiv'
 import {
@@ -36,13 +37,7 @@ export const DesignationActions: React.FC<{
   designation?: Designation
   attachmentId: string
   fileExtension?: string
-  handleChangeDesignation?: (
-    submissionId: string,
-    attachmentId: string,
-    typeId: string,
-    name: string
-  ) => Promise<boolean>
-  submissionId: string
+  handleChangeDesignation?: ChangeDesignation
   fileName: string
   can: Capabilities | null
   dispatch?: Dispatch<Action>
@@ -51,7 +46,6 @@ export const DesignationActions: React.FC<{
   attachmentId,
   fileExtension,
   handleChangeDesignation,
-  submissionId,
   fileName,
   can,
   dispatch,
@@ -97,7 +91,6 @@ export const DesignationActions: React.FC<{
     const handleMoveAction = () => {
       handleChangeDesignation &&
         handleChangeDesignation(
-          submissionId,
           attachmentId,
           confirmationPopUpData.selectedDesignation,
           fileName
@@ -141,7 +134,6 @@ export const DesignationActions: React.FC<{
               <DesignationActionsList
                 handleChangeDesignation={handleChangeDesignation}
                 designationActionsList={designationActionsList}
-                submissionId={submissionId}
                 fileName={fileName}
                 designation={designation}
                 attachmentId={attachmentId}

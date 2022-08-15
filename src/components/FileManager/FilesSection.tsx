@@ -15,8 +15,9 @@
  */
 import React, { Dispatch, useContext } from 'react'
 
+import { AlertMessage, AlertMessageType } from '../AlertMessage'
 import { DragItemArea } from './DragItemArea'
-import { PermissionsContext } from './FileManager'
+import { PermissionsContext, Upload } from './FileManager'
 import { FileSectionUploadItem } from './FileSectionItem/FileSectionUploadItem'
 import { Action, actions, State } from './FileSectionState'
 import { SelectDialogDesignation } from './SelectDialogDesignation'
@@ -27,20 +28,13 @@ import { FileSectionType, getDesignationName } from './util'
  *  This component represents the other files in the file section.
  */
 export const FilesSection: React.FC<{
-  submissionId: string
   enableDragAndDrop: boolean
-  handleUpload: (
-    submissionId: string,
-    file: File,
-    designation: string
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  ) => Promise<any>
+  handleUpload: Upload
   fileSection: FileSectionType
   filesItem: JSX.Element[]
   dispatch: Dispatch<Action>
   state: State
 }> = ({
-  submissionId,
   enableDragAndDrop,
   handleUpload,
   fileSection,
@@ -62,12 +56,26 @@ export const FilesSection: React.FC<{
     state.uploadedFile &&
       state.selectDesignation !== undefined &&
       handleUpload(
-        submissionId,
         state.uploadedFile,
         getDesignationName(state.selectDesignation)
       )
   }
   const can = useContext(PermissionsContext)
+
+  const handleSuccessMessage = () => {
+    return (
+      <AlertMessage
+        type={AlertMessageType.success}
+        hideCloseButton={true}
+        dismissButton={{
+          text: 'OK',
+          action: () => dispatch(actions.HANDLE_SUCCESS_MESSAGE_DISMISS()),
+        }}
+      >
+        {state.successMessage}
+      </AlertMessage>
+    )
+  }
 
   return (
     <div>
@@ -77,7 +85,6 @@ export const FilesSection: React.FC<{
             <UploadFileArea
               handleUploadFile={handleUpload}
               fileSection={fileSection}
-              submissionId={submissionId}
               dispatch={dispatch}
             />
           )}
@@ -85,13 +92,16 @@ export const FilesSection: React.FC<{
             state.uploadedFile &&
             state.selectDesignation !== undefined && (
               <FileSectionUploadItem
-                submissionId={submissionId}
                 fileName={state.uploadedFile.name}
                 isLoading={state.isUploadFile}
               />
             )}
         </>
       )}
+
+      {state.isShowSuccessMessage &&
+        state.successMessage !== '' &&
+        handleSuccessMessage()}
 
       {state.uploadedFile && isOtherFileTab && (
         <SelectDialogDesignation
