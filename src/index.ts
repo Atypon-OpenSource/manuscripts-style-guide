@@ -50,7 +50,7 @@ export { default as PdfPreview } from './components/PdfPreview'
 export * from './components/SubmissionInspector'
 export * from './components/Dropdown'
 export * from './hooks/use-dropdown'
-export { default as useFiles } from './hooks/use-files'
+export { useFiles } from './hooks/use-files'
 export {
   useDeepCompareMemo,
   useDeepCompareCallback,

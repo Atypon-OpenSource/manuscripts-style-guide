@@ -75,7 +75,7 @@ const getOtherFiles = (
   })
 }
 
-export default (
+export const useFiles = (
   modelMap: Map<string, Model>,
   attachments: SubmissionAttachment[],
   filePredicate?: FilePredicate
@@ -100,3 +100,5 @@ export default (
       inlineFiles,
     }
   }, [...Array.from(modelMap.values()), ...attachments])
+
+export default useFiles
