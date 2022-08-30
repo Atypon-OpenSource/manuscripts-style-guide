@@ -32,9 +32,7 @@ node {
     if (VARS.GIT_BRANCH == "origin/master") {
         stage("Publish") {
             withCredentials([string(credentialsId: 'NPM_TOKEN_MANUSCRIPTS_OSS', variable: 'NPM_TOKEN')]) {
-                container('nodeslim') {
-                    sh ("npx @manuscripts/publish")
-                }
+                sh ("npx @manuscripts/publish")
             }
         }
     }
