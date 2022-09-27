@@ -195,7 +195,9 @@ export const BaseInformation: React.FC<{
       <Value>{submission.doi}</Value>
 
       <Label>Journal:</Label>
-      <Value>{submission.journal.title}</Value>
+      <Value data-journal={submission.journal.title}>
+        {submission.journal.title}
+      </Value>
 
       <Label>Journal ID:</Label>
       <Value>{submission.journal.id}</Value>
