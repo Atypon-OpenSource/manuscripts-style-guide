@@ -159,6 +159,7 @@ export const NavDropdownButtonContainer = styled(SecondaryButton).attrs(
 `
 
 interface DropdownButtonProps {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   as?: React.FunctionComponent<any>
   disabled?: boolean
   isOpen: boolean
