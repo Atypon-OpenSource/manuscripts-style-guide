@@ -98,6 +98,7 @@ export const EditorHeader: React.FC<{
   status?: 'saved' | 'saving' | 'offline'
   isAnnotator: boolean
   message: React.FC
+  disabelProceedNote?: boolean
 }> = ({
   handleSnapshot,
   submission,
@@ -110,6 +111,7 @@ export const EditorHeader: React.FC<{
   isAnnotator,
   message,
   exceptionDialog: ExceptionDialog,
+  disabelProceedNote,
 }) => {
   const [confirmationDialog, toggleConfirmationDialog] = useState(false)
   const [loading, setLoading] = useState(false)
@@ -203,7 +205,7 @@ export const EditorHeader: React.FC<{
             nextStepType={submission.nextStep.type}
             currentStepType={submission.currentStep.type}
             confirmationDialog={confirmationDialog}
-            onNoteChange={onNoteChange}
+            onNoteChange={disabelProceedNote ? onNoteChange : undefined}
             continueDialogAction={continueDialogAction}
             onCancelClick={onCancelClick}
             message={message}

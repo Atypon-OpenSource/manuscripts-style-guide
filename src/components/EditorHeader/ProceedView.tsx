@@ -76,7 +76,7 @@ export const ProceedView: React.FC<{
   isAnnotator: boolean
   disable: boolean
   onTransitionClick: (event: unknown) => void
-  onNoteChange: (event: unknown) => void
+  onNoteChange?: (event: unknown) => void
   hasPendingSuggestions: boolean
   loading: boolean
   showComplete: boolean
@@ -218,7 +218,7 @@ export const ProceedView: React.FC<{
               <StepDetails {...nextStepType} />
             </Grid>
           )) ||
-            ((!hasPendingSuggestions || isAnnotator) && (
+            ((!hasPendingSuggestions || isAnnotator) && onNoteChange && (
               <TextAreaWrapper>
                 <MediumTextArea
                   value={noteValue}
