@@ -17,7 +17,7 @@ import styled from 'styled-components'
 
 export const DropdownList = styled.div<{
   direction?: 'left' | 'right'
-  width: number
+  width?: number
   height?: number
   top?: number
 }>`
@@ -28,7 +28,7 @@ export const DropdownList = styled.div<{
   border-radius: 4px;
   box-shadow: 0 4px 9px rgba(0, 0, 0, 0.3);
   background: ${(props) => props.theme.colors.background.primary};
-  width: ${(props) => props.width}px;
+  width: ${(props) => (props.width ? props.width + 'px' : 'auto')};
   ${(props) => props.height && `height: ${props.height}px`};
   ${(props) => (props.direction === 'right' ? ' right: 0' : 'left : 0')};
   top: ${(props) => props.theme.grid.unit * (props.top || 3)}px;
