@@ -205,7 +205,7 @@ export const EditorHeader: React.FC<{
             nextStepType={submission.nextStep.type}
             currentStepType={submission.currentStep.type}
             confirmationDialog={confirmationDialog}
-            onNoteChange={disabelProceedNote ? onNoteChange : undefined}
+            onNoteChange={disabelProceedNote ? undefined : onNoteChange}
             continueDialogAction={continueDialogAction}
             onCancelClick={onCancelClick}
             message={message}
