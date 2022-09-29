@@ -159,7 +159,7 @@ export const NavDropdownButtonContainer = styled(SecondaryButton).attrs(
 `
 
 interface DropdownButtonProps {
-  as?: React.FunctionComponent<any>
+  as?: React.FunctionComponent<unknown>
   disabled?: boolean
   isOpen: boolean
   notificationsCount?: number

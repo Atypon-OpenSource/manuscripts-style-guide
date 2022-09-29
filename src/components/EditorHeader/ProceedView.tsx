@@ -38,7 +38,7 @@ import {
 } from './EditorHeader'
 
 const DropdownWrapper: React.FC<{
-  button: any | string
+  button: React.FC | string
   disabled: boolean
   primary?: boolean
 }> = ({ disabled, button, primary, children }) => {
