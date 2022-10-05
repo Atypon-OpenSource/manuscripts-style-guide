@@ -22,7 +22,7 @@ import SaveIconSaved from './icons/save-icon-saved'
 import SaveIconSaving from './icons/save-icon-saving'
 
 interface Props {
-  status: 'saving' | 'saved' | 'offline'
+  status: 'saving' | 'saved' | 'offline' | 'failed'
 }
 
 export const SaveStatus: React.FC<Props> = ({ status }) => {
@@ -54,6 +54,8 @@ export const SaveStatus: React.FC<Props> = ({ status }) => {
           <Text>Saved</Text>
         </Container>
       )
+    default:
+      return null
   }
 }
 
