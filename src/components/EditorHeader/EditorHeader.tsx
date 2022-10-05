@@ -95,7 +95,7 @@ export const EditorHeader: React.FC<{
     submit: (statusId: string, noteValue: string) => Promise<unknown>
   }
   goBack?: () => void
-  status?: 'saved' | 'saving' | 'offline'
+  status?: 'saved' | 'saving' | 'offline' | 'failed'
   isAnnotator: boolean
   message: React.FC
   disabelProceedNote?: boolean
