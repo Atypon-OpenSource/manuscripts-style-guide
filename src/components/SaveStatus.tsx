@@ -54,6 +54,8 @@ export const SaveStatus: React.FC<Props> = ({ status }) => {
           <Text>Saved</Text>
         </Container>
       )
+    default:
+      return null
   }
 }
 
