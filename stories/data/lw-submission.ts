@@ -18,6 +18,7 @@ import { SubmissionCriticality } from '../../src/components/SubmissionInspector/
 export const submission = {
   title: 'Characterization of red ginseng',
   id: '175639',
+  code: 'lw.100',
   doi: '10.1000/xyz123',
   dueDate: new Date('2020-7-28'),
   criticality: SubmissionCriticality.OVERDUE,
