@@ -24,6 +24,7 @@ export enum SubmissionCriticality {
 
 export type Submission = {
   id: string
+  code: string
   doi: string
   title: string
   journal: Journal

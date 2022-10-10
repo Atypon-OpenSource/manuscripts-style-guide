@@ -189,7 +189,7 @@ export const BaseInformation: React.FC<{
       )}
 
       <Label>Article ID:</Label>
-      <Value>{submission.id}</Value>
+      <Value>{submission.code}</Value>
 
       <Label>DOI:</Label>
       <Value>{submission.doi}</Value>
