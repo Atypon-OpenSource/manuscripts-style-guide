@@ -29,11 +29,11 @@ node {
         }
     }
 
-    if (VARS.GIT_BRANCH == "origin/master") {
-        stage("Publish") {
-            withCredentials([string(credentialsId: 'NPM_TOKEN_MANUSCRIPTS_OSS', variable: 'NPM_TOKEN')]) {
-                sh ("npx @manuscripts/publish")
-            }
+//    if (VARS.GIT_BRANCH == "origin/master") {
+    stage("Publish") {
+        withCredentials([string(credentialsId: 'NPM_TOKEN_MANUSCRIPTS_OSS', variable: 'NPM_TOKEN')]) {
+            sh ("npx @manuscripts/publish")
         }
     }
+//    }
 }
