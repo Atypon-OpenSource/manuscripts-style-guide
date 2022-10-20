@@ -18,7 +18,7 @@ node {
             ]]
         )
     }
- 
+
     stage("Build") {
         nodejs(nodeJSInstallationName: 'node_14_16') {
             sh (script: "yarn install --network-timeout 300000 --frozen-lockfile --non-interactive", returnStdout: true)
@@ -29,9 +29,11 @@ node {
         }
     }
 
-    stage("Publish") {
-        withCredentials([string(credentialsId: 'NPM_TOKEN_MANUSCRIPTS_OSS', variable: 'NPM_TOKEN')]) {
-            sh ("npx @manuscripts/publish")
+    if (params.publish_feature) {
+        stage("Publish") {
+            withCredentials([string(credentialsId: 'NPM_TOKEN_MANUSCRIPTS_OSS', variable: 'NPM_TOKEN')]) {
+                sh ("npx @manuscripts/publish")
+            }
         }
     }
 }
