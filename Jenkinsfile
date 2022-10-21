@@ -5,7 +5,7 @@ node {
         if (params != null && params.ghprbPullId == null) {
             echo 'Checking out from master'
             // master needs to be substituted with the release branch.
-            REFSPEC="+refs/heads/${sha1}:refs/remotes/origin/${sha1}"
+            REFSPEC="+refs/heads/master:refs/remotes/origin/master"
         }
         VARS = checkout(scm:[$class: 'GitSCM', branches: [[name: "${sha1}"]],
             doGenerateSubmoduleConfigurations: false,
@@ -29,7 +29,7 @@ node {
         }
     }
 
-    if (params.publish_feature) {
+    if (VARS.GIT_BRANCH == "origin/master") {
         stage("Publish") {
             withCredentials([string(credentialsId: 'NPM_TOKEN_MANUSCRIPTS_OSS', variable: 'NPM_TOKEN')]) {
                 sh ("npx @manuscripts/publish")
