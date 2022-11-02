@@ -14,15 +14,17 @@
  * limitations under the License.
  */
 import {
+  Attachment,
   Build,
   buildSupplementaryMaterial,
 } from '@manuscripts/manuscript-transform'
-import { Figure, Model, Supplement } from '@manuscripts/manuscripts-json-schema'
+import { Figure, Model } from '@manuscripts/manuscripts-json-schema'
 import React, { createContext, useCallback, useReducer } from 'react'
 import ReactTooltip from 'react-tooltip'
 
 import { useFiles } from '../../index'
 import { Capabilities } from '../../lib/capabilities'
+import { InlineFile } from '../../lib/inlineFiles'
 import {
   InspectorTab,
   InspectorTabList,
@@ -91,7 +93,7 @@ export const PermissionsContext = createContext<null | Capabilities>(null)
 export const FileManager: React.FC<{
   fileManagement: FileManagement
   modelMap: Map<string, Model>
-  saveModel: (model: Build<Supplement>) => Promise<Build<Supplement>>
+  saveModel: <T extends Model>(model: T | Build<T> | Partial<T>) => Promise<T>
   enableDragAndDrop: boolean
   can: Capabilities
 }> = ({
@@ -117,6 +119,7 @@ export const FileManager: React.FC<{
     },
     [replace]
   )
+
   const handleUploadFile = useCallback(
     async (file, designation) => {
       dispatch(actions.HANDLE_UPLOAD_ACTION())
@@ -186,6 +189,21 @@ export const FileManager: React.FC<{
     modelMap,
     attachments
   )
+
+  const handleDetachFile = (attachmentLink: string, modelId: string) => {
+    const model = modelMap.get(modelId) as Figure | undefined
+    if (model) {
+      const externalFileReferences = model.externalFileReferences?.filter(
+        (ref) => {
+          ref.url !== attachmentLink
+        }
+      )
+      saveModel({
+        ...model,
+        externalFileReferences: externalFileReferences || [],
+      })
+    }
+  }
 
   const getFileSectionExternalFile = (
     fileSection: FileSectionType
@@ -296,6 +314,7 @@ export const FileManager: React.FC<{
                   handleReplace={replace}
                   handleDownload={handleDownload}
                   handleUpdateInline={handleUpdateInline}
+                  handleDetachFile={handleDetachFile}
                   isEditor={enableDragAndDrop}
                   dispatch={dispatch}
                 />

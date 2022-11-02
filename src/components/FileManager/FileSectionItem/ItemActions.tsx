@@ -35,6 +35,7 @@ import { SubmissionAttachment } from './FileSectionItem'
 export const ItemActions: React.FC<{
   downloadAttachmentHandler: (url: string) => void
   replaceAttachmentHandler: Replace
+  detachAttachmnetHandler: () => void
   handleUpdateInline?: (attachment: SubmissionAttachment) => void
   attachmentId: string
   fileName: string
@@ -47,6 +48,7 @@ export const ItemActions: React.FC<{
 }> = ({
   downloadAttachmentHandler,
   replaceAttachmentHandler,
+  detachAttachmnetHandler,
   handleUpdateInline,
   attachmentId,
   fileName,
@@ -125,6 +127,11 @@ export const ItemActions: React.FC<{
       >
         Download
       </ActionsItem>
+      {can?.editArticle && (
+        <ActionsItem onClick={() => detachAttachmnetHandler()}>
+          Detach
+        </ActionsItem>
+      )}
       {can?.replaceFile && canBeReplaced && (
         <>
           <ActionsItem onClick={openFileDialog}>Replace</ActionsItem>
