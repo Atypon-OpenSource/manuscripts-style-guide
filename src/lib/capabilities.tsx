@@ -139,7 +139,7 @@ export const getLWCapabilities = (
     formatArticle: !isViewer(),
     /* editor */
     editArticle: !isViewer(),
-    editMetadata: isViewer() || isAnnotator(),
+    editMetadata: !(isViewer() || isAnnotator()),
     shareProject: isOwner(),
   }
 }
