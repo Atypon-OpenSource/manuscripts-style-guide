@@ -55,7 +55,7 @@ export type Capabilities = {
   editNotTracked: boolean
   accessEditor: boolean
   formatArticle: boolean
-  editorWrite: boolean
+  editArticle: boolean
   editMetadata: boolean
   shareProject: boolean
 }
@@ -138,7 +138,7 @@ export const getLWCapabilities = (
     /* menu */
     formatArticle: !isViewer(),
     /* editor */
-    editorWrite: !isWriter(),
+    editArticle: !isViewer(),
     editMetadata: isViewer() || isAnnotator(),
     shareProject: isOwner(),
   }
