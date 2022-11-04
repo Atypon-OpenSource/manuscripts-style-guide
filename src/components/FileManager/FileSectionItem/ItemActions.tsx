@@ -116,7 +116,7 @@ export const ItemActions: React.FC<{
       direction={'right'}
       className={dropDownClassName}
       width={125}
-      height={96}
+      height={120}
       top={5}
       onClick={hideActionList}
     >

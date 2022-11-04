@@ -190,13 +190,11 @@ export const FileManager: React.FC<{
     attachments
   )
 
-  const handleDetachFile = (attachmentLink: string, modelId: string) => {
+  const handleDetachFile = (attachmentId: string, modelId: string) => {
     const model = modelMap.get(modelId) as Figure | undefined
     if (model) {
       const externalFileReferences = model.externalFileReferences?.filter(
-        (ref) => {
-          ref.url !== attachmentLink
-        }
+        (ref) => ref.url.replace('attachment:', '') !== attachmentId
       )
       saveModel({
         ...model,

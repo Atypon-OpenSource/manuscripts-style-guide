@@ -186,7 +186,7 @@ const FileReference: React.FC<{
               detachAttachmnetHandler={() =>
                 handleDetachFile &&
                 attachment.modelId &&
-                handleDetachFile(attachment.link, attachment.modelId)
+                handleDetachFile(attachment.id, attachment.modelId)
               }
               downloadAttachmentHandler={handleDownload}
               attachmentId={attachment.id}
