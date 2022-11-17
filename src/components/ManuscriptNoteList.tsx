@@ -273,6 +273,7 @@ export const NoteBodyContainer = styled.div<{
   ${(props) =>
     (props.isNew || props.isSelected) &&
     borderStyle(props.theme.colors.border.primary)}
+  ${(props) => props.isSelected && 'background: #F2FBFC;'}
 
   .tooltip {
     border-radius: 6px;
