@@ -79,6 +79,7 @@ interface Variations {
 
 interface Background {
   dark: string
+  selected: string
 }
 interface Border {
   field: States
