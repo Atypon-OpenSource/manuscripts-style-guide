@@ -1,0 +1,23 @@
+#!groovy
+node {
+    stage("Checkout") {
+        VARS = checkout scm
+        echo "VARS: $VARS"
+    }
+
+    stage("Build") {
+        nodejs(nodeJSInstallationName: 'node_14_16') {
+            sh (script: "yarn install --network-timeout 300000 --frozen-lockfile --non-interactive", returnStdout: true)
+            sh (script: "yarn run typecheck", returnStdout: true)
+            sh (script: "yarn run lint", returnStdout: true)
+            sh (script: "yarn run test", returnStdout: true)
+            sh (script: "yarn run build", returnStdout: true)
+        }
+    }
+
+    stage("Publish") {
+        withCredentials([string(credentialsId: 'NPM_TOKEN_MANUSCRIPTS_OSS', variable: 'NPM_TOKEN')]) {
+            sh ("npx @manuscripts/publish")
+        }
+    }
+}

@@ -18,7 +18,7 @@ node {
             ]]
         )
     }
- 
+
     stage("Build") {
         nodejs(nodeJSInstallationName: 'node_14_16') {
             sh (script: "yarn install --network-timeout 300000 --frozen-lockfile --non-interactive", returnStdout: true)
