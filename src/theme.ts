@@ -75,6 +75,7 @@ interface Variations {
   secondary: string
   tertiary: string
   fifth?: string
+  selected?: string
 }
 
 interface Background {
