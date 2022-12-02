@@ -79,10 +79,17 @@ interface Variations {
 
 interface Background {
   dark: string
+  keyword: Keyword
+}
+
+interface Keyword {
+  default: string
+  hover: string
   selected: string
 }
 interface Border {
   field: States
+  keyword: Keyword
 }
 interface Brand {
   dark: string

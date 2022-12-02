@@ -23,11 +23,11 @@ const fontFamily = '"Lato", sans-serif'
 export const GlobalStyle = createGlobalStyle`
   body {
     // @ts-ignore
-    background-color: ${props => props.theme.colors.background.primary};
+    background-color: ${(props) => props.theme.colors.background.primary};
     // @ts-ignore
-    color: ${props => props.theme.colors.text.primary};
+    color: ${(props) => props.theme.colors.text.primary};
     // @ts-ignore
-    font-family: ${props => props.theme.font.family.sans};
+    font-family: ${(props) => props.theme.font.family.sans};
     margin: 0;
   }
 `
@@ -45,7 +45,12 @@ export const theme: DefaultTheme = {
       info: colors.manuscriptsXLight2,
       success: colors.peppermintGreen,
       warning: colors.butteryYellow,
-      selected: colors.aliceBlue
+      selected: colors.aliceBlue,
+      keyword: {
+        default: colors.seashellGrey,
+        hover: colors.aliceBlue,
+        selected: colors.aliceBlue,
+      },
     },
     border: {
       error: colors.mandysRed,
@@ -59,6 +64,11 @@ export const theme: DefaultTheme = {
         active: colors.manuscriptsLight,
         default: colors.mercuryGrey,
         hover: colors.manuscriptsLight,
+      },
+      keyword: {
+        default: colors.seashellGrey,
+        hover: colors.aliceBlue,
+        selected: colors.iceBlue,
       },
     },
     brand: {

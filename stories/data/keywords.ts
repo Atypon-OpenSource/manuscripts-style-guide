@@ -35,3 +35,5 @@ export const keywords: Keyword[] = [
     updatedAt: timestamp(),
   },
 ]
+
+export default keywords
