@@ -66,7 +66,7 @@ export const KeywordsList: React.FunctionComponent<Props> = ({ keywords }) => (
   <KeywordsListContainer>
     <KeywordsTitle>Keywords</KeywordsTitle>
     {keywords.map((keyword) => (
-      <KeywordItem>{keyword.name}</KeywordItem>
+      <KeywordItem key={keyword._id}>{keyword.name}</KeywordItem>
     ))}
   </KeywordsListContainer>
 )

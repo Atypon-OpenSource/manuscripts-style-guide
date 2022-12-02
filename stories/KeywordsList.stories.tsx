@@ -18,7 +18,7 @@ import { storiesOf } from '@storybook/react'
 import * as React from 'react'
 
 import { KeywordsList } from '../src'
-import keywords from './data/keywords'
+import { keywords } from './data/keywords'
 
 storiesOf('KeywordsList', module).add('Keywords list - no categories', () => (
   <KeywordsList keywords={keywords} />
