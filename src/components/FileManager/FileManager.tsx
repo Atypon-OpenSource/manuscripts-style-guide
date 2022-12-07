@@ -199,6 +199,7 @@ export const FileManager: React.FC<{
       saveModel({
         ...model,
         externalFileReferences: externalFileReferences || [],
+        src: '',
       })
     }
   }
