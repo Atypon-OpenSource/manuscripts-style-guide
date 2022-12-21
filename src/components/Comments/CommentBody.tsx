@@ -141,8 +141,8 @@ export const CommentBody: React.FC<
             {!isReply && (
               <CommentFooter>
                 <span>
+                  {/* TODO:: remove hidden props to show reply for comment LEAN-2052 */}
                   <ActionButton
-                    {/* TODO:: remove this to show reply for comment LEAN-2052 */}
                     hidden={!isProdNote}
                     data-tip={true}
                     data-for={`reply-${comment._id}`}
