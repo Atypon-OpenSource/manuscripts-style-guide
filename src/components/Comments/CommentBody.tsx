@@ -45,6 +45,7 @@ export const CommentBody: React.FC<
     setIsEditing: Dispatch<SetStateAction<boolean | undefined>>
     isEditing?: boolean
     isDeleting?: boolean
+    isProdNote?: boolean
   }
 > = React.memo(
   ({
@@ -62,6 +63,7 @@ export const CommentBody: React.FC<
     setIsEditing,
     scrollIntoHighlight,
     isEditing,
+    isProdNote,
   }) => {
     useEffect(() => {
       if (isNew) {
@@ -139,7 +141,9 @@ export const CommentBody: React.FC<
             {!isReply && (
               <CommentFooter>
                 <span>
+                  {/* TODO:: remove hidden props to show reply for comment LEAN-2052 */}
                   <ActionButton
+                    hidden={!isProdNote}
                     data-tip={true}
                     data-for={`reply-${comment._id}`}
                     onClick={() => handleCreateReply(comment._id)}
