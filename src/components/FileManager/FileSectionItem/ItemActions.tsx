@@ -127,11 +127,6 @@ export const ItemActions: React.FC<{
       >
         Download
       </ActionsItem>
-      {can?.editArticle && detachAttachmnetHandler && (
-        <ActionsItem onClick={() => detachAttachmnetHandler()}>
-          Detach
-        </ActionsItem>
-      )}
       {can?.replaceFile && canBeReplaced && (
         <>
           <ActionsItem onClick={openFileDialog}>Replace</ActionsItem>
@@ -143,6 +138,11 @@ export const ItemActions: React.FC<{
             value={''}
           />
         </>
+      )}
+      {can?.editArticle && detachAttachmnetHandler && (
+        <ActionsItem onClick={() => detachAttachmnetHandler()}>
+          Detach
+        </ActionsItem>
       )}
     </DropdownList>
   )
