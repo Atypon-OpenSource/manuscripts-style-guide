@@ -38,12 +38,6 @@ import {
   fileTypesWithIconMap,
 } from './util'
 
-export interface ExternalFileRef {
-  url: string
-  kind?: string
-  ref?: SubmissionAttachment
-}
-
 export const InlineFilesSection: React.FC<{
   inlineFiles: {
     id: string
