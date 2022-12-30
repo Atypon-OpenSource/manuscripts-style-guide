@@ -94,6 +94,7 @@ interface DialogProps {
   header: string
   message: string | React.ReactElement
   className?: string
+  children?: React.ReactNode
 }
 
 export enum Category {
