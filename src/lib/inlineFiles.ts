@@ -34,12 +34,14 @@ const getAttachment = (
   attachmentsMap: Map<string, SubmissionAttachment>
 ) => {
   // in the new implementation ExternalFileRef url will be attachment id LEAN-988
-  if (!externalFileRef?.url.includes('https://')) {
+  if (!externalFileRef?.url.startsWith('http')) {
     const attachmentId = externalFileRef?.url.replace('attachment:', '')
     return attachmentId ? attachmentsMap.get(attachmentId) : undefined
   } else {
     return [...attachmentsMap.values()].find(
-      (attachment) => attachment.link === externalFileRef.url
+      (attachment) =>
+        attachment.link === externalFileRef.url.replace(/[&|?]format=jpg/, '')
+      // @TODO: try to avoid saving (or having at all) the format=jpg query in the url. It's added in the editor to display images correctly but inevitably gets saved
     )
   }
 }
