@@ -193,7 +193,7 @@ export const FileManager: React.FC<{
         })
       }
     },
-    [modelMap, saveModel]
+    [modelMap, saveModel, addAttachmentToState]
   )
 
   const attachments = getAttachments()
