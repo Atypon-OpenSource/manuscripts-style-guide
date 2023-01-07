@@ -96,12 +96,14 @@ export const FileManager: React.FC<{
   saveModel: <T extends Model>(model: T | Build<T> | Partial<T>) => Promise<T>
   enableDragAndDrop: boolean
   can: Capabilities
+  addAttachmentToState?: (a: SubmissionAttachment) => void
 }> = ({
   modelMap,
   saveModel,
   enableDragAndDrop,
   can,
   fileManagement: { getAttachments, changeDesignation, replace, upload },
+  addAttachmentToState,
 }) => {
   const [state, dispatch] = useReducer(reducer, getInitialState())
   const handleReplaceFile = useCallback(
@@ -174,10 +176,21 @@ export const FileManager: React.FC<{
         typeof imageExternalFileIndex !== 'undefined' &&
         imageExternalFileIndex > -1
       ) {
-        figureModel.externalFileReferences[
-          imageExternalFileIndex
-        ].url = `attachment:${attachment.id}`
-        await saveModel(figureModel)
+        const newRefs = [...figureModel.externalFileReferences]
+        newRefs[imageExternalFileIndex] = {
+          url: `attachment:${attachment.id}`,
+          kind: 'imageRepresentation',
+        }
+        if (addAttachmentToState) {
+          addAttachmentToState({
+            ...attachment,
+          })
+        }
+        await saveModel({
+          ...figureModel,
+          src: '',
+          externalFileReferences: newRefs,
+        })
       }
     },
     [modelMap, saveModel]
