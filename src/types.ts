@@ -18,7 +18,7 @@ import {
   Affiliation,
   BibliographicName,
   Contributor,
-} from '@manuscripts/manuscripts-json-schema'
+} from '@manuscripts/json-schema'
 import { ConnectDragSource, ConnectDropTarget } from 'react-dnd'
 
 export type AffiliationMap = Map<string, Affiliation>

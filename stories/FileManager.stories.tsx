@@ -54,12 +54,12 @@ const changeDesignation = async (
 }
 
 const capabilities = getAllPermitted()
+import { Supplement } from '@manuscripts/json-schema'
 import {
   buildSupplementaryMaterial,
   encode,
   schema,
-} from '@manuscripts/manuscript-transform'
-import { Supplement } from '@manuscripts/manuscripts-json-schema'
+} from '@manuscripts/transform'
 import { action } from '@storybook/addon-actions'
 
 import article from './data/article-doc.json'

@@ -13,8 +13,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { UserProfileWithAvatar } from '@manuscripts/manuscript-transform'
-import { Project } from '@manuscripts/manuscripts-json-schema'
+import { Project } from '@manuscripts/json-schema'
+import { UserProfileWithAvatar } from '@manuscripts/transform'
 import React from 'react'
 
 export type Capabilities = {

@@ -14,10 +14,7 @@
  * limitations under the License.
  */
 
-import {
-  Contributor,
-  ContributorRole,
-} from '@manuscripts/manuscripts-json-schema'
+import { Contributor, ContributorRole } from '@manuscripts/json-schema'
 import { Field, FieldProps, Form, Formik } from 'formik'
 import React from 'react'
 import styled from 'styled-components'

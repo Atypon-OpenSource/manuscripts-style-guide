@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { hasObjectType } from '@manuscripts/manuscript-transform'
 import {
   ElementsOrder,
   Figure,
@@ -21,7 +20,8 @@ import {
   Model,
   ObjectTypes,
   Section,
-} from '@manuscripts/manuscripts-json-schema'
+} from '@manuscripts/json-schema'
+import { hasObjectType } from '@manuscripts/transform'
 
 import { SubmissionAttachment } from '../components/FileManager/FileSectionItem/FileSectionItem'
 import { FileType } from '../components/FileManager/util'

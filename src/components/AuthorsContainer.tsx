@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { Contributor } from '@manuscripts/manuscripts-json-schema'
+import { Contributor } from '@manuscripts/json-schema'
 import React, { useMemo } from 'react'
 import styled from 'styled-components'
 
