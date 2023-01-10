@@ -14,11 +14,8 @@
  * limitations under the License.
  */
 
-import { UserProfileWithAvatar } from '@manuscripts/manuscript-transform'
-import {
-  BibliographicName,
-  Contribution,
-} from '@manuscripts/manuscripts-json-schema'
+import { BibliographicName, Contribution } from '@manuscripts/json-schema'
+import { UserProfileWithAvatar } from '@manuscripts/transform'
 import React from 'react'
 import styled from 'styled-components'
 

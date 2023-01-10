@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { ContributorRole } from '@manuscripts/manuscripts-json-schema'
+import { ContributorRole } from '@manuscripts/json-schema'
 import React, { useMemo, useState } from 'react'
 import { MultiValue } from 'react-select'
 import CreatableSelect from 'react-select/creatable'

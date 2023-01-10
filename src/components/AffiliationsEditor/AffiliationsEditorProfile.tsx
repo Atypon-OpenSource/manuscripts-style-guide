@@ -14,10 +14,7 @@
  * limitations under the License.
  */
 
-import {
-  ObjectTypes,
-  UserProfileAffiliation,
-} from '@manuscripts/manuscripts-json-schema'
+import { ObjectTypes, UserProfileAffiliation } from '@manuscripts/json-schema'
 import React, { useCallback, useState } from 'react'
 
 import { AffiliationGeneric, AffiliationOption } from '../../types'

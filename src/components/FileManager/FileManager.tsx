@@ -13,12 +13,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import {
-  Attachment,
-  Build,
-  buildSupplementaryMaterial,
-} from '@manuscripts/manuscript-transform'
-import { Figure, Model } from '@manuscripts/manuscripts-json-schema'
+import { Figure, Model, Supplement } from '@manuscripts/json-schema'
+import { Build, buildSupplementaryMaterial } from '@manuscripts/transform'
 import React, { createContext, useCallback, useReducer } from 'react'
 import ReactTooltip from 'react-tooltip'
 

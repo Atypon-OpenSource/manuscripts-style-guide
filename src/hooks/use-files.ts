@@ -13,12 +13,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { getModelsByType } from '@manuscripts/manuscript-transform'
-import {
-  Model,
-  ObjectTypes,
-  Supplement,
-} from '@manuscripts/manuscripts-json-schema'
+import { Model, ObjectTypes, Supplement } from '@manuscripts/json-schema'
+import { getModelsByType } from '@manuscripts/transform'
 
 import { SubmissionAttachment } from '../components/FileManager/FileSectionItem/FileSectionItem'
 import getInlineFiles, { InlineFile } from '../lib/inlineFiles'

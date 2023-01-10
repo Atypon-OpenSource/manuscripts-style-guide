@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { Affiliation } from '@manuscripts/manuscripts-json-schema'
+import { Affiliation } from '@manuscripts/json-schema'
 
 const affiliations: Map<string, Affiliation> = new Map([
   [

@@ -14,10 +14,7 @@
  * limitations under the License.
  */
 
-import {
-  ManuscriptNote,
-  ObjectTypes,
-} from '@manuscripts/manuscripts-json-schema'
+import { ManuscriptNote, ObjectTypes } from '@manuscripts/json-schema'
 
 export const notes: ManuscriptNote[] = [
   {

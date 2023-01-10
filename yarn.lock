@@ -1659,21 +1659,10 @@
   resolved "https://registry.yarnpkg.com/@manuscripts/examples/-/examples-0.0.7.tgz#f7f0cef173fb2c83fbf283a2c2962b5d6ea32874"
   integrity sha512-7a1y6H/wnvn4hTh7S+TEyC8R5tLHHNiWYJnbeS43JCMYS/6qhMCzJTS0PwQynoep7PWwi2LdgaSZ3qALxzgg0g==
 
-"@manuscripts/manuscript-transform@^1.0.0":
+"@manuscripts/json-schema@^1.0.0":
   version "1.0.0"
-  resolved "https://registry.yarnpkg.com/@manuscripts/manuscript-transform/-/manuscript-transform-1.0.0.tgz#61718aac76ebc01bb29ef5ee19e5a4d031be9835"
-  integrity sha512-IlFfr3vjSTdC376jG8zjRkDSdaG8bwwDVlwbe3N+dURfxC/cuDnhCbmmyWu9Y6gvFvFmrWHEhh5LcS/u50YzBw==
-  dependencies:
-    debug "^4.3.4"
-    mathjax-full "^3.2.2"
-    mime "^3.0.0"
-    uuid "^9.0.0"
-    w3c-xmlserializer "^4.0.0"
-
-"@manuscripts/manuscripts-json-schema@^2.0.0":
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/@manuscripts/manuscripts-json-schema/-/manuscripts-json-schema-2.0.0.tgz#ac3adb8d7b50d0b6f67174d7e7937aa11131083f"
-  integrity sha512-zT6Pigh54iQMAtFb+79lci7RzhGCfi8oL2quKMp4YdeXtcwsRvY/HpQXVsfBxAEgys0wuDiM7x5VBIFp1YPndw==
+  resolved "https://registry.yarnpkg.com/@manuscripts/json-schema/-/json-schema-1.0.0.tgz#26ff4fea70c74d64f83a7e7361f1b5036de84a5d"
+  integrity sha512-2514pjCDqPLLisy0xL/H6Y1vPTesZYHkw7SQa5Cuehx57CmLk3NAxFI3EJkLIFslJDNJes886+U+TLwHGMxrCg==
   dependencies:
     ajv "^6.10.0"
     deepmerge "^4.2.2"
@@ -1683,6 +1672,17 @@
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/@manuscripts/title-editor/-/title-editor-1.0.0.tgz#714d34ce7ebf2f4fec2d15c12f181dcccea3f554"
   integrity sha512-FHN+/TD5XDbCxXcrbZ2ZtwCYZZKX1czbdvwPTGLWSW1eTQfJVPXM4Tte6Ul1bjbI5HHk7b9suzKvGCqxdc/GYQ==
+
+"@manuscripts/transform@^1.0.1":
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/@manuscripts/transform/-/transform-1.0.1.tgz#1eccad9924beef97a5b6ae9e944ca9704f09b2a7"
+  integrity sha512-cI89dy3vY2+81TjiHRE6cxK4EDJbI21np0ueUeZGK+8wA4/8+QVh0pj1qdt+ZCiSV2XYh7epXQV9WAwajTYQ1g==
+  dependencies:
+    debug "^4.3.4"
+    mathjax-full "^3.2.2"
+    mime "^3.0.0"
+    uuid "^9.0.0"
+    w3c-xmlserializer "^4.0.0"
 
 "@mapbox/node-pre-gyp@^1.0.0":
   version "1.0.10"
