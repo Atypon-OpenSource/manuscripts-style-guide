@@ -158,7 +158,9 @@ export const EditorHeader: React.FC<{
   const onTransitionClick = useCallback(
     (event) => {
       toggleConfirmationDialog(true)
-      setSelectedTransitionIndex(event.target.value)
+      setSelectedTransitionIndex(
+        event.target.value || event.target.parentNode.value
+      )
     },
     [setSelectedTransitionIndex, toggleConfirmationDialog]
   )
