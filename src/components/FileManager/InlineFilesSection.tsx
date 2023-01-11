@@ -17,6 +17,7 @@ import React, { Dispatch, useCallback } from 'react'
 import styled from 'styled-components'
 
 import { useDropdown } from '../../hooks/use-dropdown'
+import { InlineFile } from '../../lib/inlineFiles'
 import DotsIcon from '../icons/dots-icon'
 import { Replace } from './FileManager'
 import {
@@ -57,12 +58,14 @@ export const InlineFilesSection: React.FC<{
     modelId: string,
     attachment: SubmissionAttachment
   ) => void
+  handleDetachFile?: (attachmentLink: string, modelId: string) => void
   isEditor: boolean
   dispatch: Dispatch<Action>
 }> = ({
   handleReplace,
   handleDownload,
   handleUpdateInline,
+  handleDetachFile,
   inlineFiles,
   isEditor,
   dispatch,
@@ -99,6 +102,7 @@ export const InlineFilesSection: React.FC<{
                 attachment={attachment}
                 handleReplace={handleReplace}
                 handleUpdateInline={handleUpdateInline}
+                handleDetachFile={handleDetachFile}
                 handleDownload={handleDownload}
                 dispatch={dispatch}
               />
@@ -126,6 +130,7 @@ const FileReference: React.FC<{
     file: File,
     typeId: string
   ) => Promise<boolean | SubmissionAttachment | undefined>
+  handleDetachFile?: (attachmentLink: string, modelId: string) => void
   handleDownload: (url: string) => void
   handleUpdateInline?: (
     modelId: string,
@@ -137,6 +142,7 @@ const FileReference: React.FC<{
   handleReplace,
   handleDownload,
   handleUpdateInline,
+  handleDetachFile,
   dispatch,
 }) => {
   const { isOpen, toggleOpen, wrapperRef } = useDropdown()
@@ -163,7 +169,7 @@ const FileReference: React.FC<{
             onClick={toggleOpen}
             type="button"
             className={'external_file_dropdown'}
-            aria-label="Download or Replace"
+            aria-label="Download or Replace or Detach"
             aria-pressed={isOpen}
           >
             <DotsIcon />
@@ -176,6 +182,11 @@ const FileReference: React.FC<{
                 handleUpdateInline &&
                 attachment?.modelId &&
                 handleUpdateInline(attachment.modelId, uploadAttachment)
+              }
+              detachAttachmnetHandler={() =>
+                handleDetachFile &&
+                attachment.modelId &&
+                handleDetachFile(attachment.id, attachment.modelId)
               }
               downloadAttachmentHandler={handleDownload}
               attachmentId={attachment.id}
