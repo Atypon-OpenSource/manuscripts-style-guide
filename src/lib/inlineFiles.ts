@@ -81,7 +81,7 @@ export default (
     attachments.map((attachment) => [attachment.id, attachment])
   )
 
-  const { graphicalAbstractFigureId, figureElement, tableElement } =
+  const { graphicalAbstractFigureId, figureElement } =
     getAuxiliaryObjects(modelMap)
 
   if (graphicalAbstractFigureId) {

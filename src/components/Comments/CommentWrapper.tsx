@@ -157,6 +157,7 @@ export const CommentWrapper: React.FC<
         isNew={isNew}
         setIsEditing={setIsEditing}
         isEditing={isEditing}
+        isProdNote={isProdNote}
       />
     </Note>
   )
