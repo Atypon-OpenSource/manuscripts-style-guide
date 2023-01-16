@@ -65,18 +65,20 @@ export const ItemActions: React.FC<{
     attachmentDesignation !== 'undefined'
       ? namesWithDesignationMap.get(attachmentDesignation)
       : undefined
+  const can = useContext(PermissionsContext)
   const canBeReplaced =
-    (showReplaceAction == undefined || showReplaceAction) &&
-    (attachmentDesignationName == undefined ||
-      ![
-        Designation.MainManuscript,
-        Designation.SubmissionFile,
-        Designation.SubmissionPdf,
-      ].includes(attachmentDesignationName))
+    ((showReplaceAction == undefined || showReplaceAction) &&
+      (attachmentDesignationName == undefined ||
+        ![
+          Designation.MainManuscript,
+          Designation.SubmissionFile,
+          Designation.SubmissionPdf,
+        ].includes(attachmentDesignationName))) ||
+    (attachmentDesignationName == Designation.MainManuscript &&
+      can?.setMainManuscript)
 
   const fileInputRef = useRef<HTMLInputElement>(null)
   const [selectedFile, setSelectedFile] = useState<File>()
-  const can = useContext(PermissionsContext)
   const handleChange = async (event: ChangeEvent<HTMLInputElement>) => {
     if (event && event.target && event.target.files) {
       const file = event.target.files[0]
