@@ -167,31 +167,14 @@ export const FileManager: React.FC<{
   const handleUpdateInline = useCallback(
     async (modelId: string, attachment: SubmissionAttachment) => {
       const figureModel = modelMap.get(modelId) as Figure
-      const imageExternalFileIndex =
-        figureModel?.externalFileReferences?.findIndex(
-          (file) => file && file.kind === 'imageRepresentation'
-        )
-      if (
-        figureModel.externalFileReferences &&
-        typeof imageExternalFileIndex !== 'undefined' &&
-        imageExternalFileIndex > -1
-      ) {
-        const newRefs = [...figureModel.externalFileReferences]
-        newRefs[imageExternalFileIndex] = {
-          url: `attachment:${attachment.id}`,
-          kind: 'imageRepresentation',
-        }
-        if (addAttachmentToState) {
-          addAttachmentToState({
-            ...attachment,
-          })
-        }
-        await saveModel({
-          ...figureModel,
-          src: '',
-          externalFileReferences: newRefs,
+      figureModel.src = `attachment:${attachment.id}`
+
+      if (addAttachmentToState) {
+        addAttachmentToState({
+          ...attachment,
         })
       }
+      await saveModel(figureModel)
     },
     [modelMap, saveModel, addAttachmentToState]
   )
