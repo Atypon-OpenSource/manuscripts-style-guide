@@ -40,7 +40,9 @@ const getFigureData = (
       if (figure.src) {
         const attachment:
           | (SubmissionAttachment & { modelId?: string })
-          | undefined = attachmentsMap.get(figure.src)
+          | undefined = attachmentsMap.get(
+          figure.src.replace('attachment:', '')
+        )
 
         if (attachment) {
           attachment.modelId = id

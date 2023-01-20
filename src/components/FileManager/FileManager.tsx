@@ -164,9 +164,15 @@ export const FileManager: React.FC<{
     async (modelId: string, attachment: SubmissionAttachment) => {
       const figureModel = modelMap.get(modelId) as Figure
       figureModel.src = `attachment:${attachment.id}`
+
+      if (addAttachmentToState) {
+        addAttachmentToState({
+          ...attachment,
+        })
+      }
       await saveModel(figureModel)
     },
-    [modelMap, saveModel]
+    [modelMap, saveModel, addAttachmentToState]
   )
 
   const attachments = getAttachments()
