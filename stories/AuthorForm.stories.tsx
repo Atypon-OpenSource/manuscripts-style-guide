@@ -15,7 +15,7 @@
  */
 
 import contributorRoles from '@manuscripts/data/dist/shared/contributor-roles.json'
-import { ContributorRole } from '@manuscripts/manuscripts-json-schema'
+import { ContributorRole } from '@manuscripts/json-schema'
 import { action } from '@storybook/addon-actions'
 import { storiesOf } from '@storybook/react'
 import * as React from 'react'

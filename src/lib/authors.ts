@@ -20,7 +20,7 @@ import {
   Model,
   ObjectTypes,
   UserProfileAffiliation,
-} from '@manuscripts/manuscripts-json-schema'
+} from '@manuscripts/json-schema'
 
 import {
   AffiliationGeneric,

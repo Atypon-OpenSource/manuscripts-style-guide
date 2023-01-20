@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
-import { Build, ManuscriptNode } from '@manuscripts/manuscript-transform'
 import {
   BibliographicName,
   CommentAnnotation,
   Contribution,
   ManuscriptNote,
-} from '@manuscripts/manuscripts-json-schema'
+} from '@manuscripts/json-schema'
+import { Build, ManuscriptNode } from '@manuscripts/transform'
 
 export type CommentType = ManuscriptNote | CommentAnnotation
 

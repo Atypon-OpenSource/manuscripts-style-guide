@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { Contributor, UserProfile } from '@manuscripts/manuscripts-json-schema'
+import { Contributor, UserProfile } from '@manuscripts/json-schema'
 import React, { useContext } from 'react'
 import styled, { ThemeContext } from 'styled-components'
 

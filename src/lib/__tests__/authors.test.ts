@@ -20,7 +20,7 @@ import {
   Manuscript,
   Model,
   ObjectTypes,
-} from '@manuscripts/manuscripts-json-schema'
+} from '@manuscripts/json-schema'
 
 import { AuthorAffiliation } from '../../types'
 import {

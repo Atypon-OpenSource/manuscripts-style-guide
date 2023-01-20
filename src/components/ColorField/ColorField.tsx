@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { Color } from '@manuscripts/manuscripts-json-schema'
+import { Color } from '@manuscripts/json-schema'
 import React from 'react'
 import styled from 'styled-components'
 

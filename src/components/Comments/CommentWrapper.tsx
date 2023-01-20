@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { ManuscriptNote } from '@manuscripts/manuscripts-json-schema'
+import { ManuscriptNote } from '@manuscripts/json-schema'
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import styled from 'styled-components'
 

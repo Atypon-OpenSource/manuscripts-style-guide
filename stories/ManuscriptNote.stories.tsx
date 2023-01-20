@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { Model, UserProfile } from '@manuscripts/manuscripts-json-schema'
+import { Model, UserProfile } from '@manuscripts/json-schema'
 import { action } from '@storybook/addon-actions'
 import { storiesOf } from '@storybook/react'
 import React from 'react'

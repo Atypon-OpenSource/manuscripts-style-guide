@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { Affiliation } from '@manuscripts/manuscripts-json-schema'
+import { Affiliation } from '@manuscripts/json-schema'
 
 export default (affiliation: Affiliation): string => {
   const {

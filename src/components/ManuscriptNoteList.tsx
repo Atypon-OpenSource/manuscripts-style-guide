@@ -15,16 +15,12 @@
  */
 import GutterAddIconNormal from '@manuscripts/assets/react/GutterAddIconNormal'
 import {
-  buildContribution,
-  buildNote,
-  Selected,
-} from '@manuscripts/manuscript-transform'
-import {
   Keyword,
   ManuscriptNote,
   ObjectTypes,
   UserProfile,
-} from '@manuscripts/manuscripts-json-schema'
+} from '@manuscripts/json-schema'
+import { buildContribution, buildNote, Selected } from '@manuscripts/transform'
 import React, { useCallback, useEffect, useMemo, useState } from 'react'
 import styled from 'styled-components'
 import { v4 as uuid } from 'uuid'
