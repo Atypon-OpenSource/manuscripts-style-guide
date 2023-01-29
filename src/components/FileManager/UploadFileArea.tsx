@@ -59,21 +59,9 @@ export const UploadFileArea: React.FC<{
         const file = monitor.getItem().files[0]
         setSelectedFile(file)
         dispatch(actions.UPLOAD_FILE(file, fileSection))
-        if (selectedFile && isSupplementFilesTab) {
-          handleUploadFile(
-            selectedFile,
-            getDesignationName(Designation.Supplementary)
-          )
-        }
       }
     },
-    [
-      dispatch,
-      fileSection,
-      handleUploadFile,
-      isSupplementFilesTab,
-      selectedFile,
-    ]
+    [dispatch, fileSection]
   )
 
   const [{ canDrop, isOver }, dropRef] = useDrop({
