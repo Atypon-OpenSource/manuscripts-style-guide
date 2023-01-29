@@ -13,14 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { Figure, Model, Supplement } from '@manuscripts/json-schema'
+import { Figure, Model } from '@manuscripts/json-schema'
 import { Build, buildSupplementaryMaterial } from '@manuscripts/transform'
 import React, { createContext, useCallback, useReducer } from 'react'
 import ReactTooltip from 'react-tooltip'
 
-import { useFiles } from '../../index'
+import { FileSectionType, useFiles } from '../../index'
 import { Capabilities } from '../../lib/capabilities'
-import { InlineFile } from '../../lib/inlineFiles'
 import {
   InspectorTab,
   InspectorTabList,
@@ -42,7 +41,6 @@ import { InlineFilesSection } from './InlineFilesSection'
 import { TooltipDiv } from './TooltipDiv'
 import {
   Designation,
-  FileSectionType,
   generateAttachmentsTitles,
   namesWithDesignationMap,
 } from './util'
@@ -112,7 +110,9 @@ export const FileManager: React.FC<{
       )
       const res = await replace(attachmentId, name, file, typeId)
       dispatch(actions.HANDLE_FINISH_UPLOAD())
-      dispatch(actions.HANDLE_SUCCESS_MESSAGE('File uploaded successfully.'))
+      if (res) {
+        dispatch(actions.HANDLE_SUCCESS_MESSAGE('File uploaded successfully.'))
+      }
       return res
     },
     [replace]
@@ -128,7 +128,14 @@ export const FileManager: React.FC<{
       }
       const res = await upload(file, designation)
       dispatch(actions.HANDLE_FINISH_UPLOAD())
-      dispatch(actions.HANDLE_SUCCESS_MESSAGE('File uploaded successfully.'))
+      if (res) {
+        dispatch(
+          actions.HANDLE_SUCCESS_MESSAGE(
+            'File uploaded successfully.',
+            FileSectionType.OtherFile
+          )
+        )
+      }
       return res
     },
     [upload]
@@ -141,6 +148,17 @@ export const FileManager: React.FC<{
         const { id, name } = response
         await saveModel(buildSupplementaryMaterial(name, `attachment:${id}`))
       }
+
+      if (response) {
+        dispatch(
+          actions.HANDLE_SUCCESS_MESSAGE(
+            'File uploaded successfully.',
+            FileSectionType.Supplements
+          )
+        )
+      }
+      dispatch(actions.HANDLE_FINISH_UPLOAD())
+
       return response
     },
     [upload, saveModel]

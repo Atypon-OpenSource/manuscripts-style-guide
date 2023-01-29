@@ -49,10 +49,7 @@ export const UploadFileArea: React.FC<{
     if (event && event.target && event.target.files) {
       const file = event.target.files[0]
       setSelectedFile(file)
-      dispatch(actions.UPLOAD_FILE(file))
-      if (file && isSupplementFilesTab) {
-        handleUploadFile(file, getDesignationName(Designation.Supplementary))
-      }
+      dispatch(actions.UPLOAD_FILE(file, fileSection))
     }
   }
 
@@ -61,7 +58,7 @@ export const UploadFileArea: React.FC<{
       if (monitor) {
         const file = monitor.getItem().files[0]
         setSelectedFile(file)
-        dispatch(actions.UPLOAD_FILE(file))
+        dispatch(actions.UPLOAD_FILE(file, fileSection))
         if (selectedFile && isSupplementFilesTab) {
           handleUploadFile(
             selectedFile,
@@ -70,7 +67,13 @@ export const UploadFileArea: React.FC<{
         }
       }
     },
-    [dispatch, handleUploadFile, isSupplementFilesTab, selectedFile]
+    [
+      dispatch,
+      fileSection,
+      handleUploadFile,
+      isSupplementFilesTab,
+      selectedFile,
+    ]
   )
 
   const [{ canDrop, isOver }, dropRef] = useDrop({
