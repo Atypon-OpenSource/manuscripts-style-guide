@@ -13,20 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import React, {
-  ChangeEvent,
-  Dispatch,
-  useCallback,
-  useRef,
-  useState,
-} from 'react'
+import React, { ChangeEvent, Dispatch, useCallback, useRef } from 'react'
 import { DropTargetMonitor, useDrop } from 'react-dnd'
 import { NativeTypes } from 'react-dnd-html5-backend'
 import styled, { css } from 'styled-components'
 
 import { Upload } from './FileManager'
 import { Action, actions } from './FileSectionState'
-import { Designation, FileSectionType, getDesignationName } from './util'
+import { FileSectionType } from './util'
 
 /**
  * This component will show the drag or upload file area
@@ -35,10 +29,8 @@ export const UploadFileArea: React.FC<{
   handleUploadFile: Upload
   fileSection: FileSectionType
   dispatch: Dispatch<Action>
-}> = ({ handleUploadFile, fileSection, dispatch }) => {
-  const [selectedFile, setSelectedFile] = useState<File>()
+}> = ({ fileSection, dispatch }) => {
   const fileInputRef = useRef<HTMLInputElement>(null)
-  const isSupplementFilesTab = fileSection === FileSectionType.Supplements
   const openFileDialog = () => {
     if (fileInputRef && fileInputRef.current) {
       fileInputRef.current.click()
@@ -48,7 +40,6 @@ export const UploadFileArea: React.FC<{
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     if (event && event.target && event.target.files) {
       const file = event.target.files[0]
-      setSelectedFile(file)
       dispatch(actions.UPLOAD_FILE(file, fileSection))
     }
   }
@@ -57,7 +48,6 @@ export const UploadFileArea: React.FC<{
     (monitor: DropTargetMonitor) => {
       if (monitor) {
         const file = monitor.getItem().files[0]
-        setSelectedFile(file)
         dispatch(actions.UPLOAD_FILE(file, fileSection))
       }
     },
