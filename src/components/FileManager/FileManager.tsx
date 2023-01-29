@@ -149,6 +149,7 @@ export const FileManager: React.FC<{
         await saveModel(buildSupplementaryMaterial(name, `attachment:${id}`))
       }
 
+      dispatch(actions.HANDLE_FINISH_UPLOAD())
       if (response) {
         dispatch(
           actions.HANDLE_SUCCESS_MESSAGE(
@@ -157,7 +158,6 @@ export const FileManager: React.FC<{
           )
         )
       }
-      dispatch(actions.HANDLE_FINISH_UPLOAD())
 
       return response
     },
