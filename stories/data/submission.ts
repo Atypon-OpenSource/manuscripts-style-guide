@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { Model } from '@manuscripts/manuscripts-json-schema'
+import { Model } from '@manuscripts/json-schema'
 
 const submission: Map<string, Model> = new Map([
   [

@@ -13,12 +13,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import {
-  Attachment,
-  Build,
-  buildSupplementaryMaterial,
-} from '@manuscripts/manuscript-transform'
-import { Figure, Model } from '@manuscripts/manuscripts-json-schema'
+import { Figure, Model, Supplement } from '@manuscripts/json-schema'
+import { Build, buildSupplementaryMaterial } from '@manuscripts/transform'
 import React, { createContext, useCallback, useReducer } from 'react'
 import ReactTooltip from 'react-tooltip'
 
@@ -167,31 +163,14 @@ export const FileManager: React.FC<{
   const handleUpdateInline = useCallback(
     async (modelId: string, attachment: SubmissionAttachment) => {
       const figureModel = modelMap.get(modelId) as Figure
-      const imageExternalFileIndex =
-        figureModel?.externalFileReferences?.findIndex(
-          (file) => file && file.kind === 'imageRepresentation'
-        )
-      if (
-        figureModel.externalFileReferences &&
-        typeof imageExternalFileIndex !== 'undefined' &&
-        imageExternalFileIndex > -1
-      ) {
-        const newRefs = [...figureModel.externalFileReferences]
-        newRefs[imageExternalFileIndex] = {
-          url: `attachment:${attachment.id}`,
-          kind: 'imageRepresentation',
-        }
-        if (addAttachmentToState) {
-          addAttachmentToState({
-            ...attachment,
-          })
-        }
-        await saveModel({
-          ...figureModel,
-          src: '',
-          externalFileReferences: newRefs,
+      figureModel.src = `attachment:${attachment.id}`
+
+      if (addAttachmentToState) {
+        addAttachmentToState({
+          ...attachment,
         })
       }
+      await saveModel(figureModel)
     },
     [modelMap, saveModel, addAttachmentToState]
   )
@@ -204,14 +183,10 @@ export const FileManager: React.FC<{
   )
 
   const handleDetachFile = (attachmentId: string, modelId: string) => {
-    const model = modelMap.get(modelId) as Figure | undefined
+    const model = modelMap.get(modelId) as Figure
     if (model) {
-      const externalFileReferences = model.externalFileReferences?.filter(
-        (ref) => ref.url.replace('attachment:', '') !== attachmentId
-      )
       saveModel({
         ...model,
-        externalFileReferences: externalFileReferences || [],
         src: '',
       })
     }

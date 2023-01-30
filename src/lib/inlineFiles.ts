@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { hasObjectType } from '@manuscripts/manuscript-transform'
 import {
   ElementsOrder,
   Figure,
@@ -21,30 +20,11 @@ import {
   Model,
   ObjectTypes,
   Section,
-  Table,
-  TableElement,
-} from '@manuscripts/manuscripts-json-schema'
+} from '@manuscripts/json-schema'
+import { hasObjectType } from '@manuscripts/transform'
 
 import { SubmissionAttachment } from '../components/FileManager/FileSectionItem/FileSectionItem'
-import { ExternalFileRef } from '../components/FileManager/InlineFilesSection'
 import { FileType } from '../components/FileManager/util'
-
-const getAttachment = (
-  externalFileRef: ExternalFileRef | undefined,
-  attachmentsMap: Map<string, SubmissionAttachment>
-) => {
-  // in the new implementation ExternalFileRef url will be attachment id LEAN-988
-  if (!externalFileRef?.url.startsWith('http')) {
-    const attachmentId = externalFileRef?.url.replace('attachment:', '')
-    return attachmentId ? attachmentsMap.get(attachmentId) : undefined
-  } else {
-    return [...attachmentsMap.values()].find(
-      (attachment) =>
-        attachment.link === externalFileRef.url.replace(/[&|?]format=jpg/, '')
-      // @TODO: try to avoid saving (or having at all) the format=jpg query in the url. It's added in the editor to display images correctly but inevitably gets saved
-    )
-  }
-}
 
 const getFigureData = (
   element: FigureElement,
@@ -55,18 +35,19 @@ const getFigureData = (
   element.containedObjectIDs.map((id) => {
     const object = modelMap.get(id)
     if (object && object.objectType === ObjectTypes.Figure) {
-      const externalFileRef = (object as Figure).externalFileReferences?.find(
-        // TODO:: add interactiveRepresentation image when media alternatives enabled
-        (figure) => figure.kind === 'imageRepresentation'
-      )
+      const figure = object as Figure
 
-      const attachment:
-        | (SubmissionAttachment & { modelId?: string })
-        | undefined = getAttachment(externalFileRef, attachmentsMap)
+      if (figure.src) {
+        const attachment:
+          | (SubmissionAttachment & { modelId?: string })
+          | undefined = attachmentsMap.get(
+          figure.src.replace('attachment:', '')
+        )
 
-      if (attachment) {
-        attachment.modelId = id
-        attachments.push(attachment)
+        if (attachment) {
+          attachment.modelId = id
+          attachments.push(attachment)
+        }
       }
     }
   })
@@ -102,7 +83,7 @@ export default (
     attachments.map((attachment) => [attachment.id, attachment])
   )
 
-  const { graphicalAbstractFigureId, figureElement, tableElement } =
+  const { graphicalAbstractFigureId, figureElement } =
     getAuxiliaryObjects(modelMap)
 
   if (graphicalAbstractFigureId) {
@@ -121,24 +102,6 @@ export default (
       label: `Figure ${index + 1}`,
       type: FileType.Figure,
     })
-  })
-
-  tableElement.map((id) => {
-    const tableElement = modelMap.get(id) as TableElement
-    const table = modelMap.get(tableElement.containedObjectID) as Table
-    const externalFileReference = table?.externalFileReferences?.find(
-      (file) => file.kind === 'dataset' && file.ref
-    )
-    const attachment = getAttachment(externalFileReference, attachmentsMap)
-
-    if (attachment) {
-      files.push({
-        id: tableElement._id,
-        label: `Table`,
-        type: FileType.SheetsWorkbooks,
-        attachments: [attachment],
-      })
-    }
   })
 
   return files
@@ -171,7 +134,6 @@ const getAuxiliaryObjects = (modelMap: Map<string, Model>) => {
             }
             switch (element.objectType) {
               case ObjectTypes.FigureElement:
-              case ObjectTypes.MultiGraphicFigureElement:
                 figureElementIds.push(element._id)
                 break
               case ObjectTypes.TableElement:

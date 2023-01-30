@@ -17,7 +17,7 @@
 import CorrespondingAuthorBadge from '@manuscripts/assets/react/CorrespondingAuthorBadge'
 import JointFirstAuthorBadge from '@manuscripts/assets/react/FirstAuthorBadge'
 import VerticalEllipsis from '@manuscripts/assets/react/VerticalEllipsis'
-import { Contributor } from '@manuscripts/manuscripts-json-schema'
+import { Contributor } from '@manuscripts/json-schema'
 import React from 'react'
 import {
   DragSource,
@@ -29,7 +29,7 @@ import {
   DropTargetSpec,
 } from 'react-dnd'
 import { findDOMNode } from 'react-dom'
-import styled, { DefaultTheme, withTheme } from 'styled-components'
+import styled, { DefaultTheme } from 'styled-components'
 
 import { isJointFirstAuthor } from '../../lib/authors'
 import {

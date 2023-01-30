@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import { timestamp } from '@manuscripts/manuscript-transform'
-import { Keyword, ObjectTypes } from '@manuscripts/manuscripts-json-schema'
+import { Keyword, ObjectTypes } from '@manuscripts/json-schema'
+import { timestamp } from '@manuscripts/transform'
 
 export const keywords: Keyword[] = [
   {

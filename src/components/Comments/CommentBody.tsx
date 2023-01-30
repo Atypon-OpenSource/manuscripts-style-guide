@@ -15,7 +15,7 @@
  */
 import AnnotationReply from '@manuscripts/assets/react/AnnotationReply'
 import { Comment, CommentField } from '@manuscripts/comment-editor'
-import { Keyword, UserProfile } from '@manuscripts/manuscripts-json-schema'
+import { Keyword, UserProfile } from '@manuscripts/json-schema'
 import { Field, FieldProps, Form, Formik } from 'formik'
 import React, { Dispatch, SetStateAction, useEffect } from 'react'
 import ReactTooltip from 'react-tooltip'
