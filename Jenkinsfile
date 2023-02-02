@@ -1,5 +1,5 @@
 #!groovy
-nodejs(nodeJSInstallationName: 'node_16_14_2') {
+nodejs(nodeJSInstallationName: 'node_16_14') {
     REFSPEC="+refs/pull/*:refs/remotes/origin/pr/*"
     stage("Checkout") {
         if (params != null && params.ghprbPullId == null) {
