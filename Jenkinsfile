@@ -20,7 +20,7 @@ node {
     }
 
     stage("Build") {
-        nodejs(nodeJSInstallationName: 'node_18_19_0') {
+        nodejs(nodeJSInstallationName: 'node_16_19_0') {
             sh (script: "yarn install --network-timeout 300000 --frozen-lockfile --non-interactive", returnStdout: true)
             sh (script: "yarn run typecheck", returnStdout: true)
             sh (script: "yarn run lint", returnStdout: true)
