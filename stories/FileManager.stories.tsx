@@ -30,7 +30,7 @@ const upload = async (
   await sleep(5000) //test the upload file item in storybook
   console.log('file --> ' + file.name)
   console.log('designation --> ' + designation)
-  return true
+  return {}
 }
 
 const replace = async (
