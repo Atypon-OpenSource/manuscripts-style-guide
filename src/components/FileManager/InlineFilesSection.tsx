@@ -38,6 +38,8 @@ import {
   fileTypesWithIconMap,
 } from './util'
 
+const trackedJoint = ':dataTracked:'
+
 export const InlineFilesSection: React.FC<{
   inlineFiles: {
     id: string
@@ -70,11 +72,12 @@ export const InlineFilesSection: React.FC<{
         return
       }
       const { id } = e.currentTarget
-      const isSelected = id == window.location.hash.substr(1)
+      const clearedId = id.split(trackedJoint)[0]
+      const isSelected = clearedId == window.location.hash.substr(1)
 
-      window.location.hash = !isSelected ? `#${id}` : '#'
+      window.location.hash = !isSelected ? `#${clearedId}` : '#'
       if (isSelected) {
-        window.location.hash = `#${id}`
+        window.location.hash = `#${clearedId}`
       }
     },
     [isEditor]

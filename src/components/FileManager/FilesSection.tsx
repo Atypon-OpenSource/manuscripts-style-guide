@@ -99,22 +99,19 @@ export const FilesSection: React.FC<{
         </>
       )}
 
-      {state.isShowSuccessMessage &&
-        state.successMessage !== '' &&
+      {state.fileUploadedSuccessfullySection === fileSection &&
         handleSuccessMessage()}
 
-      {state.uploadedFile && isOtherFileTab && (
-        <SelectDialogDesignation
-          isOpen={state.isOpenSelectDesignationPopup}
-          fileExtension={uploadedFileExtension}
-          handleCancel={() => {
-            dispatch(actions.HANDLE_CANCEL_UPLOAD())
-          }}
-          uploadFileHandler={() => handleUploadOtherFile()}
-          dispatch={dispatch}
-          fileSection={fileSection}
-        />
-      )}
+      <SelectDialogDesignation
+        isOpen={state.showDesignationPopup === fileSection}
+        fileExtension={uploadedFileExtension}
+        handleCancel={() => {
+          dispatch(actions.HANDLE_CANCEL_UPLOAD())
+        }}
+        uploadFileHandler={handleUploadOtherFile}
+        dispatch={dispatch}
+        fileSection={fileSection}
+      />
 
       {filesItem}
       {can?.changeDesignation &&

@@ -15,26 +15,28 @@
  */
 import React from 'react'
 
-import { Designation } from './util'
+import { Designation, FileSectionType } from './util'
 
 export const getInitialState = (): State => ({
   uploadedFile: undefined,
   isUploadFile: false,
   moveToOtherState: undefined,
+  fileUploadedSuccessfullySection: undefined,
   successMessage: '',
   isShowSuccessMessage: false,
   selectDesignation: undefined,
-  isOpenSelectDesignationPopup: false,
+  showDesignationPopup: undefined,
 })
 
 export interface State {
   uploadedFile: File | undefined
   isUploadFile: boolean
   moveToOtherState: { typeId: string; name: string } | undefined
+  fileUploadedSuccessfullySection: FileSectionType | undefined
   successMessage: string
   isShowSuccessMessage: boolean
   selectDesignation: Designation | undefined
-  isOpenSelectDesignationPopup: boolean
+  showDesignationPopup: FileSectionType | undefined
 }
 
 enum ActionTypes {
@@ -53,7 +55,7 @@ export const reducer = (state: State, action: Action): State => {
     case ActionTypes.UPLOAD_FILE: {
       return {
         ...state,
-        isOpenSelectDesignationPopup: true,
+        showDesignationPopup: action.sectionType,
         uploadedFile: action.uploadFile,
         selectDesignation: undefined,
       }
@@ -80,7 +82,7 @@ export const reducer = (state: State, action: Action): State => {
     case ActionTypes.HANDLE_UPLOAD_ACTION: {
       return {
         ...state,
-        isOpenSelectDesignationPopup: false,
+        showDesignationPopup: undefined,
         isUploadFile: true,
         isShowSuccessMessage: false,
         successMessage: '',
@@ -90,7 +92,7 @@ export const reducer = (state: State, action: Action): State => {
     case ActionTypes.HANDLE_CANCEL_UPLOAD: {
       return {
         ...state,
-        isOpenSelectDesignationPopup: false,
+        showDesignationPopup: undefined,
       }
     }
     case ActionTypes.HANDLE_FINISH_UPLOAD: {
@@ -106,6 +108,7 @@ export const reducer = (state: State, action: Action): State => {
         ...state,
         isShowSuccessMessage: true,
         successMessage: action.successMessage,
+        fileUploadedSuccessfullySection: action.sectionType,
       }
     }
     case ActionTypes.HANDLE_SUCCESS_MESSAGE_DISMISS: {
@@ -113,6 +116,7 @@ export const reducer = (state: State, action: Action): State => {
         ...state,
         isShowSuccessMessage: false,
         successMessage: '',
+        fileUploadedSuccessfullySection: undefined,
       }
     }
   }
@@ -125,9 +129,10 @@ export interface Action {
 }
 
 export const actions = {
-  UPLOAD_FILE: (uploadFile: File): Action => ({
+  UPLOAD_FILE: (uploadFile: File, sectionType: FileSectionType): Action => ({
     type: ActionTypes.UPLOAD_FILE,
     uploadFile,
+    sectionType,
   }),
   HANDLE_UPLOAD_ACTION: (): Action => ({
     type: ActionTypes.HANDLE_UPLOAD_ACTION,
@@ -159,9 +164,13 @@ export const actions = {
   /**
    * To handle transfer file success message from other file to supplementary file and vice versa.
    */
-  HANDLE_SUCCESS_MESSAGE: (successMessage: string): Action => ({
+  HANDLE_SUCCESS_MESSAGE: (
+    successMessage: string,
+    sectionType?: FileSectionType
+  ): Action => ({
     type: ActionTypes.HANDLE_SUCCESS_MESSAGE,
     successMessage,
+    sectionType,
   }),
   HANDLE_SUCCESS_MESSAGE_DISMISS: (): Action => ({
     type: ActionTypes.HANDLE_SUCCESS_MESSAGE_DISMISS,
