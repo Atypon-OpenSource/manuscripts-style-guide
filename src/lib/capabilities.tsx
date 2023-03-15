@@ -25,6 +25,7 @@ export type Capabilities = {
   viewSuggestion: boolean
   /* comments */
   seeEditorToolbar: boolean
+  seeReferencesButtons: boolean
   handleOwnComments: boolean
   resolveOwnComment: boolean
   handleOthersComments: boolean
@@ -104,6 +105,7 @@ export const getLWCapabilities = (
     createSuggestion: !isViewer(),
     viewSuggestion: true,
     seeEditorToolbar: !isViewer(),
+    seeReferencesButtons: !isViewer(),
     /* comments */
     handleOwnComments: !isViewer(),
     handleOthersComments: isOwner(),
@@ -175,7 +177,6 @@ export const useCalcPermission = ({
 }: ProviderProps) => {
   return getLWCapabilities(project, profile, lwRole, permittedActions)
 }
-
 export const CapabilitiesProvider: React.FC<{ can: Capabilities }> = (
   props
 ) => {
