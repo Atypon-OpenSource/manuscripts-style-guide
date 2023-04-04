@@ -19,7 +19,7 @@ import { NativeTypes } from 'react-dnd-html5-backend'
 import styled, { css } from 'styled-components'
 
 import { Upload } from './FileManager'
-import { Action, actions } from './FileSectionState'
+import { Action, actions, State } from './FileSectionState'
 import { FileSectionType } from './util'
 
 /**
@@ -31,12 +31,12 @@ export const UploadFileArea: React.FC<{
   dispatch: Dispatch<Action>
 }> = ({ fileSection, dispatch }) => {
   const fileInputRef = useRef<HTMLInputElement>(null)
+
   const openFileDialog = () => {
     if (fileInputRef && fileInputRef.current) {
       fileInputRef.current.click()
     }
   }
-
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     if (event && event.target && event.target.files) {
       const file = event.target.files[0]

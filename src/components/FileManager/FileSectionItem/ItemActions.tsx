@@ -92,11 +92,6 @@ export const ItemActions: React.FC<{
       setSelectedFile(file)
       if (dispatch) {
         dispatch(actions.HANDLE_UPLOAD_ACTION())
-        dispatch(
-          actions.SELECT_DESIGNATION(
-            attachmentDesignationName || Designation.Document
-          )
-        )
       }
       const result = await replaceAttachmentHandler(
         attachmentId,

@@ -13,16 +13,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import React, { Dispatch, useContext } from 'react'
+import React, { Dispatch, useContext, useEffect } from 'react'
 
 import { AlertMessage, AlertMessageType } from '../AlertMessage'
 import { DragItemArea } from './DragItemArea'
 import { PermissionsContext, Upload } from './FileManager'
 import { FileSectionUploadItem } from './FileSectionItem/FileSectionUploadItem'
 import { Action, actions, State } from './FileSectionState'
-import { SelectDialogDesignation } from './SelectDialogDesignation'
 import { UploadFileArea } from './UploadFileArea'
-import { FileSectionType, getDesignationName } from './util'
+import { FileSectionType } from './util'
 
 /**
  *  This component represents the other files in the file section.
@@ -49,19 +48,13 @@ export const FilesSection: React.FC<{
     )
   }
   const isSupplementFilesTab = fileSection === FileSectionType.Supplements
-
   const isOtherFileTab = fileSection === FileSectionType.OtherFile
-  const handleUploadOtherFile = () => {
-    dispatch(actions.HANDLE_UPLOAD_ACTION())
-    state.uploadedFile &&
-      state.selectDesignation !== undefined &&
-      handleUpload(
-        state.uploadedFile,
-        getDesignationName(state.selectDesignation)
-      )
-  }
   const can = useContext(PermissionsContext)
-
+  const EMPTY_DESIGNATION = ''
+  useEffect(() => {
+    dispatch(actions.HANDLE_UPLOAD_ACTION())
+    state.uploadedFile && handleUpload(state.uploadedFile, EMPTY_DESIGNATION)
+  }, [state.uploadedFile, dispatch, handleUpload])
   const handleSuccessMessage = () => {
     return (
       <AlertMessage
@@ -88,31 +81,17 @@ export const FilesSection: React.FC<{
               dispatch={dispatch}
             />
           )}
-          {state.isUploadFile &&
-            state.uploadedFile &&
-            state.selectDesignation !== undefined && (
-              <FileSectionUploadItem
-                fileName={state.uploadedFile.name}
-                isLoading={state.isUploadFile}
-              />
-            )}
+          {state.isUploadFile && state.uploadedFile && (
+            <FileSectionUploadItem
+              fileName={state.uploadedFile.name}
+              isLoading={state.isUploadFile}
+            />
+          )}
         </>
       )}
 
       {state.fileUploadedSuccessfullySection === fileSection &&
         handleSuccessMessage()}
-
-      <SelectDialogDesignation
-        isOpen={state.showDesignationPopup === fileSection}
-        fileExtension={uploadedFileExtension}
-        handleCancel={() => {
-          dispatch(actions.HANDLE_CANCEL_UPLOAD())
-        }}
-        uploadFileHandler={handleUploadOtherFile}
-        dispatch={dispatch}
-        fileSection={fileSection}
-      />
-
       {filesItem}
       {can?.changeDesignation &&
         enableDragAndDrop &&

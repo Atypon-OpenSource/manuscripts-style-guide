@@ -86,7 +86,6 @@ storiesOf('FileManager', module).add('FileManager', () => {
           getAttachments: () => attachments,
           upload,
           replace,
-          changeDesignation,
         }}
         modelMap={modelMap}
         saveModel={async () => action('save model')}

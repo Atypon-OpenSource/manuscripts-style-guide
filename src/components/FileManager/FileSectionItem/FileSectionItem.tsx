@@ -22,7 +22,11 @@ import { DropdownContainer } from '../../Dropdown'
 import { CloseOIcon } from '../../icons/'
 import DotsIcon from '../../icons/dots-icon'
 import { Maybe } from '../../SubmissionInspector/types'
+<<<<<<< HEAD
 import { ChangeDesignation, Replace } from '../FileManager'
+=======
+import { Replace } from '../FileManager'
+>>>>>>> 4e68f6d (LEAN-2237:FII-210 - Remove designations from the File inspector - Implementation)
 import { Action } from '../FileSectionState'
 import { Designation, FileSectionType, namesWithDesignationMap } from '../util'
 import { FileInfo } from './FileInfo'
@@ -51,7 +55,6 @@ export interface FileSectionItemProps {
   fileSection: FileSectionType
   title: string
   showAttachmentName?: boolean
-  showDesignationActions?: boolean
   showActions?: boolean
   showReplaceAction?: boolean
   handleDownload?: (url: string) => void
@@ -60,7 +63,6 @@ export interface FileSectionItemProps {
     attachment: FileAttachment,
     oldAttachmentId: string
   ) => void
-  handleChangeDesignation: ChangeDesignation
   dispatch?: Dispatch<Action>
   dragRef?: DragElementWrapper<DragSourceOptions>
   className?: string
@@ -74,12 +76,14 @@ export const FileSectionItem: React.FC<FileSectionItemProps> = ({
   externalFile,
   title,
   showAttachmentName = false,
-  showDesignationActions = false,
   showReplaceAction = true,
   handleDownload,
   handleReplace,
+<<<<<<< HEAD
   handleChangeDesignation,
   handleSupplementReplace,
+=======
+>>>>>>> 4e68f6d (LEAN-2237:FII-210 - Remove designations from the File inspector - Implementation)
   dispatch,
   dragRef,
   className,
@@ -115,12 +119,14 @@ export const FileSectionItem: React.FC<FileSectionItemProps> = ({
         <FileInfo
           fileExtension={fileExtension}
           showAttachmentName={showAttachmentName}
+<<<<<<< HEAD
           showDesignationActions={showDesignationActions}
           fileAttachmentName={externalFile.name}
+=======
+          submissionAttachmentName={externalFile.name}
+>>>>>>> 4e68f6d (LEAN-2237:FII-210 - Remove designations from the File inspector - Implementation)
           title={title}
-          designation={designation}
           attachmentId={externalFile.id}
-          handleChangeDesignation={handleChangeDesignation}
           dispatch={dispatch}
         />
       </ItemContainer>

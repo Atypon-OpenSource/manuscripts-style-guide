@@ -16,30 +16,22 @@
 import React, { Dispatch, useContext } from 'react'
 import styled from 'styled-components'
 
-import { ChangeDesignation, PermissionsContext } from '../FileManager'
+import { PermissionsContext } from '../FileManager'
 import { Action } from '../FileSectionState'
-import { Designation } from '../util'
-import { DesignationActions } from './DesignationActions'
 
 export const FileInfo: React.FC<{
   showAttachmentName: boolean
-  showDesignationActions: boolean
   title: string
   fileAttachmentName: string
   fileExtension: string
-  designation?: Designation
   attachmentId: string
-  handleChangeDesignation: ChangeDesignation
   dispatch?: Dispatch<Action>
 }> = ({
   showAttachmentName,
-  showDesignationActions,
   title,
   fileAttachmentName,
   fileExtension,
-  designation,
   attachmentId,
-  handleChangeDesignation,
   dispatch,
 }) => {
   const fileName = fileAttachmentName.substring(
@@ -51,17 +43,6 @@ export const FileInfo: React.FC<{
 
   return (
     <FileInfoContainer>
-      {showDesignationActions && designation !== undefined && (
-        <DesignationActions
-          designation={designation}
-          attachmentId={attachmentId}
-          fileExtension={fileExtension}
-          handleChangeDesignation={handleChangeDesignation}
-          fileName={fileAttachmentName}
-          dispatch={dispatch}
-          can={can}
-        />
-      )}
       <FileNameTitleContainer>
         <FileTitle>
           {!showAttachmentName ? fileName : title}

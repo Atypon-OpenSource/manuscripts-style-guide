@@ -60,7 +60,6 @@ export const reducer = (state: State, action: Action): State => {
         selectDesignation: undefined,
       }
     }
-
     case ActionTypes.MOVE_FILE: {
       return {
         ...state,
@@ -72,7 +71,6 @@ export const reducer = (state: State, action: Action): State => {
         isShowSuccessMessage: false,
       }
     }
-
     case ActionTypes.SELECT_DESIGNATION: {
       return {
         ...state,
@@ -88,7 +86,6 @@ export const reducer = (state: State, action: Action): State => {
         successMessage: '',
       }
     }
-
     case ActionTypes.HANDLE_CANCEL_UPLOAD: {
       return {
         ...state,
