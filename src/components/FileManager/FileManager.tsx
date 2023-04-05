@@ -51,22 +51,14 @@ import { TooltipDiv } from './TooltipDiv'
 import { generateAttachmentsTitles } from './util'
 
 export type Upload = (
-  file: File,
-  designation: string
+  file: File
 ) => Promise<boolean | FileAttachment | undefined>
 
 export type Replace = (
   attachmentId: string,
   name: string,
-  file: File,
-  typeId: string
+  file: File
 ) => Promise<boolean | FileAttachment | undefined>
-
-export type ChangeDesignation = (
-  attachmentId: string,
-  typeId: string,
-  name: string
-) => Promise<boolean>
 
 export interface FileManagement {
   getAttachments: () => FileAttachment[]
@@ -105,9 +97,9 @@ export const FileManager: React.FC<{
 }) => {
   const [state, dispatch] = useReducer(reducer, getInitialState())
   const handleReplaceFile = useCallback(
-    async (attachmentId, name, file, typeId) => {
+    async (attachmentId, name, file) => {
       dispatch(actions.HANDLE_UPLOAD_ACTION())
-      const res = await replace(attachmentId, name, file, typeId)
+      const res = await replace(attachmentId, name, file)
       dispatch(actions.HANDLE_FINISH_UPLOAD())
       if (res) {
         dispatch(actions.HANDLE_SUCCESS_MESSAGE('File uploaded successfully.'))
@@ -118,9 +110,9 @@ export const FileManager: React.FC<{
   )
 
   const handleUploadFile = useCallback(
-    async (file, designation) => {
+    async (file) => {
       dispatch(actions.HANDLE_UPLOAD_ACTION())
-      const res = await upload(file, designation)
+      const res = await upload(file)
       dispatch(actions.HANDLE_FINISH_UPLOAD())
       if (res) {
         dispatch(
@@ -136,8 +128,8 @@ export const FileManager: React.FC<{
   )
 
   const handleUploadFileWithSupplement = useCallback(
-    async (file, designation) => {
-      const response = await upload(file, designation)
+    async (file) => {
+      const response = await upload(file)
       if (typeof response === 'object') {
         const { id, name } = response
         await saveModel(buildSupplementaryMaterial(name, `attachment:${id}`))

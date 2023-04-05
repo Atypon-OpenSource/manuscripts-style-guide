@@ -28,14 +28,17 @@ import { ChangeDesignation, Replace } from '../FileManager'
 import { Replace } from '../FileManager'
 >>>>>>> 4e68f6d (LEAN-2237:FII-210 - Remove designations from the File inspector - Implementation)
 import { Action } from '../FileSectionState'
+<<<<<<< HEAD
 import { Designation, FileSectionType, namesWithDesignationMap } from '../util'
+=======
+>>>>>>> 5f3f73d (LEAN-2237: FII-210 - Remove designations from the File inspector - Implementation)
 import { FileInfo } from './FileInfo'
 import { FileTypeIcon } from './FileTypeIcon'
 import { ItemActions } from './ItemActions'
 
 /**
  * This component will represent individual external file in different tabs,
- * which is contained file-icon, file-designation in other and supplemental tabs, file-name, file title, the file description and etc.
+ * which is contained file-icon, file-name, file title, the file description and etc.
  */
 
 export type FileAttachment = {
@@ -97,8 +100,7 @@ export const FileSectionItem: React.FC<FileSectionItemProps> = ({
     externalFile.name.lastIndexOf('.') + 1
   )
 
-  const designation = namesWithDesignationMap.get(externalFile.type.label)
-  const isMainManuscript = designation === Designation.MainManuscript
+  const isMainManuscript = externalFile.type.label === 'main-manuscript'
   const isSelected = externalFile.id == window.location.hash.substr(1)
   return (
     <Item ref={dragRef} className={className} style={style}>
@@ -159,7 +161,6 @@ export const FileSectionItem: React.FC<FileSectionItemProps> = ({
               handleSupplementReplace={handleSupplementReplace}
               attachmentId={externalFile.id}
               fileName={externalFile.name}
-              designation={externalFile.type.label}
               publicUrl={externalFile.link}
               hideActionList={toggleOpen}
               dispatch={dispatch}

@@ -50,10 +50,9 @@ export const FilesSection: React.FC<{
   const isSupplementFilesTab = fileSection === FileSectionType.Supplements
   const isOtherFileTab = fileSection === FileSectionType.OtherFile
   const can = useContext(PermissionsContext)
-  const EMPTY_DESIGNATION = ''
   useEffect(() => {
     dispatch(actions.HANDLE_UPLOAD_ACTION())
-    state.uploadedFile && handleUpload(state.uploadedFile, EMPTY_DESIGNATION)
+    state.uploadedFile && handleUpload(state.uploadedFile)
   }, [state.uploadedFile, dispatch, handleUpload])
   const handleSuccessMessage = () => {
     return (
@@ -93,17 +92,6 @@ export const FilesSection: React.FC<{
       {state.fileUploadedSuccessfullySection === fileSection &&
         handleSuccessMessage()}
       {filesItem}
-      {can?.changeDesignation &&
-        enableDragAndDrop &&
-        (isSupplementFilesTab || isOtherFileTab) && (
-          <DragItemArea
-            text={
-              isSupplementFilesTab
-                ? 'Drag the items to place them in the text'
-                : 'Drag the items to place in the Supplements section or in the text'
-            }
-          />
-        )}
     </div>
   )
 }

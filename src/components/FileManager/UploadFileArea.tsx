@@ -19,7 +19,7 @@ import { NativeTypes } from 'react-dnd-html5-backend'
 import styled, { css } from 'styled-components'
 
 import { Upload } from './FileManager'
-import { Action, actions, State } from './FileSectionState'
+import { Action, actions } from './FileSectionState'
 import { FileSectionType } from './util'
 
 /**
