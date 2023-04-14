@@ -22,7 +22,7 @@ import styled from 'styled-components'
 import { AuthorValues } from '../../types'
 import { AutoSaveInput } from '../AutoSaveInput'
 import { CheckboxField, CheckboxLabel } from '../Checkbox'
-import { TextArea, TextFieldLabel } from '../TextField'
+import { TextFieldLabel } from '../TextField'
 import { TextFieldGroupContainer } from '../TextFieldGroupContainer'
 import {
   AuthorFormComponentOverrides,
@@ -33,7 +33,6 @@ import {
   Label,
   LabelText,
 } from './AuthorFormComponents'
-import { ContributorRolesSelect } from './ContributorRolesSelect'
 import RemoveAuthorButton from './RemoveAuthorButton'
 
 const ensureString = (value: string | undefined) => value || ''
@@ -44,7 +43,6 @@ const buildInitialValues = (author: Contributor): AuthorValues => {
     priority: Number(author.priority), // TODO: ordering = priority
     email: ensureString(author.email),
     isCorresponding: Boolean(author.isCorresponding),
-    isJointContributor: Boolean(author.isJointContributor),
     // grants: authorGrants,
     bibliographicName: {
       _id: author.bibliographicName._id,
@@ -84,8 +82,6 @@ export const AuthorForm: React.FunctionComponent<{
   isRemoveAuthorOpen,
   handleRemoveAuthor,
   components,
-  contributorRoles = [],
-  createContributorRole,
 }) => {
   const { Legend, TextField } = {
     ...defaultAuthorFormComponents,
@@ -176,20 +172,6 @@ export const AuthorForm: React.FunctionComponent<{
                   </Label>
                 )}
 
-                <CheckboxLabel disabled={!isAuthor}>
-                  <Field name={'isJointContributor'}>
-                    {(props: FieldProps) => (
-                      <AutoSaveInput
-                        {...props}
-                        disabled={!isAuthor}
-                        component={CheckboxField}
-                        saveOn={'change'}
-                      />
-                    )}
-                  </Field>
-                  <LabelText>Joint Authorship with Next Author</LabelText>
-                </CheckboxLabel>
-
                 <CheckboxLabel>
                   <Field name={'role'} type={'checkbox'}>
                     {(props: FieldProps) => (
@@ -227,53 +209,6 @@ export const AuthorForm: React.FunctionComponent<{
                   </TextFieldLabel>
                 </OrcidContainer>
               </Fieldset>
-
-              {createContributorRole && (
-                <Fieldset>
-                  <Legend>Contributions</Legend>
-
-                  <Field name={'roles'}>
-                    {(props: FieldProps) => (
-                      <RolesContainer>
-                        <ContributorRolesSelect
-                          contributorRoles={contributorRoles}
-                          createContributorRole={createContributorRole}
-                          value={values.roles}
-                          setFieldValue={async (value) => {
-                            props.form.setFieldValue(
-                              props.field.name,
-                              value,
-                              false
-                            )
-                            await props.form.submitForm()
-                          }}
-                        />
-                      </RolesContainer>
-                    )}
-                  </Field>
-
-                  <Field name={'contribution'}>
-                    {(props: FieldProps) => (
-                      <TextArea
-                        {...props.field}
-                        onBlur={async (
-                          event: React.FocusEvent<HTMLTextAreaElement>
-                        ) => {
-                          props.form.setFieldValue(
-                            props.field.name,
-                            event.target.value,
-                            false
-                          )
-                          await props.form.submitForm()
-                        }}
-                        placeholder={
-                          'If needed, describe contributions in more detail…'
-                        }
-                      />
-                    )}
-                  </Field>
-                </Fieldset>
-              )}
             </Fields>
           </Form>
         )
