@@ -91,7 +91,6 @@ export interface AuthorValues {
   priority: number
   email: string
   isCorresponding: boolean
-  isJointContributor: boolean
   bibliographicName: BibliographicNameValues
   role: string // e.g. 'author'
   // category: string // e.g. 'MPContributorCategory:1' (Author/Editor/Reviewer)
