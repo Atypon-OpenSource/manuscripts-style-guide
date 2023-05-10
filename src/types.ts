@@ -87,6 +87,7 @@ export interface AuthorAffiliation {
 }
 
 export interface AuthorValues {
+  affiliations: string[]
   _id: string
   priority: number
   email: string

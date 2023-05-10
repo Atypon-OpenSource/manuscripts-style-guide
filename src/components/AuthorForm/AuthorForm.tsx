@@ -39,6 +39,7 @@ const ensureString = (value: string | undefined) => value || ''
 
 const buildInitialValues = (author: Contributor): AuthorValues => {
   return {
+    affiliations: author.affiliations || [],
     _id: author._id,
     priority: Number(author.priority), // TODO: ordering = priority
     email: ensureString(author.email),
