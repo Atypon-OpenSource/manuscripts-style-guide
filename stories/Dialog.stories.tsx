@@ -19,6 +19,8 @@ import { storiesOf } from '@storybook/react'
 import * as React from 'react'
 
 import { Category, Dialog, SimpleModal, TextArea } from '../src'
+import { ProceedView } from '../src/components/EditorHeader/ProceedView'
+import { submission } from './data/lw-submission'
 
 storiesOf('Dialog', module)
   .add('Confirmation Dialog', () => (
@@ -147,4 +149,23 @@ storiesOf('Dialog', module)
     >
       <TextArea rows={4} />
     </Dialog>
+  ))
+  .add('Dialog Proceed to the nextStep', () => (
+    <ProceedView
+      isAnnotator={false}
+      disable={false}
+      onTransitionClick={action('Click')}
+      hasPendingSuggestions={false}
+      loading={false}
+      showComplete={true}
+      noteValue={''}
+      currentStepTransition={[]}
+      error={undefined}
+      nextStepType={submission.nextStep.type as never}
+      currentStepType={submission.currentStep.type as never}
+      confirmationDialog={true}
+      continueDialogAction={action('dialog action')}
+      onCancelClick={action('Cancel')}
+      message={() => <></>}
+    />
   ))
