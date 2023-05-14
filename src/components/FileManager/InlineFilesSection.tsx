@@ -17,7 +17,6 @@ import React, { Dispatch, useCallback } from 'react'
 import styled from 'styled-components'
 
 import { useDropdown } from '../../hooks/use-dropdown'
-import { InlineFile } from '../../lib/inlineFiles'
 import DotsIcon from '../icons/dots-icon'
 import { Replace } from './FileManager'
 import {
@@ -34,6 +33,7 @@ import { ItemActions } from './FileSectionItem/ItemActions'
 import { Action } from './FileSectionState'
 import {
   extensionsWithFileTypesMap,
+  FileSectionType,
   FileType,
   fileTypesWithIconMap,
 } from './util'
@@ -173,6 +173,7 @@ const FileReference: React.FC<{
           </ActionsIcon>
           {isOpen && (
             <ItemActions
+              fileSection={FileSectionType.Inline}
               replaceAttachmentHandler={handleReplace}
               showReplaceAction={true}
               handleUpdateInline={(uploadAttachment: SubmissionAttachment) =>
