@@ -56,7 +56,10 @@ export interface FileSectionItemProps {
   showReplaceAction?: boolean
   handleDownload?: (url: string) => void
   handleReplace?: Replace
-  handleSupplementReplace?: (attachment: SubmissionAttachment) => void
+  handleSupplementReplace?: (
+    attachment: SubmissionAttachment,
+    oldAttachmentId: string
+  ) => void
   handleChangeDesignation: ChangeDesignation
   dispatch?: Dispatch<Action>
   dragRef?: DragElementWrapper<DragSourceOptions>

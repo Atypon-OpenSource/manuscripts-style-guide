@@ -38,7 +38,10 @@ export const ItemActions: React.FC<{
   replaceAttachmentHandler: Replace
   detachAttachmnetHandler?: () => void
   handleUpdateInline?: (attachment: SubmissionAttachment) => void
-  handleSupplementReplace?: (attachment: SubmissionAttachment) => void
+  handleSupplementReplace?: (
+    attachment: SubmissionAttachment,
+    oldAttachmentId: string
+  ) => void
   attachmentId: string
   fileName: string
   designation?: Maybe<string> | undefined
@@ -107,7 +110,7 @@ export const ItemActions: React.FC<{
         typeof result === 'object' &&
         handleSupplementReplace
       ) {
-        handleSupplementReplace(result)
+        handleSupplementReplace(result, attachmentId)
       }
 
       if (typeof result === 'object' && handleUpdateInline) {

@@ -174,11 +174,11 @@ export const FileManager: React.FC<{
   )
 
   const handleSupplementReplace = useCallback(
-    async (attachment: SubmissionAttachment) => {
+    async (attachment: SubmissionAttachment, oldAttachmentId: string) => {
       const model = getModelsByType<Supplement>(
         modelMap,
         ObjectTypes.Supplement
-      ).find(({ href }) => href?.replace('attachment:', '') === attachment.id)
+      ).find(({ href }) => href?.replace('attachment:', '') === oldAttachmentId)
 
       await saveModel<Supplement>({
         ...model,
