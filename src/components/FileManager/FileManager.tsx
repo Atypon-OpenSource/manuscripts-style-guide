@@ -13,8 +13,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { Figure, Model } from '@manuscripts/json-schema'
-import { Build, buildSupplementaryMaterial } from '@manuscripts/transform'
+import {
+  Figure,
+  Model,
+  ObjectTypes,
+  Supplement,
+} from '@manuscripts/json-schema'
+import {
+  Build,
+  buildSupplementaryMaterial,
+  getModelsByType,
+} from '@manuscripts/transform'
 import React, { createContext, useCallback, useReducer } from 'react'
 import ReactTooltip from 'react-tooltip'
 
@@ -164,6 +173,22 @@ export const FileManager: React.FC<{
     [upload, saveModel]
   )
 
+  const handleSupplementReplace = useCallback(
+    async (attachment: SubmissionAttachment) => {
+      const model = getModelsByType<Supplement>(
+        modelMap,
+        ObjectTypes.Supplement
+      ).find(({ href }) => href?.replace('attachment:', '') === attachment.id)
+
+      await saveModel<Supplement>({
+        ...model,
+        title: attachment.name,
+        href: `attachment:${attachment.id}`,
+      })
+    },
+    [modelMap, saveModel]
+  )
+
   const handleChangeDesignationFile = useCallback(
     async (attachmentId, typeId, name) => {
       const res = await changeDesignation(attachmentId, typeId, name)
@@ -227,6 +252,7 @@ export const FileManager: React.FC<{
 
     const filesItems = itemsDataWithTitle.map((element) => {
       const itemProps: FileSectionItemProps = {
+        fileSection,
         externalFile: element.externalFile,
         title: element.title,
         showAttachmentName: isSupplementOrOtherFilesTab,
@@ -234,6 +260,7 @@ export const FileManager: React.FC<{
         showReplaceAction: !isOtherFilesTab,
         handleDownload,
         handleReplace: handleReplaceFile,
+        handleSupplementReplace,
         handleChangeDesignation: handleChangeDesignationFile,
         dispatch: dispatch,
       }
