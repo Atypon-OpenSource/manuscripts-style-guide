@@ -124,7 +124,7 @@ export const ProceedView: React.FC<{
         : showComplete
         ? {
             header: 'Content reassigned successfully',
-            message: `to the ${nextStepType.label}`,
+            message: `to the ${currentStepType.label}`,
             actions: {
               primary: {
                 action: onCancelClick,
