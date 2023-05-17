@@ -156,7 +156,7 @@ export const ProceedView: React.FC<{
       continueDialogAction,
       // onDashboardRedirectClick,
       onCancelClick,
-      nextStepType,
+      currentStepType,
       hasPendingSuggestions,
       isAnnotator,
     ]
