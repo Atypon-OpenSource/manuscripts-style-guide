@@ -14,7 +14,6 @@
  * limitations under the License.
  */
 
-import contributorRoles from '@manuscripts/data/dist/shared/contributor-roles.json'
 import { ContributorRole } from '@manuscripts/json-schema'
 import { action } from '@storybook/addon-actions'
 import { storiesOf } from '@storybook/react'
@@ -90,34 +89,5 @@ storiesOf('AuthorForm', module)
         'handle open the remove author confirmation dialog'
       )}
       components={{ TextField }}
-    />
-  ))
-  .add('with default contributor roles', () => (
-    <AuthorForm
-      author={authors[0]}
-      handleSave={action('save author')}
-      isRemoveAuthorOpen={false}
-      removeAuthor={action('remove author')}
-      contributorRoles={contributorRoles as ContributorRole[]}
-      createContributorRole={action('create contributor role')}
-      handleRemoveAuthor={action(
-        'handle open the remove author confirmation dialog'
-      )}
-    />
-  ))
-  .add('with added contributor roles', () => (
-    <AuthorForm
-      author={authors[0]}
-      handleSave={action('save author')}
-      isRemoveAuthorOpen={false}
-      removeAuthor={action('remove author')}
-      contributorRoles={[
-        ...addedContributorRoles,
-        ...(contributorRoles as ContributorRole[]),
-      ]}
-      createContributorRole={action('create contributor role')}
-      handleRemoveAuthor={action(
-        'handle open the remove author confirmation dialog'
-      )}
     />
   ))
