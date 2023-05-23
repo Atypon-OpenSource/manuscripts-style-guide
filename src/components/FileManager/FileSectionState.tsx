@@ -24,6 +24,7 @@ export const getInitialState = (): State => ({
   fileUploadedSuccessfullySection: undefined,
   successMessage: '',
   isShowSuccessMessage: false,
+  currentSection: undefined,
 })
 
 export interface State {
@@ -33,6 +34,7 @@ export interface State {
   fileUploadedSuccessfullySection: FileSectionType | undefined
   successMessage: string
   isShowSuccessMessage: boolean
+  currentSection: FileSectionType | undefined
 }
 
 enum ActionTypes {
@@ -51,6 +53,7 @@ export const reducer = (state: State, action: Action): State => {
       return {
         ...state,
         uploadedFile: action.uploadFile,
+        currentSection: action.sectionType,
       }
     }
     case ActionTypes.MOVE_FILE: {

@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import React, { Dispatch, useContext, useEffect } from 'react'
+import React, { Dispatch, useCallback, useContext, useEffect } from 'react'
 
 import { AlertMessage, AlertMessageType } from '../AlertMessage'
 import { DragItemArea } from './DragItemArea'
@@ -50,10 +50,14 @@ export const FilesSection: React.FC<{
   const isSupplementFilesTab = fileSection === FileSectionType.Supplements
   const isOtherFileTab = fileSection === FileSectionType.OtherFile
   const can = useContext(PermissionsContext)
+
   useEffect(() => {
-    dispatch(actions.HANDLE_UPLOAD_ACTION())
-    state.uploadedFile && handleUpload(state.uploadedFile)
-  }, [state.uploadedFile, dispatch, handleUpload])
+    state.uploadedFile &&
+      fileSection === state.currentSection &&
+      handleUpload(state.uploadedFile)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [state.uploadedFile])
+
   const handleSuccessMessage = () => {
     return (
       <AlertMessage

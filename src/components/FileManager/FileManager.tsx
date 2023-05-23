@@ -129,6 +129,7 @@ export const FileManager: React.FC<{
 
   const handleUploadFileWithSupplement = useCallback(
     async (file) => {
+      dispatch(actions.HANDLE_UPLOAD_ACTION())
       const response = await upload(file)
       if (typeof response === 'object') {
         const { id, name } = response
