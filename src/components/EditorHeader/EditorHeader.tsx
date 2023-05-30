@@ -37,7 +37,6 @@ import { ProceedView } from './ProceedView'
 export type PartialSubmission = {
   id: string
   currentStep: SubmissionStep
-  nextStep?: SubmissionStep | null | undefined
   previousStep?: SubmissionStep | null | undefined
 }
 
