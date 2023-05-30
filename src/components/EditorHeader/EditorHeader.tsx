@@ -194,7 +194,6 @@ export const EditorHeader: React.FC<{
 
       {handleSnapshot &&
         typeof hasPendingSuggestions == 'boolean' &&
-        submission.nextStep &&
         submission.previousStep && (
           <ProceedView
             isAnnotator={isAnnotator}
@@ -206,7 +205,6 @@ export const EditorHeader: React.FC<{
             noteValue={noteValue}
             currentStepTransition={currentStepTransition}
             error={error}
-            nextStepType={submission.nextStep.type}
             currentStepType={submission.currentStep.type}
             previousStepType={submission.previousStep?.type}
             confirmationDialog={confirmationDialog}

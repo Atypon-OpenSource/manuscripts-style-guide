@@ -83,7 +83,6 @@ export const ProceedView: React.FC<{
   noteValue: string
   currentStepTransition: SubmissionStepTransition[]
   error: string | undefined
-  nextStepType: SubmissionStepType
   currentStepType: SubmissionStepType
   previousStepType: SubmissionStepType
   confirmationDialog: boolean
@@ -97,7 +96,6 @@ export const ProceedView: React.FC<{
   loading,
   showComplete,
   confirmationDialog,
-  nextStepType,
   currentStepType,
   previousStepType,
   isAnnotator,
