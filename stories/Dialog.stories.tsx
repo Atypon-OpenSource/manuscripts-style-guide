@@ -162,7 +162,6 @@ storiesOf('Dialog', module)
       currentStepTransition={[]}
       error={undefined}
       previousStepType={submission.previousStep.type as never}
-      nextStepType={submission.nextStep.type as never}
       currentStepType={submission.currentStep.type as never}
       confirmationDialog={true}
       continueDialogAction={action('dialog action')}
