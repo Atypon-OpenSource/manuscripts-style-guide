@@ -13,9 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { SubmissionAttachment } from '../../src'
+import { FileAttachment } from '../../src'
 
-export const attachments: SubmissionAttachment[] = [
+export const attachments: FileAttachment[] = [
   {
     id: 'caabc327-25c5-4122-96fd-e38d313345da',
     name: 'LW4_multiGraphicFigure-S1-doc.zip',

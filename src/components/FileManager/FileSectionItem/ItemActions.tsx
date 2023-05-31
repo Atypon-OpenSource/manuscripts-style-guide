@@ -26,8 +26,8 @@ import { Maybe } from '../../SubmissionInspector/types'
 import { PermissionsContext, Replace } from '../FileManager'
 import { Action, actions } from '../FileSectionState'
 import { ActionsItem } from '../ItemsAction'
-import { Designation, FileSectionType, namesWithDesignationMap } from '../util'
-import { SubmissionAttachment } from './FileSectionItem'
+import { Designation, namesWithDesignationMap, FileSectionType } from '../util'
+import { FileAttachment } from './FileSectionItem'
 
 /**
  * This component represents the drop-down list action for each file item.
@@ -37,9 +37,9 @@ export const ItemActions: React.FC<{
   downloadAttachmentHandler: (url: string) => void
   replaceAttachmentHandler: Replace
   detachAttachmnetHandler?: () => void
-  handleUpdateInline?: (attachment: SubmissionAttachment) => void
+  handleUpdateInline?: (attachment: FileAttachment) => void
   handleSupplementReplace?: (
-    attachment: SubmissionAttachment,
+    attachment: FileAttachment,
     oldAttachmentId: string
   ) => void
   attachmentId: string
