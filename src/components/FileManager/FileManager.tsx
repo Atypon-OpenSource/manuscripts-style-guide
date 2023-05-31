@@ -174,7 +174,7 @@ export const FileManager: React.FC<{
   )
 
   const handleSupplementReplace = useCallback(
-    async (attachment: SubmissionAttachment, oldAttachmentId: string) => {
+    async (attachment: FileAttachment, oldAttachmentId: string) => {
       const model = getModelsByType<Supplement>(
         modelMap,
         ObjectTypes.Supplement
