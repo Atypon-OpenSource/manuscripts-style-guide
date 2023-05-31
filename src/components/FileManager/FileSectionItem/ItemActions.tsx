@@ -26,17 +26,22 @@ import { Maybe } from '../../SubmissionInspector/types'
 import { PermissionsContext, Replace } from '../FileManager'
 import { Action, actions } from '../FileSectionState'
 import { ActionsItem } from '../ItemsAction'
-import { Designation, namesWithDesignationMap } from '../util'
+import { Designation, FileSectionType, namesWithDesignationMap } from '../util'
 import { FileAttachment } from './FileSectionItem'
 
 /**
  * This component represents the drop-down list action for each file item.
  */
 export const ItemActions: React.FC<{
+  fileSection: FileSectionType
   downloadAttachmentHandler: (url: string) => void
   replaceAttachmentHandler: Replace
   detachAttachmnetHandler?: () => void
   handleUpdateInline?: (attachment: FileAttachment) => void
+  handleSupplementReplace?: (
+    attachment: FileAttachment,
+    oldAttachmentId: string
+  ) => void
   attachmentId: string
   fileName: string
   designation?: Maybe<string> | undefined
@@ -46,8 +51,10 @@ export const ItemActions: React.FC<{
   dropDownClassName?: string
   showReplaceAction?: boolean
 }> = ({
+  fileSection,
   downloadAttachmentHandler,
   replaceAttachmentHandler,
+  handleSupplementReplace,
   detachAttachmnetHandler,
   handleUpdateInline,
   attachmentId,
@@ -97,6 +104,14 @@ export const ItemActions: React.FC<{
         file,
         attachmentDesignation
       )
+
+      if (
+        fileSection === FileSectionType.Supplements &&
+        typeof result === 'object' &&
+        handleSupplementReplace
+      ) {
+        handleSupplementReplace(result, attachmentId)
+      }
 
       if (typeof result === 'object' && handleUpdateInline) {
         handleUpdateInline(result)

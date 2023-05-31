@@ -24,7 +24,7 @@ import DotsIcon from '../../icons/dots-icon'
 import { Maybe } from '../../SubmissionInspector/types'
 import { ChangeDesignation, Replace } from '../FileManager'
 import { Action } from '../FileSectionState'
-import { Designation, namesWithDesignationMap } from '../util'
+import { Designation, FileSectionType, namesWithDesignationMap } from '../util'
 import { FileInfo } from './FileInfo'
 import { FileTypeIcon } from './FileTypeIcon'
 import { ItemActions } from './ItemActions'
@@ -48,6 +48,7 @@ export type FileAttachmentType = {
 
 export interface FileSectionItemProps {
   externalFile: FileAttachment
+  fileSection: FileSectionType
   title: string
   showAttachmentName?: boolean
   showDesignationActions?: boolean
@@ -55,6 +56,10 @@ export interface FileSectionItemProps {
   showReplaceAction?: boolean
   handleDownload?: (url: string) => void
   handleReplace?: Replace
+  handleSupplementReplace?: (
+    attachment: FileAttachment,
+    oldAttachmentId: string
+  ) => void
   handleChangeDesignation: ChangeDesignation
   dispatch?: Dispatch<Action>
   dragRef?: DragElementWrapper<DragSourceOptions>
@@ -65,6 +70,7 @@ export interface FileSectionItemProps {
 }
 
 export const FileSectionItem: React.FC<FileSectionItemProps> = ({
+  fileSection,
   externalFile,
   title,
   showAttachmentName = false,
@@ -73,6 +79,7 @@ export const FileSectionItem: React.FC<FileSectionItemProps> = ({
   handleDownload,
   handleReplace,
   handleChangeDesignation,
+  handleSupplementReplace,
   dispatch,
   dragRef,
   className,
@@ -139,9 +146,11 @@ export const FileSectionItem: React.FC<FileSectionItemProps> = ({
           </ActionsIcon>
           {isOpen && (
             <ItemActions
+              fileSection={fileSection}
               replaceAttachmentHandler={handleReplace}
               showReplaceAction={showReplaceAction}
               downloadAttachmentHandler={handleDownload}
+              handleSupplementReplace={handleSupplementReplace}
               attachmentId={externalFile.id}
               fileName={externalFile.name}
               designation={externalFile.type.label}
