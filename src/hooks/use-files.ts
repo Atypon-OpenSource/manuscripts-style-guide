@@ -16,7 +16,7 @@
 import { Model, ObjectTypes, Supplement } from '@manuscripts/json-schema'
 import { getModelsByType } from '@manuscripts/transform'
 
-import { SubmissionAttachment } from '../components/FileManager/FileSectionItem/FileSectionItem'
+import { FileAttachment } from '../components/FileManager/FileSectionItem/FileSectionItem'
 import getInlineFiles, { InlineFile } from '../lib/inlineFiles'
 import { useDeepCompareMemo } from './use-deep-compare'
 
@@ -27,7 +27,7 @@ type FilePredicate = (fileName: string) => boolean
  */
 const getSupplementFiles = (
   modelMap: Map<string, Model>,
-  attachments: SubmissionAttachment[],
+  attachments: FileAttachment[],
   filePredicate?: FilePredicate
 ) => {
   const supplements = new Map(
@@ -50,8 +50,8 @@ const getSupplementFiles = (
  */
 const getOtherFiles = (
   inlineFiles: InlineFile[],
-  supplementFiles: SubmissionAttachment[],
-  attachments: SubmissionAttachment[],
+  supplementFiles: FileAttachment[],
+  attachments: FileAttachment[],
   filePredicate?: FilePredicate
 ) => {
   const inlineFilesAttachmentIds = inlineFiles
@@ -73,7 +73,7 @@ const getOtherFiles = (
 
 export const useFiles = (
   modelMap: Map<string, Model>,
-  attachments: SubmissionAttachment[],
+  attachments: FileAttachment[],
   filePredicate?: FilePredicate
 ) =>
   useDeepCompareMemo(() => {

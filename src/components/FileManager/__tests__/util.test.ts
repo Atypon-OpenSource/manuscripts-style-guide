@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { SubmissionAttachment } from '../FileSectionItem/FileSectionItem'
+import { FileAttachment } from '../FileSectionItem/FileSectionItem'
 import {
   Designation,
   FileSectionType,
@@ -23,7 +23,7 @@ import {
   getDesignationName,
 } from '../util'
 
-const externalFiles: SubmissionAttachment[] = [
+const externalFiles: FileAttachment[] = [
   {
     id: 'caabc327-25c5-4122-96fd-e38d313345da',
     name: 'LW4_multiGraphicFigure-S1-doc.zip',

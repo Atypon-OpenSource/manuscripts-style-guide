@@ -31,9 +31,9 @@ import { InspectorSection } from '../InspectorSection'
 import { DraggableFileSectionItem } from './FileSectionItem/DraggableFileSectionItem'
 import { DragLayer } from './FileSectionItem/DragLayer'
 import {
+  FileAttachment,
   FileSectionItem,
   FileSectionItemProps,
-  SubmissionAttachment,
 } from './FileSectionItem/FileSectionItem'
 import { actions, getInitialState, reducer } from './FileSectionState'
 import { FilesSection } from './FilesSection'
@@ -48,14 +48,14 @@ import {
 export type Upload = (
   file: File,
   designation: string
-) => Promise<boolean | SubmissionAttachment | undefined>
+) => Promise<boolean | FileAttachment | undefined>
 
 export type Replace = (
   attachmentId: string,
   name: string,
   file: File,
   typeId: string
-) => Promise<boolean | SubmissionAttachment | undefined>
+) => Promise<boolean | FileAttachment | undefined>
 
 export type ChangeDesignation = (
   attachmentId: string,
@@ -64,7 +64,7 @@ export type ChangeDesignation = (
 ) => Promise<boolean>
 
 export interface FileManagement {
-  getAttachments: () => SubmissionAttachment[]
+  getAttachments: () => FileAttachment[]
   upload: Upload
   replace: Replace
   changeDesignation: ChangeDesignation
@@ -90,7 +90,7 @@ export const FileManager: React.FC<{
   saveModel: <T extends Model>(model: T | Build<T> | Partial<T>) => Promise<T>
   enableDragAndDrop: boolean
   can: Capabilities
-  addAttachmentToState?: (a: SubmissionAttachment) => void
+  addAttachmentToState?: (a: FileAttachment) => void
 }> = ({
   modelMap,
   saveModel,
@@ -179,7 +179,7 @@ export const FileManager: React.FC<{
   }, [])
 
   const handleUpdateInline = useCallback(
-    async (modelId: string, attachment: SubmissionAttachment) => {
+    async (modelId: string, attachment: FileAttachment) => {
       const figureModel = modelMap.get(modelId) as Figure
       figureModel.src = `attachment:${attachment.id}`
 

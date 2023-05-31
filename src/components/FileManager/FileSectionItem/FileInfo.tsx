@@ -25,7 +25,7 @@ export const FileInfo: React.FC<{
   showAttachmentName: boolean
   showDesignationActions: boolean
   title: string
-  submissionAttachmentName: string
+  fileAttachmentName: string
   fileExtension: string
   designation?: Designation
   attachmentId: string
@@ -35,16 +35,16 @@ export const FileInfo: React.FC<{
   showAttachmentName,
   showDesignationActions,
   title,
-  submissionAttachmentName,
+  fileAttachmentName,
   fileExtension,
   designation,
   attachmentId,
   handleChangeDesignation,
   dispatch,
 }) => {
-  const fileName = submissionAttachmentName.substring(
+  const fileName = fileAttachmentName.substring(
     0,
-    submissionAttachmentName.lastIndexOf('.')
+    fileAttachmentName.lastIndexOf('.')
   )
 
   const can = useContext(PermissionsContext)
@@ -57,7 +57,7 @@ export const FileInfo: React.FC<{
           attachmentId={attachmentId}
           fileExtension={fileExtension}
           handleChangeDesignation={handleChangeDesignation}
-          fileName={submissionAttachmentName}
+          fileName={fileAttachmentName}
           dispatch={dispatch}
           can={can}
         />
