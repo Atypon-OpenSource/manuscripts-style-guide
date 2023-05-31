@@ -26,7 +26,7 @@ import { Maybe } from '../../SubmissionInspector/types'
 import { PermissionsContext, Replace } from '../FileManager'
 import { Action, actions } from '../FileSectionState'
 import { ActionsItem } from '../ItemsAction'
-import { Designation, namesWithDesignationMap, FileSectionType } from '../util'
+import { Designation, FileSectionType, namesWithDesignationMap } from '../util'
 import { FileAttachment } from './FileSectionItem'
 
 /**
