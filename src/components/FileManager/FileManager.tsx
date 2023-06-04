@@ -13,8 +13,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { Figure, Model } from '@manuscripts/json-schema'
-import { Build, buildSupplementaryMaterial } from '@manuscripts/transform'
+import {
+  Figure,
+  Model,
+  ObjectTypes,
+  Supplement,
+} from '@manuscripts/json-schema'
+import {
+  Build,
+  buildSupplementaryMaterial,
+  getModelsByType,
+} from '@manuscripts/transform'
 import React, { createContext, useCallback, useReducer } from 'react'
 import ReactTooltip from 'react-tooltip'
 
@@ -31,9 +40,9 @@ import { InspectorSection } from '../InspectorSection'
 import { DraggableFileSectionItem } from './FileSectionItem/DraggableFileSectionItem'
 import { DragLayer } from './FileSectionItem/DragLayer'
 import {
+  FileAttachment,
   FileSectionItem,
   FileSectionItemProps,
-  SubmissionAttachment,
 } from './FileSectionItem/FileSectionItem'
 import { actions, getInitialState, reducer } from './FileSectionState'
 import { FilesSection } from './FilesSection'
@@ -48,14 +57,14 @@ import {
 export type Upload = (
   file: File,
   designation: string
-) => Promise<boolean | SubmissionAttachment | undefined>
+) => Promise<boolean | FileAttachment | undefined>
 
 export type Replace = (
   attachmentId: string,
   name: string,
   file: File,
   typeId: string
-) => Promise<boolean | SubmissionAttachment | undefined>
+) => Promise<boolean | FileAttachment | undefined>
 
 export type ChangeDesignation = (
   attachmentId: string,
@@ -64,7 +73,7 @@ export type ChangeDesignation = (
 ) => Promise<boolean>
 
 export interface FileManagement {
-  getAttachments: () => SubmissionAttachment[]
+  getAttachments: () => FileAttachment[]
   upload: Upload
   replace: Replace
   changeDesignation: ChangeDesignation
@@ -90,7 +99,7 @@ export const FileManager: React.FC<{
   saveModel: <T extends Model>(model: T | Build<T> | Partial<T>) => Promise<T>
   enableDragAndDrop: boolean
   can: Capabilities
-  addAttachmentToState?: (a: SubmissionAttachment) => void
+  addAttachmentToState?: (a: FileAttachment) => void
 }> = ({
   modelMap,
   saveModel,
@@ -164,6 +173,22 @@ export const FileManager: React.FC<{
     [upload, saveModel]
   )
 
+  const handleSupplementReplace = useCallback(
+    async (attachment: FileAttachment, oldAttachmentId: string) => {
+      const model = getModelsByType<Supplement>(
+        modelMap,
+        ObjectTypes.Supplement
+      ).find(({ href }) => href?.replace('attachment:', '') === oldAttachmentId)
+
+      await saveModel<Supplement>({
+        ...model,
+        title: attachment.name,
+        href: `attachment:${attachment.id}`,
+      })
+    },
+    [modelMap, saveModel]
+  )
+
   const handleChangeDesignationFile = useCallback(
     async (attachmentId, typeId, name) => {
       const res = await changeDesignation(attachmentId, typeId, name)
@@ -179,7 +204,7 @@ export const FileManager: React.FC<{
   }, [])
 
   const handleUpdateInline = useCallback(
-    async (modelId: string, attachment: SubmissionAttachment) => {
+    async (modelId: string, attachment: FileAttachment) => {
       const figureModel = modelMap.get(modelId) as Figure
       figureModel.src = `attachment:${attachment.id}`
 
@@ -227,6 +252,7 @@ export const FileManager: React.FC<{
 
     const filesItems = itemsDataWithTitle.map((element) => {
       const itemProps: FileSectionItemProps = {
+        fileSection,
         externalFile: element.externalFile,
         title: element.title,
         showAttachmentName: isSupplementOrOtherFilesTab,
@@ -234,6 +260,7 @@ export const FileManager: React.FC<{
         showReplaceAction: !isOtherFilesTab,
         handleDownload,
         handleReplace: handleReplaceFile,
+        handleSupplementReplace,
         handleChangeDesignation: handleChangeDesignationFile,
         dispatch: dispatch,
       }

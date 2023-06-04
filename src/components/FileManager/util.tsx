@@ -29,7 +29,7 @@ import TableIcon from '../icons/table-icon'
 import UnknownFormatFileIcon from '../icons/unknown-format-file-icon'
 import VideoIcon from '../icons/video-icon'
 import { Maybe } from '../SubmissionInspector/types'
-import { SubmissionAttachment } from './FileSectionItem/FileSectionItem'
+import { FileAttachment } from './FileSectionItem/FileSectionItem'
 
 export enum FileSectionType {
   Inline,
@@ -410,14 +410,14 @@ export const fileTypesWithIconMap = new Map<FileType | undefined, JSX.Element>([
  * In this method we generate the item title based on file type with counter.
  */
 export const generateAttachmentsTitles = (
-  externalFiles: SubmissionAttachment[],
+  externalFiles: FileAttachment[],
   fileSectionType: FileSectionType
-): Array<{ title: string; externalFile: SubmissionAttachment }> => {
+): Array<{ title: string; externalFile: FileAttachment }> => {
   const titleCountersMap: Map<string, number> = new Map<string, number>()
 
-  const externalFilesWithTitlesMap: Map<string, SubmissionAttachment> = new Map<
+  const externalFilesWithTitlesMap: Map<string, FileAttachment> = new Map<
     string,
-    SubmissionAttachment
+    FileAttachment
   >()
 
   externalFiles.forEach((element) => {

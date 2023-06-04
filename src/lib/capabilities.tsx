@@ -46,7 +46,7 @@ export type Capabilities = {
   handleQualityReport: boolean
   setMainManuscript: boolean
   /* dashboard actions */
-  completeTask: boolean
+  // completeTask: boolean
   rejectTask: boolean
   acceptTask: boolean
   resolveOnHoldTask: boolean
@@ -62,7 +62,7 @@ export type Capabilities = {
 }
 
 enum A {
-  proceed = 'proceed',
+  // proceed = 'proceed',
   updateAttachment = 'update-attachment',
   updateDueDate = 'update-due-date',
   addNote = 'add-note',
@@ -72,7 +72,7 @@ enum A {
 export interface ProviderProps {
   project?: Project
   profile?: UserProfileWithAvatar
-  lwRole?: string
+  role?: string
   permittedActions?: string[]
   children?: React.ReactNode
 }
@@ -80,10 +80,10 @@ export interface ProviderProps {
 // thusly simplify the consuming of the context: it will help avoiding conditional
 // checks which is helpful because there maybe numerous checks in on component
 
-export const getLWCapabilities = (
+export const getCapabilities = (
   project?: Project,
   profile?: UserProfileWithAvatar,
-  lwRole?: ProviderProps['lwRole'],
+  role?: ProviderProps['role'],
   actions?: string[]
 ): Capabilities => {
   const isEditor = () =>
@@ -95,7 +95,7 @@ export const getLWCapabilities = (
     !!(profile && project?.annotators?.includes(profile.userID))
   const isViewer = () =>
     !!(profile && project?.viewers?.includes(profile.userID))
-  const isLWProdEditor = () => lwRole == 'pe'
+  const isProdEditor = () => role == 'pe'
   const allowed = (action: string) => !!actions?.includes(action)
 
   return {
@@ -128,12 +128,12 @@ export const getLWCapabilities = (
     handleQualityReport: isOwner() || isEditor() || isWriter(),
     setMainManuscript: allowed(A.setMainManuscript),
     /* dashboard actions */
-    completeTask: !isViewer() && allowed(A.proceed),
-    rejectTask: isLWProdEditor(),
-    acceptTask: isLWProdEditor(),
-    resolveOnHoldTask: isLWProdEditor(),
-    putOnHoldTask: isLWProdEditor(),
-    changeDueDate: isLWProdEditor() && allowed(A.updateDueDate),
+    // completeTask: !isViewer() && allowed(A.proceed),
+    rejectTask: isProdEditor(),
+    acceptTask: isProdEditor(),
+    resolveOnHoldTask: isProdEditor(),
+    putOnHoldTask: isProdEditor(),
+    changeDueDate: isProdEditor() && allowed(A.updateDueDate),
     previewAccess: true,
     editNotTracked: false,
     accessEditor: true,
@@ -151,7 +151,7 @@ export const getAllPermitted = () => {
     [key: string]: boolean
   }
 
-  const capabilities = getLWCapabilities()
+  const capabilities = getCapabilities()
   const allAllowed = Object.keys(capabilities).reduce((caps, item: string) => {
     caps[item] = true
     return caps
@@ -160,9 +160,7 @@ export const getAllPermitted = () => {
   return allAllowed as Capabilities
 }
 
-const CapabilitiesContext = React.createContext<Capabilities>(
-  getLWCapabilities()
-)
+const CapabilitiesContext = React.createContext<Capabilities>(getCapabilities())
 CapabilitiesContext.displayName = 'CapabilitiesContext'
 
 export const usePermissions = () => {
@@ -172,10 +170,10 @@ export const usePermissions = () => {
 export const useCalcPermission = ({
   project,
   profile,
-  lwRole,
+  role,
   permittedActions,
 }: ProviderProps) => {
-  return getLWCapabilities(project, profile, lwRole, permittedActions)
+  return getCapabilities(project, profile, role, permittedActions)
 }
 export const CapabilitiesProvider: React.FC<{ can: Capabilities }> = (
   props
