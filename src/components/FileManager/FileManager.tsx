@@ -48,35 +48,22 @@ import { actions, getInitialState, reducer } from './FileSectionState'
 import { FilesSection } from './FilesSection'
 import { InlineFilesSection } from './InlineFilesSection'
 import { TooltipDiv } from './TooltipDiv'
-import {
-  Designation,
-  generateAttachmentsTitles,
-  namesWithDesignationMap,
-} from './util'
+import { generateAttachmentsTitles } from './util'
 
 export type Upload = (
-  file: File,
-  designation: string
+  file: File
 ) => Promise<boolean | FileAttachment | undefined>
 
 export type Replace = (
   attachmentId: string,
   name: string,
-  file: File,
-  typeId: string
+  file: File
 ) => Promise<boolean | FileAttachment | undefined>
-
-export type ChangeDesignation = (
-  attachmentId: string,
-  typeId: string,
-  name: string
-) => Promise<boolean>
 
 export interface FileManagement {
   getAttachments: () => FileAttachment[]
   upload: Upload
   replace: Replace
-  changeDesignation: ChangeDesignation
 }
 
 /**
@@ -105,19 +92,14 @@ export const FileManager: React.FC<{
   saveModel,
   enableDragAndDrop,
   can,
-  fileManagement: { getAttachments, changeDesignation, replace, upload },
+  fileManagement: { getAttachments, replace, upload },
   addAttachmentToState,
 }) => {
   const [state, dispatch] = useReducer(reducer, getInitialState())
   const handleReplaceFile = useCallback(
-    async (attachmentId, name, file, typeId) => {
+    async (attachmentId, name, file) => {
       dispatch(actions.HANDLE_UPLOAD_ACTION())
-      dispatch(
-        actions.SELECT_DESIGNATION(
-          namesWithDesignationMap.get(typeId) || Designation.Document
-        )
-      )
-      const res = await replace(attachmentId, name, file, typeId)
+      const res = await replace(attachmentId, name, file)
       dispatch(actions.HANDLE_FINISH_UPLOAD())
       if (res) {
         dispatch(actions.HANDLE_SUCCESS_MESSAGE('File uploaded successfully.'))
@@ -128,14 +110,9 @@ export const FileManager: React.FC<{
   )
 
   const handleUploadFile = useCallback(
-    async (file, designation) => {
+    async (file) => {
       dispatch(actions.HANDLE_UPLOAD_ACTION())
-      if (
-        namesWithDesignationMap.get(designation) == Designation.Supplementary
-      ) {
-        dispatch(actions.SELECT_DESIGNATION(Designation.Supplementary))
-      }
-      const res = await upload(file, designation)
+      const res = await upload(file)
       dispatch(actions.HANDLE_FINISH_UPLOAD())
       if (res) {
         dispatch(
@@ -151,8 +128,9 @@ export const FileManager: React.FC<{
   )
 
   const handleUploadFileWithSupplement = useCallback(
-    async (file, designation) => {
-      const response = await upload(file, designation)
+    async (file) => {
+      dispatch(actions.HANDLE_UPLOAD_ACTION())
+      const response = await upload(file)
       if (typeof response === 'object') {
         const { id, name } = response
         await saveModel(buildSupplementaryMaterial(name, `attachment:${id}`))
@@ -189,16 +167,6 @@ export const FileManager: React.FC<{
     [modelMap, saveModel]
   )
 
-  const handleChangeDesignationFile = useCallback(
-    async (attachmentId, typeId, name) => {
-      const res = await changeDesignation(attachmentId, typeId, name)
-      if (res) {
-        dispatch(actions.HANDLE_SUCCESS_MESSAGE(''))
-      }
-      return res
-    },
-    [changeDesignation]
-  )
   const handleDownload = useCallback((url: string) => {
     window.location.assign(url)
   }, [])
@@ -256,12 +224,10 @@ export const FileManager: React.FC<{
         externalFile: element.externalFile,
         title: element.title,
         showAttachmentName: isSupplementOrOtherFilesTab,
-        showDesignationActions: isSupplementOrOtherFilesTab,
         showReplaceAction: !isOtherFilesTab,
         handleDownload,
         handleReplace: handleReplaceFile,
         handleSupplementReplace,
-        handleChangeDesignation: handleChangeDesignationFile,
         dispatch: dispatch,
       }
 

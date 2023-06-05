@@ -121,8 +121,7 @@ const FileReference: React.FC<{
   handleReplace: (
     attachmentId: string,
     name: string,
-    file: File,
-    typeId: string
+    file: File
   ) => Promise<boolean | FileAttachment | undefined>
   handleDetachFile?: (attachmentLink: string, modelId: string) => void
   handleDownload: (url: string) => void
@@ -183,7 +182,6 @@ const FileReference: React.FC<{
               downloadAttachmentHandler={handleDownload}
               attachmentId={attachment.id}
               fileName={attachment.name}
-              designation={attachment.type.label}
               publicUrl={attachment.link}
               hideActionList={toggleOpen}
               dispatch={dispatch}

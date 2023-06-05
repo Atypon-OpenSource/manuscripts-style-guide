@@ -26,7 +26,7 @@ import { Maybe } from '../../SubmissionInspector/types'
 import { PermissionsContext, Replace } from '../FileManager'
 import { Action, actions } from '../FileSectionState'
 import { ActionsItem } from '../ItemsAction'
-import { Designation, FileSectionType, namesWithDesignationMap } from '../util'
+import { FileSectionType } from '../util'
 import { FileAttachment } from './FileSectionItem'
 
 /**
@@ -44,7 +44,6 @@ export const ItemActions: React.FC<{
   ) => void
   attachmentId: string
   fileName: string
-  designation?: Maybe<string> | undefined
   publicUrl: string | undefined
   hideActionList: (e?: React.MouseEvent) => void
   dispatch?: Dispatch<Action>
@@ -59,31 +58,14 @@ export const ItemActions: React.FC<{
   handleUpdateInline,
   attachmentId,
   fileName,
-  designation,
   publicUrl,
   hideActionList,
   dispatch,
   dropDownClassName,
   showReplaceAction,
 }) => {
-  const attachmentDesignation =
-    designation == undefined ? 'undefined' : designation
-  const attachmentDesignationName =
-    attachmentDesignation !== 'undefined'
-      ? namesWithDesignationMap.get(attachmentDesignation)
-      : undefined
   const can = useContext(PermissionsContext)
-  const canBeReplaced =
-    ((showReplaceAction == undefined || showReplaceAction) &&
-      (attachmentDesignationName == undefined ||
-        ![
-          Designation.MainManuscript,
-          Designation.SubmissionFile,
-          Designation.SubmissionPdf,
-        ].includes(attachmentDesignationName))) ||
-    (attachmentDesignationName == Designation.MainManuscript &&
-      can?.setMainManuscript)
-
+  const canBeReplaced = showReplaceAction == undefined || showReplaceAction
   const fileInputRef = useRef<HTMLInputElement>(null)
   const [selectedFile, setSelectedFile] = useState<File>()
   const handleChange = async (event: ChangeEvent<HTMLInputElement>) => {
@@ -92,17 +74,11 @@ export const ItemActions: React.FC<{
       setSelectedFile(file)
       if (dispatch) {
         dispatch(actions.HANDLE_UPLOAD_ACTION())
-        dispatch(
-          actions.SELECT_DESIGNATION(
-            attachmentDesignationName || Designation.Document
-          )
-        )
       }
       const result = await replaceAttachmentHandler(
         attachmentId,
         fileName,
-        file,
-        attachmentDesignation
+        file
       )
 
       if (
