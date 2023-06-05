@@ -37,6 +37,7 @@ import { ProceedView } from './ProceedView'
 export type PartialSubmission = {
   id: string
   currentStep: SubmissionStep
+  nextStep?: SubmissionStep | null | undefined
   previousStep?: SubmissionStep | null | undefined
 }
 
@@ -192,7 +193,7 @@ export const EditorHeader: React.FC<{
       )}
 
       {handleSnapshot &&
-        typeof hasPendingSuggestions == 'boolean' &&
+        typeof hasPendingSuggestions == 'boolean' && submission.nextStep &&
         submission.previousStep && (
           <ProceedView
             isAnnotator={isAnnotator}
@@ -204,6 +205,7 @@ export const EditorHeader: React.FC<{
             noteValue={noteValue}
             currentStepTransition={currentStepTransition}
             error={error}
+            nextStepType={submission.nextStep.type}
             currentStepType={submission.currentStep.type}
             previousStepType={submission.previousStep?.type}
             confirmationDialog={confirmationDialog}
