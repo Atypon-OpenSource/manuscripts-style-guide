@@ -85,7 +85,6 @@ export const ProceedView: React.FC<{
   error: string | undefined
   nextStepType: SubmissionStepType
   currentStepType: SubmissionStepType
-  previousStepType: SubmissionStepType
   confirmationDialog: boolean
   onCancelClick: () => void
   continueDialogAction: () => Promise<void>
@@ -99,7 +98,6 @@ export const ProceedView: React.FC<{
   confirmationDialog,
   nextStepType,
   currentStepType,
-  previousStepType,
   isAnnotator,
   hasPendingSuggestions,
   error,
@@ -125,8 +123,8 @@ export const ProceedView: React.FC<{
           }
         : showComplete
         ? {
-            header: 'Content reassigned successfully..',
-            message: `to the ${currentStepType.label}`,
+            header: 'Content reassigned successfully',
+            message: `to the ${nextStepType.label}`,
             actions: {
               primary: {
                 action: onCancelClick,
@@ -158,7 +156,7 @@ export const ProceedView: React.FC<{
       continueDialogAction,
       // onDashboardRedirectClick,
       onCancelClick,
-      currentStepType,
+      nextStepType,
       hasPendingSuggestions,
       isAnnotator,
     ]
