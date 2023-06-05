@@ -193,7 +193,8 @@ export const EditorHeader: React.FC<{
       )}
 
       {handleSnapshot &&
-        typeof hasPendingSuggestions == 'boolean' && submission.nextStep &&
+        typeof hasPendingSuggestions == 'boolean' &&
+        submission.nextStep &&
         submission.previousStep && (
           <ProceedView
             isAnnotator={isAnnotator}
