@@ -85,6 +85,7 @@ export const ProceedView: React.FC<{
   error: string | undefined
   nextStepType: SubmissionStepType
   currentStepType: SubmissionStepType
+  previousStepType: SubmissionStepType
   confirmationDialog: boolean
   onCancelClick: () => void
   continueDialogAction: () => Promise<void>
@@ -98,6 +99,7 @@ export const ProceedView: React.FC<{
   confirmationDialog,
   nextStepType,
   currentStepType,
+  previousStepType,
   isAnnotator,
   hasPendingSuggestions,
   error,
