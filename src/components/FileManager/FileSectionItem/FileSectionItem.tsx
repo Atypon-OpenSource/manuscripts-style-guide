@@ -22,16 +22,9 @@ import { DropdownContainer } from '../../Dropdown'
 import { CloseOIcon } from '../../icons/'
 import DotsIcon from '../../icons/dots-icon'
 import { Maybe } from '../../SubmissionInspector/types'
-<<<<<<< HEAD
-import { ChangeDesignation, Replace } from '../FileManager'
-=======
 import { Replace } from '../FileManager'
->>>>>>> 4e68f6d (LEAN-2237:FII-210 - Remove designations from the File inspector - Implementation)
 import { Action } from '../FileSectionState'
-<<<<<<< HEAD
-import { Designation, FileSectionType, namesWithDesignationMap } from '../util'
-=======
->>>>>>> 5f3f73d (LEAN-2237: FII-210 - Remove designations from the File inspector - Implementation)
+import { FileSectionType } from '../util'
 import { FileInfo } from './FileInfo'
 import { FileTypeIcon } from './FileTypeIcon'
 import { ItemActions } from './ItemActions'
@@ -82,11 +75,7 @@ export const FileSectionItem: React.FC<FileSectionItemProps> = ({
   showReplaceAction = true,
   handleDownload,
   handleReplace,
-<<<<<<< HEAD
-  handleChangeDesignation,
   handleSupplementReplace,
-=======
->>>>>>> 4e68f6d (LEAN-2237:FII-210 - Remove designations from the File inspector - Implementation)
   dispatch,
   dragRef,
   className,
@@ -121,12 +110,7 @@ export const FileSectionItem: React.FC<FileSectionItemProps> = ({
         <FileInfo
           fileExtension={fileExtension}
           showAttachmentName={showAttachmentName}
-<<<<<<< HEAD
-          showDesignationActions={showDesignationActions}
           fileAttachmentName={externalFile.name}
-=======
-          submissionAttachmentName={externalFile.name}
->>>>>>> 4e68f6d (LEAN-2237:FII-210 - Remove designations from the File inspector - Implementation)
           title={title}
           attachmentId={externalFile.id}
           dispatch={dispatch}

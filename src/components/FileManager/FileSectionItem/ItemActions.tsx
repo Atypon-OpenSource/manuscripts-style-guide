@@ -29,7 +29,6 @@ import { ActionsItem } from '../ItemsAction'
 import { FileSectionType } from '../util'
 import { FileAttachment } from './FileSectionItem'
 
-
 /**
  * This component represents the drop-down list action for each file item.
  */
