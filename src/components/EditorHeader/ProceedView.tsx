@@ -83,7 +83,6 @@ export const ProceedView: React.FC<{
   noteValue: string
   currentStepTransition: SubmissionStepTransition[]
   error: string | undefined
-  nextStepType: SubmissionStepType
   currentStepType: SubmissionStepType
   previousStepType: SubmissionStepType
   confirmationDialog: boolean
@@ -97,7 +96,6 @@ export const ProceedView: React.FC<{
   loading,
   showComplete,
   confirmationDialog,
-  nextStepType,
   currentStepType,
   previousStepType,
   isAnnotator,
@@ -126,7 +124,7 @@ export const ProceedView: React.FC<{
         : showComplete
         ? {
             header: 'Content reassigned successfully',
-            message: `to the ${nextStepType.label}`,
+            message: `to the ${currentStepType.label}`,
             actions: {
               primary: {
                 action: onCancelClick,
@@ -156,9 +154,9 @@ export const ProceedView: React.FC<{
     [
       showComplete,
       continueDialogAction,
+      currentStepType,
       // onDashboardRedirectClick,
       onCancelClick,
-      nextStepType,
       hasPendingSuggestions,
       isAnnotator,
     ]
@@ -209,7 +207,7 @@ export const ProceedView: React.FC<{
           {(showComplete && (
             <Grid>
               <StepDetails
-                {...currentStepType}
+                {...previousStepType}
                 icon={
                   <>
                     <TaskStepDoneIcon />
@@ -217,7 +215,7 @@ export const ProceedView: React.FC<{
                   </>
                 }
               />
-              <StepDetails {...nextStepType} />
+              <StepDetails {...currentStepType} />
             </Grid>
           )) ||
             ((!hasPendingSuggestions || isAnnotator) && onNoteChange && (
