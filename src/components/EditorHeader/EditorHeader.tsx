@@ -37,7 +37,7 @@ import { ProceedView } from './ProceedView'
 export type PartialSubmission = {
   id: string
   currentStep: SubmissionStep
-  previousStep: SubmissionStep
+  previousStep?: SubmissionStep | null | undefined
 }
 
 export type SubmissionStep = {
@@ -232,7 +232,6 @@ export const EditorHeader: React.FC<{
     </Wrapper>
   )
 }
-
 const HelpDropdown = () => {
   const { isOpen, toggleOpen, wrapperRef } = useDropdown()
   return (
