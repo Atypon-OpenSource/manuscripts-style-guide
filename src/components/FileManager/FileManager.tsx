@@ -13,8 +13,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { Figure, Model } from '@manuscripts/json-schema'
-import { Build, buildSupplementaryMaterial } from '@manuscripts/transform'
+import {
+  Figure,
+  Model,
+  ObjectTypes,
+  Supplement,
+} from '@manuscripts/json-schema'
+import {
+  Build,
+  buildSupplementaryMaterial,
+  getModelsByType,
+} from '@manuscripts/transform'
 import React, { createContext, useCallback, useReducer } from 'react'
 import ReactTooltip from 'react-tooltip'
 
@@ -31,43 +40,30 @@ import { InspectorSection } from '../InspectorSection'
 import { DraggableFileSectionItem } from './FileSectionItem/DraggableFileSectionItem'
 import { DragLayer } from './FileSectionItem/DragLayer'
 import {
+  FileAttachment,
   FileSectionItem,
   FileSectionItemProps,
-  SubmissionAttachment,
 } from './FileSectionItem/FileSectionItem'
 import { actions, getInitialState, reducer } from './FileSectionState'
 import { FilesSection } from './FilesSection'
 import { InlineFilesSection } from './InlineFilesSection'
 import { TooltipDiv } from './TooltipDiv'
-import {
-  Designation,
-  generateAttachmentsTitles,
-  namesWithDesignationMap,
-} from './util'
+import { generateAttachmentsTitles } from './util'
 
 export type Upload = (
-  file: File,
-  designation: string
-) => Promise<boolean | SubmissionAttachment | undefined>
+  file: File
+) => Promise<boolean | FileAttachment | undefined>
 
 export type Replace = (
   attachmentId: string,
   name: string,
-  file: File,
-  typeId: string
-) => Promise<boolean | SubmissionAttachment | undefined>
-
-export type ChangeDesignation = (
-  attachmentId: string,
-  typeId: string,
-  name: string
-) => Promise<boolean>
+  file: File
+) => Promise<boolean | FileAttachment | undefined>
 
 export interface FileManagement {
-  getAttachments: () => SubmissionAttachment[]
+  getAttachments: () => FileAttachment[]
   upload: Upload
   replace: Replace
-  changeDesignation: ChangeDesignation
 }
 
 /**
@@ -90,25 +86,20 @@ export const FileManager: React.FC<{
   saveModel: <T extends Model>(model: T | Build<T> | Partial<T>) => Promise<T>
   enableDragAndDrop: boolean
   can: Capabilities
-  addAttachmentToState?: (a: SubmissionAttachment) => void
+  addAttachmentToState?: (a: FileAttachment) => void
 }> = ({
   modelMap,
   saveModel,
   enableDragAndDrop,
   can,
-  fileManagement: { getAttachments, changeDesignation, replace, upload },
+  fileManagement: { getAttachments, replace, upload },
   addAttachmentToState,
 }) => {
   const [state, dispatch] = useReducer(reducer, getInitialState())
   const handleReplaceFile = useCallback(
-    async (attachmentId, name, file, typeId) => {
+    async (attachmentId, name, file) => {
       dispatch(actions.HANDLE_UPLOAD_ACTION())
-      dispatch(
-        actions.SELECT_DESIGNATION(
-          namesWithDesignationMap.get(typeId) || Designation.Document
-        )
-      )
-      const res = await replace(attachmentId, name, file, typeId)
+      const res = await replace(attachmentId, name, file)
       dispatch(actions.HANDLE_FINISH_UPLOAD())
       if (res) {
         dispatch(actions.HANDLE_SUCCESS_MESSAGE('File uploaded successfully.'))
@@ -119,14 +110,9 @@ export const FileManager: React.FC<{
   )
 
   const handleUploadFile = useCallback(
-    async (file, designation) => {
+    async (file) => {
       dispatch(actions.HANDLE_UPLOAD_ACTION())
-      if (
-        namesWithDesignationMap.get(designation) == Designation.Supplementary
-      ) {
-        dispatch(actions.SELECT_DESIGNATION(Designation.Supplementary))
-      }
-      const res = await upload(file, designation)
+      const res = await upload(file)
       dispatch(actions.HANDLE_FINISH_UPLOAD())
       if (res) {
         dispatch(
@@ -142,8 +128,9 @@ export const FileManager: React.FC<{
   )
 
   const handleUploadFileWithSupplement = useCallback(
-    async (file, designation) => {
-      const response = await upload(file, designation)
+    async (file) => {
+      dispatch(actions.HANDLE_UPLOAD_ACTION())
+      const response = await upload(file)
       if (typeof response === 'object') {
         const { id, name } = response
         await saveModel(buildSupplementaryMaterial(name, `attachment:${id}`))
@@ -164,22 +151,28 @@ export const FileManager: React.FC<{
     [upload, saveModel]
   )
 
-  const handleChangeDesignationFile = useCallback(
-    async (attachmentId, typeId, name) => {
-      const res = await changeDesignation(attachmentId, typeId, name)
-      if (res) {
-        dispatch(actions.HANDLE_SUCCESS_MESSAGE(''))
-      }
-      return res
+  const handleSupplementReplace = useCallback(
+    async (attachment: FileAttachment, oldAttachmentId: string) => {
+      const model = getModelsByType<Supplement>(
+        modelMap,
+        ObjectTypes.Supplement
+      ).find(({ href }) => href?.replace('attachment:', '') === oldAttachmentId)
+
+      await saveModel<Supplement>({
+        ...model,
+        title: attachment.name,
+        href: `attachment:${attachment.id}`,
+      })
     },
-    [changeDesignation]
+    [modelMap, saveModel]
   )
+
   const handleDownload = useCallback((url: string) => {
     window.location.assign(url)
   }, [])
 
   const handleUpdateInline = useCallback(
-    async (modelId: string, attachment: SubmissionAttachment) => {
+    async (modelId: string, attachment: FileAttachment) => {
       const figureModel = modelMap.get(modelId) as Figure
       figureModel.src = `attachment:${attachment.id}`
 
@@ -227,14 +220,14 @@ export const FileManager: React.FC<{
 
     const filesItems = itemsDataWithTitle.map((element) => {
       const itemProps: FileSectionItemProps = {
+        fileSection,
         externalFile: element.externalFile,
         title: element.title,
         showAttachmentName: isSupplementOrOtherFilesTab,
-        showDesignationActions: isSupplementOrOtherFilesTab,
         showReplaceAction: !isOtherFilesTab,
         handleDownload,
         handleReplace: handleReplaceFile,
-        handleChangeDesignation: handleChangeDesignationFile,
+        handleSupplementReplace,
         dispatch: dispatch,
       }
 

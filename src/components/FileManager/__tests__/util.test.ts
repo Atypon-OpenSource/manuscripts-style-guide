@@ -14,16 +14,10 @@
  * limitations under the License.
  */
 
-import { SubmissionAttachment } from '../FileSectionItem/FileSectionItem'
-import {
-  Designation,
-  FileSectionType,
-  generateAttachmentsTitles,
-  getDesignationActionsList,
-  getDesignationName,
-} from '../util'
+import { FileAttachment } from '../FileSectionItem/FileSectionItem'
+import { FileSectionType, generateAttachmentsTitles } from '../util'
 
-const externalFiles: SubmissionAttachment[] = [
+const externalFiles: FileAttachment[] = [
   {
     id: 'caabc327-25c5-4122-96fd-e38d313345da',
     name: 'LW4_multiGraphicFigure-S1-doc.zip',
@@ -83,92 +77,4 @@ test('Checking the generated titles for external files', () => {
   expect(data[2].title).toEqual<string>('Doc 2')
   expect(data[3].title).toEqual<string>('Doc 3')
   expect(data[4].title).toEqual<string>('Image 1')
-})
-
-test('Checking designation actions list', () => {
-  let designationActionsList = getDesignationActionsList(
-    Designation.Figure,
-    'txt'
-  )
-
-  expect(designationActionsList.length).toBe<number>(4)
-  expect(
-    designationActionsList.includes(Designation.SubmissionFile)
-  ).toBeTruthy()
-  expect(
-    designationActionsList.includes(Designation.Supplementary)
-  ).toBeTruthy()
-  expect(
-    designationActionsList.includes(Designation.GraphicalAbstractImage)
-  ).toBeTruthy()
-  expect(designationActionsList.includes(Designation.Dataset)).toBeTruthy()
-
-  designationActionsList = getDesignationActionsList(
-    Designation.GraphicalAbstractImage,
-    'tex'
-  )
-
-  expect(designationActionsList.length).toBe<number>(4)
-  expect(
-    designationActionsList.includes(Designation.SubmissionFile)
-  ).toBeTruthy()
-  expect(
-    designationActionsList.includes(Designation.Supplementary)
-  ).toBeTruthy()
-  expect(designationActionsList.includes(Designation.Figure)).toBeTruthy()
-  expect(designationActionsList.includes(Designation.Dataset)).toBeTruthy()
-
-  designationActionsList = getDesignationActionsList(
-    Designation.Metadata,
-    'xml'
-  )
-
-  expect(designationActionsList.length).toBe<number>(2)
-  expect(
-    designationActionsList.includes(Designation.SubmissionFile)
-  ).toBeTruthy()
-  expect(designationActionsList.includes(Designation.Dataset)).toBeTruthy()
-  designationActionsList = getDesignationActionsList(
-    Designation.Document,
-    'png'
-  )
-
-  expect(designationActionsList.length).toBe<number>(10)
-  expect(
-    designationActionsList.includes(Designation.ConflictOfInterest)
-  ).toBeTruthy()
-  expect(designationActionsList.includes(Designation.Document)).toBeTruthy()
-  expect(
-    designationActionsList.includes(Designation.GraphicalAbstract)
-  ).toBeTruthy()
-  expect(
-    designationActionsList.includes(Designation.GraphicalAbstractImage)
-  ).toBeTruthy()
-  expect(
-    designationActionsList.includes(Designation.GraphicalAbstractText)
-  ).toBeTruthy()
-  expect(designationActionsList.includes(Designation.Metadata)).toBeTruthy()
-  expect(
-    designationActionsList.includes(Designation.SubmissionFile)
-  ).toBeTruthy()
-  expect(
-    designationActionsList.includes(Designation.SubmissionPdf)
-  ).toBeTruthy()
-})
-
-test('Checking designations name', () => {
-  let designationName = getDesignationName(Designation.Figure)
-  expect(designationName).toEqual<string>('figure')
-
-  designationName = getDesignationName(Designation.SubmissionFile)
-  expect(designationName).toEqual<string>('submission-file')
-
-  designationName = getDesignationName(Designation.ConflictOfInterest)
-  expect(designationName).toEqual<string>('conflict-of-interest')
-
-  designationName = getDesignationName(Designation.Supplementary)
-  expect(designationName).toEqual<string>('supplementary')
-
-  designationName = getDesignationName(Designation.GraphicalAbstractText)
-  expect(designationName).toEqual<string>('graphical-abstract-text')
 })

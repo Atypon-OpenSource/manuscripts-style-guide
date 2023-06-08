@@ -22,40 +22,43 @@ import { DropdownContainer } from '../../Dropdown'
 import { CloseOIcon } from '../../icons/'
 import DotsIcon from '../../icons/dots-icon'
 import { Maybe } from '../../SubmissionInspector/types'
-import { ChangeDesignation, FileManagement, Replace } from '../FileManager'
+import { Replace } from '../FileManager'
 import { Action } from '../FileSectionState'
-import { Designation, namesWithDesignationMap } from '../util'
+import { FileSectionType } from '../util'
 import { FileInfo } from './FileInfo'
 import { FileTypeIcon } from './FileTypeIcon'
 import { ItemActions } from './ItemActions'
 
 /**
  * This component will represent individual external file in different tabs,
- * which is contained file-icon, file-designation in other and supplemental tabs, file-name, file title, the file description and etc.
+ * which is contained file-icon, file-name, file title, the file description and etc.
  */
 
-export type SubmissionAttachment = {
+export type FileAttachment = {
   id: string
   name: string
-  type: SubmissionAttachmentType
+  type: FileAttachmentType
   link: string
 }
 
-export type SubmissionAttachmentType = {
+export type FileAttachmentType = {
   id: string
   label?: Maybe<string> | undefined
 }
 
 export interface FileSectionItemProps {
-  externalFile: SubmissionAttachment
+  externalFile: FileAttachment
+  fileSection: FileSectionType
   title: string
   showAttachmentName?: boolean
-  showDesignationActions?: boolean
   showActions?: boolean
   showReplaceAction?: boolean
   handleDownload?: (url: string) => void
   handleReplace?: Replace
-  handleChangeDesignation: ChangeDesignation
+  handleSupplementReplace?: (
+    attachment: FileAttachment,
+    oldAttachmentId: string
+  ) => void
   dispatch?: Dispatch<Action>
   dragRef?: DragElementWrapper<DragSourceOptions>
   className?: string
@@ -65,14 +68,14 @@ export interface FileSectionItemProps {
 }
 
 export const FileSectionItem: React.FC<FileSectionItemProps> = ({
+  fileSection,
   externalFile,
   title,
   showAttachmentName = false,
-  showDesignationActions = false,
   showReplaceAction = true,
   handleDownload,
   handleReplace,
-  handleChangeDesignation,
+  handleSupplementReplace,
   dispatch,
   dragRef,
   className,
@@ -86,8 +89,7 @@ export const FileSectionItem: React.FC<FileSectionItemProps> = ({
     externalFile.name.lastIndexOf('.') + 1
   )
 
-  const designation = namesWithDesignationMap.get(externalFile.type.label)
-  const isMainManuscript = designation === Designation.MainManuscript
+  const isMainManuscript = externalFile.type.label === 'main-manuscript'
   const isSelected = externalFile.id == window.location.hash.substr(1)
   return (
     <Item ref={dragRef} className={className} style={style}>
@@ -108,12 +110,9 @@ export const FileSectionItem: React.FC<FileSectionItemProps> = ({
         <FileInfo
           fileExtension={fileExtension}
           showAttachmentName={showAttachmentName}
-          showDesignationActions={showDesignationActions}
-          submissionAttachmentName={externalFile.name}
+          fileAttachmentName={externalFile.name}
           title={title}
-          designation={designation}
           attachmentId={externalFile.id}
-          handleChangeDesignation={handleChangeDesignation}
           dispatch={dispatch}
         />
       </ItemContainer>
@@ -139,12 +138,13 @@ export const FileSectionItem: React.FC<FileSectionItemProps> = ({
           </ActionsIcon>
           {isOpen && (
             <ItemActions
+              fileSection={fileSection}
               replaceAttachmentHandler={handleReplace}
               showReplaceAction={showReplaceAction}
               downloadAttachmentHandler={handleDownload}
+              handleSupplementReplace={handleSupplementReplace}
               attachmentId={externalFile.id}
               fileName={externalFile.name}
-              designation={externalFile.type.label}
               publicUrl={externalFile.link}
               hideActionList={toggleOpen}
               dispatch={dispatch}

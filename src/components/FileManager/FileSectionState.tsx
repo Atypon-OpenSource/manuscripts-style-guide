@@ -15,7 +15,7 @@
  */
 import React from 'react'
 
-import { Designation, FileSectionType } from './util'
+import { FileSectionType } from './util'
 
 export const getInitialState = (): State => ({
   uploadedFile: undefined,
@@ -24,8 +24,7 @@ export const getInitialState = (): State => ({
   fileUploadedSuccessfullySection: undefined,
   successMessage: '',
   isShowSuccessMessage: false,
-  selectDesignation: undefined,
-  showDesignationPopup: undefined,
+  currentSection: undefined,
 })
 
 export interface State {
@@ -35,14 +34,12 @@ export interface State {
   fileUploadedSuccessfullySection: FileSectionType | undefined
   successMessage: string
   isShowSuccessMessage: boolean
-  selectDesignation: Designation | undefined
-  showDesignationPopup: FileSectionType | undefined
+  currentSection: FileSectionType | undefined
 }
 
 enum ActionTypes {
   UPLOAD_FILE = 'UploadFile',
   MOVE_FILE = 'moveFile',
-  SELECT_DESIGNATION = 'selectDesignation',
   HANDLE_CANCEL_UPLOAD = 'handleCancel',
   HANDLE_UPLOAD_ACTION = 'handleUpload',
   HANDLE_FINISH_UPLOAD = 'handleFinishUpload',
@@ -55,12 +52,10 @@ export const reducer = (state: State, action: Action): State => {
     case ActionTypes.UPLOAD_FILE: {
       return {
         ...state,
-        showDesignationPopup: action.sectionType,
         uploadedFile: action.uploadFile,
-        selectDesignation: undefined,
+        currentSection: action.sectionType,
       }
     }
-
     case ActionTypes.MOVE_FILE: {
       return {
         ...state,
@@ -72,27 +67,17 @@ export const reducer = (state: State, action: Action): State => {
         isShowSuccessMessage: false,
       }
     }
-
-    case ActionTypes.SELECT_DESIGNATION: {
-      return {
-        ...state,
-        selectDesignation: action.designation,
-      }
-    }
     case ActionTypes.HANDLE_UPLOAD_ACTION: {
       return {
         ...state,
-        showDesignationPopup: undefined,
         isUploadFile: true,
         isShowSuccessMessage: false,
         successMessage: '',
       }
     }
-
     case ActionTypes.HANDLE_CANCEL_UPLOAD: {
       return {
         ...state,
-        showDesignationPopup: undefined,
       }
     }
     case ActionTypes.HANDLE_FINISH_UPLOAD: {
@@ -100,7 +85,6 @@ export const reducer = (state: State, action: Action): State => {
         ...state,
         isUploadFile: false,
         uploadedFile: undefined,
-        selectDesignation: undefined,
       }
     }
     case ActionTypes.HANDLE_SUCCESS_MESSAGE: {
@@ -139,10 +123,6 @@ export const actions = {
   }),
   HANDLE_CANCEL_UPLOAD: (): Action => ({
     type: ActionTypes.HANDLE_CANCEL_UPLOAD,
-  }),
-  SELECT_DESIGNATION: (designation: Designation): Action => ({
-    type: ActionTypes.SELECT_DESIGNATION,
-    designation,
   }),
   MOVE_FILE: (
     attachmentId: string,

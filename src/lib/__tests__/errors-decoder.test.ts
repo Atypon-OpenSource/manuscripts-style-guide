@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import decodeError from '../lw-errors-decoder'
+import decodeError from '../errors-decoder'
 
 describe('decodedError', () => {
   it('should decode error as', () => {

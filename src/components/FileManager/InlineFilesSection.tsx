@@ -17,7 +17,6 @@ import React, { Dispatch, useCallback } from 'react'
 import styled from 'styled-components'
 
 import { useDropdown } from '../../hooks/use-dropdown'
-import { InlineFile } from '../../lib/inlineFiles'
 import DotsIcon from '../icons/dots-icon'
 import { Replace } from './FileManager'
 import {
@@ -27,13 +26,14 @@ import {
 } from './FileSectionItem/FileInfo'
 import {
   ActionsIcon,
+  FileAttachment,
   Item,
-  SubmissionAttachment,
 } from './FileSectionItem/FileSectionItem'
 import { ItemActions } from './FileSectionItem/ItemActions'
 import { Action } from './FileSectionState'
 import {
   extensionsWithFileTypesMap,
+  FileSectionType,
   FileType,
   fileTypesWithIconMap,
 } from './util'
@@ -46,14 +46,11 @@ export const InlineFilesSection: React.FC<{
     label: string
     type: FileType
     caption?: string
-    attachments?: SubmissionAttachment[]
+    attachments?: FileAttachment[]
   }[]
   handleReplace: Replace
   handleDownload: (url: string) => void
-  handleUpdateInline?: (
-    modelId: string,
-    attachment: SubmissionAttachment
-  ) => void
+  handleUpdateInline?: (modelId: string, attachment: FileAttachment) => void
   handleDetachFile?: (attachmentLink: string, modelId: string) => void
   isEditor: boolean
   dispatch: Dispatch<Action>
@@ -120,19 +117,15 @@ export const InlineFilesSection: React.FC<{
 }
 
 const FileReference: React.FC<{
-  attachment?: SubmissionAttachment & { modelId?: string }
+  attachment?: FileAttachment & { modelId?: string }
   handleReplace: (
     attachmentId: string,
     name: string,
-    file: File,
-    typeId: string
-  ) => Promise<boolean | SubmissionAttachment | undefined>
+    file: File
+  ) => Promise<boolean | FileAttachment | undefined>
   handleDetachFile?: (attachmentLink: string, modelId: string) => void
   handleDownload: (url: string) => void
-  handleUpdateInline?: (
-    modelId: string,
-    attachment: SubmissionAttachment
-  ) => void
+  handleUpdateInline?: (modelId: string, attachment: FileAttachment) => void
   dispatch: Dispatch<Action>
 }> = ({
   attachment,
@@ -173,9 +166,10 @@ const FileReference: React.FC<{
           </ActionsIcon>
           {isOpen && (
             <ItemActions
+              fileSection={FileSectionType.Inline}
               replaceAttachmentHandler={handleReplace}
               showReplaceAction={true}
-              handleUpdateInline={(uploadAttachment: SubmissionAttachment) =>
+              handleUpdateInline={(uploadAttachment: FileAttachment) =>
                 handleUpdateInline &&
                 attachment?.modelId &&
                 handleUpdateInline(attachment.modelId, uploadAttachment)
@@ -188,7 +182,6 @@ const FileReference: React.FC<{
               downloadAttachmentHandler={handleDownload}
               attachmentId={attachment.id}
               fileName={attachment.name}
-              designation={attachment.type.label}
               publicUrl={attachment.link}
               hideActionList={toggleOpen}
               dispatch={dispatch}
