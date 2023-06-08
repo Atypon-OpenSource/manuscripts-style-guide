@@ -58,6 +58,7 @@ export type Capabilities = {
   editArticle: boolean
   editMetadata: boolean
   shareProject: boolean
+  editCitationsAndRefs: boolean
 }
 
 enum A {
@@ -139,6 +140,7 @@ export const getCapabilities = (
     /* editor */
     editArticle: !isViewer(),
     editMetadata: !(isViewer() || isAnnotator()),
+    editCitationsAndRefs: !(isViewer() || isAnnotator()),
     shareProject: isOwner(),
   }
 }
