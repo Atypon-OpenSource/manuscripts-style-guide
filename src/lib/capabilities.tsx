@@ -40,6 +40,7 @@ export type Capabilities = {
   restoreVersion: boolean
   /* file handling */
   downloadFiles: boolean
+  changeDesignation: boolean
   replaceFile: boolean
   uploadFile: boolean
   handleQualityReport: boolean
@@ -61,7 +62,7 @@ export type Capabilities = {
   editCitationsAndRefs: boolean
 }
 
-enum A {
+enum Actions {
   // proceed = 'proceed',
   updateAttachment = 'update-attachment',
   updateDueDate = 'update-due-date',
@@ -114,24 +115,27 @@ export const getCapabilities = (
     createComment: !isViewer(),
     /* production notes */
     viewNotes: true,
-    createNotes: !isViewer() && allowed(A.addNote),
+    createNotes: !isViewer() && allowed(Actions.addNote),
     handleNotes: isOwner() || isEditor() || isWriter(), // Approve rejecet owns and others
     /* history */
     viewHistory: false,
     restoreVersion: isOwner() || isEditor() || isWriter(),
     /* file handling */
     downloadFiles: true,
+    changeDesignation:
+      (isOwner() || isEditor() || isWriter()) &&
+      allowed(Actions.updateAttachment),
     replaceFile: isOwner() || isEditor() || isWriter(),
     uploadFile: isOwner() || isEditor() || isWriter(),
     handleQualityReport: isOwner() || isEditor() || isWriter(),
-    setMainManuscript: allowed(A.setMainManuscript),
+    setMainManuscript: allowed(Actions.setMainManuscript),
     /* dashboard actions */
-    // completeTask: !isViewer() && allowed(A.proceed),
+    // completeTask: !isViewer() && allowed(Actions.proceed),
     rejectTask: isProdEditor(),
     acceptTask: isProdEditor(),
     resolveOnHoldTask: isProdEditor(),
     putOnHoldTask: isProdEditor(),
-    changeDueDate: isProdEditor() && allowed(A.updateDueDate),
+    changeDueDate: isProdEditor() && allowed(Actions.updateDueDate),
     previewAccess: true,
     editNotTracked: false,
     accessEditor: true,
