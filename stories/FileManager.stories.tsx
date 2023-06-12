@@ -23,13 +23,11 @@ const sleep = (milliseconds: number) => {
   return new Promise((resolve) => setTimeout(resolve, milliseconds))
 }
 const upload = async (
-  file: File,
-  designation: string
+  file: File
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
 ): Promise<any> => {
   await sleep(5000) //test the upload file item in storybook
   console.log('file --> ' + file.name)
-  console.log('designation --> ' + designation)
   return {}
 }
 
@@ -40,16 +38,6 @@ const replace = async (
 ): Promise<boolean> => {
   console.log('file --> ' + file.name)
   console.log('name --> ' + name)
-  return true
-}
-
-const changeDesignation = async (
-  attachmentId: string,
-  designation: string | undefined,
-  name: string
-): Promise<boolean> => {
-  console.log('name --> ' + name)
-  console.log('designation --> ' + designation)
   return true
 }
 
@@ -86,7 +74,6 @@ storiesOf('FileManager', module).add('FileManager', () => {
           getAttachments: () => attachments,
           upload,
           replace,
-          changeDesignation,
         }}
         modelMap={modelMap}
         saveModel={async () => action('save model')}

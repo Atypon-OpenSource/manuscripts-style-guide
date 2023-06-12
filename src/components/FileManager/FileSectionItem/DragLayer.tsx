@@ -61,7 +61,6 @@ export const DragLayer: React.FC = () => {
             showAttachmentName={item.showAttachmentName}
             withDot={item.withDot}
             showSecondaryActions={false}
-            showDesignationActions={false}
             style={{ width: item.width }}
           />
         )

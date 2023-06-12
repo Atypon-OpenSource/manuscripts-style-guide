@@ -23,26 +23,23 @@ import {
 } from '@manuscripts/json-schema'
 import { hasObjectType } from '@manuscripts/transform'
 
-import { SubmissionAttachment } from '../components/FileManager/FileSectionItem/FileSectionItem'
+import { FileAttachment } from '../components/FileManager/FileSectionItem/FileSectionItem'
 import { FileType } from '../components/FileManager/util'
 
 const getFigureData = (
   element: FigureElement,
   modelMap: Map<string, Model>,
-  attachmentsMap: Map<string, SubmissionAttachment>
+  attachmentsMap: Map<string, FileAttachment>
 ) => {
-  const attachments: (SubmissionAttachment & { modelId?: string })[] = []
+  const attachments: (FileAttachment & { modelId?: string })[] = []
   element.containedObjectIDs.map((id) => {
     const object = modelMap.get(id)
     if (object && object.objectType === ObjectTypes.Figure) {
       const figure = object as Figure
 
       if (figure.src) {
-        const attachment:
-          | (SubmissionAttachment & { modelId?: string })
-          | undefined = attachmentsMap.get(
-          figure.src.replace('attachment:', '')
-        )
+        const attachment: (FileAttachment & { modelId?: string }) | undefined =
+          attachmentsMap.get(figure.src.replace('attachment:', ''))
 
         if (attachment) {
           attachment.modelId = id
@@ -62,7 +59,7 @@ export type InlineFile = {
   id: string
   label: string
   type: FileType
-  attachments?: SubmissionAttachment[]
+  attachments?: FileAttachment[]
 }
 
 /**
@@ -75,7 +72,7 @@ export type InlineFile = {
  */
 export default (
   modelMap: Map<string, Model>,
-  attachments: SubmissionAttachment[]
+  attachments: FileAttachment[]
 ) => {
   const files: InlineFile[] = []
 
