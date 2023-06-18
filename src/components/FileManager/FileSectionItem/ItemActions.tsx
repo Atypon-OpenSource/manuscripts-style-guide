@@ -34,6 +34,7 @@ import { FileAttachment } from './FileSectionItem'
  */
 export const ItemActions: React.FC<{
   fileSection: FileSectionType
+  isMainManuscript?: boolean
   downloadAttachmentHandler: (url: string) => void
   replaceAttachmentHandler: Replace
   detachAttachmnetHandler?: () => void
@@ -51,6 +52,7 @@ export const ItemActions: React.FC<{
   showReplaceAction?: boolean
 }> = ({
   fileSection,
+  isMainManuscript,
   downloadAttachmentHandler,
   replaceAttachmentHandler,
   handleSupplementReplace,
@@ -140,15 +142,17 @@ export const ItemActions: React.FC<{
         </ActionsItem>
       )}
 
-      <ActionsItem
-        onClick={() =>
-          setMoveFilePopupData({ isOpen: true, attachmentId: '', fileSection })
-        }
-      >
-        Move to{' '}
-        {(fileSection === FileSectionType.OtherFile && 'Supplements') ||
-          'Other files'}
-      </ActionsItem>
+      {!isMainManuscript && (
+        <ActionsItem
+          onClick={() =>
+            setMoveFilePopupData({ isOpen: true, attachmentId, fileSection })
+          }
+        >
+          Move to{' '}
+          {(fileSection === FileSectionType.OtherFile && 'Supplements') ||
+            'Other files'}
+        </ActionsItem>
+      )}
     </DropdownList>
   )
 }

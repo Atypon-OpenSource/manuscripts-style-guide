@@ -69,6 +69,15 @@ export const MoveFilePopup: React.FC = () => {
     }” and added to “${(!isSupplement && 'Supplements') || 'Other files'}”.`,
   }
 
+  const closePopup = useCallback(
+    () =>
+      setMoveFilePopupData({
+        isOpen: false,
+        fileSection: fileSection,
+      }),
+    [fileSection, setMoveFilePopupData]
+  )
+
   const moveToSupplement = useCallback(async () => {
     const attachment = getAttachments().find(({ id }) => id === attachmentId)
 
@@ -86,7 +95,9 @@ export const MoveFilePopup: React.FC = () => {
       title: attachment.name,
       href: `attachment:${attachment.id}`,
     })
-  }, [getAttachments, saveModel, attachmentId])
+
+    closePopup()
+  }, [attachmentId, getAttachments, saveModel, closePopup])
 
   // TODO:: add callback for moving file from supplement to other files
 
@@ -96,12 +107,7 @@ export const MoveFilePopup: React.FC = () => {
         isOpen={isOpen}
         {...message}
         handleMove={() => !isSupplement && moveToSupplement()}
-        handleClose={() =>
-          setMoveFilePopupData({
-            isOpen: false,
-            fileSection: fileSection,
-          })
-        }
+        handleClose={closePopup}
       />
     </>
   )
