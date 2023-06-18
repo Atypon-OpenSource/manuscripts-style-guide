@@ -37,6 +37,8 @@ import {
   InspectorTabs,
 } from '../Inspector'
 import { InspectorSection } from '../InspectorSection'
+import { MoveFilePopup } from './ConfirmationPopUp'
+import { FileManagerProvider } from './FileManagerProvider'
 import { DraggableFileSectionItem } from './FileSectionItem/DraggableFileSectionItem'
 import { DragLayer } from './FileSectionItem/DragLayer'
 import {
@@ -252,7 +254,7 @@ export const FileManager: React.FC<{
   }
 
   return (
-    <>
+    <FileManagerProvider saveModel={saveModel} getAttachments={getAttachments}>
       <DragLayer />
       <PermissionsContext.Provider value={can}>
         <InspectorSection title={'Files'} contentStyles={{ margin: '24px' }}>
@@ -344,7 +346,9 @@ export const FileManager: React.FC<{
             </InspectorTabPanels>
           </InspectorTabs>
         </InspectorSection>
+
+        <MoveFilePopup />
       </PermissionsContext.Provider>
-    </>
+    </FileManagerProvider>
   )
 }

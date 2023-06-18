@@ -13,9 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import React from 'react'
+import { Supplement } from '@manuscripts/json-schema'
+import { buildSupplementaryMaterial } from '@manuscripts/transform'
+import React, { useCallback, useContext } from 'react'
 
 import { Category, Dialog } from '../Dialog'
+import { FileManagerContext } from './FileManagerProvider'
+import { FileSectionType } from './util'
 /**
  *  This component represents the other files in the file section.
  */
@@ -43,5 +47,62 @@ export const ConfirmationPopUp: React.FC<{
         },
       }}
     />
+  )
+}
+
+export const MoveFilePopup: React.FC = () => {
+  const {
+    moveFilePopup: { isOpen, fileSection, attachmentId },
+    saveModel,
+    getAttachments,
+    setMoveFilePopupData,
+  } = useContext(FileManagerContext)
+
+  const isSupplement = fileSection === FileSectionType.Supplements
+
+  const message = {
+    popupHeader: `Are you sure you want to move this file to “${
+      (isSupplement && 'Supplements') || 'Other files'
+    }”?`,
+    popUpMessage: `The file will be removed from the “${
+      (isSupplement && 'Supplements') || 'Other files'
+    }” and added to “${(!isSupplement && 'Supplements') || 'Other files'}”.`,
+  }
+
+  const moveToSupplement = useCallback(async () => {
+    const attachment = getAttachments().find(({ id }) => id === attachmentId)
+
+    if (!attachment) {
+      return
+    }
+
+    const model = buildSupplementaryMaterial(
+      attachment.name,
+      `attachment:${attachment.id}`
+    )
+
+    await saveModel<Supplement>({
+      ...model,
+      title: attachment.name,
+      href: `attachment:${attachment.id}`,
+    })
+  }, [getAttachments, saveModel, attachmentId])
+
+  // TODO:: add callback for moving file from supplement to other files
+
+  return (
+    <>
+      <ConfirmationPopUp
+        isOpen={isOpen}
+        {...message}
+        handleMove={() => !isSupplement && moveToSupplement()}
+        handleClose={() =>
+          setMoveFilePopupData({
+            isOpen: false,
+            fileSection: fileSection,
+          })
+        }
+      />
+    </>
   )
 }

@@ -22,8 +22,8 @@ import React, {
 } from 'react'
 
 import { DropdownList } from '../../Dropdown'
-import { Maybe } from '../../SubmissionInspector/types'
 import { PermissionsContext, Replace } from '../FileManager'
+import { FileManagerContext } from '../FileManagerProvider'
 import { Action, actions } from '../FileSectionState'
 import { ActionsItem } from '../ItemsAction'
 import { FileSectionType } from '../util'
@@ -65,6 +65,8 @@ export const ItemActions: React.FC<{
   showReplaceAction,
 }) => {
   const can = useContext(PermissionsContext)
+  const { setMoveFilePopupData } = useContext(FileManagerContext)
+
   const canBeReplaced = showReplaceAction == undefined || showReplaceAction
   const fileInputRef = useRef<HTMLInputElement>(null)
   const [selectedFile, setSelectedFile] = useState<File>()
@@ -108,7 +110,7 @@ export const ItemActions: React.FC<{
     <DropdownList
       direction={'right'}
       className={dropDownClassName}
-      width={125}
+      width={200}
       height={120}
       top={5}
       onClick={hideActionList}
@@ -137,6 +139,16 @@ export const ItemActions: React.FC<{
           Detach
         </ActionsItem>
       )}
+
+      <ActionsItem
+        onClick={() =>
+          setMoveFilePopupData({ isOpen: true, attachmentId: '', fileSection })
+        }
+      >
+        Move to{' '}
+        {(fileSection === FileSectionType.OtherFile && 'Supplements') ||
+          'Other files'}
+      </ActionsItem>
     </DropdownList>
   )
 }
