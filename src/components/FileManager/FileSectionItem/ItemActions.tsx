@@ -142,7 +142,7 @@ export const ItemActions: React.FC<{
         </ActionsItem>
       )}
 
-      {!isMainManuscript && (
+      {!isMainManuscript && fileSection !== FileSectionType.Inline && (
         <ActionsItem
           onClick={() =>
             setMoveFilePopupData({ isOpen: true, attachmentId, fileSection })

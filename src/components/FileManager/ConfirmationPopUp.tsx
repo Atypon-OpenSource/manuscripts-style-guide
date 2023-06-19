@@ -15,10 +15,11 @@
  */
 import { Supplement } from '@manuscripts/json-schema'
 import { buildSupplementaryMaterial } from '@manuscripts/transform'
-import React, { useCallback, useContext } from 'react'
+import React, { Dispatch, useCallback, useContext } from 'react'
 
 import { Category, Dialog } from '../Dialog'
 import { FileManagerContext } from './FileManagerProvider'
+import { Action, actions } from './FileSectionState'
 import { FileSectionType } from './util'
 /**
  *  This component represents the other files in the file section.
@@ -50,7 +51,9 @@ export const ConfirmationPopUp: React.FC<{
   )
 }
 
-export const MoveFilePopup: React.FC = () => {
+export const MoveFilePopup: React.FC<{ dispatch: Dispatch<Action> }> = ({
+  dispatch,
+}) => {
   const {
     moveFilePopup: { isOpen, fileSection, attachmentId },
     saveModel,
@@ -78,7 +81,20 @@ export const MoveFilePopup: React.FC = () => {
     [fileSection, setMoveFilePopupData]
   )
 
+  const showSuccessMessage = useCallback(
+    () =>
+      dispatch(
+        actions.HANDLE_SUCCESS_MESSAGE(
+          `File moved to ${(isSupplement && 'Supplements') || 'Other files'}.`,
+          fileSection
+        )
+      ),
+    [dispatch, fileSection, isSupplement]
+  )
+
   const moveToSupplement = useCallback(async () => {
+    closePopup()
+
     const attachment = getAttachments().find(({ id }) => id === attachmentId)
 
     if (!attachment) {
@@ -96,8 +112,8 @@ export const MoveFilePopup: React.FC = () => {
       href: `attachment:${attachment.id}`,
     })
 
-    closePopup()
-  }, [attachmentId, getAttachments, saveModel, closePopup])
+    showSuccessMessage()
+  }, [getAttachments, saveModel, showSuccessMessage, closePopup, attachmentId])
 
   // TODO:: add callback for moving file from supplement to other files
 

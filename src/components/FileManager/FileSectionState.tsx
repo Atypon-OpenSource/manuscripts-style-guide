@@ -72,6 +72,7 @@ export const reducer = (state: State, action: Action): State => {
         ...state,
         isUploadFile: true,
         isShowSuccessMessage: false,
+        fileUploadedSuccessfullySection: undefined,
         successMessage: '',
       }
     }

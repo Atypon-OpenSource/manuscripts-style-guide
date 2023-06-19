@@ -347,7 +347,7 @@ export const FileManager: React.FC<{
           </InspectorTabs>
         </InspectorSection>
 
-        <MoveFilePopup />
+        <MoveFilePopup dispatch={dispatch} />
       </PermissionsContext.Provider>
     </FileManagerProvider>
   )
