@@ -13,8 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { Supplement } from '@manuscripts/json-schema'
-import { buildSupplementaryMaterial } from '@manuscripts/transform'
+import { ObjectTypes, Supplement } from '@manuscripts/json-schema'
+import {
+  buildSupplementaryMaterial,
+  getModelsByType,
+} from '@manuscripts/transform'
 import React, { Dispatch, useCallback, useContext } from 'react'
 
 import { Category, Dialog } from '../Dialog'
@@ -57,6 +60,8 @@ export const MoveFilePopup: React.FC<{ dispatch: Dispatch<Action> }> = ({
   const {
     moveFilePopup: { isOpen, fileSection, attachmentId },
     saveModel,
+    deleteModel,
+    modelMap,
     getAttachments,
     setMoveFilePopupData,
   } = useContext(FileManagerContext)
@@ -85,7 +90,7 @@ export const MoveFilePopup: React.FC<{ dispatch: Dispatch<Action> }> = ({
     () =>
       dispatch(
         actions.HANDLE_SUCCESS_MESSAGE(
-          `File moved to ${(isSupplement && 'Supplements') || 'Other files'}.`,
+          `File moved to ${(isSupplement && 'Other files') || 'Supplements'}.`,
           fileSection
         )
       ),
@@ -115,14 +120,31 @@ export const MoveFilePopup: React.FC<{ dispatch: Dispatch<Action> }> = ({
     showSuccessMessage()
   }, [getAttachments, saveModel, showSuccessMessage, closePopup, attachmentId])
 
-  // TODO:: add callback for moving file from supplement to other files
+  const moveSupplementToOtherFiles = useCallback(async () => {
+    closePopup()
+
+    const model = getModelsByType<Supplement>(
+      modelMap,
+      ObjectTypes.Supplement
+    ).find(({ href }) => href?.replace('attachment:', '') === attachmentId)
+
+    if (!model) {
+      return
+    }
+
+    await deleteModel(model._id)
+
+    showSuccessMessage()
+  }, [attachmentId, closePopup, deleteModel, modelMap, showSuccessMessage])
 
   return (
     <>
       <ConfirmationPopUp
         isOpen={isOpen}
         {...message}
-        handleMove={() => !isSupplement && moveToSupplement()}
+        handleMove={() =>
+          (!isSupplement && moveToSupplement()) || moveSupplementToOtherFiles()
+        }
         handleClose={closePopup}
       />
     </>

@@ -28,6 +28,8 @@ type MoveFilePopup = {
 
 export const FileManagerContext = createContext<{
   saveModel: <T extends Model>(model: T | Build<T> | Partial<T>) => Promise<T>
+  deleteModel: (id: string) => Promise<string>
+  modelMap: Map<string, Model>
   getAttachments: () => FileAttachment[]
   moveFilePopup: MoveFilePopup
   setMoveFilePopupData: Dispatch<SetStateAction<MoveFilePopup>>
@@ -41,14 +43,18 @@ export const FileManagerContext = createContext<{
 // TODO:: use this provider for file manager component to avoid props drilling
 export const FileManagerProvider: React.FC<{
   saveModel: <T extends Model>(model: T | Build<T> | Partial<T>) => Promise<T>
+  deleteModel: (id: string) => Promise<string>
+  modelMap: Map<string, Model>
   getAttachments: () => FileAttachment[]
-}> = ({ children, saveModel, getAttachments }) => {
+}> = ({ children, saveModel, deleteModel, modelMap, getAttachments }) => {
   const [moveFilePopup, setMoveFilePopupData] = useState({ isOpen: false })
 
   return (
     <FileManagerContext.Provider
       value={{
         saveModel,
+        deleteModel,
+        modelMap,
         getAttachments,
         moveFilePopup,
         setMoveFilePopupData,
