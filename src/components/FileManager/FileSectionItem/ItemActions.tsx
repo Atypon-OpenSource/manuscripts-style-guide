@@ -142,17 +142,19 @@ export const ItemActions: React.FC<{
         </ActionsItem>
       )}
 
-      {!isMainManuscript && fileSection !== FileSectionType.Inline && (
-        <ActionsItem
-          onClick={() =>
-            setMoveFilePopupData({ isOpen: true, attachmentId, fileSection })
-          }
-        >
-          Move to{' '}
-          {(fileSection === FileSectionType.OtherFile && 'Supplements') ||
-            'Other files'}
-        </ActionsItem>
-      )}
+      {!isMainManuscript &&
+        fileSection !== FileSectionType.Inline &&
+        can?.moveFile && (
+          <ActionsItem
+            onClick={() =>
+              setMoveFilePopupData({ isOpen: true, attachmentId, fileSection })
+            }
+          >
+            Move to{' '}
+            {(fileSection === FileSectionType.OtherFile && 'Supplements') ||
+              'Other files'}
+          </ActionsItem>
+        )}
     </DropdownList>
   )
 }
