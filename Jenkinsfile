@@ -1,6 +1,6 @@
 pipeline {
     agent {
-        label 'cisc14'
+        label 'cisc10'
         docker {
             image 'node:18'
             args '--userns=host \
