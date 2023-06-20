@@ -1,8 +1,8 @@
 pipeline {
     agent {
-        label 'cisc10'
         docker {
             image 'node:18'
+            label 'cisc10'
             args '--userns=host \
                   -v /home/ci/.cache/yarn:/.cache/yarn \
                   -v /home/ci/.npm:/.npm'
