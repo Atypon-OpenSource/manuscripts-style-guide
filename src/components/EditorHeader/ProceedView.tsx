@@ -83,7 +83,7 @@ export const ProceedView: React.FC<{
   noteValue: string
   currentStepTransition: SubmissionStepTransition[]
   error: string | undefined
-  previousStepType: SubmissionStepType
+  previousStepType: SubmissionStepType | undefined
   currentStepType: SubmissionStepType
   confirmationDialog: boolean
   onCancelClick: () => void
@@ -206,15 +206,17 @@ export const ProceedView: React.FC<{
         >
           {(showComplete && (
             <Grid>
-              <StepDetails
-                {...previousStepType}
-                icon={
-                  <>
-                    <TaskStepDoneIcon />
-                    <Line />
-                  </>
-                }
-              />
+              {previousStepType && (
+                <StepDetails
+                  {...previousStepType}
+                  icon={
+                    <>
+                      <TaskStepDoneIcon />
+                      <Line />
+                    </>
+                  }
+                />
+              )}
               <StepDetails {...currentStepType} />
             </Grid>
           )) ||
