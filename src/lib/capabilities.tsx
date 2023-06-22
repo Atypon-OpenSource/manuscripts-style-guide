@@ -121,7 +121,7 @@ export const getCapabilities = (
     restoreVersion: isOwner() || isEditor() || isWriter(),
     /* file handling */
     downloadFiles: true,
-    moveFile: isOwner() || isEditor() || isWriter() || isAnnotator(),
+    moveFile: isOwner() || isEditor() || isWriter(),
     replaceFile: isOwner() || isEditor() || isWriter(),
     uploadFile: isOwner() || isEditor() || isWriter(),
     handleQualityReport: isOwner() || isEditor() || isWriter(),
