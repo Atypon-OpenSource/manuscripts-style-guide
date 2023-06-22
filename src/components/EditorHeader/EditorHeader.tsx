@@ -38,6 +38,7 @@ export type PartialSubmission = {
   id: string
   currentStep: SubmissionStep
   previousStep?: SubmissionStep | null | undefined
+  nextStep?: SubmissionStep | null | undefined
 }
 
 export type SubmissionStep = {
@@ -191,26 +192,29 @@ export const EditorHeader: React.FC<{
         </SecondaryButtonSmall>
       )}
 
-      {handleSnapshot && typeof hasPendingSuggestions == 'boolean' && (
-        <ProceedView
-          isAnnotator={isAnnotator}
-          disable={disable}
-          onTransitionClick={onTransitionClick}
-          hasPendingSuggestions={hasPendingSuggestions}
-          loading={loading}
-          showComplete={showComplete}
-          noteValue={noteValue}
-          currentStepTransition={currentStepTransition}
-          error={error}
-          currentStepType={submission.currentStep.type}
-          previousStepType={submission.previousStep?.type}
-          confirmationDialog={confirmationDialog}
-          onNoteChange={disabelProceedNote ? undefined : onNoteChange}
-          continueDialogAction={continueDialogAction}
-          onCancelClick={onCancelClick}
-          message={message}
-        />
-      )}
+      {handleSnapshot &&
+        typeof hasPendingSuggestions == 'boolean' &&
+        submission.nextStep && (
+          <ProceedView
+            isAnnotator={isAnnotator}
+            disable={disable}
+            onTransitionClick={onTransitionClick}
+            hasPendingSuggestions={hasPendingSuggestions}
+            loading={loading}
+            showComplete={showComplete}
+            noteValue={noteValue}
+            currentStepTransition={currentStepTransition}
+            error={error}
+            currentStepType={submission.currentStep.type}
+            previousStepType={submission.previousStep?.type}
+            nextStepType={submission.nextStep.type}
+            confirmationDialog={confirmationDialog}
+            onNoteChange={disabelProceedNote ? undefined : onNoteChange}
+            continueDialogAction={continueDialogAction}
+            onCancelClick={onCancelClick}
+            message={message}
+          />
+        )}
 
       {status && (
         <ChildWrapper>

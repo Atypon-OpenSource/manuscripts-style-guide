@@ -161,6 +161,7 @@ storiesOf('Dialog', module)
       noteValue={''}
       currentStepTransition={[]}
       error={undefined}
+      nextStepType={submission.nextStep.type as never}
       currentStepType={submission.currentStep.type as never}
       previousStepType={submission.previousStep.type as never}
       confirmationDialog={true}
