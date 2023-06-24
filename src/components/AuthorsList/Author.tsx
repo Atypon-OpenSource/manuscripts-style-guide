@@ -42,7 +42,6 @@ const LinkSharedStyles = css`
       }
     }
   }
-
 `
 
 const AuthorAffiliation = styled.span`
@@ -69,7 +68,7 @@ interface AuthorProps {
   affiliations?: AuthorAffiliationT[]
   jointFirstAuthor: boolean
   showEditButton?: boolean
-  disableEditButton?:boolean
+  disableEditButton?: boolean
 
   selectAuthor?: (data: Contributor) => void
   startEditing?: () => void
@@ -92,7 +91,6 @@ export const Author: React.FunctionComponent<AuthorProps> = ({
           e.preventDefault()
           startEditing && startEditing()
           selectAuthor && selectAuthor(author)
-
         }}
       >
         <AuthorName
