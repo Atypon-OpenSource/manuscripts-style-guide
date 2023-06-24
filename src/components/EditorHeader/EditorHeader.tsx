@@ -79,6 +79,7 @@ const MapUserRole: {
   Writer: Editing,
   Annotator: { label: 'Suggesting...', icon: AnnotatorIcon },
   Viewer: { label: 'Reading...', icon: ReadingIcon },
+  Proofer: { label: 'Proofing...', icon: ReadingIcon },
 }
 
 export const EditorHeader: React.FC<{
