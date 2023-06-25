@@ -40,6 +40,7 @@ export type Capabilities = {
   restoreVersion: boolean
   /* file handling */
   downloadFiles: boolean
+  changeDesignation: boolean
   moveFile: boolean
   replaceFile: boolean
   uploadFile: boolean
@@ -121,6 +122,9 @@ export const getCapabilities = (
     restoreVersion: isOwner() || isEditor() || isWriter(),
     /* file handling */
     downloadFiles: true,
+    changeDesignation:
+      (isOwner() || isEditor() || isWriter()) &&
+      allowed(Actions.updateAttachment),
     moveFile: isOwner() || isEditor() || isWriter(),
     replaceFile: isOwner() || isEditor() || isWriter(),
     uploadFile: isOwner() || isEditor() || isWriter(),
