@@ -70,7 +70,7 @@ export const MoveFilePopup: React.FC<{ dispatch: Dispatch<Action> }> = ({
 
   const message = {
     popupHeader: `Are you sure you want to move this file to “${
-      (isSupplement && 'Supplements') || 'Other files'
+      (!isSupplement && 'Supplements') || 'Other files'
     }”?`,
     popUpMessage: `The file will be removed from the “${
       (isSupplement && 'Supplements') || 'Other files'
