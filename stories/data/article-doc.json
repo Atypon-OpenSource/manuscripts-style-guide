@@ -152,27 +152,9 @@
               "attrs": {
                 "id": "MPFigure:9D459B73-1E07-4A88-A378-C4AAF332DF17",
                 "label": "Figure 1",
-                "src": "",
+                "src": "attachment:f7d0d13c-ed22-4248-894a-3f3fdc2dc485",
                 "contentType": "image/png",
                 "originalURL": "https://nine-lts.literatumonline.com/lw/attachment/c31b3364-e604-423d-8a46-ef38ed642e47/Figure1.png",
-                "externalFileReferences": [
-                  {
-                    "url": "https://nine-lts.literatumonline.com/lw/attachment/c31b3364-e604-423d-8a46-ef38ed642e47/Figure1.png",
-                    "kind": "imageRepresentation",
-                    "ref": {
-                      "_id": "MPExternalFiles:5",
-                      "MIME": "image/png",
-                      "containerID": "MPProject:f2b41fe5-3504-4baa-a619-abdf2d0527ca",
-                      "createdAt": 1644318672.306,
-                      "designation": "figure",
-                      "displayName": "Figure5.png",
-                      "filename": "Figure5.png",
-                      "manuscriptID": "MPManuscript:c62f6e2d-516f-415c-bebe-76d723dca1ae",
-                      "objectType": "MPExternalFile",
-                      "publicUrl": "https://lean-x7481/Figure5.png"
-                    }
-                  }
-                ],
                 "missingImage": null,
                 "position": "float"
               }

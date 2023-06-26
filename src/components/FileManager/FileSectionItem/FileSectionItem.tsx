@@ -139,6 +139,7 @@ export const FileSectionItem: React.FC<FileSectionItemProps> = ({
           {isOpen && (
             <ItemActions
               fileSection={fileSection}
+              isMainManuscript={isMainManuscript}
               replaceAttachmentHandler={handleReplace}
               showReplaceAction={showReplaceAction}
               downloadAttachmentHandler={handleDownload}
