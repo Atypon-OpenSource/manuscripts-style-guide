@@ -77,6 +77,7 @@ storiesOf('FileManager', module).add('FileManager', () => {
         }}
         modelMap={modelMap}
         saveModel={async () => action('save model')}
+        deleteModel={async () => action('delete model')}
         enableDragAndDrop={true}
       />
     </BrowserRouter>
