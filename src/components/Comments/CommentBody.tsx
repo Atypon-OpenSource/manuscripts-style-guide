@@ -17,6 +17,7 @@ import AnnotationReply from '@manuscripts/assets/react/AnnotationReply'
 import { Comment, CommentField } from '@manuscripts/comment-editor'
 import { Keyword, UserProfile } from '@manuscripts/json-schema'
 import { Field, FieldProps, Form, Formik } from 'formik'
+import { EditorView } from 'prosemirror-view'
 import React, { Dispatch, SetStateAction, useEffect } from 'react'
 import ReactTooltip from 'react-tooltip'
 import styled from 'styled-components'
@@ -38,6 +39,7 @@ export interface CommentBodyProps {
   saveComment: (comment: CommentType | UnsavedComment) => Promise<CommentType>
   handleCreateReply: (id: string) => void
   scrollIntoHighlight?: (comment: CommentType | UnsavedComment) => void
+  onFocusOut?: (view: EditorView, event: Event) => boolean
 }
 
 export const CommentBody: React.FC<
@@ -62,6 +64,7 @@ export const CommentBody: React.FC<
     handleCreateReply,
     setIsEditing,
     scrollIntoHighlight,
+    onFocusOut,
     isEditing,
     isProdNote,
   }) => {
@@ -102,6 +105,7 @@ export const CommentBody: React.FC<
                         handleChange={(data: string) =>
                           setFieldValue(props.field.name, data)
                         }
+                        handleBlur={onFocusOut}
                         createKeyword={createKeyword}
                         listCollaborators={listCollaborators}
                         listKeywords={listKeywords}
