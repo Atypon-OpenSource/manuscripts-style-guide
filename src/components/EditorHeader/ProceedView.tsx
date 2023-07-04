@@ -83,8 +83,9 @@ export const ProceedView: React.FC<{
   noteValue: string
   currentStepTransition: SubmissionStepTransition[]
   error: string | undefined
-  nextStepType: SubmissionStepType
+  previousStepType: SubmissionStepType | undefined
   currentStepType: SubmissionStepType
+  nextStepType: SubmissionStepType
   confirmationDialog: boolean
   onCancelClick: () => void
   continueDialogAction: () => Promise<void>
@@ -96,8 +97,9 @@ export const ProceedView: React.FC<{
   loading,
   showComplete,
   confirmationDialog,
-  nextStepType,
+  previousStepType,
   currentStepType,
+  nextStepType,
   isAnnotator,
   hasPendingSuggestions,
   error,
@@ -124,7 +126,7 @@ export const ProceedView: React.FC<{
         : showComplete
         ? {
             header: 'Content reassigned successfully',
-            message: `to the ${nextStepType.label}`,
+            message: `to the ${currentStepType.label}`,
             actions: {
               primary: {
                 action: onCancelClick,
@@ -156,7 +158,7 @@ export const ProceedView: React.FC<{
       continueDialogAction,
       // onDashboardRedirectClick,
       onCancelClick,
-      nextStepType,
+      currentStepType,
       hasPendingSuggestions,
       isAnnotator,
     ]
@@ -206,16 +208,18 @@ export const ProceedView: React.FC<{
         >
           {(showComplete && (
             <Grid>
-              <StepDetails
-                {...currentStepType}
-                icon={
-                  <>
-                    <TaskStepDoneIcon />
-                    <Line />
-                  </>
-                }
-              />
-              <StepDetails {...nextStepType} />
+              {previousStepType && (
+                <StepDetails
+                  {...previousStepType}
+                  icon={
+                    <>
+                      <TaskStepDoneIcon />
+                      <Line />
+                    </>
+                  }
+                />
+              )}
+              <StepDetails {...currentStepType} />
             </Grid>
           )) ||
             ((!hasPendingSuggestions || isAnnotator) && onNoteChange && (
