@@ -41,6 +41,7 @@ export type Capabilities = {
   /* file handling */
   downloadFiles: boolean
   changeDesignation: boolean
+  moveFile: boolean
   replaceFile: boolean
   uploadFile: boolean
   handleQualityReport: boolean
@@ -125,6 +126,7 @@ export const getCapabilities = (
     changeDesignation:
       (isOwner() || isEditor() || isWriter()) &&
       allowed(Actions.updateAttachment),
+    moveFile: isOwner() || isEditor() || isWriter(),
     replaceFile: isOwner() || isEditor() || isWriter(),
     uploadFile: isOwner() || isEditor() || isWriter(),
     handleQualityReport: isOwner() || isEditor() || isWriter(),

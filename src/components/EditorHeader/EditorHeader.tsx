@@ -37,6 +37,7 @@ import { ProceedView } from './ProceedView'
 export type PartialSubmission = {
   id: string
   currentStep: SubmissionStep
+  previousStep?: SubmissionStep | null | undefined
   nextStep?: SubmissionStep | null | undefined
 }
 
@@ -204,8 +205,9 @@ export const EditorHeader: React.FC<{
             noteValue={noteValue}
             currentStepTransition={currentStepTransition}
             error={error}
-            nextStepType={submission.nextStep.type}
             currentStepType={submission.currentStep.type}
+            previousStepType={submission.previousStep?.type}
+            nextStepType={submission.nextStep.type}
             confirmationDialog={confirmationDialog}
             onNoteChange={disabelProceedNote ? undefined : onNoteChange}
             continueDialogAction={continueDialogAction}
@@ -234,7 +236,6 @@ export const EditorHeader: React.FC<{
     </Wrapper>
   )
 }
-
 const HelpDropdown = () => {
   const { isOpen, toggleOpen, wrapperRef } = useDropdown()
   return (
@@ -251,7 +252,6 @@ const HelpDropdown = () => {
     </HelpDropdownContainer>
   )
 }
-
 const SecondaryButtonSmall = styled(SecondaryButton)`
   font-size: inherit;
   margin-right: ${(props) => props.theme.grid.unit * 2}px;

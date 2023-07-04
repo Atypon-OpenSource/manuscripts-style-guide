@@ -37,6 +37,8 @@ import {
   InspectorTabs,
 } from '../Inspector'
 import { InspectorSection } from '../InspectorSection'
+import { MoveFilePopup } from './ConfirmationPopUp'
+import { FileManagerProvider } from './FileManagerProvider'
 import { DraggableFileSectionItem } from './FileSectionItem/DraggableFileSectionItem'
 import { DragLayer } from './FileSectionItem/DragLayer'
 import {
@@ -84,12 +86,14 @@ export const FileManager: React.FC<{
   fileManagement: FileManagement
   modelMap: Map<string, Model>
   saveModel: <T extends Model>(model: T | Build<T> | Partial<T>) => Promise<T>
+  deleteModel: (id: string) => Promise<string>
   enableDragAndDrop: boolean
   can: Capabilities
   addAttachmentToState?: (a: FileAttachment) => void
 }> = ({
   modelMap,
   saveModel,
+  deleteModel,
   enableDragAndDrop,
   can,
   fileManagement: { getAttachments, replace, upload },
@@ -252,7 +256,12 @@ export const FileManager: React.FC<{
   }
 
   return (
-    <>
+    <FileManagerProvider
+      saveModel={saveModel}
+      modelMap={modelMap}
+      deleteModel={deleteModel}
+      getAttachments={getAttachments}
+    >
       <DragLayer />
       <PermissionsContext.Provider value={can}>
         <InspectorSection title={'Files'} contentStyles={{ margin: '24px' }}>
@@ -344,7 +353,9 @@ export const FileManager: React.FC<{
             </InspectorTabPanels>
           </InspectorTabs>
         </InspectorSection>
+
+        <MoveFilePopup dispatch={dispatch} />
       </PermissionsContext.Provider>
-    </>
+    </FileManagerProvider>
   )
 }
