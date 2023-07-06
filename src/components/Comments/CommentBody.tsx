@@ -100,6 +100,7 @@ export const CommentBody: React.FC<
                   {(props: FieldProps) => (
                     <CommentContent>
                       <StyledCommentField
+                        id={comment._id}
                         autoFocus={isEditing}
                         value={values.contents}
                         handleChange={(data: string) =>
@@ -122,7 +123,16 @@ export const CommentBody: React.FC<
                     <SecondaryButton onClick={cancelEditing}>
                       Cancel
                     </SecondaryButton>
-                    <PrimaryButton type="submit">Save</PrimaryButton>
+                    <PrimaryButton
+                      disabled={
+                        !isNew &&
+                        (comment.contents === values.contents ||
+                          !values.contents.replace(/<[^>]+>/g, '').length)
+                      }
+                      type="submit"
+                    >
+                      Save
+                    </PrimaryButton>
                   </Actions>
                 </EditingCommentFooter>
               </Form>
