@@ -125,9 +125,10 @@ export const CommentBody: React.FC<
                     </SecondaryButton>
                     <PrimaryButton
                       disabled={
-                        !isNew &&
-                        (comment.contents === values.contents ||
-                          !values.contents.replace(/<[^>]+>/g, '').length)
+                        !values.contents.replace(/<[^>]+>/g, '').length ||
+                        (!isNew &&
+                          (comment.contents === values.contents ||
+                            !values.contents.replace(/<[^>]+>/g, '').length))
                       }
                       type="submit"
                     >
