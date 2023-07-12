@@ -14,6 +14,7 @@
  * limitations under the License.
  */
 
+import AttentionRed from '@manuscripts/assets/react/AttentionRed'
 import React from 'react'
 import styled from 'styled-components'
 
@@ -54,6 +55,15 @@ export const SaveStatus: React.FC<Props> = ({ status }) => {
           <Text>Saved</Text>
         </Container>
       )
+    case 'failed':
+      return (
+        <FailedContainer>
+          <PopPop>
+            <AttentionRed width={20} height={20} />
+          </PopPop>
+          <FailedText>Failed To Save</FailedText>
+        </FailedContainer>
+      )
     default:
       return null
   }
@@ -75,6 +85,15 @@ const Text = styled.span`
   font-family: ${(props) => props.theme.font.family.Lato};
   font-size: 14px;
   font-weight: 700;
+`
+const FailedContainer = styled(Container)`
+  path {
+    stroke: ${(props) => props.theme.colors.text.error};
+    stroke-width: 0;
+  }
+`
+const FailedText = styled(Text)`
+  color: ${(props) => props.theme.colors.text.error};
 `
 
 const RotateContinuous = styled.div`
