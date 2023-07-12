@@ -57,6 +57,7 @@ export const CommentWrapper: React.FC<
   isSelected,
   handleRequestSelect,
   scrollIntoHighlight,
+  onFocusOut,
   children,
 }) => {
   const [isEditing, setIsEditing] = useState<boolean>()
@@ -144,6 +145,7 @@ export const CommentWrapper: React.FC<
 
       <CommentBody
         createKeyword={createKeyword}
+        onFocusOut={onFocusOut}
         comment={comment}
         deleteComment={deleteComment}
         getCollaborator={getCollaborator}
