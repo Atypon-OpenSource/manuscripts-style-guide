@@ -29,7 +29,6 @@ const affiliation = {
   country: 'Canada',
   postCode: 'V5A 1S6',
   priority: 0,
-  sessionID: 'story',
   createdAt: 0,
   updatedAt: 0,
 }
