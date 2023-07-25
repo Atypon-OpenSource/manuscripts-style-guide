@@ -25,13 +25,13 @@ import {
   NavDropdownContainer,
   PrimaryBoldHeading,
   PrimaryButton,
+  ProceedDialogData,
   SecondarySmallText,
   TaskStepDoneIcon,
   useDropdown,
 } from '../..'
 import { AlertMessage, AlertMessageType } from '../AlertMessage'
 import {
-  MediumTextArea,
   PrimaryButtonSmall,
   SubmissionStepTransition,
   SubmissionStepType,
@@ -78,11 +78,9 @@ export const ProceedView: React.FC<{
   onTransitionClick: (event: unknown) => void
   onNoteChange?: (event: unknown) => void
   hasPendingSuggestions: boolean
-  loading: boolean
-  showComplete: boolean
+  dialogData: ProceedDialogData
   noteValue: string
   currentStepTransition: SubmissionStepTransition[]
-  error: string | undefined
   previousStepType: SubmissionStepType | undefined
   currentStepType: SubmissionStepType
   nextStepType: SubmissionStepType
@@ -94,17 +92,12 @@ export const ProceedView: React.FC<{
   currentStepTransition,
   onTransitionClick,
   disable,
-  loading,
-  showComplete,
+  dialogData,
   confirmationDialog,
   previousStepType,
   currentStepType,
-  nextStepType,
   isAnnotator,
   hasPendingSuggestions,
-  error,
-  noteValue,
-  onNoteChange,
   onCancelClick,
   continueDialogAction,
   message: Message,
@@ -123,7 +116,7 @@ export const ProceedView: React.FC<{
               },
             },
           }
-        : showComplete
+        : dialogData.state === 'success'
         ? {
             header: 'Content reassigned successfully',
             message: `to the ${currentStepType.label}`,
@@ -154,7 +147,7 @@ export const ProceedView: React.FC<{
             },
           },
     [
-      showComplete,
+      dialogData,
       continueDialogAction,
       // onDashboardRedirectClick,
       onCancelClick,
@@ -163,6 +156,7 @@ export const ProceedView: React.FC<{
       isAnnotator,
     ]
   )
+
   return (
     <>
       {(currentStepTransition && currentStepTransition?.length > 1 && (
@@ -194,19 +188,21 @@ export const ProceedView: React.FC<{
         </PrimaryButtonSmall>
       )}
 
-      {(loading && (
+      {dialogData.state === 'loading' && (
         <LoadingOverlay>
           <Message isCentered>Proceeding with your submission…</Message>
         </LoadingOverlay>
-      )) || (
+      )}
+
+      {!(dialogData.state === 'closed') && (
         <Dialog
-          isOpen={confirmationDialog && !loading}
+          isOpen={confirmationDialog && !(dialogData.state === 'loading')}
           category={Category.confirmation}
           header={dialogMessages.header}
           message={dialogMessages.message}
           actions={dialogMessages.actions}
         >
-          {(showComplete && (
+          {dialogData.state === 'success' && (
             <Grid>
               {previousStepType && (
                 <StepDetails
@@ -221,21 +217,11 @@ export const ProceedView: React.FC<{
               )}
               <StepDetails {...currentStepType} />
             </Grid>
-          )) ||
-            ((!hasPendingSuggestions || isAnnotator) && onNoteChange && (
-              <TextAreaWrapper>
-                <MediumTextArea
-                  value={noteValue}
-                  onChange={onNoteChange}
-                  rows={5}
-                  placeholder={'Add any additional comment here...'}
-                />
-              </TextAreaWrapper>
-            ))}
+          )}
 
-          {error && (
+          {dialogData.state === 'error' && (
             <AlertMessage type={AlertMessageType.error} hideCloseButton={true}>
-              {error}
+              {dialogData.error}
             </AlertMessage>
           )}
         </Dialog>
