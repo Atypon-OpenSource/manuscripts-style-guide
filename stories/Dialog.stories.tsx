@@ -156,11 +156,13 @@ storiesOf('Dialog', module)
       disable={false}
       onTransitionClick={action('Click')}
       hasPendingSuggestions={false}
-      loading={false}
-      showComplete={true}
       noteValue={''}
       currentStepTransition={[]}
-      error={undefined}
+      dialogData={{
+        state: 'init',
+        updateState: action('Click'),
+        clearError: action('Click'),
+      }}
       nextStepType={submission.nextStep.type as never}
       currentStepType={submission.currentStep.type as never}
       previousStepType={submission.previousStep.type as never}
