@@ -19,6 +19,7 @@ import styled from 'styled-components'
 import {
   Category,
   Dialog,
+  DialogState,
   LoadingOverlay,
   NavDropdown,
   NavDropdownButton,
@@ -116,7 +117,7 @@ export const ProceedView: React.FC<{
               },
             },
           }
-        : dialogData.state === 'success'
+        : dialogData.state === DialogState.SUCCESS
         ? {
             header: 'Content reassigned successfully',
             message: `to the ${currentStepType.label}`,
@@ -188,21 +189,23 @@ export const ProceedView: React.FC<{
         </PrimaryButtonSmall>
       )}
 
-      {dialogData.state === 'loading' && (
+      {dialogData.state === DialogState.LOADING && (
         <LoadingOverlay>
           <Message isCentered>Proceeding with your submission…</Message>
         </LoadingOverlay>
       )}
 
-      {!(dialogData.state === 'closed') && (
+      {!(dialogData.state === DialogState.CLOSED) && (
         <Dialog
-          isOpen={confirmationDialog && !(dialogData.state === 'loading')}
+          isOpen={
+            confirmationDialog && !(dialogData.state === DialogState.LOADING)
+          }
           category={Category.confirmation}
           header={dialogMessages.header}
           message={dialogMessages.message}
           actions={dialogMessages.actions}
         >
-          {dialogData.state === 'success' && (
+          {dialogData.state === DialogState.SUCCESS && (
             <Grid>
               {previousStepType && (
                 <StepDetails
@@ -219,7 +222,7 @@ export const ProceedView: React.FC<{
             </Grid>
           )}
 
-          {dialogData.state === 'error' && (
+          {dialogData.state === DialogState.ERROR && (
             <AlertMessage type={AlertMessageType.error} hideCloseButton={true}>
               {dialogData.error}
             </AlertMessage>

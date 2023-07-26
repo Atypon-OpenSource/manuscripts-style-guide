@@ -64,7 +64,13 @@ export type SubmissionStepType = {
   }
 }
 
-export type DialogState = 'init' | 'loading' | 'error' | 'success' | 'closed'
+export enum DialogState {
+  INIT,
+  LOADING,
+  ERROR,
+  SUCCESS,
+  CLOSED,
+}
 
 export type ProceedDialogData = {
   state: DialogState
@@ -135,7 +141,7 @@ export const EditorHeader: React.FC<{
       const { status } =
         submission.currentStep.type.transitions[selectedTransitionIndex]
 
-      updateState('loading')
+      updateState(DialogState.LOADING)
       await handleSnapshot()
       await submit(status.id, noteValue)
     }
@@ -150,7 +156,7 @@ export const EditorHeader: React.FC<{
 
   const onTransitionClick = useCallback(
     (event) => {
-      updateState('init')
+      updateState(DialogState.INIT)
       toggleConfirmationDialog(true)
       setSelectedTransitionIndex(
         event.target.value || event.target.parentNode.value
@@ -163,7 +169,7 @@ export const EditorHeader: React.FC<{
     toggleConfirmationDialog(false)
     setSelectedTransitionIndex(undefined)
     clearError()
-    updateState('closed')
+    updateState(DialogState.CLOSED)
   }, [
     toggleConfirmationDialog,
     setSelectedTransitionIndex,
