@@ -18,7 +18,7 @@ import { action } from '@storybook/addon-actions'
 import { storiesOf } from '@storybook/react'
 import * as React from 'react'
 
-import { Category, Dialog, SimpleModal, TextArea } from '../src'
+import { Category, Dialog, DialogState, SimpleModal, TextArea } from '../src'
 import { ProceedView } from '../src/components/EditorHeader/ProceedView'
 import { submission } from './data/lw-submission'
 
@@ -159,7 +159,7 @@ storiesOf('Dialog', module)
       noteValue={''}
       currentStepTransition={[]}
       dialogData={{
-        state: 'init',
+        state: DialogState.INIT,
         updateState: action('Click'),
         clearError: action('Click'),
       }}
