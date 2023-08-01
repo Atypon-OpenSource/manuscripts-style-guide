@@ -39,7 +39,7 @@ export type FileAttachment = {
   name: string
   type: FileAttachmentType
   link: string
-  date: Date
+  createdDate: Date
 }
 
 export type FileAttachmentType = {
