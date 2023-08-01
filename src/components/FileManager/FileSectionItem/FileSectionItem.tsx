@@ -110,7 +110,7 @@ export const FileSectionItem: React.FC<FileSectionItemProps> = ({
         />
         <FileInfo
           fileExtension={fileExtension}
-          fileCreatedDate={externalFile.date}
+          fileCreatedDate={externalFile.createdDate}
           showAttachmentName={showAttachmentName}
           fileAttachmentName={externalFile.name}
           title={title}

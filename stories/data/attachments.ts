@@ -24,6 +24,7 @@ export const attachments: FileAttachment[] = [
       label: 'input-package',
     },
     link: 'https://lean-x7481.ciplit.com/lw/attachment/caabc327-25c5-4122-96fd-e38d313345da',
+    createdDate: '3/14/23, 18:48',
   },
   {
     id: '9047930d-0a8a-4db7-909e-37b2148e0097',
