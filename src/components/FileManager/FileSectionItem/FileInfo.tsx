@@ -56,9 +56,11 @@ export const FileInfo: React.FC<{
             <div>.{fileExtension}</div>
           </FileNameContainer>
         )}
-        <FileDateContainer>
-          <FileDate>{fileCreatedDate}</FileDate>
-        </FileDateContainer>
+        {fileCreatedDate && (
+          <FileDateContainer>
+            <FileDate>{fileCreatedDate}</FileDate>
+          </FileDateContainer>
+        )}
       </FileNameTitleContainer>{' '}
     </FileInfoContainer>
   )
