@@ -25,6 +25,7 @@ export const FileInfo: React.FC<{
   fileAttachmentName: string
   fileExtension: string
   attachmentId: string
+  fileCreatedDate: Date
   dispatch?: Dispatch<Action>
 }> = ({
   showAttachmentName,
@@ -33,6 +34,7 @@ export const FileInfo: React.FC<{
   fileExtension,
   attachmentId,
   dispatch,
+  fileCreatedDate,
 }) => {
   const fileName = fileAttachmentName.substring(
     0,
@@ -54,11 +56,18 @@ export const FileInfo: React.FC<{
             <div>.{fileExtension}</div>
           </FileNameContainer>
         )}
-      </FileNameTitleContainer>
-    </FileInfoContainer>
+          <FileDateContainer>
+            <FileDate>{fileCreatedDate}</FileDate>
+          </FileDateContainer>
+      </FileNameTitleContainer>    </FileInfoContainer>
   )
 }
-
+export const FileDateContainer = styled.div`
+  line-height: 20px;
+  overflow: hidden;
+  width: 100%;
+  display: none;
+`
 export const FileInfoContainer = styled.div`
   margin-left: 8px;
   overflow: hidden;
@@ -67,10 +76,15 @@ export const FileInfoContainer = styled.div`
   justify-content: center;
   align-items: start;
   width: 100%;
+
+  &:hover ${FileDateContainer} {
+    display: flex;
+  }
 `
 export const FileNameTitleContainer = styled.div`
   display: flex;
   width: 100%;
+  align-items: baseline;
 `
 export const FileTitle = styled.div`
   color: ${(props) => props.theme.colors.text.primary};
@@ -93,6 +107,11 @@ export const FileName = styled.div`
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
+  width: 50px;
+`
+export const FileDate = styled.div`
+  color: '#6E6E6E';
+  font-size: 12px;
 `
 export const FileDescription = styled.div`
   color: ${(props) => props.theme.colors.text.secondary};
