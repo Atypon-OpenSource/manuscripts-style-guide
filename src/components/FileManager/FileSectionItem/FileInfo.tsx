@@ -56,10 +56,11 @@ export const FileInfo: React.FC<{
             <div>.{fileExtension}</div>
           </FileNameContainer>
         )}
-          <FileDateContainer>
-            <FileDate>{fileCreatedDate}</FileDate>
-          </FileDateContainer>
-      </FileNameTitleContainer>    </FileInfoContainer>
+        <FileDateContainer>
+          <FileDate>{fileCreatedDate}</FileDate>
+        </FileDateContainer>
+      </FileNameTitleContainer>{' '}
+    </FileInfoContainer>
   )
 }
 export const FileDateContainer = styled.div`
