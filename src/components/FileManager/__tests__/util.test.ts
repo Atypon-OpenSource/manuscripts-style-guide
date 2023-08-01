@@ -37,7 +37,6 @@ const externalFiles: FileAttachment[] = [
     },
     link: 'https://lean-x7481.ciplit.com/lw/attachment/9047930d-0a8a-4db7-909e-37b2148e0097',
     createdDate: new Date('3/14/23'),
-
   },
   {
     id: '7d9d686b-5488-44a5-a1c5-46351e7f9312',
@@ -48,7 +47,6 @@ const externalFiles: FileAttachment[] = [
     },
     link: 'https://lean-x7481.ciplit.com/lw/attachment/7d9d686b-5488-44a5-a1c5-46351e7f9312',
     createdDate: new Date('3/14/23'),
-
   },
   {
     id: 'fd554f25-e0d4-4bbb-9169-a263b34ae157',
@@ -59,7 +57,6 @@ const externalFiles: FileAttachment[] = [
     },
     link: 'https://lean-x7481.ciplit.com/lw/attachment/fd554f25-e0d4-4bbb-9169-a263b34ae157',
     createdDate: new Date('3/14/23'),
-
   },
   {
     id: '4131f16e-e075-41bb-8339-abea02df515d',
@@ -70,7 +67,6 @@ const externalFiles: FileAttachment[] = [
     },
     link: 'https://lean-x7481.ciplit.com/lw/attachment/4131f16e-e075-41bb-8339-abea02df515d',
     createdDate: new Date('3/14/23'),
-
   },
 ]
 
