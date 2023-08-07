@@ -110,7 +110,7 @@ export const InlineFilesSection: React.FC<{
               </FileNameTitleContainer>
               {file.attachments?.map((attachment) => (
                 <FileDateContainer>
-                  <FileDate>{attachment.createdDate}</FileDate>
+                  <FileDate key={attachment.id}>{attachment.createdDate}</FileDate>
                 </FileDateContainer>
               ))}
             </FileInfoContainer>
