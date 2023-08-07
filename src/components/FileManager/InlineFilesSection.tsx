@@ -16,7 +16,6 @@
 import React, { Dispatch, useCallback } from 'react'
 import styled from 'styled-components'
 
-import { attachments } from '../../../stories/data/attachments'
 import { useDropdown } from '../../hooks/use-dropdown'
 import DotsIcon from '../icons/dots-icon'
 import { Replace } from './FileManager'
@@ -48,7 +47,6 @@ export const InlineFilesSection: React.FC<{
     type: FileType
     caption?: string
     attachments?: FileAttachment[]
-    date?: FileAttachment[]
   }[]
   handleReplace: Replace
   handleDownload: (url: string) => void
@@ -101,7 +99,6 @@ export const InlineFilesSection: React.FC<{
                 handleDetachFile={handleDetachFile}
                 handleDownload={handleDownload}
                 dispatch={dispatch}
-                date={attachment.createdDate}
               />
             ))}
           </FileReferences>
@@ -110,9 +107,6 @@ export const InlineFilesSection: React.FC<{
             <FileInfoContainer>
               <FileNameTitleContainer>
                 <FileTitle>{file.label}</FileTitle>
-                {file.attachments?.map((attachment) => (
-                  <div key={attachment.id}>{attachment.createdDate}</div>
-                ))}
               </FileNameTitleContainer>
             </FileInfoContainer>
           </Element>
@@ -133,7 +127,6 @@ const FileReference: React.FC<{
   handleDownload: (url: string) => void
   handleUpdateInline?: (modelId: string, attachment: FileAttachment) => void
   dispatch: Dispatch<Action>
-  date: Date
 }> = ({
   attachment,
   handleReplace,
