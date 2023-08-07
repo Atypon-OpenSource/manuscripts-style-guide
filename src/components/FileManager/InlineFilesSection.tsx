@@ -47,6 +47,7 @@ export const InlineFilesSection: React.FC<{
     type: FileType
     caption?: string
     attachments?: FileAttachment[]
+    date?: Date
   }[]
   handleReplace: Replace
   handleDownload: (url: string) => void
@@ -107,6 +108,7 @@ export const InlineFilesSection: React.FC<{
             <FileInfoContainer>
               <FileNameTitleContainer>
                 <FileTitle>{file.label}</FileTitle>
+                <div>{file.date}</div>
               </FileNameTitleContainer>
             </FileInfoContainer>
           </Element>
