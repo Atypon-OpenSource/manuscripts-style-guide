@@ -63,8 +63,7 @@ export const InlineFilesSection: React.FC<{
   handleDetachFile,
   inlineFiles,
   isEditor,
-  dispatch,
-  createdDate,
+  dispatch
 }) => {
   const onElementClick = useCallback(
     (e) => {
