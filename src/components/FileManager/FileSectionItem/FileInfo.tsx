@@ -61,7 +61,7 @@ export const FileInfo: React.FC<{
             <FileDate>{fileCreatedDate}</FileDate>
           </FileDateContainer>
         )}
-      </FileNameTitleContainer>{' '}
+      </FileNameTitleContainer>
     </FileInfoContainer>
   )
 }

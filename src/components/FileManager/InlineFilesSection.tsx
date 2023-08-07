@@ -109,7 +109,9 @@ export const InlineFilesSection: React.FC<{
                 <FileTitle>{file.label}</FileTitle>
               </FileNameTitleContainer>
               {file.attachments?.map((attachment) => (
-                <div key={attachment.id}>{attachment.createdDate}</div>
+                <FileDateContainer>
+                  <FileDate>{fileCreatedDate}</FileDate>
+              </FileDateContainer>
               ))}
             </FileInfoContainer>
           </Element>
@@ -226,10 +228,19 @@ const ElementItem = styled(Item)`
 const Container = styled.div`
   display: flex;
 `
-
+export const FileDateContainer = styled.div`
+  line-height: 20px;
+  overflow: hidden;
+  width: 100%;
+  display: none;
+`
 const Element = styled.div`
   display: flex;
   padding: 20px 15px;
+
+  &:hover ${FileDateContainer} {
+    display: flex;
+  }
 `
 
 const FileReferences = styled.div``
@@ -283,4 +294,9 @@ const FileReferenceName = styled.div`
 
 const DropdownContainer = styled.div`
   position: relative;
+`
+
+export const FileDate = styled.div`
+  color: '#6E6E6E';
+  font-size: 12px;
 `
