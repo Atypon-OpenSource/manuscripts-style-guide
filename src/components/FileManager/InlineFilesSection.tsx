@@ -91,15 +91,20 @@ export const InlineFilesSection: React.FC<{
         >
           <FileReferences className={'refItems'}>
             {file.attachments?.map((attachment) => (
-              <FileReference
-                key={attachment.id}
-                attachment={attachment}
-                handleReplace={handleReplace}
-                handleUpdateInline={handleUpdateInline}
-                handleDetachFile={handleDetachFile}
-                handleDownload={handleDownload}
-                dispatch={dispatch}
-              />
+              <>
+                <FileReference
+                  key={attachment.id}
+                  attachment={attachment}
+                  handleReplace={handleReplace}
+                  handleUpdateInline={handleUpdateInline}
+                  handleDetachFile={handleDetachFile}
+                  handleDownload={handleDownload}
+                  dispatch={dispatch}
+                />
+                <FileDateContainer>
+                  <FileDate>{attachment.createdDate}</FileDate>
+                </FileDateContainer>
+              </>
             ))}
           </FileReferences>
           <Element className={'element'}>
@@ -108,11 +113,6 @@ export const InlineFilesSection: React.FC<{
               <FileNameTitleContainer>
                 <FileTitle>{file.label}</FileTitle>
               </FileNameTitleContainer>
-              {file.attachments?.map((attachment) => (
-                <FileDateContainer key={attachment.id}>
-                  <FileDate>{attachment.createdDate}</FileDate>
-                </FileDateContainer>
-              ))}
             </FileInfoContainer>
           </Element>
         </ElementItem>
@@ -229,9 +229,8 @@ const Container = styled.div`
   display: flex;
 `
 export const FileDateContainer = styled.div`
-  line-height: 20px;
+  line-height: 40px;
   overflow: hidden;
-  width: 100%;
   display: none;
 `
 const Element = styled.div`
@@ -243,14 +242,18 @@ const Element = styled.div`
   }
 `
 
-const FileReferences = styled.div``
+const FileReferences = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+`
 
 const FileReferenceItem = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-
-  svg {
+  width: 100% svg {
     width: 14px;
     height: 17px;
   }
