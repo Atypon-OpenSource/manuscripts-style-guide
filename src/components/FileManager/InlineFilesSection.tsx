@@ -198,7 +198,11 @@ const FileReference: React.FC<{
     </FileReferenceItem>
   )
 }
-
+export const FileDateContainer = styled.div`
+  line-height: 40px;
+  overflow: hidden;
+  display: none;
+`
 const ElementItem = styled(Item)`
   display: flex;
   // this will allow us to select the previous sibling node,
@@ -212,6 +216,9 @@ const ElementItem = styled(Item)`
 
   .refItems:hover ~ .element {
     background: white !important;
+  }
+  &:hover ${FileDateContainer} {
+    display: flex;
   }
 
   .refItems:hover {
@@ -228,18 +235,9 @@ const ElementItem = styled(Item)`
 const Container = styled.div`
   display: flex;
 `
-export const FileDateContainer = styled.div`
-  line-height: 40px;
-  overflow: hidden;
-  display: none;
-`
 const Element = styled.div`
   display: flex;
   padding: 20px 15px;
-
-  &:hover ${FileDateContainer} {
-    display: flex;
-  }
 `
 
 const FileReferences = styled.div`
