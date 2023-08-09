@@ -80,6 +80,12 @@ export const InlineFilesSection: React.FC<{
     [isEditor]
   )
 
+  function formatDate(inputDate: string | number | Date) {
+    const date = new Date(inputDate);
+    const formattedDate = `${date.getMonth() + 1}/${date.getDate()}/${date.getFullYear().toString().slice(2)}, ${date.getHours()}:${date.getMinutes()}`;
+    return formattedDate;
+  }
+
   return (
     <div>
       {inlineFiles.map((file, index) => (
@@ -102,7 +108,7 @@ export const InlineFilesSection: React.FC<{
                   dispatch={dispatch}
                 />
                 <FileDateContainer>
-                  <FileDate>{attachment.createdDate}</FileDate>
+                  <FileDate>{formatDate(attachment.createdDate)}</FileDate>
                 </FileDateContainer>
               </>
             ))}
