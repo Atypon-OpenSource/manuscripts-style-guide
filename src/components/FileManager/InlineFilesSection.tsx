@@ -310,7 +310,7 @@ const DropdownContainer = styled.div`
 `
 
 export const FileDate = styled.div`
-  color: #6E6E6E;
+  color: #6e6e6e;
   font-size: 12px;
   line-height: 27px;
 `
