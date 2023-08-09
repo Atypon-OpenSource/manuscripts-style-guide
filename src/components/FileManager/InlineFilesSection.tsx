@@ -211,6 +211,7 @@ const FileReference: React.FC<{
 export const FileDateContainer = styled.div`
   overflow: hidden;
   display: none;
+  width: 50%;
 `
 const ElementItem = styled(Item)`
   display: flex;
@@ -309,6 +310,7 @@ const DropdownContainer = styled.div`
 `
 
 export const FileDate = styled.div`
-  color: '#6E6E6E';
+  color: #6E6E6E;
   font-size: 12px;
+  line-height: 27px;
 `
