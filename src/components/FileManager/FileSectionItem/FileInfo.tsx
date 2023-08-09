@@ -75,6 +75,7 @@ export const FileDateContainer = styled.div`
   overflow: hidden;
   width: 100%;
   display: none;
+  margin-left: 10px;
 `
 export const FileInfoContainer = styled.div`
   margin-left: 8px;
