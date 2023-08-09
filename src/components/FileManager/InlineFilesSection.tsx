@@ -40,6 +40,14 @@ import {
 
 const trackedJoint = ':dataTracked:'
 
+function formatDate(inputDate: string | number | Date) {
+  const date = new Date(inputDate)
+  const formattedDate = `${date.getMonth() + 1}/${date.getDate()}/${date
+    .getFullYear()
+    .toString()
+    .slice(2)}, ${date.getHours()}:${date.getMinutes()}`
+  return formattedDate
+}
 export const InlineFilesSection: React.FC<{
   inlineFiles: {
     id: string
@@ -80,15 +88,6 @@ export const InlineFilesSection: React.FC<{
     [isEditor]
   )
 
-  // function formatDate(inputDate: string | number | Date) {
-  //   const date = new Date(inputDate)
-  //   const formattedDate = `${date.getMonth() + 1}/${date.getDate()}/${date
-  //     .getFullYear()
-  //     .toString()
-  //     .slice(2)}, ${date.getHours()}:${date.getMinutes()}`
-  //   return formattedDate
-  // }
-
   return (
     <div>
       {inlineFiles.map((file, index) => (
@@ -110,9 +109,6 @@ export const InlineFilesSection: React.FC<{
                   handleDownload={handleDownload}
                   dispatch={dispatch}
                 />
-                <FileDateContainer>
-                  <FileDate>{attachment.createdDate}</FileDate>
-                </FileDateContainer>
               </>
             ))}
           </FileReferences>
@@ -167,6 +163,11 @@ const FileReference: React.FC<{
         )}
         <FileReferenceName>{attachment.name}</FileReferenceName>
       </Container>
+      {attachment.createdDate && (
+        <FileDateContainer>
+          <FileDate>{formatDate(attachment.createdDate)}</FileDate>
+        </FileDateContainer>
+      )}
       {handleDownload && handleReplace && (
         <DropdownContainer ref={wrapperRef}>
           <ActionsIcon
@@ -208,7 +209,6 @@ const FileReference: React.FC<{
   )
 }
 export const FileDateContainer = styled.div`
-  line-height: 40px;
   overflow: hidden;
   display: none;
 `
@@ -243,6 +243,7 @@ const ElementItem = styled(Item)`
 
 const Container = styled.div`
   display: flex;
+  width: 100%;
 `
 const Element = styled.div`
   display: flex;
@@ -258,7 +259,8 @@ const FileReferences = styled.div`
 
 const FileReferenceItem = styled.div`
   display: flex;
-  align-items: center;
+  width: 100%;
+  align-items: space;
   justify-content: space-between;
   width: 100% svg {
     width: 14px;
