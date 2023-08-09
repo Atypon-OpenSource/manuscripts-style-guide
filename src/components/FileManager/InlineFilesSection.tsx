@@ -81,9 +81,12 @@ export const InlineFilesSection: React.FC<{
   )
 
   function formatDate(inputDate: string | number | Date) {
-    const date = new Date(inputDate);
-    const formattedDate = `${date.getMonth() + 1}/${date.getDate()}/${date.getFullYear().toString().slice(2)}, ${date.getHours()}:${date.getMinutes()}`;
-    return formattedDate;
+    const date = new Date(inputDate)
+    const formattedDate = `${date.getMonth() + 1}/${date.getDate()}/${date
+      .getFullYear()
+      .toString()
+      .slice(2)}, ${date.getHours()}:${date.getMinutes()}`
+    return formattedDate
   }
 
   return (

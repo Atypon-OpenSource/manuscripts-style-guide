@@ -42,8 +42,11 @@ export const FileInfo: React.FC<{
   )
 
   const can = useContext(PermissionsContext)
-  const date = new Date(fileCreatedDate);
-  const formattedDate = `${date.getMonth() + 1}/${date.getDate()}/${date.getFullYear().toString().slice(2)}, ${date.getHours()}:${date.getMinutes()}`;
+  const date = new Date(fileCreatedDate)
+  const formattedDate = `${date.getMonth() + 1}/${date.getDate()}/${date
+    .getFullYear()
+    .toString()
+    .slice(2)}, ${date.getHours()}:${date.getMinutes()}`
 
   return (
     <FileInfoContainer>
