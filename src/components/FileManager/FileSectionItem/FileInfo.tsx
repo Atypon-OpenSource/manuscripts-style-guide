@@ -59,7 +59,9 @@ export const FileInfo: React.FC<{
         )}
         {fileCreatedDate && (
           <FileDateContainer>
-            <FileDate>{format(fileCreatedDate, 'M/d/yy HH:mm')}</FileDate>
+            <FileDate>
+              {format(new Date(fileCreatedDate), 'M/d/yy HH:mm')}
+            </FileDate>
           </FileDateContainer>
         )}
       </FileNameTitleContainer>

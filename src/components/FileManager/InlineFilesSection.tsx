@@ -158,7 +158,9 @@ const FileReference: React.FC<{
       </Container>
       {attachment.createdDate && (
         <FileDateContainer>
-          <FileDate>{format(attachment.createdDate, 'M/d/yy HH:mm')}</FileDate>
+          <FileDate>
+            {format(new Date(attachment.createdDate), 'M/d/yy HH:mm')}
+          </FileDate>
         </FileDateContainer>
       )}
       {handleDownload && handleReplace && (
@@ -205,6 +207,7 @@ export const FileDateContainer = styled.div`
   overflow: hidden;
   display: none;
   width: 50%;
+  line-height: 27px;
 `
 const ElementItem = styled(Item)`
   display: flex;
