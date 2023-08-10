@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+import { format } from 'date-fns'
 import React, { Dispatch, useCallback } from 'react'
 import styled from 'styled-components'
 
@@ -40,14 +41,6 @@ import {
 
 const trackedJoint = ':dataTracked:'
 
-function formatDate(inputDate: string | number | Date) {
-  const date = new Date(inputDate)
-  const formattedDate = `${date.getMonth() + 1}/${date.getDate()}/${date
-    .getFullYear()
-    .toString()
-    .slice(2)}, ${date.getHours()}:${date.getMinutes()}`
-  return formattedDate
-}
 export const InlineFilesSection: React.FC<{
   inlineFiles: {
     id: string
@@ -165,7 +158,7 @@ const FileReference: React.FC<{
       </Container>
       {attachment.createdDate && (
         <FileDateContainer>
-          <FileDate>{formatDate(attachment.createdDate)}</FileDate>
+          <FileDate>{format(attachment.createdDate, 'd MMMM, EEEE')}</FileDate>
         </FileDateContainer>
       )}
       {handleDownload && handleReplace && (
@@ -310,7 +303,6 @@ const DropdownContainer = styled.div`
 `
 
 export const FileDate = styled.div`
-  color: #6e6e6e;
-  font-size: 12px;
+  font-size: ${(props) => props.theme.font.size.small};
   line-height: 27px;
 `

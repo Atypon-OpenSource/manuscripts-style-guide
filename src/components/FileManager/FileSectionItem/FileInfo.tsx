@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+import { format } from 'date-fns'
 import React, { Dispatch, useContext } from 'react'
 import styled from 'styled-components'
 
@@ -42,11 +43,6 @@ export const FileInfo: React.FC<{
   )
 
   const can = useContext(PermissionsContext)
-  const date = new Date(fileCreatedDate)
-  const formattedDate = `${date.getMonth() + 1}/${date.getDate()}/${date
-    .getFullYear()
-    .toString()
-    .slice(2)}, ${date.getHours()}:${date.getMinutes()}`
 
   return (
     <FileInfoContainer>
@@ -63,7 +59,7 @@ export const FileInfo: React.FC<{
         )}
         {fileCreatedDate && (
           <FileDateContainer>
-            <FileDate>{formattedDate}</FileDate>
+            <FileDate>{format(fileCreatedDate, 'd MMMM, EEEE')}</FileDate>
           </FileDateContainer>
         )}
       </FileNameTitleContainer>
@@ -119,8 +115,7 @@ export const FileName = styled.div`
   width: 50px;
 `
 export const FileDate = styled.div`
-  color: '#6E6E6E';
-  font-size: 12px;
+  font-size: font-size: ${(props) => props.theme.font.size.small};
 `
 export const FileDescription = styled.div`
   color: ${(props) => props.theme.colors.text.secondary};
