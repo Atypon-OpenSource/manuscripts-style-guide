@@ -164,7 +164,7 @@ const FileReference: React.FC<{
           </FileDate>
           <ReactTooltip
             place="bottom"
-            offset={{ top: 10 }}
+            offset={{ top: 0 }}
             effect="solid"
             className="tooltip"
           >

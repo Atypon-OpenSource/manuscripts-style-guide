@@ -65,7 +65,7 @@ export const FileInfo: React.FC<{
             </FileDate>
             <ReactTooltip
               place="bottom"
-              offset={{ top: 10 }}
+              offset={{ top: 0 }}
               effect="solid"
               className="tooltip"
             >
@@ -82,7 +82,8 @@ export const FileDateContainer = styled.div`
   overflow: hidden;
   width: 100%;
   display: none;
-  margin-left: 10px;
+  display: flex;
+  justify-content: flex-end;
 `
 export const FileInfoContainer = styled.div`
   margin-left: 8px;
