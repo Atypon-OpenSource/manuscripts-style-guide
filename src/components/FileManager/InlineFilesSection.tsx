@@ -15,6 +15,7 @@
  */
 import { format } from 'date-fns'
 import React, { Dispatch, useCallback } from 'react'
+import ReactTooltip from 'react-tooltip'
 import styled from 'styled-components'
 
 import { useDropdown } from '../../hooks/use-dropdown'
@@ -157,10 +158,17 @@ const FileReference: React.FC<{
         <FileReferenceName>{attachment.name}</FileReferenceName>
       </Container>
       {attachment.createdDate && (
-        <FileDateContainer>
+        <FileDateContainer data-tip="tooltip-content">
           <FileDate>
             {format(new Date(attachment.createdDate), 'M/d/yy, HH:mm')}
           </FileDate>
+          <ReactTooltip
+            place={'bottom'}
+            className="tooltip"
+            offset={{ top: 10 }}
+          >
+            File Uploaded
+          </ReactTooltip>
         </FileDateContainer>
       )}
       {handleDownload && handleReplace && (
