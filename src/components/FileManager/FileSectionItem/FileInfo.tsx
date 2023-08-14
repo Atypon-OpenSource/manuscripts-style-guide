@@ -15,6 +15,7 @@
  */
 import { format } from 'date-fns'
 import React, { Dispatch, useContext } from 'react'
+import ReactTooltip from 'react-tooltip'
 import styled from 'styled-components'
 
 import { PermissionsContext } from '../FileManager'
@@ -58,10 +59,18 @@ export const FileInfo: React.FC<{
           </FileNameContainer>
         )}
         {fileCreatedDate && (
-          <FileDateContainer>
+          <FileDateContainer data-tip="tooltip-content">
             <FileDate>
               {format(new Date(fileCreatedDate), 'M/d/yy, HH:mm')}
             </FileDate>
+            <ReactTooltip
+              place="bottom"
+              offset={{ top: 10 }}
+              effect="solid"
+              className="tooltip"
+            >
+              File Uploaded
+            </ReactTooltip>
           </FileDateContainer>
         )}
       </FileNameTitleContainer>

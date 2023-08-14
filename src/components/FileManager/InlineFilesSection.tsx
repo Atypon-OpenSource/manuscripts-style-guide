@@ -163,9 +163,10 @@ const FileReference: React.FC<{
             {format(new Date(attachment.createdDate), 'M/d/yy, HH:mm')}
           </FileDate>
           <ReactTooltip
-            place={'bottom'}
-            className="tooltip"
+            place="bottom"
             offset={{ top: 10 }}
+            effect="solid"
+            className="tooltip"
           >
             File Uploaded
           </ReactTooltip>
@@ -214,8 +215,8 @@ const FileReference: React.FC<{
 export const FileDateContainer = styled.div`
   overflow: hidden;
   display: none;
-  width: 50%;
-  line-height: 27px;
+  width: 100%;
+  justify-content: flex-end;
 `
 const ElementItem = styled(Item)`
   display: flex;
