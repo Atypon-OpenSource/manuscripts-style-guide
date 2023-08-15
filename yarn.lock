@@ -1656,11 +1656,6 @@
     react-dom "^17.0.2"
     react-select "^5.7.3"
 
-"@manuscripts/data@^1.0.2":
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/@manuscripts/data/-/data-1.0.2.tgz#daf61fe1dfa47503afb4ca0f72540091e6576caf"
-  integrity sha512-mEZM3bkHYGkgz7DK92+6jhOlqmufoKqAK166YlO7GswKspzcg1bM+2+T8O9QuMhYGcma1mnC93EwLPhOFJ5Vjw==
-
 "@manuscripts/eslint-config@^0.5.1":
   version "0.5.1"
   resolved "https://registry.npmjs.org/@manuscripts/eslint-config/-/eslint-config-0.5.1.tgz"
@@ -1693,10 +1688,10 @@
     react-dom "^17.0.2"
     styled-components "^5.2.0"
 
-"@manuscripts/transform@^1.3.9":
-  version "1.3.9"
-  resolved "https://registry.yarnpkg.com/@manuscripts/transform/-/transform-1.3.9.tgz#6317cf2ce1942cd1aaaa6e3dd544397fb416716f"
-  integrity sha512-HIWrFbcq5WvhPWTcKd+yjvsZwI2aQ0IfoYdv0b0YMY7tw3WHCpI31bJSiGRuPrzCIiX36LVI8bKqJ8+QwF1ReQ==
+"@manuscripts/transform@^1.3.10":
+  version "1.3.10"
+  resolved "https://registry.yarnpkg.com/@manuscripts/transform/-/transform-1.3.10.tgz#fa0cefc6beb3f6f7729c368ec976bfe83bb01c54"
+  integrity sha512-t5bB1AMCDW0O+ojqJHDw9XgtB0qJU+LDOUMYimnlKf2DL8UmV9LGDLppzAXobgKnygrVHQiCBhiES7rDwe85Nw==
   dependencies:
     "@manuscripts/json-schema" "^2.1.0"
     debug "^4.3.4"
