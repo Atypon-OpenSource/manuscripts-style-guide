@@ -74,6 +74,7 @@ const StepDetails: React.FC<
 
 export const ProceedView: React.FC<{
   isAnnotator: boolean
+  isProofer: boolean
   disable: boolean
   onTransitionClick: (event: unknown) => void
   onNoteChange?: (event: unknown) => void
@@ -101,6 +102,7 @@ export const ProceedView: React.FC<{
   currentStepType,
   nextStepType,
   isAnnotator,
+  isProofer,
   hasPendingSuggestions,
   error,
   noteValue,
@@ -111,7 +113,7 @@ export const ProceedView: React.FC<{
 }) => {
   const dialogMessages = useMemo(
     () =>
-      hasPendingSuggestions && !isAnnotator
+      hasPendingSuggestions && !isAnnotator && !isProofer
         ? {
             header: 'The task can not be transitioned to the next step',
             message: `There are still pending suggestions in the document.
@@ -161,6 +163,7 @@ export const ProceedView: React.FC<{
       currentStepType,
       hasPendingSuggestions,
       isAnnotator,
+      isProofer,
     ]
   )
   return (

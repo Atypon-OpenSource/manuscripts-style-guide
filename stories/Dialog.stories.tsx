@@ -153,6 +153,7 @@ storiesOf('Dialog', module)
   .add('Dialog Proceed to the nextStep', () => (
     <ProceedView
       isAnnotator={false}
+      isProofer={false}
       disable={false}
       onTransitionClick={action('Click')}
       hasPendingSuggestions={false}

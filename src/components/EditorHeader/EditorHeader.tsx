@@ -99,6 +99,7 @@ export const EditorHeader: React.FC<{
   goBack?: () => void
   status?: 'saved' | 'saving' | 'offline' | 'failed'
   isAnnotator: boolean
+  isProofer: boolean
   message: React.FC
   disabelProceedNote?: boolean
 }> = ({
@@ -111,6 +112,7 @@ export const EditorHeader: React.FC<{
   goBack,
   status,
   isAnnotator,
+  isProofer,
   message,
   exceptionDialog: ExceptionDialog,
   disabelProceedNote,
@@ -198,6 +200,7 @@ export const EditorHeader: React.FC<{
         submission.nextStep && (
           <ProceedView
             isAnnotator={isAnnotator}
+            isProofer={isProofer}
             disable={disable}
             onTransitionClick={onTransitionClick}
             hasPendingSuggestions={hasPendingSuggestions}
