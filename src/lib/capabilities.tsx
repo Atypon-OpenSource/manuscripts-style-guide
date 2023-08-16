@@ -61,6 +61,7 @@ export type Capabilities = {
   editMetadata: boolean
   shareProject: boolean
   editCitationsAndRefs: boolean
+  applySaveChanges: boolean
 }
 
 enum Actions {
@@ -148,6 +149,7 @@ export const getCapabilities = (
     editMetadata: !(isViewer() || isAnnotator()),
     editCitationsAndRefs: !(isViewer() || isAnnotator()),
     shareProject: isOwner(),
+    applySaveChanges: !isAnnotator(),
   }
 }
 
