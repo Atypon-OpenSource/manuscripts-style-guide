@@ -80,7 +80,7 @@ export type ProceedDialogData = {
   clearError: () => void
 }
 
-const Editing = { label: 'Editing...', icon: EditIcon }
+const Editing = { label: 'Editing', icon: EditIcon }
 
 const MapUserRole: {
   [key: string]: {
@@ -94,8 +94,8 @@ const MapUserRole: {
   Editor: Editing,
   Owner: Editing,
   Writer: Editing,
-  Annotator: { label: 'Suggesting...', icon: AnnotatorIcon },
-  Viewer: { label: 'Reading...', icon: ReadingIcon },
+  Annotator: { label: 'Suggesting', icon: AnnotatorIcon },
+  Viewer: { label: 'Reading', icon: ReadingIcon },
   Proofer: { label: 'Proofing', icon: AnnotatorIcon },
 }
 
