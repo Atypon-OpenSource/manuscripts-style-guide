@@ -80,7 +80,7 @@ export type ProceedDialogData = {
   clearError: () => void
 }
 
-const Editing = { label: 'Editing...', icon: EditIcon }
+const Editing = { label: 'Editing', icon: EditIcon }
 
 const MapUserRole: {
   [key: string]: {
@@ -94,8 +94,9 @@ const MapUserRole: {
   Editor: Editing,
   Owner: Editing,
   Writer: Editing,
-  Annotator: { label: 'Suggesting...', icon: AnnotatorIcon },
-  Viewer: { label: 'Reading...', icon: ReadingIcon },
+  Annotator: { label: 'Suggesting', icon: AnnotatorIcon },
+  Viewer: { label: 'Reading', icon: ReadingIcon },
+  Proofer: { label: 'Proofing', icon: AnnotatorIcon },
 }
 
 export const EditorHeader: React.FC<{
@@ -112,6 +113,7 @@ export const EditorHeader: React.FC<{
   goBack?: () => void
   status?: 'saved' | 'saving' | 'offline' | 'failed'
   isAnnotator: boolean
+  isProofer: boolean
   message: React.FC
   disabelProceedNote?: boolean
 }> = ({
@@ -124,6 +126,7 @@ export const EditorHeader: React.FC<{
   goBack,
   status,
   isAnnotator,
+  isProofer,
   message,
   exceptionDialog: ExceptionDialog,
   disabelProceedNote,
@@ -202,6 +205,7 @@ export const EditorHeader: React.FC<{
         submission.nextStep && (
           <ProceedView
             isAnnotator={isAnnotator}
+            isProofer={isProofer}
             disable={disable}
             onTransitionClick={onTransitionClick}
             hasPendingSuggestions={hasPendingSuggestions}

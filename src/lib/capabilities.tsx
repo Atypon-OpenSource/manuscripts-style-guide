@@ -95,6 +95,8 @@ export const getCapabilities = (
     !!(profile && project?.writers?.includes(profile.userID))
   const isAnnotator = () =>
     !!(profile && project?.annotators?.includes(profile.userID))
+  const isProofer = () =>
+    !!(profile && project?.proofers?.includes(profile.userID))
   const isViewer = () =>
     !!(profile && project?.viewers?.includes(profile.userID))
   const isProdEditor = () => role == 'pe'
@@ -112,7 +114,7 @@ export const getCapabilities = (
     handleOwnComments: !isViewer(),
     handleOthersComments: isOwner(),
     resolveOwnComment: !isViewer(),
-    resolveOthersComment: !(isViewer() || isAnnotator()),
+    resolveOthersComment: !(isViewer() || isAnnotator() || isProofer()),
     createComment: !isViewer(),
     /* production notes */
     viewNotes: true,
@@ -145,8 +147,8 @@ export const getCapabilities = (
     formatArticle: !isViewer(),
     /* editor */
     editArticle: !isViewer(),
-    editMetadata: !(isViewer() || isAnnotator()),
-    editCitationsAndRefs: !(isViewer() || isAnnotator()),
+    editMetadata: !(isViewer() || isAnnotator() || isProofer()),
+    editCitationsAndRefs: !(isViewer() || isAnnotator() || isProofer()),
     shareProject: isOwner(),
   }
 }
