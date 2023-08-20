@@ -381,7 +381,7 @@ const UpdatedDueDate = styled.div`
   box-sizing: border-box;
   border-radius: ${(props) => props.theme.grid.unit}px;
   padding: ${(props) => props.theme.grid.unit}px
-    ${(props) => props.theme.grid.unit * 2}px; ;
+    ${(props) => props.theme.grid.unit * 2}px;
 `
 
 const DueDateMessage = styled(MessageContainer)`
