@@ -39,6 +39,7 @@ export type FileAttachment = {
   name: string
   type: FileAttachmentType
   link: string
+  createdDate: Date
 }
 
 export type FileAttachmentType = {
@@ -109,6 +110,7 @@ export const FileSectionItem: React.FC<FileSectionItemProps> = ({
         />
         <FileInfo
           fileExtension={fileExtension}
+          fileCreatedDate={externalFile.createdDate}
           showAttachmentName={showAttachmentName}
           fileAttachmentName={externalFile.name}
           title={title}
