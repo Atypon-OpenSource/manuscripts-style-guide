@@ -45,8 +45,6 @@ export const FileInfo: React.FC<{
   )
 
   const can = useContext(PermissionsContext)
-  fileCreatedDate = new Date()
-  console.log(fileCreatedDate)
   return (
     <FileInfoContainer>
       <FileNameTitleContainer>
