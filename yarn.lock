@@ -1665,10 +1665,10 @@
     eslint-config-prettier "^8.5.0"
     prettier "^2.8.1"
 
-"@manuscripts/json-schema@^2.1.1":
-  version "2.1.1"
-  resolved "https://registry.yarnpkg.com/@manuscripts/json-schema/-/json-schema-2.1.1.tgz#f37c0c059ade6c001bd4d789deddde293066cd80"
-  integrity sha512-ePFyoeOYymTZLjQAIjr1+DT6RnwKdJZ5dkEvwR7qTLeIlYEwXY1Ho8Xis8PXQz6pmw0QX5EvgjOhGFduZ7irqg==
+"@manuscripts/json-schema@2.1.1-LEAN-2715-4":
+  version "2.1.1-LEAN-2715-4"
+  resolved "https://registry.yarnpkg.com/@manuscripts/json-schema/-/json-schema-2.1.1-LEAN-2715-4.tgz#b09ab04933fec3c84696a665950551ed32f0e919"
+  integrity sha512-yczhQW5jXWjz1+xkqx3Oskq8tEqBmBY7BFkM9zc0OAmu2gwiB103IwI23jxIr4BYh/qabUiGmMqQvDKUE1kvKw==
   dependencies:
     ajv "^8.12.0"
     deepmerge "^4.3.1"
@@ -1688,12 +1688,12 @@
     react-dom "^17.0.2"
     styled-components "^5.2.0"
 
-"@manuscripts/transform@^1.3.11":
-  version "1.3.11"
-  resolved "https://registry.yarnpkg.com/@manuscripts/transform/-/transform-1.3.11.tgz#82437557fb198efc17d22321a3216a4ad3c69971"
-  integrity sha512-pK5lGq63L7eKJT4uUHrrlcSw3VLG2ESLGOHDUmH+EjlCpPjnPMF8AWCOVuyCLnQF93A1CJuEsKpZ5snZ86ci9Q==
+"@manuscripts/transform@1.3.11-LEAN-2715-1":
+  version "1.3.11-LEAN-2715-1"
+  resolved "https://registry.yarnpkg.com/@manuscripts/transform/-/transform-1.3.11-LEAN-2715-1.tgz#6b8cdb6a3beccdf2cfba031ccf62079bb9ce65ba"
+  integrity sha512-29+YG+6VUcbfWueCREnA+mk65NGziDforPWzjN6UHW7FeNUpfnxX4sXeEDsYzxEAQzNfZ8mAqzgWgEuMe5QrOQ==
   dependencies:
-    "@manuscripts/json-schema" "^2.1.1"
+    "@manuscripts/json-schema" "2.1.1-LEAN-2715-4"
     debug "^4.3.4"
     jszip "^3.10.1"
     mathjax-full "^3.2.2"
