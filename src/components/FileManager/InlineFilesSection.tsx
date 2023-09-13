@@ -21,16 +21,7 @@ import styled from 'styled-components'
 import { useDropdown } from '../../hooks/use-dropdown'
 import DotsIcon from '../icons/dots-icon'
 import { Replace } from './FileManager'
-import {
-  FileInfoContainer,
-  FileNameTitleContainer,
-  FileTitle,
-} from './FileSectionItem/FileInfo'
-import {
-  ActionsIcon,
-  FileAttachment,
-  Item,
-} from './FileSectionItem/FileSectionItem'
+import { ActionsIcon, FileAttachment } from './FileSectionItem/FileSectionItem'
 import { ItemActions } from './FileSectionItem/ItemActions'
 import { Action } from './FileSectionState'
 import {
@@ -83,44 +74,38 @@ export const InlineFilesSection: React.FC<{
   )
 
   return (
-    <div>
+    <>
       {inlineFiles.map((file, index) => (
-        <ElementItem
-          className={'item'}
+        <Element
+          className={'element'}
           key={index}
           id={file.id}
           onClick={onElementClick}
         >
-          <FileReferences className={'refItems'}>
-            {file.attachments?.map((attachment) => (
-              <>
-                <FileReference
-                  key={attachment.id}
-                  attachment={attachment}
-                  handleReplace={handleReplace}
-                  handleUpdateInline={handleUpdateInline}
-                  handleDetachFile={handleDetachFile}
-                  handleDownload={handleDownload}
-                  dispatch={dispatch}
-                />
-              </>
-            ))}
-          </FileReferences>
-          <Element className={'element'}>
+          <ElementHeader>
             {fileTypesWithIconMap.get(file.type)}
-            <FileInfoContainer>
-              <FileNameTitleContainer>
-                <FileTitle>{file.label}</FileTitle>
-              </FileNameTitleContainer>
-            </FileInfoContainer>
-          </Element>
-        </ElementItem>
+            <ElementName>{file.label}</ElementName>
+          </ElementHeader>
+          <ElementFiles className={'element-files'}>
+            {file.attachments?.map((attachment) => (
+              <ElementFile
+                key={attachment.id}
+                attachment={attachment}
+                handleReplace={handleReplace}
+                handleUpdateInline={handleUpdateInline}
+                handleDetachFile={handleDetachFile}
+                handleDownload={handleDownload}
+                dispatch={dispatch}
+              />
+            ))}
+          </ElementFiles>
+        </Element>
       ))}
-    </div>
+    </>
   )
 }
 
-const FileReference: React.FC<{
+const ElementFile: React.FC<{
   attachment?: FileAttachment & { modelId?: string }
   handleReplace: (
     attachmentId: string,
@@ -150,13 +135,13 @@ const FileReference: React.FC<{
   )
 
   return (
-    <FileReferenceItem key={attachment.id}>
-      <Container>
+    <ElementFileContainer key={attachment.id} className={'element-file'}>
+      <ElementFileHeader>
         {fileTypesWithIconMap.get(
           extensionsWithFileTypesMap.get(fileExtension)
         )}
-        <FileReferenceName>{attachment.name}</FileReferenceName>
-      </Container>
+        <ElementFileName>{attachment.name}</ElementFileName>
+      </ElementFileHeader>
       {attachment.createdDate && (
         <FileDateContainer data-tip="tooltip-content">
           <FileDate>
@@ -209,36 +194,19 @@ const FileReference: React.FC<{
           )}
         </DropdownContainer>
       )}
-    </FileReferenceItem>
+    </ElementFileContainer>
   )
 }
+
 export const FileDateContainer = styled.div`
   overflow: hidden;
   display: none;
-  width: 100%;
-  justify-content: flex-end;
 `
-const ElementItem = styled(Item)`
+
+const Element = styled.div`
   display: flex;
-  // this will allow us to select the previous sibling node,
-  // to change the background on the hover for adjacent node
-  flex-direction: column-reverse;
+  flex-direction: column;
   padding: 0;
-
-  :hover {
-    background: #f2fbfc;
-  }
-
-  .refItems:hover ~ .element {
-    background: white !important;
-  }
-  &:hover ${FileDateContainer} {
-    display: flex;
-  }
-
-  .refItems:hover {
-    background: white !important;
-  }
 
   border-bottom: 1px dashed #f0f0f0;
 
@@ -247,46 +215,64 @@ const ElementItem = styled(Item)`
   }
 `
 
-const Container = styled.div`
+const ElementHeader = styled.div`
   display: flex;
-  width: 100%;
-`
-const Element = styled.div`
-  display: flex;
-  padding: 20px 15px;
+  padding: 20px 16px;
 `
 
-const FileReferences = styled.div`
+const ElementName = styled.div`
+  color: ${(props) => props.theme.colors.text.primary};
+  font-weight: bold;
+  font-size: 16px;
+  line-height: 20px;
+  white-space: nowrap;
+  margin-left: ${(props) => props.theme.grid.unit * 2}px;
+`
+
+const ElementFileHeader = styled.div`
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  width: 100%;
+  flex-grow: 1;
 `
 
-const FileReferenceItem = styled.div`
-  display: flex;
+const ElementFiles = styled.div`
   width: 100%;
-  align-items: space;
-  justify-content: space-between;
-  width: 100% svg {
-    width: 14px;
-    height: 17px;
+  > :last-child {
+    margin-bottom: 25px;
+  }
+`
+
+const ElementFileContainer = styled.div`
+  display: flex;
+  font-family: ${(props) => props.theme.font.family.Lato};
+  align-items: center;
+  cursor: pointer;
+  box-sizing: border-box;
+  position: relative;
+  padding: 8px 16px;
+  height: 40px;
+
+  &:hover ${FileDateContainer} {
+    display: block;
   }
 
   path {
     fill: #6e6e6e;
   }
 
-  padding: ${(props) => props.theme.grid.unit * 2}px
-    ${(props) => props.theme.grid.unit * 4}px;
-
-  :hover {
+  &:hover,
+  &:focus {
     background: #f2fbfc;
+  }
+
+  &:hover ${ActionsIcon} {
+    visibility: visible;
   }
 
   .external_file_dropdown {
     opacity: 0;
   }
+
   :hover .external_file_dropdown {
     opacity: 1;
   }
@@ -296,12 +282,9 @@ const FileReferenceItem = styled.div`
     right: 10px;
     width: 180px;
   }
-  :last-child {
-    margin-bottom: 25px;
-  }
 `
 
-const FileReferenceName = styled.div`
+const ElementFileName = styled.div`
   font-family: ${(props) => props.theme.font.family.Lato};
   font-size: ${(props) => props.theme.font.size.medium};
   line-height: ${(props) => props.theme.font.lineHeight.large};
