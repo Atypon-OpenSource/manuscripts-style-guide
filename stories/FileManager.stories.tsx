@@ -13,44 +13,49 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { storiesOf } from '@storybook/react'
-import React from 'react'
-import { BrowserRouter } from 'react-router-dom'
-
-import { FileManager, getAllPermitted } from '../src'
-import { attachments } from './data/attachments'
-const sleep = (milliseconds: number) => {
-  return new Promise((resolve) => setTimeout(resolve, milliseconds))
-}
-const upload = async (
-  file: File
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-): Promise<any> => {
-  await sleep(5000) //test the upload file item in storybook
-  console.log('file --> ' + file.name)
-  return {}
-}
-
-const replace = async (
-  attachmentId: string,
-  name: string,
-  file: File
-): Promise<boolean> => {
-  console.log('file --> ' + file.name)
-  console.log('name --> ' + name)
-  return true
-}
-
-const capabilities = getAllPermitted()
-import { Supplement } from '@manuscripts/json-schema'
+import {Model, Supplement} from '@manuscripts/json-schema'
 import {
+  Build,
   buildSupplementaryMaterial,
   encode,
   schema,
 } from '@manuscripts/transform'
 import { action } from '@storybook/addon-actions'
+import { storiesOf } from '@storybook/react'
+import React, {useState} from 'react'
+import { BrowserRouter } from 'react-router-dom'
 
+import { FileManager, getAllPermitted } from '../src'
+import { ManuscriptFile } from '../src/lib/files'
 import article from './data/article-doc.json'
+import { attachments } from './data/attachments'
+
+const sleep = (milliseconds: number) => {
+  return new Promise((resolve) => setTimeout(resolve, milliseconds))
+}
+const upload = async (file: File): Promise<ManuscriptFile> => {
+  console.log('starting upload')
+  await sleep(5000) //test the upload file item in storybook
+  console.log('finished upload')
+  const id = Math.random().toString(36).slice(-5)
+  const uploaded = {
+    id,
+    name: file.name,
+    type: {
+      id: 'user-uploaded-file',
+    },
+    link: '',
+    createdDate: new Date(),
+  }
+  attachments.push(uploaded)
+  return uploaded
+}
+
+const download = (file: ManuscriptFile): void => {
+  console.log('file --> ' + file.name)
+}
+
+const capabilities = getAllPermitted()
 
 storiesOf('FileManager', module).add('FileManager', () => {
   const modelMap = encode(schema.nodeFromJSON(article))
@@ -66,18 +71,31 @@ storiesOf('FileManager', module).add('FileManager', () => {
   modelMap.set(supplementary1._id, supplementary1 as Supplement)
   modelMap.set(supplementary2._id, supplementary2 as Supplement)
 
+  const saveModel = async (m: Model) => {
+    modelMap.set(m._id, m)
+    console.log(modelMap)
+    setModelMap(new Map(modelMap))
+  }
+
+  const deleteModel = async (modelId: string) => {
+    modelMap.delete(modelId)
+    setModelMap(new Map(modelMap))
+  }
+
+  const [smodelMap, setModelMap] = useState(modelMap)
+
   return (
     <BrowserRouter>
       <FileManager
         can={capabilities}
-        fileManagement={{
-          getAttachments: () => attachments,
+        store={{
+          getFiles: () => attachments,
           upload,
-          replace,
+          download,
         }}
-        modelMap={modelMap}
-        saveModel={async () => action('save model')}
-        deleteModel={async () => action('delete model')}
+        modelMap={smodelMap}
+        saveModel={saveModel}
+        deleteModel={deleteModel}
         enableDragAndDrop={true}
       />
     </BrowserRouter>

@@ -36,27 +36,7 @@
               "type": "figure",
               "attrs": {
                 "id": "MPFigure:DC3B2DC1-82A2-4ECF-AD3B-EA3BCD5DC96F",
-                "label": "Figure 1",
-                "src": "",
-                "contentType": "image/png",
-                "originalURL": "graphicalabstract.png",
-                "externalFileReferences": [
-                  {
-                    "url": "attachment:9d83134e-b104-4a6a-9666-32ffb66e600d",
-                    "kind": "imageRepresentation",
-                    "ref": {
-                      "id": "9d83134e-b104-4a6a-9666-32ffb66e600d",
-                      "name": "figure 1_10.png",
-                      "link": "https://lean-x7481.ciplit.com/lw/attachment/9d83134e-b104-4a6a-9666-32ffb66e600d",
-                      "type": {
-                        "id": "figure",
-                        "label": "figure"
-                      }
-                    }
-                  }
-                ],
-                "missingImage": null,
-                "position": "anchor"
+                "src": ""
               }
             },
             {
@@ -151,12 +131,15 @@
               "type": "figure",
               "attrs": {
                 "id": "MPFigure:9D459B73-1E07-4A88-A378-C4AAF332DF17",
-                "label": "Figure 1",
+                "src": "attachment:0be64499-6adb-4a6f-8f1e-5c411a37e100",
+                "contentType": "image/png"
+              }
+            },            {
+              "type": "figure",
+              "attrs": {
+                "id": "MPFigure:9D459B73-1E07-4A88-A378-C4AAF332DF14",
                 "src": "attachment:f7d0d13c-ed22-4248-894a-3f3fdc2dc485",
-                "contentType": "image/png",
-                "originalURL": "https://nine-lts.literatumonline.com/lw/attachment/c31b3364-e604-423d-8a46-ef38ed642e47/Figure1.png",
-                "missingImage": null,
-                "position": "float"
+                "contentType": "image/png"
               }
             },
             {
@@ -208,25 +191,7 @@
               "attrs": {
                 "id": "MPTable:F60769FF-7676-4167-8857-46BD620547AC",
                 "headerRows": 1,
-                "footerRows": 1,
-                "externalFileReferences": [
-                  {
-                    "ref": {
-                      "MIME": "application/xml",
-                      "containerID": "MPProject:ad88f185-96e8-4900-9da4-fa7d29c31a67",
-                      "designation": "dataset",
-                      "displayName": "manuscript.xml",
-                      "filename": "manuscript.xml",
-                      "manuscriptID": "MPManuscript:AFEC0F9F-E7B4-4450-BC74-6F2F6668426E",
-                      "objectType": "MPExternalFile",
-                      "publicUrl": "http://localhost:4001/external_files/manuscript.xml",
-                      "storeId": "com.atypon.lw-store",
-                      "_id": "MPExternalFile:c2d3e442-0c05-4fbb-9289-80be442c3117"
-                    },
-                    "kind": "dataset",
-                    "url": "http://localhost:4001/external_files/manuscript.xml"
-                  }
-                ]
+                "footerRows": 1
               },
               "content": []
             }

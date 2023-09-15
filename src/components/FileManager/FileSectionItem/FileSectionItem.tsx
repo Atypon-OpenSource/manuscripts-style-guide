@@ -21,45 +21,27 @@ import { useDropdown } from '../../../hooks/use-dropdown'
 import { DropdownContainer } from '../../Dropdown'
 import { CloseOIcon } from '../../icons/'
 import DotsIcon from '../../icons/dots-icon'
-import { Maybe } from '../../SubmissionInspector/types'
-import { Replace } from '../FileManager'
+import {Detach, Download, Replace} from '../FileManager'
 import { Action } from '../FileSectionState'
 import { FileSectionType } from '../util'
 import { FileInfo } from './FileInfo'
-import { FileTypeIcon } from './FileTypeIcon'
-import { ItemActions } from './ItemActions'
+import { FileTypeIcon } from '../FileTypeIcon'
+import {FileAttachment} from "../../../lib/files";
 
 /**
  * This component will represent individual external file in different tabs,
  * which is contained file-icon, file-name, file title, the file description and etc.
  */
 
-export type FileAttachment = {
-  id: string
-  name: string
-  type: FileAttachmentType
-  link: string
-  createdDate: Date
-}
-
-export type FileAttachmentType = {
-  id: string
-  label?: Maybe<string> | undefined
-}
 
 export interface FileSectionItemProps {
-  externalFile: FileAttachment
-  fileSection: FileSectionType
+  file: FileAttachment
+  sectionType: FileSectionType
   title: string
-  showAttachmentName?: boolean
   showActions?: boolean
-  showReplaceAction?: boolean
-  handleDownload?: (url: string) => void
+  handleDownload?: Download
   handleReplace?: Replace
-  handleSupplementReplace?: (
-    attachment: FileAttachment,
-    oldAttachmentId: string
-  ) => void
+  handleDetach?: Detach
   dispatch?: Dispatch<Action>
   dragRef?: DragElementWrapper<DragSourceOptions>
   className?: string
@@ -69,14 +51,12 @@ export interface FileSectionItemProps {
 }
 
 export const FileSectionItem: React.FC<FileSectionItemProps> = ({
-  fileSection,
-  externalFile,
+  file,
+  sectionType,
   title,
-  showAttachmentName = false,
-  showReplaceAction = true,
   handleDownload,
   handleReplace,
-  handleSupplementReplace,
+  handleDetach,
   dispatch,
   dragRef,
   className,
@@ -86,37 +66,18 @@ export const FileSectionItem: React.FC<FileSectionItemProps> = ({
 }) => {
   const { isOpen, toggleOpen, wrapperRef } = useDropdown()
 
-  const fileExtension = externalFile.name.substring(
-    externalFile.name.lastIndexOf('.') + 1
-  )
-
-  const isMainManuscript = externalFile.type.label === 'main-manuscript'
-  const isSelected = externalFile.id == window.location.hash.substr(1)
+  const isMainManuscript = file.type.label === 'main-manuscript'
+  const isSelected = file.id === window.location.hash.substring(1)
   return (
     <Item ref={dragRef} className={className} style={style}>
       <ItemContainer
         onClick={() => {
           window.location.hash =
-            isEditor && !isSelected ? `#${externalFile.id}` : '#'
-          if (isSelected) {
-            window.location.hash = `#${externalFile.id}`
-          }
+            isEditor && !isSelected ? `#${file.id}` : '#'
         }}
       >
-        <FileTypeIcon
-          withDot={isMainManuscript}
-          fileExtension={fileExtension}
-          alt={externalFile.name}
-        />
-        <FileInfo
-          fileExtension={fileExtension}
-          fileCreatedDate={externalFile.createdDate}
-          showAttachmentName={showAttachmentName}
-          fileAttachmentName={externalFile.name}
-          title={title}
-          attachmentId={externalFile.id}
-          dispatch={dispatch}
-        />
+        <FileTypeIcon file={file} />
+        <FileInfo file={file} />
       </ItemContainer>
       {onClose && (
         <IconCloseButton
@@ -140,12 +101,12 @@ export const FileSectionItem: React.FC<FileSectionItemProps> = ({
           </ActionsIcon>
           {isOpen && (
             <ItemActions
-              fileSection={fileSection}
-              isMainManuscript={isMainManuscript}
-              replaceAttachmentHandler={handleReplace}
-              showReplaceAction={showReplaceAction}
-              downloadAttachmentHandler={handleDownload}
-              handleSupplementReplace={handleSupplementReplace}
+              file={file}
+              sectionType={sectionType}
+              handleReplace={handleReplace}
+              handleDownload={handleDownload}
+              handleDetach={handleDetach}
+              handleUpdateInline={handleUpdateInline}
               attachmentId={externalFile.id}
               fileName={externalFile.name}
               publicUrl={externalFile.link}

@@ -14,10 +14,9 @@
  * limitations under the License.
  */
 import { Model } from '@manuscripts/json-schema'
-import { Build } from '@manuscripts/transform'
 import React, { createContext, Dispatch, SetStateAction, useState } from 'react'
 
-import { FileAttachment } from './FileSectionItem/FileSectionItem'
+import { DeleteModel, FileStore, SaveModel } from './FileManager'
 import { FileSectionType } from './util'
 
 type MoveFilePopup = {
@@ -27,10 +26,10 @@ type MoveFilePopup = {
 }
 
 export const FileManagerContext = createContext<{
-  saveModel: <T extends Model>(model: T | Build<T> | Partial<T>) => Promise<T>
-  deleteModel: (id: string) => Promise<string>
+  saveModel: SaveModel
+  deleteModel: DeleteModel
   modelMap: Map<string, Model>
-  getAttachments: () => FileAttachment[]
+  store: FileStore
   moveFilePopup: MoveFilePopup
   setMoveFilePopupData: Dispatch<SetStateAction<MoveFilePopup>>
 }>({
@@ -42,11 +41,11 @@ export const FileManagerContext = createContext<{
 
 // TODO:: use this provider for file manager component to avoid props drilling
 export const FileManagerProvider: React.FC<{
-  saveModel: <T extends Model>(model: T | Build<T> | Partial<T>) => Promise<T>
-  deleteModel: (id: string) => Promise<string>
+  saveModel: SaveModel
+  deleteModel: DeleteModel
   modelMap: Map<string, Model>
-  getAttachments: () => FileAttachment[]
-}> = ({ children, saveModel, deleteModel, modelMap, getAttachments }) => {
+  store: FileStore
+}> = ({ children, saveModel, deleteModel, modelMap, store }) => {
   const [moveFilePopup, setMoveFilePopupData] = useState({ isOpen: false })
 
   return (
@@ -55,7 +54,7 @@ export const FileManagerProvider: React.FC<{
         saveModel,
         deleteModel,
         modelMap,
-        getAttachments,
+        store,
         moveFilePopup,
         setMoveFilePopupData,
       }}

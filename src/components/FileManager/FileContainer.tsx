@@ -1,5 +1,5 @@
 /*!
- * © 2021 Atypon Systems LLC
+ * © 2023 Atypon Systems LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,17 +15,30 @@
  */
 import styled from 'styled-components'
 
-export const TooltipDiv = styled.div`
-  .tooltip {
-    font-size: 12px;
-    line-height: 16px;
-    font-family: ${(props) => props.theme.font.family.Lato};
-    padding: 8px;
-    border-radius: 6px;
-    background: #353535;
-    color: ${(props) => props.theme.colors.text.onDark};
-    text-align: center;
-    white-space: nowrap;
-    pointer-events: none;
+export const FileContainer = styled.div`
+  display: flex;
+  font-family: ${(props) => props.theme.font.family.Lato};
+  align-items: center;
+  cursor: pointer;
+  box-sizing: border-box;
+  position: relative;
+  padding: 24px 16px;
+  height: 72px;
+
+  .file-icon {
+    min-width: 20px;
+  }
+
+  .show-on-hover {
+    visibility: hidden;
+  }
+
+  &:hover .show-on-hover {
+    visibility: visible;
+  }
+
+  &:hover,
+  &:focus {
+    background: #f2fbfc;
   }
 `

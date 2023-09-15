@@ -28,13 +28,11 @@ import PdfFileIcon from '../icons/pdf-file-icon'
 import TableIcon from '../icons/table-icon'
 import UnknownFormatFileIcon from '../icons/unknown-format-file-icon'
 import VideoIcon from '../icons/video-icon'
-import { Maybe } from '../SubmissionInspector/types'
-import { FileAttachment } from './FileSectionItem/FileSectionItem'
 
 export enum FileSectionType {
-  Inline,
-  Supplements,
-  OtherFile,
+  Inline = 'Inline files',
+  Supplements = 'Supplements',
+  OtherFile = 'Other files',
 }
 
 export enum FileType {
@@ -113,79 +111,32 @@ export const fileTypesWithTitlesMap = new Map<FileType | undefined, string>([
 ])
 
 export const fileTypesWithIconMap = new Map<FileType | undefined, JSX.Element>([
-  [FileType.Audio, <AudioIcon key={FileType.Audio} />],
-  [FileType.Video, <VideoIcon key={FileType.Video} />],
+  [FileType.Audio, <AudioIcon key={FileType.Audio} className="file-icon" />],
+  [FileType.Video, <VideoIcon key={FileType.Video} className="file-icon" />],
   [
     FileType.PlainDocument,
-    <DocumentIcon key={FileType.PlainDocument} color="#1A9BC7" />,
+    <DocumentIcon key={FileType.PlainDocument} color="#1A9BC7" className="file-icon" />,
   ],
-  [FileType.SheetsWorkbooks, <TableIcon key={FileType.SheetsWorkbooks} />],
-  [FileType.Latex, <LatexIcon key={FileType.Latex} color="#1A9BC7" />],
-  [FileType.CodeFile, <CodeFileIcon key={FileType.CodeFile} />],
-  [FileType.PdfFile, <PdfFileIcon key={FileType.PdfFile} />],
+  [FileType.SheetsWorkbooks, <TableIcon key={FileType.SheetsWorkbooks} className="file-icon" />],
+  [FileType.Latex, <LatexIcon key={FileType.Latex} color="#1A9BC7" className="file-icon" />],
+  [FileType.CodeFile, <CodeFileIcon key={FileType.CodeFile}  className="file-icon"  />],
+  [FileType.PdfFile, <PdfFileIcon key={FileType.PdfFile}  className="file-icon"  />],
   [
     FileType.CompressedFile,
-    <CompressedFileIcon key={FileType.CompressedFile} />,
+    <CompressedFileIcon key={FileType.CompressedFile} className="file-icon"  />,
   ],
   [
     FileType.PlainText,
-    <DocumentIcon key={FileType.PlainText} color="#FFBD26" />,
+    <DocumentIcon key={FileType.PlainText} color="#FFBD26" className="file-icon"  />,
   ],
-  [FileType.Image, <ImageIcon key={FileType.Image} />],
-  [FileType.Figure, <FigureIcon key={FileType.Figure} />],
+  [FileType.Image, <ImageIcon key={FileType.Image} className="file-icon"  />],
+  [FileType.Figure, <FigureIcon key={FileType.Figure}  className="file-icon" />],
   [
     FileType.GraphicalAbstract,
-    <GraphicalAbstractIcon key={FileType.GraphicalAbstract} />,
+    <GraphicalAbstractIcon key={FileType.GraphicalAbstract}  className="file-icon" />,
   ],
-  [undefined, <UnknownFormatFileIcon key={undefined} />],
+  [undefined, <UnknownFormatFileIcon key={undefined}  className="file-icon" />],
 ])
-
-/**
- * In this method we generate the item title based on file type with counter.
- */
-export const generateAttachmentsTitles = (
-  externalFiles: FileAttachment[],
-  fileSectionType: FileSectionType
-): Array<{ title: string; externalFile: FileAttachment }> => {
-  const titleCountersMap: Map<string, number> = new Map<string, number>()
-
-  const externalFilesWithTitlesMap: Map<string, FileAttachment> = new Map<
-    string,
-    FileAttachment
-  >()
-
-  externalFiles.forEach((element) => {
-    const fileExtension = element.name.substring(
-      element.name.lastIndexOf('.') + 1
-    )
-
-    const fileType = extensionsWithFileTypesMap.get(fileExtension.toLowerCase())
-
-    const fileTitle = fileTypesWithTitlesMap.get(fileType)
-    if (fileSectionType === FileSectionType.Inline) {
-      externalFilesWithTitlesMap.set(element.name, element)
-    } else {
-      if (fileTitle !== undefined) {
-        const oldCount = titleCountersMap.get(fileTitle)
-        if (oldCount) {
-          const newCount = oldCount + 1
-          titleCountersMap.set(fileTitle, newCount)
-          externalFilesWithTitlesMap.set(`${fileTitle} ${newCount}`, element)
-        } else {
-          titleCountersMap.set(fileTitle, 1)
-          externalFilesWithTitlesMap.set(`${fileTitle} 1`, element)
-        }
-      }
-    }
-  })
-
-  const result = Array.from(externalFilesWithTitlesMap, ([key, value]) => ({
-    title: key,
-    externalFile: value,
-  }))
-
-  return result
-}
 
 export const droppableSections = [
   FileSectionType.Supplements,

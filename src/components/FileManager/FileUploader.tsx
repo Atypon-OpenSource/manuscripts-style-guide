@@ -13,23 +13,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import React, { ChangeEvent, Dispatch, useCallback, useRef } from 'react'
+import React, { ChangeEvent, useCallback, useRef } from 'react'
 import { DropTargetMonitor, useDrop } from 'react-dnd'
 import { NativeTypes } from 'react-dnd-html5-backend'
 import styled, { css } from 'styled-components'
 
-import { Upload } from './FileManager'
-import { Action, actions } from './FileSectionState'
-import { FileSectionType } from './util'
-
 /**
  * This component will show the drag or upload file area
  */
-export const UploadFileArea: React.FC<{
-  handleUploadFile: Upload
-  fileSection: FileSectionType
-  dispatch: Dispatch<Action>
-}> = ({ fileSection, dispatch }) => {
+export const FileUploader: React.FC<{
+  handler: (file: File) => Promise<void>
+}> = ({ handler }) => {
   const fileInputRef = useRef<HTMLInputElement>(null)
 
   const openFileDialog = () => {
@@ -37,21 +31,21 @@ export const UploadFileArea: React.FC<{
       fileInputRef.current.click()
     }
   }
-  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
+  const handleChange = async (event: ChangeEvent<HTMLInputElement>) => {
     if (event && event.target && event.target.files) {
       const file = event.target.files[0]
-      dispatch(actions.UPLOAD_FILE(file, fileSection))
+      await handler(file)
     }
   }
 
   const handleFileDrop = useCallback(
-    (monitor: DropTargetMonitor) => {
+    async (monitor: DropTargetMonitor) => {
       if (monitor) {
         const file = monitor.getItem().files[0]
-        dispatch(actions.UPLOAD_FILE(file, fileSection))
+        await handler(file)
       }
     },
-    [dispatch, fileSection]
+    [handler]
   )
 
   const [{ canDrop, isOver }, dropRef] = useDrop({
@@ -100,8 +94,7 @@ const Container = styled.div<{ active: boolean }>`
   font-family: ${(props) => props.theme.font.family.Lato};
   color: ${(props) => props.theme.colors.text.onLight};
   cursor: pointer;
-  margin-bottom: 7px;
-  margin-top: 16px;
+  margin: 16px 16px 8px;
   ${(props) =>
     props.active
       ? css`

@@ -13,103 +13,49 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { Model, ObjectTypes, Supplement } from '@manuscripts/json-schema'
-import { getModelsByType } from '@manuscripts/transform'
+import { Model } from '@manuscripts/json-schema'
 
-import { FileAttachment } from '../components/FileManager/FileSectionItem/FileSectionItem'
-import getInlineFiles, { InlineFile } from '../lib/inlineFiles'
+import {
+  ElementFiles,
+  ManuscriptFile,
+  getInlineFiles,
+  getSupplements,
+  ModelFile,
+} from '../lib/files'
 import { useDeepCompareMemo } from './use-deep-compare'
 
-type FilePredicate = (fileName: string) => boolean
-
-const getInlineFilesIds = (inlineFiles: InlineFile[]) => {
-  return inlineFiles
-    .map(({ attachments }) => attachments?.map(({ id }) => ({ id })) || [])
-    .flat()
-}
-
-/**
- * return attachments that are in the modelMap as MPSupplement
- */
-const getSupplementFiles = (
-  modelMap: Map<string, Model>,
-  inlineFiles: InlineFile[],
-  attachments: FileAttachment[],
-  filePredicate?: FilePredicate
-) => {
-  const supplements = new Map(
-    getModelsByType<Supplement>(modelMap, ObjectTypes.Supplement).map(
-      (supplement) => [supplement.href?.replace('attachment:', ''), supplement]
-    )
-  )
-  const excludedAttachmentsIds = new Set(
-    getInlineFilesIds(inlineFiles).map(({ id }) => id)
-  )
-
-  return attachments.filter((attachment) => {
-    if (supplements.has(attachment.id) && filePredicate) {
-      return (
-        !excludedAttachmentsIds.has(attachment.id) &&
-        filePredicate(attachment.name)
-      )
-    } else {
-      return (
-        !excludedAttachmentsIds.has(attachment.id) &&
-        supplements.has(attachment.id)
-      )
-    }
-  })
-}
+type FileFilter = (file: ManuscriptFile) => boolean
 
 /**
  * return files that are not inlineFiles or SupplementFiles
  */
 const getOtherFiles = (
-  inlineFiles: InlineFile[],
-  supplementFiles: FileAttachment[],
-  attachments: FileAttachment[],
-  filePredicate?: FilePredicate
+  inlineFiles: ElementFiles[],
+  supplements: ModelFile[],
+  files: ManuscriptFile[],
+  filter?: FileFilter
 ) => {
-  const inlineFilesAttachmentIds = getInlineFilesIds(inlineFiles)
-
-  const excludedAttachmentsIds = new Set(
-    [...inlineFilesAttachmentIds, ...supplementFiles].map(({ id }) => id)
-  )
-
-  return attachments.filter(({ id, name }) => {
-    if (!excludedAttachmentsIds.has(id) && filePredicate) {
-      return filePredicate(name)
-    } else {
-      return !excludedAttachmentsIds.has(id)
-    }
-  })
+  const excluded = new Set()
+  inlineFiles.flatMap((f) => f.files).forEach((f) => excluded.add(f.id))
+  supplements.forEach((s) => excluded.add(s.id))
+  return files.filter((f) => !excluded.has(f.id) && (!filter || filter(f)))
 }
 
 export const useFiles = (
   modelMap: Map<string, Model>,
-  attachments: FileAttachment[],
-  filePredicate?: FilePredicate
+  files: ManuscriptFile[],
+  filter?: FileFilter
 ) =>
   useDeepCompareMemo(() => {
-    const inlineFiles = getInlineFiles(modelMap, attachments)
-    const supplementFiles = getSupplementFiles(
-      modelMap,
-      inlineFiles,
-      attachments,
-      filePredicate
-    )
-    const otherFiles = getOtherFiles(
-      inlineFiles,
-      supplementFiles,
-      attachments,
-      filePredicate
-    )
+    const inlineFiles = getInlineFiles(modelMap, files)
+    const supplements = getSupplements(modelMap, files)
+    const otherFiles = getOtherFiles(inlineFiles, supplements, files, filter)
 
     return {
-      otherFiles,
-      supplementFiles,
       inlineFiles,
+      supplements,
+      otherFiles,
     }
-  }, [...Array.from(modelMap.values()), ...attachments])
+  }, [...Array.from(modelMap.values()), ...files])
 
 export default useFiles

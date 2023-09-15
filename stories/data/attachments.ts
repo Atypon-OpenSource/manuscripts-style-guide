@@ -13,9 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { FileAttachment } from '../../src'
 
-export const attachments: FileAttachment[] = [
+import { ManuscriptFile } from '../../src/lib/files'
+
+export const attachments: ManuscriptFile[] = [
   {
     id: 'caabc327-25c5-4122-96fd-e38d313345da',
     name: 'LW4_multiGraphicFigure-S1-doc.zip',

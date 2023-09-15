@@ -14,56 +14,40 @@
  * limitations under the License.
  */
 import { format } from 'date-fns'
-import React, { Dispatch, useContext } from 'react'
+import React, { useContext } from 'react'
 import ReactTooltip from 'react-tooltip'
 import styled from 'styled-components'
 
-import { PermissionsContext } from '../FileManager'
-import { Action } from '../FileSectionState'
-import { TooltipDiv } from '../TooltipDiv'
+import { Tooltip } from '../Tooltip'
+import {FileAttachment} from "../../../lib/files";
 
 export const FileInfo: React.FC<{
-  showAttachmentName: boolean
-  title: string
-  fileAttachmentName: string
-  fileExtension: string
-  attachmentId: string
-  fileCreatedDate: Date
-  dispatch?: Dispatch<Action>
-}> = ({
-  showAttachmentName,
-  title,
-  fileAttachmentName,
-  fileExtension,
-  attachmentId,
-  dispatch,
-  fileCreatedDate,
-}) => {
-  const fileName = fileAttachmentName.substring(
-    0,
-    fileAttachmentName.lastIndexOf('.')
-  )
+  file: FileAttachment
+}> = ({ file }) => {
+  const filename = file.name
+  const createdDate = file.createdDate
 
-  const can = useContext(PermissionsContext)
+  const index = filename.lastIndexOf('.')
+  let name = filename
+  let extension = ''
+  if (index) {
+    name = filename.substring(0, index)
+    extension = filename.substring(index + 1)
+  }
+
   return (
     <FileInfoContainer>
       <FileNameTitleContainer>
-        <FileTitle>
-          {!showAttachmentName ? fileName : title}
-          {showAttachmentName && ':'}
-        </FileTitle>
-        {showAttachmentName && (
-          <FileNameContainer>
-            <FileName>{fileName}</FileName>
-            <div>.{fileExtension}</div>
-          </FileNameContainer>
-        )}
-        {fileCreatedDate && (
+        <FileNameContainer>
+          <FileName>{name}</FileName>
+          <div>.{extension}</div>
+        </FileNameContainer>
+        {createdDate && (
           <FileDateContainer data-tip="tooltip-content">
             <FileDate>
-              {format(new Date(fileCreatedDate), 'M/d/yy, HH:mm')}
+              {format(new Date(createdDate), 'M/d/yy, HH:mm')}
             </FileDate>
-            <TooltipDiv>
+            <Tooltip>
               <ReactTooltip
                 place="bottom"
                 offset={{ top: 0 }}
@@ -72,7 +56,7 @@ export const FileInfo: React.FC<{
               >
                 <div>File uploaded</div>
               </ReactTooltip>
-            </TooltipDiv>
+            </Tooltip>
           </FileDateContainer>
         )}
       </FileNameTitleContainer>

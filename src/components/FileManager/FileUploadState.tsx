@@ -1,5 +1,5 @@
 /*!
- * © 2021 Atypon Systems LLC
+ * © 2023 Atypon Systems LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,10 +16,73 @@
 import React from 'react'
 import styled from 'styled-components'
 
-/**
- * This component will represent the linear progress bar component.
- */
-export const ProgressBarUploadItem: React.FC = () => {
+import { AlertMessage, AlertMessageType } from '../AlertMessage'
+import UnknownFormatFileIcon from '../icons/unknown-format-file-icon'
+import { FileContainer } from './FileContainer'
+import { FileNameText } from './FileName'
+
+export const FileUploadState: React.FC<{
+  state: { name: string; status: string }
+}> = ({ state }) => {
+  return (
+    <>
+      {state.status === 'in-progress' && (
+        <FileUploadInProgress name={state.name} />
+      )}
+      {state.status === 'success' && <FileUploadSuccess />}
+    </>
+  )
+}
+
+const FileUploadInProgress: React.FC<{
+  name: string
+}> = ({ name }) => {
+  return (
+    <FileUploadContainer>
+      <UnknownFormatFileIcon />
+      <FileUploadNameContainer>
+        <UploadFileNameText>{name}</UploadFileNameText>
+        <FileUploadProgressBar />
+      </FileUploadNameContainer>
+    </FileUploadContainer>
+  )
+}
+
+const FileUploadSuccess: React.FC = () => {
+  return (
+    <AlertMessageContainer>
+      <AlertMessage
+        type={AlertMessageType.success}
+        hideCloseButton={true}
+        dismissButton={{
+          text: 'OK',
+        }}
+      >
+        File uploaded successfully
+      </AlertMessage>
+    </AlertMessageContainer>
+  )
+}
+
+const AlertMessageContainer = styled.div`
+  margin-left: 16px;
+  margin-right: 16px;
+`
+
+const FileUploadContainer = styled(FileContainer)`
+  background: #f2fbfc;
+`
+
+const FileUploadNameContainer = styled.div`
+  flex-grow: 1;
+  margin-left: 8px;
+`
+
+const UploadFileNameText = styled(FileNameText)`
+  margin: 0;
+`
+
+const FileUploadProgressBar: React.FC = () => {
   return (
     <LinearProgress>
       <Bar className="bar1"></Bar>
@@ -28,24 +91,22 @@ export const ProgressBarUploadItem: React.FC = () => {
   )
 }
 
-export const LinearProgress = styled.div`
+const LinearProgress = styled.div`
   background: ${(props) => props.theme.colors.background.tertiary};
   opacity: 0.7;
   height: 4px;
   position: relative;
   width: 100%;
-  margin: 0 auto;
-  margin-top: 8px;
+  margin: 8px auto 0;
   overflow: hidden;
   border-radius: 8px;
   animation: start 0.3s ease-in;
 `
-export const Bar = styled.div`
+const Bar = styled.div`
   position: absolute;
   opacity: 0.7;
   background: #1a9bc7;
   transition: transform 0.2s linear;
-  position: absolute;
   left: 0;
   top: 0;
   bottom: 0;
