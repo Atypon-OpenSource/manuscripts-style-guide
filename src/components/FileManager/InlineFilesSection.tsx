@@ -17,16 +17,13 @@ import { Figure } from '@manuscripts/json-schema'
 import React, { Dispatch, useCallback, useContext } from 'react'
 import styled from 'styled-components'
 
-import { useDropdown } from '../../hooks/use-dropdown'
 import { ElementFiles, ModelFile } from '../../lib/files'
-import DotsIcon from '../icons/dots-icon'
 import { FileActions } from './FileActions'
 import { FileContainer } from './FileContainer'
 import { FileCreatedDate } from './FileCreatedDate'
 import { Replace, UpdateInline } from './FileManager'
 import { FileManagerContext } from './FileManagerProvider'
 import { FileName } from './FileName'
-import { ActionsIcon } from './FileSectionItem/FileSectionItem'
 import { Action } from './FileSectionState'
 import { FileSectionType, fileTypesWithIconMap } from './util'
 
@@ -70,6 +67,7 @@ export const InlineFilesSection: React.FC<{
 
   const replace = async (modelId: string, file: File) => {
     const uploaded = await store.upload(file)
+    //TODO
     await updateFigureSrc(modelId, 'attachment:' + uploaded.id)
   }
 
@@ -117,36 +115,18 @@ const ElementFile: React.FC<{
   handleDetach,
   dispatch,
 }) => {
-  const { isOpen, toggleOpen, wrapperRef } = useDropdown()
-
   return (
     <ModelFileContainer>
       <FileName file={file} />
       {file.createdDate && <FileCreatedDate file={file} />}
-      {handleDownload && handleReplace && (
-        <DropdownContainer ref={wrapperRef}>
-          <ActionsIcon
-            onClick={toggleOpen}
-            type="button"
-            aria-label="Download or Replace or Detach"
-            aria-pressed={isOpen}
-            className="show-on-hover"
-          >
-            <DotsIcon />
-          </ActionsIcon>
-          {isOpen && (
-            <FileActions
-              sectionType={FileSectionType.Inline}
-              handleDownload={handleDownload}
-              handleUpdateInline={handleUpdateInline}
-              handleDetach={handleDetach}
-              handleReplace={handleReplace}
-              hideActionList={toggleOpen}
-              dispatch={dispatch}
-            />
-          )}
-        </DropdownContainer>
-      )}
+      <FileActions
+        sectionType={FileSectionType.Inline}
+        handleDownload={handleDownload}
+        handleUpdateInline={handleUpdateInline}
+        handleDetach={handleDetach}
+        handleReplace={handleReplace}
+        dispatch={dispatch}
+      />
     </ModelFileContainer>
   )
 }
@@ -195,8 +175,4 @@ const ModelFileContainer = styled(FileContainer)`
   path {
     fill: #6e6e6e;
   }
-`
-
-const DropdownContainer = styled.div`
-  position: relative;
 `

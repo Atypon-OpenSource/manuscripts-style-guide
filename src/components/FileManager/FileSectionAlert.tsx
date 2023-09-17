@@ -21,20 +21,32 @@ import UnknownFormatFileIcon from '../icons/unknown-format-file-icon'
 import { FileContainer } from './FileContainer'
 import { FileNameText } from './FileName'
 
-export const FileUploadState: React.FC<{
-  state: { name: string; status: string }
-}> = ({ state }) => {
+export enum FileSectionAlertType {
+  NONE,
+  UPLOAD_IN_PROGRESS,
+  UPLOAD_SUCCESSFUL,
+  MOVE_SUCCESSFUL,
+}
+
+export const FileSectionAlert: React.FC<{
+  alert: { type: FileSectionAlertType; message: string }
+}> = ({ alert }) => {
   return (
     <>
-      {state.status === 'in-progress' && (
-        <FileUploadInProgress name={state.name} />
+      {alert.type === FileSectionAlertType.UPLOAD_IN_PROGRESS && (
+        <FileUploadInProgressAlert name={alert.message} />
       )}
-      {state.status === 'success' && <FileUploadSuccess />}
+      {alert.type === FileSectionAlertType.UPLOAD_SUCCESSFUL && (
+        <FileUploadSuccessful />
+      )}
+      {alert.type === FileSectionAlertType.MOVE_SUCCESSFUL && (
+        <FileMoveSuccessful name={alert.message} />
+      )}
     </>
   )
 }
 
-const FileUploadInProgress: React.FC<{
+const FileUploadInProgressAlert: React.FC<{
   name: string
 }> = ({ name }) => {
   return (
@@ -48,7 +60,7 @@ const FileUploadInProgress: React.FC<{
   )
 }
 
-const FileUploadSuccess: React.FC = () => {
+const FileUploadSuccessful: React.FC = () => {
   return (
     <AlertMessageContainer>
       <AlertMessage
@@ -59,6 +71,24 @@ const FileUploadSuccess: React.FC = () => {
         }}
       >
         File uploaded successfully
+      </AlertMessage>
+    </AlertMessageContainer>
+  )
+}
+
+const FileMoveSuccessful: React.FC<{
+  name: string
+}> = ({ name }) => {
+  return (
+    <AlertMessageContainer>
+      <AlertMessage
+        type={AlertMessageType.success}
+        hideCloseButton={true}
+        dismissButton={{
+          text: 'OK',
+        }}
+      >
+        File moved to {name}
       </AlertMessage>
     </AlertMessageContainer>
   )

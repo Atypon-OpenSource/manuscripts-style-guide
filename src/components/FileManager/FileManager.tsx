@@ -28,7 +28,6 @@ import {
   InspectorTabs,
 } from '../Inspector'
 import { InspectorSection } from '../InspectorSection'
-import { MoveFilePopup } from './ConfirmationPopUp'
 import { FileManagerProvider } from './FileManagerProvider'
 import { DragLayer } from './FileSectionItem/DragLayer'
 import { getInitialState, reducer } from './FileSectionState'
@@ -47,7 +46,7 @@ export type Replace = (file: File) => Promise<void>
 
 export type UpdateInline = () => void
 
-export type MoveTarget = {
+export type Move = {
   sectionType: FileSectionType
   handler: () => Promise<void>
 }
@@ -191,8 +190,6 @@ export const FileManager: React.FC<{
             </InspectorTabPanels>
           </InspectorTabs>
         </InspectorSection>
-
-        <MoveFilePopup dispatch={dispatch} />
       </PermissionsContext.Provider>
     </FileManagerProvider>
   )

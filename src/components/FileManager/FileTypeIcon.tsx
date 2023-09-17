@@ -14,7 +14,6 @@
  * limitations under the License.
  */
 import React from 'react'
-import styled from 'styled-components'
 
 import { ManuscriptFile } from '../../lib/files'
 import DocumentIconWithDot from '../icons/document-icon-with-dot'

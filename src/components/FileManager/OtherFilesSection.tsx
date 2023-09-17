@@ -16,20 +16,16 @@
 import { buildSupplementaryMaterial } from '@manuscripts/transform'
 import React, { Dispatch, useContext, useState } from 'react'
 
-import { useDropdown } from '../../hooks/use-dropdown'
 import { ManuscriptFile } from '../../lib/files'
-import { DropdownContainer } from '../Dropdown'
-import DotsIcon from '../icons/dots-icon'
 import { FileActions } from './FileActions'
 import { FileContainer } from './FileContainer'
 import { FileCreatedDate } from './FileCreatedDate'
 import { PermissionsContext } from './FileManager'
 import { FileManagerContext } from './FileManagerProvider'
 import { FileName } from './FileName'
-import { ActionsIcon } from './FileSectionItem/FileSectionItem'
+import { FileSectionAlert, FileSectionAlertType } from './FileSectionAlert'
 import { Action } from './FileSectionState'
 import { FileUploader } from './FileUploader'
-import { FileUploadState } from './FileUploadState'
 import { FileSectionType } from './util'
 
 /**
@@ -43,32 +39,37 @@ export const OtherFilesSection: React.FC<{
 
   const can = useContext(PermissionsContext)
 
-  const [uploadState, setUploadState] = useState({
-    name: '',
-    status: '',
+  const [alert, setAlert] = useState({
+    type: FileSectionAlertType.NONE,
+    message: '',
   })
 
   const upload = async (file: File) => {
-    setUploadState({
-      name: file.name,
-      status: 'in-progress',
+    setAlert({
+      type: FileSectionAlertType.UPLOAD_IN_PROGRESS,
+      message: file.name,
     })
     await store.upload(file)
-    setUploadState({
-      name: '',
-      status: 'success',
+    setAlert({
+      type: FileSectionAlertType.UPLOAD_SUCCESSFUL,
+      message: '',
     })
   }
 
   const moveToSupplements = async (file: ManuscriptFile) => {
+    //TODO
     const supplement = buildSupplementaryMaterial('', 'attachment:' + file.id)
     await saveModel(supplement)
+    setAlert({
+      type: FileSectionAlertType.MOVE_SUCCESSFUL,
+      message: FileSectionType.Supplements,
+    })
   }
 
   return (
     <div>
       {can?.uploadFile && <FileUploader handler={upload} />}
-      <FileUploadState state={uploadState} />
+      <FileSectionAlert alert={alert} />
       {files.map((file) => (
         <OtherFile
           key={file.id}
@@ -88,37 +89,19 @@ const OtherFile: React.FC<{
   handleMoveToSupplements: () => Promise<void>
   dispatch: Dispatch<Action>
 }> = ({ file, handleDownload, handleMoveToSupplements, dispatch }) => {
-  const { isOpen, toggleOpen, wrapperRef } = useDropdown()
-
   return (
     <FileContainer key={file.id}>
       <FileName file={file} />
       {file.createdDate && <FileCreatedDate file={file} />}
-      {handleDownload && (
-        <DropdownContainer ref={wrapperRef}>
-          <ActionsIcon
-            onClick={toggleOpen}
-            type="button"
-            className={'show-on-hover'}
-            aria-label="Actions"
-            aria-pressed={isOpen}
-          >
-            <DotsIcon />
-          </ActionsIcon>
-          {isOpen && (
-            <FileActions
-              sectionType={FileSectionType.OtherFile}
-              handleDownload={handleDownload}
-              moveTarget={{
-                sectionType: FileSectionType.Supplements,
-                handler: handleMoveToSupplements,
-              }}
-              hideActionList={toggleOpen}
-              dispatch={dispatch}
-            />
-          )}
-        </DropdownContainer>
-      )}
+      <FileActions
+        sectionType={FileSectionType.OtherFile}
+        handleDownload={handleDownload}
+        move={{
+          sectionType: FileSectionType.Supplements,
+          handler: handleMoveToSupplements,
+        }}
+        dispatch={dispatch}
+      />
     </FileContainer>
   )
 }

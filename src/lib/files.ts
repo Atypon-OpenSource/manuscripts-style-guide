@@ -19,11 +19,12 @@ import {
   FigureElement,
   Model,
   ObjectTypes,
+  Section,
   Supplement,
 } from '@manuscripts/json-schema'
-import { getModelsByType } from '@manuscripts/transform'
+import {getModelsByType} from '@manuscripts/transform'
 
-import { FileType } from '../components/FileManager/util'
+import {FileType} from '../components/FileManager/util'
 
 export type FileDesignation = {
   id: string
@@ -106,33 +107,43 @@ export const getInlineFiles = (
 ): ElementFiles[] => {
   const elements: ElementFiles[] = []
 
+  const orders = getOrderByType(modelMap)
+
+  const sections = getModelsByType<Section>(modelMap, ObjectTypes.Section)
+  const graphicalAbstractElementIds = sections.filter(
+    (s) => s.category === 'MPSectionCategory:abstract-graphical'
+  )[0]?.elementIDs
+
+  graphicalAbstractElementIds?.map((id) => {
+    const figure = modelMap.get(id) as FigureElement
+    if (figure) {
+      elements.push({
+        modelId: id,
+        type: FileType.GraphicalAbstract,
+        label: 'Graphical Abstract',
+        files: getFigureFiles(figure, modelMap, files),
+      })
+    }
+  })
+
   const figures = getModelsByType<FigureElement>(
     modelMap,
     ObjectTypes.FigureElement
   )
-  if (figures) {
-    figures
-      .map((figure, index) => ({
-        modelId: figure._id,
-        type: FileType.Figure,
-        label: `Figure ${index + 1}`,
-        files: getFigureFiles(figure, modelMap, files),
-      }))
-      .forEach((v) => elements.push(v))
+  const figureOrder = orders.get(ObjectTypes.FigureElement)
+  if (figureOrder) {
+    // sort(figures, figureOrder)
   }
+  figures
+    ?.filter((f) => !graphicalAbstractElementIds?.includes(f._id))
+    .map((figure, index) => ({
+      modelId: figure._id,
+      type: FileType.Figure,
+      label: `Figure ${index + 1}`,
+      files: getFigureFiles(figure, modelMap, files),
+    }))
+    .forEach((e) => elements.push(e))
 
-  const orders = getModelsByType<ElementsOrder>(
-    modelMap,
-    ObjectTypes.ElementsOrder
-  )
-
-  const order = orders.filter(
-    (o) => o.elementType === ObjectTypes.FigureElement
-  )[0]
-
-  if (order) {
-    // sort(figures, order)
-  }
   return elements
 }
 
@@ -145,4 +156,14 @@ export const getSupplements = (
     ObjectTypes.Supplement
   )
   return supplements.flatMap((s) => getSupplementFiles(s, files))
+}
+
+const getOrderByType = (modelMap: Map<string, Model>) => {
+  const groups = new Map<ObjectTypes, ElementsOrder>()
+  const orders = getModelsByType<ElementsOrder>(
+    modelMap,
+    ObjectTypes.ElementsOrder
+  )
+  orders.forEach((o) => groups.set(o.elementType as ObjectTypes, o))
+  return groups
 }

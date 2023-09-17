@@ -13,11 +13,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import React, { ChangeEvent, Dispatch, useContext, useRef } from 'react'
+import React, {
+  ChangeEvent,
+  Dispatch,
+  useContext,
+  useRef,
+  useState,
+} from 'react'
 import styled from 'styled-components'
 
-import { DropdownList } from '../Dropdown'
-import { MoveTarget, PermissionsContext, Replace } from './FileManager'
+import { useDropdown } from '../../hooks/use-dropdown'
+import { Category, Dialog } from '../Dialog'
+import { DropdownContainer, DropdownList } from '../Dropdown'
+import DotsIcon from '../icons/dots-icon'
+import { Move, PermissionsContext, Replace } from './FileManager'
 import { Action } from './FileSectionState'
 import { FileSectionType } from './util'
 
@@ -29,20 +38,29 @@ export const FileActions: React.FC<{
   handleDownload: () => void
   handleReplace?: Replace
   handleDetach?: () => void
-  moveTarget?: MoveTarget
+  move?: Move
   handleUpdateInline?: () => void
-  hideActionList: (e?: React.MouseEvent) => void
   dispatch?: Dispatch<Action>
   className?: string
 }> = ({
+  sectionType,
   handleDownload,
   handleReplace,
   handleDetach,
-  moveTarget,
-  hideActionList,
+  move,
   className,
 }) => {
   const can = useContext(PermissionsContext)
+
+  const { isOpen, toggleOpen, wrapperRef } = useDropdown()
+  const [isMoveDialogOpen, setMoveDialogOpen] = useState<boolean>(false)
+
+  const showDownload = can?.downloadFiles
+  const showReplace = can?.replaceFile && handleReplace
+  const showDetach = can?.editArticle && handleDetach
+  const showMove = can?.editArticle && move
+
+  const show = showDownload || showReplace || showDetach || showMove
 
   const fileInputRef = useRef<HTMLInputElement>(null)
 
@@ -50,45 +68,119 @@ export const FileActions: React.FC<{
     if (handleReplace && event && event.target && event.target.files) {
       const file = event.target.files[0]
       await handleReplace(file)
-      hideActionList()
     }
   }
+
   const openFileDialog = () => {
     if (fileInputRef && fileInputRef.current) {
       fileInputRef.current.click()
     }
   }
-  return (
-    <FileActionDropdownList
-      direction={'right'}
-      className={className}
-      width={192}
-      top={5}
-      onClick={hideActionList}
-    >
-      <FileAction onClick={handleDownload}>Download</FileAction>
-      {can?.replaceFile && handleReplace && (
-        <>
-          <FileAction onClick={openFileDialog}>Replace</FileAction>
-          <input
-            ref={fileInputRef}
-            type="file"
-            style={{ display: 'none' }}
-            onChange={handleChange}
-          />
-        </>
+
+  return show ? (
+    <DropdownContainer ref={wrapperRef}>
+      <ActionsIcon
+        onClick={toggleOpen}
+        type="button"
+        className="show-on-hover"
+        aria-label="Actions"
+        aria-pressed={isOpen}
+      >
+        <DotsIcon />
+      </ActionsIcon>
+      {isOpen && (
+        <FileActionDropdownList
+          direction="right"
+          className={className}
+          width={192}
+          top={5}
+          onClick={toggleOpen}
+        >
+          {showDownload && (
+            <FileAction onClick={handleDownload}>Download</FileAction>
+          )}
+          {showReplace && (
+            <>
+              <FileAction onClick={openFileDialog}>Replace</FileAction>
+              <input
+                ref={fileInputRef}
+                type="file"
+                style={{ display: 'none' }}
+                onChange={handleChange}
+              />
+            </>
+          )}
+          {showDetach && <FileAction onClick={handleDetach}>Detach</FileAction>}
+          {showMove && (
+            <FileAction onClick={() => setMoveDialogOpen(true)}>
+              Move to {move.sectionType}
+            </FileAction>
+          )}
+        </FileActionDropdownList>
       )}
-      {can?.editArticle && handleDetach && (
-        <FileAction onClick={handleDetach}>Detach</FileAction>
+      {showMove && (
+        <MoveFileConfirmationDialog
+          isOpen={isMoveDialogOpen}
+          close={() => setMoveDialogOpen(false)}
+          source={sectionType}
+          target={move.sectionType}
+          handleMove={move.handler}
+        />
       )}
-      {can?.editArticle && moveTarget && (
-        <FileAction onClick={moveTarget.handler}>
-          Move to {moveTarget.sectionType}
-        </FileAction>
-      )}
-    </FileActionDropdownList>
+    </DropdownContainer>
+  ) : (
+    <></>
   )
 }
+
+const MoveFileConfirmationDialog: React.FC<{
+  isOpen: boolean
+  close: () => void
+  source: FileSectionType
+  target: FileSectionType
+  handleMove: () => Promise<void>
+}> = ({ isOpen, close, source, target, handleMove }) => {
+  const header = `Are you sure you want to move this file to “${target}”?`
+  const message = `The file will be removed from “${source}” and added to “${target}”.`
+
+  const handleConfirm = async () => {
+    await handleMove()
+    close()
+  }
+
+  return (
+    <Dialog
+      isOpen={isOpen}
+      category={Category.confirmation}
+      header={header}
+      message={message}
+      actions={{
+        primary: {
+          action: handleConfirm,
+          title: 'Move',
+        },
+        secondary: {
+          action: () => close(),
+          title: 'Cancel',
+        },
+      }}
+    />
+  )
+}
+
+export const ActionsIcon = styled.button`
+  visibility: hidden;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  padding: 0 8px;
+  &:focus {
+    outline: none;
+  }
+  &:hover svg circle {
+    fill: #1a9bc7;
+  }
+`
 
 export const FileActionDropdownList = styled(DropdownList)`
   border: 1px solid #e2e2e2;
