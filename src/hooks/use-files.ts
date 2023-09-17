@@ -17,9 +17,9 @@ import { Model } from '@manuscripts/json-schema'
 
 import {
   ElementFiles,
-  ManuscriptFile,
   getInlineFiles,
   getSupplements,
+  ManuscriptFile,
   ModelFile,
 } from '../lib/files'
 import { useDeepCompareMemo } from './use-deep-compare'

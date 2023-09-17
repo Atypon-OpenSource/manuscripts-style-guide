@@ -17,7 +17,8 @@ import {
   ElementsOrder,
   Figure,
   FigureElement,
-  Model, ObjectTypes,
+  Model,
+  ObjectTypes,
   Section,
   Supplement,
 } from '@manuscripts/json-schema'

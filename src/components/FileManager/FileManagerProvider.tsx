@@ -14,40 +14,26 @@
  * limitations under the License.
  */
 import { Model } from '@manuscripts/json-schema'
-import React, { createContext, Dispatch, SetStateAction, useState } from 'react'
+import React, { createContext } from 'react'
 
 import { DeleteModel, FileStore, SaveModel } from './FileManager'
-import { FileSectionType } from './util'
-
-type MoveFilePopup = {
-  isOpen: boolean
-  fileSection?: FileSectionType
-  attachmentId?: string
-}
 
 export const FileManagerContext = createContext<{
   saveModel: SaveModel
   deleteModel: DeleteModel
   modelMap: Map<string, Model>
   store: FileStore
-  moveFilePopup: MoveFilePopup
-  setMoveFilePopupData: Dispatch<SetStateAction<MoveFilePopup>>
 }>({
   // @ts-ignore
   saveModel: () => '',
-  moveFilePopup: { isOpen: false },
-  setMoveFilePopupData: () => '',
 })
 
-// TODO:: use this provider for file manager component to avoid props drilling
 export const FileManagerProvider: React.FC<{
   saveModel: SaveModel
   deleteModel: DeleteModel
   modelMap: Map<string, Model>
   store: FileStore
 }> = ({ children, saveModel, deleteModel, modelMap, store }) => {
-  const [moveFilePopup, setMoveFilePopupData] = useState({ isOpen: false })
-
   return (
     <FileManagerContext.Provider
       value={{
@@ -55,8 +41,6 @@ export const FileManagerProvider: React.FC<{
         deleteModel,
         modelMap,
         store,
-        moveFilePopup,
-        setMoveFilePopupData,
       }}
     >
       {children}

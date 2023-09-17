@@ -118,7 +118,9 @@ const ElementFile: React.FC<{
   return (
     <ModelFileContainer>
       <FileName file={file} />
-      {file.createdDate && <FileCreatedDate file={file} />}
+      {file.createdDate && (
+        <FileCreatedDate file={file} className="show-on-hover" />
+      )}
       <FileActions
         sectionType={FileSectionType.Inline}
         handleDownload={handleDownload}

@@ -22,9 +22,10 @@ import { Tooltip } from './Tooltip'
 
 export const FileCreatedDate: React.FC<{
   file: ManuscriptFile
-}> = ({ file }) => {
+  className?: string
+}> = ({ file, className }) => {
   return (
-    <FileDateContainer data-tip="tooltip-content" className="show-on-hover">
+    <FileDateContainer data-tip="tooltip-content" className={className}>
       <FileDate>{format(new Date(file.createdDate), 'M/d/yy, HH:mm')}</FileDate>
       <Tooltip
         place="bottom"
@@ -41,6 +42,7 @@ export const FileCreatedDate: React.FC<{
 export const FileDateContainer = styled.div`
   overflow: hidden;
   min-width: 80px;
+  margin-left: 8px;
 `
 
 export const FileDate = styled.div`

@@ -22,9 +22,9 @@ import {
   Section,
   Supplement,
 } from '@manuscripts/json-schema'
-import {getModelsByType} from '@manuscripts/transform'
+import { getModelsByType } from '@manuscripts/transform'
 
-import {FileType} from '../components/FileManager/util'
+import { FileType } from '../components/FileManager/util'
 
 export type FileDesignation = {
   id: string

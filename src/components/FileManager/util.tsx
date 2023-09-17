@@ -15,7 +15,6 @@
  */
 import React from 'react'
 
-import { Capabilities } from '../../lib/capabilities'
 import AudioIcon from '../icons/audio-icon'
 import CodeFileIcon from '../icons/code-file-icon'
 import CompressedFileIcon from '../icons/compressed-file-icon'
@@ -96,49 +95,53 @@ export const extensionsWithFileTypesMap = new Map<string, FileType>([
   ['txt', FileType.PlainText],
 ])
 
-export const fileTypesWithTitlesMap = new Map<FileType | undefined, string>([
-  [FileType.Image, 'Image'],
-  [FileType.Audio, 'Audio'],
-  [FileType.Video, 'Video'],
-  [FileType.PlainDocument, 'Doc'],
-  [FileType.SheetsWorkbooks, 'Table'],
-  [FileType.Latex, 'Doc'],
-  [FileType.CodeFile, 'Code File'],
-  [FileType.PdfFile, 'Doc'],
-  [FileType.CompressedFile, 'Compressed File'],
-  [FileType.PlainText, 'Plain Text'],
-  [undefined, 'Unknown'],
-])
-
 export const fileTypesWithIconMap = new Map<FileType | undefined, JSX.Element>([
   [FileType.Audio, <AudioIcon key={FileType.Audio} className="file-icon" />],
   [FileType.Video, <VideoIcon key={FileType.Video} className="file-icon" />],
   [
     FileType.PlainDocument,
-    <DocumentIcon key={FileType.PlainDocument} color="#1A9BC7" className="file-icon" />,
+    <DocumentIcon
+      key={FileType.PlainDocument}
+      color="#1A9BC7"
+      className="file-icon"
+    />,
   ],
-  [FileType.SheetsWorkbooks, <TableIcon key={FileType.SheetsWorkbooks} className="file-icon" />],
-  [FileType.Latex, <LatexIcon key={FileType.Latex} color="#1A9BC7" className="file-icon" />],
-  [FileType.CodeFile, <CodeFileIcon key={FileType.CodeFile}  className="file-icon"  />],
-  [FileType.PdfFile, <PdfFileIcon key={FileType.PdfFile}  className="file-icon"  />],
+  [
+    FileType.SheetsWorkbooks,
+    <TableIcon key={FileType.SheetsWorkbooks} className="file-icon" />,
+  ],
+  [
+    FileType.Latex,
+    <LatexIcon key={FileType.Latex} color="#1A9BC7" className="file-icon" />,
+  ],
+  [
+    FileType.CodeFile,
+    <CodeFileIcon key={FileType.CodeFile} className="file-icon" />,
+  ],
+  [
+    FileType.PdfFile,
+    <PdfFileIcon key={FileType.PdfFile} className="file-icon" />,
+  ],
   [
     FileType.CompressedFile,
-    <CompressedFileIcon key={FileType.CompressedFile} className="file-icon"  />,
+    <CompressedFileIcon key={FileType.CompressedFile} className="file-icon" />,
   ],
   [
     FileType.PlainText,
-    <DocumentIcon key={FileType.PlainText} color="#FFBD26" className="file-icon"  />,
+    <DocumentIcon
+      key={FileType.PlainText}
+      color="#FFBD26"
+      className="file-icon"
+    />,
   ],
-  [FileType.Image, <ImageIcon key={FileType.Image} className="file-icon"  />],
-  [FileType.Figure, <FigureIcon key={FileType.Figure}  className="file-icon" />],
+  [FileType.Image, <ImageIcon key={FileType.Image} className="file-icon" />],
+  [FileType.Figure, <FigureIcon key={FileType.Figure} className="file-icon" />],
   [
     FileType.GraphicalAbstract,
-    <GraphicalAbstractIcon key={FileType.GraphicalAbstract}  className="file-icon" />,
+    <GraphicalAbstractIcon
+      key={FileType.GraphicalAbstract}
+      className="file-icon"
+    />,
   ],
-  [undefined, <UnknownFormatFileIcon key={undefined}  className="file-icon" />],
+  [undefined, <UnknownFormatFileIcon key={undefined} className="file-icon" />],
 ])
-
-export const droppableSections = [
-  FileSectionType.Supplements,
-  FileSectionType.OtherFile,
-]

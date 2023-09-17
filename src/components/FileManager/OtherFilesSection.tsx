@@ -14,7 +14,9 @@
  * limitations under the License.
  */
 import { buildSupplementaryMaterial } from '@manuscripts/transform'
-import React, { Dispatch, useContext, useState } from 'react'
+import React, { Dispatch, useContext, useEffect, useState } from 'react'
+import { useDrag } from 'react-dnd'
+import { getEmptyImage } from 'react-dnd-html5-backend'
 
 import { ManuscriptFile } from '../../lib/files'
 import { FileActions } from './FileActions'
@@ -89,10 +91,30 @@ const OtherFile: React.FC<{
   handleMoveToSupplements: () => Promise<void>
   dispatch: Dispatch<Action>
 }> = ({ file, handleDownload, handleMoveToSupplements, dispatch }) => {
+  const [{ isDragging }, drag, preview] = useDrag({
+    item: {
+      file,
+      type: 'file',
+    },
+    collect: (monitor) => ({
+      isDragging: monitor.isDragging(),
+    }),
+  })
+
+  useEffect(() => {
+    preview(getEmptyImage())
+  }, [preview])
+
   return (
-    <FileContainer key={file.id}>
+    <FileContainer
+      key={file.id}
+      ref={drag}
+      className={isDragging ? 'dragging' : ''}
+    >
       <FileName file={file} />
-      {file.createdDate && <FileCreatedDate file={file} />}
+      {file.createdDate && (
+        <FileCreatedDate file={file} className="show-on-hover" />
+      )}
       <FileActions
         sectionType={FileSectionType.OtherFile}
         handleDownload={handleDownload}

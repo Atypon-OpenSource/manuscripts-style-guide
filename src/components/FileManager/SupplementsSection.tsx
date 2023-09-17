@@ -13,11 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { Supplement } from '@manuscripts/json-schema'
+import { ObjectTypes, Supplement } from '@manuscripts/json-schema'
 import { buildSupplementaryMaterial } from '@manuscripts/transform'
-import React, { Dispatch, useContext, useState } from 'react'
+import React, { Dispatch, useContext, useEffect, useState } from 'react'
+import { useDrag } from 'react-dnd'
+import { getEmptyImage } from 'react-dnd-html5-backend'
 
-import { ManuscriptFile, ModelFile } from '../../lib/files'
+import { ModelFile } from '../../lib/files'
 import { FileActions } from './FileActions'
 import { FileContainer } from './FileContainer'
 import { FileCreatedDate } from './FileCreatedDate'
@@ -108,7 +110,7 @@ export const SupplementsSection: React.FC<{
 }
 
 const SupplementFile: React.FC<{
-  file: ManuscriptFile
+  file: ModelFile
   handleDownload: () => void
   handleReplace: Replace
   handleDetach: () => Promise<void>
@@ -122,10 +124,34 @@ const SupplementFile: React.FC<{
   handleUpdateInline,
   dispatch,
 }) => {
+  const [{ isDragging }, drag, preview] = useDrag({
+    item: {
+      file,
+      model: {
+        _id: file.modelId,
+        objectType: ObjectTypes.Supplement,
+      },
+      type: 'file',
+    },
+    collect: (monitor) => ({
+      isDragging: monitor.isDragging(),
+    }),
+  })
+
+  useEffect(() => {
+    preview(getEmptyImage())
+  }, [preview])
+
   return (
-    <FileContainer key={file.id}>
+    <FileContainer
+      key={file.id}
+      ref={drag}
+      className={isDragging ? 'dragging' : ''}
+    >
       <FileName file={file} />
-      {file.createdDate && <FileCreatedDate file={file} />}
+      {file.createdDate && (
+        <FileCreatedDate file={file} className="show-on-hover" />
+      )}
       <FileActions
         sectionType={FileSectionType.Supplements}
         handleDownload={handleDownload}

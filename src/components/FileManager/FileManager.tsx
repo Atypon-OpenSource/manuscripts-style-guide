@@ -28,8 +28,8 @@ import {
   InspectorTabs,
 } from '../Inspector'
 import { InspectorSection } from '../InspectorSection'
+import { DragLayer } from './DragLayer'
 import { FileManagerProvider } from './FileManagerProvider'
-import { DragLayer } from './FileSectionItem/DragLayer'
 import { getInitialState, reducer } from './FileSectionState'
 import { InlineFilesSection } from './InlineFilesSection'
 import { OtherFilesSection } from './OtherFilesSection'
@@ -106,7 +106,7 @@ export const FileManager: React.FC<{
     //   })
     // }
     // await saveModel(figureModel)
-  }, [modelMap, saveModel, addAttachmentToState])
+  }, [])
 
   const files = store.getFiles()
 
@@ -182,10 +182,7 @@ export const FileManager: React.FC<{
                 />
               </InspectorTabPanel>
               <InspectorTabPanel>
-                <OtherFilesSection
-                  files={otherFiles}
-                  dispatch={dispatch}
-                />
+                <OtherFilesSection files={otherFiles} dispatch={dispatch} />
               </InspectorTabPanel>
             </InspectorTabPanels>
           </InspectorTabs>

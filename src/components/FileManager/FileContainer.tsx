@@ -25,6 +25,10 @@ export const FileContainer = styled.div`
   padding: 24px 16px;
   height: 72px;
 
+  &.dragging {
+    opacity: 0.2;
+  }
+
   .file-icon {
     min-width: 20px;
   }
