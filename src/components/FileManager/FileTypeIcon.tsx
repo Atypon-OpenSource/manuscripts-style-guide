@@ -16,11 +16,10 @@
 import React from 'react'
 
 import { FileAttachment } from '../../lib/files'
+import CorruptedFileIcon from '../icons/corrupted-file-icon'
 import DocumentIconWithDot from '../icons/document-icon-with-dot'
 import UnknownFormatFileIcon from '../icons/unknown-format-file-icon'
 import { extensionsWithFileTypesMap, fileTypesWithIconMap } from './util'
-import {UnsupportedFormatFileIcon} from "../icons";
-import CorruptedFileIcon from "../icons/corrupted-file-icon";
 
 /**
  * Each file item has an icon to represent besides the file info based on the file extension,

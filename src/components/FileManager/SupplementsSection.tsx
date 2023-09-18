@@ -155,10 +155,14 @@ const SupplementFile: React.FC<{
         handleDownload={file.id ? handleDownload : undefined}
         handleUpdateInline={handleUpdateInline}
         handleReplace={handleReplace}
-        move={file.id ? {
-          sectionType: FileSectionType.OtherFile,
-          handler: handleDetach,
-        } : undefined}
+        move={
+          file.id
+            ? {
+                sectionType: FileSectionType.OtherFile,
+                handler: handleDetach,
+              }
+            : undefined
+        }
         dispatch={dispatch}
       />
     </FileContainer>

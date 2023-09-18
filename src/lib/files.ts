@@ -57,7 +57,7 @@ const MISSING_FILE = {
   type: {
     id: 'missing',
   },
-  link: ''
+  link: '',
 }
 
 const getFile = (files: FileAttachment[], id: string) => {
