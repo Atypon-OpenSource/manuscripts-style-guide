@@ -35,7 +35,7 @@ import { FileSectionType } from './util'
  */
 export const FileActions: React.FC<{
   sectionType: FileSectionType
-  handleDownload: () => void
+  handleDownload?: () => void
   handleReplace?: Replace
   handleDetach?: () => void
   move?: Move
@@ -55,7 +55,7 @@ export const FileActions: React.FC<{
   const { isOpen, toggleOpen, wrapperRef } = useDropdown()
   const [isMoveDialogOpen, setMoveDialogOpen] = useState<boolean>(false)
 
-  const showDownload = can?.downloadFiles
+  const showDownload = can?.downloadFiles && handleDownload
   const showReplace = can?.replaceFile && handleReplace
   const showDetach = can?.editArticle && handleDetach
   const showMove = can?.editArticle && move

@@ -19,7 +19,7 @@ import React, { createContext, useCallback, useReducer } from 'react'
 
 import { FileSectionType, useFiles } from '../../index'
 import { Capabilities } from '../../lib/capabilities'
-import { ManuscriptFile } from '../../lib/files'
+import { FileAttachment } from '../../lib/files'
 import {
   InspectorTab,
   InspectorTabList,
@@ -36,11 +36,11 @@ import { OtherFilesSection } from './OtherFilesSection'
 import { SupplementsSection } from './SupplementsSection'
 import { Tooltip } from './Tooltip'
 
-export type Upload = (file: File) => Promise<ManuscriptFile>
+export type Upload = (file: File) => Promise<FileAttachment>
 
-export type Download = (file: ManuscriptFile) => void
+export type Download = (file: FileAttachment) => void
 
-export type Detach = (file: ManuscriptFile, modelId: string) => void
+export type Detach = (file: FileAttachment, modelId: string) => void
 
 export type Replace = (file: File) => Promise<void>
 
@@ -51,8 +51,8 @@ export type Move = {
   handler: () => Promise<void>
 }
 
-export interface FileStore {
-  getFiles: () => ManuscriptFile[]
+export interface FileManagement {
+  getAttachments: () => FileAttachment[]
   upload: Upload
   download: Download
 }
@@ -61,7 +61,7 @@ export type SaveModel = <T extends Model>(
   model: T | Build<T> | Partial<T>
 ) => Promise<T>
 
-export type DeleteModel = (id: string) => Promise<void>
+export type DeleteModel = (id: string) => Promise<string>
 
 /**
  * This is the main component of the file handling
@@ -78,20 +78,20 @@ export type DeleteModel = (id: string) => Promise<void>
 export const PermissionsContext = createContext<null | Capabilities>(null)
 
 export const FileManager: React.FC<{
-  store: FileStore
+  fileManagement: FileManagement
   modelMap: Map<string, Model>
   saveModel: SaveModel
   deleteModel: DeleteModel
   enableDragAndDrop: boolean
   can: Capabilities
-  addAttachmentToState?: (a: ManuscriptFile) => void
+  addAttachmentToState?: (a: FileAttachment) => void
 }> = ({
+  fileManagement,
   modelMap,
   saveModel,
   deleteModel,
   enableDragAndDrop,
   can,
-  store,
   addAttachmentToState,
 }) => {
   const [state, dispatch] = useReducer(reducer, getInitialState())
@@ -108,7 +108,7 @@ export const FileManager: React.FC<{
     // await saveModel(figureModel)
   }, [])
 
-  const files = store.getFiles()
+  const files = fileManagement.getAttachments()
 
   const { inlineFiles, supplements, otherFiles } = useFiles(modelMap, files)
 
@@ -117,7 +117,7 @@ export const FileManager: React.FC<{
       saveModel={saveModel}
       deleteModel={deleteModel}
       modelMap={modelMap}
-      store={store}
+      fileManagement={fileManagement}
     >
       <DragLayer />
       <PermissionsContext.Provider value={can}>

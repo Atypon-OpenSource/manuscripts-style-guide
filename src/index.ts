@@ -50,13 +50,14 @@ export * from './components/NavDropdown'
 export * from './components/SubmissionInspector'
 export * from './components/Dropdown'
 export * from './hooks/use-dropdown'
-export { useFiles } from './hooks/use-files'
+export * from './hooks/use-files'
 export {
   useDeepCompareMemo,
   useDeepCompareCallback,
 } from './hooks/use-deep-compare'
 export * from './lib/authors'
 export * from './lib/capabilities'
+export * from './lib/files'
 export { default as errorsDecoder } from './lib/errors-decoder'
 export * from './types'
 export * from './components/LoadingOverlay'

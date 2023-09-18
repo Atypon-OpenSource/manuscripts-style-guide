@@ -27,13 +27,13 @@ import React, { useState } from 'react'
 import { BrowserRouter } from 'react-router-dom'
 
 import { FileManager, getAllPermitted } from '../src'
-import { ManuscriptFile } from '../src/lib/files'
+import { FileAttachment } from '../src/lib/files'
 import { files } from './data/files'
 
 const sleep = (milliseconds: number) => {
   return new Promise((resolve) => setTimeout(resolve, milliseconds))
 }
-const upload = async (file: File): Promise<ManuscriptFile> => {
+const upload = async (file: File): Promise<FileAttachment> => {
   console.log('starting upload')
   await sleep(5000) //test the upload file item in storybook
   console.log('finished upload')
@@ -51,7 +51,7 @@ const upload = async (file: File): Promise<ManuscriptFile> => {
   return uploaded
 }
 
-const download = (file: ManuscriptFile): void => {
+const download = (file: FileAttachment): void => {
   console.log('file --> ' + file.name)
 }
 
@@ -78,6 +78,12 @@ storiesOf('FileManager', module).add('FileManager', () => {
     objectType: ObjectTypes.Figure,
     src: 'attachment:0be64499-6adb-4a6f-8f1e-5c411a37e103',
   }
+  const figure5 = {
+    _id: 'MPFigure:figure5',
+    objectType: ObjectTypes.Figure,
+    src: 'attachment:missing-figure',
+  }
+
   const element1 = {
     _id: 'MPFigureElement:element1',
     objectType: ObjectTypes.FigureElement,
@@ -92,6 +98,11 @@ storiesOf('FileManager', module).add('FileManager', () => {
     _id: 'MPFigureElement:element3',
     objectType: ObjectTypes.FigureElement,
     containedObjectIDs: [figure3._id, figure4._id],
+  }
+  const element4 = {
+    _id: 'MPFigureElement:element4',
+    objectType: ObjectTypes.FigureElement,
+    containedObjectIDs: [figure5._id],
   }
   const graphicalAbstract = {
     _id: 'MPSection:section1',
@@ -121,9 +132,11 @@ storiesOf('FileManager', module).add('FileManager', () => {
   modelMap.set(figure2._id, figure2 as Figure)
   modelMap.set(figure3._id, figure3 as Figure)
   modelMap.set(figure4._id, figure4 as Figure)
+  modelMap.set(figure5._id, figure5 as Figure)
   modelMap.set(element1._id, element1 as FigureElement)
   modelMap.set(element2._id, element2 as FigureElement)
   modelMap.set(element3._id, element3 as FigureElement)
+  modelMap.set(element4._id, element4 as FigureElement)
   modelMap.set(graphicalAbstract._id, graphicalAbstract as Section)
   modelMap.set(supplement1._id, supplement1 as Supplement)
   modelMap.set(supplement2._id, supplement2 as Supplement)
@@ -139,6 +152,7 @@ storiesOf('FileManager', module).add('FileManager', () => {
     modelMap.delete(modelId)
     setModelMap(new Map(modelMap))
     await sleep(1000)
+    return modelId
   }
 
   const [smodelMap, setModelMap] = useState(modelMap)
@@ -147,8 +161,8 @@ storiesOf('FileManager', module).add('FileManager', () => {
     <BrowserRouter>
       <FileManager
         can={capabilities}
-        store={{
-          getFiles: () => files,
+        fileManagement={{
+          getAttachments: () => files,
           upload,
           download,
         }}

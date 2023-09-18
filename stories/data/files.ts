@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import { ManuscriptFile } from '../../src/lib/files'
+import { FileAttachment } from '../../src/lib/files'
 
-export const files: ManuscriptFile[] = [
+export const files: FileAttachment[] = [
   {
     id: 'caabc327-25c5-4122-96fd-e38d313345da',
     name: 'LW4_multiGraphicFigure-S1-doc.zip',

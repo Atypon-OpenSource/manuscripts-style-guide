@@ -17,14 +17,14 @@ import { format } from 'date-fns'
 import React from 'react'
 import styled from 'styled-components'
 
-import { ManuscriptFile } from '../../lib/files'
+import { FileAttachment } from '../../lib/files'
 import { Tooltip } from './Tooltip'
 
 export const FileCreatedDate: React.FC<{
-  file: ManuscriptFile
+  file: FileAttachment
   className?: string
 }> = ({ file, className }) => {
-  return (
+  return ( file.createdDate ?
     <FileDateContainer data-tip="tooltip-content" className={className}>
       <FileDate>{format(new Date(file.createdDate), 'M/d/yy, HH:mm')}</FileDate>
       <Tooltip
@@ -36,6 +36,9 @@ export const FileCreatedDate: React.FC<{
         File Uploaded
       </Tooltip>
     </FileDateContainer>
+      : (
+        <></>
+      )
   )
 }
 

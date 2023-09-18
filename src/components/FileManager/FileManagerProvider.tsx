@@ -16,13 +16,13 @@
 import { Model } from '@manuscripts/json-schema'
 import React, { createContext } from 'react'
 
-import { DeleteModel, FileStore, SaveModel } from './FileManager'
+import { DeleteModel, FileManagement, SaveModel } from './FileManager'
 
 export const FileManagerContext = createContext<{
   saveModel: SaveModel
   deleteModel: DeleteModel
   modelMap: Map<string, Model>
-  store: FileStore
+  fileManagement: FileManagement
 }>({
   // @ts-ignore
   saveModel: () => '',
@@ -32,15 +32,15 @@ export const FileManagerProvider: React.FC<{
   saveModel: SaveModel
   deleteModel: DeleteModel
   modelMap: Map<string, Model>
-  store: FileStore
-}> = ({ children, saveModel, deleteModel, modelMap, store }) => {
+  fileManagement: FileManagement
+}> = ({ children, saveModel, deleteModel, modelMap, fileManagement }) => {
   return (
     <FileManagerContext.Provider
       value={{
         saveModel,
         deleteModel,
         modelMap,
-        store,
+        fileManagement,
       }}
     >
       {children}

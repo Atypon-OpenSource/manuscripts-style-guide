@@ -31,15 +31,16 @@ export type FileDesignation = {
   label?: string
 }
 
-export type ManuscriptFile = {
+export type FileAttachment = {
   id: string
   name: string
   type: FileDesignation
+  //TODO remove
   link: string
-  createdDate: Date
+  createdDate?: Date
 }
 
-export type ModelFile = ManuscriptFile & {
+export type ModelFile = FileAttachment & {
   modelId: string
 }
 
@@ -50,10 +51,24 @@ export type ElementFiles = {
   files: ModelFile[]
 }
 
+const MISSING_FILE = {
+  id: '',
+  name: 'Missing file',
+  type: {
+    id: 'missing',
+  },
+  link: ''
+}
+
+const getFile = (files: FileAttachment[], id: string) => {
+  id = id.substring(11)
+  return files.filter((f) => f.id === id)[0] || MISSING_FILE
+}
+
 const getFigureFiles = (
   element: FigureElement,
   modelMap: Map<string, Model>,
-  files: ManuscriptFile[]
+  files: FileAttachment[]
 ): ModelFile[] => {
   const figureFiles: ModelFile[] = []
   element.containedObjectIDs.map((id) => {
@@ -62,11 +77,8 @@ const getFigureFiles = (
       const figure = model as Figure
 
       if (figure.src) {
-        //TODO
-        const src = figure.src.substring(11)
-        const file = files.filter((f) => f.id === src)[0]
         figureFiles.push({
-          ...file,
+          ...getFile(files, figure.src),
           modelId: figure._id,
         })
       }
@@ -78,17 +90,18 @@ const getFigureFiles = (
 
 const getSupplementFiles = (
   supplement: Supplement,
-  files: ManuscriptFile[]
+  files: FileAttachment[]
 ): ModelFile[] => {
   if (supplement.href) {
-    //TODO
-    const href = supplement.href.substring(11)
-    return files
-      .filter((f) => f.id === href)
-      .map((f) => ({
-        ...f,
-        modelId: supplement._id,
-      }))
+    const href = supplement.href
+    if (href) {
+      return [
+        {
+          ...getFile(files, href),
+          modelId: supplement._id,
+        },
+      ]
+    }
   }
   return []
 }
@@ -103,7 +116,7 @@ const getSupplementFiles = (
  */
 export const getInlineFiles = (
   modelMap: Map<string, Model>,
-  files: ManuscriptFile[]
+  files: FileAttachment[]
 ): ElementFiles[] => {
   const elements: ElementFiles[] = []
 
@@ -149,7 +162,7 @@ export const getInlineFiles = (
 
 export const getSupplements = (
   modelMap: Map<string, Model>,
-  files: ManuscriptFile[]
+  files: FileAttachment[]
 ): ModelFile[] => {
   const supplements = getModelsByType<Supplement>(
     modelMap,

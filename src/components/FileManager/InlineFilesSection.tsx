@@ -35,7 +35,7 @@ export const InlineFilesSection: React.FC<{
   isEditor: boolean
   dispatch: Dispatch<Action>
 }> = ({ elements, handleUpdateInline, isEditor, dispatch }) => {
-  const { modelMap, store, saveModel } = useContext(FileManagerContext)
+  const { modelMap, fileManagement, saveModel } = useContext(FileManagerContext)
 
   const onElementClick = useCallback(
     (e) => {
@@ -66,7 +66,7 @@ export const InlineFilesSection: React.FC<{
   }
 
   const replace = async (modelId: string, file: File) => {
-    const uploaded = await store.upload(file)
+    const uploaded = await fileManagement.upload(file)
     //TODO
     await updateFigureSrc(modelId, 'attachment:' + uploaded.id)
   }
@@ -89,7 +89,7 @@ export const InlineFilesSection: React.FC<{
                   handleUpdateInline && (() => handleUpdateInline())
                 }
                 handleDetach={async () => await detach(file.modelId)}
-                handleDownload={() => store.download(file)}
+                handleDownload={() => fileManagement.download(file)}
                 dispatch={dispatch}
               />
             ))}
@@ -118,14 +118,12 @@ const ElementFile: React.FC<{
   return (
     <ModelFileContainer>
       <FileName file={file} />
-      {file.createdDate && (
-        <FileCreatedDate file={file} className="show-on-hover" />
-      )}
+      <FileCreatedDate file={file} className="show-on-hover" />
       <FileActions
         sectionType={FileSectionType.Inline}
-        handleDownload={handleDownload}
+        handleDownload={file.id ? handleDownload : undefined}
         handleUpdateInline={handleUpdateInline}
-        handleDetach={handleDetach}
+        handleDetach={file.id ? handleDetach : undefined}
         handleReplace={handleReplace}
         dispatch={dispatch}
       />

@@ -18,7 +18,7 @@ import React, { Dispatch, useContext, useEffect, useState } from 'react'
 import { useDrag } from 'react-dnd'
 import { getEmptyImage } from 'react-dnd-html5-backend'
 
-import { ManuscriptFile } from '../../lib/files'
+import { FileAttachment } from '../../lib/files'
 import { FileActions } from './FileActions'
 import { FileContainer } from './FileContainer'
 import { FileCreatedDate } from './FileCreatedDate'
@@ -34,10 +34,10 @@ import { FileSectionType } from './util'
  *  This component represents the other files in the file section.
  */
 export const OtherFilesSection: React.FC<{
-  files: ManuscriptFile[]
+  files: FileAttachment[]
   dispatch: Dispatch<Action>
 }> = ({ files, dispatch }) => {
-  const { store, saveModel } = useContext(FileManagerContext)
+  const { fileManagement, saveModel } = useContext(FileManagerContext)
 
   const can = useContext(PermissionsContext)
 
@@ -51,14 +51,14 @@ export const OtherFilesSection: React.FC<{
       type: FileSectionAlertType.UPLOAD_IN_PROGRESS,
       message: file.name,
     })
-    await store.upload(file)
+    await fileManagement.upload(file)
     setAlert({
       type: FileSectionAlertType.UPLOAD_SUCCESSFUL,
       message: '',
     })
   }
 
-  const moveToSupplements = async (file: ManuscriptFile) => {
+  const moveToSupplements = async (file: FileAttachment) => {
     //TODO
     const supplement = buildSupplementaryMaterial('', 'attachment:' + file.id)
     await saveModel(supplement)
@@ -76,7 +76,7 @@ export const OtherFilesSection: React.FC<{
         <OtherFile
           key={file.id}
           file={file}
-          handleDownload={() => store.download(file)}
+          handleDownload={() => fileManagement.download(file)}
           handleMoveToSupplements={async () => await moveToSupplements(file)}
           dispatch={dispatch}
         />
@@ -86,7 +86,7 @@ export const OtherFilesSection: React.FC<{
 }
 
 const OtherFile: React.FC<{
-  file: ManuscriptFile
+  file: FileAttachment
   handleDownload: () => void
   handleMoveToSupplements: () => Promise<void>
   dispatch: Dispatch<Action>
@@ -112,9 +112,7 @@ const OtherFile: React.FC<{
       className={isDragging ? 'dragging' : ''}
     >
       <FileName file={file} />
-      {file.createdDate && (
-        <FileCreatedDate file={file} className="show-on-hover" />
-      )}
+      <FileCreatedDate file={file} className="show-on-hover" />
       <FileActions
         sectionType={FileSectionType.OtherFile}
         handleDownload={handleDownload}

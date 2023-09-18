@@ -38,7 +38,7 @@ export const SupplementsSection: React.FC<{
   supplements: ModelFile[]
   dispatch: Dispatch<Action>
 }> = ({ supplements, dispatch }) => {
-  const { modelMap, saveModel, deleteModel, store } =
+  const { modelMap, saveModel, deleteModel, fileManagement } =
     useContext(FileManagerContext)
 
   const can = useContext(PermissionsContext)
@@ -53,7 +53,7 @@ export const SupplementsSection: React.FC<{
       type: FileSectionAlertType.UPLOAD_IN_PROGRESS,
       message: file.name,
     })
-    const uploaded = await store.upload(file)
+    const uploaded = await fileManagement.upload(file)
     setAlert({
       type: FileSectionAlertType.UPLOAD_SUCCESSFUL,
       message: '',
@@ -95,7 +95,7 @@ export const SupplementsSection: React.FC<{
         <SupplementFile
           key={supplement.modelId}
           file={supplement}
-          handleDownload={() => store.download(supplement)}
+          handleDownload={() => fileManagement.download(supplement)}
           handleReplace={async (f) =>
             await handleReplace(supplement.modelId, f)
           }
@@ -149,18 +149,16 @@ const SupplementFile: React.FC<{
       className={isDragging ? 'dragging' : ''}
     >
       <FileName file={file} />
-      {file.createdDate && (
-        <FileCreatedDate file={file} className="show-on-hover" />
-      )}
+      <FileCreatedDate file={file} className="show-on-hover" />
       <FileActions
         sectionType={FileSectionType.Supplements}
-        handleDownload={handleDownload}
+        handleDownload={file.id ? handleDownload : undefined}
         handleUpdateInline={handleUpdateInline}
         handleReplace={handleReplace}
-        move={{
+        move={file.id ? {
           sectionType: FileSectionType.OtherFile,
           handler: handleDetach,
-        }}
+        } : undefined}
         dispatch={dispatch}
       />
     </FileContainer>

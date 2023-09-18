@@ -19,12 +19,12 @@ import {
   ElementFiles,
   getInlineFiles,
   getSupplements,
-  ManuscriptFile,
+  FileAttachment,
   ModelFile,
 } from '../lib/files'
 import { useDeepCompareMemo } from './use-deep-compare'
 
-type FileFilter = (file: ManuscriptFile) => boolean
+type FileFilter = (file: FileAttachment) => boolean
 
 /**
  * return files that are not inlineFiles or SupplementFiles
@@ -32,7 +32,7 @@ type FileFilter = (file: ManuscriptFile) => boolean
 const getOtherFiles = (
   inlineFiles: ElementFiles[],
   supplements: ModelFile[],
-  files: ManuscriptFile[],
+  files: FileAttachment[],
   filter?: FileFilter
 ) => {
   const excluded = new Set()
@@ -43,7 +43,7 @@ const getOtherFiles = (
 
 export const useFiles = (
   modelMap: Map<string, Model>,
-  files: ManuscriptFile[],
+  files: FileAttachment[],
   filter?: FileFilter
 ) =>
   useDeepCompareMemo(() => {

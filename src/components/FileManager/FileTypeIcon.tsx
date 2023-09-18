@@ -15,18 +15,23 @@
  */
 import React from 'react'
 
-import { ManuscriptFile } from '../../lib/files'
+import { FileAttachment } from '../../lib/files'
 import DocumentIconWithDot from '../icons/document-icon-with-dot'
 import UnknownFormatFileIcon from '../icons/unknown-format-file-icon'
 import { extensionsWithFileTypesMap, fileTypesWithIconMap } from './util'
+import {UnsupportedFormatFileIcon} from "../icons";
+import CorruptedFileIcon from "../icons/corrupted-file-icon";
 
 /**
  * Each file item has an icon to represent besides the file info based on the file extension,
  * in case the file type is an image or video then the icon should be the preview image or video thumbnail.
  */
 export const FileTypeIcon: React.FC<{
-  file: ManuscriptFile
+  file: FileAttachment
 }> = ({ file }) => {
+  if (file.type.id === 'missing') {
+    return <CorruptedFileIcon className="file-icon" />
+  }
   if (file.type.id === 'main-manuscript') {
     return <DocumentIconWithDot className="file-icon" />
   }

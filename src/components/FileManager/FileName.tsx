@@ -16,16 +16,25 @@
 import React from 'react'
 import styled from 'styled-components'
 
-import { ManuscriptFile } from '../../lib/files'
+import { FileAttachment } from '../../lib/files'
 import { FileTypeIcon } from './FileTypeIcon'
+import {Tooltip} from "./Tooltip";
 
 export const FileName: React.FC<{
-  file: ManuscriptFile
+  file: FileAttachment
 }> = ({ file }) => {
   return (
     <>
       <FileTypeIcon file={file} />
       <FileNameText>{file.name}</FileNameText>
+      <Tooltip
+        place="bottom"
+        offset={{ top: 0 }}
+        effect="solid"
+        className="tooltip"
+      >
+        {file.name}
+      </Tooltip>
     </>
   )
 }
