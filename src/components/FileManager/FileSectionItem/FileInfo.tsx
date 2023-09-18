@@ -20,6 +20,7 @@ import styled from 'styled-components'
 
 import { PermissionsContext } from '../FileManager'
 import { Action } from '../FileSectionState'
+import { TooltipDiv } from '../TooltipDiv'
 
 export const FileInfo: React.FC<{
   showAttachmentName: boolean
@@ -44,7 +45,6 @@ export const FileInfo: React.FC<{
   )
 
   const can = useContext(PermissionsContext)
-
   return (
     <FileInfoContainer>
       <FileNameTitleContainer>
@@ -63,14 +63,16 @@ export const FileInfo: React.FC<{
             <FileDate>
               {format(new Date(fileCreatedDate), 'M/d/yy, HH:mm')}
             </FileDate>
-            <ReactTooltip
-              place="bottom"
-              offset={{ top: 0 }}
-              effect="solid"
-              className="tooltip"
-            >
-              File Uploaded
-            </ReactTooltip>
+            <TooltipDiv>
+              <ReactTooltip
+                place="bottom"
+                offset={{ top: 0 }}
+                effect="solid"
+                className="tooltip"
+              >
+                <div>File uploaded</div>
+              </ReactTooltip>
+            </TooltipDiv>
           </FileDateContainer>
         )}
       </FileNameTitleContainer>
@@ -82,7 +84,6 @@ export const FileDateContainer = styled.div`
   overflow: hidden;
   width: 100%;
   display: none;
-  display: flex;
   justify-content: flex-end;
 `
 export const FileInfoContainer = styled.div`
