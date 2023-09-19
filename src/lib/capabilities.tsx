@@ -99,8 +99,6 @@ export const getCapabilities = (
     !!(profile && project?.proofers?.includes(profile.userID))
   const isViewer = () =>
     !!(profile && project?.viewers?.includes(profile.userID))
-  const isProofer = () =>
-    !!(profile && project?.proofers?.includes(profile.userID))
   const isProdEditor = () => role == 'pe'
   const allowed = (action: string) => !!actions?.includes(action)
 
