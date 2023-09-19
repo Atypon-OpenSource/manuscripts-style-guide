@@ -40,8 +40,6 @@ export type Upload = (file: File) => Promise<FileAttachment>
 
 export type Download = (file: FileAttachment) => void
 
-export type Detach = (file: FileAttachment, modelId: string) => void
-
 export type Replace = (file: File) => Promise<void>
 
 export type UpdateInline = () => void
@@ -84,7 +82,6 @@ export const FileManager: React.FC<{
   deleteModel: DeleteModel
   enableDragAndDrop: boolean
   can: Capabilities
-  addAttachmentToState?: (a: FileAttachment) => void
 }> = ({
   fileManagement,
   modelMap,
@@ -92,7 +89,6 @@ export const FileManager: React.FC<{
   deleteModel,
   enableDragAndDrop,
   can,
-  addAttachmentToState,
 }) => {
   const [state, dispatch] = useReducer(reducer, getInitialState())
 
