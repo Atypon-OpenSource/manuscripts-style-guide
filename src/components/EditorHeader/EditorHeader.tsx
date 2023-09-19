@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 import { ApolloError } from '@apollo/client'
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useCallback, useState } from 'react'
 import styled from 'styled-components'
 
 import {
@@ -37,6 +37,7 @@ import { ProceedView } from './ProceedView'
 export type PartialSubmission = {
   id: string
   currentStep: SubmissionStep
+  previousStep?: SubmissionStep | null | undefined
   nextStep?: SubmissionStep | null | undefined
 }
 
@@ -63,7 +64,23 @@ export type SubmissionStepType = {
   }
 }
 
-const Editing = { label: 'Editing...', icon: EditIcon }
+export enum DialogState {
+  INIT,
+  LOADING,
+  ERROR,
+  SUCCESS,
+  CLOSED,
+}
+
+export type ProceedDialogData = {
+  state: DialogState
+  error?: string
+  mutationError?: ApolloError | undefined
+  updateState: (state: DialogState) => void
+  clearError: () => void
+}
+
+const Editing = { label: 'Editing', icon: EditIcon }
 
 const MapUserRole: {
   [key: string]: {
@@ -77,9 +94,9 @@ const MapUserRole: {
   Editor: Editing,
   Owner: Editing,
   Writer: Editing,
-  Annotator: { label: 'Suggesting...', icon: AnnotatorIcon },
-  Viewer: { label: 'Reading...', icon: ReadingIcon },
-  Proofer: { label: 'Proofing...', icon: ReadingIcon },
+  Annotator: { label: 'Suggesting', icon: AnnotatorIcon },
+  Viewer: { label: 'Reading', icon: ReadingIcon },
+  Proofer: { label: 'Proofing', icon: AnnotatorIcon },
 }
 
 export const EditorHeader: React.FC<{
@@ -90,14 +107,13 @@ export const EditorHeader: React.FC<{
   exceptionDialog: React.FC<{ errorCode: string }>
   userRole: string
   submitProceed: {
-    complete: boolean
-    error: string
-    mutationError: ApolloError | undefined
+    dialogData: ProceedDialogData
     submit: (statusId: string, noteValue: string) => Promise<unknown>
   }
   goBack?: () => void
   status?: 'saved' | 'saving' | 'offline' | 'failed'
   isAnnotator: boolean
+  isProofer: boolean
   message: React.FC
   disabelProceedNote?: boolean
 }> = ({
@@ -110,67 +126,59 @@ export const EditorHeader: React.FC<{
   goBack,
   status,
   isAnnotator,
+  isProofer,
   message,
   exceptionDialog: ExceptionDialog,
   disabelProceedNote,
 }) => {
   const [confirmationDialog, toggleConfirmationDialog] = useState(false)
-  const [loading, setLoading] = useState(false)
-  //   const [showComplete, setShowComplete] = useState(false)
   const [noteValue, setNoteValue] = useState<string>('')
-  const [error, setError] = useState<string | undefined>(undefined)
   const [selectedTransitionIndex, setSelectedTransitionIndex] =
     useState<number>()
 
-  const {
-    complete: showComplete,
-    error: submissionError,
-    mutationError,
-    submit,
-  } = submitProceed
-
-  useEffect(() => {
-    // @TODO - try to use directly without storing in the state
-    if (submissionError) {
-      setError(submissionError)
-    }
-  }, [submissionError])
+  const { dialogData, submit } = submitProceed
+  const { updateState, clearError } = dialogData
 
   const continueDialogAction = useCallback(async () => {
     if (submission && selectedTransitionIndex && handleSnapshot) {
       const { status } =
         submission.currentStep.type.transitions[selectedTransitionIndex]
 
-      setLoading(true)
+      updateState(DialogState.LOADING)
       await handleSnapshot()
       await submit(status.id, noteValue)
-      setLoading(false)
     }
   }, [
-    handleSnapshot,
-    // submitProceedMutation,
-    // setError,
-    selectedTransitionIndex,
     submission,
-    noteValue,
+    selectedTransitionIndex,
+    handleSnapshot,
+    updateState,
     submit,
+    noteValue,
   ])
 
   const onTransitionClick = useCallback(
     (event) => {
+      updateState(DialogState.INIT)
       toggleConfirmationDialog(true)
       setSelectedTransitionIndex(
         event.target.value || event.target.parentNode.value
       )
     },
-    [setSelectedTransitionIndex, toggleConfirmationDialog]
+    [setSelectedTransitionIndex, toggleConfirmationDialog, updateState]
   )
 
   const onCancelClick = useCallback(() => {
     toggleConfirmationDialog(false)
     setSelectedTransitionIndex(undefined)
-    setError(undefined)
-  }, [toggleConfirmationDialog, setSelectedTransitionIndex, setError])
+    clearError()
+    updateState(DialogState.CLOSED)
+  }, [
+    toggleConfirmationDialog,
+    setSelectedTransitionIndex,
+    clearError,
+    updateState,
+  ])
 
   const onNoteChange = useCallback(
     (event) => setNoteValue(event.target.value),
@@ -179,7 +187,7 @@ export const EditorHeader: React.FC<{
 
   const currentStepTransition = submission?.currentStep.type.transitions
   const disable = !currentStepTransition || !canCompleteTask
-  const errorCode = mutationError?.graphQLErrors?.find(
+  const errorCode = dialogData.mutationError?.graphQLErrors?.find(
     (error) => error?.extensions?.code
   )?.extensions?.code.name
 
@@ -197,16 +205,16 @@ export const EditorHeader: React.FC<{
         submission.nextStep && (
           <ProceedView
             isAnnotator={isAnnotator}
+            isProofer={isProofer}
             disable={disable}
             onTransitionClick={onTransitionClick}
             hasPendingSuggestions={hasPendingSuggestions}
-            loading={loading}
-            showComplete={showComplete}
+            dialogData={dialogData}
             noteValue={noteValue}
             currentStepTransition={currentStepTransition}
-            error={error}
-            nextStepType={submission.nextStep.type}
             currentStepType={submission.currentStep.type}
+            previousStepType={submission.previousStep?.type}
+            nextStepType={submission.nextStep.type}
             confirmationDialog={confirmationDialog}
             onNoteChange={disabelProceedNote ? undefined : onNoteChange}
             continueDialogAction={continueDialogAction}
@@ -235,7 +243,6 @@ export const EditorHeader: React.FC<{
     </Wrapper>
   )
 }
-
 const HelpDropdown = () => {
   const { isOpen, toggleOpen, wrapperRef } = useDropdown()
   return (
@@ -252,7 +259,6 @@ const HelpDropdown = () => {
     </HelpDropdownContainer>
   )
 }
-
 const SecondaryButtonSmall = styled(SecondaryButton)`
   font-size: inherit;
   margin-right: ${(props) => props.theme.grid.unit * 2}px;

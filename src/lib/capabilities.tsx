@@ -41,6 +41,7 @@ export type Capabilities = {
   /* file handling */
   downloadFiles: boolean
   changeDesignation: boolean
+  moveFile: boolean
   replaceFile: boolean
   uploadFile: boolean
   handleQualityReport: boolean
@@ -59,6 +60,7 @@ export type Capabilities = {
   editArticle: boolean
   editMetadata: boolean
   shareProject: boolean
+  editCitationsAndRefs: boolean
 }
 
 enum Actions {
@@ -93,6 +95,8 @@ export const getCapabilities = (
     !!(profile && project?.writers?.includes(profile.userID))
   const isAnnotator = () =>
     !!(profile && project?.annotators?.includes(profile.userID))
+  const isProofer = () =>
+    !!(profile && project?.proofers?.includes(profile.userID))
   const isViewer = () =>
     !!(profile && project?.viewers?.includes(profile.userID))
   const isProofer = () =>
@@ -112,7 +116,7 @@ export const getCapabilities = (
     handleOwnComments: !isViewer(),
     handleOthersComments: isOwner(),
     resolveOwnComment: !isViewer(),
-    resolveOthersComment: !(isViewer() || isAnnotator()),
+    resolveOthersComment: !(isViewer() || isAnnotator() || isProofer()),
     createComment: !isViewer(),
     /* production notes */
     viewNotes: true,
@@ -126,6 +130,7 @@ export const getCapabilities = (
     changeDesignation:
       (isOwner() || isEditor() || isWriter()) &&
       allowed(Actions.updateAttachment),
+    moveFile: isOwner() || isEditor() || isWriter(),
     replaceFile: isOwner() || isEditor() || isWriter(),
     uploadFile: isOwner() || isEditor() || isWriter(),
     handleQualityReport: isOwner() || isEditor() || isWriter(),
@@ -144,7 +149,8 @@ export const getCapabilities = (
     formatArticle: !isViewer(),
     /* editor */
     editArticle: !isViewer(),
-    editMetadata: !(isViewer() || isProofer()),
+    editMetadata: !(isViewer() || isAnnotator() || isProofer()),
+    editCitationsAndRefs: !(isViewer() || isAnnotator() || isProofer()),
     shareProject: isOwner(),
   }
 }

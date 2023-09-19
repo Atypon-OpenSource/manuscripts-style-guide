@@ -22,11 +22,18 @@ import { useDeepCompareMemo } from './use-deep-compare'
 
 type FilePredicate = (fileName: string) => boolean
 
+const getInlineFilesIds = (inlineFiles: InlineFile[]) => {
+  return inlineFiles
+    .map(({ attachments }) => attachments?.map(({ id }) => ({ id })) || [])
+    .flat()
+}
+
 /**
  * return attachments that are in the modelMap as MPSupplement
  */
 const getSupplementFiles = (
   modelMap: Map<string, Model>,
+  inlineFiles: InlineFile[],
   attachments: FileAttachment[],
   filePredicate?: FilePredicate
 ) => {
@@ -35,12 +42,21 @@ const getSupplementFiles = (
       (supplement) => [supplement.href?.replace('attachment:', ''), supplement]
     )
   )
+  const excludedAttachmentsIds = new Set(
+    getInlineFilesIds(inlineFiles).map(({ id }) => id)
+  )
 
   return attachments.filter((attachment) => {
     if (supplements.has(attachment.id) && filePredicate) {
-      return filePredicate(attachment.name)
+      return (
+        !excludedAttachmentsIds.has(attachment.id) &&
+        filePredicate(attachment.name)
+      )
     } else {
-      return supplements.has(attachment.id)
+      return (
+        !excludedAttachmentsIds.has(attachment.id) &&
+        supplements.has(attachment.id)
+      )
     }
   })
 }
@@ -54,9 +70,7 @@ const getOtherFiles = (
   attachments: FileAttachment[],
   filePredicate?: FilePredicate
 ) => {
-  const inlineFilesAttachmentIds = inlineFiles
-    .map(({ attachments }) => attachments?.map(({ id }) => ({ id })) || [])
-    .flat()
+  const inlineFilesAttachmentIds = getInlineFilesIds(inlineFiles)
 
   const excludedAttachmentsIds = new Set(
     [...inlineFilesAttachmentIds, ...supplementFiles].map(({ id }) => id)
@@ -80,6 +94,7 @@ export const useFiles = (
     const inlineFiles = getInlineFiles(modelMap, attachments)
     const supplementFiles = getSupplementFiles(
       modelMap,
+      inlineFiles,
       attachments,
       filePredicate
     )

@@ -50,7 +50,6 @@ const affiliation: Affiliation = {
   manuscriptID: 'MPManuscript:X',
   containerID: 'MPProject:1',
   priority: 0,
-  sessionID: 'test',
   createdAt: 0,
   updatedAt: 0,
 }
@@ -70,7 +69,6 @@ const contribs: Contributor[] = [
     containerID: 'MPProject:1',
     role: 'author',
     affiliations: affiliations.map((a) => a._id),
-    sessionID: 'test',
     createdAt: 0,
     updatedAt: 0,
   },
@@ -86,7 +84,6 @@ const contribs: Contributor[] = [
     containerID: 'MPProject:1',
     isJointContributor: true,
     role: 'author',
-    sessionID: 'test',
     createdAt: 0,
     updatedAt: 0,
   },
@@ -101,7 +98,6 @@ const contribs: Contributor[] = [
     manuscriptID: 'manuscript-A',
     containerID: 'MPProject:1',
     role: 'author',
-    sessionID: 'test',
     createdAt: 0,
     updatedAt: 0,
   },
@@ -114,7 +110,6 @@ const manuscripts: Manuscript[] = [
     containerID: 'MPProject:1',
     title: 'Manuscript X',
     bundle: DEFAULT_BUNDLE,
-    sessionID: 'test',
     createdAt: 0,
     updatedAt: 0,
   },
@@ -151,7 +146,6 @@ describe('author and affiliation helpers', () => {
           objectType: 'MPBibliographicName',
         },
         isJointContributor: true,
-        sessionID: 'test',
         createdAt: 0,
         updatedAt: 0,
       },
@@ -165,7 +159,6 @@ describe('author and affiliation helpers', () => {
           objectType: 'MPBibliographicName',
         },
         isJointContributor: false,
-        sessionID: 'test',
         createdAt: 0,
         updatedAt: 0,
       },
@@ -178,7 +171,6 @@ describe('author and affiliation helpers', () => {
           _id: 'MPBibliographicName:author-3',
           objectType: 'MPBibliographicName',
         },
-        sessionID: 'test',
         createdAt: 0,
         updatedAt: 0,
       },
@@ -201,7 +193,6 @@ describe('author and affiliation helpers', () => {
           objectType: 'MPBibliographicName',
         },
         isJointContributor: false,
-        sessionID: 'test',
         createdAt: 0,
         updatedAt: 0,
       },
@@ -214,7 +205,6 @@ describe('author and affiliation helpers', () => {
           _id: 'MPBibliographicName:author-2',
           objectType: 'MPBibliographicName',
         },
-        sessionID: 'test',
         createdAt: 0,
         updatedAt: 0,
       },
@@ -227,7 +217,6 @@ describe('author and affiliation helpers', () => {
           _id: 'MPBibliographicName:author-3',
           objectType: 'MPBibliographicName',
         },
-        sessionID: 'test',
         createdAt: 0,
         updatedAt: 0,
       },
@@ -296,7 +285,6 @@ describe('author and affiliation helpers', () => {
           objectType: 'MPBibliographicName',
         },
         isJointContributor: false,
-        sessionID: 'test',
         createdAt: 0,
         updatedAt: 0,
         priority: 0,
@@ -310,7 +298,6 @@ describe('author and affiliation helpers', () => {
           _id: 'MPBibliographicName:author-2',
           objectType: 'MPBibliographicName',
         },
-        sessionID: 'test',
         createdAt: 0,
         updatedAt: 0,
         priority: 1,
@@ -328,7 +315,6 @@ describe('author and affiliation helpers', () => {
 describe('affiliationLabel', () => {
   const affiliation: Affiliation = {
     _id: 'MPAffiliation:aff-1',
-    _rev: '3-ab6a5d56246fb3d89ed44c6b3b24a7f7',
     addressLine1: '',
     addressLine2: '',
     addressLine3: '',
@@ -344,7 +330,6 @@ describe('affiliationLabel', () => {
     updatedAt: 1538472852.567393,
     manuscriptID: 'man',
     containerID: 'container',
-    sessionID: 'session',
   }
 
   it('should return the institution name and department', () => {
@@ -355,7 +340,6 @@ describe('affiliationLabel', () => {
   it('should exclude the department if it is not present', () => {
     const affiliation: Affiliation = {
       _id: 'MPAffiliation:aff-1',
-      _rev: '3-ab6a5d56246fb3d89ed44c6b3b24a7f7',
       addressLine1: '',
       addressLine2: '',
       addressLine3: '',
@@ -370,7 +354,6 @@ describe('affiliationLabel', () => {
       updatedAt: 1538472852.567393,
       manuscriptID: 'man',
       containerID: 'container',
-      sessionID: 'session',
     }
     const result = affiliationLabel(affiliation)
     expect(result).toEqual('University of Examples')
@@ -379,7 +362,6 @@ describe('affiliationLabel', () => {
   it('should handle a missing institution', () => {
     const affiliation: Affiliation = {
       _id: 'MPAffiliation:aff-1',
-      _rev: '3-ab6a5d56246fb3d89ed44c6b3b24a7f7',
       addressLine1: '',
       addressLine2: '',
       addressLine3: '',
@@ -394,7 +376,6 @@ describe('affiliationLabel', () => {
       updatedAt: 1538472852.567393,
       manuscriptID: 'man',
       containerID: 'container',
-      sessionID: 'session',
     }
     const result = affiliationLabel(affiliation)
     expect(result).toEqual('(unknown institution)')
@@ -403,7 +384,6 @@ describe('affiliationLabel', () => {
   it('should have a generic label if both institution and department are missing', () => {
     const affiliation: Affiliation = {
       _id: 'MPAffiliation:aff-1',
-      _rev: '3-ab6a5d56246fb3d89ed44c6b3b24a7f7',
       addressLine1: '',
       addressLine2: '',
       addressLine3: '',
@@ -417,7 +397,6 @@ describe('affiliationLabel', () => {
       updatedAt: 1538472852.567393,
       manuscriptID: 'man',
       containerID: 'container',
-      sessionID: 'session',
     }
     const result = affiliationLabel(affiliation)
     expect(result).toEqual('(unknown institution)')
@@ -431,7 +410,6 @@ describe('affiliationsOptions', () => {
       'MPAffiliation:aff-1',
       {
         _id: 'MPAffiliation:aff-1',
-        _rev: '3-ab6a5d56246fb3d89ed44c6b3b24a7f7',
         addressLine1: '',
         addressLine2: '',
         addressLine3: '',
@@ -447,7 +425,6 @@ describe('affiliationsOptions', () => {
         updatedAt: 1538472852.567393,
         manuscriptID: 'man',
         containerID: 'container',
-        sessionID: 'session',
       },
     ],
   ])
@@ -465,7 +442,6 @@ describe('affiliationsOptions', () => {
         ordinal: 1,
         data: {
           _id: 'MPAffiliation:aff-1',
-          _rev: '3-ab6a5d56246fb3d89ed44c6b3b24a7f7',
           addressLine1: '',
           addressLine2: '',
           addressLine3: '',
@@ -481,7 +457,6 @@ describe('affiliationsOptions', () => {
           updatedAt: 1538472852.567393,
           manuscriptID: 'man',
           containerID: 'container',
-          sessionID: 'session',
         },
       },
     ]

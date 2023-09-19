@@ -19,19 +19,20 @@ import styled from 'styled-components'
 import {
   Category,
   Dialog,
+  DialogState,
   LoadingOverlay,
   NavDropdown,
   NavDropdownButton,
   NavDropdownContainer,
   PrimaryBoldHeading,
   PrimaryButton,
+  ProceedDialogData,
   SecondarySmallText,
   TaskStepDoneIcon,
   useDropdown,
 } from '../..'
 import { AlertMessage, AlertMessageType } from '../AlertMessage'
 import {
-  MediumTextArea,
   PrimaryButtonSmall,
   SubmissionStepTransition,
   SubmissionStepType,
@@ -74,17 +75,17 @@ const StepDetails: React.FC<
 
 export const ProceedView: React.FC<{
   isAnnotator: boolean
+  isProofer: boolean
   disable: boolean
   onTransitionClick: (event: unknown) => void
   onNoteChange?: (event: unknown) => void
   hasPendingSuggestions: boolean
-  loading: boolean
-  showComplete: boolean
+  dialogData: ProceedDialogData
   noteValue: string
   currentStepTransition: SubmissionStepTransition[]
-  error: string | undefined
-  nextStepType: SubmissionStepType
+  previousStepType: SubmissionStepType | undefined
   currentStepType: SubmissionStepType
+  nextStepType: SubmissionStepType
   confirmationDialog: boolean
   onCancelClick: () => void
   continueDialogAction: () => Promise<void>
@@ -93,23 +94,20 @@ export const ProceedView: React.FC<{
   currentStepTransition,
   onTransitionClick,
   disable,
-  loading,
-  showComplete,
+  dialogData,
   confirmationDialog,
-  nextStepType,
+  previousStepType,
   currentStepType,
   isAnnotator,
+  isProofer,
   hasPendingSuggestions,
-  error,
-  noteValue,
-  onNoteChange,
   onCancelClick,
   continueDialogAction,
   message: Message,
 }) => {
   const dialogMessages = useMemo(
     () =>
-      hasPendingSuggestions && !isAnnotator
+      hasPendingSuggestions && !isAnnotator && !isProofer
         ? {
             header: 'The task can not be transitioned to the next step',
             message: `There are still pending suggestions in the document.
@@ -121,10 +119,10 @@ export const ProceedView: React.FC<{
               },
             },
           }
-        : showComplete
+        : dialogData.state === DialogState.SUCCESS
         ? {
             header: 'Content reassigned successfully',
-            message: `to the ${nextStepType.label}`,
+            message: `to the ${currentStepType.label}`,
             actions: {
               primary: {
                 action: onCancelClick,
@@ -152,15 +150,17 @@ export const ProceedView: React.FC<{
             },
           },
     [
-      showComplete,
+      dialogData,
       continueDialogAction,
       // onDashboardRedirectClick,
       onCancelClick,
-      nextStepType,
+      currentStepType,
       hasPendingSuggestions,
       isAnnotator,
+      isProofer,
     ]
   )
+
   return (
     <>
       {(currentStepTransition && currentStepTransition?.length > 1 && (
@@ -192,46 +192,42 @@ export const ProceedView: React.FC<{
         </PrimaryButtonSmall>
       )}
 
-      {(loading && (
+      {dialogData.state === DialogState.LOADING && (
         <LoadingOverlay>
           <Message isCentered>Proceeding with your submission…</Message>
         </LoadingOverlay>
-      )) || (
+      )}
+
+      {!(dialogData.state === DialogState.CLOSED) && (
         <Dialog
-          isOpen={confirmationDialog && !loading}
+          isOpen={
+            confirmationDialog && !(dialogData.state === DialogState.LOADING)
+          }
           category={Category.confirmation}
           header={dialogMessages.header}
           message={dialogMessages.message}
           actions={dialogMessages.actions}
         >
-          {(showComplete && (
+          {dialogData.state === DialogState.SUCCESS && (
             <Grid>
-              <StepDetails
-                {...currentStepType}
-                icon={
-                  <>
-                    <TaskStepDoneIcon />
-                    <Line />
-                  </>
-                }
-              />
-              <StepDetails {...nextStepType} />
-            </Grid>
-          )) ||
-            ((!hasPendingSuggestions || isAnnotator) && onNoteChange && (
-              <TextAreaWrapper>
-                <MediumTextArea
-                  value={noteValue}
-                  onChange={onNoteChange}
-                  rows={5}
-                  placeholder={'Add any additional comment here...'}
+              {previousStepType && (
+                <StepDetails
+                  {...previousStepType}
+                  icon={
+                    <>
+                      <TaskStepDoneIcon />
+                      <Line />
+                    </>
+                  }
                 />
-              </TextAreaWrapper>
-            ))}
+              )}
+              <StepDetails {...currentStepType} />
+            </Grid>
+          )}
 
-          {error && (
+          {dialogData.state === DialogState.ERROR && (
             <AlertMessage type={AlertMessageType.error} hideCloseButton={true}>
-              {error}
+              {dialogData.error}
             </AlertMessage>
           )}
         </Dialog>
