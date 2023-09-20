@@ -13,7 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+import { format } from 'date-fns'
 import React, { Dispatch, useCallback } from 'react'
+import ReactTooltip from 'react-tooltip'
 import styled from 'styled-components'
 
 import { useDropdown } from '../../hooks/use-dropdown'
@@ -91,15 +93,17 @@ export const InlineFilesSection: React.FC<{
         >
           <FileReferences className={'refItems'}>
             {file.attachments?.map((attachment) => (
-              <FileReference
-                key={attachment.id}
-                attachment={attachment}
-                handleReplace={handleReplace}
-                handleUpdateInline={handleUpdateInline}
-                handleDetachFile={handleDetachFile}
-                handleDownload={handleDownload}
-                dispatch={dispatch}
-              />
+              <>
+                <FileReference
+                  key={attachment.id}
+                  attachment={attachment}
+                  handleReplace={handleReplace}
+                  handleUpdateInline={handleUpdateInline}
+                  handleDetachFile={handleDetachFile}
+                  handleDownload={handleDownload}
+                  dispatch={dispatch}
+                />
+              </>
             ))}
           </FileReferences>
           <Element className={'element'}>
@@ -153,6 +157,21 @@ const FileReference: React.FC<{
         )}
         <FileReferenceName>{attachment.name}</FileReferenceName>
       </Container>
+      {attachment.createdDate && (
+        <FileDateContainer data-tip="tooltip-content">
+          <FileDate>
+            {format(new Date(attachment.createdDate), 'M/d/yy, HH:mm')}
+          </FileDate>
+          <ReactTooltip
+            place="bottom"
+            offset={{ top: 0 }}
+            effect="solid"
+            className="tooltip"
+          >
+            File Uploaded
+          </ReactTooltip>
+        </FileDateContainer>
+      )}
       {handleDownload && handleReplace && (
         <DropdownContainer ref={wrapperRef}>
           <ActionsIcon
@@ -193,7 +212,12 @@ const FileReference: React.FC<{
     </FileReferenceItem>
   )
 }
-
+export const FileDateContainer = styled.div`
+  overflow: hidden;
+  display: none;
+  width: 100%;
+  justify-content: flex-end;
+`
 const ElementItem = styled(Item)`
   display: flex;
   // this will allow us to select the previous sibling node,
@@ -207,6 +231,9 @@ const ElementItem = styled(Item)`
 
   .refItems:hover ~ .element {
     background: white !important;
+  }
+  &:hover ${FileDateContainer} {
+    display: flex;
   }
 
   .refItems:hover {
@@ -222,21 +249,26 @@ const ElementItem = styled(Item)`
 
 const Container = styled.div`
   display: flex;
+  width: 100%;
 `
-
 const Element = styled.div`
   display: flex;
   padding: 20px 15px;
 `
 
-const FileReferences = styled.div``
-
-const FileReferenceItem = styled.div`
+const FileReferences = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
+  width: 100%;
+`
 
-  svg {
+const FileReferenceItem = styled.div`
+  display: flex;
+  width: 100%;
+  align-items: space;
+  justify-content: space-between;
+  width: 100% svg {
     width: 14px;
     height: 17px;
   }
@@ -280,4 +312,9 @@ const FileReferenceName = styled.div`
 
 const DropdownContainer = styled.div`
   position: relative;
+`
+
+export const FileDate = styled.div`
+  font-size: ${(props) => props.theme.font.size.small};
+  line-height: 27px;
 `
