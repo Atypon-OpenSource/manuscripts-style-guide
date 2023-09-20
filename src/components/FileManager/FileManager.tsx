@@ -47,7 +47,6 @@ export type Move = {
 }
 
 export interface FileManagement {
-  getAttachments: () => FileAttachment[]
   upload: Upload
   download: Download
 }
@@ -73,6 +72,7 @@ export type DeleteModel = (id: string) => Promise<string>
 export const PermissionsContext = createContext<null | Capabilities>(null)
 
 export const FileManager: React.FC<{
+  files: FileAttachment[]
   fileManagement: FileManagement
   modelMap: Map<string, Model>
   saveModel: SaveModel
@@ -80,6 +80,7 @@ export const FileManager: React.FC<{
   enableDragAndDrop: boolean
   can: Capabilities
 }> = ({
+  files,
   fileManagement,
   modelMap,
   saveModel,
@@ -87,8 +88,6 @@ export const FileManager: React.FC<{
   enableDragAndDrop,
   can,
 }) => {
-  const files = fileManagement.getAttachments()
-
   const { inlineFiles, supplements, otherFiles } = useFiles(modelMap, files)
 
   return (
