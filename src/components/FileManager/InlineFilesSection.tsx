@@ -14,27 +14,24 @@
  * limitations under the License.
  */
 import { Figure } from '@manuscripts/json-schema'
-import React, { Dispatch, useCallback, useContext } from 'react'
+import React, { useCallback, useContext } from 'react'
 import styled from 'styled-components'
 
 import { ElementFiles, ModelFile } from '../../lib/files'
 import { FileActions } from './FileActions'
 import { FileContainer } from './FileContainer'
 import { FileCreatedDate } from './FileCreatedDate'
-import { Replace, UpdateInline } from './FileManager'
+import { Replace } from './FileManager'
 import { FileManagerContext } from './FileManagerProvider'
 import { FileName } from './FileName'
-import { Action } from './FileSectionState'
 import { FileSectionType, fileTypesWithIconMap } from './util'
 
 const trackedJoint = ':dataTracked:'
 
 export const InlineFilesSection: React.FC<{
   elements: ElementFiles[]
-  handleUpdateInline?: UpdateInline
   isEditor: boolean
-  dispatch: Dispatch<Action>
-}> = ({ elements, handleUpdateInline, isEditor, dispatch }) => {
+}> = ({ elements, isEditor }) => {
   const { modelMap, fileManagement, saveModel } = useContext(FileManagerContext)
 
   const onElementClick = useCallback(
@@ -85,12 +82,8 @@ export const InlineFilesSection: React.FC<{
                 key={file.modelId}
                 file={file}
                 handleReplace={async (f) => await replace(file.modelId, f)}
-                handleUpdateInline={
-                  handleUpdateInline && (() => handleUpdateInline())
-                }
                 handleDetach={async () => await detach(file.modelId)}
                 handleDownload={() => fileManagement.download(file)}
-                dispatch={dispatch}
               />
             ))}
           </ElementFilesContainer>
@@ -105,16 +98,7 @@ const ElementFile: React.FC<{
   handleDownload: () => void
   handleReplace?: Replace
   handleDetach?: () => void
-  handleUpdateInline?: () => void
-  dispatch: Dispatch<Action>
-}> = ({
-  file,
-  handleReplace,
-  handleDownload,
-  handleUpdateInline,
-  handleDetach,
-  dispatch,
-}) => {
+}> = ({ file, handleReplace, handleDownload, handleDetach }) => {
   return (
     <ModelFileContainer>
       <FileName file={file} />
@@ -122,10 +106,8 @@ const ElementFile: React.FC<{
       <FileActions
         sectionType={FileSectionType.Inline}
         handleDownload={file.id ? handleDownload : undefined}
-        handleUpdateInline={handleUpdateInline}
         handleDetach={file.id ? handleDetach : undefined}
         handleReplace={handleReplace}
-        dispatch={dispatch}
       />
     </ModelFileContainer>
   )

@@ -35,8 +35,6 @@ export type FileAttachment = {
   id: string
   name: string
   type: FileDesignation
-  //TODO remove
-  link: string
   createdDate?: Date
 }
 
@@ -57,7 +55,6 @@ const MISSING_FILE = {
   type: {
     id: 'missing',
   },
-  link: '',
 }
 
 const getFile = (files: FileAttachment[], id: string) => {

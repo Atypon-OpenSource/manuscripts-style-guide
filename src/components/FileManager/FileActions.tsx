@@ -13,13 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import React, {
-  ChangeEvent,
-  Dispatch,
-  useContext,
-  useRef,
-  useState,
-} from 'react'
+import React, { ChangeEvent, useContext, useRef, useState } from 'react'
 import styled from 'styled-components'
 
 import { useDropdown } from '../../hooks/use-dropdown'
@@ -27,7 +21,6 @@ import { Category, Dialog } from '../Dialog'
 import { DropdownContainer, DropdownList } from '../Dropdown'
 import DotsIcon from '../icons/dots-icon'
 import { Move, PermissionsContext, Replace } from './FileManager'
-import { Action } from './FileSectionState'
 import { FileSectionType } from './util'
 
 /**
@@ -39,8 +32,6 @@ export const FileActions: React.FC<{
   handleReplace?: Replace
   handleDetach?: () => void
   move?: Move
-  handleUpdateInline?: () => void
-  dispatch?: Dispatch<Action>
   className?: string
 }> = ({
   sectionType,

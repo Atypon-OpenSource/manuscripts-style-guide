@@ -15,7 +15,7 @@
  */
 import { ObjectTypes, Supplement } from '@manuscripts/json-schema'
 import { buildSupplementaryMaterial } from '@manuscripts/transform'
-import React, { Dispatch, useContext, useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { useDrag } from 'react-dnd'
 import { getEmptyImage } from 'react-dnd-html5-backend'
 
@@ -27,7 +27,6 @@ import { PermissionsContext, Replace } from './FileManager'
 import { FileManagerContext } from './FileManagerProvider'
 import { FileName } from './FileName'
 import { FileSectionAlert, FileSectionAlertType } from './FileSectionAlert'
-import { Action } from './FileSectionState'
 import { FileUploader } from './FileUploader'
 import { FileSectionType } from './util'
 
@@ -36,8 +35,7 @@ import { FileSectionType } from './util'
  */
 export const SupplementsSection: React.FC<{
   supplements: ModelFile[]
-  dispatch: Dispatch<Action>
-}> = ({ supplements, dispatch }) => {
+}> = ({ supplements }) => {
   const { modelMap, saveModel, deleteModel, fileManagement } =
     useContext(FileManagerContext)
 
@@ -102,7 +100,6 @@ export const SupplementsSection: React.FC<{
           handleDetach={async () =>
             await handleMoveToOtherFiles(supplement.modelId)
           }
-          dispatch={dispatch}
         />
       ))}
     </>
@@ -114,16 +111,7 @@ const SupplementFile: React.FC<{
   handleDownload: () => void
   handleReplace: Replace
   handleDetach: () => Promise<void>
-  handleUpdateInline?: () => void
-  dispatch: Dispatch<Action>
-}> = ({
-  file,
-  handleDownload,
-  handleReplace,
-  handleDetach,
-  handleUpdateInline,
-  dispatch,
-}) => {
+}> = ({ file, handleDownload, handleReplace, handleDetach }) => {
   const [{ isDragging }, drag, preview] = useDrag({
     item: {
       file,
@@ -153,7 +141,6 @@ const SupplementFile: React.FC<{
       <FileActions
         sectionType={FileSectionType.Supplements}
         handleDownload={file.id ? handleDownload : undefined}
-        handleUpdateInline={handleUpdateInline}
         handleReplace={handleReplace}
         move={
           file.id
@@ -163,7 +150,6 @@ const SupplementFile: React.FC<{
               }
             : undefined
         }
-        dispatch={dispatch}
       />
     </FileContainer>
   )

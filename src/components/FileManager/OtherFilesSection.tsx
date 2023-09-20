@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 import { buildSupplementaryMaterial } from '@manuscripts/transform'
-import React, { Dispatch, useContext, useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { useDrag } from 'react-dnd'
 import { getEmptyImage } from 'react-dnd-html5-backend'
 
@@ -26,7 +26,6 @@ import { PermissionsContext } from './FileManager'
 import { FileManagerContext } from './FileManagerProvider'
 import { FileName } from './FileName'
 import { FileSectionAlert, FileSectionAlertType } from './FileSectionAlert'
-import { Action } from './FileSectionState'
 import { FileUploader } from './FileUploader'
 import { FileSectionType } from './util'
 
@@ -35,8 +34,7 @@ import { FileSectionType } from './util'
  */
 export const OtherFilesSection: React.FC<{
   files: FileAttachment[]
-  dispatch: Dispatch<Action>
-}> = ({ files, dispatch }) => {
+}> = ({ files }) => {
   const { fileManagement, saveModel } = useContext(FileManagerContext)
 
   const can = useContext(PermissionsContext)
@@ -78,7 +76,6 @@ export const OtherFilesSection: React.FC<{
           file={file}
           handleDownload={() => fileManagement.download(file)}
           handleMoveToSupplements={async () => await moveToSupplements(file)}
-          dispatch={dispatch}
         />
       ))}
     </div>
@@ -89,8 +86,7 @@ const OtherFile: React.FC<{
   file: FileAttachment
   handleDownload: () => void
   handleMoveToSupplements: () => Promise<void>
-  dispatch: Dispatch<Action>
-}> = ({ file, handleDownload, handleMoveToSupplements, dispatch }) => {
+}> = ({ file, handleDownload, handleMoveToSupplements }) => {
   const [{ isDragging }, drag, preview] = useDrag({
     item: {
       file,
@@ -120,7 +116,6 @@ const OtherFile: React.FC<{
           sectionType: FileSectionType.Supplements,
           handler: handleMoveToSupplements,
         }}
-        dispatch={dispatch}
       />
     </FileContainer>
   )

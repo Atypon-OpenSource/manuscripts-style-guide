@@ -15,7 +15,7 @@
  */
 import { Model } from '@manuscripts/json-schema'
 import { Build } from '@manuscripts/transform'
-import React, { createContext, useCallback, useReducer } from 'react'
+import React, { createContext } from 'react'
 
 import { FileSectionType, useFiles } from '../../index'
 import { Capabilities } from '../../lib/capabilities'
@@ -30,7 +30,6 @@ import {
 import { InspectorSection } from '../InspectorSection'
 import { DragLayer } from './DragLayer'
 import { FileManagerProvider } from './FileManagerProvider'
-import { getInitialState, reducer } from './FileSectionState'
 import { InlineFilesSection } from './InlineFilesSection'
 import { OtherFilesSection } from './OtherFilesSection'
 import { SupplementsSection } from './SupplementsSection'
@@ -41,8 +40,6 @@ export type Upload = (file: File) => Promise<FileAttachment>
 export type Download = (file: FileAttachment) => void
 
 export type Replace = (file: File) => Promise<void>
-
-export type UpdateInline = () => void
 
 export type Move = {
   sectionType: FileSectionType
@@ -90,20 +87,6 @@ export const FileManager: React.FC<{
   enableDragAndDrop,
   can,
 }) => {
-  const [state, dispatch] = useReducer(reducer, getInitialState())
-
-  const handleUpdateInline = useCallback(async () => {
-    // const figureModel = modelMap.get(modelId) as Figure
-    // figureModel.src = `attachment:${attachment.id}`
-    //
-    // if (addAttachmentToState) {
-    //   addAttachmentToState({
-    //     ...attachment,
-    //   })
-    // }
-    // await saveModel(figureModel)
-  }, [])
-
   const files = fileManagement.getAttachments()
 
   const { inlineFiles, supplements, otherFiles } = useFiles(modelMap, files)
@@ -166,19 +149,14 @@ export const FileManager: React.FC<{
               <InspectorTabPanel>
                 <InlineFilesSection
                   elements={inlineFiles}
-                  handleUpdateInline={handleUpdateInline}
                   isEditor={enableDragAndDrop}
-                  dispatch={dispatch}
                 />
               </InspectorTabPanel>
               <InspectorTabPanel>
-                <SupplementsSection
-                  supplements={supplements}
-                  dispatch={dispatch}
-                />
+                <SupplementsSection supplements={supplements} />
               </InspectorTabPanel>
               <InspectorTabPanel>
-                <OtherFilesSection files={otherFiles} dispatch={dispatch} />
+                <OtherFilesSection files={otherFiles} />
               </InspectorTabPanel>
             </InspectorTabPanels>
           </InspectorTabs>
