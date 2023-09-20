@@ -36,6 +36,7 @@ export type FileAttachment = {
   name: string
   type: FileDesignation
   createdDate?: Date
+  [key: string]: unknown
 }
 
 export type ModelFile = FileAttachment & {
