@@ -162,10 +162,10 @@ storiesOf('FileManager', module).add('FileManager', () => {
       <FileManager
         can={capabilities}
         fileManagement={{
-          getAttachments: () => files,
           upload,
           download,
         }}
+        files={files}
         modelMap={smodelMap}
         // @ts-ignore
         saveModel={saveModel}
