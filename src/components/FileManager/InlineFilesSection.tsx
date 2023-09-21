@@ -64,8 +64,7 @@ export const InlineFilesSection: React.FC<{
 
   const replace = async (modelId: string, file: File) => {
     const uploaded = await fileManagement.upload(file)
-    //TODO
-    await updateFigureSrc(modelId, 'attachment:' + uploaded.id)
+    await updateFigureSrc(modelId, uploaded.id)
   }
 
   return (

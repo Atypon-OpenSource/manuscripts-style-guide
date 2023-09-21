@@ -35,8 +35,8 @@ export type FileAttachment = {
   id: string
   name: string
   type: FileDesignation
+  link?: string
   createdDate?: Date
-  [key: string]: unknown
 }
 
 export type ModelFile = FileAttachment & {
@@ -50,7 +50,12 @@ export type ElementFiles = {
   files: ModelFile[]
 }
 
-const MISSING_FILE = {
+export const isModelFile = (file: FileAttachment): file is ModelFile => {
+  // @ts-ignore
+  return file.modelId
+}
+
+const MISSING_FILE: FileAttachment = {
   id: '',
   name: 'Missing file',
   type: {
@@ -59,7 +64,6 @@ const MISSING_FILE = {
 }
 
 const getFile = (files: FileAttachment[], id: string) => {
-  id = id.substring(11)
   return files.filter((f) => f.id === id)[0] || MISSING_FILE
 }
 

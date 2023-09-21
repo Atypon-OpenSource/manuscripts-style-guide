@@ -57,8 +57,7 @@ export const OtherFilesSection: React.FC<{
   }
 
   const moveToSupplements = async (file: FileAttachment) => {
-    //TODO
-    const supplement = buildSupplementaryMaterial('', 'attachment:' + file.id)
+    const supplement = buildSupplementaryMaterial('', file.id)
     await saveModel(supplement)
     setAlert({
       type: FileSectionAlertType.MOVE_SUCCESSFUL,
