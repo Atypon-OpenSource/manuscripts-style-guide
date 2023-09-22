@@ -35,7 +35,6 @@ export type FileAttachment = {
   id: string
   name: string
   type: FileDesignation
-  link?: string
   createdDate?: Date
 }
 

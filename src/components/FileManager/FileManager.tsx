@@ -39,6 +39,8 @@ export type Upload = (file: File) => Promise<FileAttachment>
 
 export type Download = (file: FileAttachment) => void
 
+export type PreviewLink = (file: FileAttachment) => string | undefined
+
 export type Replace = (file: File) => Promise<void>
 
 export type Move = {
@@ -49,6 +51,7 @@ export type Move = {
 export interface FileManagement {
   upload: Upload
   download: Download
+  previewLink: PreviewLink
 }
 
 export type SaveModel = <T extends Model>(

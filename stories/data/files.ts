@@ -14,9 +14,11 @@
  * limitations under the License.
  */
 
-import { FileAttachment } from '../../src/lib/files'
+import { FileAttachment } from '../../src'
 
-export const files: FileAttachment[] = [
+export type FileAttachmentWithLink = FileAttachment & { link: string }
+
+export const files: FileAttachmentWithLink[] = [
   {
     id: 'caabc327-25c5-4122-96fd-e38d313345da',
     name: 'LW4_multiGraphicFigure-S1-doc.zip',

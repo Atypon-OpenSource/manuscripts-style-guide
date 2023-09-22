@@ -28,11 +28,12 @@ import { BrowserRouter } from 'react-router-dom'
 
 import { FileManager, getAllPermitted } from '../src'
 import { FileAttachment } from '../src/lib/files'
-import { files } from './data/files'
+import { FileAttachmentWithLink, files } from './data/files'
 
 const sleep = (milliseconds: number) => {
   return new Promise((resolve) => setTimeout(resolve, milliseconds))
 }
+
 const upload = async (file: File): Promise<FileAttachment> => {
   console.log('starting upload')
   await sleep(5000) //test the upload file item in storybook
@@ -53,6 +54,10 @@ const upload = async (file: File): Promise<FileAttachment> => {
 
 const download = (file: FileAttachment): void => {
   console.log('file --> ' + file.name)
+}
+
+const previewLink = (file: FileAttachment): string => {
+  return (file as FileAttachmentWithLink).link
 }
 
 const capabilities = getAllPermitted()
@@ -164,6 +169,7 @@ storiesOf('FileManager', module).add('FileManager', () => {
         fileManagement={{
           upload,
           download,
+          previewLink,
         }}
         files={files}
         modelMap={smodelMap}
