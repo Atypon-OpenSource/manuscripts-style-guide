@@ -61,27 +61,27 @@ storiesOf('FileManager', module).add('FileManager', () => {
   const figure1 = {
     _id: 'MPFigure:figure1',
     objectType: ObjectTypes.Figure,
-    src: 'attachment:0be64499-6adb-4a6f-8f1e-5c411a37e100',
+    src: '0be64499-6adb-4a6f-8f1e-5c411a37e100',
   }
   const figure2 = {
     _id: 'MPFigure:figure2',
     objectType: ObjectTypes.Figure,
-    src: 'attachment:0be64499-6adb-4a6f-8f1e-5c411a37e101',
+    src: '0be64499-6adb-4a6f-8f1e-5c411a37e101',
   }
   const figure3 = {
     _id: 'MPFigure:figure3',
     objectType: ObjectTypes.Figure,
-    src: 'attachment:0be64499-6adb-4a6f-8f1e-5c411a37e102',
+    src: '0be64499-6adb-4a6f-8f1e-5c411a37e102',
   }
   const figure4 = {
     _id: 'MPFigure:figure4',
     objectType: ObjectTypes.Figure,
-    src: 'attachment:0be64499-6adb-4a6f-8f1e-5c411a37e103',
+    src: '0be64499-6adb-4a6f-8f1e-5c411a37e103',
   }
   const figure5 = {
     _id: 'MPFigure:figure5',
     objectType: ObjectTypes.Figure,
-    src: 'attachment:missing-figure',
+    src: 'missing-figure',
   }
 
   const element1 = {
@@ -113,12 +113,12 @@ storiesOf('FileManager', module).add('FileManager', () => {
   const supplement1 = {
     _id: 'MPSupplement:supplement1',
     objectType: ObjectTypes.Supplement,
-    href: 'attachment:4131f16e-e075-41bb-8339-abea02df515d',
+    href: '4131f16e-e075-41bb-8339-abea02df515d',
   }
   const supplement2 = {
     _id: 'MPSupplement:supplement2',
     objectType: ObjectTypes.Supplement,
-    href: 'attachment:7d9d686b-5488-44a5-a1c5-46351e7f9312',
+    href: '7d9d686b-5488-44a5-a1c5-46351e7f9312',
   }
   const order = {
     _id: 'MPElementsOrder:figure-order',

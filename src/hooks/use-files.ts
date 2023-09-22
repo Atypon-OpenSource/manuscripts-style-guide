@@ -51,6 +51,8 @@ export const useFiles = (
     const supplements = getSupplements(modelMap, files)
     const otherFiles = getOtherFiles(inlineFiles, supplements, files, filter)
 
+    console.log('useFiles called')
+
     return {
       inlineFiles,
       supplements,

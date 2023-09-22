@@ -27,14 +27,6 @@ export const FileName: React.FC<{
     <>
       <FileTypeIcon file={file} />
       <FileNameText>{file.name}</FileNameText>
-      <Tooltip
-        place="bottom"
-        offset={{ top: 0 }}
-        effect="solid"
-        className="tooltip"
-      >
-        {file.name}
-      </Tooltip>
     </>
   )
 }

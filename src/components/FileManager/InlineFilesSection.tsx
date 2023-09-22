@@ -131,6 +131,7 @@ const Element = styled.div`
 const ElementLabelContainer = styled.div`
   display: flex;
   padding: 20px 16px;
+  cursor: pointer;
 `
 
 const ElementLabel = styled.div`
