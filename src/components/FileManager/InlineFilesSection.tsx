@@ -24,7 +24,7 @@ import { FileCreatedDate } from './FileCreatedDate'
 import { Replace } from './FileManager'
 import { FileManagerContext } from './FileManagerProvider'
 import { FileName } from './FileName'
-import { FileSectionType, fileTypesWithIconMap } from './util'
+import { FileSectionType, getFileTypeIcon } from './util'
 
 const trackedJoint = ':dataTracked:'
 
@@ -72,7 +72,7 @@ export const InlineFilesSection: React.FC<{
       {elements.map((element, index) => (
         <Element key={index} id={element.modelId} onClick={onElementClick}>
           <ElementLabelContainer>
-            {fileTypesWithIconMap.get(element.type)}
+            {getFileTypeIcon(element.type)}
             <ElementLabel>{element.label}</ElementLabel>
           </ElementLabelContainer>
           <ElementFilesContainer>

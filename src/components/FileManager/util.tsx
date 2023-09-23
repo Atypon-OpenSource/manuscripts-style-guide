@@ -15,6 +15,7 @@
  */
 import React from 'react'
 
+import { FileAttachment } from '../../lib/files'
 import AudioIcon from '../icons/audio-icon'
 import CodeFileIcon from '../icons/code-file-icon'
 import CompressedFileIcon from '../icons/compressed-file-icon'
@@ -49,7 +50,7 @@ export enum FileType {
   GraphicalAbstract,
 }
 
-export const extensionsWithFileTypesMap = new Map<string, FileType>([
+const extension2type = new Map<string, FileType>([
   ['png', FileType.Image],
   ['jpg', FileType.Image],
   ['jpeg', FileType.Image],
@@ -95,7 +96,7 @@ export const extensionsWithFileTypesMap = new Map<string, FileType>([
   ['txt', FileType.PlainText],
 ])
 
-export const fileTypesWithIconMap = new Map<FileType | undefined, JSX.Element>([
+const type2icon = new Map<FileType | undefined, JSX.Element>([
   [FileType.Audio, <AudioIcon key={FileType.Audio} className="file-icon" />],
   [FileType.Video, <VideoIcon key={FileType.Video} className="file-icon" />],
   [
@@ -145,3 +146,26 @@ export const fileTypesWithIconMap = new Map<FileType | undefined, JSX.Element>([
   ],
   [undefined, <UnknownFormatFileIcon key={undefined} className="file-icon" />],
 ])
+
+export const getFileType = (file: FileAttachment) => {
+  const extension = getExtension(file.name)
+  return extension2type.get(extension.toLowerCase())
+}
+
+export const getFileIcon = (file: FileAttachment) => {
+  const type = getFileType(file)
+  return type2icon.get(type)
+}
+
+export const getFileTypeIcon = (type: FileType) => {
+  return type2icon.get(type)
+}
+
+export const isImageFile = (file: FileAttachment) => {
+  return getFileType(file) === FileType.Image
+}
+
+const getExtension = (name: string) => {
+  const index = name.indexOf('.')
+  return index ? name.substring(index + 1) : ''
+}

@@ -13,7 +13,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { Model } from '@manuscripts/json-schema'
+import { Model, ObjectTypes } from '@manuscripts/json-schema'
+import { getModelsByType } from '@manuscripts/transform'
 
 import {
   ElementFiles,
@@ -24,7 +25,13 @@ import {
 } from '../lib/files'
 import { useDeepCompareMemo } from './use-deep-compare'
 
-type FileFilter = (file: FileAttachment) => boolean
+const types = [
+  ObjectTypes.Section,
+  ObjectTypes.FigureElement,
+  ObjectTypes.Figure,
+  ObjectTypes.Supplement,
+  ObjectTypes.ElementsOrder,
+]
 
 /**
  * return files that are not inlineFiles or SupplementFiles
@@ -32,32 +39,38 @@ type FileFilter = (file: FileAttachment) => boolean
 const getOtherFiles = (
   inlineFiles: ElementFiles[],
   supplements: ModelFile[],
-  files: FileAttachment[],
-  filter?: FileFilter
+  files: FileAttachment[]
 ) => {
   const excluded = new Set()
   inlineFiles.flatMap((f) => f.files).forEach((f) => excluded.add(f.id))
   supplements.forEach((s) => excluded.add(s.id))
-  return files.filter((f) => !excluded.has(f.id) && (!filter || filter(f)))
+  return files.filter((f) => !excluded.has(f.id))
 }
 
 export const useFiles = (
   modelMap: Map<string, Model>,
-  files: FileAttachment[],
-  filter?: FileFilter
-) =>
-  useDeepCompareMemo(() => {
+  files: FileAttachment[]
+) => {
+  // optimization to reduce the number of comparisons needed
+  // in useDeepCompareMemo
+  const models = []
+  for (const [_, model] of modelMap.entries()) {
+    if (types.includes(model.objectType as ObjectTypes)) {
+      models.push(model)
+    }
+  }
+
+  return useDeepCompareMemo(() => {
     const inlineFiles = getInlineFiles(modelMap, files)
     const supplements = getSupplements(modelMap, files)
-    const otherFiles = getOtherFiles(inlineFiles, supplements, files, filter)
-
-    console.log('useFiles called')
+    const otherFiles = getOtherFiles(inlineFiles, supplements, files)
 
     return {
       inlineFiles,
       supplements,
       otherFiles,
     }
-  }, [...Array.from(modelMap.values()), ...files])
+  }, [models, files])
+}
 
 export default useFiles

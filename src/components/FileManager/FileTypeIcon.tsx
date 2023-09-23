@@ -19,7 +19,7 @@ import { FileAttachment } from '../../lib/files'
 import CorruptedFileIcon from '../icons/corrupted-file-icon'
 import DocumentIconWithDot from '../icons/document-icon-with-dot'
 import UnknownFormatFileIcon from '../icons/unknown-format-file-icon'
-import { extensionsWithFileTypesMap, fileTypesWithIconMap } from './util'
+import { getFileIcon } from './util'
 
 /**
  * Each file item has an icon to represent besides the file info based on the file extension,
@@ -35,16 +35,7 @@ export const FileTypeIcon: React.FC<{
     return <DocumentIconWithDot className="file-icon" />
   }
 
-  const name = file.name
-  const index = name.indexOf('.')
-  const extension = index ? name.substring(index + 1) : ''
-  if (extension) {
-    const type = extensionsWithFileTypesMap.get(extension.toLowerCase())
-    const icon = fileTypesWithIconMap.get(type)
-    if (icon) {
-      return icon
-    }
-  }
+  const icon = getFileIcon(file)
 
-  return <UnknownFormatFileIcon className="file-icon" />
+  return icon || <UnknownFormatFileIcon className="file-icon" />
 }
