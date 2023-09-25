@@ -160,7 +160,6 @@ const MoveFileConfirmationDialog: React.FC<{
 }
 
 export const ActionsIcon = styled.button`
-  visibility: hidden;
   border: none;
   background: transparent;
   cursor: pointer;

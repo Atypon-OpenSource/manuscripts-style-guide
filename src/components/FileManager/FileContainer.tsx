@@ -22,7 +22,7 @@ export const FileContainer = styled.div`
   cursor: pointer;
   box-sizing: border-box;
   position: relative;
-  padding: 24px 16px;
+  padding: 24px 18px;
   height: 72px;
 
   &.dragging {
@@ -31,14 +31,15 @@ export const FileContainer = styled.div`
 
   .file-icon {
     min-width: 20px;
+    width: 20px;
   }
 
   .show-on-hover {
-    visibility: hidden;
+    display: none;
   }
 
   &:hover .show-on-hover {
-    visibility: visible;
+    display: block;
   }
 
   &:hover,
