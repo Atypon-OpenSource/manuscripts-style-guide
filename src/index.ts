@@ -51,6 +51,7 @@ export * from './components/NavDropdown'
 export * from './components/SubmissionInspector'
 export * from './components/Dropdown'
 export * from './hooks/use-dropdown'
+export * from './components/TrackMetadataPopper'
 export { useFiles } from './hooks/use-files'
 export {
   useDeepCompareMemo,
