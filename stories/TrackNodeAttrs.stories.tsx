@@ -22,8 +22,7 @@ import { action } from '@storybook/addon-actions'
 import { storiesOf } from '@storybook/react'
 import * as React from 'react'
 
-import { TrackNodeAttrs } from '../src'
-import Author from '../src/components/AuthorsList/Author'
+import { AuthorsList, TrackNodeAttrs } from '../src'
 import authors from './data/authors'
 
 const dataTracked: TrackedAttrs = {
@@ -61,38 +60,34 @@ storiesOf('TrackNodeAttrs', module)
   .add('tracking mark', () => {
     return (
       <TrackNodeAttrs dataTracked={[dataTracked]}>
-        <Author
-          author={authors[0]}
-          selectAuthor={action('select')}
-          jointFirstAuthor={false}
+        <AuthorsList
+          authors={authors.slice(0, 1)}
+          authorAffiliations={new Map<string, []>()}
         />
       </TrackNodeAttrs>
     )
   })
   .add('tracking mark accepted', () => (
     <TrackNodeAttrs dataTracked={[dataTrackedAccepted]}>
-      <Author
-        author={authors[0]}
-        selectAuthor={action('select')}
-        jointFirstAuthor={false}
+      <AuthorsList
+        authors={authors.slice(0, 1)}
+        authorAffiliations={new Map<string, []>()}
       />
     </TrackNodeAttrs>
   ))
   .add('tracking mark rejected', () => (
     <TrackNodeAttrs dataTracked={[dataTrackedRejected]}>
-      <Author
-        author={authors[0]}
-        selectAuthor={action('select')}
-        jointFirstAuthor={false}
+      <AuthorsList
+        authors={authors.slice(0, 1)}
+        authorAffiliations={new Map<string, []>()}
       />
     </TrackNodeAttrs>
   ))
   .add('tracking mark deleted', () => (
     <TrackNodeAttrs dataTracked={[dataTrackedDeleted]}>
-      <Author
-        author={authors[0]}
-        selectAuthor={action('select')}
-        jointFirstAuthor={false}
+      <AuthorsList
+        authors={authors.slice(0, 1)}
+        authorAffiliations={new Map<string, []>()}
       />
     </TrackNodeAttrs>
   ))
