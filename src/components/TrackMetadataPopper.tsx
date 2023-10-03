@@ -43,19 +43,12 @@ export const TrackNodeAttrs: React.FC<{
     return <>{children}</>
   }
 
-  const markStyle = getMarkStyle(currentChange)
-
-  const showAttrsButton =
-    currentChange.operation === CHANGE_OPERATION.set_node_attributes &&
-    currentChange.status === CHANGE_STATUS.pending
+  const { style, className, showAttrsPopper } = getMarkStyle(currentChange)
 
   return (
-    <Mark
-      className={(showAttrsButton && 'attrs-track-mark') || undefined}
-      {...markStyle}
-    >
+    <Mark className={className} {...style}>
       {children}
-      {showAttrsButton && <TrackAttrsButton changeId={currentChange.id} />}
+      {showAttrsPopper && <TrackAttrsButton changeId={currentChange.id} />}
     </Mark>
   )
 }
@@ -94,9 +87,10 @@ export const getMarkStyle = (dataTracked?: TrackedAttrs) => {
     textDecoration?: string
     display?: string
   } = {}
+  let className = undefined
 
   if (!dataTracked) {
-    return style
+    return { style, className, showAttrsPopper: undefined }
   }
 
   const { status, operation } = dataTracked
@@ -133,7 +127,15 @@ export const getMarkStyle = (dataTracked?: TrackedAttrs) => {
     style.display = 'none'
   }
 
-  return style
+  const showAttrsPopper =
+    status === CHANGE_STATUS.pending &&
+    operation === CHANGE_OPERATION.set_node_attributes
+
+  if (showAttrsPopper) {
+    className = 'attrs-track-mark'
+  }
+
+  return { style, className, showAttrsPopper }
 }
 
 export const TrackAttrsButton: React.FC<{
