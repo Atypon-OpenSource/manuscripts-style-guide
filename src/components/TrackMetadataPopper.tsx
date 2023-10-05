@@ -300,22 +300,4 @@ const ChangesList = styled.div`
   background: ${(props) => props.theme.colors.background.secondary};
   overflow-y: scroll;
   overflow-x: hidden;
-
-  ::-webkit-scrollbar {
-    width: 12px;
-  }
-
-  ::-webkit-scrollbar-track {
-    background-color: #fafafa;
-  }
-
-  ::-webkit-scrollbar-thumb {
-    background-color: #3d3b3b3d;
-    border-radius: 16px;
-    border: 4px solid #fafafa;
-  }
-
-  ::-webkit-scrollbar-button {
-    display: none;
-  }
 `
