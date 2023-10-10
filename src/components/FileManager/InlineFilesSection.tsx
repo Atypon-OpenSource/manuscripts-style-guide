@@ -34,16 +34,19 @@ export const InlineFilesSection: React.FC<{
 }> = ({ elements, isEditor }) => {
   const { modelMap, fileManagement, saveModel } = useContext(FileManagerContext)
 
+  const navigateToElement = (id: string) => {
+    const clearedId = id.split(trackedJoint)[0]
+    const isSelected = clearedId == window.location.hash.substring(1)
+
+    window.location.hash = !isSelected ? `#${clearedId}` : '#'
+  }
+
   const onElementClick = useCallback(
     (e) => {
       if (!isEditor) {
         return
       }
-      const { id } = e.currentTarget
-      const clearedId = id.split(trackedJoint)[0]
-      const isSelected = clearedId == window.location.hash.substring(1)
-
-      window.location.hash = !isSelected ? `#${clearedId}` : '#'
+      navigateToElement(e.currentTarget.id)
     },
     [isEditor]
   )
@@ -58,13 +61,19 @@ export const InlineFilesSection: React.FC<{
     }
   }
 
-  const detach = async (modelId: string) => {
-    await updateFigureSrc(modelId, '')
+  const detach = async (element: ElementFiles, file: ModelFile) => {
+    await updateFigureSrc(file.modelId, '')
+    navigateToElement(element.modelId)
   }
 
-  const replace = async (modelId: string, file: File) => {
+  const replace = async (
+    element: ElementFiles,
+    model: ModelFile,
+    file: File
+  ) => {
     const uploaded = await fileManagement.upload(file)
-    await updateFigureSrc(modelId, uploaded.id)
+    await updateFigureSrc(model.modelId, uploaded.id)
+    navigateToElement(element.modelId)
   }
 
   return (
@@ -80,8 +89,8 @@ export const InlineFilesSection: React.FC<{
               <ElementFile
                 key={file.modelId}
                 file={file}
-                handleReplace={async (f) => await replace(file.modelId, f)}
-                handleDetach={async () => await detach(file.modelId)}
+                handleReplace={async (f) => await replace(element, file, f)}
+                handleDetach={async () => await detach(element, file)}
                 handleDownload={() => fileManagement.download(file)}
               />
             ))}

@@ -48,7 +48,7 @@ export const FileCreatedDate: React.FC<{
 
 export const FileDateContainer = styled.div`
   overflow: hidden;
-  min-width: 80px;
+  min-width: 88px;
   margin-left: 8px;
 `
 

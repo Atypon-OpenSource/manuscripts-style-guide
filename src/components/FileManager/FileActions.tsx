@@ -49,7 +49,7 @@ export const FileActions: React.FC<{
   const showDownload = can?.downloadFiles && handleDownload
   const showReplace = can?.replaceFile && handleReplace
   const showDetach = can?.editArticle && handleDetach
-  const showMove = can?.editArticle && move
+  const showMove = can?.moveFile && move
 
   const show = showDownload || showReplace || showDetach || showMove
 
