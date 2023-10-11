@@ -131,7 +131,6 @@ export const EditorHeader: React.FC<{
   exceptionDialog: ExceptionDialog,
   disabelProceedNote,
 }) => {
-  const [confirmationDialog, toggleConfirmationDialog] = useState(false)
   const [noteValue, setNoteValue] = useState<string>('')
   const [selectedTransitionIndex, setSelectedTransitionIndex] =
     useState<number>()
@@ -160,25 +159,18 @@ export const EditorHeader: React.FC<{
   const onTransitionClick = useCallback(
     (event) => {
       updateState(DialogState.INIT)
-      toggleConfirmationDialog(true)
       setSelectedTransitionIndex(
         event.target.value || event.target.parentNode.value
       )
     },
-    [setSelectedTransitionIndex, toggleConfirmationDialog, updateState]
+    [setSelectedTransitionIndex, updateState]
   )
 
   const onCancelClick = useCallback(() => {
-    toggleConfirmationDialog(false)
     setSelectedTransitionIndex(undefined)
     clearError()
     updateState(DialogState.CLOSED)
-  }, [
-    toggleConfirmationDialog,
-    setSelectedTransitionIndex,
-    clearError,
-    updateState,
-  ])
+  }, [setSelectedTransitionIndex, clearError, updateState])
 
   const onNoteChange = useCallback(
     (event) => setNoteValue(event.target.value),
@@ -215,7 +207,6 @@ export const EditorHeader: React.FC<{
             currentStepType={submission.currentStep.type}
             previousStepType={submission.previousStep?.type}
             nextStepType={submission.nextStep.type}
-            confirmationDialog={confirmationDialog}
             onNoteChange={disabelProceedNote ? undefined : onNoteChange}
             continueDialogAction={continueDialogAction}
             onCancelClick={onCancelClick}

@@ -86,7 +86,6 @@ export const ProceedView: React.FC<{
   previousStepType: SubmissionStepType | undefined
   currentStepType: SubmissionStepType
   nextStepType: SubmissionStepType
-  confirmationDialog: boolean
   onCancelClick: () => void
   continueDialogAction: () => Promise<void>
   message: React.FC<{ isCentered: boolean }>
@@ -95,7 +94,6 @@ export const ProceedView: React.FC<{
   onTransitionClick,
   disable,
   dialogData,
-  confirmationDialog,
   previousStepType,
   currentStepType,
   isAnnotator,
@@ -107,7 +105,10 @@ export const ProceedView: React.FC<{
 }) => {
   const dialogMessages = useMemo(
     () =>
-      hasPendingSuggestions && !isAnnotator && !isProofer
+      hasPendingSuggestions &&
+      !isAnnotator &&
+      !isProofer &&
+      dialogData.state !== DialogState.SUCCESS
         ? {
             header: 'The task can not be transitioned to the next step',
             message: `There are still pending suggestions in the document.
@@ -117,6 +118,7 @@ export const ProceedView: React.FC<{
                 action: onCancelClick,
                 title: 'Ok',
               },
+              onClose: onCancelClick,
             },
           }
         : dialogData.state === DialogState.SUCCESS
@@ -128,6 +130,7 @@ export const ProceedView: React.FC<{
                 action: onCancelClick,
                 title: 'Close',
               },
+              onClose: onCancelClick,
               // secondary: {
               //   action: onDashboardRedirectClick,
               //   title: 'Go to dashboard',
@@ -147,6 +150,7 @@ export const ProceedView: React.FC<{
                 action: onCancelClick,
                 title: 'Cancel',
               },
+              onClose: onCancelClick,
             },
           },
     [
@@ -198,40 +202,39 @@ export const ProceedView: React.FC<{
         </LoadingOverlay>
       )}
 
-      {!(dialogData.state === DialogState.CLOSED) && (
-        <Dialog
-          isOpen={
-            confirmationDialog && !(dialogData.state === DialogState.LOADING)
-          }
-          category={Category.confirmation}
-          header={dialogMessages.header}
-          message={dialogMessages.message}
-          actions={dialogMessages.actions}
-        >
-          {dialogData.state === DialogState.SUCCESS && (
-            <Grid>
-              {previousStepType && (
-                <StepDetails
-                  {...previousStepType}
-                  icon={
-                    <>
-                      <TaskStepDoneIcon />
-                      <Line />
-                    </>
-                  }
-                />
-              )}
-              <StepDetails {...currentStepType} />
-            </Grid>
-          )}
+      <Dialog
+        isOpen={
+          dialogData.state !== DialogState.CLOSED &&
+          dialogData.state !== DialogState.LOADING
+        }
+        category={Category.confirmation}
+        header={dialogMessages.header}
+        message={dialogMessages.message}
+        actions={dialogMessages.actions}
+      >
+        {dialogData.state === DialogState.SUCCESS && (
+          <Grid>
+            {previousStepType && (
+              <StepDetails
+                {...previousStepType}
+                icon={
+                  <>
+                    <TaskStepDoneIcon />
+                    <Line />
+                  </>
+                }
+              />
+            )}
+            <StepDetails {...currentStepType} />
+          </Grid>
+        )}
 
-          {dialogData.state === DialogState.ERROR && (
-            <AlertMessage type={AlertMessageType.error} hideCloseButton={true}>
-              {dialogData.error}
-            </AlertMessage>
-          )}
-        </Dialog>
-      )}
+        {dialogData.state === DialogState.ERROR && (
+          <AlertMessage type={AlertMessageType.error} hideCloseButton={true}>
+            {dialogData.error}
+          </AlertMessage>
+        )}
+      </Dialog>
     </>
   )
 }
