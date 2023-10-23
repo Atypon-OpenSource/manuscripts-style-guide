@@ -103,61 +103,73 @@ export const ProceedView: React.FC<{
   continueDialogAction,
   message: Message,
 }) => {
-  const dialogMessages =
-    hasPendingSuggestions &&
-    !isAnnotator &&
-    !isProofer &&
-    dialogData.state !== DialogState.SUCCESS
-      ? {
-          header: 'The task can not be transitioned to the next step',
-          message: `There are still pending suggestions in the document.
+  const dialogMessages = useMemo(
+    () =>
+      hasPendingSuggestions &&
+      !isAnnotator &&
+      !isProofer &&
+      dialogData.state !== DialogState.SUCCESS
+        ? {
+            header: 'The task can not be transitioned to the next step',
+            message: `There are still pending suggestions in the document.
                 It is not possible to complete the task without having them approved or rejected.`,
-          actions: {
-            primary: {
-              action: onCancelClick,
-              title: 'Ok',
+            actions: {
+              primary: {
+                action: onCancelClick,
+                title: 'Ok',
+              },
+              onClose: onCancelClick,
             },
-            onClose: onCancelClick,
+          }
+        : dialogData.state === DialogState.SUCCESS
+        ? {
+            header: 'Content reassigned successfully',
+            message: `to the ${currentStepType.label}`,
+            actions: {
+              primary: {
+                action: onCancelClick,
+                title: 'Close',
+              },
+              onClose: onCancelClick,
+              // secondary: {
+              //   action: onDashboardRedirectClick,
+              //   title: 'Go to dashboard',
+              // },
+            },
+          }
+        : {
+            header: 'Are you sure?',
+            message:
+              'You are about to complete your task. If you confirm, you will no longer be able to make any changes.',
+            actions: {
+              primary: {
+                action: continueDialogAction,
+                title: 'Continue',
+              },
+              secondary: {
+                action: onCancelClick,
+                title: 'Cancel',
+              },
+              onClose: onCancelClick,
+            },
           },
-        }
-      : dialogData.state === DialogState.SUCCESS
-      ? {
-          header: 'Content reassigned successfully',
-          message: `to the ${currentStepType.label}`,
-          actions: {
-            primary: {
-              action: onCancelClick,
-              title: 'Close',
-            },
-            onClose: onCancelClick,
-            // secondary: {
-            //   action: onDashboardRedirectClick,
-            //   title: 'Go to dashboard',
-            // },
-          },
-        }
-      : {
-          header: 'Are you sure?',
-          message:
-            'You are about to complete your task. If you confirm, you will no longer be able to make any changes.',
-          actions: {
-            primary: {
-              action: continueDialogAction,
-              title: 'Continue',
-            },
-            secondary: {
-              action: onCancelClick,
-              title: 'Cancel',
-            },
-            onClose: onCancelClick,
-          },
-        }
+    [
+      dialogData,
+      continueDialogAction,
+      // onDashboardRedirectClick,
+      onCancelClick,
+      currentStepType,
+      hasPendingSuggestions,
+      isAnnotator,
+      isProofer,
+    ]
+  )
 
   const prevDialogMsgs = useRef<typeof dialogMessages>()
 
   useEffect(() => {
     prevDialogMsgs.current = dialogMessages
-  }, [dialogData.state, dialogMessages])
+  })
 
   const messages =
     dialogData.state === DialogState.CLOSED && prevDialogMsgs.current
