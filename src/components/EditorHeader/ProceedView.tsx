@@ -157,7 +157,7 @@ export const ProceedView: React.FC<{
 
   useEffect(() => {
     prevDialogMsgs.current = dialogMessages
-  }, [dialogData.state])
+  }, [dialogData.state, dialogMessages])
 
   const messages =
     dialogData.state === DialogState.CLOSED && prevDialogMsgs.current
