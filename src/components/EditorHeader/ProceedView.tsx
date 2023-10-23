@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import React, { useMemo } from 'react'
+import React, { useEffect, useMemo, useRef } from 'react'
 import styled from 'styled-components'
 
 import {
@@ -103,67 +103,67 @@ export const ProceedView: React.FC<{
   continueDialogAction,
   message: Message,
 }) => {
-  const dialogMessages = useMemo(
-    () =>
-      hasPendingSuggestions &&
-      !isAnnotator &&
-      !isProofer &&
-      dialogData.state !== DialogState.SUCCESS
-        ? {
-            header: 'The task can not be transitioned to the next step',
-            message: `There are still pending suggestions in the document.
+  const dialogMessages =
+    hasPendingSuggestions &&
+    !isAnnotator &&
+    !isProofer &&
+    dialogData.state !== DialogState.SUCCESS
+      ? {
+          header: 'The task can not be transitioned to the next step',
+          message: `There are still pending suggestions in the document.
                 It is not possible to complete the task without having them approved or rejected.`,
-            actions: {
-              primary: {
-                action: onCancelClick,
-                title: 'Ok',
-              },
-              onClose: onCancelClick,
+          actions: {
+            primary: {
+              action: onCancelClick,
+              title: 'Ok',
             },
-          }
-        : dialogData.state === DialogState.SUCCESS
-        ? {
-            header: 'Content reassigned successfully',
-            message: `to the ${currentStepType.label}`,
-            actions: {
-              primary: {
-                action: onCancelClick,
-                title: 'Close',
-              },
-              onClose: onCancelClick,
-              // secondary: {
-              //   action: onDashboardRedirectClick,
-              //   title: 'Go to dashboard',
-              // },
-            },
-          }
-        : {
-            header: 'Are you sure?',
-            message:
-              'You are about to complete your task. If you confirm, you will no longer be able to make any changes.',
-            actions: {
-              primary: {
-                action: continueDialogAction,
-                title: 'Continue',
-              },
-              secondary: {
-                action: onCancelClick,
-                title: 'Cancel',
-              },
-              onClose: onCancelClick,
-            },
+            onClose: onCancelClick,
           },
-    [
-      dialogData,
-      continueDialogAction,
-      // onDashboardRedirectClick,
-      onCancelClick,
-      currentStepType,
-      hasPendingSuggestions,
-      isAnnotator,
-      isProofer,
-    ]
-  )
+        }
+      : dialogData.state === DialogState.SUCCESS
+      ? {
+          header: 'Content reassigned successfully',
+          message: `to the ${currentStepType.label}`,
+          actions: {
+            primary: {
+              action: onCancelClick,
+              title: 'Close',
+            },
+            onClose: onCancelClick,
+            // secondary: {
+            //   action: onDashboardRedirectClick,
+            //   title: 'Go to dashboard',
+            // },
+          },
+        }
+      : {
+          header: 'Are you sure?',
+          message:
+            'You are about to complete your task. If you confirm, you will no longer be able to make any changes.',
+          actions: {
+            primary: {
+              action: continueDialogAction,
+              title: 'Continue',
+            },
+            secondary: {
+              action: onCancelClick,
+              title: 'Cancel',
+            },
+            onClose: onCancelClick,
+          },
+        }
+
+  const prevDialogMsgs = useRef<typeof dialogMessages>()
+
+  useEffect(() => {
+    prevDialogMsgs.current = dialogMessages
+  }, [dialogData.state])
+
+  const messages =
+    dialogData.state === DialogState.CLOSED && prevDialogMsgs.current
+      ? prevDialogMsgs.current
+      : dialogMessages
+  // this is to avoid state updates changing content in the fading out popup
 
   return (
     <>
@@ -208,9 +208,9 @@ export const ProceedView: React.FC<{
           dialogData.state !== DialogState.LOADING
         }
         category={Category.confirmation}
-        header={dialogMessages.header}
-        message={dialogMessages.message}
-        actions={dialogMessages.actions}
+        header={messages.header}
+        message={messages.message}
+        actions={messages.actions}
       >
         {dialogData.state === DialogState.SUCCESS && (
           <Grid>
