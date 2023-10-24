@@ -166,16 +166,22 @@ export const ProceedView: React.FC<{
   )
 
   const prevDialogMsgs = useRef<typeof dialogMessages>()
+  const prevDialogueState = useRef<DialogState>()
 
   useEffect(() => {
     prevDialogMsgs.current = dialogMessages
+    prevDialogueState.current = dialogData.state
   })
 
   const messages =
     dialogData.state === DialogState.CLOSED && prevDialogMsgs.current
       ? prevDialogMsgs.current
       : dialogMessages
-  // this is to avoid state updates changing content in the fading out popup
+  const finalState =
+    dialogData.state === DialogState.CLOSED && prevDialogueState.current
+      ? prevDialogueState.current
+      : dialogData.state
+  // this is to avoid state updates changing content in a fading out popup
 
   return (
     <>
@@ -208,7 +214,7 @@ export const ProceedView: React.FC<{
         </PrimaryButtonSmall>
       )}
 
-      {dialogData.state === DialogState.LOADING && (
+      {finalState === DialogState.LOADING && (
         <LoadingOverlay>
           <Message isCentered>Proceeding with your submission…</Message>
         </LoadingOverlay>
@@ -216,15 +222,15 @@ export const ProceedView: React.FC<{
 
       <Dialog
         isOpen={
-          dialogData.state !== DialogState.CLOSED &&
-          dialogData.state !== DialogState.LOADING
+          finalState !== DialogState.CLOSED &&
+          finalState !== DialogState.LOADING
         }
         category={Category.confirmation}
         header={messages.header}
         message={messages.message}
         actions={messages.actions}
       >
-        {dialogData.state === DialogState.SUCCESS && (
+        {finalState === DialogState.SUCCESS && (
           <Grid>
             {previousStepType && (
               <StepDetails
@@ -241,7 +247,7 @@ export const ProceedView: React.FC<{
           </Grid>
         )}
 
-        {dialogData.state === DialogState.ERROR && (
+        {finalState === DialogState.ERROR && (
           <AlertMessage type={AlertMessageType.error} hideCloseButton={true}>
             {dialogData.error}
           </AlertMessage>
