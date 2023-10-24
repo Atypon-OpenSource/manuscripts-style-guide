@@ -17,7 +17,9 @@ import React, { useCallback } from 'react'
 import { useDragLayer, XYCoord } from 'react-dnd'
 import styled from 'styled-components'
 
-import { FileSectionItem } from './FileSectionItem'
+import { FileContainer } from './FileContainer'
+import { FileCreatedDate } from './FileCreatedDate'
+import { FileName } from './FileName'
 
 function getItemStyles(
   initialOffset: XYCoord | null,
@@ -38,9 +40,6 @@ function getItemStyles(
   }
 }
 
-/**
- * This component used to style the "DraggableFileSectionItem" component.
- */
 export const DragLayer: React.FC = () => {
   const { itemType, isDragging, item, initialOffset, currentOffset } =
     useDragLayer((monitor) => ({
@@ -53,16 +52,12 @@ export const DragLayer: React.FC = () => {
 
   const renderItem = useCallback(() => {
     switch (itemType) {
-      case 'FileSectionItem':
+      case 'file':
         return (
-          <CustomFileSectionItem
-            title={item.title}
-            externalFile={item.externalFile}
-            showAttachmentName={item.showAttachmentName}
-            withDot={item.withDot}
-            showSecondaryActions={false}
-            style={{ width: item.width }}
-          />
+          <DraggableFileContainer>
+            <FileName file={item.file} />
+            {item.file.createdDate && <FileCreatedDate file={item.file} />}
+          </DraggableFileContainer>
         )
       default:
         return null
@@ -74,10 +69,8 @@ export const DragLayer: React.FC = () => {
   }
 
   return (
-    <Container>
-      <div style={getItemStyles(initialOffset, currentOffset)}>
-        {renderItem()}
-      </div>
+    <Container style={getItemStyles(initialOffset, currentOffset)}>
+      {renderItem()}
     </Container>
   )
 }
@@ -88,13 +81,12 @@ const Container = styled.div`
   z-index: 999;
   left: 0;
   top: 0;
-  width: 100%;
-  height: 100%;
+  max-width: 400px;
 `
-const CustomFileSectionItem = React.memo(styled(FileSectionItem)`
+const DraggableFileContainer = styled(FileContainer)`
   padding: 16px 32px;
   background: #f2fbfc;
   border: 1px solid #bce7f6;
-  box-shadow: 0px 4px 9px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 4px 9px rgba(0, 0, 0, 0.3);
   border-radius: 6px;
-`)
+`

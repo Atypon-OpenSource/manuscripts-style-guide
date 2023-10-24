@@ -13,33 +13,24 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import React from 'react'
+import ReactTooltip from 'react-tooltip'
 import styled from 'styled-components'
 
-import DragAndDropFileIcon from '../icons/drag-drop-file-icon'
+export const Tooltip = styled(ReactTooltip)`
+  &.tooltip {
+    font-size: 12px;
+    line-height: 16px;
+    font-family: ${(props) => props.theme.font.family.Lato};
+    padding: 8px;
+    border-radius: 6px;
+    background: #353535;
+    color: ${(props) => props.theme.colors.text.onDark};
+    text-align: center;
+    white-space: nowrap;
+    pointer-events: none;
 
-export const DragItemArea: React.FC<{
-  text: string
-}> = ({ text }) => {
-  return (
-    <Container>
-      <div>
-        <DragAndDropFileIcon />
-      </div>
-      {text}
-    </Container>
-  )
-}
-
-const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: 14px;
-  line-height: 24px;
-  font-family: ${(props) => props.theme.font.family.Lato};
-  color: ${(props) => props.theme.colors.text.onLight};
-  padding: 32px 0;
-  text-align: center;
+    &.place-bottom::after {
+      background: #353535;
+    }
+  }
 `
