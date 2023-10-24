@@ -28,7 +28,9 @@ const useDeepCompare = <D>(deps: D) => {
 }
 
 export const useDeepCompareMemo = <T, D>(callback: () => T, deps: D) =>
-  useMemo(callback, [useDeepCompare(deps), callback])
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  useMemo(callback, [useDeepCompare(deps)])
 
 export const useDeepCompareCallback = <T, D>(callback: () => T, deps: D) =>
-  useCallback(callback, [useDeepCompare(deps), callback])
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  useCallback(callback, [useDeepCompare(deps)])

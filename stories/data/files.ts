@@ -13,9 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 import { FileAttachment } from '../../src'
 
-export const attachments: FileAttachment[] = [
+export type FileAttachmentWithLink = FileAttachment & { link: string }
+
+export const files: FileAttachmentWithLink[] = [
   {
     id: 'caabc327-25c5-4122-96fd-e38d313345da',
     name: 'LW4_multiGraphicFigure-S1-doc.zip',
@@ -77,8 +80,28 @@ export const attachments: FileAttachment[] = [
     createdDate: new Date('3/14/23'),
   },
   {
-    id: 'f7d0d13c-ed22-4248-894a-3f3fdc2dc485',
+    id: '0be64499-6adb-4a6f-8f1e-5c411a37e101',
     name: 'document-fig-002.png',
+    type: {
+      id: 'figure',
+      label: 'figure',
+    },
+    link: 'https://lean-x7481.ciplit.com/lw/attachment/f7d0d13c-ed22-4248-894a-3f3fdc2dc485',
+    createdDate: new Date('3/14/23'),
+  },
+  {
+    id: '0be64499-6adb-4a6f-8f1e-5c411a37e102',
+    name: 'document-fig-003.jpg',
+    type: {
+      id: 'figure',
+      label: 'figure',
+    },
+    link: 'https://lean-x7481.ciplit.com/lw/attachment/f7d0d13c-ed22-4248-894a-3f3fdc2dc485',
+    createdDate: new Date('3/14/23'),
+  },
+  {
+    id: '0be64499-6adb-4a6f-8f1e-5c411a37e103',
+    name: 'document-fig-004.gif',
     type: {
       id: 'figure',
       label: 'figure',

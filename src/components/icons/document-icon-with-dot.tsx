@@ -34,8 +34,10 @@ import React from 'react'
 import { IconProps } from './types'
 const DocumentIconWithDot: React.FC<IconProps> = (props: IconProps) => (
   <svg
+    className={props.className}
     width="28"
     height="33"
+    style={{ marginLeft: -7, marginTop: -4 }}
     viewBox="0 0 28 33"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
