@@ -171,7 +171,8 @@ export const ProceedView: React.FC<{
   useEffect(() => {
     prevDialogMsgs.current = dialogMessages
     prevDialogueState.current = dialogData.state
-  })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [dialogData.state])
 
   const messages =
     dialogData.state === DialogState.CLOSED && prevDialogMsgs.current
@@ -222,8 +223,8 @@ export const ProceedView: React.FC<{
 
       <Dialog
         isOpen={
-          finalState !== DialogState.CLOSED &&
-          finalState !== DialogState.LOADING
+          dialogData.state !== DialogState.CLOSED &&
+          dialogData.state !== DialogState.LOADING
         }
         category={Category.confirmation}
         header={messages.header}
