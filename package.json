@@ -20,7 +20,7 @@
     "build:es": "tsc --outDir dist/es --declarationDir dist/types --declaration",
     "build-storybook": "build-storybook",
     "dev": "npm-run-all --parallel 'build:* --project tsconfig.build.json --watch'",
-    "lint": "eslint src --ext .ts,.tsx --max-warnings=0",
+    "lint": "eslint src stories --ext .ts,.tsx --max-warnings=0",
     "lint:fix": "eslint src stories --fix --ext .ts,.tsx --max-warnings=0",
     "prebuild": "rimraf dist",
     "prettier": "prettier --write \"{src,stories}/**/*.{ts,tsx}\"",
