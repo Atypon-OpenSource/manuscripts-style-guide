@@ -1688,10 +1688,10 @@
     react-dom "^17.0.2"
     styled-components "^5.2.0"
 
-"@manuscripts/transform@1.5.1-LEAN-2852-0":
-  version "1.5.1-LEAN-2852-0"
-  resolved "https://registry.yarnpkg.com/@manuscripts/transform/-/transform-1.5.1-LEAN-2852-0.tgz#f32bad7c6002799c45c4c42b4fbe204afb92cb0e"
-  integrity sha512-YxsefVozB56P09ZjaTVY2EXEzjCc4BxUDMv7BytJKoRInmh9DsNMqheXy9K7NPMzytJrECHwJlK+Oq2iDAy0gw==
+"@manuscripts/transform@1.5.1-LEAN-2852-2":
+  version "1.5.1-LEAN-2852-2"
+  resolved "https://registry.yarnpkg.com/@manuscripts/transform/-/transform-1.5.1-LEAN-2852-2.tgz#7f52e32b0781779a21a4867f2b64ae832c27b987"
+  integrity sha512-dy77xJlYEQdCT8zUgPgfBcOjefF0lcUa7zzZF0SY85S0udOnYADn7uLOXRpR9hkyYgnV8Cxb/RguBpwhUXn2Ww==
   dependencies:
     "@manuscripts/json-schema" "2.2.0-LEAN-2852-12"
     debug "^4.3.4"
