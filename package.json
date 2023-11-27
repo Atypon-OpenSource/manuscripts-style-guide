@@ -38,7 +38,6 @@
     "@manuscripts/assets": "^0.6.2",
     "@manuscripts/transform": "1.5.1-LEAN-2852-8",
     "@manuscripts/json-schema": "2.2.0-LEAN-2852-12",
-    "@manuscripts/title-editor": "^1.1.0",
     "@manuscripts/comment-editor": "^1.0.3",
     "@reach/tabs": "^0.11.2",
     "formik": "^2.2.9",
