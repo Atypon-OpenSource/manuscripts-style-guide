@@ -19,7 +19,6 @@ import { storiesOf } from '@storybook/react'
 import * as React from 'react'
 
 import {
-  BaseInformation,
   getAllPermitted,
   InspectorSection,
   ManuscriptNoteList,
@@ -50,17 +49,6 @@ storiesOf('Submission Inspector', module)
     <div
       style={{ width: 400, border: '1px solid #F2F2F2', paddingTop: '24px' }}
     >
-      <InspectorSection
-        title={'Article information'}
-        contentStyles={{ padding: '0 32px 24px 32px' }}
-      >
-        <BaseInformation
-          submission={submission}
-          userRole={'pe'}
-          handleDateChange={action('Date updated')}
-        />
-      </InspectorSection>
-
       <InspectorSection
         title={'Progress'}
         contentStyles={{ padding: '0 56px 24px 56px' }}

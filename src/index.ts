@@ -15,6 +15,7 @@
  */
 
 export { Theme } from './theme'
+export * from './components/DatePicker'
 export * from './components/AffiliationsEditor'
 export * from './components/AffiliationsList'
 export * from './components/AuthorForm'
