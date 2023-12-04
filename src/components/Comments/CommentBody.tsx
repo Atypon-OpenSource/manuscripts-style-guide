@@ -14,10 +14,8 @@
  * limitations under the License.
  */
 import AnnotationReply from '@manuscripts/assets/react/AnnotationReply'
-import { Comment, CommentField } from '@manuscripts/comment-editor'
 import { Keyword, UserProfile } from '@manuscripts/json-schema'
 import { Field, FieldProps, Form, Formik } from 'formik'
-import { EditorView } from 'prosemirror-view'
 import React, { Dispatch, SetStateAction, useEffect } from 'react'
 import ReactTooltip from 'react-tooltip'
 import styled from 'styled-components'
@@ -39,7 +37,7 @@ export interface CommentBodyProps {
   saveComment: (comment: CommentType | UnsavedComment) => Promise<CommentType>
   handleCreateReply: (id: string) => void
   scrollIntoHighlight?: (comment: CommentType | UnsavedComment) => void
-  onFocusOut?: (view: EditorView, event: Event) => boolean
+  onFocusOut?: (id: string, content: string) => boolean
 }
 
 export const CommentBody: React.FC<
@@ -51,12 +49,7 @@ export const CommentBody: React.FC<
   }
 > = React.memo(
   ({
-    createKeyword,
     comment,
-    getCollaborator,
-    getKeyword,
-    listCollaborators,
-    listKeywords,
     saveComment,
     deleteComment,
     isReply,
@@ -103,16 +96,14 @@ export const CommentBody: React.FC<
                         id={comment._id}
                         autoFocus={isEditing}
                         value={values.contents}
-                        handleChange={(data: string) =>
-                          setFieldValue(props.field.name, data)
+                        onChange={(event) =>
+                          setFieldValue(props.field.name, event.target.value)
                         }
-                        handleBlur={onFocusOut}
-                        createKeyword={createKeyword}
-                        listCollaborators={listCollaborators}
-                        listKeywords={listKeywords}
-                        notePlaceholder={
-                          !isReply ? 'Comment or @mention...' : 'Reply...'
+                        onBlur={(event) =>
+                          onFocusOut &&
+                          onFocusOut(comment._id, event.target.value)
                         }
+                        placeholder={!isReply ? 'Comment...' : 'Reply...'}
                       />
                     </CommentContent>
                   )}
@@ -146,11 +137,7 @@ export const CommentBody: React.FC<
                 scrollIntoHighlight && scrollIntoHighlight(comment)
               }
             >
-              <StyledCommentViewer
-                value={comment.contents}
-                getCollaborator={getCollaborator}
-                getKeyword={getKeyword}
-              />
+              <StyledCommentViewer>{comment.contents}</StyledCommentViewer>
             </CommentContent>
 
             {!isReply && (
@@ -217,92 +204,47 @@ const CommentContent = styled.div`
   padding: 0 ${(props) => props.theme.grid.unit * 4}px;
 `
 
-const StyledCommentField = styled(CommentField)<{ notePlaceholder: string }>`
-  flex: 1;
+const StyledCommentField = styled.textarea`
+  cursor: text;
+  font-family: ${(props) => props.theme.font.family.sans};
+  color: ${(props) => props.theme.colors.text.primary};
+  margin: ${(props) => props.theme.grid.unit * 2}px 0;
+  resize: none;
 
-  & .ProseMirror {
-    cursor: text;
-    font-family: ${(props) => props.theme.font.family.sans};
-    color: ${(props) => props.theme.colors.text.primary};
-    margin: ${(props) => props.theme.grid.unit * 2}px 0;
+  width: 100%;
+  outline: 0;
+  border: 1px solid #e2e2e2;
+  border-radius: 6px;
 
-    outline: 0;
-    border: 1px solid #e2e2e2;
+  &:focus {
+    background: #f2fbfc;
+    border: 1px solid #bce7f6;
     border-radius: 6px;
-
-    &:focus {
-      background: #f2fbfc;
-      border: 1px solid #bce7f6;
-      border-radius: 6px;
-    }
-
-    .empty-node::before {
-      position: absolute;
-      color: #c9c9c9;
-      cursor: text;
-      pointer-events: none;
-    }
-
-    ${(props) =>
-      `& p.empty-node:before { content: '${props.notePlaceholder}'; }`};
-
-    box-sizing: border-box;
-    padding: 3px 16px 3px 16px;
-    font-style: normal;
-    font-weight: normal;
-    font-size: 14px;
-    line-height: 24px;
-
-    & p:first-child {
-      margin-top: 0;
-    }
-
-    & p:last-child {
-      margin-bottom: 0;
-    }
-
-    & blockquote {
-      margin: ${(props) => props.theme.grid.unit * 2}px 0;
-      border-left: ${(props) => props.theme.grid.unit}px solid #faed98;
-      padding-left: 1em;
-      font-size: ${(props) => props.theme.font.size.small};
-      font-style: italic;
-      line-height: 1.17;
-      letter-spacing: -0.2px;
-      color: #bababa;
-    }
   }
+
+  .empty-node::before {
+    position: absolute;
+    color: #c9c9c9;
+    cursor: text;
+    pointer-events: none;
+  }
+
+  box-sizing: border-box;
+  padding: 3px 16px 3px 16px;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 24px;
 `
 
-const StyledCommentViewer = styled(Comment)`
+const StyledCommentViewer = styled.div`
   flex: 1;
 
-  & .ProseMirror {
-    font-family: ${(props) => props.theme.font.family.sans};
-    line-height: 1.06;
-    letter-spacing: -0.2px;
-    color: ${(props) => props.theme.colors.text.primary};
-    margin: ${(props) => props.theme.grid.unit * 2}px 0;
-
-    & p:first-child {
-      margin-top: 0;
-    }
-
-    & p:last-child {
-      margin-bottom: 0;
-    }
-
-    & blockquote {
-      margin: 10px 0;
-      border-left: 4px solid #faed98;
-      padding-left: 1em;
-      font-size: ${(props) => props.theme.font.size.small};
-      font-style: italic;
-      line-height: 1.17;
-      letter-spacing: -0.2px;
-      color: #bababa;
-    }
-  }
+  font-family: ${(props) => props.theme.font.family.sans};
+  line-height: 1.06;
+  letter-spacing: -0.2px;
+  color: ${(props) => props.theme.colors.text.primary};
+  margin: ${(props) => props.theme.grid.unit * 2}px 0;
 `
 
 const Actions = styled(ButtonGroup)`
