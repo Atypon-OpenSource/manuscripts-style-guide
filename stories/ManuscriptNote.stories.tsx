@@ -24,7 +24,7 @@ import {
   getAllPermitted,
   InspectorSection,
   ManuscriptNoteList,
-} from '../'
+} from '../src'
 import { keywords } from './data/keywords'
 import { notes } from './data/notes'
 import { people } from './data/people'
