@@ -1640,22 +1640,6 @@
   resolved "https://registry.npmjs.org/@manuscripts/assets/-/assets-0.6.2.tgz"
   integrity sha512-r9Mo/mcNV23vVbqCUOYVyLDfnp0e5Yaub7K9l1T3QP41a5+FUOOURb7i+wJsLoQnBDx4jueztqrxskZdKQciKQ==
 
-"@manuscripts/comment-editor@^1.0.3":
-  version "1.0.3"
-  resolved "https://registry.yarnpkg.com/@manuscripts/comment-editor/-/comment-editor-1.0.3.tgz#f76b920d2f37020837f6cd359908b756061276c6"
-  integrity sha512-Z3alt6E1mtpNSUueksWcF9Sw3i8TmdS1s2mPzEfvNTWFH0DJkSg0b15ZAvzKL6krC1/9IKh2I7/23Md8FzSfLQ==
-  dependencies:
-    prosemirror-commands "^1.5.0"
-    prosemirror-history "^1.3.0"
-    prosemirror-inputrules "^1.2.0"
-    prosemirror-keymap "^1.2.0"
-    prosemirror-model "^1.18.3"
-    prosemirror-state "^1.4.2"
-    prosemirror-view "^1.29.1"
-    react "^17.0.2"
-    react-dom "^17.0.2"
-    react-select "^5.7.3"
-
 "@manuscripts/eslint-config@^0.5.1":
   version "0.5.1"
   resolved "https://registry.npmjs.org/@manuscripts/eslint-config/-/eslint-config-0.5.1.tgz"
@@ -1665,20 +1649,35 @@
     eslint-config-prettier "^8.5.0"
     prettier "^2.8.1"
 
-"@manuscripts/json-schema@2.2.0-LEAN-2852-14":
-  version "2.2.0-LEAN-2852-14"
-  resolved "https://registry.yarnpkg.com/@manuscripts/json-schema/-/json-schema-2.2.0-LEAN-2852-14.tgz#a2e1e9b31f6a251ba6659073307d436d9a86df0c"
-  integrity sha512-rpaQfdj6vbH3bD7nEz57+wXc/n5Z5yvXab/V+ASO2VnF8lNEU/f8npkBBy5dHs3iNV6X0Psu9ifcbrkduX5N3g==
+"@manuscripts/json-schema@^2.1.2", "@manuscripts/json-schema@^2.2.0":
+  version "2.2.0"
+  resolved "https://registry.yarnpkg.com/@manuscripts/json-schema/-/json-schema-2.2.0.tgz#8507707f00c0e6cead4f4e2f2e1797f9bccec4af"
+  integrity sha512-2ooif0jtIld5bA44DHPpsNbDvdoQWaFcNXiBlc7OQ0znY37e5juMipknEtNTvdHCtHpzBkrLJt7k77bBT7VaVQ==
   dependencies:
     ajv "^8.12.0"
     deepmerge "^4.3.1"
 
-"@manuscripts/transform@1.5.1-LEAN-2852-12":
-  version "1.5.1-LEAN-2852-12"
-  resolved "https://registry.yarnpkg.com/@manuscripts/transform/-/transform-1.5.1-LEAN-2852-12.tgz#657c6f78c68d8db7219eae5699405e03a27aa3c9"
-  integrity sha512-G3Pr+aulz0xFdDdWEGfNnW12ZCqr6u5waW8cqVbBtGp5IauSa4rEGLNVdzDRt7URe09EOXu8r5vrW08bjEQxuA==
+"@manuscripts/title-editor@^1.1.0":
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/@manuscripts/title-editor/-/title-editor-1.1.0.tgz#fcf1820b2037706e60a3b71776bd34edf6fa69c2"
+  integrity sha512-5ydMXsfOAuWw5nLqIxV38LO1GAFIPHEUSQqV4VPcrHy7V8nr1vqxXEbL7nVEs5SAGKC1o5c6rBHXoSg+zZ1DOQ==
   dependencies:
-    "@manuscripts/json-schema" "2.2.0-LEAN-2852-14"
+    prosemirror-commands "^1.5.0"
+    prosemirror-history "^1.3.0"
+    prosemirror-keymap "^1.2.0"
+    prosemirror-model "^1.18.3"
+    prosemirror-state "^1.4.2"
+    prosemirror-view "^1.29.1"
+    react "^17.0.2"
+    react-dom "^17.0.2"
+    styled-components "^5.2.0"
+
+"@manuscripts/transform@1.5.2":
+  version "1.5.2"
+  resolved "https://registry.yarnpkg.com/@manuscripts/transform/-/transform-1.5.2.tgz#5489b77e246a39fb0b8c4b089aac1836b747b1cb"
+  integrity sha512-kolZz098NjweoH2ViJmxeJ241kAQdEfL0iA5gm2xcHjJEyoBw4riU1f7Sx+krVT+t1M7sjK8xNE75o6YDWGdMw==
+  dependencies:
+    "@manuscripts/json-schema" "^2.2.0"
     debug "^4.3.4"
     jszip "^3.10.1"
     mathjax-full "^3.2.2"
