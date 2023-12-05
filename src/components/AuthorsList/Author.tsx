@@ -33,11 +33,13 @@ const LinkSharedStyles = css`
   color: inherit;
   outline: none;
 
-  &:hover,
-  &:focus {
-    &,
-    span {
-      color: ${(props) => props.theme.colors.text.tertiary};
+  &:not(:disabled) {
+    &:hover,
+    &:focus {
+      &,
+      span {
+        color: ${(props) => props.theme.colors.text.tertiary};
+      }
     }
   }
 `
@@ -46,12 +48,18 @@ const AuthorAffiliation = styled.span`
   ${LinkSharedStyles}
 `
 
-const AuthorsContainer = styled.a`
+const AuthorsContainer = styled.button`
   display: inline-flex;
+  background: transparent;
+  border: 0;
+  font-size: 1rem;
   ${LinkSharedStyles}
-  &:hover {
-    text-decoration: underline;
-    cursor: pointer;
+
+  &:not(:disabled) {
+    &:hover {
+      text-decoration: underline;
+      cursor: pointer !important;
+    }
   }
 `
 
@@ -60,6 +68,8 @@ interface AuthorProps {
   affiliations?: AuthorAffiliationT[]
   jointFirstAuthor: boolean
   showEditButton?: boolean
+  disableEditButton?: boolean
+
   selectAuthor?: (data: Contributor) => void
   startEditing?: () => void
 }
@@ -71,11 +81,12 @@ export const Author: React.FunctionComponent<AuthorProps> = ({
   startEditing,
   selectAuthor,
   showEditButton,
+  disableEditButton,
 }) => (
   <span key={author._id}>
     {showEditButton ? (
       <AuthorsContainer
-        href="#"
+        disabled={disableEditButton}
         onClick={(e: React.SyntheticEvent) => {
           e.preventDefault()
           startEditing && startEditing()

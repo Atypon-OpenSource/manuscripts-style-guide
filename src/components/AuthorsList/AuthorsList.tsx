@@ -73,6 +73,7 @@ export const AuthorsList: React.FunctionComponent<Props> = ({
             selectAuthor={selectAuthor}
             startEditing={startEditing}
             showEditButton={showEditButton}
+            disableEditButton={disableEditButton}
           />
         </React.Fragment>
       ))}
