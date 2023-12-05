@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { SubmissionCriticality } from '../../src/components/SubmissionInspector/types'
 
 export const submission = {
   title: 'Characterization of red ginseng',
@@ -21,7 +20,7 @@ export const submission = {
   code: 'lw.100',
   doi: '10.1000/xyz123',
   dueDate: new Date('2020-7-28'),
-  criticality: SubmissionCriticality.OVERDUE,
+  criticality: 'OVERDUE',
   journal: {
     id: 'a35f3849-4c0f-44dd-9fd9-ac3986c658f4',
     title: 'Applied Organometallic Chemistry',
@@ -81,7 +80,7 @@ export const submission = {
       description: 'Technical checks on article to create Quality Report',
     },
     dueDate: new Date('2020-5-15'),
-    criticality: SubmissionCriticality.OVERDUE,
+    criticality: 'OVERDUE',
     assignee: {
       id: '174',
       displayName: '',
@@ -108,7 +107,7 @@ export const submission = {
         'The Production editor checks the validity of the generated article.',
     },
     dueDate: new Date('2020-4-26'),
-    criticality: SubmissionCriticality.DUE_TODAY,
+    criticality: 'DUE_TODAY',
     assignee: {
       id: '174',
       displayName: '',

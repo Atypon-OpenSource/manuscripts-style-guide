@@ -25,15 +25,14 @@ import DatePicker, {
 import styled from 'styled-components'
 
 import { Category, Dialog, MessageContainer } from '../Dialog'
-export const calenderDatePickerDefaultDateFormat = 'd MMM, EEEE'
 
-const getDay = (date: Date) => ({
+const calendarGetDay = (date: Date) => ({
   year: date.getFullYear(),
   month: date.getMonth() + 1,
   day: date.getDate(),
 })
 
-const potentialDueDate = (
+const calendarPotentialDueDate = (
   stepDueDate: Date,
   dueDate: Day,
   submissionDueDate: Date
@@ -49,49 +48,48 @@ const potentialDueDate = (
   return add(submissionDueDate, duration)
 }
 
-export type DatePickerConfigs = {
+const calendarDatePickerDefaultDateFormat = 'd MMM, EEEE'
+
+type CalendarDatePickerConfigs = {
   color?: string
   position?: 'auto' | 'top' | 'bottom'
   calendarClassName?: string
   selectedDayClassName?: string
 }
 
-export type CalenderDialogConfigs = {
+type CalendarDialogConfigs = {
   header?: string
   dueDateMessage?: string
 }
 
-export type CalenderDatePicker = {
+type CalendarDatePickerProps = {
   currentDueDate: Date
   originalDueDate: Date
   handleDateChange: (day: DayValue) => void
-  datepickerConfigs?: DatePickerConfigs
-  dialogConfigs?: CalenderDialogConfigs
+  datePickerConfigs?: CalendarDatePickerConfigs
+  dialogConfigs?: CalendarDialogConfigs
   Button: React.FC<RenderInputProps>
   primaryButtonTitle?: string
   secondaryButtonTitle?: string
 }
 
-export const CalenderDatePicker: React.FC<CalenderDatePicker> = ({
+const CalendarDatePicker: React.FC<CalendarDatePickerProps> = ({
   Button,
   handleDateChange,
   originalDueDate,
   currentDueDate,
-  datepickerConfigs,
+  datePickerConfigs,
   dialogConfigs,
   primaryButtonTitle = 'Reschedule',
   secondaryButtonTitle = 'Cancel',
 }) => {
-  const datePickerConfigs: DatePickerConfigs = Object.assign(
-    {},
-    datepickerConfigs,
-    {
-      popupPosition: 'bottom',
-      color: '#f2fbfc',
-      selectedDayClassName: 'selected-day',
-      calendarClassName: 'responsive-calendar',
-    }
-  )
+  datePickerConfigs = {
+    position: 'bottom',
+    color: '#f2fbfc',
+    selectedDayClassName: 'selected-day',
+    calendarClassName: 'responsive-calendar',
+    ...datePickerConfigs,
+  }
 
   const dialog = Object.assign({}, dialogConfigs, {
     header: 'Change the task due date?',
@@ -110,7 +108,7 @@ export const CalenderDatePicker: React.FC<CalenderDatePicker> = ({
       dueDate &&
       format(
         new Date(dueDate.year, dueDate.month, dueDate.day),
-        calenderDatePickerDefaultDateFormat
+        calendarDatePickerDefaultDateFormat
       ),
     [dueDate]
   )
@@ -118,8 +116,8 @@ export const CalenderDatePicker: React.FC<CalenderDatePicker> = ({
     () =>
       dueDate &&
       format(
-        potentialDueDate(currentDueDate, dueDate, originalDueDate),
-        calenderDatePickerDefaultDateFormat
+        calendarPotentialDueDate(currentDueDate, dueDate, originalDueDate),
+        calendarDatePickerDefaultDateFormat
       ),
     [originalDueDate, currentDueDate, dueDate]
   )
@@ -137,7 +135,7 @@ export const CalenderDatePicker: React.FC<CalenderDatePicker> = ({
     <>
       <Calendar>
         <DatePicker
-          value={getDay(currentDueDate)}
+          value={calendarGetDay(currentDueDate)}
           onChange={onDatePickerChange}
           calendarPopperPosition={datePickerConfigs.position}
           colorPrimary={datePickerConfigs.color}
@@ -160,7 +158,7 @@ export const CalenderDatePicker: React.FC<CalenderDatePicker> = ({
 
             <Value>
               <StrikeDueDate as={'del'}>
-                {format(originalDueDate, calenderDatePickerDefaultDateFormat)}
+                {format(originalDueDate, calendarDatePickerDefaultDateFormat)}
               </StrikeDueDate>
               {formattedPotentialDueDate}
             </Value>
@@ -246,3 +244,16 @@ const DueDateMessage = styled(MessageContainer)`
   min-height: min-content;
   margin: ${(props) => props.theme.grid.unit * 6}px 0 0 0;
 `
+
+export {
+  Day as CalendarDay,
+  DayValue as CalendarDayValue,
+  RenderInputProps as CalendarRenderInputProps,
+  calendarGetDay,
+  calendarPotentialDueDate,
+  calendarDatePickerDefaultDateFormat,
+  CalendarDatePickerConfigs,
+  CalendarDialogConfigs,
+  CalendarDatePickerProps,
+  CalendarDatePicker,
+}

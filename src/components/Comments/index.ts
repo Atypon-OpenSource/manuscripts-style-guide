@@ -1,5 +1,5 @@
 /*!
- * © 2020 Atypon Systems LLC
+ * © 2023 Atypon Systems LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,15 +13,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-export * from './Button'
-export * from '../SubmissionInspector/Text'
-export * from '../SubmissionInspector/Progress'
-export * from '../ManuscriptNoteList'
-export * from '../Comments/CommentBody'
-export * from '../Comments/CommentTarget'
-export * from '../Comments/CommentUser'
-export * from '../Comments/ResolveButton'
-export * from '../Comments/CommentWrapper'
-export * from '../RelativeDate'
-export * from '../../lib/comments'
+export * from './CommentBody'
+export * from './CommentTarget'
+export * from './CommentUser'
+export * from './ResolveButton'
+export * from './CommentWrapper'

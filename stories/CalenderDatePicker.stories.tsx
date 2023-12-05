@@ -17,9 +17,10 @@
 import { action } from '@storybook/addon-actions'
 import { storiesOf } from '@storybook/react'
 import * as React from 'react'
+import { RenderInputProps } from 'react-modern-calendar-datepicker'
 import styled from 'styled-components'
 
-import { CalenderDatePicker, CalenderDatePickerButton } from '../src'
+import { CalendarDatePicker, PrimaryButton } from '../src'
 import { submission } from './data/lw-submission'
 
 const Grid = styled.div`
@@ -28,38 +29,27 @@ const Grid = styled.div`
   gap: 10px;
 `
 storiesOf('DatePicker', module).add('DatePicker', () => {
+  const CalendarDatePickerButton = ({ ref }: RenderInputProps) => {
+    return (
+      <PrimaryButton ref={ref as React.RefObject<HTMLButtonElement>}>
+        show calendar
+      </PrimaryButton>
+    )
+  }
   return (
     <Grid>
-      <CalenderDatePicker
+      <CalendarDatePicker
         currentDueDate={submission.currentStep.dueDate}
         originalDueDate={submission.dueDate}
         handleDateChange={action('Date updated')}
-        Button={({ ref }) => (
-          <CalenderDatePickerButton
-            id={submission.id}
-            criticality={submission.criticality}
-            alert={'danger'}
-            dueDate={submission.currentStep.dueDate}
-            ref={ref}
-          />
-        )}
+        Button={({ ref }) => <CalendarDatePickerButton ref={ref} />}
       />
 
-      <CalenderDatePicker
+      <CalendarDatePicker
         currentDueDate={submission.currentStep.dueDate}
         originalDueDate={submission.dueDate}
         handleDateChange={action('Date updated')}
-        Button={({ ref }) => (
-          <CalenderDatePickerButton
-            id={submission.id}
-            criticality={submission.currentStep.criticality}
-            alert={'danger'}
-            dueDate={submission.currentStep.dueDate}
-            ref={ref}
-            disabled
-            tooltip="This is disabled"
-          />
-        )}
+        Button={({ ref }) => <CalendarDatePickerButton ref={ref} />}
       />
     </Grid>
   )
