@@ -42,14 +42,7 @@ storiesOf('DatePicker', module).add('DatePicker', () => {
         currentDueDate={submission.currentStep.dueDate}
         originalDueDate={submission.dueDate}
         handleDateChange={action('Date updated')}
-        Button={({ ref }) => <CalendarDatePickerButton ref={ref} />}
-      />
-
-      <CalendarDatePicker
-        currentDueDate={submission.currentStep.dueDate}
-        originalDueDate={submission.dueDate}
-        handleDateChange={action('Date updated')}
-        Button={({ ref }) => <CalendarDatePickerButton ref={ref} />}
+        Button={CalendarDatePickerButton}
       />
     </Grid>
   )
