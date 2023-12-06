@@ -15,7 +15,6 @@
  */
 
 import ArrowDownUp from '@manuscripts/assets/react/ArrowDownUp'
-import { Title } from '@manuscripts/title-editor'
 import React from 'react'
 import { NavLink } from 'react-router-dom'
 import styled, { css } from 'styled-components'
@@ -52,10 +51,6 @@ export const NavDropdown = styled.div<{
   z-index: 10;
 `
 
-export const PlaceholderTitle = styled(Title)`
-  color: ${(props) => props.theme.colors.text.secondary};
-`
-
 export const InvitedBy = styled.div`
   display: flex;
   align-items: center;
@@ -80,8 +75,7 @@ const commonStyles = css<{ disabled?: boolean }>`
       : props.theme.colors.text.primary};
   pointer-events: ${(props) => (props.disabled ? 'none' : 'unset')};
 
-  &:hover,
-  &:hover ${PlaceholderTitle} {
+  &:hover {
     background: ${(props) => props.theme.colors.background.fifth};
   }
 `
