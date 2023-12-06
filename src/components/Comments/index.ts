@@ -1,5 +1,5 @@
 /*!
- * © 2020 Atypon Systems LLC
+ * © 2023 Atypon Systems LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,18 +13,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-import React from 'react'
-import styled from 'styled-components'
-
-import { ButtonGroup, IconButton } from '../Button'
-
-export const ZoomButton = styled(IconButton)`
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.12);
-  border-radius: ${(props) => props.theme.grid.unit * 8}px;
-`
-
-export const ZoomButtonGroup = styled(ButtonGroup)`
-  width: ${(props) => props.theme.grid.unit * 22}px;
-  justify-content: space-between;
-`
+export * from './CommentBody'
+export * from './CommentTarget'
+export * from './CommentUser'
+export * from './ResolveButton'
+export * from './CommentWrapper'
