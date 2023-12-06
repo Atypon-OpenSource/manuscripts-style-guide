@@ -21,4 +21,6 @@ export interface IconProps {
   title?: string
   transform?: string
   viewBox?: string
+  width?: number
+  height?: number
 }
