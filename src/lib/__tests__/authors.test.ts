@@ -108,7 +108,6 @@ const manuscripts: Manuscript[] = [
     _id: 'MPManuscript:x',
     objectType: ObjectTypes.Manuscript,
     containerID: 'MPProject:1',
-    title: 'Manuscript X',
     bundle: DEFAULT_BUNDLE,
     createdAt: 0,
     updatedAt: 0,
