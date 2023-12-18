@@ -1,7 +1,7 @@
 {
   "name": "@manuscripts/style-guide",
   "description": "Shared components for Manuscripts applications",
-  "version": "1.4.6-LEAN-3030-1",
+  "version": "1.4.6-LEAN-3030-2",
   "repository": "github:Atypon-OpenSource/manuscripts-style-guide",
   "license": "Apache-2.0",
   "main": "dist/cjs",
@@ -36,7 +36,7 @@
     "@formatjs/intl-relativetimeformat": "^4.5.9",
     "@formatjs/intl-utils": "^2.2.0",
     "@manuscripts/assets": "^0.6.2",
-    "@manuscripts/transform": "1.5.7-LEAN-3030-1",
+    "@manuscripts/transform": "1.5.8-LEAN-3030",
     "@manuscripts/json-schema": "2.2.1",
     "@reach/tabs": "^0.11.2",
     "formik": "^2.2.9",
