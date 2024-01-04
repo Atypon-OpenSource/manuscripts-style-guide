@@ -15,8 +15,7 @@
  */
 
 import { BibliographyItem } from '@manuscripts/json-schema'
-import { useMemo } from '@storybook/addons'
-import React from 'react'
+import React, { useMemo } from 'react'
 import styled from 'styled-components'
 
 import { ReferenceLine } from './ReferenceLine'
