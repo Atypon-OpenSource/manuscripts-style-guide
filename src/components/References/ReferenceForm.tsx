@@ -238,7 +238,7 @@ const AuthorDropDown: React.FC<{
   )
 }
 
-export type FormValues = Pick<
+export type ReferencesFormValues = Pick<
   BibliographyItem,
   | '_id'
   | 'title'
@@ -320,12 +320,12 @@ const ChangeHandlingForm = <Values,>(
 }
 
 export const ReferenceForm: React.FC<{
-  values: FormValues
+  values: ReferencesFormValues
   showDelete: boolean
-  handleChange: (values: FormValues) => void
+  handleChange: (values: ReferencesFormValues) => void
   handleCancel: () => void
   handleDelete: () => void
-  handleSave: (values: FormValues) => void
+  handleSave: (values: ReferencesFormValues) => void
 }> = ({
   values,
   showDelete,
@@ -345,7 +345,7 @@ export const ReferenceForm: React.FC<{
   const [showDeleteDialog, setShowDeleteDialog] = useState(false)
 
   return (
-    <Formik<FormValues>
+    <Formik<ReferencesFormValues>
       initialValues={values}
       onSubmit={handleSave}
       enableReinitialize={true}
@@ -386,7 +386,7 @@ export const ReferenceForm: React.FC<{
                   <DeleteButton
                     defaultColor
                     disabled={!showDelete}
-                    onClick={handleDelete}
+                    onClick={() => setShowDeleteDialog(true)}
                   >
                     <DeleteIcon />
                   </DeleteButton>

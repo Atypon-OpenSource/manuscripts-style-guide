@@ -18,7 +18,7 @@ import { action } from '@storybook/addon-actions'
 import { storiesOf } from '@storybook/react'
 import * as React from 'react'
 
-import { Category, Dialog, DialogState, SimpleModal, TextArea } from '../src'
+import { Category, Dialog, DialogState, TextArea } from '../src'
 import { ProceedView } from '../src/components/EditorHeader/ProceedView'
 import { submission } from './data/lw-submission'
 
@@ -124,11 +124,6 @@ storiesOf('Dialog', module)
         },
       }}
     />
-  ))
-  .add('Simple Modal', () => (
-    <SimpleModal handleClose={action('Close')} closeWithOverlay={false}>
-      Simple Modal contents
-    </SimpleModal>
   ))
   .add('Dialog with extra children', () => (
     <Dialog

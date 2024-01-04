@@ -15,5 +15,5 @@
  */
 export * from './CitationEditor'
 export * from './CitationViewer'
-export * from './ReferencesEditor'
+export * from './ReferencesModal'
 export * from './BibliographyItemSource'

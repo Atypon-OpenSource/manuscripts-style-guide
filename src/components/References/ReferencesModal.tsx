@@ -34,7 +34,7 @@ import {
   ScrollableModalContent,
   StyledModal,
 } from '../StyledModal'
-import { FormValues, ReferenceForm } from './ReferenceForm'
+import { ReferenceForm, ReferencesFormValues } from './ReferenceForm'
 import { ReferenceLine } from './ReferenceLine'
 
 const ReferencesModalContainer = styled(ModalContainer)`
@@ -105,7 +105,7 @@ const CitationCount = styled.div`
   }
 `
 
-export const normalize = (item: BibliographyItem): FormValues => ({
+export const normalize = (item: BibliographyItem): ReferencesFormValues => ({
   _id: item._id,
   title: item.title || '',
   author: item.author || [],
@@ -121,7 +121,7 @@ export const normalize = (item: BibliographyItem): FormValues => ({
 })
 // NOTE: not undefined due to https://github.com/jaredpalmer/formik/issues/2180
 
-export const ReferencesModal: React.FC<{
+export interface ReferencesModalProps {
   isOpen: boolean
   handleCancel: () => void
   items: BibliographyItem[]
@@ -129,7 +129,9 @@ export const ReferencesModal: React.FC<{
   citationCounts: Map<string, number>
   handleSave: (item: BibliographyItem) => void
   handleDelete: (item: BibliographyItem) => void
-}> = ({
+}
+
+export const ReferencesModal: React.FC<ReferencesModalProps> = ({
   isOpen,
   handleCancel,
   items,
@@ -139,7 +141,7 @@ export const ReferencesModal: React.FC<{
   handleDelete,
 }) => {
   const [confirm, setConfirm] = useState(false)
-  const [values, setValues] = useState<FormValues>()
+  const [values, setValues] = useState<ReferencesFormValues>()
 
   const [selection, setSelection] = useState<BibliographyItem>()
   const selectionRef = useRef<HTMLDivElement | null>(null)
@@ -205,7 +207,7 @@ export const ReferencesModal: React.FC<{
   }
 
   const save = useCallback(
-    (values: FormValues) => {
+    (values: ReferencesFormValues) => {
       if (!selection) {
         return
       }
@@ -230,7 +232,7 @@ export const ReferencesModal: React.FC<{
     [values, selection]
   )
 
-  const handleChange = (values: FormValues) => {
+  const handleChange = (values: ReferencesFormValues) => {
     setValues(values)
   }
 
@@ -251,7 +253,7 @@ export const ReferencesModal: React.FC<{
             title: 'Discard',
           },
           primary: {
-            action: () => save(values as FormValues),
+            action: () => save(values as ReferencesFormValues),
             title: 'Save',
           },
         }}
