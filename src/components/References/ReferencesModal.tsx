@@ -34,7 +34,11 @@ import {
   ScrollableModalContent,
   StyledModal,
 } from '../StyledModal'
-import { ReferenceForm, ReferencesFormValues } from './ReferenceForm'
+import {
+  ReferenceForm,
+  ReferenceFormActions,
+  ReferenceFormValues,
+} from './ReferenceForm'
 import { ReferenceLine } from './ReferenceLine'
 
 const ReferencesModalContainer = styled(ModalContainer)`
@@ -105,7 +109,7 @@ const CitationCount = styled.div`
   }
 `
 
-export const normalize = (item: BibliographyItem): ReferencesFormValues => ({
+export const normalize = (item: BibliographyItem): ReferenceFormValues => ({
   _id: item._id,
   title: item.title || '',
   author: item.author || [],
@@ -141,7 +145,7 @@ export const ReferencesModal: React.FC<ReferencesModalProps> = ({
   handleDelete,
 }) => {
   const [confirm, setConfirm] = useState(false)
-  const [values, setValues] = useState<ReferencesFormValues>()
+  const [values, setValues] = useState<ReferenceFormValues>()
 
   const [selection, setSelection] = useState<BibliographyItem>()
   const selectionRef = useRef<HTMLDivElement | null>(null)
@@ -201,13 +205,15 @@ export const ReferencesModal: React.FC<ReferencesModalProps> = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [triggers, items])
 
+  const actionsRef = useRef<ReferenceFormActions>()
+
   const reset = () => {
-    setValues(undefined)
+    actionsRef.current?.reset()
     setConfirm(false)
   }
 
   const save = useCallback(
-    (values: ReferencesFormValues) => {
+    (values: ReferenceFormValues) => {
       if (!selection) {
         return
       }
@@ -216,7 +222,8 @@ export const ReferencesModal: React.FC<ReferencesModalProps> = ({
         ...values,
       }
       handleSave(item)
-      reset()
+      setSelection(item)
+      setConfirm(false)
     },
     [selection, handleSave]
   )
@@ -232,7 +239,7 @@ export const ReferencesModal: React.FC<ReferencesModalProps> = ({
     [values, selection]
   )
 
-  const handleChange = (values: ReferencesFormValues) => {
+  const handleChange = (values: ReferenceFormValues) => {
     setValues(values)
   }
 
@@ -253,7 +260,7 @@ export const ReferencesModal: React.FC<ReferencesModalProps> = ({
             title: 'Discard',
           },
           primary: {
-            action: () => save(values as ReferencesFormValues),
+            action: () => save(values as ReferenceFormValues),
             title: 'Save',
           },
         }}
@@ -310,6 +317,7 @@ export const ReferencesModal: React.FC<ReferencesModalProps> = ({
                 handleCancel={handleCancel}
                 handleDelete={() => handleDelete(selection)}
                 handleSave={save}
+                actionsRef={actionsRef}
               />
             )}
           </ScrollableModalContent>

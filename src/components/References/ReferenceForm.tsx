@@ -28,9 +28,16 @@ import {
   FieldProps,
   Form,
   Formik,
+  FormikProps,
   useFormikContext,
 } from 'formik'
-import React, { PropsWithChildren, useEffect, useRef, useState } from 'react'
+import React, {
+  MutableRefObject,
+  PropsWithChildren,
+  useEffect,
+  useRef,
+  useState,
+} from 'react'
 import ReactTooltip from 'react-tooltip'
 import styled from 'styled-components'
 
@@ -238,7 +245,7 @@ const AuthorDropDown: React.FC<{
   )
 }
 
-export type ReferencesFormValues = Pick<
+export type ReferenceFormValues = Pick<
   BibliographyItem,
   | '_id'
   | 'title'
@@ -319,40 +326,57 @@ const ChangeHandlingForm = <Values,>(
   return <FlexForm>{props.children}</FlexForm>
 }
 
+export interface ReferenceFormActions {
+  reset: () => void
+}
+
 export const ReferenceForm: React.FC<{
-  values: ReferencesFormValues
+  values: ReferenceFormValues
   showDelete: boolean
-  handleChange: (values: ReferencesFormValues) => void
+  handleChange: (values: ReferenceFormValues) => void
   handleCancel: () => void
   handleDelete: () => void
-  handleSave: (values: ReferencesFormValues) => void
+  handleSave: (values: ReferenceFormValues) => void
+  actionsRef?: MutableRefObject<ReferenceFormActions | undefined>
 }> = ({
   values,
   showDelete,
-  handleChange: onChange,
+  handleChange,
   handleDelete,
   handleCancel,
   handleSave,
+  actionsRef,
 }) => {
-  const ref = useRef<HTMLDivElement>(null)
+  const fieldsRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
-    if (ref.current) {
-      ref.current.scrollTop = 0
+    if (fieldsRef.current) {
+      fieldsRef.current.scrollTop = 0
     }
   }, [values])
 
+  const formRef = useRef<FormikProps<ReferenceFormValues>>(null)
+
   const [showDeleteDialog, setShowDeleteDialog] = useState(false)
 
+  if (actionsRef && !actionsRef.current) {
+    actionsRef.current = {
+      reset: () => {
+        formRef.current?.resetForm()
+      },
+    }
+  }
+
   return (
-    <Formik<ReferencesFormValues>
+    <Formik<ReferenceFormValues>
       initialValues={values}
       onSubmit={handleSave}
       enableReinitialize={true}
+      innerRef={formRef}
     >
-      {({ values, setFieldValue, handleChange }) => {
+      {(formik) => {
         return (
-          <ChangeHandlingForm onChange={onChange}>
+          <ChangeHandlingForm onChange={handleChange}>
             <Dialog
               isOpen={showDeleteDialog}
               category={Category.confirmation}
@@ -377,7 +401,7 @@ export const ReferenceForm: React.FC<{
                 <IconButton
                   defaultColor
                   as="a"
-                  href={`https://doi.org/${values.DOI}`}
+                  href={`https://doi.org/${formik.values.DOI}`}
                   target={'_blank'}
                 >
                   <LinkIcon />
@@ -408,7 +432,7 @@ export const ReferenceForm: React.FC<{
               </ButtonGroup>
             </Actions>
 
-            <FormFields ref={ref}>
+            <FormFields ref={fieldsRef}>
               <FormField>
                 <LabelContainer>
                   <Label htmlFor={'citation-item-type'}>Type</Label>
@@ -456,14 +480,14 @@ export const ReferenceForm: React.FC<{
                     </LabelContainer>
 
                     <div>
-                      {values.author &&
-                        values.author.map((author, index) => (
+                      {formik.values.author &&
+                        formik.values.author.map((author, index) => (
                           <AuthorDropDown
                             key={index}
                             index={index}
                             author={author}
                             remove={remove}
-                            handleChange={handleChange}
+                            handleChange={formik.handleChange}
                           />
                         ))}
                     </div>
@@ -484,14 +508,14 @@ export const ReferenceForm: React.FC<{
                     const { value } = event.target
 
                     if (value) {
-                      if (values.issued) {
+                      if (formik.values.issued) {
                         // NOTE: this assumes that "issued" is already a complete object
-                        setFieldValue(
+                        formik.setFieldValue(
                           "issued['date-parts'][0][0]",
                           Number(value)
                         )
                       } else {
-                        setFieldValue(
+                        formik.setFieldValue(
                           'issued',
                           buildBibliographicDate({
                             'date-parts': [[Number(value)]],
@@ -500,7 +524,7 @@ export const ReferenceForm: React.FC<{
                       }
                     } else {
                       // NOTE: not undefined due to https://github.com/jaredpalmer/formik/issues/2180
-                      setFieldValue('issued', '')
+                      formik.setFieldValue('issued', '')
                     }
                   }}
                 />

@@ -56,28 +56,41 @@ class MockExternalCitationSource implements BibliographyItemSource {
 
 storiesOf('References', module)
   .add('References Modal', () => {
+    const [items, setItems] = useState<BibliographyItem[]>(bibliographyItems)
     const [item, setItem] = useState<BibliographyItem>()
     const [isOpen, setOpen] = useState(false)
 
-    const handleSave = (item: BibliographyItem) => {
-      console.log('save: ' + item)
-    }
+    const handleSave = useCallback(
+      (item: BibliographyItem) => {
+        const copy = [...items]
+        const index = items.findIndex((i) => i._id === item._id)
+        copy[index] = item
+        setItems(copy)
+      },
+      [items]
+    )
 
-    const handleDelete = (item: BibliographyItem) => {
-      console.log('delete: ' + item)
-    }
+    const handleDelete = useCallback(
+      (item: BibliographyItem) => {
+        setItems(items.filter((i) => i._id !== item._id))
+      },
+      [items]
+    )
 
-    const open = (index?: number) => {
-      if (index) {
-        setItem(bibliographyItems[index])
-      }
-      setOpen(true)
-    }
+    const open = useCallback(
+      (index?: number) => {
+        if (index) {
+          setItem(items[index])
+        }
+        setOpen(true)
+      },
+      [items]
+    )
 
     const citationCounts = new Map()
-    citationCounts.set(bibliographyItems[0]._id, 5)
-    citationCounts.set(bibliographyItems[10]._id, 2)
-    citationCounts.set(bibliographyItems[20]._id, 7)
+    citationCounts.set(items[0]._id, 5)
+    citationCounts.set(items[10]._id, 2)
+    citationCounts.set(items[20]._id, 7)
 
     return (
       <>
@@ -87,7 +100,7 @@ storiesOf('References', module)
         <ReferencesModal
           isOpen={isOpen}
           handleCancel={() => setOpen(false)}
-          items={bibliographyItems}
+          items={items}
           citationCounts={citationCounts}
           item={item}
           handleSave={handleSave}
