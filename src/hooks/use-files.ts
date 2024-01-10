@@ -14,7 +14,6 @@
  * limitations under the License.
  */
 import { Model, ObjectTypes } from '@manuscripts/json-schema'
-import { getModelsByType } from '@manuscripts/transform'
 
 import {
   ElementFiles,
