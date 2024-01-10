@@ -53,17 +53,12 @@ const AffiliationsEditor: React.FC<Props> = ({
     (value) => {
       if (value) {
         const selectedAffiliation = value as SelectedAffiliation
-
-        addAuthorAffiliation(
-          selectedAffiliation.__isNew__
-            ? selectedAffiliation.value
-            : affiliations.get(selectedAffiliation.value) || ''
-        )
+        addAuthorAffiliation(selectedAffiliation.value)
       }
 
       setSearchText('')
     },
-    [addAuthorAffiliation, affiliations]
+    [addAuthorAffiliation]
   )
 
   const options = affiliationsOptions(affiliations, authorAffiliations)
