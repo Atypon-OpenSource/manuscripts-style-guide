@@ -62,7 +62,12 @@ export const FileUploader: React.FC<{
   const isActive = canDrop && isOver
 
   return (
-    <Container ref={dropRef} active={isActive} onClick={openFileDialog}>
+    <Container
+      ref={dropRef}
+      data-cy="file-uploader"
+      active={isActive}
+      onClick={openFileDialog}
+    >
       <input
         ref={fileInputRef}
         type="file"

@@ -169,7 +169,7 @@ export const ManuscriptNoteList: React.FC<Props> = React.memo(
         </ActionHeader>
 
         {items.length >= 0 && (
-          <NoteListContainer>
+          <NoteListContainer data-cy="notes-list">
             {items.map(([target, noteData]) => {
               const isSelected =
                 (selected &&
