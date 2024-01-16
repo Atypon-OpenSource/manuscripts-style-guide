@@ -64,16 +64,13 @@ export const ReferenceSearchResults: React.FC<{
   items: BibliographyItem[]
   total: number
   isSelected: (item: BibliographyItem) => boolean
-  handleSelect: (item: BibliographyItem) => void
-  handleShowMore: () => void
-}> = ({ items, total, isSelected, handleSelect, handleShowMore }) => {
+  onSelect: (item: BibliographyItem) => void
+  onShowMore: () => void
+}> = ({ items, total, isSelected, onSelect, onShowMore }) => {
   return (
     <ReferenceSearchResultsContainer>
       {items.map((item) => (
-        <ReferenceSearchResult
-          onClick={() => handleSelect(item)}
-          key={item._id}
-        >
+        <ReferenceSearchResult onClick={() => onSelect(item)} key={item._id}>
           <StatusIcon>
             {isSelected(item) ? (
               <AddedIcon data-cy={'plus-icon-ok'} width={24} height={24} />
@@ -85,7 +82,7 @@ export const ReferenceSearchResults: React.FC<{
         </ReferenceSearchResult>
       ))}
       {items.length < 25 && total > items.length ? (
-        <MoreButton onClick={handleShowMore} data-cy={'more-button'}>
+        <MoreButton onClick={onShowMore} data-cy={'more-button'}>
           Show more
         </MoreButton>
       ) : undefined}

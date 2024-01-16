@@ -16,7 +16,7 @@
 import ReferenceLibraryIcon from '@manuscripts/assets/react/ReferenceLibraryIcon'
 import { BibliographyItem } from '@manuscripts/json-schema'
 import { isEqual } from 'lodash'
-import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import ReactTooltip from 'react-tooltip'
 import styled from 'styled-components'
 
@@ -109,6 +109,12 @@ const CitationCount = styled.div`
   }
 `
 
+const selectionTopOffset = 10 // to be able to place the selected item in the middle and allow for some scroll at the top
+const pageSize = 12
+const topTrigger = 0.2 // says: notify when x% of the offsetHeight remains hidden at the top
+const bottomTrigger = 0.8 // says: notify when x% of the offsetHeight remains hidden at the bottom
+const dropLimit = 36 // basically maximum amount of items that can exist at the same time
+
 export const normalize = (item: BibliographyItem): ReferenceFormValues => ({
   _id: item._id,
   title: item.title || '',
@@ -127,37 +133,32 @@ export const normalize = (item: BibliographyItem): ReferenceFormValues => ({
 
 export interface ReferencesModalProps {
   isOpen: boolean
-  handleCancel: () => void
+  onCancel: () => void
   items: BibliographyItem[]
   item?: BibliographyItem
   citationCounts: Map<string, number>
-  handleSave: (item: BibliographyItem) => void
-  handleDelete: (item: BibliographyItem) => void
+  onSave: (item: BibliographyItem) => void
+  onDelete: (item: BibliographyItem) => void
 }
 
 export const ReferencesModal: React.FC<ReferencesModalProps> = ({
   isOpen,
-  handleCancel,
+  onCancel,
   items,
   item,
   citationCounts,
-  handleSave,
-  handleDelete,
+  onSave,
+  onDelete,
 }) => {
   const [confirm, setConfirm] = useState(false)
-  const [values, setValues] = useState<ReferenceFormValues>()
+  const valuesRef = useRef<ReferenceFormValues>()
 
   const [selection, setSelection] = useState<BibliographyItem>()
   const selectionRef = useRef<HTMLDivElement | null>(null)
-  const isSelected = useCallback(
-    (item) => {
-      return item._id === selection?._id
-    },
-    [selection]
-  )
-  const selectionIndex = useMemo(() => {
-    return items.findIndex(isSelected)
-  }, [isSelected, items])
+  const isSelected = (item: BibliographyItem) => {
+    return item._id === selection?._id
+  }
+  const selectionIndex = items.findIndex(isSelected)
 
   useEffect(() => {
     setSelection(item)
@@ -171,12 +172,6 @@ export const ReferencesModal: React.FC<ReferencesModalProps> = ({
       })
     }, 100)
   }, [selectionIndex])
-
-  const selectionTopOffset = 10 // to be able to place the selected item in the middle and allow for some scroll at the top
-  const pageSize = 12
-  const topTrigger = 0.2 // says: notify when x% of the offsetHeight remains hidden at the top
-  const bottomTrigger = 0.8 // says: notify when x% of the offsetHeight remains hidden at the bottom
-  const dropLimit = 36 // basically maximum amount of items that can exist at the same time
 
   const { ref, triggers } = useScrollDetection(topTrigger, bottomTrigger)
 
@@ -212,35 +207,30 @@ export const ReferencesModal: React.FC<ReferencesModalProps> = ({
     setConfirm(false)
   }
 
-  const save = useCallback(
-    (values: ReferenceFormValues) => {
-      if (!selection) {
-        return
-      }
-      const item = {
-        ...selection,
-        ...values,
-      }
-      handleSave(item)
-      setSelection(item)
-      setConfirm(false)
-    },
-    [selection, handleSave]
-  )
+  const save = (values: ReferenceFormValues | undefined) => {
+    if (!values || !selection) {
+      return
+    }
+    const item = {
+      ...selection,
+      ...values,
+    }
+    onSave(item)
+    setSelection(item)
+    setConfirm(false)
+  }
 
-  const handleItemClick = useCallback(
-    (item: BibliographyItem) => {
-      if (values && selection && !isEqual(values, normalize(selection))) {
-        setConfirm(true)
-        return
-      }
-      setSelection(item)
-    },
-    [values, selection]
-  )
+  const handleItemClick = (item: BibliographyItem) => {
+    const values = valuesRef.current
+    if (values && selection && !isEqual(values, normalize(selection))) {
+      setConfirm(true)
+      return
+    }
+    setSelection(item)
+  }
 
   const handleChange = (values: ReferenceFormValues) => {
-    setValues(values)
+    valuesRef.current = values
   }
 
   if (items.length <= 0) {
@@ -248,7 +238,7 @@ export const ReferencesModal: React.FC<ReferencesModalProps> = ({
   }
 
   return (
-    <StyledModal isOpen={isOpen} onRequestClose={handleCancel}>
+    <StyledModal isOpen={isOpen} onRequestClose={onCancel}>
       <Dialog
         isOpen={confirm}
         category={Category.confirmation}
@@ -260,14 +250,14 @@ export const ReferencesModal: React.FC<ReferencesModalProps> = ({
             title: 'Discard',
           },
           primary: {
-            action: () => save(values as ReferenceFormValues),
+            action: () => save(valuesRef.current),
             title: 'Save',
           },
         }}
       />
       <ReferencesModalContainer>
         <ModalHeader>
-          <CloseButton onClick={handleCancel} />
+          <CloseButton onClick={onCancel} />
         </ModalHeader>
         <ModalBody>
           <ReferencesSidebar>
@@ -313,10 +303,10 @@ export const ReferencesModal: React.FC<ReferencesModalProps> = ({
               <ReferenceForm
                 values={normalize(selection)}
                 showDelete={!citationCounts.get(selection._id)}
-                handleChange={handleChange}
-                handleCancel={handleCancel}
-                handleDelete={() => handleDelete(selection)}
-                handleSave={save}
+                onChange={handleChange}
+                onCancel={onCancel}
+                onDelete={() => onDelete(selection)}
+                onSave={save}
                 actionsRef={actionsRef}
               />
             )}

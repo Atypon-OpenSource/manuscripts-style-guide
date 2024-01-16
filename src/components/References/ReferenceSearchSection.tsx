@@ -68,8 +68,8 @@ export const ReferenceSearchSection: React.FC<{
   query: string
   source: BibliographyItemSource
   isSelected: (item: BibliographyItem) => boolean
-  handleSelect: (item: BibliographyItem) => void
-}> = ({ query, source, isSelected, handleSelect }) => {
+  onSelect: (item: BibliographyItem) => void
+}> = ({ query, source, isSelected, onSelect }) => {
   const [expanded, setExpanded] = useState(true)
   const [state, setState] = useState<State>()
   const [limit, setLimit] = useState(3)
@@ -121,8 +121,8 @@ export const ReferenceSearchSection: React.FC<{
           items={state.items}
           total={state.total}
           isSelected={isSelected}
-          handleSelect={handleSelect}
-          handleShowMore={handleShowMore}
+          onSelect={onSelect}
+          onShowMore={handleShowMore}
         />
       )}
     </>

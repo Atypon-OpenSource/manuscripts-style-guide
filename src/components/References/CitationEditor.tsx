@@ -88,30 +88,32 @@ const Actions = styled.div`
 `
 
 export interface CitationEditorProps {
+  query?: string
   rids: string[]
   items: BibliographyItem[]
   citationCounts: Map<string, number>
   sources: BibliographyItemSource[]
-  handleCite: (items: BibliographyItem[]) => void
-  handleUncite: (id: string) => void
-  handleSave: (item: BibliographyItem) => void
-  handleDelete: (item: BibliographyItem) => void
-  handleComment: () => void
-  handleCancel: () => void
+  onCite: (items: BibliographyItem[]) => void
+  onUncite: (id: string) => void
+  onSave: (item: BibliographyItem) => void
+  onDelete: (item: BibliographyItem) => void
+  onComment: () => void
+  onCancel: () => void
   canEdit: boolean
 }
 
 export const CitationEditor: React.FC<CitationEditorProps> = ({
+  query,
   rids,
   items,
   citationCounts,
   sources,
-  handleCite,
-  handleUncite,
-  handleSave,
-  handleDelete,
-  handleComment,
-  handleCancel,
+  onCite,
+  onUncite,
+  onSave,
+  onDelete,
+  onComment,
+  onCancel,
   canEdit,
 }) => {
   const [deleteDialog, setDeleteDialog] = useState<{
@@ -131,8 +133,8 @@ export const CitationEditor: React.FC<CitationEditorProps> = ({
   const handleAdd = () => {
     setSearching(false)
     const item = buildBibliographyItem({}) as BibliographyItem
-    handleSave(item)
-    handleCite([item])
+    onSave(item)
+    onCite([item])
     setEditingForm({ show: true, item: item })
   }
 
@@ -145,23 +147,24 @@ export const CitationEditor: React.FC<CitationEditorProps> = ({
       <ReferenceSearch
         sources={sources}
         items={items}
-        handleAdd={handleAdd}
-        handleCite={(items) => {
+        onAdd={handleAdd}
+        onCite={(items) => {
           setSearching(false)
-          handleCite(items)
+          onCite(items)
         }}
-        handleCancel={() => setSearching(false)}
+        onCancel={() => setSearching(false)}
       />
     )
   }
   if (!rids.length) {
     return (
       <ReferenceSearch
+        query={query}
         sources={sources}
         items={items}
-        handleAdd={handleAdd}
-        handleCite={handleCite}
-        handleCancel={handleCancel}
+        onAdd={handleAdd}
+        onCite={onCite}
+        onCancel={onCancel}
       />
     )
   }
@@ -177,7 +180,7 @@ export const CitationEditor: React.FC<CitationEditorProps> = ({
           secondary: {
             action: () => {
               if (deleteDialog.id) {
-                handleUncite(deleteDialog.id)
+                onUncite(deleteDialog.id)
                 setDeleteDialog({ show: false })
               }
             },
@@ -213,21 +216,21 @@ export const CitationEditor: React.FC<CitationEditorProps> = ({
       </CitedItems>
       <ReferencesModal
         isOpen={editingForm.show}
-        handleCancel={() => setEditingForm({ show: false })}
+        onCancel={() => setEditingForm({ show: false })}
         items={items}
         citationCounts={citationCounts}
         item={editingForm.item}
-        handleSave={handleSave}
-        handleDelete={handleDelete}
+        onSave={onSave}
+        onDelete={onDelete}
       />
       <Actions>
-        <IconTextButton onClick={handleComment}>
+        <IconTextButton onClick={onComment}>
           <AddComment />
           <AddCommentButtonText>Add Comment</AddCommentButtonText>
         </IconTextButton>
 
         <ButtonGroup>
-          <SecondaryButton onClick={handleCancel}>Done</SecondaryButton>
+          <SecondaryButton onClick={onCancel}>Done</SecondaryButton>
           <PrimaryButton disabled={!canEdit} onClick={() => setSearching(true)}>
             Add Citation
           </PrimaryButton>

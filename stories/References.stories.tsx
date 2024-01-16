@@ -15,7 +15,7 @@
  */
 import { BibliographyItem } from '@manuscripts/json-schema'
 import { storiesOf } from '@storybook/react'
-import React, { useCallback, useState } from 'react'
+import React, { useState } from 'react'
 
 import { BibliographyItemSource } from '../src/components/References/BibliographyItemSource'
 import { CitationEditor } from '../src/components/References/CitationEditor'
@@ -60,32 +60,23 @@ storiesOf('References', module)
     const [item, setItem] = useState<BibliographyItem>()
     const [isOpen, setOpen] = useState(false)
 
-    const handleSave = useCallback(
-      (item: BibliographyItem) => {
-        const copy = [...items]
-        const index = items.findIndex((i) => i._id === item._id)
-        copy[index] = item
-        setItems(copy)
-      },
-      [items]
-    )
+    const handleSave = (item: BibliographyItem) => {
+      const copy = [...items]
+      const index = items.findIndex((i) => i._id === item._id)
+      copy[index] = item
+      setItems(copy)
+    }
 
-    const handleDelete = useCallback(
-      (item: BibliographyItem) => {
-        setItems(items.filter((i) => i._id !== item._id))
-      },
-      [items]
-    )
+    const handleDelete = (item: BibliographyItem) => {
+      setItems(items.filter((i) => i._id !== item._id))
+    }
 
-    const open = useCallback(
-      (index?: number) => {
-        if (index) {
-          setItem(items[index])
-        }
-        setOpen(true)
-      },
-      [items]
-    )
+    const open = (index?: number) => {
+      if (index) {
+        setItem(items[index])
+      }
+      setOpen(true)
+    }
 
     const citationCounts = new Map()
     citationCounts.set(items[0]._id, 5)
@@ -99,12 +90,12 @@ storiesOf('References', module)
         <button onClick={() => open(20)}>Edit item 20</button>
         <ReferencesModal
           isOpen={isOpen}
-          handleCancel={() => setOpen(false)}
+          onCancel={() => setOpen(false)}
           items={items}
           citationCounts={citationCounts}
           item={item}
-          handleSave={handleSave}
-          handleDelete={handleDelete}
+          onSave={handleSave}
+          onDelete={handleDelete}
         />
       </>
     )
@@ -119,6 +110,7 @@ storiesOf('References', module)
       items[20]._id,
     ])
     const [rids2, setRids2] = useState<string[]>([])
+    const [query, setQuery] = useState<string>()
 
     const sources = [
       new MockExternalCitationSource('external', 'External Sources', [
@@ -149,28 +141,22 @@ storiesOf('References', module)
       setItems(items.filter((i) => i._id !== item._id))
     }
 
-    const handleCite = useCallback(
-      (items: BibliographyItem[]) => {
-        const rids = items.map((i) => i._id)
-        if (active === 'cited1') {
-          setRids1([...rids1, ...rids])
-        } else if (active == 'cited2') {
-          setRids2([...rids2, ...rids])
-        }
-      },
-      [active, rids1, rids2]
-    )
+    const handleCite = (items: BibliographyItem[]) => {
+      const rids = items.map((i) => i._id)
+      if (active === 'cited1') {
+        setRids1([...rids1, ...rids])
+      } else if (active == 'cited2') {
+        setRids2([...rids2, ...rids])
+      }
+    }
 
-    const handleUncite = useCallback(
-      (id: string) => {
-        if (active === 'cited1') {
-          setRids1(rids1.filter((i) => i !== id))
-        } else if (active == 'cited2') {
-          setRids2(rids2.filter((i) => i !== id))
-        }
-      },
-      [active, rids1, rids2]
-    )
+    const handleUncite = (id: string) => {
+      if (active === 'cited1') {
+        setRids1(rids1.filter((i) => i !== id))
+      } else if (active == 'cited2') {
+        setRids2(rids2.filter((i) => i !== id))
+      }
+    }
 
     const handleComment = () => {
       console.log('comment')
@@ -189,19 +175,35 @@ storiesOf('References', module)
     return (
       <>
         <button onClick={() => open('cited1')}>Open with citations</button>
-        <button onClick={() => open('cited2')}>Open empty</button>
+        <button
+          onClick={() => {
+            setQuery(undefined)
+            open('cited2')
+          }}
+        >
+          Open empty
+        </button>
+        <button
+          onClick={() => {
+            setQuery('test')
+            open('cited2')
+          }}
+        >
+          Open with search
+        </button>
         {isOpen && (
           <CitationEditor
+            query={query}
             rids={active === 'cited1' ? rids1 : rids2}
             items={items}
             citationCounts={citationCounts}
-            handleCite={handleCite}
-            handleUncite={handleUncite}
+            onCite={handleCite}
+            onUncite={handleUncite}
             sources={sources}
-            handleSave={handleSave}
-            handleDelete={handleDelete}
-            handleComment={handleComment}
-            handleCancel={handleCancel}
+            onSave={handleSave}
+            onDelete={handleDelete}
+            onComment={handleComment}
+            onCancel={handleCancel}
             canEdit={true}
           />
         )}

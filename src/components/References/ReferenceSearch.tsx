@@ -16,7 +16,7 @@
 
 import { BibliographyItem } from '@manuscripts/json-schema'
 import { debounce } from 'lodash-es'
-import React, { useMemo, useState } from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
 
 import {
@@ -71,17 +71,10 @@ export const ReferenceSearch: React.FC<{
   query?: string
   sources: BibliographyItemSource[]
   items: BibliographyItem[]
-  handleAdd: () => void
-  handleCite: (items: BibliographyItem[]) => void
-  handleCancel: () => void
-}> = ({
-  query: initialQuery,
-  sources,
-  items,
-  handleAdd,
-  handleCite,
-  handleCancel,
-}) => {
+  onAdd: () => void
+  onCite: (items: BibliographyItem[]) => void
+  onCancel: () => void
+}> = ({ query: initialQuery, sources, items, onAdd, onCite, onCancel }) => {
   const [query, setQuery] = useState<string>(initialQuery || '')
   const [selections, setSelections] = useState(
     new Map<string, BibliographyItem>()
@@ -102,11 +95,11 @@ export const ReferenceSearch: React.FC<{
     return selections.has(item._id)
   }
 
-  const document = useMemo(() => new DocumentReferenceSource(items), [items])
+  const document = new DocumentReferenceSource(items)
 
-  const onClick = () => {
+  const handleClick = () => {
     const items = Array.from(selections.values())
-    return handleCite(items)
+    return onCite(items)
   }
 
   const debouncedSetQuery = debounce((e) => {
@@ -122,7 +115,7 @@ export const ReferenceSearch: React.FC<{
           query={query}
           source={document}
           isSelected={isSelected}
-          handleSelect={toggleSelection}
+          onSelect={toggleSelection}
         />
         {query.length
           ? sources.map((source) => (
@@ -131,21 +124,21 @@ export const ReferenceSearch: React.FC<{
                 query={query}
                 source={source}
                 isSelected={isSelected}
-                handleSelect={toggleSelection}
+                onSelect={toggleSelection}
               />
             ))
           : ''}
       </ReferenceSearchSectionContainer>
       <Actions>
         <AddReferenceActions>
-          <IconTextButton onClick={handleAdd}>
+          <IconTextButton onClick={onAdd}>
             <TemplateIcon />
             Add new
           </IconTextButton>
         </AddReferenceActions>
         <ButtonGroup>
-          <SecondaryButton onClick={handleCancel}>Close</SecondaryButton>
-          <PrimaryButton onClick={onClick} disabled={selections.size === 0}>
+          <SecondaryButton onClick={onCancel}>Close</SecondaryButton>
+          <PrimaryButton onClick={handleClick} disabled={selections.size === 0}>
             Cite
           </PrimaryButton>
         </ButtonGroup>

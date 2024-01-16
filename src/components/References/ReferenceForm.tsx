@@ -175,8 +175,8 @@ const AuthorDropDown: React.FC<{
   author: BibliographicName
   index: number
   remove: (index: number) => void
-  handleChange: (e: React.ChangeEvent) => void
-}> = ({ author, index, remove, handleChange }) => {
+  onChange: (e: React.ChangeEvent) => void
+}> = ({ author, index, remove, onChange }) => {
   const [isOpen, setIsOpen] = useState(!!author['isNew'])
   const fullName = [author.given, author.family].join(' ').trim()
   const title = fullName.length > 0 ? fullName : 'Edit author name'
@@ -207,7 +207,7 @@ const AuthorDropDown: React.FC<{
           <Field
             name={`author.${index}.given`}
             value={author.given}
-            onChange={handleChange}
+            onChange={onChange}
           >
             {({ field }: FieldProps) => (
               <NameFieldContainer>
@@ -225,7 +225,7 @@ const AuthorDropDown: React.FC<{
           <Field
             name={`author.${index}.family`}
             value={author.family}
-            onChange={handleChange}
+            onChange={onChange}
           >
             {({ field }: FieldProps) => (
               <NameFieldContainer>
@@ -333,18 +333,18 @@ export interface ReferenceFormActions {
 export const ReferenceForm: React.FC<{
   values: ReferenceFormValues
   showDelete: boolean
-  handleChange: (values: ReferenceFormValues) => void
-  handleCancel: () => void
-  handleDelete: () => void
-  handleSave: (values: ReferenceFormValues) => void
+  onChange: (values: ReferenceFormValues) => void
+  onCancel: () => void
+  onDelete: () => void
+  onSave: (values: ReferenceFormValues) => void
   actionsRef?: MutableRefObject<ReferenceFormActions | undefined>
 }> = ({
   values,
   showDelete,
-  handleChange,
-  handleDelete,
-  handleCancel,
-  handleSave,
+  onChange,
+  onDelete,
+  onCancel,
+  onSave,
   actionsRef,
 }) => {
   const fieldsRef = useRef<HTMLDivElement>(null)
@@ -370,13 +370,13 @@ export const ReferenceForm: React.FC<{
   return (
     <Formik<ReferenceFormValues>
       initialValues={values}
-      onSubmit={handleSave}
+      onSubmit={onSave}
       enableReinitialize={true}
       innerRef={formRef}
     >
       {(formik) => {
         return (
-          <ChangeHandlingForm onChange={handleChange}>
+          <ChangeHandlingForm onChange={onChange}>
             <Dialog
               isOpen={showDeleteDialog}
               category={Category.confirmation}
@@ -385,7 +385,7 @@ export const ReferenceForm: React.FC<{
               actions={{
                 secondary: {
                   action: () => {
-                    handleDelete()
+                    onDelete()
                     setShowDeleteDialog(false)
                   },
                   title: 'Delete',
@@ -427,7 +427,7 @@ export const ReferenceForm: React.FC<{
                 </div>
               </ButtonGroup>
               <ButtonGroup>
-                <SecondaryButton onClick={handleCancel}>Cancel</SecondaryButton>
+                <SecondaryButton onClick={onCancel}>Cancel</SecondaryButton>
                 <PrimaryButton type="submit">Save</PrimaryButton>
               </ButtonGroup>
             </Actions>
@@ -487,7 +487,7 @@ export const ReferenceForm: React.FC<{
                             index={index}
                             author={author}
                             remove={remove}
-                            handleChange={formik.handleChange}
+                            onChange={formik.handleChange}
                           />
                         ))}
                     </div>
