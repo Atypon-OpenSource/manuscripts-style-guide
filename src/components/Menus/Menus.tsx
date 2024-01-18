@@ -21,8 +21,6 @@ import styled from 'styled-components'
 import { Menu } from '../../lib/menus'
 import { Submenu, SubmenusContainer, Text } from './Submenu'
 
-Modal.setAppElement('#root')
-
 const MenusContainer = styled.div`
   display: flex;
   font-size: 14px;
