@@ -39,6 +39,7 @@ export type MenuSeparator = {
   role: 'separator'
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const isMenuSeparator = (menu: any): menu is MenuSeparator => {
   return menu?.role === 'separator'
 }
