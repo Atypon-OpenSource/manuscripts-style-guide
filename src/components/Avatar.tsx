@@ -25,7 +25,7 @@ interface AvatarProps {
 }
 
 const AvatarContainer = styled.div`
-  display: inline-flex;
+  display: flex;
   align-items: center;
   justify-content: center;
   position: relative;

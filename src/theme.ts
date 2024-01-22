@@ -80,9 +80,11 @@ interface Variations {
 interface Background {
   dark: string
   selected: string
+  tracked: States
 }
 interface Border {
   field: States
+  tracked: States
 }
 interface Brand {
   dark: string

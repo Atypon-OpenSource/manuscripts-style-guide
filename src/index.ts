@@ -55,8 +55,10 @@ export * from './components/Text'
 export * from './components/ManuscriptNoteList'
 export * from './components/Comments'
 export * from './components/RelativeDate'
+export * from './components/Menus'
 export * from './hooks/use-dropdown'
 export * from './hooks/use-files'
+export * from './hooks/use-menus'
 export {
   useDeepCompareMemo,
   useDeepCompareCallback,
@@ -65,5 +67,6 @@ export * from './lib/authors'
 export * from './lib/capabilities'
 export * from './lib/files'
 export * from './lib/comments'
+export * from './lib/menus'
 export { default as errorsDecoder } from './lib/errors-decoder'
 export * from './types'
