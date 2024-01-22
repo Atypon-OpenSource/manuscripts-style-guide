@@ -111,6 +111,7 @@ export const FileActions: React.FC<{
       )}
       {showMove && (
         <MoveFileConfirmationDialog
+          data-cy="file-move-confirm-dialog"
           isOpen={isMoveDialogOpen}
           close={() => setMoveDialogOpen(false)}
           source={sectionType}

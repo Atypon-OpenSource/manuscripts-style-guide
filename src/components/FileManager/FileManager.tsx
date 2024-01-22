@@ -106,7 +106,11 @@ export const FileManager: React.FC<{
           title={'Files'}
           contentStyles={{ margin: '24px 16px' }}
         >
-          <InspectorTabs defaultIndex={0} style={{ overflow: 'visible' }}>
+          <InspectorTabs
+            defaultIndex={0}
+            data-cy="files-tabs"
+            style={{ overflow: 'visible' }}
+          >
             <InspectorTabList>
               <InspectorTab data-for="inline" data-tip={true}>
                 Inline files
@@ -150,15 +154,19 @@ export const FileManager: React.FC<{
             >
               <InspectorTabPanel>
                 <InlineFilesSection
+                  data-cy="inline-files"
                   elements={inlineFiles}
                   isEditor={enableDragAndDrop}
                 />
               </InspectorTabPanel>
               <InspectorTabPanel>
-                <SupplementsSection supplements={supplements} />
+                <SupplementsSection
+                  data-cy="supplements-files"
+                  supplements={supplements}
+                />
               </InspectorTabPanel>
               <InspectorTabPanel>
-                <OtherFilesSection files={otherFiles} />
+                <OtherFilesSection data-cy="other-files" files={otherFiles} />
               </InspectorTabPanel>
             </InspectorTabPanels>
           </InspectorTabs>
