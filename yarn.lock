@@ -1649,20 +1649,33 @@
     eslint-config-prettier "^8.5.0"
     prettier "^2.8.1"
 
-"@manuscripts/json-schema@2.2.1":
-  version "2.2.1"
-  resolved "https://registry.yarnpkg.com/@manuscripts/json-schema/-/json-schema-2.2.1.tgz#cd0618ff8bc40e40bdd3640eb76765c6b57f6d43"
-  integrity sha512-Oo5AXJQbNEvSq4Bu6zNwuhIS77tV0J8ryIDUPLlo5Zpiui8g2ctg2nWkNVPsgSUmoUG8t7Hj6o7G+pwMnDWB7A==
+"@manuscripts/json-schema@^2.2.2":
+  version "2.2.2"
+  resolved "https://registry.yarnpkg.com/@manuscripts/json-schema/-/json-schema-2.2.2.tgz#cad24ce72a58e84d7023f3d1ec65a7f0fbc21bd4"
+  integrity sha512-Vs2U+duO/8f5wk7GmWtHgEnbselFiue1hgJKZRGbw6tF6dLR75Ui2YmRcA5asnQPfin47ekuen9M9GV2JfNkDw==
   dependencies:
     ajv "^8.12.0"
     deepmerge "^4.3.1"
+    uuid "^9.0.0"
 
-"@manuscripts/transform@2.0.0":
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/@manuscripts/transform/-/transform-2.0.0.tgz#0363436b5284f1e4ff1a688e27e0d82592818fa5"
-  integrity sha512-A2kpcaYg+niH0Sgl/QeBlTICHyhVQ2i+T2HkHjS3ONOJl8odL4QvWVVsrEYrSt8phQZTC2SKa1ZNUAYaSCsxlQ==
+"@manuscripts/library@1.3.2":
+  version "1.3.2"
+  resolved "https://registry.yarnpkg.com/@manuscripts/library/-/library-1.3.2.tgz#ce7984a5073a96b1b48485fccbd3656acc230d47"
+  integrity sha512-V02zF+t9Y3O9D3druRNYr1AwMAEwE/4/+udbx6rU4PxWmHwscyVBk3FtVpfZtDTV+UaUrzXCu6wrMaP98yFvkQ==
   dependencies:
-    "@manuscripts/json-schema" "2.2.1"
+    "@manuscripts/json-schema" "^2.2.2"
+    astrocite-bibtex "^0.16.4"
+    astrocite-ris "^0.16.4"
+    citeproc "^2.4.62"
+    fontoxpath "^3.28.2"
+
+"@manuscripts/transform@2.0.4":
+  version "2.0.4"
+  resolved "https://registry.yarnpkg.com/@manuscripts/transform/-/transform-2.0.4.tgz#340777265162dd1ff810133bcedb3b2a24995f16"
+  integrity sha512-Gx5MQ2HWw6/e88rJ7Id3e3kyaoWMx60crLntf/gJ/eZ9i93Es9UfPaZpXX4WqSAc2x3z7dMJ9JWwTfQSFXsRvg==
+  dependencies:
+    "@manuscripts/json-schema" "^2.2.2"
+    "@manuscripts/library" "1.3.2"
     debug "^4.3.4"
     jszip "^3.10.1"
     mathjax-full "^3.2.2"
@@ -3546,6 +3559,29 @@ ast-types@^0.14.2:
   dependencies:
     tslib "^2.0.1"
 
+astrocite-bibtex@^0.16.4:
+  version "0.16.4"
+  resolved "https://registry.yarnpkg.com/astrocite-bibtex/-/astrocite-bibtex-0.16.4.tgz#e90ba7012cbd41befd633c783691a55e5710e78c"
+  integrity sha512-5u6uNPDzqxYoJL4x2ekGeZbcBPCIHUt3JBKX0nurpOfHzJjP8SMuVO6u/fcUaG92XPoa/oKhUAFHvtwFab49iQ==
+  dependencies:
+    astrocite-core "^0.16.0"
+    csl-json "^0.1.0"
+
+astrocite-core@^0.16.0:
+  version "0.16.0"
+  resolved "https://registry.yarnpkg.com/astrocite-core/-/astrocite-core-0.16.0.tgz#63b1616200e62b1005d5c4e7c5e8472c8b7dd364"
+  integrity sha512-+NOD5Wqtcf89htPyI0iOeaPaTjncbHgBQaF3Yp6Y0l8ynJJzrweZuHVRlX8vBeaxzy+yptI91+w+Lt+ir20pnw==
+  dependencies:
+    csl-json "^0.1.0"
+
+astrocite-ris@^0.16.4:
+  version "0.16.4"
+  resolved "https://registry.yarnpkg.com/astrocite-ris/-/astrocite-ris-0.16.4.tgz#163094b402ef4bc7c63fd3c7f9fb91694996cde8"
+  integrity sha512-O6TjeuJGugxhn07JQSmTl3zTXS67crQr99pXbq+0XYRS+8Z+kYMVJNe6Eam2VZKFl4t6E3jm+0rZN2aUmsSAGA==
+  dependencies:
+    astrocite-core "^0.16.0"
+    csl-json "^0.1.0"
+
 async-each@^1.0.1:
   version "1.0.3"
   resolved "https://registry.npmjs.org/async-each/-/async-each-1.0.3.tgz"
@@ -4300,6 +4336,11 @@ cipher-base@^1.0.0, cipher-base@^1.0.1, cipher-base@^1.0.3:
     inherits "^2.0.1"
     safe-buffer "^5.0.1"
 
+citeproc@^2.4.62:
+  version "2.4.63"
+  resolved "https://registry.yarnpkg.com/citeproc/-/citeproc-2.4.63.tgz#de6d30646e264f96b39cedb526f231abe1a5a718"
+  integrity sha512-68F95Bp4UbgZU/DBUGQn0qV3HDZLCdI9+Bb2ByrTaNJDL5VEm9LqaiNaxljsvoaExSLEXe1/r6n2Z06SCzW3/Q==
+
 cjs-module-lexer@^1.0.0:
   version "1.2.2"
   resolved "https://registry.npmjs.org/cjs-module-lexer/-/cjs-module-lexer-1.2.2.tgz"
@@ -4702,6 +4743,11 @@ crypto-browserify@^3.11.0:
     public-encrypt "^4.0.0"
     randombytes "^2.0.0"
     randomfill "^1.0.3"
+
+csl-json@^0.1.0:
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/csl-json/-/csl-json-0.1.0.tgz#5c625e03171c9232dc3839876c38bf5eef3b4187"
+  integrity sha512-KMvcQ07H0kMpzl2aO1mgyp+F+LVk+z+QMpN01noMUv0Uu4mqg4KyJjeM2u2716qU9ZgPq1Kr30DXqhT4RuEg1w==
 
 css-color-keywords@^1.0.0:
   version "1.0.0"
@@ -6049,6 +6095,14 @@ flush-write-stream@^1.0.0:
     inherits "^2.0.3"
     readable-stream "^2.3.6"
 
+fontoxpath@^3.28.2:
+  version "3.30.2"
+  resolved "https://registry.yarnpkg.com/fontoxpath/-/fontoxpath-3.30.2.tgz#e23503b1312aa50d37fb845981d3c27de7c5252f"
+  integrity sha512-LG1GhiVnlH8JoIf2vD6UaRQf17102w9q3oiw95vkLWVjJ0I8BvvzCJJQB4qnw/pkRICZblWFys1LYc9xdsN4VA==
+  dependencies:
+    prsc "4.0.0"
+    xspattern "^3.1.0"
+
 for-in@^1.0.2:
   version "1.0.2"
   resolved "https://registry.npmjs.org/for-in/-/for-in-1.0.2.tgz"
@@ -6228,6 +6282,11 @@ functions-have-names@^1.2.2:
   version "1.2.3"
   resolved "https://registry.npmjs.org/functions-have-names/-/functions-have-names-1.2.3.tgz"
   integrity sha512-xckBUXyTIqT97tq2x2AMb+g163b5JFysYk0x4qxNFwbfQkmNZoiRHb6sPzI9/QV33WeuvVYBUIiD4NzNIyqaRQ==
+
+fuzzysort@^2.0.4:
+  version "2.0.4"
+  resolved "https://registry.yarnpkg.com/fuzzysort/-/fuzzysort-2.0.4.tgz#a21d1ce8947eaf2797dc3b7c28c36db9d1165f84"
+  integrity sha512-Api1mJL+Ad7W7vnDZnWq5pGaXJjyencT+iKGia2PlHUcSsSzWwIQ3S1isiMpwpavjYtGd2FzhUIhnnhOULZgDw==
 
 gauge@^3.0.0:
   version "3.0.2"
@@ -10019,6 +10078,11 @@ prr@~1.0.1:
   resolved "https://registry.npmjs.org/prr/-/prr-1.0.1.tgz"
   integrity sha512-yPw4Sng1gWghHQWj0B3ZggWUm4qVbPwPFcRG8KyxiU7J2OHFSoEHKS+EZ3fv5l1t9CyCiop6l/ZYeWbrgoQejw==
 
+prsc@4.0.0:
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/prsc/-/prsc-4.0.0.tgz#22a300478749924c92c25e04c514f8a2b93ae719"
+  integrity sha512-OmXQ2v76RlXNx/gqv7+oB6jyKnudJ/rsMfAIVexhbDFxXAJPoWKMxJkZU2ohlu4miCiSQCG+horf2DV4/kNc1Q==
+
 psl@^1.1.33:
   version "1.9.0"
   resolved "https://registry.npmjs.org/psl/-/psl-1.9.0.tgz"
@@ -12510,6 +12574,11 @@ which@^2.0.1:
   dependencies:
     isexe "^2.0.0"
 
+whynot@^5.0.0:
+  version "5.0.0"
+  resolved "https://registry.yarnpkg.com/whynot/-/whynot-5.0.0.tgz#d4b39a8e18d0c371d7bfb42dd8321a3432c74c7a"
+  integrity sha512-cGGfDPYYqoHoMWqXVc3G+N74u1FhFhrBa+pOO906b9ktRc/JFUdwroTkfPqjKzyoCLVcKr6yy6bYIcWT7jTg2A==
+
 wicked-good-xpath@1.3.0:
   version "1.3.0"
   resolved "https://registry.npmjs.org/wicked-good-xpath/-/wicked-good-xpath-1.3.0.tgz"
@@ -12601,6 +12670,13 @@ xmldom-sre@0.1.31:
   version "0.1.31"
   resolved "https://registry.npmjs.org/xmldom-sre/-/xmldom-sre-0.1.31.tgz"
   integrity sha512-f9s+fUkX04BxQf+7mMWAp5zk61pciie+fFLC9hX9UVvCeJQfNHRHXpeo5MPcR0EUf57PYLdt+ZO4f3Ipk2oZUw==
+
+xspattern@^3.1.0:
+  version "3.1.0"
+  resolved "https://registry.yarnpkg.com/xspattern/-/xspattern-3.1.0.tgz#a29b3752b846a02a64c5cf92475632caaf003680"
+  integrity sha512-rxtOX8ORJizRqswIdZ72G3thKrHd0Q+TvyUCMByc5VdjDz1nkuZKfPXM3xGdrGi0fwEy+DDJN7DqtAZ06Re4bA==
+  dependencies:
+    whynot "^5.0.0"
 
 xtend@^4.0.0, xtend@^4.0.1, xtend@~4.0.1:
   version "4.0.2"

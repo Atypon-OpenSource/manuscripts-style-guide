@@ -84,7 +84,7 @@ export const InlineFilesSection: React.FC<{
             {getFileTypeIcon(element.type)}
             <ElementLabel>{element.label}</ElementLabel>
           </ElementLabelContainer>
-          <ElementFilesContainer>
+          <ElementFilesContainer data-cy="file-elements-container">
             {element.files?.map((file) => (
               <ElementFile
                 key={file.modelId}
@@ -112,6 +112,7 @@ const ElementFile: React.FC<{
       <FileName file={file} />
       <FileCreatedDate file={file} className="show-on-hover" />
       <FileActions
+        data-cy="file-actions"
         sectionType={FileSectionType.Inline}
         handleDownload={file.id ? handleDownload : undefined}
         handleDetach={file.id ? handleDetach : undefined}

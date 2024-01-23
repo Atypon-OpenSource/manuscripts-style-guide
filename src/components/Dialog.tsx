@@ -28,7 +28,7 @@ const Icon = styled.div`
   display: inline-flex;
   align-items: center;
 `
-export const ModalBody = styled.div`
+export const DialogModalBody = styled.div`
   border-radius: ${(props) => props.theme.grid.radius.default};
   box-shadow: ${(props) => props.theme.shadow.dropShadow};
   background: ${(props) => props.theme.colors.background.primary};
@@ -180,7 +180,7 @@ export class Dialog extends React.Component<DialogProps, DialogState> {
         shouldCloseOnOverlayClick={true}
         className={className}
       >
-        <ModalBody>
+        <DialogModalBody>
           <HeaderContainer>
             {category === Category.error && (
               <Icon>
@@ -204,7 +204,7 @@ export class Dialog extends React.Component<DialogProps, DialogState> {
             {children}
           </MessageContainer>
           {this.renderButtons(this.props, primaryActionDisabled)}
-        </ModalBody>
+        </DialogModalBody>
       </StyledModal>
     )
   }
