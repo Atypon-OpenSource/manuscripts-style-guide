@@ -137,7 +137,9 @@ export const CommentBody: React.FC<
                 scrollIntoHighlight && scrollIntoHighlight(comment)
               }
             >
-              <StyledCommentViewer>{comment.contents}</StyledCommentViewer>
+              <StyledCommentViewer data-cy="note-text">
+                {comment.contents}
+              </StyledCommentViewer>
             </CommentContent>
 
             {!isReply && (
