@@ -81,6 +81,7 @@ export const FileActions: React.FC<{
       </ActionsIcon>
       {isOpen && (
         <FileActionDropdownList
+          data-cy="file-actions-dropdown"
           direction="right"
           className={className}
           width={192}

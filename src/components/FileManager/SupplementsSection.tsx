@@ -129,6 +129,7 @@ const SupplementFile: React.FC<{
 
   return (
     <FileContainer
+      data-cy="file-container"
       key={file.id}
       ref={drag}
       className={isDragging ? 'dragging' : ''}

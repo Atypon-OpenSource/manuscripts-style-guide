@@ -110,7 +110,7 @@ export const CommentWrapper: React.FC<
   )
 
   return (
-    <Note ref={threadRef} isSelected={isSelected}>
+    <Note data-cy="note" ref={threadRef} isSelected={isSelected}>
       <NoteHeader>
         <NoteTitle
           type="button"
