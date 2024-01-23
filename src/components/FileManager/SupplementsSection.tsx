@@ -137,6 +137,7 @@ const SupplementFile: React.FC<{
       <FileName file={file} />
       <FileCreatedDate file={file} className="show-on-hover" />
       <FileActions
+        data-cy="file-actions"
         sectionType={FileSectionType.Supplements}
         handleDownload={file.id ? handleDownload : undefined}
         handleReplace={handleReplace}
