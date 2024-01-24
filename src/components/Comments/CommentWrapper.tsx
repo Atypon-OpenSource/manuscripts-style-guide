@@ -110,8 +110,8 @@ export const CommentWrapper: React.FC<
   )
 
   return (
-    <Note ref={threadRef} isSelected={isSelected}>
-      <NoteHeader>
+    <Note data-cy="note" ref={threadRef} isSelected={isSelected}>
+      <NoteHeader data-cy="note-header">
         <NoteTitle
           type="button"
           onMouseDown={onTitleMouseDown}

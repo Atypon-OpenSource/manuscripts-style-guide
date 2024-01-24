@@ -26,7 +26,7 @@ export const FileName: React.FC<{
   return (
     <>
       <FileTypeIcon file={file} />
-      <FileNameText>{file.name}</FileNameText>
+      <FileNameText data-cy="filename">{file.name}</FileNameText>
     </>
   )
 }

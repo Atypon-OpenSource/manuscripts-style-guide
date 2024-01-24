@@ -74,6 +74,7 @@ export const FileActions: React.FC<{
         onClick={toggleOpen}
         type="button"
         className="show-on-hover"
+        data-cy="file-actions"
         aria-label="Actions"
         aria-pressed={isOpen}
       >
@@ -81,6 +82,7 @@ export const FileActions: React.FC<{
       </ActionsIcon>
       {isOpen && (
         <FileActionDropdownList
+          data-cy="file-actions-dropdown"
           direction="right"
           className={className}
           width={192}

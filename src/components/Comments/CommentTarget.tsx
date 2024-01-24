@@ -32,6 +32,11 @@ export const CommentTarget: React.FC<Props> = React.memo(
         })
       }
     })
-    return <div ref={threadRef}>{children}</div>
+
+    return (
+      <div data-cy="comment-target" ref={threadRef}>
+        {children}
+      </div>
+    )
   }
 )
