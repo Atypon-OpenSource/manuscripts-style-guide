@@ -13,23 +13,28 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import ReactTooltip from 'react-tooltip'
+import { Tooltip as ReactTooltip } from 'react-tooltip'
 import styled from 'styled-components'
 
-export const Tooltip = styled(ReactTooltip)`
-  &.tooltip {
+export const Tooltip = styled(ReactTooltip).attrs({
+  positionStrategy: 'fixed',
+  offset: 10,
+})`
+  &.react-tooltip {
+    z-index: 1000;
     font-size: 12px;
     line-height: 16px;
-    font-family: ${(props) => props.theme.font.family.Lato};
+    letter-spacing: -0.2px;
+    max-width: 300px;
+    font-family: inherit;
     padding: 8px;
-    border-radius: 6px;
+    border-radius: 3px;
     background: #353535;
     color: ${(props) => props.theme.colors.text.onDark};
     text-align: center;
     white-space: nowrap;
-    pointer-events: none;
 
-    &.place-bottom::after {
+    .react-tooltip-arrow {
       background: #353535;
     }
   }

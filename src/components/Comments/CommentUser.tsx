@@ -14,8 +14,11 @@
  * limitations under the License.
  */
 
-import { BibliographicName, Contribution } from '@manuscripts/json-schema'
-import { UserProfileWithAvatar } from '@manuscripts/transform'
+import {
+  BibliographicName,
+  Contribution,
+  UserProfile,
+} from '@manuscripts/json-schema'
 import React from 'react'
 import styled from 'styled-components'
 
@@ -50,7 +53,7 @@ const Header = styled.div`
 
 export const CommentUser: React.FC<{
   contributions?: Contribution[]
-  getCollaboratorById: (id: string) => UserProfileWithAvatar | undefined
+  getCollaboratorById: (id: string) => UserProfile | undefined
   displayName?: string
   createdAt?: number
 }> = ({ contributions, getCollaboratorById, displayName, createdAt }) => {
@@ -87,7 +90,7 @@ export const CommentUser: React.FC<{
   return (
     <CommentUserContainer>
       <Header>
-        <Avatar src={user.avatar} size={20} />
+        <Avatar size={20} />
       </Header>
       <Header>
         <CommentUserName>
