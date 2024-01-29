@@ -129,6 +129,7 @@ const SupplementFile: React.FC<{
 
   return (
     <FileContainer
+      data-cy="file-container"
       key={file.id}
       ref={drag}
       className={isDragging ? 'dragging' : ''}
@@ -136,6 +137,7 @@ const SupplementFile: React.FC<{
       <FileName file={file} />
       <FileCreatedDate file={file} className="show-on-hover" />
       <FileActions
+        data-cy="file-actions"
         sectionType={FileSectionType.Supplements}
         handleDownload={file.id ? handleDownload : undefined}
         handleReplace={handleReplace}

@@ -108,7 +108,7 @@ const ElementFile: React.FC<{
   handleDetach?: () => void
 }> = ({ file, handleReplace, handleDownload, handleDetach }) => {
   return (
-    <ModelFileContainer>
+    <ModelFileContainer data-cy="file-container">
       <FileName file={file} />
       <FileCreatedDate file={file} className="show-on-hover" />
       <FileActions

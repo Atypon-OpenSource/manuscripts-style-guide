@@ -103,6 +103,7 @@ const OtherFile: React.FC<{
   return (
     <FileContainer
       key={file.id}
+      data-cy="file-container"
       ref={drag}
       className={isDragging ? 'dragging' : ''}
     >

@@ -152,21 +152,17 @@ export const FileManager: React.FC<{
             <InspectorTabPanels
               style={{ overflowY: 'visible', position: 'relative' }}
             >
-              <InspectorTabPanel>
+              <InspectorTabPanel data-cy="inline">
                 <InlineFilesSection
-                  data-cy="inline-files"
                   elements={inlineFiles}
                   isEditor={enableDragAndDrop}
                 />
               </InspectorTabPanel>
-              <InspectorTabPanel>
-                <SupplementsSection
-                  data-cy="supplements-files"
-                  supplements={supplements}
-                />
+              <InspectorTabPanel data-cy="supplements">
+                <SupplementsSection supplements={supplements} />
               </InspectorTabPanel>
-              <InspectorTabPanel>
-                <OtherFilesSection data-cy="other-files" files={otherFiles} />
+              <InspectorTabPanel data-cy="other">
+                <OtherFilesSection files={otherFiles} />
               </InspectorTabPanel>
             </InspectorTabPanels>
           </InspectorTabs>
