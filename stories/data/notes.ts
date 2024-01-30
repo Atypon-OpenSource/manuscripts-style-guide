@@ -24,8 +24,8 @@ export const notes: ManuscriptNote[] = [
     manuscriptID: 'manuscript-1',
     target: 'MPParagraphElement:10E6338C-0BE3-43F2-AB2F-D93E754259E8',
     contents: 'comment text',
-    createdAt: Math.floor(new Date('2018-01-22T08:00:00Z').getTime() / 1000),
-    updatedAt: Math.floor(new Date('2018-01-23T08:00:00Z').getTime() / 1000),
+    createdAt: Math.floor(new Date('2023-01-22T08:00:00Z').getTime() / 1000),
+    updatedAt: Math.floor(new Date('2023-01-23T08:00:00Z').getTime() / 1000),
     originalText: '',
     source: 'EDITOR',
     contributions: [
