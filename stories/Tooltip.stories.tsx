@@ -14,19 +14,17 @@
  * limitations under the License.
  */
 
-import '../styles/tip.css'
-
 import AttentionOrange from '@manuscripts/assets/react/AttentionOrange'
 import { storiesOf } from '@storybook/react'
 import * as React from 'react'
 import styled from 'styled-components'
 
-import { Tip } from '../src'
+import { Tooltip } from '../src/components/Tooltip'
 
 const Container = styled.div`
   display: flex;
   flex-direction: column;
-  margin: 0 100px;
+  margin: 50px;
   width: 300px;
 `
 
@@ -37,20 +35,31 @@ const Child = styled.div`
 
 storiesOf('Tip', module).add('Tip', () => (
   <Container>
-    <Tip placement={'top'} title={'Top'}>
-      <Child>Top</Child>
-    </Tip>
-    <Tip placement={'bottom'} title={'Bottom'}>
-      <Child>Bottom</Child>
-    </Tip>
-    <Tip placement={'left'} title={'Left'}>
-      <Child>Left</Child>
-    </Tip>
-    <Tip placement={'right'} title={'Right'}>
-      <Child>Right</Child>
-    </Tip>
-    <Tip placement={'right'} title={'word count warning '}>
-      <AttentionOrange height={'1em'} />
-    </Tip>
+    <Child data-tooltip-id="top-tooltip">Top</Child>
+    <Tooltip id="top-tooltip" place="top">
+      Top
+    </Tooltip>
+
+    <Child data-tooltip-id="bottom-tooltip">Bottom</Child>
+    <Tooltip id="bottom-tooltip" place="bottom">
+      Bottom
+    </Tooltip>
+
+    <Child data-tooltip-id="left-tooltip">Left</Child>
+    <Tooltip id="left-tooltip" place="left">
+      Left
+    </Tooltip>
+
+    <Child data-tooltip-id="right-tooltip">Right</Child>
+    <Tooltip id="right-tooltip" place="right">
+      Right
+    </Tooltip>
+
+    <Child>
+      <AttentionOrange data-tooltip-id="word-count-warning" height={'1em'} />
+    </Child>
+    <Tooltip id="word-count-warning" place="right">
+      word count warning
+    </Tooltip>
   </Container>
 ))

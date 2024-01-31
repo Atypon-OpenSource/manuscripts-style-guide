@@ -18,7 +18,7 @@ import React from 'react'
 import styled from 'styled-components'
 
 import { FileAttachment } from '../../lib/files'
-import { Tooltip } from './Tooltip'
+import { Tooltip } from '../Tooltip'
 
 export const FileCreatedDate: React.FC<{
   file: FileAttachment
@@ -26,18 +26,11 @@ export const FileCreatedDate: React.FC<{
 }> = ({ file, className }) => {
   return file.createdDate ? (
     <FileDateContainer
-      data-tip="File Uploaded"
-      data-for={`${file.id}-created-date`}
+      data-tooltip-id={`${file.id}-created-date-tooltip`}
       className={className}
     >
       <FileDate>{format(new Date(file.createdDate), 'M/d/yy, HH:mm')}</FileDate>
-      <Tooltip
-        id={`${file.id}-created-date`}
-        place="bottom"
-        offset={{ top: 0 }}
-        effect="solid"
-        className="tooltip"
-      >
+      <Tooltip id={`${file.id}-created-date-tooltip`} place="bottom">
         File Uploaded
       </Tooltip>
     </FileDateContainer>

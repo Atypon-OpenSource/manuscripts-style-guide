@@ -17,11 +17,12 @@
 import AddAuthor from '@manuscripts/assets/react/AddAuthor'
 import Trashcan from '@manuscripts/assets/react/AnnotationRemove'
 import ArrowDownBlue from '@manuscripts/assets/react/ArrowDownBlue'
-import { BibliographicName, BibliographyItem } from '@manuscripts/json-schema'
 import {
+  BibliographicName,
+  BibliographyItem,
   buildBibliographicDate,
   buildBibliographicName,
-} from '@manuscripts/transform'
+} from '@manuscripts/json-schema'
 import {
   Field,
   FieldArray,
@@ -38,7 +39,6 @@ import React, {
   useRef,
   useState,
 } from 'react'
-import ReactTooltip from 'react-tooltip'
 import styled from 'styled-components'
 
 import {
@@ -52,6 +52,7 @@ import { DeleteIcon } from '../icons/delete-icon'
 import { LinkIcon } from '../icons/link-icon'
 import { OptionType, SelectField } from '../SelectField'
 import { TextArea, TextField } from '../TextField'
+import { Tooltip } from '../Tooltip'
 
 export const LabelContainer = styled.div`
   display: flex;
@@ -399,32 +400,23 @@ export const ReferenceForm: React.FC<{
             <Actions>
               <ButtonGroup>
                 <IconButton
-                  defaultColor
                   as="a"
                   href={`https://doi.org/${formik.values.DOI}`}
                   target={'_blank'}
                 >
                   <LinkIcon />
                 </IconButton>
-                <div data-tip={true} data-for={'delete-button'}>
-                  <DeleteButton
-                    defaultColor
-                    disabled={!showDelete}
-                    onClick={() => setShowDeleteDialog(true)}
-                  >
-                    <DeleteIcon />
-                  </DeleteButton>
-                  <ReactTooltip
-                    disable={showDelete}
-                    id={'delete-button'}
-                    place="bottom"
-                    effect="solid"
-                    offset={{ top: 15 }}
-                    className="tooltip"
-                  >
-                    Unable to delete because the item is used in the document
-                  </ReactTooltip>
-                </div>
+                <DeleteButton
+                  defaultColor
+                  disabled={!showDelete}
+                  data-tooltip-id={showDelete ? '' : 'delete-button-tooltip'}
+                  onClick={() => setShowDeleteDialog(true)}
+                >
+                  <DeleteIcon />
+                </DeleteButton>
+                <Tooltip id="delete-button-tooltip" place="bottom">
+                  Unable to delete because the item is used in the document
+                </Tooltip>
               </ButtonGroup>
               <ButtonGroup>
                 <SecondaryButton onClick={onCancel}>Cancel</SecondaryButton>

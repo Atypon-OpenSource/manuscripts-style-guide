@@ -17,7 +17,6 @@ import ReferenceLibraryIcon from '@manuscripts/assets/react/ReferenceLibraryIcon
 import { BibliographyItem } from '@manuscripts/json-schema'
 import { isEqual } from 'lodash'
 import React, { useEffect, useRef, useState } from 'react'
-import ReactTooltip from 'react-tooltip'
 import styled from 'styled-components'
 
 import { useScrollDetection } from '../../hooks/use-scroll-detection'
@@ -34,6 +33,7 @@ import {
   ScrollableModalContent,
   StyledModal,
 } from '../StyledModal'
+import { Tooltip } from '../Tooltip'
 import {
   ReferenceForm,
   ReferenceFormActions,
@@ -282,28 +282,23 @@ export const ReferencesModal: React.FC<ReferencesModalProps> = ({
                     onClick={() => handleItemClick(item)}
                     ref={isSelected(item) ? selectionRef : null}
                   >
-                    <IconContainer data-tip={true} data-for={'citation-count'}>
+                    <IconContainer>
                       <ReferenceLibraryIcon />
-                      <CitationCount
-                        className={citationCounts.get(item._id) ? '' : 'unused'}
-                      >
-                        {citationCounts.get(item._id) || 0}
-                      </CitationCount>
-                      <ReactTooltip
-                        disable={(citationCounts.get(item._id) || 0) < 1}
-                        id="citation-count"
-                        place="bottom"
-                        effect="solid"
-                        offset={{ top: 40 }}
-                        className="tooltip"
-                      >
-                        Number of times used in the document
-                      </ReactTooltip>
+                      {(citationCounts.get(item._id) || 0) > 0 ? (
+                        <CitationCount data-tooltip-id="citation-count-tooltip">
+                          {citationCounts.get(item._id)}
+                        </CitationCount>
+                      ) : (
+                        <CitationCount className="unused">0</CitationCount>
+                      )}
                     </IconContainer>
                     <ReferenceLine item={item} />
                   </ReferenceButton>
                 ))}
               </ReferencesInnerWrapper>
+              <Tooltip id="citation-count-tooltip" place="bottom">
+                Number of times used in the document
+              </Tooltip>
             </ReferencesSidebarContent>
           </ReferencesSidebar>
           <ScrollableModalContent>
