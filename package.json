@@ -1,7 +1,7 @@
 {
   "name": "@manuscripts/style-guide",
   "description": "Shared components for Manuscripts applications",
-  "version": "1.7.2",
+  "version": "1.7.2-LEAN-3281-0",
   "repository": "github:Atypon-OpenSource/manuscripts-style-guide",
   "license": "Apache-2.0",
   "main": "dist/cjs",
