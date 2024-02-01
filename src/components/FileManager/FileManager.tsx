@@ -13,8 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { Model } from '@manuscripts/json-schema'
-import { Build } from '@manuscripts/transform'
+import { Build, Model } from '@manuscripts/json-schema'
 import React, { createContext } from 'react'
 
 import { FileSectionType, useFiles } from '../../index'
@@ -28,12 +27,12 @@ import {
   InspectorTabs,
 } from '../Inspector'
 import { InspectorSection } from '../InspectorSection'
+import { Tooltip } from '../Tooltip'
 import { DragLayer } from './DragLayer'
 import { FileManagerProvider } from './FileManagerProvider'
 import { InlineFilesSection } from './InlineFilesSection'
 import { OtherFilesSection } from './OtherFilesSection'
 import { SupplementsSection } from './SupplementsSection'
-import { Tooltip } from './Tooltip'
 
 export type Upload = (file: File) => Promise<FileAttachment>
 
@@ -112,61 +111,39 @@ export const FileManager: React.FC<{
             style={{ overflow: 'visible' }}
           >
             <InspectorTabList>
-              <InspectorTab data-for="inline" data-tip={true}>
+              <InspectorTab data-tooltip-id="inline-tooltip">
                 Inline files
               </InspectorTab>
-              <Tooltip
-                id="inline"
-                place="bottom"
-                offset={{ bottom: -11 }}
-                effect="solid"
-                className="tooltip"
-              >
+              <Tooltip id="inline-tooltip" place="bottom">
                 Files that can be found inline in the manuscript.
               </Tooltip>
-              <InspectorTab data-for="supplements" data-tip={true}>
+              <InspectorTab data-tooltip-id="supplements-tooltip">
                 Supplements
               </InspectorTab>
-              <Tooltip
-                id="supplements"
-                place="bottom"
-                offset={{ bottom: -11 }}
-                effect="solid"
-                className="tooltip"
-              >
+              <Tooltip id="supplements-tooltip" place="bottom">
                 Files that were marked as supplements.
               </Tooltip>
-              <InspectorTab data-for="other" data-tip={true}>
+              <InspectorTab data-tooltip-id="other-tooltip">
                 Other files
               </InspectorTab>
-              <Tooltip
-                id="other"
-                place="bottom"
-                offset={{ bottom: -11 }}
-                effect="solid"
-                className="tooltip"
-              >
+              <Tooltip id="other-tooltip" place="bottom">
                 Files excluded from the final submission.
               </Tooltip>
             </InspectorTabList>
             <InspectorTabPanels
               style={{ overflowY: 'visible', position: 'relative' }}
             >
-              <InspectorTabPanel>
+              <InspectorTabPanel data-cy="inline">
                 <InlineFilesSection
-                  data-cy="inline-files"
                   elements={inlineFiles}
                   isEditor={enableDragAndDrop}
                 />
               </InspectorTabPanel>
-              <InspectorTabPanel>
-                <SupplementsSection
-                  data-cy="supplements-files"
-                  supplements={supplements}
-                />
+              <InspectorTabPanel data-cy="supplements">
+                <SupplementsSection supplements={supplements} />
               </InspectorTabPanel>
-              <InspectorTabPanel>
-                <OtherFilesSection data-cy="other-files" files={otherFiles} />
+              <InspectorTabPanel data-cy="other">
+                <OtherFilesSection files={otherFiles} />
               </InspectorTabPanel>
             </InspectorTabPanels>
           </InspectorTabs>

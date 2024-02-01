@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { buildSupplementaryMaterial } from '@manuscripts/transform'
+import { buildSupplement } from '@manuscripts/json-schema'
 import React, { useContext, useEffect, useState } from 'react'
 import { useDrag } from 'react-dnd'
 import { getEmptyImage } from 'react-dnd-html5-backend'
@@ -57,7 +57,7 @@ export const OtherFilesSection: React.FC<{
   }
 
   const moveToSupplements = async (file: FileAttachment) => {
-    const supplement = buildSupplementaryMaterial('', file.id)
+    const supplement = buildSupplement('', file.id)
     await saveModel(supplement)
     setAlert({
       type: FileSectionAlertType.MOVE_SUCCESSFUL,
@@ -103,6 +103,7 @@ const OtherFile: React.FC<{
   return (
     <FileContainer
       key={file.id}
+      data-cy="file-container"
       ref={drag}
       className={isDragging ? 'dragging' : ''}
     >

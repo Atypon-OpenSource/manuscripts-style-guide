@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { ApolloError } from '@apollo/client'
 import React, { useCallback, useState } from 'react'
 import styled from 'styled-components'
 
@@ -75,7 +74,9 @@ export enum DialogState {
 export type ProceedDialogData = {
   state: DialogState
   error?: string
-  mutationError?: ApolloError | undefined
+  // mutationError?: ApolloError | undefined
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  mutationError?: any
   updateState: (state: DialogState) => void
   clearError: () => void
 }
@@ -180,7 +181,8 @@ export const EditorHeader: React.FC<{
   const currentStepTransition = submission?.currentStep.type.transitions
   const disable = !currentStepTransition || !canCompleteTask
   const errorCode = dialogData.mutationError?.graphQLErrors?.find(
-    (error) => error?.extensions?.code
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    (error: any) => error?.extensions?.code
   )?.extensions?.code.name
 
   return (

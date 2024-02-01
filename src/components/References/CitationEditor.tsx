@@ -15,8 +15,10 @@
  */
 import AnnotationEdit from '@manuscripts/assets/react/AnnotationEdit'
 import CloseIconDark from '@manuscripts/assets/react/CloseIconDark'
-import { BibliographyItem } from '@manuscripts/json-schema'
-import { buildBibliographyItem } from '@manuscripts/transform'
+import {
+  BibliographyItem,
+  buildBibliographyItem,
+} from '@manuscripts/json-schema'
 import React, { useMemo, useState } from 'react'
 import styled from 'styled-components'
 

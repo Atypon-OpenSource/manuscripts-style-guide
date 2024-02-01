@@ -14,11 +14,9 @@
  * limitations under the License.
  */
 
-import { UserProfileWithAvatar } from '@manuscripts/transform'
+import { UserProfile } from '@manuscripts/json-schema'
 
-import imageFile from '../assets/melnitz.jpg'
-
-export const people: UserProfileWithAvatar[] = [
+export const people: UserProfile[] = [
   {
     _id: 'user-1',
     userID: 'user_1',
@@ -30,7 +28,6 @@ export const people: UserProfileWithAvatar[] = [
       family: 'Melnitz',
     },
     email: 'janine.melnitz@example.com',
-    avatar: imageFile,
     createdAt: 0,
     updatedAt: 0,
   },

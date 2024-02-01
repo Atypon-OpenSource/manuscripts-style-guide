@@ -17,12 +17,12 @@ import AnnotationReply from '@manuscripts/assets/react/AnnotationReply'
 import { Keyword, UserProfile } from '@manuscripts/json-schema'
 import { Field, FieldProps, Form, Formik } from 'formik'
 import React, { Dispatch, SetStateAction, useEffect } from 'react'
-import ReactTooltip from 'react-tooltip'
 import styled from 'styled-components'
 
 import { CommentType, UnsavedComment } from '../../lib/comments'
 import { ButtonGroup, PrimaryButton, SecondaryButton } from '../Button'
 import { FormError } from '../Form'
+import { Tooltip } from '../Tooltip'
 
 export interface CommentBodyProps {
   createKeyword: (name: string) => Promise<Keyword>
@@ -137,7 +137,9 @@ export const CommentBody: React.FC<
                 scrollIntoHighlight && scrollIntoHighlight(comment)
               }
             >
-              <StyledCommentViewer>{comment.contents}</StyledCommentViewer>
+              <StyledCommentViewer data-cy="note-text">
+                {comment.contents}
+              </StyledCommentViewer>
             </CommentContent>
 
             {!isReply && (
@@ -146,8 +148,7 @@ export const CommentBody: React.FC<
                   {/* TODO:: remove hidden props to show reply for comment LEAN-2052 */}
                   <ActionButton
                     hidden={!isProdNote}
-                    data-tip={true}
-                    data-for={`reply-${comment._id}`}
+                    data-tooltip-id={`reply-${comment._id}`}
                     onClick={() => handleCreateReply(comment._id)}
                     aria-label={'reply'}
                     className="reply-button note-actions"
@@ -155,15 +156,9 @@ export const CommentBody: React.FC<
                     <AnnotationReply />
                   </ActionButton>
                 </span>
-                <ReactTooltip
-                  id={`reply-${comment._id}`}
-                  place="bottom"
-                  effect="solid"
-                  offset={{ top: 10 }}
-                  className="tooltip"
-                >
+                <Tooltip id={`reply-${comment._id}`} place="bottom">
                   Reply
-                </ReactTooltip>
+                </Tooltip>
               </CommentFooter>
             )}
           </div>
