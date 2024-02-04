@@ -220,6 +220,14 @@ export const ReferencesModal: React.FC<ReferencesModalProps> = ({
     setConfirm(false)
   }
 
+  const handleDelete = () => {
+    if (!selection) {
+      return
+    }
+    onDelete(selection)
+    setSelection(undefined)
+  }
+
   const handleItemClick = (item: BibliographyItem) => {
     const values = valuesRef.current
     if (values && selection && !isEqual(values, normalize(selection))) {
@@ -300,7 +308,7 @@ export const ReferencesModal: React.FC<ReferencesModalProps> = ({
                 showDelete={!citationCounts.get(selection._id)}
                 onChange={handleChange}
                 onCancel={onCancel}
-                onDelete={() => onDelete(selection)}
+                onDelete={handleDelete}
                 onSave={save}
                 actionsRef={actionsRef}
               />
