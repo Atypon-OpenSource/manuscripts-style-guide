@@ -13,16 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import {
-  ElementsOrder,
-  Figure,
-  FigureElement,
-  getModelsByType,
-  Model,
-  ObjectTypes,
-  Section,
-  Supplement,
-} from '@manuscripts/json-schema'
+import { ManuscriptNode, schema, SupplementNode } from '@manuscripts/transform'
 
 import { FileType } from '../components/FileManager/util'
 
@@ -67,22 +58,16 @@ const getFile = (files: FileAttachment[], id: string) => {
 }
 
 const getFigureFiles = (
-  element: FigureElement,
-  modelMap: Map<string, Model>,
+  figureElement: ManuscriptNode,
   files: FileAttachment[]
 ): ModelFile[] => {
   const figureFiles: ModelFile[] = []
-  element.containedObjectIDs.map((id) => {
-    const model = modelMap.get(id)
-    if (model && model.objectType === ObjectTypes.Figure) {
-      const figure = model as Figure
-
-      if (figure.src) {
-        figureFiles.push({
-          ...getFile(files, figure.src),
-          modelId: figure._id,
-        })
-      }
+  figureElement.forEach((node) => {
+    if (node.type === schema.nodes.figure) {
+      figureFiles.push({
+        ...getFile(files, node.attrs.src),
+        modelId: figureElement.attrs.id,
+      })
     }
   })
 
@@ -90,19 +75,16 @@ const getFigureFiles = (
 }
 
 const getSupplementFiles = (
-  supplement: Supplement,
+  supplement: SupplementNode,
   files: FileAttachment[]
 ): ModelFile[] => {
-  if (supplement.href) {
-    const href = supplement.href
-    if (href) {
-      return [
-        {
-          ...getFile(files, href),
-          modelId: supplement._id,
-        },
-      ]
-    }
+  if (supplement.attrs.href) {
+    return [
+      {
+        ...getFile(files, supplement.attrs.href),
+        modelId: supplement.attrs.id,
+      },
+    ]
   }
   return []
 }
@@ -116,68 +98,52 @@ const getSupplementFiles = (
  *  (and if the table not embedded with external file will not added to this list)
  */
 export const getInlineFiles = (
-  modelMap: Map<string, Model>,
+  doc: ManuscriptNode,
   files: FileAttachment[]
 ): ElementFiles[] => {
   const elements: ElementFiles[] = []
 
-  const orders = getOrderByType(modelMap)
+  doc.descendants((node, _, parent) => {
+    const isGraphicalAbstractFigure =
+      parent?.type === schema.nodes.section &&
+      parent?.attrs.category === 'MPSectionCategory:abstract-graphical'
 
-  const sections = getModelsByType<Section>(modelMap, ObjectTypes.Section)
-  const graphicalAbstractElementIds = sections.filter(
-    (s) => s.category === 'MPSectionCategory:abstract-graphical'
-  )[0]?.elementIDs
-
-  graphicalAbstractElementIds?.map((id) => {
-    const figure = modelMap.get(id) as FigureElement
-    if (figure) {
+    if (node.type === schema.nodes.figure_element) {
       elements.push({
-        modelId: id,
-        type: FileType.GraphicalAbstract,
-        label: 'Graphical Abstract',
-        files: getFigureFiles(figure, modelMap, files),
+        modelId: node.attrs.id,
+        type:
+          (isGraphicalAbstractFigure && FileType.GraphicalAbstract) ||
+          FileType.Figure,
+        label:
+          (isGraphicalAbstractFigure && `Graphical Abstract`) ||
+          node.attrs.label,
+        files: getFigureFiles(node, files),
       })
+      return false
     }
   })
-
-  const figures = getModelsByType<FigureElement>(
-    modelMap,
-    ObjectTypes.FigureElement
-  )
-  const figureOrder = orders.get(ObjectTypes.FigureElement)
-  if (figureOrder) {
-    // sort(figures, figureOrder)
-  }
-  figures
-    ?.filter((f) => !graphicalAbstractElementIds?.includes(f._id))
-    .map((figure, index) => ({
-      modelId: figure._id,
-      type: FileType.Figure,
-      label: `Figure ${index + 1}`,
-      files: getFigureFiles(figure, modelMap, files),
-    }))
-    .forEach((e) => elements.push(e))
 
   return elements
 }
 
 export const getSupplements = (
-  modelMap: Map<string, Model>,
+  doc: ManuscriptNode,
   files: FileAttachment[]
 ): ModelFile[] => {
-  const supplements = getModelsByType<Supplement>(
-    modelMap,
-    ObjectTypes.Supplement
-  )
-  return supplements.flatMap((s) => getSupplementFiles(s, files))
-}
+  const supplements: ModelFile[] = []
 
-const getOrderByType = (modelMap: Map<string, Model>) => {
-  const groups = new Map<ObjectTypes, ElementsOrder>()
-  const orders = getModelsByType<ElementsOrder>(
-    modelMap,
-    ObjectTypes.ElementsOrder
-  )
-  orders.forEach((o) => groups.set(o.elementType as ObjectTypes, o))
-  return groups
+  doc.descendants((node) => {
+    if (node.type === schema.nodes.supplements) {
+      node.forEach((child) => {
+        if (child.type === schema.nodes.supplement) {
+          supplements.push(
+            ...getSupplementFiles(child as SupplementNode, files)
+          )
+        }
+      })
+      return false
+    }
+  })
+
+  return supplements
 }

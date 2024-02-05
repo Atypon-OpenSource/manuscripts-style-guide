@@ -14,6 +14,7 @@
  * limitations under the License.
  */
 import { Build, Model } from '@manuscripts/json-schema'
+import { ManuscriptNode } from '@manuscripts/transform'
 import React, { createContext } from 'react'
 
 import { FileSectionType, useFiles } from '../../index'
@@ -76,6 +77,7 @@ export const PermissionsContext = createContext<null | Capabilities>(null)
 export const FileManager: React.FC<{
   files: FileAttachment[]
   fileManagement: FileManagement
+  doc: ManuscriptNode
   modelMap: Map<string, Model>
   saveModel: SaveModel
   deleteModel: DeleteModel
@@ -84,13 +86,14 @@ export const FileManager: React.FC<{
 }> = ({
   files,
   fileManagement,
+  doc,
   modelMap,
   saveModel,
   deleteModel,
   enableDragAndDrop,
   can,
 }) => {
-  const { inlineFiles, supplements, otherFiles } = useFiles(modelMap, files)
+  const { inlineFiles, supplements, otherFiles } = useFiles(doc, files)
 
   return (
     <FileManagerProvider

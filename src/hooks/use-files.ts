@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { Model, ObjectTypes } from '@manuscripts/json-schema'
+import { ManuscriptNode } from '@manuscripts/transform'
 
 import {
   ElementFiles,
@@ -23,14 +23,6 @@ import {
   ModelFile,
 } from '../lib/files'
 import { useDeepCompareMemo } from './use-deep-compare'
-
-const types = [
-  ObjectTypes.Section,
-  ObjectTypes.FigureElement,
-  ObjectTypes.Figure,
-  ObjectTypes.Supplement,
-  ObjectTypes.ElementsOrder,
-]
 
 /**
  * return files that are not inlineFiles or SupplementFiles
@@ -46,22 +38,10 @@ const getOtherFiles = (
   return files.filter((f) => !excluded.has(f.id))
 }
 
-export const useFiles = (
-  modelMap: Map<string, Model>,
-  files: FileAttachment[]
-) => {
-  // optimization to reduce the number of comparisons needed
-  // in useDeepCompareMemo
-  const models = []
-  for (const [_, model] of modelMap.entries()) {
-    if (types.includes(model.objectType as ObjectTypes)) {
-      models.push(model)
-    }
-  }
-
+export const useFiles = (doc: ManuscriptNode, files: FileAttachment[]) => {
   return useDeepCompareMemo(() => {
-    const inlineFiles = getInlineFiles(modelMap, files)
-    const supplements = getSupplements(modelMap, files)
+    const inlineFiles = getInlineFiles(doc, files)
+    const supplements = getSupplements(doc, files)
     const otherFiles = getOtherFiles(inlineFiles, supplements, files)
 
     return {
@@ -69,7 +49,7 @@ export const useFiles = (
       supplements,
       otherFiles,
     }
-  }, [models, files])
+  }, [doc, files])
 }
 
 export default useFiles
