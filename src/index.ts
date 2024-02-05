@@ -16,12 +16,9 @@
 
 export { Theme } from './theme'
 export * from './components/AffiliationsEditor'
-export * from './components/AffiliationsList'
 export * from './components/AuthorForm'
 export * from './components/AuthorName'
-export * from './components/AuthorsList'
 export * from './components/AuthorsDND'
-export * from './components/AuthorsContainer'
 export * from './components/AlertMessage'
 export * from './components/Button'
 export * from './components/RadioButton'
