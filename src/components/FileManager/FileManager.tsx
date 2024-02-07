@@ -28,11 +28,11 @@ import {
 } from '../Inspector'
 import { InspectorSection } from '../InspectorSection'
 import { Tooltip } from '../Tooltip'
-import { DragLayer } from './DragLayer'
 import { FileManagerProvider } from './FileManagerProvider'
 import { InlineFilesSection } from './InlineFilesSection'
 import { OtherFilesSection } from './OtherFilesSection'
 import { SupplementsSection } from './SupplementsSection'
+import {DragLayer} from "../DragLayer";
 
 export type Upload = (file: File) => Promise<FileAttachment>
 

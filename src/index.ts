@@ -15,10 +15,7 @@
  */
 
 export { Theme } from './theme'
-export * from './components/AffiliationsEditor'
-export * from './components/AuthorForm'
-export * from './components/AuthorName'
-export * from './components/AuthorsDND'
+export * from './components/Authors'
 export * from './components/AlertMessage'
 export * from './components/Button'
 export * from './components/RadioButton'
@@ -65,5 +62,5 @@ export * from './lib/capabilities'
 export * from './lib/files'
 export * from './lib/comments'
 export * from './lib/menus'
+export * from './lib/array-reducer'
 export { default as errorsDecoder } from './lib/errors-decoder'
-export * from './types'

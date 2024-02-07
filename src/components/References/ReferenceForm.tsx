@@ -47,6 +47,7 @@ import {
   PrimaryButton,
   SecondaryButton,
 } from '../Button'
+import { ChangeHandlingForm } from '../ChangeHandlingForm'
 import { Category, Dialog } from '../Dialog'
 import { DeleteIcon } from '../icons/delete-icon'
 import { LinkIcon } from '../icons/link-icon'
@@ -307,25 +308,6 @@ const bibliographyItemTypeOptions: OptionType[] = bibliographyItemTypes.map(
     value: i[0],
   })
 )
-
-interface ChangeHandlingFormProps<Values> {
-  onChange: (values: Values) => void
-}
-const ChangeHandlingForm = <Values,>(
-  props: PropsWithChildren<ChangeHandlingFormProps<Values>>
-) => {
-  const { values } = useFormikContext<Values>()
-
-  useEffect(() => {
-    // you might modify this to fit your use case
-    // like adding a `const prevValues = usePrevious(values)` above and checking for equality
-    // or debounce this whole function but make sure not to use stale values
-    props.onChange?.(values)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [props.onChange, values])
-
-  return <FlexForm>{props.children}</FlexForm>
-}
 
 export interface ReferenceFormActions {
   reset: () => void

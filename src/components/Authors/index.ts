@@ -1,5 +1,5 @@
 /*!
- * © 2019 Atypon Systems LLC
+ * © 2024 Atypon Systems LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,6 +13,4 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-export { default as AffiliationsEditor } from './AffiliationsEditor'
-export { default as AffiliationsEditorProfile } from './AffiliationsEditorProfile'
+export * from './AuthorsModal'
