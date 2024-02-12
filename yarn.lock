@@ -1715,10 +1715,10 @@
     citeproc "^2.4.62"
     fontoxpath "^3.28.2"
 
-"@manuscripts/transform@2.1.1-LEAN-3336-3":
-  version "2.1.1-LEAN-3336-3"
-  resolved "https://registry.yarnpkg.com/@manuscripts/transform/-/transform-2.1.1-LEAN-3336-3.tgz#015141ae709af5227e4252d27b8696792dffd781"
-  integrity sha512-Zm9P3TiGgr2WIgWH5PWId/2htgEDPRw6XCkdR39KXAB4ZjoeW1vzYkUi3/jCVD2+TmMbqjWJZJYEIpYPdP6jsg==
+"@manuscripts/transform@2.1.1-LEAN-3336-4":
+  version "2.1.1-LEAN-3336-4"
+  resolved "https://registry.yarnpkg.com/@manuscripts/transform/-/transform-2.1.1-LEAN-3336-4.tgz#6457d7d2b7a92a1c550991046064d2f38ad90f9a"
+  integrity sha512-+ZWa7ULPRERgcseyv3tdpOoYmjkklXGzjaN+BTa8iOyrouf8LV+PuYRd7+qaJynsLVvrCqhyf4hK3J3HcWo5Fg==
   dependencies:
     "@manuscripts/json-schema" "^2.2.2"
     "@manuscripts/library" "1.3.2"
