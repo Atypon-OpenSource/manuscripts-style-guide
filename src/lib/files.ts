@@ -17,12 +17,12 @@ import {
   ElementsOrder,
   Figure,
   FigureElement,
+  getModelsByType,
   Model,
   ObjectTypes,
   Section,
   Supplement,
 } from '@manuscripts/json-schema'
-import { getModelsByType } from '@manuscripts/transform'
 
 import { FileType } from '../components/FileManager/util'
 

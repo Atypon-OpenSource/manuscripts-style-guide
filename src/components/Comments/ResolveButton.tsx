@@ -15,11 +15,11 @@
  */
 
 import React from 'react'
-import ReactTooltip from 'react-tooltip'
 import styled from 'styled-components'
 
 import { IconTextButton } from '../Button'
 import TickMark from '../icons/tick-mark'
+import { Tooltip } from '../Tooltip'
 
 export const ResolveButton: React.FC<{
   id: string
@@ -30,21 +30,14 @@ export const ResolveButton: React.FC<{
     <Container>
       <Button
         resolved={resolved}
-        data-tip={true}
-        data-for={id}
+        data-tooltip-id={id}
         onClick={resolvedCallback}
       >
         <TickMark color={'#353535'} />
       </Button>
-      <ReactTooltip
-        id={id}
-        place="bottom"
-        effect="solid"
-        offset={{ top: 10 }}
-        className="tooltip"
-      >
+      <Tooltip id={id} place="bottom">
         {(resolved && 'Unresolve') || 'Resolve'}
-      </ReactTooltip>
+      </Tooltip>
     </Container>
   )
 }

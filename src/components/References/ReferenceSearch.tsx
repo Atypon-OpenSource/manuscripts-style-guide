@@ -15,7 +15,7 @@
  */
 
 import { BibliographyItem } from '@manuscripts/json-schema'
-import { debounce } from 'lodash-es'
+import { debounce } from 'lodash'
 import React, { useState } from 'react'
 import styled from 'styled-components'
 

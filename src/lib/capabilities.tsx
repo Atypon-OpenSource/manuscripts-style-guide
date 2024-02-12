@@ -13,8 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { Project } from '@manuscripts/json-schema'
-import { UserProfileWithAvatar } from '@manuscripts/transform'
+import { Project, UserProfile } from '@manuscripts/json-schema'
 import React from 'react'
 
 export type Capabilities = {
@@ -74,7 +73,7 @@ enum Actions {
 
 export interface ProviderProps {
   project?: Project
-  profile?: UserProfileWithAvatar
+  profile?: UserProfile
   role?: string
   permittedActions?: string[]
   children?: React.ReactNode
@@ -85,7 +84,7 @@ export interface ProviderProps {
 
 export const getCapabilities = (
   project?: Project,
-  profile?: UserProfileWithAvatar,
+  profile?: UserProfile,
   role?: ProviderProps['role'],
   actions?: string[]
 ): Capabilities => {

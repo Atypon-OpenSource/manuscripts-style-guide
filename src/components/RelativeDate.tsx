@@ -13,11 +13,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import '@formatjs/intl-relativetimeformat/polyfill-locales'
 
-import { selectUnit } from '@formatjs/intl-utils'
 import React from 'react'
-import { FormattedRelativeTime, IntlProvider } from 'react-intl'
 
 export const RelativeDate: React.FC<{
   createdAt?: number
@@ -26,11 +23,12 @@ export const RelativeDate: React.FC<{
     return null
   }
 
-  const { value, unit } = selectUnit(createdAt)
-
-  return (
-    <IntlProvider locale="en">
-      <FormattedRelativeTime value={value} unit={unit} />
-    </IntlProvider>
-  )
+  const formatter = new Intl.RelativeTimeFormat('en', { style: 'short' })
+  let value = Math.floor((createdAt - Date.now()) / 3600000)
+  let unit: Intl.RelativeTimeFormatUnit = 'hour'
+  if (Math.abs(value) > 24) {
+    value = Math.floor(value / 24)
+    unit = 'day'
+  }
+  return <span>{formatter.format(value, unit)}</span>
 }

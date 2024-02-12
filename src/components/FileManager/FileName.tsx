@@ -18,7 +18,6 @@ import styled from 'styled-components'
 
 import { FileAttachment } from '../../lib/files'
 import { FileTypeIcon } from './FileTypeIcon'
-import { Tooltip } from './Tooltip'
 
 export const FileName: React.FC<{
   file: FileAttachment
