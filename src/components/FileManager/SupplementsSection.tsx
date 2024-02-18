@@ -13,11 +13,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import {
-  buildSupplement,
-  ObjectTypes,
-  Supplement,
-} from '@manuscripts/json-schema'
+import { ObjectTypes, Supplement } from '@manuscripts/json-schema'
+import { buildSupplementaryMaterial } from '@manuscripts/transform'
 import React, { useContext, useEffect, useState } from 'react'
 import { useDrag } from 'react-dnd'
 import { getEmptyImage } from 'react-dnd-html5-backend'
@@ -64,17 +61,15 @@ export const SupplementsSection: React.FC<{
 
   const handleUpload = async (file: File) => {
     const uploaded = await upload(file)
-    const supplement = buildSupplement('', uploaded.id)
+    const supplement = buildSupplementaryMaterial('', uploaded.id)
     await saveModel({ ...supplement, MIME: file.type } as Supplement)
   }
 
   const handleReplace = async (modelId: string, file: File) => {
     const uploaded = await upload(file)
-    const supplement = modelMap.get(modelId) as Supplement
-    await saveModel({
-      ...supplement,
-      href: uploaded.id,
-    })
+    const supplement = buildSupplementaryMaterial('', uploaded.id)
+    await deleteModel(modelId)
+    await saveModel({ ...supplement, MIME: file.type } as Supplement)
   }
 
   const handleMoveToOtherFiles = async (modelId: string) => {
