@@ -16,7 +16,7 @@
 
 import AddedIcon from '@manuscripts/assets/react/AddedIcon'
 import AddIcon from '@manuscripts/assets/react/AddIcon'
-import { Footnote } from '@manuscripts/json-schema'
+import { FootnoteNode } from '@manuscripts/transform'
 import React, { useState } from 'react'
 import styled from 'styled-components'
 
@@ -64,15 +64,15 @@ const AddNewFootnote = styled(ButtonGroup)`
 `
 
 export const TableFootnotesEditor: React.FC<{
-  notes: Footnote[]
+  notes: FootnoteNode[]
   onAdd: () => void
-  onInsert: (notes: Footnote[]) => void
+  onInsert: (notes: FootnoteNode[]) => void
   onCancel: () => void
 }> = ({ notes, onAdd, onInsert, onCancel }) => {
-  const [selections, setSelections] = useState(new Map<string, Footnote>())
+  const [selections, setSelections] = useState(new Map<string, FootnoteNode>())
 
-  const toggleSelection = (item: Footnote) => {
-    const id = item._id
+  const toggleSelection = (item: FootnoteNode) => {
+    const id = item.attrs.id
     if (selections.has(id)) {
       selections.delete(id)
       setSelections(new Map([...selections]))
@@ -82,8 +82,8 @@ export const TableFootnotesEditor: React.FC<{
     }
   }
 
-  const isSelected = (item: Footnote) => {
-    return selections.has(item._id)
+  const isSelected = (item: FootnoteNode) => {
+    return selections.has(item.attrs.id)
   }
 
   const handleClick = () => {
@@ -119,14 +119,14 @@ export const TableFootnotesEditor: React.FC<{
 }
 
 const TableFootnotesList: React.FC<{
-  notes: Footnote[]
-  isSelected: (item: Footnote) => boolean
-  onSelect: (item: Footnote) => void
+  notes: FootnoteNode[]
+  isSelected: (item: FootnoteNode) => boolean
+  onSelect: (item: FootnoteNode) => void
 }> = ({ notes, isSelected, onSelect }) => {
   return (
     <NotesListContainer>
       {notes.map((note) => (
-        <FootnoteItem onClick={() => onSelect(note)} key={note._id}>
+        <FootnoteItem onClick={() => onSelect(note)} key={note.attrs.id}>
           <StatusIcon>
             {isSelected(note) ? (
               <AddedIcon data-cy={'plus-icon-ok'} width={24} height={24} />
@@ -134,7 +134,7 @@ const TableFootnotesList: React.FC<{
               <AddIcon data-cy={'plus-icon'} width={24} height={24} />
             )}
           </StatusIcon>
-          <NoteText>{note.contents}</NoteText>
+          <NoteText>{note.firstChild?.textContent}</NoteText>
         </FootnoteItem>
       ))}
     </NotesListContainer>
@@ -151,10 +151,6 @@ const FootnoteItem = styled.div`
   cursor: pointer;
   padding: ${(props) => props.theme.grid.unit * 2}px 0;
   display: flex;
-
-  &:not(:last-of-type) {
-    border-bottom: 1px solid #f6f6f6;
-  }
 `
 const StatusIcon = styled.div`
   flex-shrink: 1;
