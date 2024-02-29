@@ -134,7 +134,7 @@ const TableFootnotesList: React.FC<{
               <AddIcon data-cy={'plus-icon'} width={24} height={24} />
             )}
           </StatusIcon>
-          <NoteText>{++index + '. '+ note.firstChild?.textContent}</NoteText>
+          <NoteText>{++index + '. ' + note.firstChild?.textContent}</NoteText>
         </FootnoteItem>
       ))}
     </NotesListContainer>
@@ -142,7 +142,8 @@ const TableFootnotesList: React.FC<{
 }
 
 const NotesListContainer = styled.div`
-  padding: ${(props) => props.theme.grid.unit * 6}px ${(props) => props.theme.grid.unit * 5}px;
+  padding: ${(props) => props.theme.grid.unit * 6}px
+    ${(props) => props.theme.grid.unit * 5}px;
   flex: 1;
   overflow-y: auto;
 `
