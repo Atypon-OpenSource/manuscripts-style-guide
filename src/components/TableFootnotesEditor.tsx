@@ -125,7 +125,7 @@ const TableFootnotesList: React.FC<{
 }> = ({ notes, isSelected, onSelect }) => {
   return (
     <NotesListContainer>
-      {notes.map((note) => (
+      {notes.map((note, index) => (
         <FootnoteItem onClick={() => onSelect(note)} key={note.attrs.id}>
           <StatusIcon>
             {isSelected(note) ? (
@@ -134,7 +134,7 @@ const TableFootnotesList: React.FC<{
               <AddIcon data-cy={'plus-icon'} width={24} height={24} />
             )}
           </StatusIcon>
-          <NoteText>{note.firstChild?.textContent}</NoteText>
+          <NoteText>{++index + '. '+ note.firstChild?.textContent}</NoteText>
         </FootnoteItem>
       ))}
     </NotesListContainer>
@@ -142,7 +142,7 @@ const TableFootnotesList: React.FC<{
 }
 
 const NotesListContainer = styled.div`
-  padding: 0 ${(props) => props.theme.grid.unit * 4}px;
+  padding: ${(props) => props.theme.grid.unit * 6}px ${(props) => props.theme.grid.unit * 5}px;
   flex: 1;
   overflow-y: auto;
 `
@@ -164,8 +164,8 @@ const StatusIcon = styled.div`
   cursor: pointer;
 `
 const NoteText = styled.div`
-  color: ${(props) => props.theme.colors.text.secondary};
+  color: ${(props) => props.theme.colors.text.primary};
   flex: 1;
-  font-weight: ${(props) => props.theme.font.weight.light};
+  font-weight: ${(props) => props.theme.font.weight.normal};
   margin-top: ${(props) => props.theme.grid.unit}px;
 `
