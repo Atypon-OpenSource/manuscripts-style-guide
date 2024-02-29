@@ -65,16 +65,14 @@ export const SupplementsSection: React.FC<{
   const handleUpload = async (file: File) => {
     const uploaded = await upload(file)
     const supplement = buildSupplement('', uploaded.id)
-    await saveModel(supplement)
+    await saveModel({ ...supplement, MIME: file.type } as Supplement)
   }
 
   const handleReplace = async (modelId: string, file: File) => {
     const uploaded = await upload(file)
-    const supplement = modelMap.get(modelId) as Supplement
-    await saveModel({
-      ...supplement,
-      href: uploaded.id,
-    })
+    const supplement = buildSupplement('', uploaded.id)
+    await deleteModel(modelId)
+    await saveModel({ ...supplement, MIME: file.type } as Supplement)
   }
 
   const handleMoveToOtherFiles = async (modelId: string) => {
