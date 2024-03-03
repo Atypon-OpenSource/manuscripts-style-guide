@@ -63,7 +63,7 @@ const AddNewFootnote = styled(ButtonGroup)`
   }
 `
 
-export const TableFootnotesEditor: React.FC<{
+export const TableFootnotesSelector: React.FC<{
   notes: FootnoteNode[]
   onAdd: () => void
   onInsert: (notes: FootnoteNode[]) => void
