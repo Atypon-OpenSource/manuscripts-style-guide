@@ -15,7 +15,6 @@
  */
 
 export { Theme } from './theme'
-export * from './components/Authors'
 export * from './components/AlertMessage'
 export * from './components/Button'
 export * from './components/RadioButton'
@@ -23,6 +22,7 @@ export * from './components/AutoSaveInput'
 export * from './components/Avatar'
 export * from './components/Dialog'
 export * from './components/Checkbox'
+export * from './components/ChangeHandlingForm'
 export * from './components/Form'
 export * from './components/FileManager'
 export * from './components/FileManager/util'
@@ -30,6 +30,8 @@ export * from './components/Resizer'
 export * from './components/SaveStatus'
 export * from './components/StyledModal'
 export * from './components/TableFootnotesSelector'
+export * from './components/Sidebar'
+export * from './components/DragLayer'
 export * from './components/TextField'
 export * from './components/TextFieldContainer'
 export * from './components/TextFieldError'
@@ -57,7 +59,6 @@ export {
   useDeepCompareMemo,
   useDeepCompareCallback,
 } from './hooks/use-deep-compare'
-export * from './lib/authors'
 export * from './lib/capabilities'
 export * from './lib/files'
 export * from './lib/comments'
