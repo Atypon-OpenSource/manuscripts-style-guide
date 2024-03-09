@@ -19,6 +19,7 @@ import React, { createContext } from 'react'
 import { FileSectionType, useFiles } from '../../index'
 import { Capabilities } from '../../lib/capabilities'
 import { FileAttachment } from '../../lib/files'
+import { DragLayer } from '../DragLayer'
 import {
   InspectorTab,
   InspectorTabList,
@@ -32,7 +33,6 @@ import { FileManagerProvider } from './FileManagerProvider'
 import { InlineFilesSection } from './InlineFilesSection'
 import { OtherFilesSection } from './OtherFilesSection'
 import { SupplementsSection } from './SupplementsSection'
-import {DragLayer} from "../DragLayer";
 
 export type Upload = (file: File) => Promise<FileAttachment>
 
