@@ -63,8 +63,10 @@ const AddNewFootnote = styled(ButtonGroup)`
   }
 `
 
+export type FootnoteWithIndex = { node: FootnoteNode; index?: string }
+
 export const TableFootnotesSelector: React.FC<{
-  notes: FootnoteNode[]
+  notes: FootnoteWithIndex[]
   onAdd: () => void
   onInsert: (notes: FootnoteNode[]) => void
   onCancel: () => void
@@ -119,22 +121,24 @@ export const TableFootnotesSelector: React.FC<{
 }
 
 const TableFootnotesList: React.FC<{
-  notes: FootnoteNode[]
+  notes: FootnoteWithIndex[]
   isSelected: (item: FootnoteNode) => boolean
   onSelect: (item: FootnoteNode) => void
 }> = ({ notes, isSelected, onSelect }) => {
   return (
     <NotesListContainer>
-      {notes.map((note, index) => (
-        <FootnoteItem onClick={() => onSelect(note)} key={note.attrs.id}>
+      {notes.map(({ node, index }) => (
+        <FootnoteItem onClick={() => onSelect(node)} key={node.attrs.id}>
           <StatusIcon>
-            {isSelected(note) ? (
+            {isSelected(node) ? (
               <AddedIcon data-cy={'plus-icon-ok'} width={24} height={24} />
             ) : (
               <AddIcon data-cy={'plus-icon'} width={24} height={24} />
             )}
           </StatusIcon>
-          <NoteText>{++index + '. ' + note.firstChild?.textContent}</NoteText>
+          <NoteText>
+            {(index ? index + '. ' : '') + node.firstChild?.textContent}
+          </NoteText>
         </FootnoteItem>
       ))}
     </NotesListContainer>
