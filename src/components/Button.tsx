@@ -33,7 +33,6 @@ const dangerBtnStyles = css`
         props.theme.colors.button.error.border.hover,
         true
       )}
-  }
 
   &:not([disabled]):active {
     ${(props) =>
@@ -315,20 +314,14 @@ const IconButtonTemplate = styled(ButtonTemplate)<{
 export const IconButton = styled(IconButtonTemplate)`
   ${(props) =>
     btnColors(
-      props.theme.colors.text.primary,
+      '#6e6e6e',
       props.theme.colors.button.default.background.default,
       props.theme.colors.button.default.border.default,
       false
     )}
 
   &:not([disabled]):hover, &:not([disabled]):focus {
-    ${(props) =>
-      btnColors(
-        props.theme.colors.brand.medium,
-        'transparent',
-        'transparent',
-        false
-      )}
+    ${(props) => btnColors('#363636', '#f2f2f2', '#f2f2f2', false)}
   }
 
   &:not([disabled]):active {
@@ -408,5 +401,17 @@ export const ButtonGroup = styled.div`
 
   button:not(:first-child) {
     margin-left: ${(props) => props.theme.grid.unit}px;
+  }
+`
+
+export const IconButtonGroup = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+
+  button {
+    width: 28px;
+    height: 28px;
   }
 `
