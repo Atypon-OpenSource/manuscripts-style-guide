@@ -321,7 +321,13 @@ export const IconButton = styled(IconButtonTemplate)`
     )}
 
   &:not([disabled]):hover, &:not([disabled]):focus {
-    ${(props) => btnColors('#363636', '#f2f2f2', '#f2f2f2', false)}
+    ${(props) =>
+      btnColors(
+        props.theme.colors.brand.medium,
+        'transparent',
+        'transparent',
+        false
+      )}
   }
 
   &:not([disabled]):active {
