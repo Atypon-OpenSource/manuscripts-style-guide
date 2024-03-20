@@ -15,11 +15,11 @@
  */
 
 import React, { ReactElement, useMemo, useState } from 'react'
+import styled from 'styled-components'
 
 import { IconButton, IconButtonGroup } from './Button'
 import { AddComment, EditIcon } from './icons'
 import { Tooltip } from './Tooltip'
-import styled from 'styled-components'
 
 export interface Actions {
   label: string
@@ -41,12 +41,13 @@ const Icons: {
 }
 
 const ContextMenuIconButton = styled(IconButton)`
-  &:not([disabled]):hover, &:not([disabled]):focus {
+  &:not([disabled]):hover,
+  &:not([disabled]):focus {
     color: #363636;
     background-color: #f2f2f2;
     border-color: #f2f2f2;
   }
-  `
+`
 
 export const ContextMenu: React.FC<ContextMenuProps> = ({ actions }) => {
   let Icon: React.FC<React.SVGAttributes<SVGElement>> | (() => JSX.Element)
