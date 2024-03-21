@@ -33,6 +33,7 @@ const dangerBtnStyles = css`
         props.theme.colors.button.error.border.hover,
         true
       )}
+  }
 
   &:not([disabled]):active {
     ${(props) =>
@@ -314,7 +315,7 @@ const IconButtonTemplate = styled(ButtonTemplate)<{
 export const IconButton = styled(IconButtonTemplate)`
   ${(props) =>
     btnColors(
-      '#6e6e6e',
+      props.theme.colors.text.primary,
       props.theme.colors.button.default.background.default,
       props.theme.colors.button.default.border.default,
       false

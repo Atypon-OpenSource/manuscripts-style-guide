@@ -31,16 +31,8 @@ export interface ContextMenuProps {
   actions: Actions[]
 }
 
-const Icons: {
-  [index: string]:
-    | React.FC<React.SVGAttributes<SVGElement>>
-    | (() => JSX.Element)
-} = {
-  AddComment: AddComment,
-  EditIcon: EditIcon,
-}
-
 const ContextMenuIconButton = styled(IconButton)`
+  color: #6e6e6e;
   &:not([disabled]):hover,
   &:not([disabled]):focus {
     color: #363636;
@@ -50,21 +42,33 @@ const ContextMenuIconButton = styled(IconButton)`
 `
 
 export const ContextMenu: React.FC<ContextMenuProps> = ({ actions }) => {
-  let Icon: React.FC<React.SVGAttributes<SVGElement>> | (() => JSX.Element)
+  // IconSelector can be expanded with other icons/actions
+  const IconSelector: React.FC<{ iconName: string }> = ({ iconName }) => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const icons: { [key: string]: React.FC<any> } = {
+      AddComment: AddComment,
+      EditIcon: EditIcon,
+    }
+    const Comp: React.FC = icons[iconName]
+    return (
+      <>
+        <Comp />
+      </>
+    )
+  }
+
   return (
     <>
       <IconButtonGroup>
         {actions.map((action) => {
-          {
-            Icon = Icons[action.icon]
-          }
           return (
             <ContextMenuIconButton
               key={action.icon}
               data-tooltip-id={action.icon}
               onClick={action.action}
             >
-              <Icon />
+              {/* <Icon /> */}
+              <IconSelector iconName={action.icon} />
               <Tooltip id={action.icon} place="bottom">
                 {action.label}
               </Tooltip>
