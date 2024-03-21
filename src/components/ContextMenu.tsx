@@ -42,19 +42,15 @@ const ContextMenuIconButton = styled(IconButton)`
 `
 
 export const ContextMenu: React.FC<ContextMenuProps> = ({ actions }) => {
-  // IconSelector can be expanded with other icons/actions
+  //   // IconSelector can be expanded with other icons/actions
   const IconSelector: React.FC<{ iconName: string }> = ({ iconName }) => {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const icons: { [key: string]: React.FC<any> } = {
       AddComment: AddComment,
       EditIcon: EditIcon,
     }
-    const Comp: React.FC = icons[iconName]
-    return (
-      <>
-        <Comp />
-      </>
-    )
+    const Icon: React.FC = icons[iconName]
+    return <Icon />
   }
 
   return (
@@ -67,7 +63,6 @@ export const ContextMenu: React.FC<ContextMenuProps> = ({ actions }) => {
               data-tooltip-id={action.icon}
               onClick={action.action}
             >
-              {/* <Icon /> */}
               <IconSelector iconName={action.icon} />
               <Tooltip id={action.icon} place="bottom">
                 {action.label}
