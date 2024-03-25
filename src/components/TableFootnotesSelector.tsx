@@ -68,7 +68,7 @@ export type FootnoteWithIndex = { node: FootnoteNode; index?: string }
 export const TableFootnotesSelector: React.FC<{
   notes: FootnoteWithIndex[]
   onAdd: () => void
-  onInsert: (notes: FootnoteNode[]) => void
+  onInsert: (notes: FootnoteWithIndex[]) => void
   onCancel: () => void
 }> = ({ notes, onAdd, onInsert, onCancel }) => {
   const [selections, setSelections] = useState(new Map<string, FootnoteNode>())
@@ -89,8 +89,7 @@ export const TableFootnotesSelector: React.FC<{
   }
 
   const handleClick = () => {
-    const items = Array.from(selections.values())
-    return onInsert(items)
+    return onInsert(notes.filter(({ node }) => selections.has(node.attrs.id)))
   }
 
   return (
