@@ -163,21 +163,19 @@ storiesOf('FileManager', module).add('FileManager', () => {
   const [smodelMap, setModelMap] = useState(modelMap)
 
   return (
-    <BrowserRouter>
-      <FileManager
-        can={capabilities}
-        fileManagement={{
-          upload,
-          download,
-          previewLink,
-        }}
-        files={files}
-        modelMap={smodelMap}
-        // @ts-ignore
-        saveModel={saveModel}
-        deleteModel={deleteModel}
-        enableDragAndDrop={true}
-      />
-    </BrowserRouter>
+    <FileManager
+      can={capabilities}
+      fileManagement={{
+        upload,
+        download,
+        previewLink,
+      }}
+      files={files}
+      modelMap={smodelMap}
+      // @ts-ignore
+      saveModel={saveModel}
+      deleteModel={deleteModel}
+      enableDragAndDrop={true}
+    />
   )
 })

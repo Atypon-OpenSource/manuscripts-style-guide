@@ -15,10 +15,6 @@
  */
 
 export { Theme } from './theme'
-export * from './components/AffiliationsEditor'
-export * from './components/AuthorForm'
-export * from './components/AuthorName'
-export * from './components/AuthorsDND'
 export * from './components/AlertMessage'
 export * from './components/Button'
 export * from './components/RadioButton'
@@ -33,6 +29,8 @@ export * from './components/Resizer'
 export * from './components/SaveStatus'
 export * from './components/StyledModal'
 export * from './components/TableFootnotesSelector'
+export * from './components/Sidebar'
+export * from './components/DragLayer'
 export * from './components/TextField'
 export * from './components/TextFieldContainer'
 export * from './components/TextFieldError'
@@ -60,10 +58,8 @@ export {
   useDeepCompareMemo,
   useDeepCompareCallback,
 } from './hooks/use-deep-compare'
-export * from './lib/authors'
 export * from './lib/capabilities'
 export * from './lib/files'
 export * from './lib/comments'
 export * from './lib/menus'
 export { default as errorsDecoder } from './lib/errors-decoder'
-export * from './types'

@@ -13,19 +13,33 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import React, { useCallback } from 'react'
+import React from 'react'
 import { useDragLayer, XYCoord } from 'react-dnd'
 import styled from 'styled-components'
 
-import { FileContainer } from './FileContainer'
-import { FileCreatedDate } from './FileCreatedDate'
-import { FileName } from './FileName'
+import { FileContainer } from './FileManager/FileContainer'
+import { FileCreatedDate } from './FileManager/FileCreatedDate'
+import { FileName } from './FileManager/FileName'
 
-function getItemStyles(
-  initialOffset: XYCoord | null,
-  currentOffset: XYCoord | null
-) {
-  if (!initialOffset || !currentOffset) {
+const Container = styled.div`
+  position: fixed;
+  pointer-events: none;
+  z-index: 999;
+  left: 0;
+  top: 0;
+  max-width: 400px;
+`
+
+const DraggableFileContainer = styled(FileContainer)`
+  padding: 16px 32px;
+  background: #f2fbfc;
+  border: 1px solid #bce7f6;
+  box-shadow: 0 4px 9px rgba(0, 0, 0, 0.3);
+  border-radius: 6px;
+`
+
+const getItemStyles = (currentOffset: XYCoord | null) => {
+  if (!currentOffset) {
     return {
       display: 'none',
     }
@@ -41,16 +55,16 @@ function getItemStyles(
 }
 
 export const DragLayer: React.FC = () => {
-  const { itemType, isDragging, item, initialOffset, currentOffset } =
-    useDragLayer((monitor) => ({
+  const { itemType, isDragging, item, currentOffset } = useDragLayer(
+    (monitor) => ({
       item: monitor.getItem(),
       itemType: monitor.getItemType(),
-      initialOffset: monitor.getInitialSourceClientOffset(),
       currentOffset: monitor.getSourceClientOffset(),
       isDragging: monitor.isDragging(),
-    }))
+    })
+  )
 
-  const renderItem = useCallback(() => {
+  const renderItem = () => {
     switch (itemType) {
       case 'file':
         return (
@@ -62,31 +76,13 @@ export const DragLayer: React.FC = () => {
       default:
         return null
     }
-  }, [itemType, item])
+  }
 
   if (!isDragging) {
     return null
   }
 
   return (
-    <Container style={getItemStyles(initialOffset, currentOffset)}>
-      {renderItem()}
-    </Container>
+    <Container style={getItemStyles(currentOffset)}>{renderItem()}</Container>
   )
 }
-
-const Container = styled.div`
-  position: fixed;
-  pointer-events: none;
-  z-index: 999;
-  left: 0;
-  top: 0;
-  max-width: 400px;
-`
-const DraggableFileContainer = styled(FileContainer)`
-  padding: 16px 32px;
-  background: #f2fbfc;
-  border: 1px solid #bce7f6;
-  box-shadow: 0 4px 9px rgba(0, 0, 0, 0.3);
-  border-radius: 6px;
-`
