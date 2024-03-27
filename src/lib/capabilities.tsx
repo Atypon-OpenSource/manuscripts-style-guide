@@ -53,7 +53,7 @@ export type Capabilities = {
   putOnHoldTask: boolean
   changeDueDate: boolean
   previewAccess: boolean
-  editNotTracked: boolean
+  editWithoutTracking: boolean
   accessEditor: boolean
   formatArticle: boolean
   editArticle: boolean
@@ -105,6 +105,7 @@ export const getCapabilities = (
   return {
     /* suggestions */
     handleSuggestion: isOwner() || isEditor() || isWriter(),
+    editWithoutTracking: isWriter(),
     rejectOwnSuggestion: !isViewer(),
     createSuggestion: !isViewer(),
     viewSuggestion: true,
@@ -141,7 +142,6 @@ export const getCapabilities = (
     putOnHoldTask: isProdEditor(),
     changeDueDate: isProdEditor() && allowed(Actions.updateDueDate),
     previewAccess: true,
-    editNotTracked: false,
     accessEditor: true,
     /* menu */
     formatArticle: !isViewer(),
