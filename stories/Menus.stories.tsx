@@ -109,7 +109,20 @@ storiesOf('Menus', module).add('Menus', () => {
           pc: 'CommandOrControl+Option+O',
         },
         isEnabled: true,
-        run: () => console.log(''),
+        submenu: [
+          {
+            id: 'ordered-list-context-menu',
+            label: '',
+            isEnabled: true,
+            options: {
+              order: () => '',
+              'alpha-upper': () => '',
+              'alpha-lower': () => '',
+              'roman-upper': () => '',
+              'roman-lower': () => '',
+            },
+          },
+        ],
       },
       {
         id: 'insert-bullet-list',
@@ -119,7 +132,17 @@ storiesOf('Menus', module).add('Menus', () => {
           pc: 'CommandOrControl+Option+K',
         },
         isEnabled: true,
-        run: () => console.log(''),
+        submenu: [
+          {
+            id: 'bullet-list-context-menu',
+            label: '',
+            isEnabled: true,
+            options: {
+              bullet: () => '',
+              simple: () => '',
+            },
+          },
+        ],
       },
       {
         role: 'separator',
@@ -311,7 +334,7 @@ storiesOf('Menus', module).add('Menus', () => {
       {
         id: 'format-table',
         label: 'Table',
-        isEnabled: false,
+        isEnabled: true,
         submenu: [
           {
             id: 'format-table-add-row-before',

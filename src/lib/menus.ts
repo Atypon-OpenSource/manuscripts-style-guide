@@ -14,6 +14,13 @@
  * limitations under the License.
  */
 
+import {
+  ManuscriptEditorState,
+  ManuscriptTransaction,
+} from '@manuscripts/transform'
+
+export type Dispatch = (tr: ManuscriptTransaction) => void
+
 export interface MenuShortcut {
   mac: string
   pc: string
@@ -28,6 +35,9 @@ export interface MenuSpec {
   isEnabled: boolean
   run?: () => void
   submenu?: (MenuSpec | MenuSeparator)[]
+  options?: {
+    [key: string]: (state: ManuscriptEditorState, dispatch: Dispatch) => void
+  }
 }
 
 export interface Menu extends MenuSpec {
