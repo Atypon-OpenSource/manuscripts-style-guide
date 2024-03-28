@@ -226,11 +226,7 @@ export const CitationEditor: React.FC<CitationEditorProps> = ({
         onDelete={onDelete}
       />
       <Actions>
-        <IconTextButton onClick={onComment}>
-          <AddComment />
-          <AddCommentButtonText>Add Comment</AddCommentButtonText>
-        </IconTextButton>
-
+        <IconTextButton />
         <ButtonGroup>
           <SecondaryButton onClick={onCancel}>Done</SecondaryButton>
           <PrimaryButton disabled={!canEdit} onClick={() => setSearching(true)}>
