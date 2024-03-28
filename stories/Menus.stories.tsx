@@ -334,7 +334,7 @@ storiesOf('Menus', module).add('Menus', () => {
       {
         id: 'format-table',
         label: 'Table',
-        isEnabled: true,
+        isEnabled: false,
         submenu: [
           {
             id: 'format-table-add-row-before',
