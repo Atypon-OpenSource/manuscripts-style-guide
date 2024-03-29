@@ -36,7 +36,7 @@ export interface MenuSpec {
   run?: () => void
   submenu?: (MenuSpec | MenuSeparator)[]
   options?: {
-    [key: string]: (state: ManuscriptEditorState, dispatch: Dispatch) => void
+    [key: string]: () => void
   }
 }
 

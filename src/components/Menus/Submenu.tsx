@@ -19,6 +19,15 @@ import React from 'react'
 import styled from 'styled-components'
 
 import { isMenuSeparator, Menu, MenuSeparator } from '../../lib/menus'
+import {
+  Block,
+  BlockItem,
+  bulletListContextMenu,
+  Label,
+  ListContainer,
+  orderedListContextMenu,
+  StyleBlock,
+} from './Menus'
 import { Shortcut } from './Shortcut'
 
 export const Text = styled.div`
@@ -36,8 +45,6 @@ export const SubmenusContainer = styled.div`
   box-shadow: 0 4px 9px 0 rgba(84, 83, 83, 0.3);
   color: #353535;
   min-width: 150px;
-  max-height: 70vh;
-  overflow-y: auto;
   padding: 4px 0;
   white-space: nowrap;
   width: auto;
@@ -134,7 +141,13 @@ export const Submenu: React.FC<SubmenuProps> = ({ menu, handleClick }) => {
     return (
       <ListContainer>
         {styles.map((style, index) => (
-          <StyleBlock key={index} onClick={() => ''}>
+          <StyleBlock
+            key={index}
+            onClick={() => {
+              menu.options && menu.options[style.type]()
+              handleClick([-1, -1])
+            }}
+          >
             {style.items.map((style, index) => (
               <BlockItem key={index}>
                 <Label hide={style === '-'}>{style}</Label>
@@ -176,63 +189,3 @@ export const Submenu: React.FC<SubmenuProps> = ({ menu, handleClick }) => {
     </SubmenuContainer>
   )
 }
-
-export const orderedListContextMenu = [
-  { items: ['1.', '2.', '3.'], type: 'order' },
-  { items: ['A.', 'B.', 'C.'], type: 'alpha-upper' },
-  { items: ['a.', 'b.', 'c.'], type: 'alpha-lower' },
-  { items: ['I.', 'II.', 'III.'], type: 'roman-upper' },
-  { items: ['i.', 'ii.', 'iii.'], type: 'roman-lower' },
-]
-
-export const bulletListContextMenu = [
-  { items: ['•', '•', '•'], type: 'bullet' },
-  { items: ['-', '-', '-'], type: 'simple' },
-]
-
-export const ListContainer = styled.div`
-  padding: ${(props) => props.theme.grid.unit * 4}px;
-  display: grid;
-  grid-template-columns:
-    ${(props) => props.theme.grid.unit * 21}px
-    ${(props) => props.theme.grid.unit * 21}px;
-  gap: 6px;
-`
-
-export const StyleBlock = styled.div`
-  border: 1px solid ${(props) => props.theme.colors.border.tertiary};
-  padding: ${(props) => props.theme.grid.unit * 2}px;
-  cursor: pointer;
-  display: flex;
-  flex-direction: column;
-  row-gap: ${(props) => props.theme.grid.unit * 2}px;
-
-  &:hover {
-    background: ${(props) => props.theme.colors.button.default.border.hover};
-  }
-
-  &:active {
-    border-color: ${(props) => props.theme.colors.border.primary};
-  }
-`
-
-export const BlockItem = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 6px;
-`
-
-export const Block = styled.div`
-  height: 3px;
-  width: ${(props) => props.theme.grid.unit * 14}px;
-  background: ${(props) => props.theme.colors.border.tertiary};
-`
-
-export const Label = styled.div<{ hide?: boolean }>`
-  font-family: Lato, serif;
-  font-size: ${(props) => props.theme.font.size.small};
-  font-weight: ${(props) => props.theme.font.weight.normal};
-  line-height: ${(props) => props.theme.font.lineHeight.small};
-  font-style: normal;
-  color: ${(props) => (props.hide && 'white') || 'initial'};
-`
