@@ -410,3 +410,15 @@ export const ButtonGroup = styled.div`
     margin-left: ${(props) => props.theme.grid.unit}px;
   }
 `
+
+export const IconButtonGroup = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+
+  button {
+    width: 28px;
+    height: 28px;
+  }
+`

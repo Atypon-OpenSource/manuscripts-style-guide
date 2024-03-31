@@ -17,6 +17,7 @@
 export { Theme } from './theme'
 export * from './components/AlertMessage'
 export * from './components/Button'
+export * from './components/ContextMenu'
 export * from './components/RadioButton'
 export * from './components/AutoSaveInput'
 export * from './components/Avatar'
