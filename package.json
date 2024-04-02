@@ -34,7 +34,7 @@
   "dependencies": {
     "@manuscripts/assets": "^0.6.4",
     "@manuscripts/json-schema": "^2.2.6",
-    "@manuscripts/transform": "^2.1.6",
+    "@manuscripts/transform": "2.1.9-LEAN-3321",
     "@reach/tabs": "^0.18.0",
     "date-fns": "^2.29.3",
     "formik": "^2.2.9",
