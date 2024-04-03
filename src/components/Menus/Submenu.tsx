@@ -19,6 +19,15 @@ import React from 'react'
 import styled from 'styled-components'
 
 import { isMenuSeparator, Menu, MenuSeparator } from '../../lib/menus'
+import {
+  Block,
+  BlockItem,
+  bulletListContextMenu,
+  Label,
+  ListContainer,
+  orderedListContextMenu,
+  StyleBlock,
+} from './Menus'
 import { Shortcut } from './Shortcut'
 
 export const Text = styled.div`
@@ -36,8 +45,6 @@ export const SubmenusContainer = styled.div`
   box-shadow: 0 4px 9px 0 rgba(84, 83, 83, 0.3);
   color: #353535;
   min-width: 150px;
-  max-height: 70vh;
-  overflow-y: auto;
   padding: 4px 0;
   white-space: nowrap;
   width: auto;
@@ -108,7 +115,7 @@ export const Submenu: React.FC<SubmenuProps> = ({ menu, handleClick }) => {
     return <Separator />
   }
 
-  if (!menu.submenu) {
+  if (!menu.submenu && !menu.options) {
     return (
       <Container
         isOpen={menu.isOpen}
@@ -122,6 +129,34 @@ export const Submenu: React.FC<SubmenuProps> = ({ menu, handleClick }) => {
         <Text>{menu.label}</Text>
         {menu.shortcut && <Shortcut shortcut={menu.shortcut} />}
       </Container>
+    )
+  }
+
+  if (menu.options) {
+    const styles =
+      menu.id === 'bullet-list-context-menu'
+        ? bulletListContextMenu
+        : orderedListContextMenu
+
+    return (
+      <ListContainer>
+        {styles.map((style, index) => (
+          <StyleBlock
+            key={index}
+            onClick={() => {
+              menu.options && menu.options[style.type]()
+              handleClick([-1, -1])
+            }}
+          >
+            {style.items.map((style, index) => (
+              <BlockItem key={index}>
+                <Label hide={style === '-'}>{style}</Label>
+                <Block />
+              </BlockItem>
+            ))}
+          </StyleBlock>
+        ))}
+      </ListContainer>
     )
   }
 
