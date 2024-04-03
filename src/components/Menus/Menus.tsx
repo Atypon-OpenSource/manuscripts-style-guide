@@ -91,3 +91,63 @@ export const Menus: React.FC<MenusProps> = ({
     </MenusContainer>
   )
 }
+
+export const orderedListContextMenu = [
+  { items: ['1.', '2.', '3.'], type: 'order' },
+  { items: ['A.', 'B.', 'C.'], type: 'alpha-upper' },
+  { items: ['a.', 'b.', 'c.'], type: 'alpha-lower' },
+  { items: ['I.', 'II.', 'III.'], type: 'roman-upper' },
+  { items: ['i.', 'ii.', 'iii.'], type: 'roman-lower' },
+]
+
+export const bulletListContextMenu = [
+  { items: ['•', '•', '•'], type: 'bullet' },
+  { items: ['-', '-', '-'], type: 'simple' },
+]
+
+export const ListContainer = styled.div`
+  padding: ${(props) => props.theme.grid.unit * 4}px;
+  display: grid;
+  grid-template-columns:
+    ${(props) => props.theme.grid.unit * 21}px
+    ${(props) => props.theme.grid.unit * 21}px;
+  gap: 6px;
+`
+
+export const StyleBlock = styled.div`
+  border: 1px solid ${(props) => props.theme.colors.border.tertiary};
+  padding: ${(props) => props.theme.grid.unit * 2}px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  row-gap: ${(props) => props.theme.grid.unit * 2}px;
+
+  &:hover {
+    background: ${(props) => props.theme.colors.button.default.border.hover};
+  }
+
+  &:active {
+    border-color: ${(props) => props.theme.colors.border.primary};
+  }
+`
+
+export const BlockItem = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 6px;
+`
+
+export const Block = styled.div`
+  height: 3px;
+  width: ${(props) => props.theme.grid.unit * 14}px;
+  background: ${(props) => props.theme.colors.border.tertiary};
+`
+
+export const Label = styled.div<{ hide?: boolean }>`
+  font-family: Lato, serif;
+  font-size: ${(props) => props.theme.font.size.small};
+  font-weight: ${(props) => props.theme.font.weight.normal};
+  line-height: ${(props) => props.theme.font.lineHeight.small};
+  font-style: normal;
+  color: ${(props) => (props.hide && 'white') || 'initial'};
+`
