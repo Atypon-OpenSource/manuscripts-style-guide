@@ -37,7 +37,7 @@ export const FileUploader: React.FC<FileUploaderProps> = ({ onUpload }) => {
       fileInputRef.current.click()
     }
   }
-  const handleChange = async (event: ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     if (event && event.target && event.target.files) {
       const file = event.target.files[0]
       onUpload(file)
