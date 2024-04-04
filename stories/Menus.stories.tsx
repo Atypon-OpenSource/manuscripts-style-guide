@@ -102,29 +102,6 @@ storiesOf('Menus', module).add('Menus', () => {
         role: 'separator',
       },
       {
-        id: 'insert-ordered-list',
-        label: 'Numbered List',
-        shortcut: {
-          mac: 'Option+CommandOrControl+O',
-          pc: 'CommandOrControl+Option+O',
-        },
-        isEnabled: true,
-        run: () => console.log(''),
-      },
-      {
-        id: 'insert-bullet-list',
-        label: 'Bullet List',
-        shortcut: {
-          mac: 'Option+CommandOrControl+K',
-          pc: 'CommandOrControl+Option+K',
-        },
-        isEnabled: true,
-        run: () => console.log(''),
-      },
-      {
-        role: 'separator',
-      },
-      {
         id: 'insert-blockquote',
         label: 'Block Quote',
         isEnabled: true,
@@ -304,6 +281,44 @@ storiesOf('Menus', module).add('Menus', () => {
         },
         isEnabled: true,
         run: () => console.log(''),
+      },
+      {
+        role: 'separator',
+      },
+      {
+        id: 'insert-ordered-list',
+        label: 'Numbered List',
+        isEnabled: true,
+        submenu: [
+          {
+            id: 'ordered-list-context-menu',
+            label: '',
+            isEnabled: true,
+            options: {
+              order: () => '',
+              'alpha-upper': () => '',
+              'alpha-lower': () => '',
+              'roman-upper': () => '',
+              'roman-lower': () => '',
+            },
+          },
+        ],
+      },
+      {
+        id: 'insert-bullet-list',
+        label: 'Bullet List',
+        isEnabled: true,
+        submenu: [
+          {
+            id: 'bullet-list-context-menu',
+            label: '',
+            isEnabled: true,
+            options: {
+              bullet: () => '',
+              simple: () => '',
+            },
+          },
+        ],
       },
       {
         role: 'separator',
