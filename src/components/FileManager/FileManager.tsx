@@ -19,7 +19,6 @@ import React, { createContext } from 'react'
 import { FileSectionType, useFiles } from '../../index'
 import { Capabilities } from '../../lib/capabilities'
 import { FileAttachment } from '../../lib/files'
-import { DragLayer } from '../DragLayer'
 import {
   InspectorTab,
   InspectorTabList,
@@ -29,6 +28,7 @@ import {
 } from '../Inspector'
 import { InspectorSection } from '../InspectorSection'
 import { Tooltip } from '../Tooltip'
+import { FileManagerDragLayer } from './FileManagerDragLayer'
 import { FileManagerProvider } from './FileManagerProvider'
 import { InlineFilesSection } from './InlineFilesSection'
 import { OtherFilesSection } from './OtherFilesSection'
@@ -99,7 +99,7 @@ export const FileManager: React.FC<{
       modelMap={modelMap}
       fileManagement={fileManagement}
     >
-      <DragLayer />
+      <FileManagerDragLayer />
       <PermissionsContext.Provider value={can}>
         <InspectorSection
           title={'Files'}

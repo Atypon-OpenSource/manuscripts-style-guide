@@ -44,7 +44,7 @@ export const OtherFilesSection: React.FC<{
     message: '',
   })
 
-  const upload = async (file: File) => {
+  const handleUpload = async (file: File) => {
     setAlert({
       type: FileSectionAlertType.UPLOAD_IN_PROGRESS,
       message: file.name,
@@ -67,7 +67,7 @@ export const OtherFilesSection: React.FC<{
 
   return (
     <div>
-      {can?.uploadFile && <FileUploader handler={upload} />}
+      {can?.uploadFile && <FileUploader onUpload={handleUpload} />}
       <FileSectionAlert alert={alert} />
       {files.map((file) => (
         <OtherFile
@@ -86,10 +86,10 @@ const OtherFile: React.FC<{
   handleDownload: () => void
   handleMoveToSupplements: () => Promise<void>
 }> = ({ file, handleDownload, handleMoveToSupplements }) => {
-  const [{ isDragging }, drag, preview] = useDrag({
+  const [{ isDragging }, dragRef, preview] = useDrag({
+    type: 'file',
     item: {
       file,
-      type: 'file',
     },
     collect: (monitor) => ({
       isDragging: monitor.isDragging(),
@@ -104,7 +104,7 @@ const OtherFile: React.FC<{
     <FileContainer
       key={file.id}
       data-cy="file-container"
-      ref={drag}
+      ref={dragRef}
       className={isDragging ? 'dragging' : ''}
     >
       <FileName file={file} />

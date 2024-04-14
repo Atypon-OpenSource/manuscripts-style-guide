@@ -85,7 +85,7 @@ export const SupplementsSection: React.FC<{
 
   return (
     <>
-      {can?.uploadFile && <FileUploader handler={handleUpload} />}
+      {can?.uploadFile && <FileUploader onUpload={handleUpload} />}
       <FileSectionAlert alert={alert} />
       {supplements.map((supplement) => (
         <SupplementFile
@@ -110,14 +110,14 @@ const SupplementFile: React.FC<{
   handleReplace: Replace
   handleDetach: () => Promise<void>
 }> = ({ file, handleDownload, handleReplace, handleDetach }) => {
-  const [{ isDragging }, drag, preview] = useDrag({
+  const [{ isDragging }, dragRef, preview] = useDrag({
+    type: 'file',
     item: {
       file,
       model: {
         _id: file.modelId,
         objectType: ObjectTypes.Supplement,
       },
-      type: 'file',
     },
     collect: (monitor) => ({
       isDragging: monitor.isDragging(),
@@ -132,7 +132,7 @@ const SupplementFile: React.FC<{
     <FileContainer
       data-cy="file-container"
       key={file.id}
-      ref={drag}
+      ref={dragRef}
       className={isDragging ? 'dragging' : ''}
     >
       <FileName file={file} />
