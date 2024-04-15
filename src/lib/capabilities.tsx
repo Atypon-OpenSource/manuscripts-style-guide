@@ -127,11 +127,11 @@ export const getCapabilities = (
     /* file handling */
     downloadFiles: true,
     changeDesignation:
-      (isOwner() || isEditor() || isWriter()) &&
+      (isOwner() || isEditor() || isWriter() || isAnnotator()) &&
       allowed(Actions.updateAttachment),
-    moveFile: isOwner() || isEditor() || isWriter(),
-    replaceFile: isOwner() || isEditor() || isWriter(),
-    uploadFile: isOwner() || isEditor() || isWriter(),
+    moveFile: isOwner() || isEditor() || isWriter() || isAnnotator(),
+    replaceFile: isOwner() || isEditor() || isWriter() || isAnnotator(),
+    uploadFile: isOwner() || isEditor() || isWriter() || isAnnotator(),
     handleQualityReport: isOwner() || isEditor() || isWriter(),
     setMainManuscript: allowed(Actions.setMainManuscript),
     /* dashboard actions */
@@ -148,7 +148,7 @@ export const getCapabilities = (
     /* editor */
     editArticle: !isViewer(),
     editMetadata: !(isViewer() || isProofer()) || isAnnotator(),
-    editCitationsAndRefs: !(isViewer() || isAnnotator() || isProofer()),
+    editCitationsAndRefs: !(isViewer() || isProofer()),
     shareProject: isOwner(),
     applySaveChanges: !(isAnnotator() || isProofer()),
   }
