@@ -115,12 +115,17 @@ export const getCapabilities = (
     handleOwnComments: !isViewer(),
     handleOthersComments: isOwner(),
     resolveOwnComment: !isViewer(),
-    resolveOthersComment: !(isViewer() || isAnnotator() || isProofer()),
+    resolveOthersComment: !(
+      isViewer() ||
+      isAnnotator() ||
+      isProofer() ||
+      isAnnotator()
+    ),
     createComment: !isViewer(),
     /* production notes */
     viewNotes: true,
     createNotes: !isViewer() && allowed(Actions.addNote),
-    handleNotes: isOwner() || isEditor() || isWriter(), // Approve rejecet owns and others
+    handleNotes: isOwner() || isEditor() || isWriter() || isAnnotator(), // Approve rejecet owns and others
     /* history */
     viewHistory: false,
     restoreVersion: isOwner() || isEditor() || isWriter(),
