@@ -13,17 +13,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import React, { ChangeEvent, useCallback, useRef } from 'react'
-import { DropTargetMonitor, useDrop } from 'react-dnd'
+import React, { ChangeEvent, useRef } from 'react'
+import { useDrop } from 'react-dnd'
 import { NativeTypes } from 'react-dnd-html5-backend'
 import styled, { css } from 'styled-components'
+
+type Files = {
+  files: File[]
+}
+
+export interface FileUploaderProps {
+  onUpload: (file: File) => void
+}
 
 /**
  * This component will show the drag or upload file area
  */
-export const FileUploader: React.FC<{
-  handler: (file: File) => Promise<void>
-}> = ({ handler }) => {
+export const FileUploader: React.FC<FileUploaderProps> = ({ onUpload }) => {
   const fileInputRef = useRef<HTMLInputElement>(null)
 
   const openFileDialog = () => {
@@ -31,27 +37,18 @@ export const FileUploader: React.FC<{
       fileInputRef.current.click()
     }
   }
-  const handleChange = async (event: ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     if (event && event.target && event.target.files) {
       const file = event.target.files[0]
-      await handler(file)
+      onUpload(file)
     }
   }
 
-  const handleFileDrop = useCallback(
-    async (monitor: DropTargetMonitor) => {
-      if (monitor) {
-        const file = monitor.getItem().files[0]
-        await handler(file)
-      }
-    },
-    [handler]
-  )
-
   const [{ canDrop, isOver }, dropRef] = useDrop({
     accept: [NativeTypes.FILE],
-    drop(item, monitor) {
-      handleFileDrop(monitor)
+    drop: (item: Files) => {
+      const file = item.files[0]
+      onUpload(file)
     },
     collect: (monitor) => ({
       isOver: monitor.isOver(),
@@ -72,7 +69,7 @@ export const FileUploader: React.FC<{
         ref={fileInputRef}
         type="file"
         style={{ display: 'none' }}
-        onChange={(e) => handleChange(e)}
+        onChange={handleChange}
         value={''}
       />
       Drag or click to upload a new file
