@@ -17,9 +17,9 @@ import React from 'react'
 import { useDragLayer, XYCoord } from 'react-dnd'
 import styled from 'styled-components'
 
-import { FileContainer } from './FileManager/FileContainer'
-import { FileCreatedDate } from './FileManager/FileCreatedDate'
-import { FileName } from './FileManager/FileName'
+import { FileContainer } from './FileContainer'
+import { FileCreatedDate } from './FileCreatedDate'
+import { FileName } from './FileName'
 
 const Container = styled.div`
   position: fixed;
@@ -54,7 +54,7 @@ const getItemStyles = (currentOffset: XYCoord | null) => {
   }
 }
 
-export const DragLayer: React.FC = () => {
+export const FileManagerDragLayer: React.FC = () => {
   const { itemType, isDragging, item, currentOffset } = useDragLayer(
     (monitor) => ({
       item: monitor.getItem(),
@@ -64,25 +64,18 @@ export const DragLayer: React.FC = () => {
     })
   )
 
-  const renderItem = () => {
-    switch (itemType) {
-      case 'file':
-        return (
-          <DraggableFileContainer>
-            <FileName file={item.file} />
-            {item.file.createdDate && <FileCreatedDate file={item.file} />}
-          </DraggableFileContainer>
-        )
-      default:
-        return null
-    }
-  }
-
   if (!isDragging) {
     return null
   }
 
   return (
-    <Container style={getItemStyles(currentOffset)}>{renderItem()}</Container>
+    <Container style={getItemStyles(currentOffset)}>
+      {itemType === 'file' && (
+        <DraggableFileContainer>
+          <FileName file={item.file} />
+          {item.file.createdDate && <FileCreatedDate file={item.file} />}
+        </DraggableFileContainer>
+      )}
+    </Container>
   )
 }
