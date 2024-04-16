@@ -115,12 +115,7 @@ export const getCapabilities = (
     handleOwnComments: !isViewer(),
     handleOthersComments: isOwner(),
     resolveOwnComment: !isViewer(),
-    resolveOthersComment: !(
-      isViewer() ||
-      isAnnotator() ||
-      isProofer() ||
-      isAnnotator()
-    ),
+    resolveOthersComment: !(isViewer() || isAnnotator() || isProofer()),
     createComment: !isViewer(),
     /* production notes */
     viewNotes: true,
