@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 import AnnotationEdit from '@manuscripts/assets/react/AnnotationEdit'
-import CloseIconDark from '@manuscripts/assets/react/CloseIconDark'
+import TrashIconDark from '@manuscripts/assets/react/TrashIconDark'
 import {
   BibliographyItem,
   buildBibliographyItem,
@@ -210,7 +210,7 @@ export const CitationEditor: React.FC<CitationEditorProps> = ({
                 disabled={!canEdit}
                 onClick={() => setDeleteDialog({ show: true, id: item._id })}
               >
-                <CloseIconDark className={'remove-icon'} />
+                <TrashIconDark color={'#6E6E6E'} />
               </ActionButton>
             </CitedItemActions>
           </CitedItem>
