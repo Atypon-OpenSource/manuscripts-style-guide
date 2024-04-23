@@ -131,7 +131,9 @@ export const getCapabilities = (
       allowed(Actions.updateAttachment),
     moveFile: isOwner() || isEditor() || isWriter() || isAnnotator(),
     replaceFile: isOwner() || isEditor() || isWriter() || isAnnotator(),
-    uploadFile: isOwner() || isEditor() || isWriter() || isAnnotator(),
+    uploadFile:
+      (isOwner() || isEditor() || isWriter() || isAnnotator()) &&
+      allowed(Actions.updateAttachment),
     handleQualityReport: isOwner() || isEditor() || isWriter(),
     setMainManuscript: allowed(Actions.setMainManuscript),
     /* dashboard actions */
