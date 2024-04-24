@@ -16,7 +16,7 @@
 
 import AddedIcon from '@manuscripts/assets/react/AddedIcon'
 import AddIcon from '@manuscripts/assets/react/AddIcon'
-import { FootnoteNode } from '@manuscripts/transform'
+import { FootnoteNode, InlineFootnoteNode } from '@manuscripts/transform'
 import React, { useState } from 'react'
 import styled from 'styled-components'
 
@@ -67,11 +67,26 @@ export type FootnoteWithIndex = { node: FootnoteNode; index?: string }
 
 export const TableFootnotesSelector: React.FC<{
   notes: FootnoteWithIndex[]
+  inlineFootnote?: InlineFootnoteNode
   onAdd: () => void
   onInsert: (notes: FootnoteWithIndex[]) => void
   onCancel: () => void
-}> = ({ notes, onAdd, onInsert, onCancel }) => {
-  const [selections, setSelections] = useState(new Map<string, FootnoteNode>())
+}> = ({ notes, inlineFootnote, onAdd, onInsert, onCancel }) => {
+  let selectedNotesMap
+
+  if (inlineFootnote) {
+    const rids = inlineFootnote.attrs.rids
+    const selectedNotes = notes.filter(({ node }) =>
+      rids.includes(node.attrs.id)
+    )
+    selectedNotesMap = new Map(
+      selectedNotes.map(({ node }) => [node.attrs.id, node])
+    )
+  }
+
+  const [selections, setSelections] = useState(
+    new Map<string, FootnoteNode>(selectedNotesMap)
+  )
 
   const toggleSelection = (item: FootnoteNode) => {
     const id = item.attrs.id
@@ -97,6 +112,7 @@ export const TableFootnotesSelector: React.FC<{
       <NotesContainer>
         <TableFootnotesList
           notes={notes}
+          inlineFootnote={inlineFootnote}
           isSelected={isSelected}
           onSelect={toggleSelection}
         />
@@ -110,8 +126,11 @@ export const TableFootnotesSelector: React.FC<{
         </AddNewFootnote>
         <ButtonGroup>
           <SecondaryButton onClick={onCancel}>Cancel</SecondaryButton>
-          <PrimaryButton onClick={handleClick} disabled={selections.size === 0}>
-            Insert
+          <PrimaryButton
+            onClick={handleClick}
+            disabled={selections.size === 0 && !inlineFootnote}
+          >
+            {inlineFootnote ? 'Update' : 'Insert'}
           </PrimaryButton>
         </ButtonGroup>
       </Actions>
@@ -121,29 +140,59 @@ export const TableFootnotesSelector: React.FC<{
 
 const TableFootnotesList: React.FC<{
   notes: FootnoteWithIndex[]
+  inlineFootnote?: InlineFootnoteNode
   isSelected: (item: FootnoteNode) => boolean
   onSelect: (item: FootnoteNode) => void
-}> = ({ notes, isSelected, onSelect }) => {
+}> = ({ notes, isSelected, onSelect, inlineFootnote }) => {
+  const selectedNotes: FootnoteWithIndex[] = []
+  const remainingNotes: FootnoteWithIndex[] = []
+
+  notes.forEach((note) => {
+    const isNoteSelected =
+      inlineFootnote && inlineFootnote.attrs.rids.includes(note.node.attrs.id)
+    if (isNoteSelected) {
+      selectedNotes.push(note)
+    } else {
+      remainingNotes.push(note)
+    }
+  })
+
   return (
     <NotesListContainer>
-      {notes.map(({ node, index }) => (
-        <FootnoteItem onClick={() => onSelect(node)} key={node.attrs.id}>
-          <StatusIcon>
-            {isSelected(node) ? (
-              <AddedIcon data-cy={'plus-icon-ok'} width={24} height={24} />
-            ) : (
-              <AddIcon data-cy={'plus-icon'} width={24} height={24} />
-            )}
-          </StatusIcon>
-          <NoteText>
-            {(index ? index + '. ' : '') + node.firstChild?.textContent}
-          </NoteText>
-        </FootnoteItem>
-      ))}
+      {selectedNotes.map((note) => footnoteItem(note, isSelected, onSelect))}
+      {selectedNotes.length > 0 && remainingNotes.length > 0 && <Separator />}
+      {remainingNotes.map((note) => footnoteItem(note, isSelected, onSelect))}
     </NotesListContainer>
   )
 }
 
+const footnoteItem = (
+  note: FootnoteWithIndex,
+  isSelected: (item: FootnoteNode) => boolean,
+  onSelect: (item: FootnoteNode) => void
+) => {
+  const { node, index } = note
+  return (
+    <FootnoteItem onClick={() => onSelect(node)} key={node.attrs.id}>
+      <StatusIcon>
+        {isSelected(node) ? (
+          <AddedIcon data-cy={'plus-icon-ok'} width={24} height={24} />
+        ) : (
+          <AddIcon data-cy={'plus-icon'} width={24} height={24} />
+        )}
+      </StatusIcon>
+      <NoteText>
+        {(index ? index + '. ' : '') + node.firstChild?.textContent}
+      </NoteText>
+    </FootnoteItem>
+  )
+}
+
+const Separator = styled.div`
+  height: 0;
+  border-bottom: 1px solid #e2e2e2;
+  margin: 4px 0;
+`
 const NotesListContainer = styled.div`
   padding: ${(props) => props.theme.grid.unit * 6}px
     ${(props) => props.theme.grid.unit * 5}px;
