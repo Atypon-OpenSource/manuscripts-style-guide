@@ -120,18 +120,20 @@ export const getCapabilities = (
     /* production notes */
     viewNotes: true,
     createNotes: !isViewer() && allowed(Actions.addNote),
-    handleNotes: isOwner() || isEditor() || isWriter(), // Approve rejecet owns and others
+    handleNotes: isOwner() || isEditor() || isWriter() || isAnnotator(), // Approve rejecet owns and others
     /* history */
     viewHistory: false,
     restoreVersion: isOwner() || isEditor() || isWriter(),
     /* file handling */
     downloadFiles: true,
     changeDesignation:
-      (isOwner() || isEditor() || isWriter()) &&
+      (isOwner() || isEditor() || isWriter() || isAnnotator()) &&
       allowed(Actions.updateAttachment),
-    moveFile: isOwner() || isEditor() || isWriter(),
-    replaceFile: isOwner() || isEditor() || isWriter(),
-    uploadFile: isOwner() || isEditor() || isWriter(),
+    moveFile: isOwner() || isEditor() || isWriter() || isAnnotator(),
+    replaceFile: isOwner() || isEditor() || isWriter() || isAnnotator(),
+    uploadFile:
+      (isOwner() || isEditor() || isWriter() || isAnnotator()) &&
+      allowed(Actions.updateAttachment),
     handleQualityReport: isOwner() || isEditor() || isWriter(),
     setMainManuscript: allowed(Actions.setMainManuscript),
     /* dashboard actions */
@@ -148,7 +150,7 @@ export const getCapabilities = (
     /* editor */
     editArticle: !isViewer(),
     editMetadata: !(isViewer() || isProofer()) || isAnnotator(),
-    editCitationsAndRefs: !(isViewer() || isAnnotator() || isProofer()),
+    editCitationsAndRefs: !(isViewer() || isProofer()),
     shareProject: isOwner(),
     applySaveChanges: !(isAnnotator() || isProofer()),
   }
