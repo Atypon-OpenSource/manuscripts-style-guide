@@ -51,7 +51,7 @@ const CitedItemActions = styled.div`
   margin-left: 12px;
 
   svg.remove-icon {
-    color: #6E6E6E;
+    color: #6e6e6e;
   }
 `
 

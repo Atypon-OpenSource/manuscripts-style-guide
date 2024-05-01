@@ -14,9 +14,10 @@
  * limitations under the License.
  */
 import React from 'react'
+
 import { IconProps } from './types'
 
-export const DeleteSolidIcon: React.FC<IconProps> = (props: IconProps)=> (
+export const DeleteSolidIcon: React.FC<IconProps> = (props: IconProps) => (
   <svg
     className={props.className}
     width="12"
