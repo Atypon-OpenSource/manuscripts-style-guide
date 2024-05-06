@@ -19,7 +19,8 @@ import React from 'react'
 import { RichText } from '../src/components/RichText/RichText'
 import { RichTextField } from '../src/components/RichText/RichTextField'
 
-const text = 'This is rich text. It can have <strong>Bold text</strong>, <i>italic text</i>, <sub>Subscript</sub> and <sup>Superscript</sup> &quot;'
+const text =
+  'This is rich text. It can have <strong>Bold text</strong>, <i>italic text</i>, <sub>Subscript</sub> and <sup>Superscript</sup> &quot;'
 
 storiesOf('Rich Text', module)
   .add('Rich Text', () => <RichText value={text} />)
