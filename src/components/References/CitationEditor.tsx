@@ -14,7 +14,6 @@
  * limitations under the License.
  */
 import AnnotationEdit from '@manuscripts/assets/react/AnnotationEdit'
-import CloseIconDark from '@manuscripts/assets/react/CloseIconDark'
 import {
   BibliographyItem,
   buildBibliographyItem,
@@ -30,7 +29,7 @@ import {
   SecondaryButton,
 } from '../Button'
 import { Category, Dialog } from '../Dialog'
-import { AddComment } from '../icons'
+import { AddComment, DeleteSolidIcon } from '../icons'
 import { BibliographyItemSource } from './BibliographyItemSource'
 import { CitedItem, CitedItems } from './CitationViewer'
 import { ReferenceLine } from './ReferenceLine'
@@ -52,8 +51,7 @@ const CitedItemActions = styled.div`
   margin-left: 12px;
 
   svg.remove-icon {
-    height: ${(props) => props.theme.grid.unit * 4}px;
-    width: ${(props) => props.theme.grid.unit * 4}px;
+    color: #6e6e6e;
   }
 `
 
@@ -210,7 +208,7 @@ export const CitationEditor: React.FC<CitationEditorProps> = ({
                 disabled={!canEdit}
                 onClick={() => setDeleteDialog({ show: true, id: item._id })}
               >
-                <CloseIconDark className={'remove-icon'} />
+                <DeleteSolidIcon className={'remove-icon'} />
               </ActionButton>
             </CitedItemActions>
           </CitedItem>
