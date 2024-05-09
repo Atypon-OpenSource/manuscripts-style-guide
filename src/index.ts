@@ -49,11 +49,12 @@ export * from './components/Text'
 export * from './components/ManuscriptNoteList'
 export * from './components/Comments'
 export * from './components/RelativeDate'
-export * from './components/References'
 export * from './components/Menus'
+export * from './components/SelectField'
 export * from './hooks/use-dropdown'
 export * from './hooks/use-files'
 export * from './hooks/use-menus'
+export * from './hooks/use-scroll-detection'
 export {
   useDeepCompareMemo,
   useDeepCompareCallback,
