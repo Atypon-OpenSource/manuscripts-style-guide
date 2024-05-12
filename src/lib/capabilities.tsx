@@ -132,7 +132,7 @@ export const getCapabilities = (
     moveFile: isOwner() || isEditor() || isWriter() || isAnnotator(),
     replaceFile:
       (isOwner() || isEditor() || isWriter() || isAnnotator()) &&
-      allowed(Actions.setMainManuscript),
+      allowed(Actions.updateAttachment),
     uploadFile:
       (isOwner() || isEditor() || isWriter() || isAnnotator()) &&
       allowed(Actions.updateAttachment),
