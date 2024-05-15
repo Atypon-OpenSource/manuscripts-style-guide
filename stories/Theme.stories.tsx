@@ -595,6 +595,7 @@ storiesOf('Theme', module)
         <Div>smallDesktop - 1024</Div>
         <Div>desktop - 1280</Div>
         <Div>largeDesktop - 1920</Div>
+        <Div>editorMaxWidth - 960</Div>
       </StorySectionInner>
     </StorySection>
   ))

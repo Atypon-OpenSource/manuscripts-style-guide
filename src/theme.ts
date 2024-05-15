@@ -48,6 +48,7 @@ interface Grid {
   smallDesktop: number
   desktop: number
   largeDesktop: number
+  editorMaxWidth: number
 }
 interface Shadow {
   boxShadow: string
