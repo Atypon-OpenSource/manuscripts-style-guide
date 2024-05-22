@@ -13,7 +13,5 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-export * from './CitationEditor'
-export * from './CitationViewer'
-export * from './ReferencesModal'
-export * from './BibliographyItemSource'
+export { RichText } from './RichText'
+export { RichTextField } from './RichTextField'
