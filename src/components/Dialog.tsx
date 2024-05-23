@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-import AttentionRed from '@manuscripts/assets/react/AttentionRed'
 import React, { ChangeEvent } from 'react'
 import styled from 'styled-components'
 
 import { ButtonGroup, PrimaryButton, SecondaryButton } from './Button'
+import AttentionRed from './icons/attention-red'
 import { StyledModal } from './StyledModal'
 import { TextField } from './TextField'
 

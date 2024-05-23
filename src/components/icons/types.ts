@@ -14,13 +14,8 @@
  * limitations under the License.
  */
 
-export interface IconProps {
-  size?: number
-  color?: string
-  className?: string
-  title?: string
-  transform?: string
-  viewBox?: string
-  width?: number
-  height?: number
-}
+import React from 'react'
+
+import { IconProps } from './types'
+
+export type IconProps = React.SVGAttributes<SVGElement>

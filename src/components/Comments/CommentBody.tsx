@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import AnnotationReply from '@manuscripts/assets/react/AnnotationReply'
+
 import { Keyword, UserProfile } from '@manuscripts/json-schema'
 import { Field, FieldProps, Form, Formik } from 'formik'
 import React, { Dispatch, SetStateAction, useEffect } from 'react'
@@ -22,6 +22,7 @@ import styled from 'styled-components'
 import { CommentType, UnsavedComment } from '../../lib/comments'
 import { ButtonGroup, PrimaryButton, SecondaryButton } from '../Button'
 import { FormError } from '../Form'
+import CommentReplyIcon from '../icons/comment-reply'
 import { Tooltip } from '../Tooltip'
 
 export interface CommentBodyProps {
@@ -153,7 +154,7 @@ export const CommentBody: React.FC<
                     aria-label={'reply'}
                     className="reply-button note-actions"
                   >
-                    <AnnotationReply />
+                    <CommentReplyIcon />
                   </ActionButton>
                 </span>
                 <Tooltip id={`reply-${comment._id}`} place="bottom">

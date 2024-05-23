@@ -17,7 +17,7 @@ import React from 'react'
 import styled from 'styled-components'
 
 import { AlertMessage, AlertMessageType } from '../AlertMessage'
-import UnknownFormatFileIcon from '../icons/unknown-format-file-icon'
+import FileUnknown from '../icons/file-unknown'
 import { FileContainer } from './FileContainer'
 import { FileNameText } from './FileName'
 
@@ -51,7 +51,7 @@ const FileUploadInProgressAlert: React.FC<{
 }> = ({ name }) => {
   return (
     <FileUploadContainer>
-      <UnknownFormatFileIcon />
+      <FileUnknown />
       <FileUploadNameContainer>
         <UploadFileNameText>{name}</UploadFileNameText>
         <FileUploadProgressBar />

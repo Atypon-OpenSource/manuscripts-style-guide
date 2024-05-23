@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-import TriangleCollapsed from '@manuscripts/assets/react/TriangleCollapsed'
 import React from 'react'
 import styled from 'styled-components'
 
 import { isMenuSeparator, Menu, MenuSeparator } from '../../lib/menus'
+import TriangleCollapsed from '../icons/triangle-collapsed'
 import {
   Block,
   BlockItem,

@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
-import AttentionRed from '@manuscripts/assets/react/AttentionRed'
 import React from 'react'
 import styled from 'styled-components'
 
-import SaveIconOffline from './icons/save-icon-offline'
-import SaveIconSaved from './icons/save-icon-saved'
-import SaveIconSaving from './icons/save-icon-saving'
+import AttentionRed from './icons/attention-red'
+import SaveStatusOfflineIcon from './icons/save-status-offline'
+import SaveIconSaved from './icons/save-status-saved'
+import SaveStatusSaving from './icons/save-status-saving'
 
 interface Props {
   status: 'saving' | 'saved' | 'offline' | 'failed'
@@ -31,7 +31,7 @@ export const SaveStatus: React.FC<Props> = ({ status }) => {
     case 'offline':
       return (
         <Container>
-          <SaveIconOffline />
+          <SaveStatusOfflineIcon />
           <Text>Offline</Text>
         </Container>
       )
@@ -40,7 +40,7 @@ export const SaveStatus: React.FC<Props> = ({ status }) => {
       return (
         <Container>
           <RotateContinuous>
-            <SaveIconSaving />
+            <SaveStatusSaving />
           </RotateContinuous>
           <Text>Saving&hellip;</Text>
         </Container>
@@ -59,7 +59,7 @@ export const SaveStatus: React.FC<Props> = ({ status }) => {
       return (
         <FailedContainer>
           <PopPop>
-            <AttentionRed width={20} height={20} />
+            <AttentionRed />
           </PopPop>
           <FailedText>Failed To Save</FailedText>
         </FailedContainer>

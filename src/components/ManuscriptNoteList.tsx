@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import GutterAddIconNormal from '@manuscripts/assets/react/GutterAddIconNormal'
+
 import {
   Keyword,
   ManuscriptNote,
@@ -37,6 +37,7 @@ import { IconTextButton } from './Button'
 import { CheckboxField, CheckboxLabel } from './Checkbox'
 import { CommentTarget } from './Comments/CommentTarget'
 import { CommentWrapper } from './Comments/CommentWrapper'
+import { AddIcon } from './icons'
 import { RelativeDate } from './RelativeDate'
 
 interface Props {
@@ -154,7 +155,7 @@ export const ManuscriptNoteList: React.FC<Props> = React.memo(
         <ActionHeader withAddButton={can.createNotes}>
           {can.createNotes && (
             <AddNoteButton onClick={handleAddNewNote}>
-              Add <GutterAddIconNormal />
+              Add <AddIcon />
             </AddNoteButton>
           )}
           {items.length > 0 && (

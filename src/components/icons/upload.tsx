@@ -15,13 +15,16 @@
  */
 import React from 'react'
 
-const UploadIcon: React.FC = () => (
+import { IconProps } from './types'
+
+const UploadIcon: React.FC<IconProps> = (props) => (
   <svg
     width="17"
     height="18"
     viewBox="0 0 17 18"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
+    {...props}
   >
     <path
       d="M8.5 12.5V1.5"

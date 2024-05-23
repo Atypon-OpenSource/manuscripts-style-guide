@@ -1,0 +1,47 @@
+/*!
+ * © 2022 Atypon Systems LLC
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *    http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+import React from 'react'
+
+import { IconProps } from './types'
+
+const PullQuoteIcon: React.FC<IconProps> = (props) => (
+  <svg
+    width="16"
+    height="16"
+    viewBox="0 0 16 16"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    {...props}
+  >
+    <path
+      fillRule="evenodd"
+      clipRule="evenodd"
+      d="M11.9098 2C12.508 2 13.0473 2.23511 13.4386 2.60744C13.8547 3.00349 14.1053 3.5527 14.1053 4.15498V9.36594C14.1053 9.96822 13.8547 10.5174 13.4386 10.9135C13.0473 11.2858 12.508 11.5209 11.9098 11.5209H7.83366C7.68767 11.5209 7.309 12.3465 6.96876 12.791C6.70571 13.1346 6.46407 13.4489 6.30314 13.6313C6.15419 13.8 5.90332 14.0496 5.62402 14.3247C5.49595 14.0581 5.36099 13.7524 5.24394 13.3942C5.04532 12.7863 4.97569 12.264 4.90137 11.8546L3.97666 11.5181C3.42392 11.4904 2.92782 11.2621 2.5615 10.9135C2.14533 10.5174 1.89478 9.96822 1.89478 9.36594V4.15498C1.89478 3.5527 2.14533 3.00349 2.5615 2.60744C2.95275 2.23511 3.49204 2 4.09026 2H11.9098Z"
+      stroke="#F474AE"
+      strokeWidth="1.5"
+    />
+    <path
+      d="M9.68858 8.88867C10.3827 8.88867 10.9475 8.26237 10.9475 7.49244C10.9475 6.74969 10.4219 6.1405 9.76151 6.09841C9.75008 5.96161 9.75875 5.58913 10.0808 5.07043C10.1051 5.03132 10.1007 4.97858 10.0705 4.94506C9.93925 4.7995 9.858 4.70766 9.80101 4.64339C9.72609 4.55865 9.69187 4.52003 9.64181 4.46969C9.62492 4.45278 9.60353 4.44423 9.58222 4.44423C9.56143 4.44423 9.54073 4.45229 9.52402 4.46844C8.99417 4.97983 8.40886 6.00615 8.42134 7.27346L8.42988 7.49965C8.48289 8.30445 9.01228 8.88867 9.68858 8.88867Z"
+      fill="#F474AE"
+    />
+    <path
+      d="M6.32017 8.88867C7.01431 8.88867 7.57905 8.26237 7.57905 7.49244C7.57905 6.74969 7.05346 6.1405 6.39311 6.09841C6.38167 5.96161 6.39034 5.58913 6.71237 5.07043C6.73671 5.03132 6.73229 4.97858 6.70207 4.94506C6.57084 4.7995 6.4896 4.70766 6.4326 4.64339C6.35768 4.55865 6.32346 4.52003 6.2734 4.46969C6.25652 4.45278 6.23512 4.44423 6.21381 4.44423C6.19302 4.44423 6.17232 4.45229 6.15561 4.46844C5.5946 5.00991 4.97139 6.12867 5.06147 7.49955C5.11448 8.30445 5.64388 8.88867 6.32017 8.88867Z"
+      fill="#F474AE"
+    />
+  </svg>
+)
+
+export default PullQuoteIcon

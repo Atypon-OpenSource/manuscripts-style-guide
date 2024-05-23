@@ -14,16 +14,15 @@
  * limitations under the License.
  */
 
-import AttentionBlue from '@manuscripts/assets/react/AttentionBlue'
-import AttentionOrange from '@manuscripts/assets/react/AttentionOrange'
-import AttentionRed from '@manuscripts/assets/react/AttentionRed'
-import CloseIconDark from '@manuscripts/assets/react/CloseIconDark'
-import SuccessGreen from '@manuscripts/assets/react/SuccessGreen'
 import React from 'react'
 import { SizeMe } from 'react-sizeme'
 import styled, { AnyStyledComponent, css } from 'styled-components'
 
 import { IconButton, IconTextButton } from './Button'
+import AttentionBlueIcon from './icons/attention-blue'
+import AttentionGreenIcon from './icons/attention-green'
+import AttentionOrangeIcon from './icons/attention-orange'
+import AttentionRedIcon from './icons/attention-red'
 
 const buttonStyles = css`
   color: inherit;
@@ -107,13 +106,8 @@ const TextContainer = styled.div`
   word-break: break-word;
 `
 
-const SuccessIcon = styled(SuccessGreen)`
+const SuccessIcon = styled(AttentionGreenIcon)`
   transform: scale(0.75, 0.75);
-`
-
-const CloseIcon = styled(CloseIconDark)`
-  width: 100%;
-  height: 100%;
 `
 
 interface State {
@@ -140,9 +134,9 @@ interface Props {
 
 const alertIcons: { [key in AlertMessageType]: React.FC } = {
   success: SuccessIcon,
-  error: AttentionRed,
-  info: AttentionBlue,
-  warning: AttentionOrange,
+  error: AttentionRedIcon,
+  info: AttentionBlueIcon,
+  warning: AttentionOrangeIcon,
 }
 
 const alertContainers: { [key in AlertMessageType]: AnyStyledComponent } = {
@@ -167,7 +161,7 @@ export class AlertMessage extends React.Component<Props, State> {
     return (
       isOpen && (
         <SizeMe>
-          {({ size }) => (
+          {() => (
             <AlertContainer className={'alert-message'}>
               <InnerContainer>
                 <InformativeIcon>{<AlertIcon />}</InformativeIcon>
@@ -184,12 +178,6 @@ export class AlertMessage extends React.Component<Props, State> {
                   </TextButton>
                 )}
               </InnerContainer>
-              {!hideCloseButton &&
-                ((size.width && size.width >= 900) || !dismissButton) && (
-                  <CloseIconButton onClick={this.handleClose}>
-                    <CloseIcon />
-                  </CloseIconButton>
-                )}
             </AlertContainer>
           )}
         </SizeMe>

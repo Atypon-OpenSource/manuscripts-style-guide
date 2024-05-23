@@ -14,9 +14,10 @@
  * limitations under the License.
  */
 
-import AvatarNormal from '@manuscripts/assets/react/AvatarNormal'
 import React, { useCallback, useState } from 'react'
 import styled from 'styled-components'
+
+import AvatarIcon from './icons/avatar'
 
 interface AvatarProps {
   src?: string
@@ -39,7 +40,7 @@ const RoundedImage = styled.img<{ size: number }>`
   justify-content: center;
 `
 
-const StyledAvatar = styled(AvatarNormal)<{
+const StyledAvatar = styled(AvatarIcon)<{
   color?: string
 }>`
   path {

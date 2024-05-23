@@ -18,7 +18,7 @@ import React from 'react'
 import styled from 'styled-components'
 
 import { IconTextButton } from '../Button'
-import TickMark from '../icons/tick-mark'
+import TickMark from '../icons/comment-resolve'
 import { Tooltip } from '../Tooltip'
 
 export const ResolveButton: React.FC<{
