@@ -19,9 +19,9 @@ import { IconProps } from './types'
 
 const TriangleExpandedIcon: React.FC<IconProps> = (props) => (
   <svg
-    width="8"
-    height="5"
-    viewBox="0 0 8 5"
+    width="17"
+    height="17"
+    viewBox="0 0 17 17"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
     {...props}
@@ -29,7 +29,7 @@ const TriangleExpandedIcon: React.FC<IconProps> = (props) => (
     <path
       fillRule="evenodd"
       clipRule="evenodd"
-      d="M7.0625 0L8 0.9375L4 4.9375L0 0.9375L0.9375 0L4 3.0625L7.0625 0Z"
+      d="M10.8437 6.231C11.2604 5.88994 11.8921 5.93134 12.2545 6.32348C12.617 6.71562 12.573 7.31 12.1562 7.65106L8.06451 11L3.85969 7.70134C3.43548 7.36855 3.37828 6.77516 3.73193 6.37598C4.08557 5.97679 4.71615 5.92296 5.14035 6.25575L8.03703 8.52818L10.8437 6.231Z"
       fill="#6E6E6E"
     />
   </svg>

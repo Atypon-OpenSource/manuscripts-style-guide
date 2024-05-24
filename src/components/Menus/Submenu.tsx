@@ -18,7 +18,7 @@ import React from 'react'
 import styled from 'styled-components'
 
 import { isMenuSeparator, Menu, MenuSeparator } from '../../lib/menus'
-import TriangleCollapsed from '../icons/triangle-collapsed'
+import { TriangleCollapsedIcon } from '../icons'
 import {
   Block,
   BlockItem,
@@ -81,7 +81,7 @@ const Active = styled.div`
   align-items: center;
 `
 
-const Arrow = styled(TriangleCollapsed)`
+const Arrow = styled(TriangleCollapsedIcon)`
   margin-left: 8px;
 `
 

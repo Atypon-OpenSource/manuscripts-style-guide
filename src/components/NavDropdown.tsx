@@ -20,7 +20,7 @@ import styled, { css } from 'styled-components'
 
 import { Badge } from './Badge'
 import { SecondaryButton } from './Button'
-import ArrowUp from './icons/arrow-up'
+import { ArrowUpIcon } from './icons'
 
 export const NavDropdownContainer = styled.div`
   position: relative;
@@ -111,13 +111,9 @@ interface DropdownProps {
   isOpen: boolean
 }
 
-export const NavDropdownToggle = styled(ArrowUp)`
+export const NavDropdownToggle = styled(ArrowUpIcon)`
   margin-left: 6px;
   transform: rotate(180deg);
-
-  path {
-    stroke: currentColor;
-  }
 
   &.open {
     transform: rotate(0deg);

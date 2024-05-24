@@ -19,9 +19,9 @@ import { IconProps } from './types'
 
 const ArrowDownIcon: React.FC<IconProps> = (props) => (
   <svg
-    width="9"
-    height="6"
-    viewBox="0 0 9 6"
+    width="16"
+    height="16"
+    viewBox="0 0 16 16"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
     {...props}
@@ -29,7 +29,7 @@ const ArrowDownIcon: React.FC<IconProps> = (props) => (
     <path
       fillRule="evenodd"
       clipRule="evenodd"
-      d="M7.34373 0.731003C7.76045 0.389937 8.39208 0.43134 8.75452 0.823479C9.11696 1.21562 9.07296 1.81 8.65625 2.15106L4.56451 5.5L0.35969 2.20134C-0.0645159 1.86855 -0.121718 1.27516 0.231927 0.875976C0.585572 0.476788 1.21615 0.42296 1.64035 0.755748L4.53703 3.02818L7.34373 0.731003Z"
+      d="M11.0625 6L12 6.9375L8 10.9375L4 6.9375L4.9375 6L8 9.0625L11.0625 6Z"
       fill="#6E6E6E"
     />
   </svg>

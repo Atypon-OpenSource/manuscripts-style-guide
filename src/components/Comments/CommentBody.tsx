@@ -22,7 +22,7 @@ import styled from 'styled-components'
 import { CommentType, UnsavedComment } from '../../lib/comments'
 import { ButtonGroup, PrimaryButton, SecondaryButton } from '../Button'
 import { FormError } from '../Form'
-import CommentReplyIcon from '../icons/comment-reply'
+import { CommentReplyIcon } from '../icons'
 import { Tooltip } from '../Tooltip'
 
 export interface CommentBodyProps {

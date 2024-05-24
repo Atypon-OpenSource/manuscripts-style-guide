@@ -35,7 +35,7 @@ import {
   ToggleButton,
   ToggleButtonAlt,
 } from '../src'
-import CommentReplyIcon from '../src/components/icons/comment-reply'
+import { CommentReplyIcon } from '../src/components/icons'
 
 const StorySection = styled.div`
   display: flex;

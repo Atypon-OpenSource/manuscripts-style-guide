@@ -17,7 +17,7 @@ import React from 'react'
 
 import { IconProps } from './types'
 
-const BlockQuoteIcon: React.FC<React.SVGAttributes<SVGElement>> = () => (
+const OutlineBlockQuoteIcon: React.FC<IconProps> = (props) => (
   <svg
     width="16"
     height="16"
@@ -44,4 +44,4 @@ const BlockQuoteIcon: React.FC<React.SVGAttributes<SVGElement>> = () => (
   </svg>
 )
 
-export default BlockQuoteIcon
+export default OutlineBlockQuoteIcon

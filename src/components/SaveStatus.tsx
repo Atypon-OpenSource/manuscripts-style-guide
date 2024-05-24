@@ -17,10 +17,12 @@
 import React from 'react'
 import styled from 'styled-components'
 
-import AttentionRed from './icons/attention-red'
-import SaveStatusOfflineIcon from './icons/save-status-offline'
-import SaveIconSaved from './icons/save-status-saved'
-import SaveStatusSaving from './icons/save-status-saving'
+import {
+  AttentionRedIcon,
+  SaveStatusOfflineIcon,
+  SaveStatusSavedIcon,
+  SaveStatusSavingIcon,
+} from './icons'
 
 interface Props {
   status: 'saving' | 'saved' | 'offline' | 'failed'
@@ -40,7 +42,7 @@ export const SaveStatus: React.FC<Props> = ({ status }) => {
       return (
         <Container>
           <RotateContinuous>
-            <SaveStatusSaving />
+            <SaveStatusSavingIcon />
           </RotateContinuous>
           <Text>Saving&hellip;</Text>
         </Container>
@@ -50,7 +52,7 @@ export const SaveStatus: React.FC<Props> = ({ status }) => {
       return (
         <Container>
           <PopPop>
-            <SaveIconSaved />
+            <SaveStatusSavedIcon />
           </PopPop>
           <Text>Saved</Text>
         </Container>
@@ -59,7 +61,7 @@ export const SaveStatus: React.FC<Props> = ({ status }) => {
       return (
         <FailedContainer>
           <PopPop>
-            <AttentionRed />
+            <AttentionRedIcon />
           </PopPop>
           <FailedText>Failed To Save</FailedText>
         </FailedContainer>

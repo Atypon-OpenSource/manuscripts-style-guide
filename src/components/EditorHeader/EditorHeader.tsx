@@ -17,7 +17,7 @@ import React, { useCallback, useState } from 'react'
 import styled from 'styled-components'
 
 import {
-  ArrowLeftBlackIcon,
+  ArrowLeftIcon,
   DropdownContainer,
   DropdownList,
   EditIcon,
@@ -189,7 +189,7 @@ export const EditorHeader: React.FC<{
     <Wrapper>
       {goBack && (
         <SecondaryButtonSmall onClick={goBack} type="button">
-          <ArrowLeftBlackIcon />
+          <ArrowLeftIcon />
           <span>Dashboard</span>
         </SecondaryButtonSmall>
       )}

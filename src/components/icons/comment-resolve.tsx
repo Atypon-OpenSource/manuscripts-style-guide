@@ -18,7 +18,7 @@ import React from 'react'
 
 import { IconProps } from './types'
 
-const ResolveCommentIcon: React.FC<IconProps> = (props: IconProps) => (
+const CommentResolveIcon: React.FC<IconProps> = (props: IconProps) => (
   <svg
     width="28"
     height="28"
@@ -34,4 +34,4 @@ const ResolveCommentIcon: React.FC<IconProps> = (props: IconProps) => (
   </svg>
 )
 
-export default ResolveCommentIcon
+export default CommentResolveIcon

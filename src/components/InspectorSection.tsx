@@ -18,7 +18,7 @@ import React, { CSSProperties, useState } from 'react'
 import styled from 'styled-components'
 
 import { IconButton } from './Button'
-import ArrowDownCircleIcon from './icons/arrow-down-circle'
+import { ArrowDownCircleIcon } from './icons'
 
 const Section = styled.div`
   font-size: ${(props) => props.theme.font.size.normal};

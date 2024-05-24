@@ -19,9 +19,9 @@ import { IconProps } from './types'
 
 const TriangleCollapsedIcon: React.FC<IconProps> = (props) => (
   <svg
-    width="5"
-    height="8"
-    viewBox="0 0 5 8"
+    width="17"
+    height="17"
+    viewBox="0 0 17 17"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
     {...props}
@@ -29,7 +29,7 @@ const TriangleCollapsedIcon: React.FC<IconProps> = (props) => (
     <path
       fillRule="evenodd"
       clipRule="evenodd"
-      d="M-3.08712e-07 0.9375L0.9375 -4.09794e-08L4.9375 4L0.9375 8L-4.09794e-08 7.0625L3.0625 4L-3.08712e-07 0.9375Z"
+      d="M5.731 5.65627C5.38994 5.23955 5.43134 4.60792 5.82348 4.24548C6.21562 3.88304 6.81 3.92704 7.15106 4.34375L10.5 8.43549L7.20134 12.6403C6.86855 13.0645 6.27516 13.1217 5.87597 12.7681C5.47679 12.4144 5.42296 11.7839 5.75575 11.3596L8.02818 8.46297L5.731 5.65627Z"
       fill="#6E6E6E"
     />
   </svg>

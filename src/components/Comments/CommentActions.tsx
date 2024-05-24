@@ -21,7 +21,7 @@ import { useDropdown } from '../../hooks/use-dropdown'
 import { Capabilities } from '../../lib/capabilities'
 import { IconTextButton } from '../Button'
 import { DropdownButton, DropdownContainer, DropdownList } from '../Dropdown'
-import DotsIcon from '../icons/dots'
+import { DotsIcon } from '../icons'
 import { ResolveButton } from './ResolveButton'
 
 export const CommentActions: React.FC<{

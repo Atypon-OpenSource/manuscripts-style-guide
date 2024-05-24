@@ -16,9 +16,11 @@
 import React from 'react'
 
 import { FileAttachment } from '../../lib/files'
-import CorruptedFileIcon from '../icons/file-corrupted'
-import MainDocumentIcon from '../icons/file-main-document'
-import FileUnknown from '../icons/file-unknown'
+import {
+  FileCorruptedIcon,
+  FileMainDocumentIcon,
+  FileUnknownIcon,
+} from '../icons'
 import { getFileIcon } from './util'
 
 /**
@@ -29,13 +31,13 @@ export const FileTypeIcon: React.FC<{
   file: FileAttachment
 }> = ({ file }) => {
   if (file.type.id === 'missing') {
-    return <CorruptedFileIcon className="file-icon" />
+    return <FileCorruptedIcon className="file-icon" />
   }
   if (file.type.id === 'main-manuscript') {
-    return <MainDocumentIcon className="file-icon" />
+    return <FileMainDocumentIcon className="file-icon" />
   }
 
   const icon = getFileIcon(file)
 
-  return icon || <FileUnknown className="file-icon" />
+  return icon || <FileUnknownIcon className="file-icon" />
 }

@@ -18,7 +18,7 @@ import { storiesOf } from '@storybook/react'
 import * as React from 'react'
 import styled from 'styled-components'
 
-import AttentionOrange from '../src/components/icons/attention-orange'
+import { AttentionOrangeIcon } from '../src/components/icons'
 import { Tooltip } from '../src/components/Tooltip'
 
 const Container = styled.div`
@@ -56,7 +56,7 @@ storiesOf('Tip', module).add('Tip', () => (
     </Tooltip>
 
     <Child>
-      <AttentionOrange data-tooltip-id="word-count-warning" />
+      <AttentionOrangeIcon data-tooltip-id="word-count-warning" />
     </Child>
     <Tooltip id="word-count-warning" place="right">
       word count warning

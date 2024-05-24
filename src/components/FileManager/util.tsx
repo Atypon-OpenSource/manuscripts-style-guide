@@ -16,18 +16,20 @@
 import React from 'react'
 
 import { FileAttachment } from '../../lib/files'
-import FileAudioIcon from '../icons/file-audio'
-import FileCodeIcon from '../icons/file-code'
-import FileCompressedIcon from '../icons/file-compressed'
-import FileDocumentIcon from '../icons/file-document'
-import FileFigureIcon from '../icons/file-figure'
-import FileGraphicalAbstractIcon from '../icons/file-graphical-abstract'
-import FileImageIcon from '../icons/file-image'
-import FileLatexIcon from '../icons/file-latex-icon'
-import FilePdfIcon from '../icons/file-pdf'
-import FileUnknownIcon from '../icons/file-unknown'
-import FileVideoIcon from '../icons/file-video'
-import FileTableIcon from '../icons/table'
+import {
+  FileAudioIcon,
+  FileCodeIcon,
+  FileCompressedIcon,
+  FileDocumentIcon,
+  FileFigureIcon,
+  FileGraphicalAbstractIcon,
+  FileImageIcon,
+  FileLatexIcon,
+  FilePdfIcon,
+  FileTableIcon,
+  FileUnknownIcon,
+  FileVideoIcon,
+} from '../icons'
 
 export enum FileSectionType {
   Inline = 'Inline files',

@@ -17,7 +17,7 @@
 import React, { useCallback, useState } from 'react'
 import styled from 'styled-components'
 
-import AvatarIcon from './icons/avatar'
+import { AvatarIcon } from './icons'
 
 interface AvatarProps {
   src?: string

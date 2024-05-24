@@ -18,7 +18,7 @@ import React from 'react'
 
 import { IconProps } from './types'
 
-const TableIcon: React.FC<IconProps> = (props) => (
+const FileTableIcon: React.FC<IconProps> = (props) => (
   <svg
     width="22"
     height="18"
@@ -36,4 +36,4 @@ const TableIcon: React.FC<IconProps> = (props) => (
   </svg>
 )
 
-export default TableIcon
+export default FileTableIcon

@@ -19,10 +19,12 @@ import { SizeMe } from 'react-sizeme'
 import styled, { AnyStyledComponent, css } from 'styled-components'
 
 import { IconButton, IconTextButton } from './Button'
-import AttentionBlueIcon from './icons/attention-blue'
-import AttentionGreenIcon from './icons/attention-green'
-import AttentionOrangeIcon from './icons/attention-orange'
-import AttentionRedIcon from './icons/attention-red'
+import {
+  AttentionBlueIcon,
+  AttentionGreenIcon,
+  AttentionOrangeIcon,
+  AttentionRedIcon,
+} from './icons'
 
 const buttonStyles = css`
   color: inherit;

@@ -24,8 +24,7 @@ import {
   PrimaryButton,
   SecondaryButton,
 } from './Button'
-import { AddedIcon, AddIcon } from './icons'
-import AddNewIcon from './icons/add-new'
+import { AddedIcon, AddIcon, AddNewIcon } from './icons'
 
 const NotesContainer = styled.div`
   height: 90vh;

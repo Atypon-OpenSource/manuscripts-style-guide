@@ -17,7 +17,7 @@ import React from 'react'
 
 import { IconProps } from './types'
 
-const PullQuoteIcon: React.FC<IconProps> = (props) => (
+const OutlinePullQuoteIcon: React.FC<IconProps> = (props) => (
   <svg
     width="16"
     height="16"
@@ -44,4 +44,4 @@ const PullQuoteIcon: React.FC<IconProps> = (props) => (
   </svg>
 )
 
-export default PullQuoteIcon
+export default OutlinePullQuoteIcon

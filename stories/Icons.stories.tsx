@@ -22,17 +22,16 @@ import {
   AddedIcon,
   AddIcon,
   AddNewIcon,
-  ArrowDownBlackIcon,
-  ArrowDownBlueIcon,
-  ArrowLeftBlackIcon,
-  ArrowUpBlackIcon,
+  ArrowDownCircleIcon,
+  ArrowDownIcon,
+  ArrowLeftIcon,
+  ArrowUpIcon,
   AttachIcon,
   AttentionBlueIcon,
   AttentionGreenIcon,
   AttentionOrangeIcon,
   AttentionRedIcon,
   AvatarIcon,
-  BlockQuoteIcon,
   CitationCountIcon,
   CommentReplyIcon,
   CommentResolveIcon,
@@ -49,32 +48,33 @@ import {
   FileFigureIcon,
   FileGraphicalAbstractIcon,
   FileImageIcon,
-  FileLatexIconIcon,
+  FileLatexIcon,
+  FileMainDocumentIcon,
   FilePdfIcon,
+  FileTableIcon,
   FileUnknownIcon,
   FileVideoIcon,
   HandleInspectorIcon,
   HandleOutlineIcon,
   LinkIcon,
-  MainDocumentFileIcon,
+  OutlineBlockQuoteIcon,
   OutlineCodeIcon,
   OutlineEquationIcon,
   OutlineFigureIcon,
   OutlineManuscriptIcon,
   OutlineOrderedListIcon,
   OutlineParagraphIcon,
+  OutlinePullQuoteIcon,
   OutlineSectionIcon,
   OutlineTableIcon,
   OutlineUnorderedListIcon,
   PlusIcon,
-  PullQuoteIcon,
   RoleAnnotatingIcon,
   RoleReadingIcon,
   SaveStatusOfflineIcon,
   SaveStatusSavedIcon,
   SaveStatusSavingIcon,
   SearchIcon,
-  TableIcon,
   TaskStepDoneIcon,
   ToolbarBoldIcon,
   ToolbarCitationIcon,
@@ -115,17 +115,17 @@ storiesOf('Icons', module).add('Icons', () => (
     <AddedIcon />
     <AddNewIcon />
     <AddIcon />
-    <ArrowDownBlackIcon />
-    <ArrowDownBlueIcon />
-    <ArrowLeftBlackIcon />
-    <ArrowUpBlackIcon />
+    <ArrowDownIcon />
+    <ArrowDownCircleIcon />
+    <ArrowLeftIcon />
+    <ArrowUpIcon />
     <AttachIcon />
     <AttentionBlueIcon />
     <AttentionGreenIcon />
     <AttentionOrangeIcon />
     <AttentionRedIcon />
     <AvatarIcon />
-    <BlockQuoteIcon />
+    <OutlineBlockQuoteIcon />
     <CitationCountIcon />
     <CommentReplyIcon />
     <CommentResolveIcon />
@@ -142,14 +142,15 @@ storiesOf('Icons', module).add('Icons', () => (
     <FileFigureIcon />
     <FileGraphicalAbstractIcon />
     <FileImageIcon />
-    <FileLatexIconIcon />
+    <FileLatexIcon />
     <FilePdfIcon />
+    <FileTableIcon />
     <FileUnknownIcon />
     <FileVideoIcon />
     <HandleInspectorIcon />
     <HandleOutlineIcon />
     <LinkIcon />
-    <MainDocumentFileIcon />
+    <FileMainDocumentIcon />
     <OutlineCodeIcon />
     <OutlineEquationIcon />
     <OutlineFigureIcon />
@@ -160,14 +161,13 @@ storiesOf('Icons', module).add('Icons', () => (
     <OutlineTableIcon />
     <OutlineUnorderedListIcon />
     <PlusIcon />
-    <PullQuoteIcon />
+    <OutlinePullQuoteIcon />
     <RoleAnnotatingIcon />
     <RoleReadingIcon />
     <SaveStatusOfflineIcon />
     <SaveStatusSavedIcon />
     <SaveStatusSavingIcon />
     <SearchIcon />
-    <TableIcon />
     <TaskStepDoneIcon />
     <ToolbarBoldIcon />
     <ToolbarCitationIcon />

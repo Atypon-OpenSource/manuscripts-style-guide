@@ -19,7 +19,7 @@ import styled from 'styled-components'
 import { useDropdown } from '../../hooks/use-dropdown'
 import { Category, Dialog } from '../Dialog'
 import { DropdownContainer, DropdownList } from '../Dropdown'
-import DotsIcon from '../icons/dots'
+import { DotsIcon } from '../icons'
 import { Move, PermissionsContext, Replace } from './FileManager'
 import { FileSectionType } from './util'
 
