@@ -16,18 +16,20 @@
 import React from 'react'
 
 import { FileAttachment } from '../../lib/files'
-import AudioIcon from '../icons/audio-icon'
-import CodeFileIcon from '../icons/code-file-icon'
-import CompressedFileIcon from '../icons/compressed-file-icon'
-import DocumentIcon from '../icons/document-icon'
-import FigureIcon from '../icons/figure-icon'
-import GraphicalAbstractIcon from '../icons/graphical_abstract_icon'
-import ImageIcon from '../icons/image-icon'
-import LatexIcon from '../icons/latex-icon'
-import PdfFileIcon from '../icons/pdf-file-icon'
-import TableIcon from '../icons/table-icon'
-import UnknownFormatFileIcon from '../icons/unknown-format-file-icon'
-import VideoIcon from '../icons/video-icon'
+import {
+  FileAudioIcon,
+  FileCodeIcon,
+  FileCompressedIcon,
+  FileDocumentIcon,
+  FileFigureIcon,
+  FileGraphicalAbstractIcon,
+  FileImageIcon,
+  FileLatexIcon,
+  FilePdfIcon,
+  FileTableIcon,
+  FileUnknownIcon,
+  FileVideoIcon,
+} from '../icons'
 
 export enum FileSectionType {
   Inline = 'Inline files',
@@ -97,11 +99,17 @@ const extension2type = new Map<string, FileType>([
 ])
 
 const type2icon = new Map<FileType | undefined, JSX.Element>([
-  [FileType.Audio, <AudioIcon key={FileType.Audio} className="file-icon" />],
-  [FileType.Video, <VideoIcon key={FileType.Video} className="file-icon" />],
+  [
+    FileType.Audio,
+    <FileAudioIcon key={FileType.Audio} className="file-icon" />,
+  ],
+  [
+    FileType.Video,
+    <FileVideoIcon key={FileType.Video} className="file-icon" />,
+  ],
   [
     FileType.PlainDocument,
-    <DocumentIcon
+    <FileDocumentIcon
       key={FileType.PlainDocument}
       color="#1A9BC7"
       className="file-icon"
@@ -109,42 +117,52 @@ const type2icon = new Map<FileType | undefined, JSX.Element>([
   ],
   [
     FileType.SheetsWorkbooks,
-    <TableIcon key={FileType.SheetsWorkbooks} className="file-icon" />,
+    <FileTableIcon key={FileType.SheetsWorkbooks} className="file-icon" />,
   ],
   [
     FileType.Latex,
-    <LatexIcon key={FileType.Latex} color="#1A9BC7" className="file-icon" />,
+    <FileLatexIcon
+      key={FileType.Latex}
+      color="#1A9BC7"
+      className="file-icon"
+    />,
   ],
   [
     FileType.CodeFile,
-    <CodeFileIcon key={FileType.CodeFile} className="file-icon" />,
+    <FileCodeIcon key={FileType.CodeFile} className="file-icon" />,
   ],
   [
     FileType.PdfFile,
-    <PdfFileIcon key={FileType.PdfFile} className="file-icon" />,
+    <FilePdfIcon key={FileType.PdfFile} className="file-icon" />,
   ],
   [
     FileType.CompressedFile,
-    <CompressedFileIcon key={FileType.CompressedFile} className="file-icon" />,
+    <FileCompressedIcon key={FileType.CompressedFile} className="file-icon" />,
   ],
   [
     FileType.PlainText,
-    <DocumentIcon
+    <FileDocumentIcon
       key={FileType.PlainText}
       color="#FFBD26"
       className="file-icon"
     />,
   ],
-  [FileType.Image, <ImageIcon key={FileType.Image} className="file-icon" />],
-  [FileType.Figure, <FigureIcon key={FileType.Figure} className="file-icon" />],
+  [
+    FileType.Image,
+    <FileImageIcon key={FileType.Image} className="file-icon" />,
+  ],
+  [
+    FileType.Figure,
+    <FileFigureIcon key={FileType.Figure} className="file-icon" />,
+  ],
   [
     FileType.GraphicalAbstract,
-    <GraphicalAbstractIcon
+    <FileGraphicalAbstractIcon
       key={FileType.GraphicalAbstract}
       className="file-icon"
     />,
   ],
-  [undefined, <UnknownFormatFileIcon key={undefined} className="file-icon" />],
+  [undefined, <FileUnknownIcon key={undefined} className="file-icon" />],
 ])
 
 export const getFileType = (file: FileAttachment) => {

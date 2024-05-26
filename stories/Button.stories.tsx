@@ -14,16 +14,14 @@
  * limitations under the License.
  */
 
-import AddIconHighlight from '@manuscripts/assets/react/AddIconHighlight'
-import AddIconInverted from '@manuscripts/assets/react/AddIconInverted'
-import ImportExport from '@manuscripts/assets/react/ImportExport'
-import TemplateCategoryBook from '@manuscripts/assets/react/TemplateCategoryBook'
 import { action } from '@storybook/addon-actions'
 import { storiesOf } from '@storybook/react'
 import * as React from 'react'
 import styled from 'styled-components'
 
 import {
+  AddIcon,
+  AttachIcon,
   ButtonGroup,
   CloseButton,
   IconButton,
@@ -37,6 +35,7 @@ import {
   ToggleButton,
   ToggleButtonAlt,
 } from '../src'
+import { CommentReplyIcon } from '../src/components/icons'
 
 const StorySection = styled.div`
   display: flex;
@@ -158,19 +157,19 @@ storiesOf('Buttons', module)
           <h3>Default</h3>
           <Div>
             <IconButton onClick={action('clicked')}>
-              <AddIconInverted />
+              <AddIcon />
             </IconButton>
             <SecondaryIconButton onClick={action('clicked')}>
-              <AddIconInverted />
+              <AddIcon />
             </SecondaryIconButton>
           </Div>
           <h3>Set size</h3>
           <Div>
             <IconButton size={64} onClick={action('clicked')}>
-              <AddIconInverted />
+              <AddIcon />
             </IconButton>
             <SecondaryIconButton size={64} onClick={action('clicked')}>
-              <AddIconInverted />
+              <AddIcon />
             </SecondaryIconButton>
           </Div>
         </StorySectionInner>
@@ -179,7 +178,7 @@ storiesOf('Buttons', module)
           <h3>Default</h3>
           <Div>
             <RoundIconButton onClick={action('clicked RoundIconButton')}>
-              <ImportExport />
+              <CommentReplyIcon />
             </RoundIconButton>
           </Div>
           <h3>CloseButton</h3>
@@ -191,7 +190,7 @@ storiesOf('Buttons', module)
           <h2>IconTextButton</h2>
           <Div>
             <IconTextButton onClick={action('clicked IconTextButton')}>
-              <AddIconHighlight />
+              <AddIcon />
               Icon text button
             </IconTextButton>
           </Div>
@@ -212,13 +211,13 @@ storiesOf('Buttons', module)
       <StorySectionInner>
         <Div>
           <ToggleButton selected={true}>
-            <TemplateCategoryBook />
+            <AttachIcon />
             &nbsp;Toggle selected
           </ToggleButton>
         </Div>
         <Div>
           <ToggleButton>
-            <TemplateCategoryBook />
+            <AttachIcon />
             &nbsp;Toggle unselected
           </ToggleButton>
         </Div>

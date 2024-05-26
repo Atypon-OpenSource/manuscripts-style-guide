@@ -17,15 +17,15 @@ import React, { useCallback, useState } from 'react'
 import styled from 'styled-components'
 
 import {
-  AnnotatorIcon,
+  ArrowLeftIcon,
   DropdownContainer,
   DropdownList,
   EditIcon,
-  LeftArrow,
   NavDropdownContainer,
   NavDropdownToggle,
   PrimaryButton,
-  ReadingIcon,
+  RoleAnnotatingIcon,
+  RoleReadingIcon,
   SaveStatus,
   SecondaryButton,
   TextArea,
@@ -95,9 +95,9 @@ const MapUserRole: {
   Editor: Editing,
   Owner: Editing,
   Writer: Editing,
-  Annotator: { label: 'Suggesting', icon: AnnotatorIcon },
-  Viewer: { label: 'Reading', icon: ReadingIcon },
-  Proofer: { label: 'Proofing', icon: AnnotatorIcon },
+  Annotator: { label: 'Suggesting', icon: RoleAnnotatingIcon },
+  Viewer: { label: 'Reading', icon: RoleReadingIcon },
+  Proofer: { label: 'Proofing', icon: RoleAnnotatingIcon },
 }
 
 export const EditorHeader: React.FC<{
@@ -189,7 +189,7 @@ export const EditorHeader: React.FC<{
     <Wrapper>
       {goBack && (
         <SecondaryButtonSmall onClick={goBack} type="button">
-          <LeftArrow />
+          <ArrowLeftIcon />
           <span>Dashboard</span>
         </SecondaryButtonSmall>
       )}

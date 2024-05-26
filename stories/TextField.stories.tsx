@@ -14,7 +14,6 @@
  * limitations under the License.
  */
 
-import Icon from '@manuscripts/assets/react/AnnotationEdit'
 import { action } from '@storybook/addon-actions'
 import { storiesOf } from '@storybook/react'
 import { Field, FieldProps, Form, Formik } from 'formik'
@@ -22,6 +21,7 @@ import * as React from 'react'
 
 import {
   AutoSaveInput,
+  EditIcon,
   TextField,
   TextFieldContainer,
   TextFieldError,
@@ -47,7 +47,7 @@ storiesOf('TextField', module)
     </TextFieldGroup>
   ))
   .add('with icon', () => (
-    <TextFieldWrapper leftIcon={<Icon />}>
+    <TextFieldWrapper leftIcon={<EditIcon />}>
       <TextField />
     </TextFieldWrapper>
   ))

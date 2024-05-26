@@ -1,7 +1,7 @@
 {
   "name": "@manuscripts/style-guide",
   "description": "Shared components for Manuscripts applications",
-  "version": "1.12.6",
+  "version": "1.12.7",
   "repository": "github:Atypon-OpenSource/manuscripts-style-guide",
   "license": "Apache-2.0",
   "main": "dist/cjs",
@@ -32,7 +32,6 @@
     "prepare": "husky install"
   },
   "dependencies": {
-    "@manuscripts/assets": "^0.6.4",
     "@manuscripts/json-schema": "^2.2.7",
     "@manuscripts/transform": "2.3.3",
     "@reach/tabs": "^0.18.0",
@@ -75,6 +74,7 @@
     "@types/jest": "^29.2.4",
     "@types/lodash": "^4.14.202",
     "@types/styled-components": "^5.1.4",
+    "@types/react": "^17.0.2",
     "@types/react-dom": "^17.0.2",
     "@types/react-modal": "^3.16.3",
     "@types/react-router-dom": "^5.3.3",

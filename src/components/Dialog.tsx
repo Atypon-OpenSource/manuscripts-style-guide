@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-import AttentionRed from '@manuscripts/assets/react/AttentionRed'
 import React, { ChangeEvent } from 'react'
 import styled from 'styled-components'
 
 import { ButtonGroup, PrimaryButton, SecondaryButton } from './Button'
+import { AttentionRedIcon } from './icons'
 import { StyledModal } from './StyledModal'
 import { TextField } from './TextField'
 
@@ -184,7 +184,7 @@ export class Dialog extends React.Component<DialogProps, DialogState> {
           <HeaderContainer>
             {category === Category.error && (
               <Icon>
-                <AttentionRed />
+                <AttentionRedIcon />
               </Icon>
             )}
             {header}

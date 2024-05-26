@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-import React, { ReactElement, useMemo, useState } from 'react'
+import React from 'react'
 import styled from 'styled-components'
 
 import { IconButton, IconButtonGroup } from './Button'
-import { AddComment, EditIcon } from './icons'
+import { AddCommentIcon, EditIcon } from './icons'
 import { Tooltip } from './Tooltip'
 
 export interface Actions {
@@ -41,36 +41,27 @@ const ContextMenuIconButton = styled(IconButton)`
   }
 `
 
-export const ContextMenu: React.FC<ContextMenuProps> = ({ actions }) => {
-  // IconSelector can be expanded with other icons/actions
-  const IconSelector: React.FC<{ iconName: string }> = ({ iconName }) => {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const icons: { [key: string]: React.FC<any> } = {
-      AddComment: AddComment,
-      EditIcon: EditIcon,
-    }
-    const Icon: React.FC = icons[iconName]
-    return <Icon />
-  }
-
-  return (
-    <>
-      <IconButtonGroup>
-        {actions.map((action) => {
-          return (
-            <ContextMenuIconButton
-              key={action.icon}
-              data-tooltip-id={action.icon}
-              onClick={action.action}
-            >
-              <IconSelector iconName={action.icon} />
-              <Tooltip id={action.icon} place="bottom">
-                {action.label}
-              </Tooltip>
-            </ContextMenuIconButton>
-          )
-        })}
-      </IconButtonGroup>
-    </>
-  )
+const icons: { [key: string]: React.FC } = {
+  AddComment: AddCommentIcon,
+  EditIcon: EditIcon,
 }
+
+export const ContextMenu: React.FC<ContextMenuProps> = ({ actions }) => (
+  <IconButtonGroup>
+    {actions.map((action) => {
+      const Icon = icons[action.icon]
+      return (
+        <ContextMenuIconButton
+          key={action.icon}
+          data-tooltip-id={action.icon}
+          onClick={action.action}
+        >
+          <Icon />
+          <Tooltip id={action.icon} place="bottom">
+            {action.label}
+          </Tooltip>
+        </ContextMenuIconButton>
+      )
+    })}
+  </IconButtonGroup>
+)
