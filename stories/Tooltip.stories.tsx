@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-import AttentionOrange from '@manuscripts/assets/react/AttentionOrange'
 import { storiesOf } from '@storybook/react'
 import * as React from 'react'
 import styled from 'styled-components'
 
+import { AttentionOrangeIcon } from '../src/components/icons'
 import { Tooltip } from '../src/components/Tooltip'
 
 const Container = styled.div`
@@ -56,7 +56,7 @@ storiesOf('Tip', module).add('Tip', () => (
     </Tooltip>
 
     <Child>
-      <AttentionOrange data-tooltip-id="word-count-warning" height={'1em'} />
+      <AttentionOrangeIcon data-tooltip-id="word-count-warning" />
     </Child>
     <Tooltip id="word-count-warning" place="right">
       word count warning
