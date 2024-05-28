@@ -17,8 +17,7 @@
 import React from 'react'
 import styled from 'styled-components'
 
-import { IconTextButton } from '../Button'
-import TickMark from '../icons/tick-mark'
+import { CommentResolveIcon } from '../icons'
 import { Tooltip } from '../Tooltip'
 
 export const ResolveButton: React.FC<{
@@ -29,11 +28,11 @@ export const ResolveButton: React.FC<{
   return (
     <Container>
       <Button
-        resolved={resolved}
+        className={resolved ? 'resolved' : ''}
         data-tooltip-id={id}
         onClick={resolvedCallback}
       >
-        <TickMark color={'#353535'} />
+        <CommentResolveIcon />
       </Button>
       <Tooltip id={id} place="bottom">
         {(resolved && 'Unresolve') || 'Resolve'}
@@ -49,25 +48,27 @@ const Container = styled.div`
   margin-right: ${(props) => props.theme.grid.unit};
 `
 
-const Button = styled(IconTextButton)<{ resolved: boolean | undefined }>`
+const Button = styled.button`
+  display: flex;
+  align-items: center;
   width: 24px;
   height: 24px;
-  box-sizing: border-box;
-  border-radius: 16px;
-  background: ${(props) => (props.resolved && '#f2fbfc') || '#FFFFFF'};
-  border: ${(props) => (props.resolved && '1px solid #bce7f6') || 'none'};
+  border-radius: 12px;
+  border: none;
+  background: #ffffff;
+  padding: 0;
+  cursor: pointer;
 
-  svg {
-    max-height: 8.5px;
-    max-width: 12px;
-    margin-right: 0;
+  &.resolved {
+    background: #f2fbfc;
+    border: 1px solid #bce7f6;
+    path {
+      fill: #1a9bc7;
+    }
   }
 
-  path {
-    fill: ${(props) => (props.resolved && '#1a9bc7') || '#353535'};
-  }
-
-  &:not([disabled]):hover {
+  &:not([disabled]):hover,
+  &:not([disabled]):active {
     path {
       fill: #1a9bc7;
     }

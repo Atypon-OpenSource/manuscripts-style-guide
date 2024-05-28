@@ -14,8 +14,6 @@
  * limitations under the License.
  */
 
-import AddedIcon from '@manuscripts/assets/react/AddedIcon'
-import AddIcon from '@manuscripts/assets/react/AddIcon'
 import { FootnoteNode, InlineFootnoteNode } from '@manuscripts/transform'
 import React, { useState } from 'react'
 import styled from 'styled-components'
@@ -26,7 +24,7 @@ import {
   PrimaryButton,
   SecondaryButton,
 } from './Button'
-import { TemplateIcon } from './icons/template-icon'
+import { AddedIcon, AddIcon, AddNewIcon } from './icons'
 
 const NotesContainer = styled.div`
   height: 90vh;
@@ -120,7 +118,7 @@ export const TableFootnotesSelector: React.FC<{
       <Actions>
         <AddNewFootnote>
           <IconTextButton onClick={onAdd}>
-            <TemplateIcon />
+            <AddNewIcon />
             Add new
           </IconTextButton>
         </AddNewFootnote>
@@ -176,9 +174,9 @@ const footnoteItem = (
     <FootnoteItem onClick={() => onSelect(node)} key={node.attrs.id}>
       <StatusIcon>
         {isSelected(node) ? (
-          <AddedIcon data-cy={'plus-icon-ok'} width={24} height={24} />
+          <AddedIcon data-cy={'plus-icon-ok'} />
         ) : (
-          <AddIcon data-cy={'plus-icon'} width={24} height={24} />
+          <AddIcon data-cy={'plus-icon'} />
         )}
       </StatusIcon>
       <NoteText>

@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-import ArrowDownBlue from '@manuscripts/assets/react/ArrowDownBlue'
 import React, { CSSProperties, useState } from 'react'
 import styled from 'styled-components'
 
 import { IconButton } from './Button'
+import { ArrowDownCircleIcon } from './icons'
 
 const Section = styled.div`
   font-size: ${(props) => props.theme.font.size.normal};
@@ -41,7 +41,7 @@ const HeadingText = styled.div`
   flex: 1;
 `
 
-export const ExpanderButton = styled(IconButton).attrs((props) => ({
+export const ExpanderButton = styled(IconButton).attrs(() => ({
   size: 20,
   defaultColor: true,
 }))`
@@ -102,7 +102,7 @@ export const InspectorSection: React.FC<Props> = ({
             transform: expanded ? 'rotate(0deg)' : 'rotate(180deg)',
           }}
         >
-          <ArrowDownBlue />
+          <ArrowDownCircleIcon />
         </ExpanderButton>
       </Heading>
 

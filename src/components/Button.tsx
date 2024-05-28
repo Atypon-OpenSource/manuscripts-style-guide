@@ -350,7 +350,7 @@ export const RoundIconButton = styled(IconButton).attrs((props) => ({
   border-radius: 50%;
   box-sizing: border-box;
   box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.12);
-  display: inline-block;
+  display: inline-flex;
   height: 40px;
   padding: 0;
   position: relative;
@@ -361,12 +361,6 @@ export const RoundIconButton = styled(IconButton).attrs((props) => ({
   &:focus,
   &:hover {
     background: ${(props) => props.theme.colors.background.fifth} !important;
-  }
-
-  svg {
-    max-height: 16px;
-    max-width: 16px;
-    vertical-align: middle;
   }
 `
 
