@@ -36,7 +36,7 @@ const ReactModalAdapter: React.FC<
     className={modalClassName}
     portalClassName={className as string}
     closeTimeoutMS={totalTransitionTime}
-    preventScroll ={true}
+    preventScroll={true}
     appElement={document.getElementById('root') as HTMLElement}
     {...props}
   />
