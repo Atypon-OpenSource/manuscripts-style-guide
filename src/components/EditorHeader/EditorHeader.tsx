@@ -57,7 +57,6 @@ export type SubmissionStepType = {
   label: string
   description: string
   transitions: Array<SubmissionStepTransition>
-  duration: number
   role: {
     label: string
   }
