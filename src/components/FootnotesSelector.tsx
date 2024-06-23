@@ -63,7 +63,7 @@ const AddNewFootnote = styled(ButtonGroup)`
 
 export type FootnoteWithIndex = { node: FootnoteNode; index?: string }
 
-export const TableFootnotesSelector: React.FC<{
+export const FootnotesSelector: React.FC<{
   notes: FootnoteWithIndex[]
   inlineFootnote?: InlineFootnoteNode
   onAdd: () => void
