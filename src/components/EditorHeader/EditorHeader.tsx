@@ -57,7 +57,6 @@ export type SubmissionStepType = {
   label: string
   description: string
   transitions: Array<SubmissionStepTransition>
-  duration: number
   role: {
     label: string
   }
@@ -290,6 +289,7 @@ export const PrimaryButtonSmall = styled(PrimaryButton)`
 
 const Wrapper = styled.div`
   display: flex;
+  z-index: 6;
   padding: ${(props) => props.theme.grid.unit * 3}px
     ${(props) => props.theme.grid.unit * 8}px;
   width: 100%;
@@ -297,6 +297,7 @@ const Wrapper = styled.div`
   align-items: center;
   border-bottom: 1px solid #f2f2f2;
   font-size: 14px;
+  background: white;
 
   ${NavDropdownContainer} + ${NavDropdownContainer} {
     margin-left: ${(props) => props.theme.grid.unit * 2}px;
