@@ -69,7 +69,8 @@ export const FootnotesSelector: React.FC<{
   onAdd: () => void
   onInsert: (notes: FootnoteWithIndex[]) => void
   onCancel: () => void
-}> = ({ notes, inlineFootnote, onAdd, onInsert, onCancel }) => {
+  addNewLabel?: string
+}> = ({ notes, inlineFootnote, onAdd, onInsert, onCancel, addNewLabel }) => {
   let selectedNotesMap
 
   if (inlineFootnote) {
@@ -108,7 +109,7 @@ export const FootnotesSelector: React.FC<{
   return (
     <Container>
       <NotesContainer>
-        <TableFootnotesList
+        <FootnotesList
           notes={notes}
           inlineFootnote={inlineFootnote}
           isSelected={isSelected}
@@ -119,7 +120,7 @@ export const FootnotesSelector: React.FC<{
         <AddNewFootnote>
           <IconTextButton onClick={onAdd}>
             <AddNewIcon />
-            Add new
+            {addNewLabel || 'Add new'}
           </IconTextButton>
         </AddNewFootnote>
         <ButtonGroup>
@@ -136,7 +137,7 @@ export const FootnotesSelector: React.FC<{
   )
 }
 
-const TableFootnotesList: React.FC<{
+const FootnotesList: React.FC<{
   notes: FootnoteWithIndex[]
   inlineFootnote?: InlineFootnoteNode
   isSelected: (item: FootnoteNode) => boolean
@@ -218,5 +219,5 @@ const NoteText = styled.div`
   color: ${(props) => props.theme.colors.text.primary};
   flex: 1;
   font-weight: ${(props) => props.theme.font.weight.normal};
-  margin-top: ${(props) => props.theme.grid.unit}px;
+  margin-top: 2px;
 `
