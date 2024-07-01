@@ -1,7 +1,7 @@
 {
   "name": "@manuscripts/style-guide",
   "description": "Shared components for Manuscripts applications",
-  "version": "1.13.0",
+  "version": "1.13.1-LEAN-3307.0",
   "repository": "github:Atypon-OpenSource/manuscripts-style-guide",
   "license": "Apache-2.0",
   "main": "dist/cjs",
@@ -32,8 +32,8 @@
     "prepare": "husky install"
   },
   "dependencies": {
-    "@manuscripts/json-schema": "2.2.8",
-    "@manuscripts/transform": "2.3.9",
+    "@manuscripts/json-schema": "2.2.9-LEAN-3307.0",
+    "@manuscripts/transform": "2.3.9-LEAN-3307.1",
     "@reach/tabs": "^0.18.0",
     "date-fns": "^2.29.3",
     "formik": "^2.2.9",
