@@ -16,19 +16,24 @@
 
 import React from 'react'
 
-export const RelativeDate: React.FC<{
-  createdAt?: number
-}> = ({ createdAt }) => {
-  if (!createdAt) {
+export type RelativeDateProps = React.HTMLAttributes<HTMLSpanElement> & {
+  date?: number
+}
+
+export const RelativeDate: React.FC<RelativeDateProps> = ({
+  date,
+  ...props
+}) => {
+  if (!date) {
     return null
   }
 
   const formatter = new Intl.RelativeTimeFormat('en', { style: 'short' })
-  let value = Math.floor((createdAt - Date.now()) / 3600000)
+  let value = Math.floor((date - Date.now()) / 3600000)
   let unit: Intl.RelativeTimeFormatUnit = 'hour'
   if (Math.abs(value) > 24) {
     value = Math.floor(value / 24)
     unit = 'day'
   }
-  return <span>{formatter.format(value, unit)}</span>
+  return <span {...props}>{formatter.format(value, unit)}</span>
 }
