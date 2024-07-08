@@ -1703,10 +1703,10 @@
     citeproc "^2.4.62"
     fontoxpath "^3.28.2"
 
-"@manuscripts/transform@2.3.12":
-  version "2.3.12"
-  resolved "https://registry.yarnpkg.com/@manuscripts/transform/-/transform-2.3.12.tgz#f72aae2235c378f5c5b1248fe3710c3ba9c82b0a"
-  integrity sha512-sdLB4aXEoKCTA6pMk7T5WlAkn83RzsePbdNTOwdYN7JBBbKKCU7iQnwF6lSdBgHNXcns4WSwk+7yhsoVIHnLDQ==
+"@manuscripts/transform@2.3.13":
+  version "2.3.13"
+  resolved "https://registry.yarnpkg.com/@manuscripts/transform/-/transform-2.3.13.tgz#9a7bea97e31e14fdac63e6a50b020554c24c29b1"
+  integrity sha512-ZBQDMI1J7aUF9/QtNAgP7sjm6ITwgw1JRRbcQsujzNlToXHdOQWqdCPFJqI1n6AdW0cFvh/9xA1wwYzLc17kLg==
   dependencies:
     "@manuscripts/json-schema" "2.2.10"
     "@manuscripts/library" "1.3.10"
