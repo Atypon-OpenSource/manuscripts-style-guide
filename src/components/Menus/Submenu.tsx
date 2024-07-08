@@ -25,6 +25,7 @@ import {
   bulletListContextMenu,
   Label,
   ListContainer,
+  Menus,
   orderedListContextMenu,
   StyleBlock,
 } from './Menus'
@@ -105,12 +106,23 @@ const Container = styled.div<{ isOpen: boolean }>`
 
 const activeContent = (menu: Menu) => (menu.isActive ? '✓' : '')
 
+const isColumnMenu = (menu: Menu | MenuSeparator) =>
+  (menu.role !== 'separator' &&
+    (menu as Menu).id === 'format-table-add-column-before') ||
+  (menu as Menu).id === 'format-table-add-column-after' ||
+  (menu as Menu).id === 'format-table-delete-column'
+
 interface SubmenuProps {
   menu: Menu | MenuSeparator
   handleClick: (position: number[]) => void
+  setColumnMenu?: React.Dispatch<React.SetStateAction<undefined | Menu>>
 }
 
-export const Submenu: React.FC<SubmenuProps> = ({ menu, handleClick }) => {
+export const Submenu: React.FC<SubmenuProps> = ({
+  menu,
+  handleClick,
+  setColumnMenu,
+}) => {
   if (isMenuSeparator(menu)) {
     return <Separator />
   }
@@ -181,7 +193,11 @@ export const Submenu: React.FC<SubmenuProps> = ({ menu, handleClick }) => {
             <Submenu
               key={`menu-${index}`}
               menu={submenu}
-              handleClick={(i) => handleClick([index, ...i])}
+              handleClick={(i) =>
+                isColumnMenu(submenu) && setColumnMenu
+                  ? setColumnMenu(submenu as Menu)
+                  : handleClick([index, ...i])
+              }
             />
           ))}
         </NestedSubmenusContainer>
