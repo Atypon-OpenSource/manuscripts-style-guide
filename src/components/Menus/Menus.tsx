@@ -91,26 +91,15 @@ export const Menus: React.FC<MenusProps> = ({
         )
       })}
 
-      <Dialog
+      <ColumnChangeWarningDialog
         isOpen={!!columnMenu}
-        category={Category.confirmation}
-        header={"This change can't be tracked"}
-        message="This column action won't be marked as chnage. Do you want to continue?"
-        actions={{
-          primary: {
-            action: () => {
-              if (columnMenu?.run) {
-                columnMenu.run()
-                setColumnMenu(undefined)
-              }
-            },
-            title: 'Ok',
-          },
-          secondary: {
-            action: () => setColumnMenu(undefined),
-            title: 'Cancel',
-          },
+        primaryAction={() => {
+          if (columnMenu?.run) {
+            columnMenu.run()
+            setColumnMenu(undefined)
+          }
         }}
+        secondaryAction={() => setColumnMenu(undefined)}
       />
     </MenusContainer>
   )
@@ -175,3 +164,26 @@ export const Label = styled.div<{ hide?: boolean }>`
   font-style: normal;
   color: ${(props) => (props.hide && 'white') || 'initial'};
 `
+
+export const ColumnChangeWarningDialog: React.FC<{
+  isOpen: boolean
+  primaryAction: () => void
+  secondaryAction: () => void
+}> = ({ isOpen, primaryAction, secondaryAction }) => (
+  <Dialog
+    isOpen={isOpen}
+    category={Category.confirmation}
+    header={"This change can't be tracked"}
+    message="This column action won't be marked as chnage. Do you want to continue?"
+    actions={{
+      primary: {
+        action: primaryAction,
+        title: 'Ok',
+      },
+      secondary: {
+        action: secondaryAction,
+        title: 'Cancel',
+      },
+    }}
+  />
+)
