@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-import React, { Ref } from 'react'
-import Modal from 'react-modal'
+import React, { Ref, useState } from 'react'
 import styled from 'styled-components'
 
 import { Menu } from '../../lib/menus'
+import { Category, Dialog } from '../Dialog'
 import { Submenu, SubmenusContainer, Text } from './Submenu'
 
 const MenusContainer = styled.div`
@@ -56,6 +56,8 @@ export const Menus: React.FC<MenusProps> = ({
   innerRef,
   handleClick,
 }) => {
+  const [columnMenu, setColumnMenu] = useState<Menu | undefined>(undefined)
+
   return (
     <MenusContainer ref={innerRef}>
       {menus.map((menu, index) => {
@@ -79,6 +81,7 @@ export const Menus: React.FC<MenusProps> = ({
                       key={`${index}-${sindex}`}
                       menu={submenu}
                       handleClick={(i) => handleClick([index, sindex, ...i])}
+                      setColumnMenu={setColumnMenu}
                     />
                   )
                 })}
@@ -87,6 +90,17 @@ export const Menus: React.FC<MenusProps> = ({
           </MenuContainer>
         )
       })}
+
+      <ColumnChangeWarningDialog
+        isOpen={!!columnMenu}
+        primaryAction={() => {
+          if (columnMenu?.run) {
+            columnMenu.run()
+            setColumnMenu(undefined)
+          }
+        }}
+        secondaryAction={() => setColumnMenu(undefined)}
+      />
     </MenusContainer>
   )
 }
@@ -150,3 +164,26 @@ export const Label = styled.div<{ hide?: boolean }>`
   font-style: normal;
   color: ${(props) => (props.hide && 'white') || 'initial'};
 `
+
+export const ColumnChangeWarningDialog: React.FC<{
+  isOpen: boolean
+  primaryAction: () => void
+  secondaryAction: () => void
+}> = ({ isOpen, primaryAction, secondaryAction }) => (
+  <Dialog
+    isOpen={isOpen}
+    category={Category.confirmation}
+    header={"This change can't be tracked"}
+    message="This column action won't be marked as chnage. Do you want to continue?"
+    actions={{
+      primary: {
+        action: primaryAction,
+        title: 'Ok',
+      },
+      secondary: {
+        action: secondaryAction,
+        title: 'Cancel',
+      },
+    }}
+  />
+)
