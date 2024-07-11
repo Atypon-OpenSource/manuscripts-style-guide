@@ -19,8 +19,8 @@ import styled from 'styled-components'
 
 import { Menu, TableConfig } from '../../lib/menus'
 import { Category, Dialog } from '../Dialog'
-import { Submenu, SubmenusContainer, Text } from './Submenu'
 import { InsertTableDialog } from '../InsertTableDialog'
+import { Submenu, SubmenusContainer, Text } from './Submenu'
 
 const MenusContainer = styled.div`
   display: flex;

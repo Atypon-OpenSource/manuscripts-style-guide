@@ -15,11 +15,12 @@
  */
 
 import React, { useState } from 'react'
-import styled from 'styled-components'
-import { Category, Dialog } from './Dialog'
-import { CheckboxField, CheckboxLabel } from './Checkbox'
 import Select, { OptionProps } from 'react-select'
+import styled from 'styled-components'
+
 import { TableConfig } from '../lib/menus'
+import { CheckboxField, CheckboxLabel } from './Checkbox'
+import { Category, Dialog } from './Dialog'
 
 const Label = styled.div`
   padding-right: 16px;
@@ -57,7 +58,7 @@ export const InsertTableDialog: React.FC<{
   const [numberOfRows, setNumRows] = useState({ value: 4, label: `4` })
   const [includeHeader, setIncludeHeader] = useState(true)
 
-  type OptionType = { value: number, label: string }
+  type OptionType = { value: number; label: string }
 
   const handleColumnChange = (newValue: OptionType) => {
     setNumColumns(newValue)
@@ -86,7 +87,7 @@ export const InsertTableDialog: React.FC<{
   const insertTableDialogActions = {
     primary: {
       action: () => {
-        let tableConfig = {
+        const tableConfig = {
           numberOfColumns: numberOfColumns.value,
           numberOfRows: numberOfRows.value,
           includeHeader,
@@ -109,52 +110,53 @@ export const InsertTableDialog: React.FC<{
       category={Category.confirmation}
       header={'Insert table'}
       message={''}
-      children={
+    >
+      <>
         <>
-          <>
-            <Container>
-              <Label>Number of columns:</Label>
-              <SelectContainer>
-                <Select<OptionType>
-                  onChange={(newValue) => handleColumnChange(newValue as OptionType)}
-                  value={numberOfColumns}
-                  options={options}
-                  components={{
-                    Option: OptionComponent,
-                  }}
-                  menuPosition="fixed"
-                  maxMenuHeight={150}
-                />
-              </SelectContainer>
-            </Container>
-            <Container>
-              <Label>Number of rows:</Label>
-              <SelectContainer>
-                <Select<OptionType>
-                  onChange={(newValue) => handleRowChange(newValue as OptionType)}
-                  value={numberOfRows}
-                  options={options}
-                  components={{
-                    Option: OptionComponent,
-                  }}
-                  menuPosition="fixed"
-                  maxMenuHeight={150}
-                />
-              </SelectContainer>
-            </Container>
-          </>
-          <CheckboxLabel>
-            <CheckboxField
-              name={'include-header'}
-              checked={includeHeader}
-              onChange={(e) => {
-                setIncludeHeader(e.target.checked)
-              }}
-            />
-            <div>Include header row</div>
-          </CheckboxLabel>
+          <Container>
+            <Label>Number of columns:</Label>
+            <SelectContainer>
+              <Select<OptionType>
+                onChange={(newValue) =>
+                  handleColumnChange(newValue as OptionType)
+                }
+                value={numberOfColumns}
+                options={options}
+                components={{
+                  Option: OptionComponent,
+                }}
+                menuPosition="fixed"
+                maxMenuHeight={150}
+              />
+            </SelectContainer>
+          </Container>
+          <Container>
+            <Label>Number of rows:</Label>
+            <SelectContainer>
+              <Select<OptionType>
+                onChange={(newValue) => handleRowChange(newValue as OptionType)}
+                value={numberOfRows}
+                options={options}
+                components={{
+                  Option: OptionComponent,
+                }}
+                menuPosition="fixed"
+                maxMenuHeight={150}
+              />
+            </SelectContainer>
+          </Container>
         </>
-      }
-    />
+        <CheckboxLabel>
+          <CheckboxField
+            name={'include-header'}
+            checked={includeHeader}
+            onChange={(e) => {
+              setIncludeHeader(e.target.checked)
+            }}
+          />
+          <div>Include header row</div>
+        </CheckboxLabel>
+      </>
+    </Dialog>
   )
 }
