@@ -1,5 +1,5 @@
 /*!
- * © 2021 Atypon Systems LLC
+ * © 2024 Atypon Systems LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,7 +15,6 @@
  */
 import React from 'react'
 
-import { FileAttachment } from '../../lib/files'
 import {
   FileAudioIcon,
   FileCodeIcon,
@@ -29,13 +28,7 @@ import {
   FileTableIcon,
   FileUnknownIcon,
   FileVideoIcon,
-} from '../icons'
-
-export enum FileSectionType {
-  Inline = 'Inline files',
-  Supplements = 'Supplements',
-  OtherFile = 'Other files',
-}
+} from '../components/icons'
 
 export enum FileType {
   Image,
@@ -165,13 +158,13 @@ const type2icon = new Map<FileType | undefined, JSX.Element>([
   [undefined, <FileUnknownIcon key={undefined} className="file-icon" />],
 ])
 
-export const getFileType = (file: FileAttachment) => {
-  const extension = getExtension(file.name)
+export const getFileType = (name: string) => {
+  const extension = getExtension(name)
   return extension2type.get(extension.toLowerCase())
 }
 
-export const getFileIcon = (file: FileAttachment) => {
-  const type = getFileType(file)
+export const getFileIcon = (name: string) => {
+  const type = getFileType(name)
   return type2icon.get(type)
 }
 
@@ -179,8 +172,8 @@ export const getFileTypeIcon = (type: FileType) => {
   return type2icon.get(type)
 }
 
-export const isImageFile = (file: FileAttachment) => {
-  return getFileType(file) === FileType.Image
+export const isImageFile = (name: string) => {
+  return getFileType(name) === FileType.Image
 }
 
 const getExtension = (name: string) => {
