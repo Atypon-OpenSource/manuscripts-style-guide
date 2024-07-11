@@ -17,9 +17,10 @@
 import React, { Ref, useState } from 'react'
 import styled from 'styled-components'
 
-import { Menu } from '../../lib/menus'
+import { Menu, TableConfig } from '../../lib/menus'
 import { Category, Dialog } from '../Dialog'
 import { Submenu, SubmenusContainer, Text } from './Submenu'
+import { InsertTableDialog } from '../InsertTableDialog'
 
 const MenusContainer = styled.div`
   display: flex;
@@ -48,7 +49,7 @@ const MenuContainer = styled.div<{ isEnabled: boolean }>`
 interface MenusProps {
   menus: Menu[]
   innerRef: Ref<HTMLDivElement>
-  handleClick: (position: number[]) => void
+  handleClick: (position: number[], tableConfig?: TableConfig) => void
 }
 
 export const Menus: React.FC<MenusProps> = ({
@@ -57,6 +58,13 @@ export const Menus: React.FC<MenusProps> = ({
   handleClick,
 }) => {
   const [columnMenu, setColumnMenu] = useState<Menu | undefined>(undefined)
+
+  const [openDialog, setOpenDialog] = useState(false)
+  const [indices, setIndices] = useState<number[]>([])
+
+  const toggleDialog = () => {
+    setOpenDialog(!openDialog)
+  }
 
   return (
     <MenusContainer ref={innerRef}>
@@ -80,7 +88,18 @@ export const Menus: React.FC<MenusProps> = ({
                     <Submenu
                       key={`${index}-${sindex}`}
                       menu={submenu}
-                      handleClick={(i) => handleClick([index, sindex, ...i])}
+                      handleClick={(i) => {
+                        const indices: number[] = [index, sindex, ...i]
+                        if (
+                          'id' in submenu &&
+                          submenu.id === 'insert-table-element'
+                        ) {
+                          setIndices(indices)
+                          toggleDialog()
+                        } else {
+                          handleClick(indices)
+                        }
+                      }}
                       setColumnMenu={setColumnMenu}
                     />
                   )
@@ -101,6 +120,13 @@ export const Menus: React.FC<MenusProps> = ({
         }}
         secondaryAction={() => setColumnMenu(undefined)}
       />
+      {openDialog && (
+        <InsertTableDialog
+          run={(tableConfig: TableConfig) => handleClick(indices, tableConfig)}
+          open={openDialog}
+          onClose={toggleDialog}
+        />
+      )}
     </MenusContainer>
   )
 }
