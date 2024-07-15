@@ -21,7 +21,6 @@ import { RenderInputProps } from 'react-modern-calendar-datepicker'
 import styled from 'styled-components'
 
 import { CalendarDatePicker, PrimaryButton } from '../src'
-import { submission } from './data/lw-submission'
 
 const Grid = styled.div`
   display: grid;
@@ -39,8 +38,8 @@ storiesOf('DatePicker', module).add('DatePicker', () => {
   return (
     <Grid>
       <CalendarDatePicker
-        currentDueDate={submission.currentStep.dueDate}
-        originalDueDate={submission.dueDate}
+        currentDueDate={new Date()}
+        originalDueDate={new Date()}
         handleDateChange={action('Date updated')}
         Button={CalendarDatePickerButton}
       />
