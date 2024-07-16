@@ -77,6 +77,7 @@ export const Field = styled.div`
 interface Props {
   title: React.ReactNode
   contentStyles?: CSSProperties
+  children?: React.ReactNode
 }
 
 export const InspectorSection: React.FC<Props> = ({

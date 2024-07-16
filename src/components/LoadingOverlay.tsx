@@ -16,7 +16,9 @@
 import React from 'react'
 import Modal from 'react-modal'
 
-export const LoadingOverlay: React.FC = ({ children }) => (
+export const LoadingOverlay: React.FC<{ children: React.ReactNode }> = ({
+  children,
+}) => (
   <>
     <Modal
       isOpen={true}

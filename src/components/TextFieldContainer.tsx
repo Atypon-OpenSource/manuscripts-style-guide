@@ -22,7 +22,7 @@ import { TextFieldError, TextFieldErrorItem } from './TextFieldError'
 
 interface TextFieldContainerProps {
   label?: string
-  error?: string | null | Record<string, unknown>
+  error?: React.ReactNode | undefined
   children: React.ReactElement<ErrorProps>
 }
 
@@ -32,7 +32,7 @@ export const TextFieldContainer: React.FunctionComponent<
   const childrenWithErrorProp = React.Children.map(
     children,
     (child: React.ReactElement<ErrorProps>) =>
-      React.cloneElement(child, { error })
+      React.cloneElement(child, { error: String(error) }) // Convert error to string
   )
 
   return (

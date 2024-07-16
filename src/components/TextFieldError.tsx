@@ -44,7 +44,9 @@ export const TextFieldErrorItem = styled.div`
   margin: 8px;
 `
 
-export const TextFieldError: React.FunctionComponent = ({ children }) => (
+export const TextFieldError: React.FunctionComponent<{
+  children: React.ReactNode
+}> = ({ children }) => (
   <Container>
     <Arrow />
     {children}

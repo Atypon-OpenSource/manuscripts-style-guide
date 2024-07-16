@@ -156,6 +156,7 @@ interface DropdownButtonProps {
   notificationsCount?: number
   onClick?: React.MouseEventHandler
   removeChevron?: boolean
+  children: React.ReactNode
 }
 
 export const NavDropdownButton: React.FunctionComponent<

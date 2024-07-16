@@ -20,7 +20,7 @@ import { TextFieldGroup } from './TextField'
 import { TextFieldError, TextFieldErrorItem } from './TextFieldError'
 
 interface Errors {
-  [key: string]: string | Record<string, unknown> | undefined
+  [key: string]: React.ReactNode | undefined
 }
 
 const hasErrors = (errors: Errors) =>
@@ -28,6 +28,7 @@ const hasErrors = (errors: Errors) =>
 
 interface TextFieldGroupContainerProps {
   errors?: Errors
+  children: React.ReactNode
 }
 
 export const TextFieldGroupContainer: React.FunctionComponent<
