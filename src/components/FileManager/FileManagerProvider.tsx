@@ -33,6 +33,7 @@ export const FileManagerProvider: React.FC<{
   deleteModel: DeleteModel
   modelMap: Map<string, Model>
   fileManagement: FileManagement
+  children: React.ReactNode
 }> = ({ children, saveModel, deleteModel, modelMap, fileManagement }) => {
   return (
     <FileManagerContext.Provider

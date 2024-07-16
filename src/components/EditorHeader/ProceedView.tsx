@@ -39,9 +39,10 @@ import {
 } from './EditorHeader'
 
 const DropdownWrapper: React.FC<{
-  button: React.FC | string
+  button: React.ReactNode
   disabled: boolean
   primary?: boolean
+  children: React.ReactNode
 }> = ({ disabled, button, primary, children }) => {
   const { isOpen, toggleOpen, wrapperRef } = useDropdown()
 
@@ -77,8 +78,8 @@ export const ProceedView: React.FC<{
   isAnnotator: boolean
   isProofer: boolean
   disable: boolean
-  onTransitionClick: (event: unknown) => void
-  onNoteChange?: (event: unknown) => void
+  onTransitionClick: (event: React.MouseEvent<HTMLButtonElement>) => void
+  onNoteChange?: (event: React.ChangeEvent<HTMLInputElement>) => void
   hasPendingSuggestions: boolean
   dialogData: ProceedDialogData
   noteValue: string
@@ -88,7 +89,7 @@ export const ProceedView: React.FC<{
   nextStepType: SubmissionStepType
   onCancelClick: () => void
   continueDialogAction: () => Promise<void>
-  message: React.FC<{ isCentered: boolean }>
+  message: React.FC<{ isCentered: boolean; children: React.ReactNode }>
 }> = ({
   currentStepTransition,
   onTransitionClick,
@@ -217,7 +218,7 @@ export const ProceedView: React.FC<{
 
       {finalState === DialogState.LOADING && (
         <LoadingOverlay>
-          <Message isCentered>Proceeding with your submission…</Message>
+          <Message isCentered={true}>Proceeding with your submission…</Message>
         </LoadingOverlay>
       )}
 

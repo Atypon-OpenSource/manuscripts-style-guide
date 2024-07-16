@@ -187,9 +187,10 @@ export const useCalcPermission = ({
 }: ProviderProps) => {
   return getCapabilities(project, profile, role, permittedActions)
 }
-export const CapabilitiesProvider: React.FC<{ can: Capabilities }> = (
-  props
-) => {
+export const CapabilitiesProvider: React.FC<{
+  can: Capabilities
+  children: React.ReactNode
+}> = (props) => {
   const { can } = props
   return (
     <CapabilitiesContext.Provider value={can}>

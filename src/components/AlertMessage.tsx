@@ -132,6 +132,7 @@ interface Props {
   type: AlertMessageType
   dismissButton?: Dismiss
   hideCloseButton?: boolean
+  children: React.ReactNode
 }
 
 const alertIcons: { [key in AlertMessageType]: React.FC } = {

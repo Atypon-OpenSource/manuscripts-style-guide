@@ -42,11 +42,14 @@ export const InlineFilesSection: React.FC<{
   }
 
   const onElementClick = useCallback(
-    (e) => {
+    (e: React.MouseEvent) => {
       if (!isEditor) {
         return
       }
-      navigateToElement(e.currentTarget.id)
+      const id = e.currentTarget?.id
+      if (id) {
+        navigateToElement(id)
+      }
     },
     [isEditor]
   )

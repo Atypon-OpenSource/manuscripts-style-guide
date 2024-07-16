@@ -157,9 +157,10 @@ export const EditorHeader: React.FC<{
   ])
 
   const onTransitionClick = useCallback(
-    (event) => {
+    (event: React.MouseEvent<HTMLButtonElement>) => {
       updateState(DialogState.INIT)
       setSelectedTransitionIndex(
+        // @ts-ignore
         event.target.value || event.target.parentNode.value
       )
     },
@@ -173,7 +174,8 @@ export const EditorHeader: React.FC<{
   }, [setSelectedTransitionIndex, clearError, updateState])
 
   const onNoteChange = useCallback(
-    (event) => setNoteValue(event.target.value),
+    (event: React.ChangeEvent<HTMLInputElement>) =>
+      setNoteValue(event.target.value),
     [setNoteValue]
   )
 
