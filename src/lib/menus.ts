@@ -26,6 +26,12 @@ export interface MenuShortcut {
   pc: string
 }
 
+export type TableConfig = {
+  numberOfColumns: number
+  numberOfRows: number
+  includeHeader: boolean
+}
+
 export interface MenuSpec {
   id: string
   label: string
@@ -33,7 +39,7 @@ export interface MenuSpec {
   shortcut?: MenuShortcut
   isActive?: boolean
   isEnabled: boolean
-  run?: () => void
+  run?: (tableConfig?: TableConfig) => void
   submenu?: (MenuSpec | MenuSeparator)[]
   options?: {
     [key: string]: () => void

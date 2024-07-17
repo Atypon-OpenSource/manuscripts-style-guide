@@ -21,6 +21,7 @@ import {
   MenuPointer,
   MenuSeparator,
   MenuSpec,
+  TableConfig,
 } from '../lib/menus'
 
 const initialPointer = [-1, -1, -1] as MenuPointer
@@ -97,7 +98,7 @@ export const useMenus = (menus: MenuSpec[]) => {
   const state = getMenuState(menus, pointer)
 
   const handleClick = useCallback(
-    (indices: number[]) => {
+    (indices: number[], tableConfig?: TableConfig) => {
       const menu = getMenuAt(state, indices)
 
       if (!menu || !menu.isEnabled) {
@@ -105,7 +106,7 @@ export const useMenus = (menus: MenuSpec[]) => {
       }
 
       if (menu.run) {
-        menu.run()
+        menu.run(tableConfig)
         setPointer([-1, -1, -1])
       } else if (menu.submenu) {
         const depth = indices.length - 1
