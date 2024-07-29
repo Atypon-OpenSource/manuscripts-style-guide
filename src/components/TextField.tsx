@@ -120,6 +120,7 @@ const IconWrapper = styled.div`
 
 export const TextFieldWrapper: React.FC<{
   leftIcon: JSX.Element
+  children: React.ReactNode
 }> = ({ leftIcon, children }) => {
   return (
     <TextFieldWrapperStyles>
