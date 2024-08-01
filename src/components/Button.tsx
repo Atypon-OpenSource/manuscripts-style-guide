@@ -405,14 +405,14 @@ export const ButtonGroup = styled.div`
   }
 `
 
-export const IconButtonGroup = styled.div`
+export const IconButtonGroup = styled.div<{ size?: number }>`
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
   align-items: center;
 
   button {
-    width: 28px;
-    height: 28px;
+    width: ${(props) => props.size || 28}px;
+    height: ${(props) => props.size || 28}px;
   }
 `
