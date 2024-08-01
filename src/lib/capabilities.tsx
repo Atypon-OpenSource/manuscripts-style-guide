@@ -152,7 +152,7 @@ export const getCapabilities = (
     /* editor */
     editArticle: !isViewer(),
     editMetadata: !(isViewer() || isProofer()) || isAnnotator(),
-    editCitationsAndRefs: !isViewer(),
+    editCitationsAndRefs: !(isViewer() || isProofer()),
     shareProject: isOwner(),
     applySaveChanges: !(isAnnotator() || isProofer()),
   }
