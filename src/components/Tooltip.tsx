@@ -25,7 +25,7 @@ export const Tooltip = styled(ReactTooltip).attrs({
     font-size: 12px;
     line-height: 16px;
     letter-spacing: -0.2px;
-    max-width: 300px;
+    max-width: 100%;
     font-family: inherit;
     padding: 8px;
     border-radius: 3px;
