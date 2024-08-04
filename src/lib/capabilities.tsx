@@ -43,6 +43,7 @@ export type Capabilities = {
   moveFile: boolean
   replaceFile: boolean
   uploadFile: boolean
+  detachFile: boolean
   handleQualityReport: boolean
   setMainManuscript: boolean
   /* dashboard actions */
@@ -136,6 +137,7 @@ export const getCapabilities = (
     uploadFile:
       (isOwner() || isEditor() || isWriter() || isAnnotator()) &&
       allowed(Actions.updateAttachment),
+    detachFile: isOwner() || isEditor() || isWriter() || isAnnotator(),
     handleQualityReport: isOwner() || isEditor() || isWriter(),
     setMainManuscript: allowed(Actions.setMainManuscript),
     /* dashboard actions */
