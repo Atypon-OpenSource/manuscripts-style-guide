@@ -14,13 +14,6 @@
  * limitations under the License.
  */
 
-import {
-  ManuscriptEditorState,
-  ManuscriptTransaction,
-} from '@manuscripts/transform'
-
-export type Dispatch = (tr: ManuscriptTransaction) => void
-
 export interface MenuShortcut {
   mac: string
   pc: string
