@@ -43,11 +43,11 @@ const ContextMenuIconButton = styled(IconButton)`
 
 const icons: { [key: string]: React.FC } = {
   AddComment: AddCommentIcon,
-  EditIcon: EditIcon,
+  Edit: EditIcon,
 }
 
 export const ContextMenu: React.FC<ContextMenuProps> = ({ actions }) => (
-  <IconButtonGroup>
+  <IconButtonGroup size={32}>
     {actions.map((action) => {
       const Icon = icons[action.icon]
       return (
