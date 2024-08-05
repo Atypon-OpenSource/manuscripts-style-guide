@@ -19,16 +19,6 @@ import styled from 'styled-components'
 
 import { isMenuSeparator, Menu, MenuSeparator } from '../../lib/menus'
 import { TriangleCollapsedIcon } from '../icons'
-import {
-  Block,
-  BlockItem,
-  bulletListContextMenu,
-  Label,
-  ListContainer,
-  Menus,
-  orderedListContextMenu,
-  StyleBlock,
-} from './Menus'
 import { Shortcut } from './Shortcut'
 
 export const Text = styled.div`
@@ -46,6 +36,8 @@ export const SubmenusContainer = styled.div`
   box-shadow: 0 4px 9px 0 rgba(84, 83, 83, 0.3);
   color: #353535;
   min-width: 150px;
+  max-height: 70vh;
+  overflow-y: auto;
   padding: 4px 0;
   white-space: nowrap;
   width: auto;
@@ -106,28 +98,17 @@ const Container = styled.div<{ isOpen: boolean }>`
 
 const activeContent = (menu: Menu) => (menu.isActive ? '✓' : '')
 
-const isColumnMenu = (menu: Menu | MenuSeparator) =>
-  (menu.role !== 'separator' &&
-    (menu as Menu).id === 'format-table-add-column-before') ||
-  (menu as Menu).id === 'format-table-add-column-after' ||
-  (menu as Menu).id === 'format-table-delete-column'
-
 interface SubmenuProps {
   menu: Menu | MenuSeparator
   handleClick: (position: number[]) => void
-  setColumnMenu?: React.Dispatch<React.SetStateAction<undefined | Menu>>
 }
 
-export const Submenu: React.FC<SubmenuProps> = ({
-  menu,
-  handleClick,
-  setColumnMenu,
-}) => {
+export const Submenu: React.FC<SubmenuProps> = ({ menu, handleClick }) => {
   if (isMenuSeparator(menu)) {
     return <Separator />
   }
 
-  if (!menu.submenu && !menu.options) {
+  if (!menu.submenu) {
     return (
       <Container
         isOpen={menu.isOpen}
@@ -141,34 +122,6 @@ export const Submenu: React.FC<SubmenuProps> = ({
         <Text>{menu.label}</Text>
         {menu.shortcut && <Shortcut shortcut={menu.shortcut} />}
       </Container>
-    )
-  }
-
-  if (menu.options) {
-    const styles =
-      menu.id === 'bullet-list-context-menu'
-        ? bulletListContextMenu
-        : orderedListContextMenu
-
-    return (
-      <ListContainer>
-        {styles.map((style, index) => (
-          <StyleBlock
-            key={index}
-            onClick={() => {
-              menu.options && menu.options[style.type]()
-              handleClick([-1, -1])
-            }}
-          >
-            {style.items.map((style, index) => (
-              <BlockItem key={index}>
-                <Label hide={style === '-'}>{style}</Label>
-                <Block />
-              </BlockItem>
-            ))}
-          </StyleBlock>
-        ))}
-      </ListContainer>
     )
   }
 
@@ -193,11 +146,7 @@ export const Submenu: React.FC<SubmenuProps> = ({
             <Submenu
               key={`menu-${index}`}
               menu={submenu}
-              handleClick={(i) =>
-                isColumnMenu(submenu) && setColumnMenu
-                  ? setColumnMenu(submenu as Menu)
-                  : handleClick([index, ...i])
-              }
+              handleClick={(i) => handleClick([index, ...i])}
             />
           ))}
         </NestedSubmenusContainer>
