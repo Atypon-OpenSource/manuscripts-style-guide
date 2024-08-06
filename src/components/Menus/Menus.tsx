@@ -53,10 +53,10 @@ interface MenusProps {
 }
 
 export const Menus: React.FC<MenusProps> = ({
-                                              menus,
-                                              innerRef,
-                                              handleClick,
-                                            }) => {
+  menus,
+  innerRef,
+  handleClick,
+}) => {
   return (
     <MenusContainer ref={innerRef}>
       {menus.map((menu, index) => {

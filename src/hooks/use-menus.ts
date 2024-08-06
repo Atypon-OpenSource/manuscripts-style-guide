@@ -112,10 +112,6 @@ export const useMenus = (menus: MenuSpec[]) => {
         const index = indices[depth]
         setPointer(transformPointer(depth, index))
       }
-
-      if (menu.options) {
-        setPointer([-1, -1, -1])
-      }
     },
     [state]
   )

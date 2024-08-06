@@ -25,7 +25,7 @@ export const Text = styled.div`
   flex: 1 0 auto;
 `
 
-const SubmenuContainer = styled.div`
+export const SubmenuContainer = styled.div`
   position: relative;
 `
 
@@ -55,7 +55,7 @@ export const SubmenusContainer = styled.div`
   }
 `
 
-const NestedSubmenusContainer = styled(SubmenusContainer)`
+export const NestedSubmenusContainer = styled(SubmenusContainer)`
   top: 0;
   left: 100%;
 `
@@ -98,48 +98,47 @@ const Container = styled.div<{ isOpen: boolean }>`
 
 const activeContent = (menu: Menu) => (menu.isActive ? '✓' : '')
 
-interface SubmenuProps {
+export interface SubmenuProps {
   menu: Menu | MenuSeparator
   handleClick: (position: number[]) => void
+}
+
+export const SubmenuLabel: React.FC<SubmenuProps> = ({ menu, handleClick }) => {
+  if (isMenuSeparator(menu)) {
+    return null
+  }
+  return (
+    <Container
+      isOpen={menu.isOpen}
+      className={menu.isEnabled ? '' : 'disabled'}
+      onMouseDown={(e) => {
+        e.preventDefault()
+        handleClick([])
+      }}
+    >
+      <Active>{activeContent(menu)}</Active>
+      <Text>{menu.label}</Text>
+      {menu.submenu && <Arrow />}
+      {menu.shortcut && <Shortcut shortcut={menu.shortcut} />}
+    </Container>
+  )
 }
 
 export const Submenu: React.FC<SubmenuProps> = ({ menu, handleClick }) => {
   if (isMenuSeparator(menu)) {
     return <Separator />
   }
+  if (menu.component) {
+    return <menu.component menu={menu} handleClick={handleClick} />
+  }
 
   if (!menu.submenu) {
-    return (
-      <Container
-        isOpen={menu.isOpen}
-        className={menu.isEnabled ? '' : 'disabled'}
-        onMouseDown={(e) => {
-          e.preventDefault()
-          handleClick([])
-        }}
-      >
-        <Active>{activeContent(menu)}</Active>
-        <Text>{menu.label}</Text>
-        {menu.shortcut && <Shortcut shortcut={menu.shortcut} />}
-      </Container>
-    )
+    return <SubmenuLabel menu={menu} handleClick={handleClick} />
   }
 
   return (
     <SubmenuContainer>
-      <Container
-        onMouseDown={(e) => {
-          e.preventDefault()
-          handleClick([])
-        }}
-        isOpen={menu.isOpen}
-        className={menu.isEnabled ? '' : 'disabled'}
-      >
-        <Active>{activeContent(menu)}</Active>
-        <Text>{menu.label}</Text>
-        {menu.submenu && <Arrow />}
-        {menu.shortcut && <Shortcut shortcut={menu.shortcut} />}
-      </Container>
+      <SubmenuLabel menu={menu} handleClick={handleClick} />
       {menu.submenu && menu.isOpen && (
         <NestedSubmenusContainer>
           {menu.submenu.map((submenu, index) => (
