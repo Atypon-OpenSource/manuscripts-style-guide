@@ -29,15 +29,14 @@ const MenusContainer = styled.div`
 const MenuHeading = styled.div<{ isOpen: boolean }>`
   padding: 4px 8px;
   cursor: pointer;
-  border: 1px solid transparent;
-  border-bottom: none;
 `
 
 const MenuContainer = styled.div<{ isEnabled: boolean }>`
   position: relative;
 
   & ${MenuHeading} {
-    background-color: #fff;
+    background-color: ${(props) => props.theme.colors.background.secondary};
+    line-height: 24px;
     color: ${(props) => (props.isEnabled ? '#353535' : '#e2e2e2')};
 
     &:hover {
