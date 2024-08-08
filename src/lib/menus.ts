@@ -14,22 +14,16 @@
  * limitations under the License.
  */
 
-import {
-  ManuscriptEditorState,
-  ManuscriptTransaction,
-} from '@manuscripts/transform'
-
-export type Dispatch = (tr: ManuscriptTransaction) => void
+import React from 'react'
 
 export interface MenuShortcut {
   mac: string
   pc: string
 }
 
-export type TableConfig = {
-  numberOfColumns: number
-  numberOfRows: number
-  includeHeader: boolean
+export interface MenuComponentProps {
+  menu: Menu
+  handleClick: (position: number[]) => void
 }
 
 export interface MenuSpec {
@@ -37,13 +31,11 @@ export interface MenuSpec {
   label: string
   role?: string
   shortcut?: MenuShortcut
+  component?: React.FC<MenuComponentProps>
   isActive?: boolean
   isEnabled: boolean
-  run?: (tableConfig?: TableConfig) => void
+  run?: () => void
   submenu?: (MenuSpec | MenuSeparator)[]
-  options?: {
-    [key: string]: () => void
-  }
 }
 
 export interface Menu extends MenuSpec {
