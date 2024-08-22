@@ -75,6 +75,7 @@ import {
   SaveStatusSavedIcon,
   SaveStatusSavingIcon,
   SearchIcon,
+  SystemUserAvatarIcon,
   TaskStepDoneIcon,
   ToolbarBoldIcon,
   ToolbarCitationIcon,
@@ -125,6 +126,7 @@ storiesOf('Icons', module).add('Icons', () => (
     <AttentionOrangeIcon />
     <AttentionRedIcon />
     <AvatarIcon />
+    <SystemUserAvatarIcon />
     <OutlineBlockQuoteIcon />
     <CitationCountIcon />
     <CommentReplyIcon />
