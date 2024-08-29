@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { Tab, TabList, TabPanel, TabPanels, Tabs } from '@chakra-ui/react'
+import { Tab, TabList, TabPanel, TabPanels, Tabs } from '@chakra-ui/tabs'
 import styled from 'styled-components'
 
 export const InspectorContainer = styled.div`
