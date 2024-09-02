@@ -1709,10 +1709,10 @@
     "@manuscripts/json-schema" "2.2.10"
     citeproc "^2.4.62"
 
-"@manuscripts/transform@2.3.26-LEAN-3647.0":
-  version "2.3.26-LEAN-3647.0"
-  resolved "https://registry.yarnpkg.com/@manuscripts/transform/-/transform-2.3.26-LEAN-3647.0.tgz#73984186a141f186c9a544d93fbcc8a9a4125704"
-  integrity sha512-WyjE8D4usWxT0mmXfH84t+qlFjwM+umKChgL+8BXKMC9eI0ForjvJplLJ9x34op49dbg+xtA2kTlouQBmm+JSg==
+"@manuscripts/transform@2.3.26":
+  version "2.3.26"
+  resolved "https://registry.yarnpkg.com/@manuscripts/transform/-/transform-2.3.26.tgz#44f768edef9d2fc77266bfaed7e22eb8edc33296"
+  integrity sha512-iWSLpxKCw2ew28/48DovAUInO6u8QXNxZxJfkSSnQsaLKZy0+KZ8n9o0+ovqaLi/6C5+J+YCCfjFBAgPRg+6WA==
   dependencies:
     "@manuscripts/json-schema" "2.2.11-LEAN-3647.0"
     "@manuscripts/library" "1.3.11"
