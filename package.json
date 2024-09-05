@@ -1,7 +1,7 @@
 {
   "name": "@manuscripts/style-guide",
   "description": "Shared components for Manuscripts applications",
-  "version": "2.0.18",
+  "version": "2.0.19",
   "repository": "github:Atypon-OpenSource/manuscripts-style-guide",
   "license": "Apache-2.0",
   "main": "dist/cjs",
@@ -33,7 +33,6 @@
   },
   "dependencies": {
     "@manuscripts/json-schema": "2.2.11",
-    "@manuscripts/transform": "2.3.31",
     "@reach/tabs": "^0.18.0",
     "date-fns": "^2.29.3",
     "formik": "^2.2.9",

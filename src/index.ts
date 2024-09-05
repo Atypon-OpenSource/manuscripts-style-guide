@@ -55,6 +55,5 @@ export {
 } from './hooks/use-deep-compare'
 export * from './lib/capabilities'
 export * from './lib/files'
-export * from './lib/comments'
 export * from './lib/menus'
 export { default as errorsDecoder } from './lib/errors-decoder'
