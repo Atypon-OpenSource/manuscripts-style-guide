@@ -33,7 +33,6 @@
   },
   "dependencies": {
     "@manuscripts/json-schema": "2.2.11",
-    "@manuscripts/transform": "2.3.31",
     "@reach/tabs": "^0.18.0",
     "date-fns": "^2.29.3",
     "formik": "^2.2.9",
