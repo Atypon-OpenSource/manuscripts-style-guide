@@ -56,7 +56,9 @@ import {
   FileVideoIcon,
   HandleInspectorIcon,
   HandleOutlineIcon,
+  HelpIcon,
   LinkIcon,
+  LogoutIcon,
   OutlineBlockQuoteIcon,
   OutlineCodeIcon,
   OutlineEquationIcon,
@@ -151,7 +153,9 @@ storiesOf('Icons', module).add('Icons', () => (
     <FileVideoIcon />
     <HandleInspectorIcon />
     <HandleOutlineIcon />
+    <HelpIcon />
     <LinkIcon />
+    <LogoutIcon />
     <FileMainDocumentIcon />
     <OutlineCodeIcon />
     <OutlineEquationIcon />
