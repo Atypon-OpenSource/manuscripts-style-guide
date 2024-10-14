@@ -16,7 +16,7 @@
 
 import '@reach/tabs/styles.css'
 
-import { Tab, TabList, TabPanel, TabPanels, Tabs } from '@reach/tabs'
+import { Tab, TabList, TabPanel, TabPanels, TabGroup } from '@headlessui/react'
 import styled from 'styled-components'
 
 export const InspectorContainer = styled.div`
@@ -29,7 +29,7 @@ export const InspectorContainer = styled.div`
   overflow: hidden;
 `
 
-export const InspectorTabs = styled(Tabs)`
+export const InspectorTabs = styled(TabGroup)`
   display: flex;
   flex-direction: column;
   height: 100%;
@@ -66,19 +66,22 @@ export const InspectorTabPanel = styled(TabPanel)`
     outline: none;
   }
 `
-
 export const InspectorTab = styled(Tab)`
   && {
+    font-family: inherit;
     background: none;
     padding: ${(props) => props.theme.grid.unit * 2}px;
     border-bottom-width: 1px;
-
+    border: none;
+    color: inherit;
+    border-bottom: 1px solid transparent;
+    cursor: pointer;
     &:focus {
       outline: none;
     }
 
-    &[data-selected] {
-      border-bottom-color: ${(props) => props.theme.colors.brand.default};
+    &[aria-selected='true'] {
+      border-bottom: 1px solid ${(props) => props.theme.colors.brand.default};
       color: ${(props) => props.theme.colors.brand.default};
     }
   }
