@@ -32,6 +32,7 @@
     "prepare": "husky install"
   },
   "dependencies": {
+    "@headlessui/react": "^2.1.10",
     "@manuscripts/json-schema": "2.2.11",
     "date-fns": "^2.29.3",
     "formik": "^2.2.9",
