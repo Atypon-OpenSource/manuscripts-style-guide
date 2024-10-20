@@ -71,7 +71,6 @@ export const InspectorTab = styled(Tab)`
     font-family: inherit;
     background: none;
     padding: ${(props) => props.theme.grid.unit * 2}px;
-    border-bottom-width: 1px;
     border: none;
     color: inherit;
     border-bottom: 1px solid transparent;
@@ -81,7 +80,7 @@ export const InspectorTab = styled(Tab)`
     }
 
     &[aria-selected='true'] {
-      border-bottom: 1px solid ${(props) => props.theme.colors.brand.default};
+      border-color: ${(props) => props.theme.colors.brand.default};
       color: ${(props) => props.theme.colors.brand.default};
     }
   }
