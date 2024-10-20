@@ -172,6 +172,12 @@ export const PrimaryButton = styled(ButtonTemplate)`
   }
 `
 
+export const LoginButton = styled(PrimaryButton)`
+  box-sizing: border-box;
+  width: 240px;
+  padding: 8px 16px;
+`
+
 export const TertiaryButton = styled(ButtonTemplate)`
   ${(props) =>
     btnColors(

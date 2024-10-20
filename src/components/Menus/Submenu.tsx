@@ -19,23 +19,13 @@ import styled from 'styled-components'
 
 import { isMenuSeparator, Menu, MenuSeparator } from '../../lib/menus'
 import { TriangleCollapsedIcon } from '../icons'
-import {
-  Block,
-  BlockItem,
-  bulletListContextMenu,
-  Label,
-  ListContainer,
-  Menus,
-  orderedListContextMenu,
-  StyleBlock,
-} from './Menus'
 import { Shortcut } from './Shortcut'
 
 export const Text = styled.div`
   flex: 1 0 auto;
 `
 
-const SubmenuContainer = styled.div`
+export const SubmenuContainer = styled.div`
   position: relative;
 `
 
@@ -63,7 +53,7 @@ export const SubmenusContainer = styled.div`
   }
 `
 
-const NestedSubmenusContainer = styled(SubmenusContainer)`
+export const NestedSubmenusContainer = styled(SubmenusContainer)`
   top: 0;
   left: 100%;
 `
@@ -106,98 +96,54 @@ const Container = styled.div<{ isOpen: boolean }>`
 
 const activeContent = (menu: Menu) => (menu.isActive ? '✓' : '')
 
-const isColumnMenu = (menu: Menu | MenuSeparator) =>
-  (menu.role !== 'separator' &&
-    (menu as Menu).id === 'format-table-add-column-before') ||
-  (menu as Menu).id === 'format-table-add-column-after' ||
-  (menu as Menu).id === 'format-table-delete-column'
-
-interface SubmenuProps {
+export interface SubmenuProps {
   menu: Menu | MenuSeparator
   handleClick: (position: number[]) => void
-  setColumnMenu?: React.Dispatch<React.SetStateAction<undefined | Menu>>
 }
 
-export const Submenu: React.FC<SubmenuProps> = ({
-  menu,
-  handleClick,
-  setColumnMenu,
-}) => {
+export const SubmenuLabel: React.FC<SubmenuProps> = ({ menu, handleClick }) => {
+  if (isMenuSeparator(menu)) {
+    return null
+  }
+  return (
+    <Container
+      isOpen={menu.isOpen}
+      className={menu.isEnabled ? '' : 'disabled'}
+      onMouseDown={(e) => {
+        e.preventDefault()
+        handleClick([])
+      }}
+    >
+      <Active>{activeContent(menu)}</Active>
+      <Text>{menu.label}</Text>
+      {menu.submenu && <Arrow />}
+      {menu.shortcut && <Shortcut shortcut={menu.shortcut} />}
+    </Container>
+  )
+}
+
+export const Submenu: React.FC<SubmenuProps> = ({ menu, handleClick }) => {
   if (isMenuSeparator(menu)) {
     return <Separator />
   }
-
-  if (!menu.submenu && !menu.options) {
-    return (
-      <Container
-        isOpen={menu.isOpen}
-        className={menu.isEnabled ? '' : 'disabled'}
-        onMouseDown={(e) => {
-          e.preventDefault()
-          handleClick([])
-        }}
-      >
-        <Active>{activeContent(menu)}</Active>
-        <Text>{menu.label}</Text>
-        {menu.shortcut && <Shortcut shortcut={menu.shortcut} />}
-      </Container>
-    )
+  if (menu.component) {
+    return <menu.component menu={menu} handleClick={handleClick} />
   }
 
-  if (menu.options) {
-    const styles =
-      menu.id === 'bullet-list-context-menu'
-        ? bulletListContextMenu
-        : orderedListContextMenu
-
-    return (
-      <ListContainer>
-        {styles.map((style, index) => (
-          <StyleBlock
-            key={index}
-            onClick={() => {
-              menu.options && menu.options[style.type]()
-              handleClick([-1, -1])
-            }}
-          >
-            {style.items.map((style, index) => (
-              <BlockItem key={index}>
-                <Label hide={style === '-'}>{style}</Label>
-                <Block />
-              </BlockItem>
-            ))}
-          </StyleBlock>
-        ))}
-      </ListContainer>
-    )
+  if (!menu.submenu) {
+    return <SubmenuLabel menu={menu} handleClick={handleClick} />
   }
 
   return (
     <SubmenuContainer>
-      <Container
-        onMouseDown={(e) => {
-          e.preventDefault()
-          handleClick([])
-        }}
-        isOpen={menu.isOpen}
-        className={menu.isEnabled ? '' : 'disabled'}
-      >
-        <Active>{activeContent(menu)}</Active>
-        <Text>{menu.label}</Text>
-        {menu.submenu && <Arrow />}
-        {menu.shortcut && <Shortcut shortcut={menu.shortcut} />}
-      </Container>
+      <SubmenuLabel menu={menu} handleClick={handleClick} />
       {menu.submenu && menu.isOpen && (
         <NestedSubmenusContainer>
           {menu.submenu.map((submenu, index) => (
             <Submenu
               key={`menu-${index}`}
               menu={submenu}
-              handleClick={(i) =>
-                isColumnMenu(submenu) && setColumnMenu
-                  ? setColumnMenu(submenu as Menu)
-                  : handleClick([index, ...i])
-              }
+              handleClick={(i) => handleClick([index, ...i])}
             />
           ))}
         </NestedSubmenusContainer>
