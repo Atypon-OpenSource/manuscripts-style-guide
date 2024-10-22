@@ -14,8 +14,6 @@
  * limitations under the License.
  */
 
-import '@reach/tabs/styles.css'
-
 import { Tab, TabGroup, TabList, TabPanel, TabPanels } from '@headlessui/react'
 import styled from 'styled-components'
 
