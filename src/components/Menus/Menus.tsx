@@ -19,7 +19,12 @@ import Modal from 'react-modal'
 import styled from 'styled-components'
 
 import { Menu } from '../../lib/menus'
-import { Submenu, SubmenusContainer, Text } from './Submenu'
+import {
+  Submenu,
+  SubmenusContainer,
+  SubmenusContainerWrapper,
+  Text,
+} from './Submenu'
 
 const MenusContainer = styled.div`
   display: flex;
@@ -72,17 +77,19 @@ export const Menus: React.FC<MenusProps> = ({
             </MenuHeading>
 
             {menu.isEnabled && menu.isOpen && menu.submenu && (
-              <SubmenusContainer>
-                {menu.submenu.map((submenu, sindex) => {
-                  return (
-                    <Submenu
-                      key={`${index}-${sindex}`}
-                      menu={submenu}
-                      handleClick={(i) => handleClick([index, sindex, ...i])}
-                    />
-                  )
-                })}
-              </SubmenusContainer>
+              <SubmenusContainerWrapper>
+                <SubmenusContainer>
+                  {menu.submenu.map((submenu, sindex) => {
+                    return (
+                      <Submenu
+                        key={`${index}-${sindex}`}
+                        menu={submenu}
+                        handleClick={(i) => handleClick([index, sindex, ...i])}
+                      />
+                    )
+                  })}
+                </SubmenusContainer>
+              </SubmenusContainerWrapper>
             )}
           </MenuContainer>
         )

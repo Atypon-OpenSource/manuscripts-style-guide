@@ -25,23 +25,23 @@ export const Text = styled.div`
   flex: 1 0 auto;
 `
 
-export const SubmenuContainer = styled.div`
-  position: relative;
+export const SubmenuContainer = styled.div``
+export const SubmenusContainerWrapper = styled.div`
+  position: absolute;
+  z-index: 10;
+  min-width: 150px;
+  width: auto;
 `
-
 export const SubmenusContainer = styled.div`
   background: #fff;
+  color: #353535;
+  white-space: nowrap;
+  max-height: 70vh;
+  overflow: auto;
+  padding: 4px 0;
   border: 1px solid #e2e2e2;
   border-radius: 4px;
   box-shadow: 0 4px 9px 0 rgba(84, 83, 83, 0.3);
-  color: #353535;
-  min-width: 150px;
-  padding: 4px 0;
-  white-space: nowrap;
-  width: auto;
-  z-index: 10;
-
-  position: absolute;
 
   &[data-placement='bottom-start'] {
     border-top-left-radius: 0;
@@ -54,6 +54,7 @@ export const SubmenusContainer = styled.div`
 `
 
 export const NestedSubmenusContainer = styled(SubmenusContainer)`
+  position: absolute;
   top: 0;
   left: 100%;
 `
@@ -77,11 +78,11 @@ const Arrow = styled(TriangleCollapsedIcon)`
 `
 
 const Container = styled.div<{ isOpen: boolean }>`
+  position: relative;
+  display: flex;
   align-items: center;
   cursor: pointer;
-  display: flex;
   padding: 8px 16px 8px 4px;
-  position: relative;
   ${(props) => props.isOpen && 'background: #f2fbfc;'}
 
   &:hover {
