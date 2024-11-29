@@ -62,11 +62,11 @@ export const Menus: React.FC<MenusProps> = ({
   handleClick,
 }) => {
   return (
-    <MenusContainer ref={innerRef} className={'manuscript-menus'}>
+    <MenusContainer ref={innerRef} data-cy={'manuscript-menus'}>
       {menus.map((menu, index) => {
         return (
           <MenuContainer
-            className={'menu'}
+            data-cy={'menu'}
             key={`menu-${index}`}
             isEnabled={menu.isEnabled}
           >

@@ -109,7 +109,8 @@ export const SubmenuLabel: React.FC<SubmenuProps> = ({ menu, handleClick }) => {
   return (
     <Container
       isOpen={menu.isOpen}
-      className={`submenu ${menu.isEnabled ? '' : 'disabled'}`}
+      data-cy={'submenu'}
+      className={menu.isEnabled ? '' : 'disabled'}
       onMouseDown={(e) => {
         e.preventDefault()
         handleClick([])
@@ -136,7 +137,7 @@ export const Submenu: React.FC<SubmenuProps> = ({ menu, handleClick }) => {
   }
 
   return (
-    <SubmenuContainer className={'submenu'}>
+    <SubmenuContainer data-cy={'submenu'}>
       <SubmenuLabel menu={menu} handleClick={handleClick} />
       {menu.submenu && menu.isOpen && (
         <NestedSubmenusContainer>
