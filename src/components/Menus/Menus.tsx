@@ -62,10 +62,14 @@ export const Menus: React.FC<MenusProps> = ({
   handleClick,
 }) => {
   return (
-    <MenusContainer ref={innerRef}>
+    <MenusContainer ref={innerRef} data-cy={'manuscript-menus'}>
       {menus.map((menu, index) => {
         return (
-          <MenuContainer key={`menu-${index}`} isEnabled={menu.isEnabled}>
+          <MenuContainer
+            data-cy={'menu'}
+            key={`menu-${index}`}
+            isEnabled={menu.isEnabled}
+          >
             <MenuHeading
               onMouseDown={(e) => {
                 e.preventDefault()
