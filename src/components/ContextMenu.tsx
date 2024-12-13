@@ -18,7 +18,13 @@ import React from 'react'
 import styled from 'styled-components'
 
 import { IconButton, IconButtonGroup } from './Button'
-import { AddCommentIcon, AddOutlineIcon, EditIcon, ScrollIcon } from './icons'
+import {
+  AddCommentIcon,
+  AddOutlineIcon,
+  DeleteIcon,
+  EditIcon,
+  ScrollIcon,
+} from './icons'
 import { Tooltip } from './Tooltip'
 
 export interface Actions {
@@ -46,6 +52,7 @@ const icons: { [key: string]: React.FC } = {
   Edit: EditIcon,
   AddOutline: AddOutlineIcon,
   Scroll: ScrollIcon,
+  Delete: DeleteIcon,
 }
 
 export const ContextMenu: React.FC<ContextMenuProps> = ({ actions }) => (
