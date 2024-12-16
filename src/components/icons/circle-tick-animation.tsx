@@ -32,17 +32,17 @@ const Svg = styled.svg`
 
 const drawTick = keyframes`
   from {
-    stroke-dasharray: 0 100; /* Start with no visible stroke */
+    stroke-dasharray: 0 100;
     opacity: 0;
   }
   to {
-    stroke-dasharray: 100 0; /* Fully visible stroke */
+    stroke-dasharray: 100 0;
     opacity: 1;
   }
 `
 
 const Circle = styled.circle<{ color?: string }>`
-  stroke-dasharray: 283; /* Approx. circumference of the circle */
+  stroke-dasharray: 283;
   stroke-dashoffset: 283;
   animation: ${fillCircle} 2s linear forwards;
   stroke: ${(props) => props.color || '#4CAF50'};
