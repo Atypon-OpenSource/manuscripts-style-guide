@@ -416,7 +416,10 @@ export const IconButtonGroup = styled.div<{ size?: number }>`
   flex-direction: row;
   justify-content: flex-start;
   align-items: center;
-
+  border-radius: 4px;
+  border: 1px solid #c9c9c9;
+  background: ${(props) => props.theme.colors.background.primary};
+  box-shadow: 0px 4px 9px 0px rgba(0, 0, 0, 0.3);
   button {
     width: ${(props) => props.size || 28}px;
     height: ${(props) => props.size || 28}px;
