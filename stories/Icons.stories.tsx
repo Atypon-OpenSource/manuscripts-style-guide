@@ -76,6 +76,7 @@ import {
   SaveStatusOfflineIcon,
   SaveStatusSavedIcon,
   SaveStatusSavingIcon,
+  ScrollIcon,
   SearchIcon,
   SystemUserAvatarIcon,
   TaskStepDoneIcon,
@@ -173,6 +174,7 @@ storiesOf('Icons', module).add('Icons', () => (
     <SaveStatusOfflineIcon />
     <SaveStatusSavedIcon />
     <SaveStatusSavingIcon />
+    <ScrollIcon />
     <SearchIcon />
     <TaskStepDoneIcon />
     <ToolbarBoldIcon />
