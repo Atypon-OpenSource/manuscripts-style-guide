@@ -91,7 +91,7 @@ interface DialogProps {
   }
   confirmFieldText?: string
   category: Category
-  header: string
+  header: string | React.ReactElement
   message: string | React.ReactElement
   className?: string
   children?: React.ReactNode

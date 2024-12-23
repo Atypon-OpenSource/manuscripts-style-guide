@@ -17,19 +17,21 @@
 import React, { useCallback, useState } from 'react'
 import styled from 'styled-components'
 
-import { AvatarIcon } from './icons'
+import { AvatarIcon, ProfileIcon } from './icons'
 
 interface AvatarProps {
   src?: string
   size: number
   color?: string
+  opacity?: number
 }
 
-const AvatarContainer = styled.div`
+const AvatarContainer = styled.div<{ opacity: number }>`
   display: flex;
   align-items: center;
   justify-content: center;
   position: relative;
+  opacity: ${(props) => props.opacity};
 `
 
 const RoundedImage = styled.img<{ size: number }>`
@@ -40,8 +42,9 @@ const RoundedImage = styled.img<{ size: number }>`
   justify-content: center;
 `
 
-const StyledAvatar = styled(AvatarIcon)<{
+const StyledAvatar = styled(ProfileIcon)<{
   color?: string
+  opacity?: number
 }>`
   path {
     fill: ${(props) => props.color || props.theme.colors.text.secondary};
@@ -60,7 +63,7 @@ export const Avatar: React.FC<AvatarProps> = (props) => {
   }, [])
 
   return (
-    <AvatarContainer>
+    <AvatarContainer opacity={props.opacity || 1}>
       {props.src && !srcError ? (
         <RoundedImage
           src={props.src}
