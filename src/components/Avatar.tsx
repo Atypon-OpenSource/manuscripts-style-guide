@@ -17,7 +17,7 @@
 import React, { useCallback, useState } from 'react'
 import styled from 'styled-components'
 
-import { AvatarIcon } from './icons'
+import { AvatarIcon, ProfileIcon } from './icons'
 
 interface AvatarProps {
   src?: string
@@ -42,7 +42,7 @@ const RoundedImage = styled.img<{ size: number }>`
   justify-content: center;
 `
 
-const StyledAvatar = styled(AvatarIcon)<{
+const StyledAvatar = styled(ProfileIcon)<{
   color?: string
   opacity?: number
 }>`
