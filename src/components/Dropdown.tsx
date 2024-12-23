@@ -15,7 +15,7 @@
  */
 import styled from 'styled-components'
 
-export const DropdownList = styled.div<{
+export const DropdownList = styled.div.attrs({ 'data-cy': 'dropdown' })<{
   direction?: 'left' | 'right'
   width?: number
   height?: number
