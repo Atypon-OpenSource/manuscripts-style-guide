@@ -19,7 +19,7 @@ import styled, { keyframes } from 'styled-components'
 // Animations
 const fillCircle = keyframes`
   from {
-    stroke-dashoffset: 283; /* Full circumference */
+    stroke-dashoffset: 283;
   }
   to {
     stroke-dashoffset: 0;
