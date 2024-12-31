@@ -16,7 +16,28 @@
 import React from 'react'
 import styled, { keyframes } from 'styled-components'
 
-// Animations
+const fadeIn = keyframes`
+  0% {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+`
+
+const fadeOut = keyframes`
+  0% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+`
+
 const fillCircle = keyframes`
   from {
     stroke-dashoffset: 283;
@@ -24,10 +45,6 @@ const fillCircle = keyframes`
   to {
     stroke-dashoffset: 0;
   }
-`
-
-const Svg = styled.svg`
-  position: absolute;
 `
 
 const drawTick = keyframes`
@@ -41,21 +58,39 @@ const drawTick = keyframes`
   }
 `
 
-const Circle = styled.circle<{ color?: string }>`
+const Svg = styled.svg`
+  position: absolute;
+  opacity: 0;
+  animation: ${fadeIn} 0.3s ease-out forwards;
+
+  // Start fading out at 2.7s (300ms before the 3s unmount)
+  @keyframes autoFadeOut {
+    0%,
+    90% {
+      opacity: 1;
+      transform: scale(1);
+    }
+    100% {
+      opacity: 0;
+      transform: scale(0.8);
+    }
+  }
+  animation: ${fadeIn} 0.3s ease-out forwards,
+    autoFadeOut 3s ease-in-out forwards;
+`
+
+const Circle = styled.circle`
   stroke-dasharray: 283;
-  stroke-dashoffset: 283;
-  animation: ${fillCircle} 2s linear forwards;
-  stroke: ${(props) => props.color || '#4CAF50'};
+  stroke: #4caf50;
   fill: none;
   transform-origin: center;
   transform: rotate(-90deg);
+  animation: ${fillCircle} 2s linear forwards;
 `
 
-const Tick = styled.polyline<{ color?: string }>`
-  stroke-dasharray: 100;
-  stroke-dashoffset: 100;
-  animation: ${drawTick} 1s ease-in-out 2s forwards;
-  stroke: ${(props) => props.color || '#4CAF50'};
+const Tick = styled.polyline`
+  animation: ${drawTick} 1s ease-in-out 1s forwards;
+  stroke: #4caf50;
   fill: none;
   stroke-width: 5;
   stroke-linecap: round;
@@ -65,13 +100,9 @@ const Tick = styled.polyline<{ color?: string }>`
 
 interface CircleTickAnimationProps {
   size: number
-  color?: string
 }
 
-const CircleTickAnimation: React.FC<CircleTickAnimationProps> = ({
-  color,
-  size,
-}) => {
+const CircleTickAnimation: React.FC<CircleTickAnimationProps> = ({ size }) => {
   return (
     <Svg
       width={size}
@@ -79,11 +110,8 @@ const CircleTickAnimation: React.FC<CircleTickAnimationProps> = ({
       viewBox="0 0 100 100"
       xmlns="http://www.w3.org/2000/svg"
     >
-      {/* Circle border */}
-      <Circle cx="50" cy="50" r="45" strokeWidth="5" color={color} />
-
-      {/* Tick */}
-      <Tick points="30,50 45,65 70,40" color={color} />
+      <Circle cx="50" cy="50" r="45" strokeWidth="5" />
+      <Tick points="30,50 45,65 70,40" />
     </Svg>
   )
 }

@@ -13,14 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+import React from 'react'
 import { Tooltip as ReactTooltip } from 'react-tooltip'
 import styled from 'styled-components'
 
-export const Tooltip = styled(ReactTooltip).attrs({
-  positionStrategy: 'fixed',
-  offset: 10,
-})`
-  &.react-tooltip {
+const StyledTooltipWrapper = styled.div`
+  & .react-tooltip {
     z-index: 1000;
     font-size: 12px;
     line-height: 16px;
@@ -39,3 +37,25 @@ export const Tooltip = styled(ReactTooltip).attrs({
     }
   }
 `
+
+const defaultOpenEvents = ['click', 'mouseenter']
+export const Tooltip = (props: React.ComponentProps<typeof ReactTooltip>) => (
+  <StyledTooltipWrapper>
+    <ReactTooltip
+      positionStrategy="fixed"
+      offset={10}
+      openEvents={{
+        mouseenter: true,
+        mouseover: true,
+        click: false,
+      }}
+      closeEvents={{
+        mouseleave: true,
+        mouseout: true,
+        blur: true,
+        click: false,
+      }}
+      {...props}
+    />
+  </StyledTooltipWrapper>
+)
