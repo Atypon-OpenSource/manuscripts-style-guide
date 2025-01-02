@@ -416,7 +416,6 @@ export const IconButtonGroup = styled.div<{ size?: number }>`
   flex-direction: row;
   justify-content: flex-start;
   align-items: center;
-
   button {
     width: ${(props) => props.size || 28}px;
     height: ${(props) => props.size || 28}px;
