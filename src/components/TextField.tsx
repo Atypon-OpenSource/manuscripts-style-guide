@@ -19,7 +19,7 @@ import styled, { css } from 'styled-components'
 
 import { ErrorProps } from './Form'
 
-const commonStyles = css<ErrorProps>`
+export const commonStyles = css<ErrorProps>`
   border: 1px solid
     ${(props) =>
       props.error
