@@ -17,7 +17,7 @@ import React from 'react'
 
 import { IconProps } from './types'
 
-const OutlineMediaIcon: React.FC<IconProps> = (props) => (
+const OutlineEmbedIcon: React.FC<IconProps> = (props) => (
   <svg
     width="16"
     height="16"
@@ -39,4 +39,4 @@ const OutlineMediaIcon: React.FC<IconProps> = (props) => (
   </svg>
 )
 
-export default OutlineMediaIcon
+export default OutlineEmbedIcon

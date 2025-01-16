@@ -64,7 +64,7 @@ import {
   OutlineEquationIcon,
   OutlineFigureIcon,
   OutlineManuscriptIcon,
-  OutlineMediaIcon,
+  OutlineEmbedIcon,
   OutlineOrderedListIcon,
   OutlineParagraphIcon,
   OutlinePullQuoteIcon,
@@ -161,7 +161,7 @@ storiesOf('Icons', module).add('Icons', () => (
     <FileMainDocumentIcon />
     <OutlineCodeIcon />
     <OutlineEquationIcon />
-    <OutlineMediaIcon />
+    <OutlineEmbedIcon />
     <OutlineFigureIcon />
     <OutlineManuscriptIcon />
     <OutlineOrderedListIcon />
