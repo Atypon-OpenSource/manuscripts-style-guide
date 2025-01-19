@@ -169,19 +169,19 @@ export const Drawer: React.FC<DrawerProps> = ({
             <LabelContainer>
               <ItemLabel>{item.label}</ItemLabel>
               <ItemMeta>
-              {item.city && (
-        <>
-          {item.city}
-          {item.state || item.country ? ', ' : ''}
-        </>
-      )}
-      {item.state && (
-        <>
-          {item.state}
-          {item.country ? ', ' : ''}
-        </>
-              )}
-              {item.country && <>{item.country}</>}
+                {item.city && (
+                  <>
+                    {item.city}
+                    {item.state || item.country ? ', ' : ''}
+                  </>
+                )}
+                {item.state && (
+                  <>
+                    {item.state}
+                    {item.country ? ', ' : ''}
+                  </>
+                )}
+                {item.country && <>{item.country}</>}
               </ItemMeta>
             </LabelContainer>
           </ListItem>
