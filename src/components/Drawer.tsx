@@ -24,6 +24,7 @@ interface DrawerProps {
     label: string
     country?: string
     city?: string
+    state?: string
   }>
   selectedIds?: string[]
   title: string
@@ -115,6 +116,26 @@ const DrawerTitle = styled.h2`
   color: ${(props) => props.theme.colors.text.secondary};
 `
 
+const LabelContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+`
+
+const ItemLabel = styled.span`
+  font-weight: ${(props) => props.theme.font.weight.normal};
+  font-size: ${(props) => props.theme.font.size.medium};
+  font-family: ${(props) => props.theme.font.family.sans};
+  color: ${(props) => props.theme.colors.text.primary};
+`
+
+const ItemMeta = styled.span`
+  font-weight: ${(props) => props.theme.font.weight.normal};
+  font-size: ${(props) => props.theme.font.size.small};
+  font-family: ${(props) => props.theme.font.family.sans};
+  color: ${(props) => props.theme.colors.text.secondary};
+`
+
 export const Drawer: React.FC<DrawerProps> = ({
   items,
   selectedIds = [],
@@ -123,6 +144,7 @@ export const Drawer: React.FC<DrawerProps> = ({
   onBack,
   width,
 }) => {
+  console.log('items', items)
   return (
     <DrawerContainer width={width}>
       <BackButton onClick={onBack}>
@@ -144,7 +166,24 @@ export const Drawer: React.FC<DrawerProps> = ({
                 <AddIcon width={22} height={22} />
               )}
             </Icon>
-            {item.label}
+            <LabelContainer>
+              <ItemLabel>{item.label}</ItemLabel>
+              <ItemMeta>
+              {item.city && (
+        <>
+          {item.city}
+          {item.state || item.country ? ', ' : ''}
+        </>
+      )}
+      {item.state && (
+        <>
+          {item.state}
+          {item.country ? ', ' : ''}
+        </>
+              )}
+              {item.country && <>{item.country}</>}
+              </ItemMeta>
+            </LabelContainer>
           </ListItem>
         ))}
       </ItemsList>
