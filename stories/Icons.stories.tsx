@@ -61,6 +61,7 @@ import {
   LogoutIcon,
   OutlineBlockQuoteIcon,
   OutlineCodeIcon,
+  OutlineEmbedIcon,
   OutlineEquationIcon,
   OutlineFigureIcon,
   OutlineManuscriptIcon,
@@ -160,6 +161,7 @@ storiesOf('Icons', module).add('Icons', () => (
     <FileMainDocumentIcon />
     <OutlineCodeIcon />
     <OutlineEquationIcon />
+    <OutlineEmbedIcon />
     <OutlineFigureIcon />
     <OutlineManuscriptIcon />
     <OutlineOrderedListIcon />

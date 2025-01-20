@@ -23,7 +23,7 @@ import {
   AddOutlineIcon,
   DeleteIcon,
   EditIcon,
-  ScrollIcon
+  ScrollIcon,
 } from './icons'
 import { Tooltip } from './Tooltip'
 
@@ -59,7 +59,7 @@ const icons: { [key: string]: React.FC } = {
   Edit: EditIcon,
   AddOutline: AddOutlineIcon,
   Scroll: ScrollIcon,
-  Delete: GrayDeleteIcon,
+  Delete: DeleteIcon,
 }
 
 export const ContextMenu: React.FC<ContextMenuProps> = ({ actions }) => (
