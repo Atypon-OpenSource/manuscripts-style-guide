@@ -13,11 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { storiesOf } from '@storybook/react';
-import * as React from 'react';
-import styled from 'styled-components';
-import * as Icons from '../src/components/icons';
-import { IconProps } from '../src/components/icons/types';
+import { storiesOf } from '@storybook/react'
+import * as React from 'react'
+import styled from 'styled-components'
+
+import * as Icons from '../src/components/icons'
+import { IconProps } from '../src/components/icons/types'
 
 const IconsContainer = styled.div`
   width: 900px;
@@ -26,7 +27,7 @@ const IconsContainer = styled.div`
   flex-wrap: wrap;
   justify-content: flex-start;
   align-items: center;
-`;
+`
 
 const IconElement = styled.div`
   display: flex;
@@ -35,7 +36,7 @@ const IconElement = styled.div`
   gap: 5px;
   flex-direction: column;
   align-items: center;
-`;
+`
 
 const style = `
   svg {
@@ -74,7 +75,10 @@ const iconList: { name: string; Component: React.FC<IconProps> }[] = [
   { name: 'FileCorruptedIcon', Component: Icons.FileCorruptedIcon },
   { name: 'FileDocumentIcon', Component: Icons.FileDocumentIcon },
   { name: 'FileFigureIcon', Component: Icons.FileFigureIcon },
-  { name: 'FileGraphicalAbstractIcon', Component: Icons.FileGraphicalAbstractIcon },
+  {
+    name: 'FileGraphicalAbstractIcon',
+    Component: Icons.FileGraphicalAbstractIcon,
+  },
   { name: 'FileImageIcon', Component: Icons.FileImageIcon },
   { name: 'FileLatexIcon', Component: Icons.FileLatexIcon },
   { name: 'FileMainDocumentIcon', Component: Icons.FileMainDocumentIcon },
@@ -100,7 +104,10 @@ const iconList: { name: string; Component: React.FC<IconProps> }[] = [
   { name: 'OutlinePullQuoteIcon', Component: Icons.OutlinePullQuoteIcon },
   { name: 'OutlineSectionIcon', Component: Icons.OutlineSectionIcon },
   { name: 'OutlineTableIcon', Component: Icons.OutlineTableIcon },
-  { name: 'OutlineUnorderedListIcon', Component: Icons.OutlineUnorderedListIcon },
+  {
+    name: 'OutlineUnorderedListIcon',
+    Component: Icons.OutlineUnorderedListIcon,
+  },
   { name: 'PlusIcon', Component: Icons.PlusIcon },
   { name: 'RoleAnnotatingIcon', Component: Icons.RoleAnnotatingIcon },
   { name: 'RoleReadingIcon', Component: Icons.RoleReadingIcon },
@@ -123,12 +130,15 @@ const iconList: { name: string; Component: React.FC<IconProps> }[] = [
   { name: 'ToolbarSymbolIcon', Component: Icons.ToolbarSymbolIcon },
   { name: 'ToolbarTableIcon', Component: Icons.ToolbarTableIcon },
   { name: 'ToolbarUnderlineIcon', Component: Icons.ToolbarUnderlineIcon },
-  { name: 'ToolbarUnorderedListIcon', Component: Icons.ToolbarUnorderedListIcon },
+  {
+    name: 'ToolbarUnorderedListIcon',
+    Component: Icons.ToolbarUnorderedListIcon,
+  },
   { name: 'TriangleCollapsedIcon', Component: Icons.TriangleCollapsedIcon },
   { name: 'TriangleExpandedIcon', Component: Icons.TriangleExpandedIcon },
   { name: 'UploadIcon', Component: Icons.UploadIcon },
   { name: 'VerticalEllipsisIcon', Component: Icons.VerticalEllipsisIcon },
-];
+]
 
 storiesOf('Icons', module).add('Icons', () => (
   <IconsContainer>
@@ -140,4 +150,4 @@ storiesOf('Icons', module).add('Icons', () => (
       </IconElement>
     ))}
   </IconsContainer>
-));
+))

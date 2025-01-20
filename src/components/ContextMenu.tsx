@@ -23,17 +23,17 @@ import {
   AddOutlineIcon,
   DeleteIcon,
   EditIcon,
-  ScrollIcon,
   ImageDefaultIcon,
   ImageLeftIcon,
-  ImageRightIcon
+  ImageRightIcon,
+  ScrollIcon,
 } from './icons'
 import { Tooltip } from './Tooltip'
 
 export interface Actions {
   label: string
   action: () => void
-  icon: string,
+  icon: string
   selected?: boolean
 }
 
@@ -62,7 +62,7 @@ const icons: { [key: string]: React.FC } = {
   Delete: DeleteIcon,
   ImageDefault: ImageDefaultIcon,
   ImageLeft: ImageLeftIcon,
-  ImageRight: ImageRightIcon
+  ImageRight: ImageRightIcon,
 }
 
 export const ContextMenu: React.FC<ContextMenuProps> = ({ actions }) => (
@@ -74,7 +74,7 @@ export const ContextMenu: React.FC<ContextMenuProps> = ({ actions }) => (
           key={action.icon}
           data-tooltip-id={action.icon}
           onClick={action.action}
-          className = {action.selected ? 'selected' : ''}
+          className={action.selected ? 'selected' : ''}
         >
           <Icon />
           <Tooltip id={action.icon} place="bottom">
