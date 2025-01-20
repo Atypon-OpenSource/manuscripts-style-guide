@@ -27,17 +27,6 @@ const fadeIn = keyframes`
   }
 `
 
-const fadeOut = keyframes`
-  0% {
-    opacity: 1;
-    transform: scale(1);
-  }
-  100% {
-    opacity: 0;
-    transform: scale(0.8);
-  }
-`
-
 const fillCircle = keyframes`
   from {
     stroke-dashoffset: 283;
@@ -63,7 +52,6 @@ const Svg = styled.svg`
   opacity: 0;
   animation: ${fadeIn} 0.3s ease-out forwards;
 
-  // Start fading out at 2.7s (300ms before the 3s unmount)
   @keyframes autoFadeOut {
     0%,
     90% {
@@ -100,15 +88,20 @@ const Tick = styled.polyline`
 
 interface CircleTickAnimationProps {
   size: number
+  style?: React.CSSProperties
 }
 
-const CircleTickAnimation: React.FC<CircleTickAnimationProps> = ({ size }) => {
+const CircleTickAnimation: React.FC<CircleTickAnimationProps> = ({
+  size,
+  style,
+}) => {
   return (
     <Svg
       width={size}
       height={size}
       viewBox="0 0 100 100"
       xmlns="http://www.w3.org/2000/svg"
+      style={style}
     >
       <Circle cx="50" cy="50" r="45" strokeWidth="5" />
       <Tick points="30,50 45,65 70,40" />
