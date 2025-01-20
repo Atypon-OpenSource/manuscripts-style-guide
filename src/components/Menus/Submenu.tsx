@@ -117,7 +117,7 @@ export const SubmenuLabel: React.FC<SubmenuProps> = ({ menu, handleClick }) => {
       }}
     >
       <Active>{activeContent(menu)}</Active>
-      <Text>{menu.label} HOVNO</Text>
+      <Text>{menu.label}</Text>
       {menu.submenu && <Arrow />}
       {menu.shortcut && <Shortcut shortcut={menu.shortcut} />}
     </Container>
