@@ -96,6 +96,7 @@ const iconList: { name: string; Component: React.FC<IconProps> }[] = [
   { name: 'LogoutIcon', Component: Icons.LogoutIcon },
   { name: 'OutlineBlockQuoteIcon', Component: Icons.OutlineBlockQuoteIcon },
   { name: 'OutlineCodeIcon', Component: Icons.OutlineCodeIcon },
+  { name: 'OutlineEmbedIcon', Component: Icons.OutlineEmbedIcon },
   { name: 'OutlineEquationIcon', Component: Icons.OutlineEquationIcon },
   { name: 'OutlineFigureIcon', Component: Icons.OutlineFigureIcon },
   { name: 'OutlineManuscriptIcon', Component: Icons.OutlineManuscriptIcon },
@@ -150,4 +151,5 @@ storiesOf('Icons', module).add('Icons', () => (
       </IconElement>
     ))}
   </IconsContainer>
+
 ))
