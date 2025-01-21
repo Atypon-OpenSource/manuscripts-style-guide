@@ -151,5 +151,4 @@ storiesOf('Icons', module).add('Icons', () => (
       </IconElement>
     ))}
   </IconsContainer>
-
 ))
