@@ -97,6 +97,7 @@ const Input = styled.input`
 
 // Component
 export interface MultiValueInputProps {
+  id?: string
   inputType: 'text' | 'number'
   placeholder: string
   initialValues?: string[]
@@ -104,6 +105,7 @@ export interface MultiValueInputProps {
 }
 
 export const MultiValueInput: React.FC<MultiValueInputProps> = ({
+  id,
   inputType,
   placeholder = '',
   initialValues = [],
@@ -169,6 +171,7 @@ export const MultiValueInput: React.FC<MultiValueInputProps> = ({
         </Chip>
       ))}
       <Input
+        id={id}
         type={inputType} // Dynamically set input type based on prop
         value={currentValue}
         onChange={handleInputChange}

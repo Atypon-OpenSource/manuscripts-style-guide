@@ -38,6 +38,7 @@ export const SelectField: React.FC<Props & FieldProps> = ({
     inputId={id}
     options={options}
     name={field.name}
+    classNamePrefix={field.name}
     value={options?.find((option) => option.value === field.value)}
     onChange={(option: OptionType | null) =>
       form.setFieldValue(field.name, option?.value)
