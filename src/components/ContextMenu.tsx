@@ -23,6 +23,9 @@ import {
   AddOutlineIcon,
   DeleteIcon,
   EditIcon,
+  ImageDefaultIcon,
+  ImageLeftIcon,
+  ImageRightIcon,
   ScrollIcon,
 } from './icons'
 import { Tooltip } from './Tooltip'
@@ -31,6 +34,7 @@ export interface Actions {
   label: string
   action: () => void
   icon: string
+  selected?: boolean
 }
 
 export interface ContextMenuProps {
@@ -39,6 +43,9 @@ export interface ContextMenuProps {
 
 const ContextMenuIconButton = styled(IconButton)`
   color: #6e6e6e;
+  &:not([disabled]).selected {
+    background-color: #c9c9c9;
+  }
   &:not([disabled]):hover,
   &:not([disabled]):focus {
     color: #363636;
@@ -53,6 +60,9 @@ const icons: { [key: string]: React.FC } = {
   AddOutline: AddOutlineIcon,
   Scroll: ScrollIcon,
   Delete: DeleteIcon,
+  ImageDefault: ImageDefaultIcon,
+  ImageLeft: ImageLeftIcon,
+  ImageRight: ImageRightIcon,
 }
 
 export const ContextMenu: React.FC<ContextMenuProps> = ({ actions }) => (
@@ -64,6 +74,7 @@ export const ContextMenu: React.FC<ContextMenuProps> = ({ actions }) => (
           key={action.icon}
           data-tooltip-id={action.icon}
           onClick={action.action}
+          className={action.selected ? 'selected' : ''}
         >
           <Icon />
           <Tooltip id={action.icon} place="bottom">
