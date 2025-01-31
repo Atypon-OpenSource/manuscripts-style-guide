@@ -144,9 +144,8 @@ export const Drawer: React.FC<DrawerProps> = ({
   onBack,
   width,
 }) => {
-  console.log('items', items)
   return (
-    <DrawerContainer width={width}>
+    <DrawerContainer data-cy="drawer" width={width}>
       <BackButton onClick={onBack}>
         <span>←</span>
         Back
@@ -155,6 +154,7 @@ export const Drawer: React.FC<DrawerProps> = ({
       <ItemsList>
         {items.map((item) => (
           <ListItem
+            data-cy="item"
             key={item.id}
             selected={selectedIds?.includes(item.id)}
             onClick={() => onSelect(item.id)}

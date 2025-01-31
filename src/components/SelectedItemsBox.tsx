@@ -23,7 +23,7 @@ interface SelectedItem {
   label: string
 }
 
-interface SelectedItemsBoxProps {
+interface SelectedItemsBoxProps extends React.HTMLAttributes<HTMLElement> {
   items: SelectedItem[]
   onRemove: (id: string) => void
   placeholder?: string
@@ -92,13 +92,14 @@ export const SelectedItemsBox: React.FC<SelectedItemsBoxProps> = ({
   items,
   onRemove,
   placeholder = 'No items selected',
+  ...props
 }) => {
   return (
-    <BoxContainer>
+    <BoxContainer {...props}>
       {items.length > 0 ? (
         <ItemsList>
           {items.map((item) => (
-            <Item key={item.id}>
+            <Item key={item.id} data-cy="item">
               {item.label}
               <RemoveButton
                 onClick={() => onRemove(item.id)}
