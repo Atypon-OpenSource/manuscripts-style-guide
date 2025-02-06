@@ -32,7 +32,6 @@ export interface ContextMenuProps {
 }
 
 export interface IconProps {
-  size?: number | string
   width?: number | string
   height?: number | string
   color?: string
@@ -74,7 +73,7 @@ export const ContextMenu: React.FC<ContextMenuProps> = ({ actions }) => (
           onClick={action.action}
           className={action.selected ? 'selected' : ''}
         >
-          <Icon size={18} width={18} height={18} />
+          <Icon width={18} height={18} />
           <Tooltip id={action.icon} place="bottom">
             {action.label}
           </Tooltip>
