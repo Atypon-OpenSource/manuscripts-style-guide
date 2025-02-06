@@ -18,14 +18,23 @@ import React from 'react'
 import styled from 'styled-components'
 
 import { IconButton, IconButtonGroup } from './Button'
-// Import icons dynamically
-import * as DefaultIcons from './icons'
+import {
+  AddCommentIcon,
+  AddOutlineIcon,
+  DeleteIcon,
+  EditIcon,
+  ImageDefaultIcon,
+  ImageLeftIcon,
+  ImageRightIcon,
+  ScrollIcon,
+} from './icons'
 import { Tooltip } from './Tooltip'
 
 export interface Actions {
   label: string
   action: () => void
   icon: string
+  selected?: boolean
 }
 
 export interface ContextMenuProps {
@@ -35,6 +44,9 @@ export interface ContextMenuProps {
 
 const ContextMenuIconButton = styled(IconButton)`
   color: #6e6e6e;
+  &:not([disabled]).selected {
+    background-color: #c9c9c9;
+  }
   &:not([disabled]):hover,
   &:not([disabled]):focus {
     color: #363636;
@@ -43,10 +55,18 @@ const ContextMenuIconButton = styled(IconButton)`
   }
 `
 
-export const ContextMenu: React.FC<ContextMenuProps> = ({
-  actions,
-  icons = DefaultIcons,
-}) => (
+const icons: { [key: string]: React.FC } = {
+  AddComment: AddCommentIcon,
+  Edit: EditIcon,
+  AddOutline: AddOutlineIcon,
+  Scroll: ScrollIcon,
+  Delete: DeleteIcon,
+  ImageDefault: ImageDefaultIcon,
+  ImageLeft: ImageLeftIcon,
+  ImageRight: ImageRightIcon,
+}
+
+export const ContextMenu: React.FC<ContextMenuProps> = ({ actions }) => (
   <IconButtonGroup size={32}>
     {actions.map((action) => {
       const Icon = icons[action.icon as keyof typeof icons] || (() => null)
@@ -56,6 +76,7 @@ export const ContextMenu: React.FC<ContextMenuProps> = ({
           key={action.icon}
           data-tooltip-id={action.icon}
           onClick={action.action}
+          className={action.selected ? 'selected' : ''}
         >
           <Icon />
           <Tooltip id={action.icon} place="bottom">

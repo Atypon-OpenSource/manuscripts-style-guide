@@ -1,7 +1,7 @@
 {
   "name": "@manuscripts/style-guide",
   "description": "Shared components for Manuscripts applications",
-  "version": "2.0.26",
+  "version": "2.0.34",
   "repository": "github:Atypon-OpenSource/manuscripts-style-guide",
   "license": "Apache-2.0",
   "main": "dist/cjs",
@@ -54,7 +54,7 @@
     "react-router-dom": "^5.3.4",
     "react-select": "^5.7.3",
     "react-sizeme": "^3.0.2",
-    "react-tooltip": "^5.26.0",
+    "react-tooltip": "^5.28.0",
     "styled-components": "^5.2.0"
   },
   "devDependencies": {

@@ -18,7 +18,7 @@ import React, { ChangeEvent } from 'react'
 import styled from 'styled-components'
 
 import { ButtonGroup, PrimaryButton, SecondaryButton } from './Button'
-import { AttentionRedIcon } from './icons'
+import { AttentionOrangeIcon, AttentionRedIcon } from './icons'
 import { StyledModal } from './StyledModal'
 import { TextField } from './TextField'
 
@@ -91,7 +91,7 @@ interface DialogProps {
   }
   confirmFieldText?: string
   category: Category
-  header: string
+  header: string | React.ReactElement
   message: string | React.ReactElement
   className?: string
   children?: React.ReactNode
@@ -100,6 +100,7 @@ interface DialogProps {
 export enum Category {
   error = 'error',
   confirmation = 'confirmation',
+  warning = 'warning',
 }
 
 interface ButtonProps {
@@ -185,6 +186,11 @@ export class Dialog extends React.Component<DialogProps, DialogState> {
             {category === Category.error && (
               <Icon>
                 <AttentionRedIcon />
+              </Icon>
+            )}
+            {category === Category.warning && (
+              <Icon>
+                <AttentionOrangeIcon />
               </Icon>
             )}
             {header}
