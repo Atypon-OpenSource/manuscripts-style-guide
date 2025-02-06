@@ -23,7 +23,7 @@ import { Tooltip } from './Tooltip'
 export interface Actions {
   label: string
   action: () => void
-  icon: string // Icon name as a string
+  icon: string
   selected?: boolean
 }
 
