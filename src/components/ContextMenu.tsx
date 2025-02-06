@@ -18,7 +18,8 @@ import React from 'react'
 import styled from 'styled-components'
 
 import { IconButton, IconButtonGroup } from './Button'
-import { AddCommentIcon, EditIcon, ScrollIcon } from './icons'
+// Import icons dynamically
+import * as DefaultIcons from './icons'
 import { Tooltip } from './Tooltip'
 
 export interface Actions {
@@ -29,6 +30,7 @@ export interface Actions {
 
 export interface ContextMenuProps {
   actions: Actions[]
+  icons?: Record<string, React.FC>
 }
 
 const ContextMenuIconButton = styled(IconButton)`
@@ -41,16 +43,14 @@ const ContextMenuIconButton = styled(IconButton)`
   }
 `
 
-const icons: { [key: string]: React.FC } = {
-  AddComment: AddCommentIcon,
-  Edit: EditIcon,
-  Scroll: ScrollIcon,
-}
-
-export const ContextMenu: React.FC<ContextMenuProps> = ({ actions }) => (
+export const ContextMenu: React.FC<ContextMenuProps> = ({
+  actions,
+  icons = DefaultIcons,
+}) => (
   <IconButtonGroup size={32}>
     {actions.map((action) => {
-      const Icon = icons[action.icon]
+      const Icon = icons[action.icon as keyof typeof icons] || (() => null)
+
       return (
         <ContextMenuIconButton
           key={action.icon}
