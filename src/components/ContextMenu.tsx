@@ -18,16 +18,7 @@ import React from 'react'
 import styled from 'styled-components'
 
 import { IconButton, IconButtonGroup } from './Button'
-import {
-  AddCommentIcon,
-  AddOutlineIcon,
-  DeleteIcon,
-  EditIcon,
-  ImageDefaultIcon,
-  ImageLeftIcon,
-  ImageRightIcon,
-  ScrollIcon,
-} from './icons'
+import * as Icons from './icons' // Dynamically import all icons
 import { Tooltip } from './Tooltip'
 
 export interface Actions {
@@ -39,6 +30,12 @@ export interface Actions {
 
 export interface ContextMenuProps {
   actions: Actions[]
+}
+
+export interface IconProps {
+  width?: number | string
+  height?: number | string
+  color?: string
 }
 
 const ContextMenuIconButton = styled(IconButton)`
@@ -54,16 +51,16 @@ const ContextMenuIconButton = styled(IconButton)`
   }
 `
 
-const icons: { [key: string]: React.FC } = {
-  AddComment: AddCommentIcon,
-  Edit: EditIcon,
-  AddOutline: AddOutlineIcon,
-  Scroll: ScrollIcon,
-  Delete: DeleteIcon,
-  ImageDefault: ImageDefaultIcon,
-  ImageLeft: ImageLeftIcon,
-  ImageRight: ImageRightIcon,
-}
+// Dynamically map all icons from the imported Icons object
+const icons: { [key: string]: React.FC<IconProps> } = Object.entries(
+  Icons
+).reduce((acc, [name, IconComponent]) => {
+  // Remove the "Icon" suffix from the name (e.g., "AddCommentIcon" -> "AddComment")
+  const iconName = name.replace(/Icon$/, '')
+  // @ts-ignore
+  acc[iconName] = IconComponent
+  return acc
+}, {} as { [key: string]: React.FC<IconProps> })
 
 export const ContextMenu: React.FC<ContextMenuProps> = ({ actions }) => (
   <IconButtonGroup size={32}>
@@ -76,7 +73,7 @@ export const ContextMenu: React.FC<ContextMenuProps> = ({ actions }) => (
           onClick={action.action}
           className={action.selected ? 'selected' : ''}
         >
-          <Icon />
+          <Icon width={18} height={18} />
           <Tooltip id={action.icon} place="bottom">
             {action.label}
           </Tooltip>
