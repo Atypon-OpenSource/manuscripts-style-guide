@@ -16,6 +16,7 @@
 
 import React, { useCallback, useEffect, useState } from 'react'
 import styled from 'styled-components'
+
 import { ModalContainer, StyledModal } from './StyledModal'
 
 export const DraggableModal: React.FC<{
