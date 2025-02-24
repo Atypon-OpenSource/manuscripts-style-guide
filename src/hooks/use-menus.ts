@@ -38,7 +38,8 @@ const transformPointer =
     }) as MenuPointer
 
 const isPart = (pointer: MenuPointer, position: number[]) => {
-  const limit = position.length < 4 ? position.length : 4
+  const max = initialPointer.length
+  const limit = position.length < max ? position.length : max
   for (let i = 0; i < limit; i++) {
     if (position[i] !== pointer[i]) {
       return false

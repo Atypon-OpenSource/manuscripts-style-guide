@@ -84,7 +84,6 @@ const Container = styled.div<{ isOpen: boolean }>`
   align-items: center;
   cursor: pointer;
   padding: 8px 16px 8px 4px;
-
   ${(props) => props.isOpen && 'background: #f2fbfc;'}
 
   &:hover {
@@ -130,12 +129,15 @@ export const Submenu: React.FC<SubmenuProps> = ({ menu, handleClick }) => {
   if (isMenuSeparator(menu)) {
     return <Separator />
   }
+
   if (menu.component) {
     return <menu.component menu={menu} handleClick={handleClick} />
   }
+
   if (!menu.submenu) {
     return <SubmenuLabel menu={menu} handleClick={handleClick} />
   }
+
   return (
     <SubmenuContainer data-cy={'submenu'}>
       <SubmenuLabel menu={menu} handleClick={handleClick} />

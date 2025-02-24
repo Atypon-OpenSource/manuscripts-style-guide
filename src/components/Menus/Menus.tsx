@@ -37,7 +37,6 @@ const MenuHeading = styled.div<{ isOpen: boolean }>`
 
 const MenuContainer = styled.div<{ isEnabled: boolean }>`
   position: relative;
-  background: pink;
 
   & ${MenuHeading} {
     background-color: ${(props) => props.theme.colors.background.secondary};
