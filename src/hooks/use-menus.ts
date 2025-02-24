@@ -23,7 +23,7 @@ import {
   MenuSpec,
 } from '../lib/menus'
 
-const initialPointer = [-1, -1, -1] as MenuPointer
+const initialPointer = [-1, -1, -1, -1] as MenuPointer
 
 const transformPointer =
   (depth: number, index: number) => (pointer: MenuPointer) =>
@@ -38,7 +38,7 @@ const transformPointer =
     }) as MenuPointer
 
 const isPart = (pointer: MenuPointer, position: number[]) => {
-  const limit = position.length < 3 ? position.length : 3
+  const limit = position.length < 4 ? position.length : 4
   for (let i = 0; i < limit; i++) {
     if (position[i] !== pointer[i]) {
       return false
@@ -106,7 +106,7 @@ export const useMenus = (menus: MenuSpec[]) => {
 
       if (menu.run) {
         menu.run()
-        setPointer([-1, -1, -1])
+        setPointer(initialPointer)
       } else if (menu.submenu) {
         const depth = indices.length - 1
         const index = indices[depth]
@@ -127,7 +127,7 @@ export const useMenus = (menus: MenuSpec[]) => {
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (ref.current && !ref.current.contains(event.target as Element)) {
-        setPointer([-1, -1, -1])
+        setPointer(initialPointer)
       }
     }
 
