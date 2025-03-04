@@ -139,6 +139,7 @@ const iconList: { name: string; Component: React.FC<IconProps> }[] = [
   { name: 'TriangleExpandedIcon', Component: Icons.TriangleExpandedIcon },
   { name: 'UploadIcon', Component: Icons.UploadIcon },
   { name: 'VerticalEllipsisIcon', Component: Icons.VerticalEllipsisIcon },
+  { name: 'ToolbarUnindentIcon', Component: Icons.ToolbarUnindentIcon },
 ]
 
 storiesOf('Icons', module).add('Icons', () => (
