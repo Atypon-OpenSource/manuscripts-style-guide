@@ -31,9 +31,9 @@ const IndentIcon: React.FC<IconProps> = (props) => (
       x2="20"
       y2="6.5"
       stroke="#6E6E6E"
-      stroke-width="2"
-      stroke-linecap="round"
-      stroke-linejoin="round"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
     />
     <line
       x1="13"
@@ -41,9 +41,9 @@ const IndentIcon: React.FC<IconProps> = (props) => (
       x2="20"
       y2="10.25"
       stroke="#6E6E6E"
-      stroke-width="2"
-      stroke-linecap="round"
-      stroke-linejoin="round"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
     />
     <line
       x1="13"
@@ -51,9 +51,9 @@ const IndentIcon: React.FC<IconProps> = (props) => (
       x2="20"
       y2="14"
       stroke="#6E6E6E"
-      stroke-width="2"
-      stroke-linecap="round"
-      stroke-linejoin="round"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
     />
     <line
       x1="5.5"
@@ -61,13 +61,13 @@ const IndentIcon: React.FC<IconProps> = (props) => (
       x2="20"
       y2="17.75"
       stroke="#6E6E6E"
-      stroke-width="2"
-      stroke-linecap="round"
-      stroke-linejoin="round"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
     />
     <path
-      fill-rule="evenodd"
-      clip-rule="evenodd"
+      fillRule="evenodd"
+      clipRule="evenodd"
       d="M8.35742 10.4997C8.35742 11.3873 7.98843 12.1069 7.53325 12.1069L3.82445 12.1069C3.36927 12.1069 3.00028 11.3873 3.00028 10.4997C3.00028 9.61212 3.36927 8.89258 3.82445 8.89258L7.53325 8.89258C7.98843 8.89258 8.35742 9.61212 8.35742 10.4997Z"
       fill="#6E6E6E"
     />
