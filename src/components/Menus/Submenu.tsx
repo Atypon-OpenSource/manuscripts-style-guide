@@ -57,6 +57,7 @@ export const NestedSubmenusContainer = styled(SubmenusContainer)`
   position: absolute;
   top: 0;
   left: 100%;
+  overflow: visible;
 `
 
 const Separator = styled.div`
@@ -128,6 +129,7 @@ export const Submenu: React.FC<SubmenuProps> = ({ menu, handleClick }) => {
   if (isMenuSeparator(menu)) {
     return <Separator />
   }
+
   if (menu.component) {
     return <menu.component menu={menu} handleClick={handleClick} />
   }

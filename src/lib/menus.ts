@@ -52,4 +52,4 @@ export const isMenuSeparator = (menu: any): menu is MenuSeparator => {
   return menu?.role === 'separator'
 }
 
-export type MenuPointer = [number, number, number]
+export type MenuPointer = [number, number, number, number]
