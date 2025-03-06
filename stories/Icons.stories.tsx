@@ -135,6 +135,7 @@ const iconList: { name: string; Component: React.FC<IconProps> }[] = [
     name: 'ToolbarUnorderedListIcon',
     Component: Icons.ToolbarUnorderedListIcon,
   },
+  { name: 'ToolbarIndentIcon', Component: Icons.ToolbarIndentIcon },
   { name: 'TriangleCollapsedIcon', Component: Icons.TriangleCollapsedIcon },
   { name: 'TriangleExpandedIcon', Component: Icons.TriangleExpandedIcon },
   { name: 'UploadIcon', Component: Icons.UploadIcon },
