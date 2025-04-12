@@ -16,6 +16,7 @@
 
 export { default as AddAuthorIcon } from './add-author'
 export { default as AddCommentIcon } from './add-comment'
+export { default as AddFigureIcon } from './add-figure'
 export { default as AddedIcon } from './added'
 export { default as AddNewIcon } from './add-new'
 export { default as AddOutlineIcon } from './add-outline'
