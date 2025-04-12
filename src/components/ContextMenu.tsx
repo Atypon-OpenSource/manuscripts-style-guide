@@ -75,7 +75,7 @@ export const ContextMenu: React.FC<ContextMenuProps> = ({ actions }) => (
         <ContextMenuIconButton
           key={action.icon}
           data-tooltip-id={action.icon}
-          onClick={action.disabled === true ? () => {} : action.action}
+          onClick={action.disabled === true ? () => null : action.action}
           className={action.selected ? 'selected' : ''}
           disabled={!!action.disabled}
         >
