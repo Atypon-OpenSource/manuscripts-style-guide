@@ -16,10 +16,11 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
 
+import { ErrorProps } from './Form'
 import { commonStyles } from './TextField'
 
 // Styled Components
-const Container = styled.div`
+const Container = styled.div<ErrorProps>`
   ${commonStyles}
 
   display: flex;
@@ -74,7 +75,7 @@ const RemoveButton = styled.button`
   }
 `
 
-const Input = styled.input`
+const Input = styled.input<ErrorProps>`
   ${commonStyles}
 
   border: none;

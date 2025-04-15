@@ -16,7 +16,7 @@
 
 import React from 'react'
 import ReactModal from 'react-modal'
-import styled, { ThemeProps } from 'styled-components'
+import styled from 'styled-components'
 
 import { RoundIconButton } from './Button'
 import { SidebarStyles } from './Sidebar'
@@ -30,9 +30,11 @@ interface Props {
   pointerEventsOnBackdrop?: 'all' | 'none' | 'auto'
 }
 
-const ReactModalAdapter: React.FC<
-  ReactModal.Props & ThemeProps<ReactModal> & Props
-> = ({ className, modalClassName, ...props }) => {
+const ReactModalAdapter: React.FC<ReactModal.Props & Props> = ({
+  className,
+  modalClassName,
+  ...props
+}) => {
   props.style = props.style || {}
   if (props.pointerEventsOnBackdrop == 'none') {
     props.style.content = {

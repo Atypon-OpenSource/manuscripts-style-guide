@@ -15,7 +15,13 @@
  */
 
 import { FieldProps } from 'formik'
-import React, { InputHTMLAttributes, TextareaHTMLAttributes } from 'react'
+import React, {
+  InputHTMLAttributes,
+  TextareaHTMLAttributes,
+  useCallback,
+  useEffect,
+  useState,
+} from 'react'
 
 interface AutoSaveInputProps {
   component: React.ComponentType<
@@ -24,79 +30,75 @@ interface AutoSaveInputProps {
     | { 'data-testid'?: string }
   >
   saveOn: 'change' | 'blur'
-  // inputProps?: Exclude<InputHTMLAttributes<HTMLInputElement>, FieldProps>
   placeholder?: string
   testId?: string
   isInvalid?: boolean | null
   disabled?: boolean
 }
 
-interface State {
-  focused: boolean
-}
+export const AutoSaveInput: React.FC<FieldProps & AutoSaveInputProps> = ({
+  component: Component,
+  field,
+  form,
+  placeholder,
+  disabled,
+  testId,
+  isInvalid,
+  saveOn,
+}) => {
+  const [focused, setFocused] = useState(false)
 
-export class AutoSaveInput extends React.Component<
-  FieldProps & AutoSaveInputProps,
-  State
-> {
-  public state = {
-    focused: false,
-  }
+  const handleSubmit = useCallback(() => {
+    window.setTimeout(form.submitForm, 10)
+  }, [form])
 
-  public componentWillUnmount() {
-    if (this.state.focused) {
-      this.handleSubmit()
+  const handleFocus = useCallback(() => {
+    setFocused(true)
+  }, [])
+
+  const handleBlur = useCallback(
+    (event: React.FormEvent<HTMLInputElement>) => {
+      setFocused(false)
+      field.onBlur(event)
+
+      if (saveOn === 'blur') {
+        handleSubmit()
+      }
+    },
+    [field, saveOn, handleSubmit]
+  )
+
+  const handleChange = useCallback(
+    (event: React.FormEvent<HTMLInputElement>) => {
+      field.onChange(event)
+
+      if (saveOn === 'change') {
+        handleSubmit()
+      }
+    },
+    [field, saveOn, handleSubmit]
+  )
+
+  // Equivalent to componentWillUnmount
+  useEffect(() => {
+    return () => {
+      if (focused) {
+        handleSubmit()
+      }
     }
-  }
+  }, [focused, handleSubmit])
 
-  public render() {
-    const {
-      component: Component,
-      field,
-      placeholder,
-      disabled,
-      testId,
-    } = this.props
-
-    return (
-      <Component
-        {...field}
-        placeholder={placeholder}
-        disabled={disabled}
-        checked={!!field.value}
-        onFocus={this.handleFocus}
-        onBlur={this.handleBlur}
-        onChange={this.handleChange}
-        data-testid={testId && `${testId}__input`}
-        aria-invalid={this.props.isInvalid || undefined}
-      />
-    )
-  }
-
-  // NOTE: this needs to happen in a timeout so the values are updated first
-  private handleSubmit = () => {
-    window.setTimeout(this.props.form.submitForm, 10)
-  }
-
-  private handleFocus = () => {
-    this.setState({ focused: true })
-  }
-
-  private handleBlur = (event: React.FormEvent<HTMLInputElement>) => {
-    this.setState({ focused: false })
-
-    this.props.field.onBlur(event)
-
-    if (this.props.saveOn === 'blur') {
-      this.handleSubmit()
-    }
-  }
-
-  private handleChange = (event: React.FormEvent<HTMLInputElement>) => {
-    this.props.field.onChange(event)
-
-    if (this.props.saveOn === 'change') {
-      this.handleSubmit()
-    }
-  }
+  return (
+    <Component
+      {...field}
+      placeholder={placeholder}
+      disabled={disabled}
+      checked={!!field.value}
+      onFocus={handleFocus}
+      onBlur={handleBlur}
+      onChange={handleChange}
+      data-testid={testId && `${testId}__input`}
+      aria-invalid={isInvalid || undefined}
+    />
+  )
 }

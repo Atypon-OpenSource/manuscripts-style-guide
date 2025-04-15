@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { storiesOf } from '@storybook/react'
+import type { Meta, StoryObj } from '@storybook/react'
 import * as React from 'react'
 import styled from 'styled-components'
 
@@ -33,33 +33,44 @@ const Child = styled.div`
   text-align: center;
 `
 
-storiesOf('Tip', module).add('Tip', () => (
-  <Container>
-    <Child data-tooltip-id="top-tooltip">Top</Child>
-    <Tooltip id="top-tooltip" place="top">
-      Top
-    </Tooltip>
+const meta: Meta<typeof Tooltip> = {
+  title: 'Tip',
+  component: Tooltip,
+  tags: ['autodocs'],
+}
 
-    <Child data-tooltip-id="bottom-tooltip">Bottom</Child>
-    <Tooltip id="bottom-tooltip" place="bottom">
-      Bottom
-    </Tooltip>
+export default meta
+type Story = StoryObj<typeof Tooltip>
 
-    <Child data-tooltip-id="left-tooltip">Left</Child>
-    <Tooltip id="left-tooltip" place="left">
-      Left
-    </Tooltip>
+export const Default: Story = {
+  render: () => (
+    <Container>
+      <Child data-tooltip-id="top-tooltip">Top</Child>
+      <Tooltip id="top-tooltip" place="top">
+        Top
+      </Tooltip>
 
-    <Child data-tooltip-id="right-tooltip">Right</Child>
-    <Tooltip id="right-tooltip" place="right">
-      Right
-    </Tooltip>
+      <Child data-tooltip-id="bottom-tooltip">Bottom</Child>
+      <Tooltip id="bottom-tooltip" place="bottom">
+        Bottom
+      </Tooltip>
 
-    <Child>
-      <AttentionOrangeIcon data-tooltip-id="word-count-warning" />
-    </Child>
-    <Tooltip id="word-count-warning" place="right">
-      word count warning
-    </Tooltip>
-  </Container>
-))
+      <Child data-tooltip-id="left-tooltip">Left</Child>
+      <Tooltip id="left-tooltip" place="left">
+        Left
+      </Tooltip>
+
+      <Child data-tooltip-id="right-tooltip">Right</Child>
+      <Tooltip id="right-tooltip" place="right">
+        Right
+      </Tooltip>
+
+      <Child>
+        <AttentionOrangeIcon data-tooltip-id="word-count-warning" />
+      </Child>
+      <Tooltip id="word-count-warning" place="right">
+        word count warning
+      </Tooltip>
+    </Container>
+  ),
+}

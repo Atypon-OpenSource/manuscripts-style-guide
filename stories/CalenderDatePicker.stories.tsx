@@ -14,35 +14,34 @@
  * limitations under the License.
  */
 
-import { action } from '@storybook/addon-actions'
-import { storiesOf } from '@storybook/react'
+import type { Meta, StoryObj } from '@storybook/react'
 import * as React from 'react'
-import { RenderInputProps } from 'react-modern-calendar-datepicker'
 import styled from 'styled-components'
 
-import { CalendarDatePicker, PrimaryButton } from '../src'
+import { CalendarDatePicker } from '../src'
 
 const Grid = styled.div`
   display: grid;
   width: 400px;
   gap: 10px;
 `
-storiesOf('DatePicker', module).add('DatePicker', () => {
-  const CalendarDatePickerButton = ({ ref }: RenderInputProps) => {
-    return (
-      <PrimaryButton ref={ref as React.RefObject<HTMLButtonElement>}>
-        show calendar
-      </PrimaryButton>
-    )
-  }
-  return (
-    <Grid>
-      <CalendarDatePicker
-        currentDueDate={new Date()}
-        originalDueDate={new Date()}
-        handleDateChange={action('Date updated')}
-        Button={CalendarDatePickerButton}
-      />
-    </Grid>
-  )
-})
+
+const meta: Meta<typeof CalendarDatePicker> = {
+  title: 'DatePicker',
+  component: CalendarDatePicker,
+  tags: ['autodocs'],
+}
+
+export default meta
+type Story = StoryObj<typeof CalendarDatePicker>
+
+export const Default: Story = {
+  args: {
+    currentDueDate: new Date(),
+    originalDueDate: new Date(),
+    buttonLabel: 'Show Calendar',
+    handleDateChange: (date) => {
+      console.log('Selected date:', date)
+    },
+  },
+}

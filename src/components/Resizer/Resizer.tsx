@@ -13,8 +13,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import React from 'react'
-import { AnyStyledComponent } from 'styled-components'
+import React, { useCallback, useState } from 'react'
+import { IStyledComponent } from 'styled-components'
 
 import { ResizerButton } from './ResizerButton'
 import { ResizerButtonInnerProps } from './ResizerButtonInner'
@@ -27,7 +27,10 @@ import {
 import { ResizerDirection, ResizerSide } from './types'
 
 type Inners = {
-  [direction in ResizerDirection]: { [side in ResizerSide]: AnyStyledComponent }
+  [direction in ResizerDirection]: {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    [side in ResizerSide]: IStyledComponent<'web', any>
+  }
 }
 
 const inners: Inners = {
@@ -51,146 +54,154 @@ interface Props {
   buttonInner?: React.ComponentType<ResizerButtonInnerProps>
 }
 
-interface State {
-  isHovering: boolean
-  isResizing: boolean
-  startPosition: number
-}
+export const Resizer: React.FC<Props> = ({
+  buttonInner,
+  direction,
+  side,
+  collapsed,
+  onResize,
+  onResizeButton,
+  onResizeEnd,
+}) => {
+  const resizerRef = React.useRef<HTMLDivElement | null>(null)
+  const [isHovering, setIsHovering] = useState(false)
+  const [isResizing, setIsResizing] = useState(false)
+  const [startPosition, setStartPosition] = useState(0)
 
-export class Resizer extends React.Component<Props, State> {
-  public resizerRef: React.RefObject<HTMLDivElement> = React.createRef()
+  const getPosition = useCallback(
+    (e: React.MouseEvent<HTMLDivElement> | MouseEvent) => {
+      return direction === 'row' ? e.screenX : e.screenY
+    },
+    [direction]
+  )
 
-  public state = {
-    isHovering: false,
-    isResizing: false,
-    startPosition: 0,
-  }
+  const getDelta = useCallback(
+    (delta: number) => {
+      return side === 'end' ? delta - startPosition : startPosition - delta
+    },
+    [side, startPosition]
+  )
 
-  public render() {
-    const { buttonInner, direction, side } = this.props
+  const scheduleResize = useCallback(
+    (delta: number) => {
+      if (isResizing && delta) {
+        onResize(delta)
+      }
+    },
+    [isResizing, onResize]
+  )
 
-    const ResizerInner = inners[direction][side]
+  const mouseUpHandler = useCallback(
+    (e: MouseEvent, outOfBounds = false) => {
+      window.removeEventListener('mousemove', mouseMoveHandler)
+      window.removeEventListener('mouseup', mouseUpHandler)
+      window.removeEventListener('mouseout', handleOutofBounds)
 
-    return (
-      <ResizerInner
-        // @ts-ignore: styled
-        ref={this.resizerRef}
-        onMouseDown={this.mouseDownHandler}
-        onMouseEnter={this.mouseEnterHandler}
-        onMouseLeave={this.mouseLeaveHandler}
-      >
-        <ResizerButton
-          direction={direction}
-          isCollapsed={this.props.collapsed}
-          isVisible={this.state.isHovering}
-          onClick={this.props.onResizeButton}
-          side={side}
-          buttonInner={buttonInner}
-        />
-      </ResizerInner>
-    )
-  }
+      setIsResizing(false)
 
-  private scheduleResize = (delta: number) => {
-    if (this.state.isResizing && delta) {
-      this.props.onResize(delta)
-    }
-  }
+      const position = getPosition(e)
 
-  private mouseDownHandler: React.MouseEventHandler<HTMLDivElement> = (e) => {
-    e.preventDefault()
+      // If we have gone out of bounds, reduce the nav width so the resizer is still visible
+      const adjustedPosition = outOfBounds ? position - 32 : position
 
-    if (!this.resizerRef.current || e.target !== this.resizerRef.current) {
-      return
-    }
+      const delta = getDelta(adjustedPosition)
 
-    if (this.state.isResizing) {
-      return
-    }
+      if (delta === 0) {
+        onResizeButton() // click
+      }
 
-    this.setState({
-      isResizing: true,
-      startPosition: this.getPosition(e),
-    })
+      // Perform one final resize before ending
+      onResize(delta)
+      onResizeEnd(delta)
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [getPosition, getDelta, onResize, onResizeButton, onResizeEnd]
+  )
 
-    window.addEventListener('mousemove', this.mouseMoveHandler)
-    window.addEventListener('mouseup', this.mouseUpHandler)
-    window.addEventListener('mouseout', this.handleOutofBounds)
-  }
+  const mouseMoveHandler = useCallback(
+    (e: MouseEvent) => {
+      const position = getPosition(e)
+      const delta = getDelta(position)
+      scheduleResize(delta)
+    },
+    [getPosition, getDelta, scheduleResize]
+  )
 
-  private mouseUpHandler = (e: MouseEvent, outOfBounds = false) => {
-    window.removeEventListener('mousemove', this.mouseMoveHandler)
-    window.removeEventListener('mouseup', this.mouseUpHandler)
-    window.removeEventListener('mouseout', this.handleOutofBounds)
+  const handleOutofBounds = useCallback(
+    (e: MouseEvent) => {
+      const disableResizeNodes = [
+        'IFRAME', // Moving into an iframe
+        'HTML', // Moving out of an iframe or root window - Safari
+        null, // Moving out of an iframe or root window - Other browsers
+      ]
 
-    this.setState({
-      isResizing: false,
-    })
+      if (
+        isResizing &&
+        disableResizeNodes.includes(
+          e.relatedTarget && (e.relatedTarget as Node).nodeName
+        )
+      ) {
+        mouseUpHandler(e, true)
+      }
+    },
+    [isResizing, mouseUpHandler]
+  )
 
-    const position = this.getPosition(e)
+  const mouseDownHandler = useCallback(
+    (e: React.MouseEvent<HTMLDivElement>) => {
+      e.preventDefault()
 
-    // If we have gone out of bounds, reduce the nav width so the resizer is still visible
-    const adjustedPosition = outOfBounds ? position - 32 : position
+      if (!resizerRef.current || e.target !== resizerRef.current) {
+        return
+      }
 
-    const delta = this.getDelta(adjustedPosition)
+      if (isResizing) {
+        return
+      }
 
-    if (delta === 0) {
-      this.props.onResizeButton() // click
-    }
+      setIsResizing(true)
+      setStartPosition(getPosition(e))
 
-    // Perform one final resize before ending
-    this.props.onResize(delta)
-
-    this.props.onResizeEnd(delta)
-  }
-
-  private mouseMoveHandler = (e: MouseEvent) => {
-    const position = this.getPosition(e)
-    const delta = this.getDelta(position)
-
-    this.scheduleResize(delta)
-  }
-
-  private mouseEnterHandler: React.MouseEventHandler<HTMLDivElement> = () => {
-    this.setState({
-      isHovering: true,
-    })
-  }
-
-  private mouseLeaveHandler: React.MouseEventHandler<HTMLDivElement> = () => {
-    this.setState({
-      isHovering: false,
-    })
-  }
-
-  // Handle when mouse moves over an element that won't fire mouse events.
-  // Fires a mouseup immediately to prevent mouseup not being fired at all.
-  private handleOutofBounds = (e: MouseEvent) => {
-    const disableResizeNodes = [
-      'IFRAME', // Moving into an iframe
-      'HTML', // Moving out of an iframe or root window - Safari
-      null, // Moving out of an iframe or root window - Other browsers
+      window.addEventListener('mousemove', mouseMoveHandler)
+      window.addEventListener('mouseup', mouseUpHandler)
+      window.addEventListener('mouseout', handleOutofBounds)
+    },
+    [
+      isResizing,
+      getPosition,
+      mouseMoveHandler,
+      mouseUpHandler,
+      handleOutofBounds,
     ]
+  )
 
-    if (
-      this.state.isResizing &&
-      disableResizeNodes.includes(
-        e.relatedTarget && (e.relatedTarget as Node).nodeName
-      )
-    ) {
-      this.mouseUpHandler(e, true)
-    }
-  }
+  const mouseEnterHandler = useCallback(() => {
+    setIsHovering(true)
+  }, [])
 
-  private getDelta = (delta: number) => {
-    const { startPosition } = this.state
+  const mouseLeaveHandler = useCallback(() => {
+    setIsHovering(false)
+  }, [])
 
-    return this.props.side === 'end'
-      ? delta - startPosition
-      : startPosition - delta
-  }
+  const ResizerInner = inners[direction][side]
 
-  private getPosition = (e: React.MouseEvent<HTMLDivElement> | MouseEvent) => {
-    return this.props.direction === 'row' ? e.screenX : e.screenY
-  }
+  return (
+    <ResizerInner
+      ref={resizerRef}
+      onMouseDown={mouseDownHandler}
+      onMouseEnter={mouseEnterHandler}
+      onMouseLeave={mouseLeaveHandler}
+    >
+      <ResizerButton
+        direction={direction}
+        isCollapsed={collapsed}
+        isVisible={isHovering}
+        onClick={onResizeButton}
+        side={side}
+        buttonInner={buttonInner}
+      />
+    </ResizerInner>
+  )
 }
+
+Resizer.displayName = 'Resizer'

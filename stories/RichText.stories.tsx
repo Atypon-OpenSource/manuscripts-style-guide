@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { storiesOf } from '@storybook/react'
+import type { Meta, StoryObj } from '@storybook/react'
 import React from 'react'
 
 import { RichText } from '../src/components/RichText/RichText'
@@ -22,11 +22,22 @@ import { RichTextField } from '../src/components/RichText/RichTextField'
 const text =
   'This is rich text. It can have <strong>Bold text</strong>, <i>italic text</i>, <sub>Subscript</sub> and <sup>Superscript</sup> &quot;'
 
-storiesOf('Rich Text', module)
-  .add('Rich Text', () => <RichText value={text} />)
-  .add('Rich Text Field', () => {
+const meta: Meta = {
+  title: 'Rich Text',
+}
+
+export default meta
+type Story = StoryObj
+
+export const RichTextExample: Story = {
+  render: () => <RichText value={text} />,
+}
+
+export const RichTextFieldExample: Story = {
+  render: () => {
     const handleChange = (value: string) => {
       console.log(value)
     }
     return <RichTextField value={text} onChange={handleChange} />
-  })
+  },
+}

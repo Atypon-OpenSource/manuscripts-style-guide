@@ -14,167 +14,77 @@
  * limitations under the License.
  */
 
-import { action } from '@storybook/addon-actions'
-import { storiesOf } from '@storybook/react'
-import { Field, FieldProps, Form, Formik } from 'formik'
+import type { Meta, StoryObj } from '@storybook/react'
 import * as React from 'react'
 
-import {
-  AutoSaveInput,
-  EditIcon,
-  TextField,
-  TextFieldContainer,
-  TextFieldError,
-  TextFieldErrorItem,
-  TextFieldGroup,
-  TextFieldGroupContainer,
-  TextFieldWrapper,
-} from '../src'
+import { TextField, TextFieldLabel } from '../src'
 
-storiesOf('TextField', module)
-  .add('default', () => <TextField />)
-  .add('required', () => <TextField required={true} />)
-  .add('with placeholder', () => <TextField placeholder={'Enter some text'} />)
-  .add('type: email', () => <TextField type={'email'} required={true} />)
-  .add('type: password', () => <TextField type={'password'} required={true} />)
-  .add('grouped', () => (
-    <TextFieldGroup>
-      <TextField />
-      <TextField />
-      <TextField />
-      <TextField />
-      <TextField />
-    </TextFieldGroup>
-  ))
-  .add('with icon', () => (
-    <TextFieldWrapper leftIcon={<EditIcon />}>
-      <TextField />
-    </TextFieldWrapper>
-  ))
+const meta: Meta<typeof TextField> = {
+  title: 'TextField',
+  component: TextField,
+  tags: ['autodocs'],
+}
 
-storiesOf('TextField/AutoSave', module)
-  .add('on change', () => (
-    <Formik
-      initialValues={{
-        name: '',
-      }}
-      onSubmit={action('submit')}
-    >
-      <Form>
-        <Field name={'name'}>
-          {(props: FieldProps) => (
-            <AutoSaveInput
-              {...props}
-              component={TextField}
-              saveOn={'change'}
-              placeholder={'Name'}
-            />
-          )}
-        </Field>
-      </Form>
-    </Formik>
-  ))
-  .add('on blur', () => (
-    <Formik
-      initialValues={{
-        name: '',
-      }}
-      onSubmit={action('submit')}
-    >
-      <Form>
-        <TextFieldGroupContainer>
-          <Field name={'name'}>
-            {(props: FieldProps) => (
-              <AutoSaveInput
-                {...props}
-                component={TextField}
-                saveOn={'blur'}
-                placeholder={'Name'}
-              />
-            )}
-          </Field>
+export default meta
+type Story = StoryObj<typeof TextField>
 
-          <Field name={'email'} type={'email'}>
-            {(props: FieldProps) => (
-              <AutoSaveInput
-                {...props}
-                component={TextField}
-                saveOn={'blur'}
-                placeholder={'Email Address'}
-              />
-            )}
-          </Field>
-        </TextFieldGroupContainer>
-      </Form>
-    </Formik>
-  ))
+export const Default: Story = {
+  args: {
+    placeholder: 'Enter text...',
+  },
+}
 
-storiesOf('TextField/Container', module)
-  .add('default', () => (
-    <TextFieldContainer>
-      <TextField />
-    </TextFieldContainer>
-  ))
-  .add('with label', () => (
-    <TextFieldContainer label={'Name'}>
-      <TextField />
-    </TextFieldContainer>
-  ))
-  .add('with error', () => (
-    <TextFieldContainer error={'There was an error'}>
-      <TextField />
-    </TextFieldContainer>
-  ))
+export const WithLabel: Story = {
+  args: {
+    placeholder: 'Enter username...',
+    id: 'username-field',
+  },
+  render: (args) => (
+    <TextFieldLabel htmlFor={args.id}>
+      Username
+      <TextField {...args} />
+    </TextFieldLabel>
+  ),
+}
 
-storiesOf('TextField/GroupContainer', module)
-  .add('default', () => (
-    <TextFieldGroupContainer>
-      <TextFieldContainer>
-        <TextField name={'foo'} />
-      </TextFieldContainer>
-      <TextFieldContainer>
-        <TextField name={'foo'} />
-      </TextFieldContainer>
-    </TextFieldGroupContainer>
-  ))
-  .add('one error', () => (
-    <TextFieldGroupContainer
-      errors={{
-        foo: 'There was an error',
-      }}
-    >
-      <TextField name={'foo'} error={'There was an error'} />
-      <TextField name={'bar'} />
-    </TextFieldGroupContainer>
-  ))
-  .add('another error', () => (
-    <TextFieldGroupContainer
-      errors={{
-        foo: 'There was an error',
-        baz: 'There was another error',
-      }}
-    >
-      <TextField name={'foo'} error={'There was an error'} />
-      <TextField name={'bar'} />
-      <TextField name={'baz'} error={'There was another error'} />
-    </TextFieldGroupContainer>
-  ))
-  .add('multiple errors', () => (
-    <TextFieldGroupContainer
-      errors={{
-        foo: 'There was an error',
-        bar: 'There was another error',
-        baz: 'There was a third error',
-      }}
-    >
-      <TextField name={'foo'} error={'There was an error'} />
-      <TextField name={'bar'} error={'There was another error'} />
-      <TextField name={'baz'} error={'There was a third error'} />
-    </TextFieldGroupContainer>
-  ))
+export const WithError: Story = {
+  args: {
+    placeholder: 'Enter email...',
+    error: 'Please enter a valid email address',
+    id: 'email-field-error',
+  },
+  render: (args) => (
+    <TextFieldLabel htmlFor={args.id}>
+      Email
+      <TextField {...args} />
+    </TextFieldLabel>
+  ),
+}
 
-storiesOf('TextField/Error', module).add('default', () => (
-  <TextFieldError>
-    <TextFieldErrorItem>There was an error</TextFieldErrorItem>
-  </TextFieldError>
-))
+export const Disabled: Story = {
+  args: {
+    placeholder: 'This field is disabled',
+    disabled: true,
+    id: 'disabled-field',
+  },
+  render: (args) => (
+    <TextFieldLabel htmlFor={args.id}>
+      Disabled Field
+      <TextField {...args} />
+    </TextFieldLabel>
+  ),
+}
+
+export const Required: Story = {
+  args: {
+    placeholder: 'This field is required',
+    required: true,
+    id: 'required-field',
+  },
+  render: (args) => (
+    <TextFieldLabel htmlFor={args.id}>
+      Required Field
+      <TextField {...args} />
+    </TextFieldLabel>
+  ),
+}

@@ -80,11 +80,11 @@ const commonStyles = css<{ disabled?: boolean }>`
   }
 `
 
-export const NavDropdownLink = styled(NavLink)`
+export const NavDropdownLink = styled(NavLink)<{ disabled?: boolean }>`
   ${commonStyles};
 `
 
-export const NavDropdownElement = styled.div`
+export const NavDropdownElement = styled.div<{ disabled?: boolean }>`
   ${commonStyles};
 
   cursor: pointer;
@@ -137,10 +137,8 @@ export const NotificationsBadge = styled(Badge)<DropdownProps>`
   min-height: 10px;
 `
 
-export const NavDropdownButtonContainer = styled(SecondaryButton).attrs(
-  (props: DropdownProps) => ({
-    selected: props.isOpen,
-  })
+export const NavDropdownButtonContainer = styled(
+  SecondaryButton
 )<DropdownProps>`
   .inheritColors path {
     fill: currentColor;
@@ -175,6 +173,7 @@ export const NavDropdownButton: React.FunctionComponent<
     disabled={disabled}
     onClick={onClick}
     isOpen={isOpen}
+    selected={isOpen}
     className={'dropdown-toggle'}
   >
     <NavDropdownButtonText>{children}</NavDropdownButtonText>

@@ -55,7 +55,7 @@ export const TextField = styled.input<ErrorProps>`
   ${commonStyles}
 `
 
-export const TextArea = styled.textarea`
+export const TextArea = styled.textarea<ErrorProps>`
   ${commonStyles}
   max-width: 100%;
 `
@@ -119,7 +119,7 @@ const IconWrapper = styled.div`
 `
 
 export const TextFieldWrapper: React.FC<{
-  leftIcon: JSX.Element
+  leftIcon: React.ReactNode
   children: React.ReactNode
 }> = ({ leftIcon, children }) => {
   return (

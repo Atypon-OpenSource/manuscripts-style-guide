@@ -15,7 +15,7 @@
  */
 
 import { action } from '@storybook/addon-actions'
-import { storiesOf } from '@storybook/react'
+import type { Meta, StoryObj } from '@storybook/react'
 import React from 'react'
 
 import { Drawer } from '../src/components/Drawer'
@@ -35,8 +35,16 @@ const items = [
   },
 ]
 
-storiesOf('Drawer', module)
-  .add('default', () => (
+const meta: Meta<typeof Drawer> = {
+  title: 'Drawer',
+  component: Drawer,
+}
+
+export default meta
+type Story = StoryObj<typeof Drawer>
+
+export const Default: Story = {
+  render: () => (
     <div style={{ height: '400px' }}>
       <Drawer
         items={items}
@@ -46,8 +54,11 @@ storiesOf('Drawer', module)
         onBack={action('back')}
       />
     </div>
-  ))
-  .add('with multiple selections', () => (
+  ),
+}
+
+export const WithMultipleSelections: Story = {
+  render: () => (
     <div style={{ height: '400px' }}>
       <Drawer
         items={items}
@@ -57,8 +68,11 @@ storiesOf('Drawer', module)
         onBack={action('back')}
       />
     </div>
-  ))
-  .add('without selection', () => (
+  ),
+}
+
+export const WithoutSelection: Story = {
+  render: () => (
     <div style={{ height: '400px' }}>
       <Drawer
         items={items}
@@ -68,4 +82,5 @@ storiesOf('Drawer', module)
         onBack={action('back')}
       />
     </div>
-  ))
+  ),
+}

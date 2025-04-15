@@ -14,132 +14,150 @@
  * limitations under the License.
  */
 
-import { action } from '@storybook/addon-actions'
-import { storiesOf } from '@storybook/react'
+import type { Meta, StoryObj } from '@storybook/react'
 import * as React from 'react'
 
 import { Category, Dialog, TextArea } from '../src'
 
-storiesOf('Dialog', module)
-  .add('Confirmation Dialog', () => (
-    <Dialog
-      isOpen={true}
-      category={Category.confirmation}
-      header="Are you sure?"
-      message="This action will update your status"
-      actions={{
+const meta: Meta<typeof Dialog> = {
+  title: 'Dialog',
+  component: Dialog,
+  tags: ['autodocs'],
+}
+
+export default meta
+type Story = StoryObj<typeof Dialog>
+
+export const ConfirmationDialog: Story = {
+  args: {
+    isOpen: true,
+    category: Category.confirmation,
+    header: 'Are you sure?',
+    message: 'This action will update your status',
+    actions: {
+      primary: {
+        action: () => console.log('Confirm clicked'),
+        title: 'Confirm',
+      },
+      secondary: {
+        action: () => console.log('Cancel clicked'),
+        title: 'Cancel',
+      },
+    },
+  },
+}
+
+export const ConfirmationDialogWithoutSecondary: Story = {
+  args: {
+    isOpen: true,
+    category: Category.confirmation,
+    header: 'Are you sure?',
+    message: 'This action will update your status',
+    actions: {
+      primary: {
+        action: () => console.log('Confirm clicked'),
+        title: 'Confirm',
+      },
+    },
+  },
+}
+
+export const ConfirmationDialogWithDestructivePrimary: Story = {
+  args: {
+    isOpen: true,
+    category: Category.confirmation,
+    header: 'Are you sure?',
+    message:
+      'This action will cause everything to blow up at 9:00 (9:30 in Newfoundland)',
+    actions: {
+      primary: {
+        action: () => console.log('Confirm clicked'),
+        title: 'Confirm',
+        isDestructive: true,
+      },
+      secondary: {
+        action: () => console.log('Cancel clicked'),
+        title: 'Cancel',
+      },
+    },
+  },
+}
+
+export const ConfirmationDialogWithDestructivePrimaryAndConfirmationInput: Story =
+  {
+    args: {
+      isOpen: true,
+      category: Category.confirmation,
+      header: 'Are you sure?',
+      message:
+        'This action will cause everything to blow up at 9:00 (9:30 in Newfoundland)',
+      actions: {
         primary: {
-          action: action('Confirm'),
-          title: 'Confirm',
-        },
-        secondary: {
-          action: action('Cancel'),
-          title: 'Cancel',
-        },
-      }}
-    />
-  ))
-  .add('Confirmation Dialog without secondary action', () => (
-    <Dialog
-      isOpen={true}
-      category={Category.confirmation}
-      header="Are you sure?"
-      message="This action will update your status"
-      actions={{
-        primary: {
-          action: action('Confirm'),
-          title: 'Confirm',
-        },
-      }}
-    />
-  ))
-  .add('Confirmation Dialog with destructive primary action', () => (
-    <Dialog
-      isOpen={true}
-      category={Category.confirmation}
-      header="Are you sure?"
-      message="This action will cause everything to blow up at 9:00 (9:30 in Newfoundland)"
-      actions={{
-        primary: {
-          action: action('Confirm'),
-          title: 'Confirm',
+          action: () => console.log('You killed Kenny'),
+          title: 'Blow everything!',
           isDestructive: true,
         },
         secondary: {
-          action: action('Cancel'),
+          action: () => console.log('Cancel clicked'),
           title: 'Cancel',
         },
-      }}
-    />
-  ))
-  .add(
-    'Confirmation Dialog with destructive primary action and Confirmation Input',
-    () => (
-      <Dialog
-        isOpen={true}
-        category={Category.confirmation}
-        header="Are you sure?"
-        message="This action will cause everything to blow up at 9:00 (9:30 in Newfoundland)"
-        actions={{
-          primary: {
-            action: action('You killed Kenny'),
-            title: 'Blow everything!',
-            isDestructive: true,
-          },
-          secondary: {
-            action: action('Cancel'),
-            title: 'Cancel',
-          },
-        }}
-        confirmFieldText={'blow up'}
-      />
-    )
-  )
-  .add('Error dialog', () => (
-    <Dialog
-      isOpen={true}
-      category={Category.error}
-      header="Well that was a mistake"
-      message="Please restart the Internet"
-      actions={{
-        primary: {
-          action: action('OK'),
-          title: 'OK',
-        },
-      }}
-    />
-  ))
-  .add('Error dialog with overflowing text', () => (
-    <Dialog
-      isOpen={true}
-      category={Category.error}
-      header="Import error"
-      message="There was an error importing SupercalifragilisticexpialidociousSupercalifragilisticexpialidociousSupercalifragilisticexpialidocious.docx"
-      actions={{
-        primary: {
-          action: action('OK'),
-          title: 'OK',
-        },
-      }}
-    />
-  ))
-  .add('Dialog with extra children', () => (
-    <Dialog
-      isOpen={true}
-      category={Category.confirmation}
-      header="Are you sure?"
-      message="Lorem ipsum dolor sit amet"
-      actions={{
-        primary: {
-          action: action('Confirm'),
-          title: 'Confirm',
-        },
-        secondary: {
-          action: action('Cancel'),
-          title: 'Cancel',
-        },
-      }}
-    >
+      },
+      confirmFieldText: 'blow up',
+    },
+  }
+
+export const ErrorDialog: Story = {
+  args: {
+    isOpen: true,
+    category: Category.error,
+    header: 'Well that was a mistake',
+    message: 'Please restart the Internet',
+    actions: {
+      primary: {
+        action: () => console.log('OK clicked'),
+        title: 'OK',
+      },
+    },
+  },
+}
+
+export const ErrorDialogWithOverflowingText: Story = {
+  args: {
+    isOpen: true,
+    category: Category.error,
+    header: 'Import error',
+    message:
+      'There was an error importing SupercalifragilisticexpialidociousSupercalifragilisticexpialidociousSupercalifragilisticexpialidocious.docx',
+    actions: {
+      primary: {
+        action: () => console.log('OK clicked'),
+        title: 'OK',
+      },
+    },
+  },
+}
+
+export const DialogWithExtraChildren: Story = {
+  args: {
+    isOpen: true,
+    category: Category.confirmation,
+    header: 'Are you sure?',
+    message: 'Lorem ipsum dolor sit amet',
+    actions: {
+      primary: {
+        action: () => console.log('Confirm clicked'),
+        title: 'Confirm',
+      },
+      secondary: {
+        action: () => console.log('Cancel clicked'),
+        title: 'Cancel',
+      },
+    },
+  },
+  render: ({ args }) => (
+    <>
+      {args.children}
       <TextArea rows={4} />
-    </Dialog>
-  ))
+    </>
+  ),
+}
