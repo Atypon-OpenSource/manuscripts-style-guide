@@ -78,6 +78,7 @@ export interface ProviderProps {
   role?: string
   permittedActions?: string[]
   children?: React.ReactNode
+  isViewingMode?: boolean
 }
 // all arguments are options to avoid empty object pass one context creation and
 // thusly simplify the consuming of the context: it will help avoiding conditional
@@ -87,7 +88,8 @@ export const getCapabilities = (
   project?: Project,
   profile?: UserProfile,
   role?: ProviderProps['role'],
-  actions?: string[]
+  actions?: string[],
+  isViewingMode?: boolean
 ): Capabilities => {
   const isEditor = () =>
     !!(profile && project?.editors?.includes(profile.userID))
@@ -99,7 +101,7 @@ export const getCapabilities = (
   const isProofer = () =>
     !!(profile && project?.proofers?.includes(profile.userID))
   const isViewer = () =>
-    !!(profile && project?.viewers?.includes(profile.userID))
+    !!(profile && project?.viewers?.includes(profile.userID)) || isViewingMode
   const isProdEditor = () => role == 'pe'
   const allowed = (action: string) => !!actions?.includes(action)
 
@@ -186,8 +188,15 @@ export const useCalcPermission = ({
   profile,
   role,
   permittedActions,
+  isViewingMode,
 }: ProviderProps) => {
-  return getCapabilities(project, profile, role, permittedActions)
+  return getCapabilities(
+    project,
+    profile,
+    role,
+    permittedActions,
+    isViewingMode
+  )
 }
 export const CapabilitiesProvider: React.FC<{
   can: Capabilities
