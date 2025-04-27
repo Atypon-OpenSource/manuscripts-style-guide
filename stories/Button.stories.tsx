@@ -14,6 +14,7 @@
  * limitations under the License.
  */
 
+import { action } from '@storybook/addon-actions'
 import type { Meta, StoryObj } from '@storybook/react'
 import * as React from 'react'
 import styled from 'styled-components'
@@ -60,95 +61,161 @@ export default meta
 type Story = StoryObj<typeof PrimaryButton>
 
 export const Variations: Story = {
+  name: 'Variations',
   render: () => (
     <StorySection>
       <StorySectionInner>
         <h2>Default</h2>
         <Div>
-          <PrimaryButton>PrimaryButton</PrimaryButton>
+          <PrimaryButton onClick={action('clicked Primary SecondaryButton')}>
+            PrimaryButton
+          </PrimaryButton>
         </Div>
         <Div>
-          <SecondaryButton>SecondaryButton</SecondaryButton>
+          <SecondaryButton onClick={action('clicked SecondaryButton')}>
+            SecondaryButton
+          </SecondaryButton>
         </Div>
         <Div>
-          <TertiaryButton>TertiaryButton</TertiaryButton>
+          <TertiaryButton onClick={action('clicked TertiaryButton')}>
+            TertiaryButton
+          </TertiaryButton>
         </Div>
       </StorySectionInner>
       <StorySectionInner>
         <h2>Mini</h2>
         <Div>
-          <PrimaryButton mini={true}>PrimaryButton</PrimaryButton>
+          <PrimaryButton mini={true} onClick={action('clicked PrimaryButton')}>
+            PrimaryButton
+          </PrimaryButton>
         </Div>
         <Div>
-          <SecondaryButton mini={true}>SecondaryButton</SecondaryButton>
+          <SecondaryButton
+            mini={true}
+            onClick={action('clicked SecondaryButton')}
+          >
+            SecondaryButton
+          </SecondaryButton>
         </Div>
         <Div>
-          <TertiaryButton mini={true}>TertiaryButton</TertiaryButton>
+          <TertiaryButton
+            mini={true}
+            onClick={action('clicked TertiaryButton')}
+          >
+            TertiaryButton
+          </TertiaryButton>
         </Div>
       </StorySectionInner>
       <StorySectionInner>
         <h2>Disabled</h2>
         <Div>
-          <PrimaryButton disabled={true}>PrimaryButton</PrimaryButton>
+          <PrimaryButton
+            disabled={true}
+            onClick={action('clicked PrimaryButton')}
+          >
+            PrimaryButton
+          </PrimaryButton>
         </Div>
         <Div>
-          <SecondaryButton disabled={true}>SecondaryButton</SecondaryButton>
+          <SecondaryButton
+            disabled={true}
+            onClick={action('clicked SecondaryButton')}
+          >
+            SecondaryButton
+          </SecondaryButton>
         </Div>
         <Div>
-          <TertiaryButton disabled={true}>TertiaryButton</TertiaryButton>
+          <TertiaryButton
+            disabled={true}
+            onClick={action('clicked TertiaryButton')}
+          >
+            TertiaryButton
+          </TertiaryButton>
+        </Div>
+      </StorySectionInner>
+      <StorySectionInner>
+        <h2>Type "error"</h2>
+        <Div>
+          <PrimaryButton
+            danger={true}
+            onClick={action('clicked PrimaryButton')}
+          >
+            PrimaryButton
+          </PrimaryButton>
+        </Div>
+        <Div>
+          <SecondaryButton
+            danger={true}
+            onClick={action('clicked SecondaryButton')}
+          >
+            SecondaryButton
+          </SecondaryButton>
+        </Div>
+        <Div>
+          <TertiaryButton danger={true} onClick={action('clicked Grey')}>
+            TertiaryButton
+          </TertiaryButton>
         </Div>
       </StorySectionInner>
     </StorySection>
   ),
 }
 
-export const IconButtons: Story = {
+export const Icon_Buttons: Story = {
+  name: 'Icon Buttons',
   render: () => (
-    <StorySection>
-      <StorySectionInner>
-        <h2>IconButton</h2>
-        <Div>
-          <IconButton>
-            <AddIcon />
-          </IconButton>
-        </Div>
-      </StorySectionInner>
-      <StorySectionInner>
-        <h2>SecondaryIconButton</h2>
-        <Div>
-          <SecondaryIconButton>
-            <AddIcon />
-          </SecondaryIconButton>
-        </Div>
-      </StorySectionInner>
-      <StorySectionInner>
-        <h2>RoundIconButton</h2>
-        <Div>
-          <RoundIconButton>
-            <AddIcon />
-          </RoundIconButton>
-        </Div>
-      </StorySectionInner>
-      <StorySectionInner>
-        <h2>CloseButton</h2>
-        <Div>
-          <CloseButton />
-        </Div>
-      </StorySectionInner>
-      <StorySectionInner>
-        <h2>IconTextButton</h2>
-        <Div>
-          <IconTextButton>
-            <AddIcon />
-            Icon text button
-          </IconTextButton>
-        </Div>
-      </StorySectionInner>
-    </StorySection>
+    <>
+      <StorySection>
+        <StorySectionInner>
+          <h2>IconButton</h2>
+          <h3>Default</h3>
+          <Div>
+            <IconButton onClick={action('clicked')}>
+              <AddIcon />
+            </IconButton>
+            <SecondaryIconButton onClick={action('clicked')}>
+              <AddIcon />
+            </SecondaryIconButton>
+          </Div>
+          <h3>Set size</h3>
+          <Div>
+            <IconButton size={64} onClick={action('clicked')}>
+              <AddIcon />
+            </IconButton>
+            <SecondaryIconButton size={64} onClick={action('clicked')}>
+              <AddIcon />
+            </SecondaryIconButton>
+          </Div>
+        </StorySectionInner>
+        <StorySectionInner>
+          <h2>RoundIconButton</h2>
+          <h3>Default</h3>
+          <Div>
+            <RoundIconButton onClick={action('clicked RoundIconButton')}>
+              <CommentReplyIcon />
+            </RoundIconButton>
+          </Div>
+          <h3>CloseButton</h3>
+          <Div>
+            <CloseButton onClick={action('clicked CloseButton')} />
+          </Div>
+        </StorySectionInner>
+        <StorySectionInner>
+          <h2>IconTextButton</h2>
+          <Div>
+            <IconTextButton onClick={action('clicked IconTextButton')}>
+              <AddIcon />
+              Icon text button
+            </IconTextButton>
+          </Div>
+        </StorySectionInner>
+      </StorySection>
+    </>
   ),
 }
 
-export const ToggleButtons: Story = {
+export const Toggle_Button: Story = {
+  name: 'Toggle Button',
   render: () => (
     <StorySection>
       <StorySectionInner>
@@ -189,7 +256,8 @@ export const ToggleButtons: Story = {
   ),
 }
 
-export const RadioButtons: Story = {
+export const Radio_Button: Story = {
+  name: 'Radio Button',
   render: () => (
     <>
       <Div>
@@ -211,11 +279,16 @@ export const RadioButtons: Story = {
   ),
 }
 
-export const ButtonGroups: Story = {
+export const Button_Group: Story = {
+  name: 'Button Group',
   render: () => (
     <ButtonGroup>
-      <TertiaryButton>TertiaryButton</TertiaryButton>
-      <PrimaryButton>PrimaryButton</PrimaryButton>
+      <TertiaryButton onClick={action('clicked TertiaryButton')}>
+        TertiaryButton
+      </TertiaryButton>
+      <PrimaryButton onClick={action('clicked PrimaryButton')}>
+        PrimaryButton
+      </PrimaryButton>
     </ButtonGroup>
   ),
 }

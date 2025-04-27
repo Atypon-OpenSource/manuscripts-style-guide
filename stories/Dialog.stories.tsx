@@ -154,10 +154,9 @@ export const DialogWithExtraChildren: Story = {
       },
     },
   },
-  render: ({ args }) => (
-    <>
-      {args.children}
+  render: (args) => (
+    <Dialog {...args}>
       <TextArea rows={4} />
-    </>
+    </Dialog>
   ),
 }

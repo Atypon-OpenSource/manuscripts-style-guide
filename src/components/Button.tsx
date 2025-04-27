@@ -92,6 +92,14 @@ const btnStyles = css<{
   ${(props) => props.mini && miniBtnStyles}
 `
 
+// Define a common type for button props
+type ButtonTemplateProps = {
+  danger?: boolean
+  disabled?: boolean
+  mini?: boolean
+  type?: string
+}
+
 const btnColors = (
   color?: string,
   bg?: string,
@@ -106,9 +114,9 @@ const btnColors = (
     ${important ? ' !important;' : ';'}
 `
 
-const ButtonTemplate = styled.button.attrs((props) => ({
+const ButtonTemplate = styled.button.attrs<ButtonTemplateProps>((props) => ({
   type: props.type || 'button',
-}))`
+}))<ButtonTemplateProps>`
   ${btnStyles}
 `
 

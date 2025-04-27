@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+import { action } from '@storybook/addon-actions'
 import type { Meta, StoryObj } from '@storybook/react'
 import React from 'react'
 
@@ -35,9 +36,6 @@ export const RichTextExample: Story = {
 
 export const RichTextFieldExample: Story = {
   render: () => {
-    const handleChange = (value: string) => {
-      console.log(value)
-    }
-    return <RichTextField value={text} onChange={handleChange} />
+    return <RichTextField value={text} onChange={action('change')} />
   },
 }

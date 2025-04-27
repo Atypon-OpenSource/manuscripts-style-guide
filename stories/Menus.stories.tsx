@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+import { action } from '@storybook/addon-actions'
 import type { Meta, StoryObj } from '@storybook/react'
 import React from 'react'
 
@@ -34,7 +35,7 @@ const edit: MenuSpec = {
         pc: 'CommandOrControl+Z',
       },
       isEnabled: true,
-      run: () => console.log('undo'),
+      run: action('edit-undo'),
     },
     {
       id: 'edit-redo',
@@ -45,7 +46,7 @@ const edit: MenuSpec = {
         pc: 'CommandOrControl+Y',
       },
       isEnabled: true,
-      run: () => console.log('redo'),
+      run: action('edit-redo'),
     },
     {
       role: 'separator',
@@ -55,7 +56,7 @@ const edit: MenuSpec = {
       role: 'delete',
       label: 'Delete',
       isEnabled: false,
-      run: () => console.log('delete'),
+      run: action('edit-delete'),
     },
   ],
 }
@@ -73,13 +74,13 @@ const insert: MenuSpec = {
         pc: 'CommandOrControl+Enter',
       },
       isEnabled: true,
-      run: () => console.log(''),
+      run: action('insert-section'),
     },
     {
       id: 'insert-graphical-abstract',
       label: 'Graphical Abstract',
       isEnabled: true,
-      run: () => console.log(''),
+      run: action('insert-graphical-abstract'),
     },
     {
       id: 'insert-subsection',
@@ -89,13 +90,13 @@ const insert: MenuSpec = {
         pc: 'Shift+CommandOrControl+Enter',
       },
       isEnabled: true,
-      run: () => console.log(''),
+      run: action('insert-subsection'),
     },
     {
       id: 'insert-paragraph',
       label: 'Paragraph',
       isEnabled: true,
-      run: () => console.log(''),
+      run: action('insert-paragraph'),
     },
     {
       role: 'separator',
@@ -104,13 +105,13 @@ const insert: MenuSpec = {
       id: 'insert-blockquote',
       label: 'Block Quote',
       isEnabled: true,
-      run: () => console.log(''),
+      run: action('insert-blockquote'),
     },
     {
       id: 'insert-pullquote',
       label: 'Pull Quote',
       isEnabled: true,
-      run: () => console.log(''),
+      run: action('insert-pullquote'),
     },
     {
       role: 'separator',
@@ -123,7 +124,7 @@ const insert: MenuSpec = {
         pc: 'CommandOrControl+Option+P',
       },
       isEnabled: true,
-      run: () => console.log(''),
+      run: action('insert-figure-element'),
     },
     {
       id: 'insert-table-element',
@@ -133,7 +134,7 @@ const insert: MenuSpec = {
         pc: 'CommandOrControl+Option+T',
       },
       isEnabled: true,
-      run: () => console.log(''),
+      run: action('insert-table-element'),
     },
     {
       role: 'separator',
@@ -146,7 +147,7 @@ const insert: MenuSpec = {
         pc: 'CommandOrControl+Option+H',
       },
       isEnabled: true,
-      run: () => console.log(''),
+      run: action('insert-link'),
     },
     {
       role: 'separator',
@@ -159,7 +160,7 @@ const insert: MenuSpec = {
         pc: 'CommandOrControl+Option+E',
       },
       isEnabled: true,
-      run: () => console.log(''),
+      run: action('insert-equation'),
     },
     {
       id: 'insert-inline-equation',
@@ -169,7 +170,7 @@ const insert: MenuSpec = {
         pc: 'Shift+CommandOrControl+Option+E',
       },
       isEnabled: true,
-      run: () => console.log(''),
+      run: action('insert-inline-equation'),
     },
     {
       role: 'separator',
@@ -182,7 +183,7 @@ const insert: MenuSpec = {
         pc: 'CommandOrControl+Option+C',
       },
       isEnabled: true,
-      run: () => console.log(''),
+      run: action('insert-citation'),
     },
     {
       id: 'insert-cross-reference',
@@ -192,7 +193,7 @@ const insert: MenuSpec = {
         pc: 'CommandOrControl+Option+R',
       },
       isEnabled: true,
-      run: () => console.log(''),
+      run: action('insert-cross-reference'),
     },
     {
       id: 'insert-footnote',
@@ -202,13 +203,13 @@ const insert: MenuSpec = {
         pc: 'CommandOrControl+Option+F',
       },
       isEnabled: true,
-      run: () => console.log(''),
+      run: action('insert-footnote'),
     },
     {
       id: 'insert-comment',
       label: 'Comment',
       isEnabled: true,
-      run: () => console.log(''),
+      run: action('insert-comment'),
     },
   ],
 }
@@ -226,7 +227,7 @@ const format: MenuSpec = {
         pc: 'CommandOrControl+B',
       },
       isEnabled: true,
-      run: () => console.log(''),
+      run: action('format-bold'),
     },
     {
       id: 'format-italic',
@@ -236,7 +237,7 @@ const format: MenuSpec = {
         pc: 'CommandOrControl+I',
       },
       isEnabled: true,
-      run: () => console.log(''),
+      run: action('format-italic'),
     },
     {
       id: 'format-strikethrough',
@@ -246,7 +247,7 @@ const format: MenuSpec = {
         pc: 'CommandOrControl+Shift+X',
       },
       isEnabled: true,
-      run: () => console.log(''),
+      run: action('format-strikethrough'),
     },
     {
       id: 'format-underline',
@@ -256,7 +257,7 @@ const format: MenuSpec = {
         pc: 'CommandOrControl+U',
       },
       isEnabled: true,
-      run: () => console.log(''),
+      run: action('format-underline'),
     },
     {
       role: 'separator',
@@ -269,7 +270,7 @@ const format: MenuSpec = {
         pc: 'CommandOrControl+Option+=',
       },
       isEnabled: true,
-      run: () => console.log(''),
+      run: action('format-superscript'),
     },
     {
       id: 'format-subscript',
@@ -279,7 +280,7 @@ const format: MenuSpec = {
         pc: 'CommandOrControl+Option+-',
       },
       isEnabled: true,
-      run: () => console.log(''),
+      run: action('format-subscript'),
     },
     {
       role: 'separator',
@@ -296,19 +297,19 @@ const format: MenuSpec = {
           id: 'format-table-add-row-before',
           label: 'Add Row Above',
           isEnabled: true,
-          run: () => console.log(''),
+          run: action('format-table-add-row-before'),
         },
         {
           id: 'format-table-add-row-after',
           label: 'Add Row Below',
           isEnabled: true,
-          run: () => console.log(''),
+          run: action('format-table-add-row-after'),
         },
         {
           id: 'format-table-delete-row',
           label: 'Delete Row',
           isEnabled: true,
-          run: () => console.log(''),
+          run: action('format-table-delete-row'),
         },
         {
           role: 'separator',
@@ -317,19 +318,19 @@ const format: MenuSpec = {
           id: 'format-table-add-column-before',
           label: 'Add Column Before',
           isEnabled: true,
-          run: () => console.log(''),
+          run: action('format-table-add-column-before'),
         },
         {
           id: 'format-table-add-column-after',
           label: 'Add Column After',
           isEnabled: true,
-          run: () => console.log(''),
+          run: action('format-table-add-column-after'),
         },
         {
           id: 'format-table-delete-column',
           label: 'Delete Column',
           isEnabled: true,
-          run: () => console.log(''),
+          run: action('format-table-delete-column'),
         },
         {
           role: 'separator',
@@ -338,13 +339,13 @@ const format: MenuSpec = {
           id: 'merge-cells',
           label: 'Merge Cells',
           isEnabled: true,
-          run: () => console.log(''),
+          run: action('merge-cells'),
         },
         {
           id: 'split-cells',
           label: 'Split Cell',
           isEnabled: true,
-          run: () => console.log(''),
+          run: action('split-cells'),
         },
       ],
     },

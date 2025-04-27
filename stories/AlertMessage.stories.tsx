@@ -14,6 +14,7 @@
  * limitations under the License.
  */
 
+import { action } from '@storybook/addon-actions'
 import type { Meta, StoryObj } from '@storybook/react'
 import React from 'react'
 
@@ -77,7 +78,7 @@ export const WithStaticWidth: Story = {
       <AlertMessage
         type={AlertMessageType.info}
         dismissButton={{
-          action: () => console.log('button clicked'),
+          action: action('dismiss-button-clicked'),
           text: 'Click Here',
         }}
       >
