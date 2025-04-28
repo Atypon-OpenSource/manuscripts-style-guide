@@ -474,104 +474,15 @@ const ColorsPalette = () => (
   </StorySection>
 )
 
-// Typography
-const Typography = () => (
-  <>
-    <StorySection>
-      <StorySectionInner>
-        <h1>Font Families</h1>
-        <Div fontFamily={(props) => props.theme.font.family.sans}>
-          sans - "Lato", sans-serif
-        </Div>
-        <Div fontFamily={(props) => props.theme.font.family.serif}>
-          serif - "serif"
-        </Div>
-      </StorySectionInner>
-    </StorySection>
-    <StorySection>
-      <StorySectionInner>
-        <h1>Font Sizes</h1>
-        <Div fontSize={(props) => props.theme.font.size.xlarge}>
-          xlarge - 20px
-        </Div>
-        <Div fontSize={(props) => props.theme.font.size.large}>
-          large - 18px
-        </Div>
-        <Div fontSize={(props) => props.theme.font.size.medium}>
-          medium - 16px
-        </Div>
-        <Div fontSize={(props) => props.theme.font.size.normal}>
-          normal - 14px
-        </Div>
-        <Div fontSize={(props) => props.theme.font.size.small}>
-          small - 12px
-        </Div>
-      </StorySectionInner>
-      <StorySectionInner>
-        <h1>Font Weights</h1>
-        <Div fontWeight={(props) => props.theme.font.weight.xbold}>
-          extrabold - 900
-        </Div>
-        <Div fontWeight={(props) => props.theme.font.weight.bold}>
-          bold - 700
-        </Div>
-        <Div fontWeight={(props) => props.theme.font.weight.normal}>
-          normal - 400
-        </Div>
-        <Div fontWeight={(props) => props.theme.font.weight.light}>
-          light - 400
-        </Div>
-        <Div fontWeight={(props) => props.theme.font.weight.xlight}>
-          extralight - 400
-        </Div>
-      </StorySectionInner>
-      <StorySectionInner>
-        <h1>Line Heights</h1>
-        <Div lineHeight={(props) => props.theme.font.lineHeight.large}>
-          large - 24px
-        </Div>
-        <Div lineHeight={(props) => props.theme.font.lineHeight.normal}>
-          normal - 16px
-        </Div>
-        <Div lineHeight={(props) => props.theme.font.lineHeight.small}>
-          small - 14px
-        </Div>
-      </StorySectionInner>
-    </StorySection>
-  </>
-)
-
-// Grid
-const Grid = () => (
-  <StorySection>
-    <StorySectionInner>
-      <h1>Unit</h1>
-      <Div>4</Div>
-    </StorySectionInner>
-    <StorySectionInner>
-      <h1>Radius</h1>
-      <Div>default - 8px</Div>
-      <Div>small - 4px</Div>
-    </StorySectionInner>
-    <StorySectionInner>
-      <h1>Breakpoints</h1>
-      <Div>mobile - 360</Div>
-      <Div>tablet - 768</Div>
-      <Div>smallDesktop - 1024</Div>
-      <Div>desktop - 1280</Div>
-      <Div>largeDesktop - 1920</Div>
-      <Div>editorMaxWidth - 960</Div>
-    </StorySectionInner>
-  </StorySection>
-)
-
 // Meta for Colors
-const colorsMeta: Meta = {
+const meta: Meta = {
+  // Renamed component to null as it's just a container for color stories
+  // component: ColorsBasic, // Or perhaps a generic container component if needed
   title: 'Theme/Colors',
   tags: ['autodocs'],
 }
 
-export default colorsMeta
+export default meta
 
 // Stories for Colors
 export const Basic: StoryObj = {
@@ -584,21 +495,4 @@ export const ButtonsStory: StoryObj = {
 
 export const ColorsPaletteStory: StoryObj = {
   render: () => <ColorsPalette />,
-}
-
-// Meta for Theme
-const themeMeta: Meta = {
-  title: 'Theme',
-  tags: ['autodocs'],
-}
-
-export { themeMeta as themeMeta }
-
-// Stories for Theme
-export const TypographyStory: StoryObj = {
-  render: () => <Typography />,
-}
-
-export const GridStory: StoryObj = {
-  render: () => <Grid />,
 }
