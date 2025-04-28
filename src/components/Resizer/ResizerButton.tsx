@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 import React from 'react'
-import { AnyStyledComponent } from 'styled-components'
+import { IStyledComponent } from 'styled-components'
 
 import {
   HorizontalEndResizerButtonInner,
@@ -26,7 +26,10 @@ import {
 import { ResizerDirection, ResizerSide } from './types'
 
 type Inners = {
-  [direction in ResizerDirection]: { [side in ResizerSide]: AnyStyledComponent }
+  [direction in ResizerDirection]: {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    [side in ResizerSide]: IStyledComponent<'web', any>
+  }
 }
 
 const inners: Inners = {
@@ -48,17 +51,22 @@ interface Props extends React.HTMLProps<HTMLButtonElement> {
   buttonInner?: React.ComponentType<ResizerButtonInnerProps>
 }
 
-export class ResizerButton extends React.PureComponent<Props> {
-  public static defaultProps = {
-    isCollapsed: false,
-    isVisible: false,
-  }
-
-  public render() {
-    const { buttonInner, direction, side, isCollapsed, onClick, isVisible } =
-      this.props
-
-    const ResizerButtonInner = buttonInner || inners[direction][side]
+export const ResizerButton = React.memo<Props>(
+  ({
+    buttonInner,
+    direction,
+    side,
+    isCollapsed = false,
+    onClick,
+    isVisible = false,
+  }) => {
+    const ResizerButtonInner = (buttonInner ||
+      inners[direction][side]) as React.ComponentType<
+      ResizerButtonInnerProps & {
+        onClick?: React.MouseEventHandler
+        onMouseDown: (event: MouseEvent) => void
+      }
+    >
 
     return (
       <ResizerButtonInner
@@ -70,4 +78,6 @@ export class ResizerButton extends React.PureComponent<Props> {
       />
     )
   }
-}
+)
+
+ResizerButton.displayName = 'ResizerButton'

@@ -15,7 +15,7 @@
  */
 
 import { action } from '@storybook/addon-actions'
-import { storiesOf } from '@storybook/react'
+import type { Meta, StoryObj } from '@storybook/react'
 import * as React from 'react'
 import styled from 'styled-components'
 
@@ -51,8 +51,18 @@ const Div = styled.div`
   padding: 16px;
 `
 
-storiesOf('Buttons', module)
-  .add('Variations', () => (
+const meta: Meta<typeof PrimaryButton> = {
+  title: 'Buttons',
+  component: PrimaryButton,
+  tags: ['autodocs'],
+}
+
+export default meta
+type Story = StoryObj<typeof PrimaryButton>
+
+export const Variations: Story = {
+  name: 'Variations',
+  render: () => (
     <StorySection>
       <StorySectionInner>
         <h2>Default</h2>
@@ -148,8 +158,12 @@ storiesOf('Buttons', module)
         </Div>
       </StorySectionInner>
     </StorySection>
-  ))
-  .add('Icon Buttons', () => (
+  ),
+}
+
+export const Icon_Buttons: Story = {
+  name: 'Icon Buttons',
+  render: () => (
     <>
       <StorySection>
         <StorySectionInner>
@@ -197,8 +211,12 @@ storiesOf('Buttons', module)
         </StorySectionInner>
       </StorySection>
     </>
-  ))
-  .add('Toggle Button', () => (
+  ),
+}
+
+export const Toggle_Button: Story = {
+  name: 'Toggle Button',
+  render: () => (
     <StorySection>
       <StorySectionInner>
         <Div>
@@ -235,8 +253,12 @@ storiesOf('Buttons', module)
         </Div>
       </StorySectionInner>
     </StorySection>
-  ))
-  .add('Radio Button', () => (
+  ),
+}
+
+export const Radio_Button: Story = {
+  name: 'Radio Button',
+  render: () => (
     <>
       <Div>
         <RadioButton
@@ -254,8 +276,12 @@ storiesOf('Buttons', module)
         />
       </Div>
     </>
-  ))
-  .add('Button Group', () => (
+  ),
+}
+
+export const Button_Group: Story = {
+  name: 'Button Group',
+  render: () => (
     <ButtonGroup>
       <TertiaryButton onClick={action('clicked TertiaryButton')}>
         TertiaryButton
@@ -264,4 +290,5 @@ storiesOf('Buttons', module)
         PrimaryButton
       </PrimaryButton>
     </ButtonGroup>
-  ))
+  ),
+}

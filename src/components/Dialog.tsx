@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import React, { ChangeEvent } from 'react'
+import React, { ChangeEvent, useCallback, useEffect, useState } from 'react'
 import styled from 'styled-components'
 
 import { ButtonGroup, PrimaryButton, SecondaryButton } from './Button'
@@ -72,9 +72,6 @@ const ConfirmationTextField = styled(TextField)`
   margin-bottom: ${(props) => props.theme.grid.unit * 8}px;
 `
 
-interface DialogState {
-  primaryActionDisabled: boolean
-}
 interface DialogProps {
   isOpen: boolean
   actions: {
@@ -114,17 +111,11 @@ interface ButtonProps {
 const PrimaryAction = (props: ButtonProps) =>
   props.isDestructive ? (
     props.hasForm ? (
-      <PrimaryButton
-        danger={true}
-        disabled={props.disabled}
-        form="formDialog"
-        type="submit"
-      >
+      <PrimaryButton disabled={props.disabled} form="formDialog" type="submit">
         {props.title}
       </PrimaryButton>
     ) : (
       <PrimaryButton
-        danger={true}
         disabled={props.disabled}
         onClick={props.action}
         autoFocus={true}
@@ -152,133 +143,127 @@ const SecondaryAction = (props: ButtonProps) => (
   </SecondaryButton>
 )
 
-export class Dialog extends React.Component<DialogProps, DialogState> {
-  public state: DialogState = {
-    primaryActionDisabled: true,
-  }
+export const Dialog: React.FC<DialogProps> = ({
+  actions,
+  isOpen,
+  header,
+  message,
+  category,
+  children,
+  confirmFieldText,
+  className,
+}) => {
+  const [primaryActionDisabled, setPrimaryActionDisabled] = useState(true)
 
-  public componentDidMount(): void {
-    this.setDisabledBtnState(!!this.props.confirmFieldText)
-  }
+  useEffect(() => {
+    setPrimaryActionDisabled(!!confirmFieldText)
+  }, [confirmFieldText])
 
-  public render() {
-    const {
-      actions,
-      isOpen,
-      header,
-      message,
-      category,
-      children,
-      confirmFieldText,
-      className,
-    } = this.props
-    const { primaryActionDisabled } = this.state
+  const checkInputValue = useCallback(
+    (event: ChangeEvent<HTMLInputElement>) => {
+      const testingVal = confirmFieldText && confirmFieldText.toUpperCase()
+      const target = event.target
+      const newVal = target.value.toUpperCase()
 
-    return (
-      <StyledModal
-        isOpen={isOpen}
-        onRequestClose={actions.onClose}
-        shouldCloseOnOverlayClick={true}
-        className={className}
-      >
-        <DialogModalBody>
-          <HeaderContainer>
-            {category === Category.error && (
-              <Icon>
-                <AttentionRedIcon />
-              </Icon>
-            )}
-            {category === Category.warning && (
-              <Icon>
-                <AttentionOrangeIcon />
-              </Icon>
-            )}
-            {header}
-          </HeaderContainer>
-          <MessageContainer>
-            {message}
-            {confirmFieldText && (
-              <form id="formDialog" onSubmit={this.handleSubmit}>
-                <ConfirmationTextField
-                  autoFocus={true}
-                  onChange={this.checkInputValue}
-                  placeholder={'Please type: ' + confirmFieldText}
-                  required={true}
-                />
-              </form>
-            )}
-            {children}
-          </MessageContainer>
-          {this.renderButtons(this.props, primaryActionDisabled)}
-        </DialogModalBody>
-      </StyledModal>
-    )
-  }
-
-  private renderButtons = (props: DialogProps, disabled: boolean) => (
-    <ButtonsContainer>
-      {props.actions.secondary ? (
-        !props.actions.primary.isDestructive ? (
-          <>
-            <SecondaryAction
-              action={props.actions.secondary.action}
-              hasForm={!!this.props.confirmFieldText}
-              title={props.actions.secondary.title}
-            />
-            <PrimaryAction
-              action={props.actions.primary.action}
-              disabled={disabled}
-              title={props.actions.primary.title || 'Dismiss'}
-            />
-          </>
-        ) : (
-          <>
-            <PrimaryAction
-              action={props.actions.primary.action}
-              disabled={disabled}
-              isDestructive={true}
-              hasForm={!!this.props.confirmFieldText}
-              title={props.actions.primary.title || 'Dismiss'}
-            />
-            <SecondaryAction
-              action={props.actions.secondary.action}
-              title={props.actions.secondary.title}
-            />
-          </>
-        )
-      ) : (
-        <PrimaryAction
-          action={props.actions.primary.action}
-          disabled={disabled}
-          isDestructive={props.actions.primary.isDestructive}
-          hasForm={!!this.props.confirmFieldText}
-          title={props.actions.primary.title || 'Dismiss'}
-        />
-      )}
-    </ButtonsContainer>
+      setPrimaryActionDisabled(newVal !== testingVal)
+    },
+    [confirmFieldText]
   )
 
-  private checkInputValue = (event: ChangeEvent<HTMLInputElement>) => {
-    const testingVal =
-      this.props.confirmFieldText && this.props.confirmFieldText.toUpperCase()
-    const target = event.target
-    const newVal = target.value.toUpperCase()
+  const handleSubmit = useCallback(
+    async (e: React.FormEvent<HTMLFormElement>) => {
+      e.preventDefault()
 
-    this.setDisabledBtnState(newVal !== testingVal)
-  }
+      if (!primaryActionDisabled) {
+        actions.primary.action()
+      }
+    },
+    [primaryActionDisabled, actions.primary]
+  )
 
-  private setDisabledBtnState = (state: boolean) => {
-    this.setState({ primaryActionDisabled: state })
-  }
+  const renderButtons = useCallback(
+    (disabled: boolean) => (
+      <ButtonsContainer>
+        {actions.secondary ? (
+          !actions.primary.isDestructive ? (
+            <>
+              <SecondaryAction
+                action={actions.secondary.action}
+                hasForm={!!confirmFieldText}
+                title={actions.secondary.title}
+              />
+              <PrimaryAction
+                action={actions.primary.action}
+                disabled={disabled}
+                title={actions.primary.title || 'Dismiss'}
+              />
+            </>
+          ) : (
+            <>
+              <PrimaryAction
+                action={actions.primary.action}
+                disabled={disabled}
+                isDestructive={true}
+                hasForm={!!confirmFieldText}
+                title={actions.primary.title || 'Dismiss'}
+              />
+              <SecondaryAction
+                action={actions.secondary.action}
+                title={actions.secondary.title}
+              />
+            </>
+          )
+        ) : (
+          <PrimaryAction
+            action={actions.primary.action}
+            disabled={disabled}
+            isDestructive={actions.primary.isDestructive}
+            hasForm={!!confirmFieldText}
+            title={actions.primary.title || 'Dismiss'}
+          />
+        )}
+      </ButtonsContainer>
+    ),
+    [actions, confirmFieldText]
+  )
 
-  private handleSubmit = async (
-    e: React.FormEvent<HTMLFormElement>
-  ): Promise<void> => {
-    const { primaryActionDisabled } = this.state
-    e.preventDefault()
-
-    if (!primaryActionDisabled) {
-      this.props.actions.primary.action()
-    }
-  }
+  return (
+    <StyledModal
+      isOpen={isOpen}
+      onRequestClose={actions.onClose}
+      shouldCloseOnOverlayClick={true}
+      className={className}
+    >
+      <DialogModalBody>
+        <HeaderContainer>
+          {category === Category.error && (
+            <Icon>
+              <AttentionRedIcon />
+            </Icon>
+          )}
+          {category === Category.warning && (
+            <Icon>
+              <AttentionOrangeIcon />
+            </Icon>
+          )}
+          {header}
+        </HeaderContainer>
+        <MessageContainer>
+          {message}
+          {confirmFieldText && (
+            <form id="formDialog" onSubmit={handleSubmit}>
+              <ConfirmationTextField
+                autoFocus={true}
+                onChange={checkInputValue}
+                placeholder={'Please type: ' + confirmFieldText}
+                required={true}
+              />
+            </form>
+          )}
+          {children}
+        </MessageContainer>
+        {renderButtons(primaryActionDisabled)}
+      </DialogModalBody>
+    </StyledModal>
+  )
 }

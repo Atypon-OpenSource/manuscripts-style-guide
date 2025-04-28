@@ -67,7 +67,7 @@ const Input = styled.input`
 interface RadioProps {
   checked?: boolean
   id: string
-  label: string | JSX.Element
+  label: string | React.ReactNode
   name?: string
 }
 

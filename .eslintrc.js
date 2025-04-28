@@ -21,5 +21,6 @@ module.exports = {
     '@typescript-eslint/no-unused-vars': 'off',
     'react/no-unescaped-entities': 'off',
     'jsx-a11y/no-autofocus': 'off',
+    'import/no-named-as-default': 'off',
   },
 }

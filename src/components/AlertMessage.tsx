@@ -14,11 +14,10 @@
  * limitations under the License.
  */
 
-import React from 'react'
-import { SizeMe } from 'react-sizeme'
-import styled, { AnyStyledComponent, css } from 'styled-components'
+import React, { useCallback, useState } from 'react'
+import styled, { css, IStyledComponent } from 'styled-components'
 
-import { IconButton, IconTextButton } from './Button'
+import { IconTextButton } from './Button'
 import {
   AttentionBlueIcon,
   AttentionGreenIcon,
@@ -41,13 +40,6 @@ const buttonStyles = css`
   }
 `
 export const TextButton = styled(IconTextButton)`
-  ${buttonStyles}
-`
-
-const CloseIconButton = styled(IconButton).attrs({
-  defaultColor: true,
-  size: 16,
-})`
   ${buttonStyles}
 `
 
@@ -112,10 +104,6 @@ const SuccessIcon = styled(AttentionGreenIcon)`
   transform: scale(0.75, 0.75);
 `
 
-interface State {
-  isOpen: boolean
-}
-
 interface Dismiss {
   text: string
   action?: () => void
@@ -131,7 +119,6 @@ export enum AlertMessageType {
 interface Props {
   type: AlertMessageType
   dismissButton?: Dismiss
-  hideCloseButton?: boolean
   children: React.ReactNode
 }
 
@@ -142,53 +129,47 @@ const alertIcons: { [key in AlertMessageType]: React.FC } = {
   warning: AttentionOrangeIcon,
 }
 
-const alertContainers: { [key in AlertMessageType]: AnyStyledComponent } = {
+const alertContainers: {
+  //eslint-disable-next-line @typescript-eslint/no-explicit-any
+  [key in AlertMessageType]: IStyledComponent<'web', any>
+} = {
   success: SuccessAlertContainer,
   error: ErrorAlertContainer,
   info: InfoAlertContainer,
   warning: WarningAlertContainer,
 }
 
-export class AlertMessage extends React.Component<Props, State> {
-  public state: State = {
-    isOpen: true,
+export const AlertMessage: React.FC<Props> = ({
+  dismissButton,
+  children,
+  type,
+}) => {
+  const [isOpen, setIsOpen] = useState(true)
+
+  const handleClose = useCallback(() => {
+    setIsOpen(false)
+  }, [])
+
+  if (!isOpen) {
+    return null
   }
 
-  public render() {
-    const { hideCloseButton, dismissButton, children, type } = this.props
-    const { isOpen } = this.state
+  const AlertContainer = alertContainers[type]
+  const AlertIcon = alertIcons[type]
 
-    const AlertContainer = alertContainers[type]
-    const AlertIcon = alertIcons[type]
-
-    return (
-      isOpen && (
-        <SizeMe>
-          {() => (
-            <AlertContainer className={'alert-message'}>
-              <InnerContainer>
-                <InformativeIcon>{<AlertIcon />}</InformativeIcon>
-                <TextContainer>{children}</TextContainer>
-                {dismissButton && (
-                  <TextButton
-                    onClick={
-                      dismissButton.action
-                        ? dismissButton.action
-                        : this.handleClose
-                    }
-                  >
-                    {dismissButton.text}
-                  </TextButton>
-                )}
-              </InnerContainer>
-            </AlertContainer>
-          )}
-        </SizeMe>
-      )
-    )
-  }
-
-  private handleClose = () => {
-    this.setState({ isOpen: false })
-  }
+  return (
+    <AlertContainer className={'alert-message'}>
+      <InnerContainer>
+        <InformativeIcon>{<AlertIcon />}</InformativeIcon>
+        <TextContainer>{children}</TextContainer>
+        {dismissButton && (
+          <TextButton
+            onClick={dismissButton.action ? dismissButton.action : handleClose}
+          >
+            {dismissButton.text}
+          </TextButton>
+        )}
+      </InnerContainer>
+    </AlertContainer>
+  )
 }

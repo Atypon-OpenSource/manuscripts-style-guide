@@ -20,8 +20,8 @@ export const useScrollDetection = (
   topTrigger: number,
   bottomTrigger: number
 ) => {
-  const refRoot = useRef<HTMLDivElement | null>()
-  const observer = useRef<() => void>()
+  const refRoot = useRef<HTMLDivElement | null>(null)
+  const observer = useRef<() => void>(null)
   const [triggers, setTriggers] = useState({ bottom: false, top: false })
 
   const ref = (node: HTMLDivElement | null) => {

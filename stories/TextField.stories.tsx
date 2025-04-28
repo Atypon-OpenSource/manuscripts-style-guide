@@ -15,7 +15,7 @@
  */
 
 import { action } from '@storybook/addon-actions'
-import { storiesOf } from '@storybook/react'
+import type { Meta, StoryObj } from '@storybook/react' // Import CSF types
 import { Field, FieldProps, Form, Formik } from 'formik'
 import * as React from 'react'
 
@@ -31,13 +31,46 @@ import {
   TextFieldWrapper,
 } from '../src'
 
-storiesOf('TextField', module)
-  .add('default', () => <TextField />)
-  .add('required', () => <TextField required={true} />)
-  .add('with placeholder', () => <TextField placeholder={'Enter some text'} />)
-  .add('type: email', () => <TextField type={'email'} required={true} />)
-  .add('type: password', () => <TextField type={'password'} required={true} />)
-  .add('grouped', () => (
+// Define Meta for the story file - groups all stories under 'TextField'
+const meta: Meta<typeof TextField> = {
+  title: 'TextField',
+  component: TextField, // Associate with the main TextField component
+  tags: ['autodocs'],
+}
+
+export default meta
+// Define a generic Story type based on TextField props (adjust if needed for complex stories)
+type Story = StoryObj<typeof TextField>
+
+// Basic TextField Stories
+export const Default: Story = {
+  name: 'Default', // Explicit name matching the old .add()
+  render: () => <TextField />,
+}
+
+export const Required: Story = {
+  name: 'Required',
+  render: () => <TextField required={true} />,
+}
+
+export const WithPlaceholder: Story = {
+  name: 'With Placeholder',
+  render: () => <TextField placeholder={'Enter some text'} />,
+}
+
+export const TypeEmail: Story = {
+  name: 'Type: Email',
+  render: () => <TextField type={'email'} required={true} />,
+}
+
+export const TypePassword: Story = {
+  name: 'Type: Password',
+  render: () => <TextField type={'password'} required={true} />,
+}
+
+export const Grouped: Story = {
+  name: 'Grouped',
+  render: () => (
     <TextFieldGroup>
       <TextField />
       <TextField />
@@ -45,21 +78,23 @@ storiesOf('TextField', module)
       <TextField />
       <TextField />
     </TextFieldGroup>
-  ))
-  .add('with icon', () => (
+  ),
+}
+
+export const WithIcon: Story = {
+  name: 'With Icon',
+  render: () => (
     <TextFieldWrapper leftIcon={<EditIcon />}>
       <TextField />
     </TextFieldWrapper>
-  ))
+  ),
+}
 
-storiesOf('TextField/AutoSave', module)
-  .add('on change', () => (
-    <Formik
-      initialValues={{
-        name: '',
-      }}
-      onSubmit={action('submit')}
-    >
+// AutoSave Stories (using name for grouping)
+export const AutoSaveOnChange: Story = {
+  name: 'AutoSave / On Change',
+  render: () => (
+    <Formik initialValues={{ name: '' }} onSubmit={action('submit')}>
       <Form>
         <Field name={'name'}>
           {(props: FieldProps) => (
@@ -73,14 +108,13 @@ storiesOf('TextField/AutoSave', module)
         </Field>
       </Form>
     </Formik>
-  ))
-  .add('on blur', () => (
-    <Formik
-      initialValues={{
-        name: '',
-      }}
-      onSubmit={action('submit')}
-    >
+  ),
+}
+
+export const AutoSaveOnBlur: Story = {
+  name: 'AutoSave / On Blur',
+  render: () => (
+    <Formik initialValues={{ name: '', email: '' }} onSubmit={action('submit')}>
       <Form>
         <TextFieldGroupContainer>
           <Field name={'name'}>
@@ -93,7 +127,6 @@ storiesOf('TextField/AutoSave', module)
               />
             )}
           </Field>
-
           <Field name={'email'} type={'email'}>
             {(props: FieldProps) => (
               <AutoSaveInput
@@ -107,27 +140,43 @@ storiesOf('TextField/AutoSave', module)
         </TextFieldGroupContainer>
       </Form>
     </Formik>
-  ))
+  ),
+}
 
-storiesOf('TextField/Container', module)
-  .add('default', () => (
+// Container Stories (using name for grouping)
+export const ContainerDefault: Story = {
+  name: 'Container / Default',
+  // Associate with TextFieldContainer if needed for docs, but keep primary component as TextField
+  // component: TextFieldContainer,
+  render: () => (
     <TextFieldContainer>
       <TextField />
     </TextFieldContainer>
-  ))
-  .add('with label', () => (
+  ),
+}
+
+export const ContainerWithLabel: Story = {
+  name: 'Container / With Label',
+  render: () => (
     <TextFieldContainer label={'Name'}>
       <TextField />
     </TextFieldContainer>
-  ))
-  .add('with error', () => (
+  ),
+}
+
+export const ContainerWithError: Story = {
+  name: 'Container / With Error',
+  render: () => (
     <TextFieldContainer error={'There was an error'}>
       <TextField />
     </TextFieldContainer>
-  ))
+  ),
+}
 
-storiesOf('TextField/GroupContainer', module)
-  .add('default', () => (
+// GroupContainer Stories (using name for grouping)
+export const GroupContainerDefault: Story = {
+  name: 'GroupContainer / Default',
+  render: () => (
     <TextFieldGroupContainer>
       <TextFieldContainer>
         <TextField name={'foo'} />
@@ -136,8 +185,12 @@ storiesOf('TextField/GroupContainer', module)
         <TextField name={'foo'} />
       </TextFieldContainer>
     </TextFieldGroupContainer>
-  ))
-  .add('one error', () => (
+  ),
+}
+
+export const GroupContainerOneError: Story = {
+  name: 'GroupContainer / One Error',
+  render: () => (
     <TextFieldGroupContainer
       errors={{
         foo: 'There was an error',
@@ -146,8 +199,12 @@ storiesOf('TextField/GroupContainer', module)
       <TextField name={'foo'} error={'There was an error'} />
       <TextField name={'bar'} />
     </TextFieldGroupContainer>
-  ))
-  .add('another error', () => (
+  ),
+}
+
+export const GroupContainerAnotherError: Story = {
+  name: 'GroupContainer / Another Error',
+  render: () => (
     <TextFieldGroupContainer
       errors={{
         foo: 'There was an error',
@@ -158,8 +215,12 @@ storiesOf('TextField/GroupContainer', module)
       <TextField name={'bar'} />
       <TextField name={'baz'} error={'There was another error'} />
     </TextFieldGroupContainer>
-  ))
-  .add('multiple errors', () => (
+  ),
+}
+
+export const GroupContainerMultipleErrors: Story = {
+  name: 'GroupContainer / Multiple Errors',
+  render: () => (
     <TextFieldGroupContainer
       errors={{
         foo: 'There was an error',
@@ -171,10 +232,15 @@ storiesOf('TextField/GroupContainer', module)
       <TextField name={'bar'} error={'There was another error'} />
       <TextField name={'baz'} error={'There was a third error'} />
     </TextFieldGroupContainer>
-  ))
+  ),
+}
 
-storiesOf('TextField/Error', module).add('default', () => (
-  <TextFieldError>
-    <TextFieldErrorItem>There was an error</TextFieldErrorItem>
-  </TextFieldError>
-))
+// Error Story (using name for grouping)
+export const ErrorDefault: Story = {
+  name: 'Error / Default',
+  render: () => (
+    <TextFieldError>
+      <TextFieldErrorItem>There was an error</TextFieldErrorItem>
+    </TextFieldError>
+  ),
+}

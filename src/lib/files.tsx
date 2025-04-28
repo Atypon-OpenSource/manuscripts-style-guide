@@ -91,7 +91,7 @@ const extension2type = new Map<string, FileType>([
   ['txt', FileType.PlainText],
 ])
 
-const type2icon = new Map<FileType | undefined, JSX.Element>([
+const type2icon = new Map<FileType | undefined, React.ReactNode>([
   [
     FileType.Audio,
     <FileAudioIcon key={FileType.Audio} className="file-icon" />,
