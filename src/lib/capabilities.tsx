@@ -82,6 +82,7 @@ export const getCapabilities = (
 
   const isOwner = isMemberOf(project?.owners)
   const isEditor = isMemberOf(project?.editors)
+  const isWriter = isMemberOf(project?.writers)
   const isAnnotator = isMemberOf(project?.annotators)
   const isProofer = isMemberOf(project?.proofers)
   const isViewer = isMemberOf(project?.viewers) || isViewingMode
@@ -89,7 +90,7 @@ export const getCapabilities = (
   const allowed = (action: string) => !!actions?.includes(action)
 
   const canEditWithoutTracking = allowed(Actions.editWithoutTracking)
-  const isPrivileged = isOwner || isEditor || canEditWithoutTracking
+  const isPrivileged = isOwner || isEditor || isWriter || canEditWithoutTracking
   const canHandleAttachments =
     (isPrivileged || isAnnotator) && allowed(Actions.updateAttachment)
 
