@@ -1,7 +1,7 @@
 {
   "name": "@manuscripts/style-guide",
   "description": "Shared components for Manuscripts applications",
-  "version": "2.1.10",
+  "version": "2.1.10-LEAN-4531",
   "repository": "github:Atypon-OpenSource/manuscripts-style-guide",
   "license": "Apache-2.0",
   "main": "dist/cjs",
@@ -33,7 +33,7 @@
   },
   "dependencies": {
     "@headlessui/react": "^2.1.10",
-    "@manuscripts/json-schema": "2.2.11",
+    "@manuscripts/json-schema": "2.2.12-LEAN-4531",
     "date-fns": "^2.29.3",
     "formik": "^2.2.9",
     "fuzzysort": "^2.0.4",
