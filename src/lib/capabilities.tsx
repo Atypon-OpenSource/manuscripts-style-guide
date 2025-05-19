@@ -90,9 +90,9 @@ export const getCapabilities = (
   const allowed = (action: string) => !!actions?.includes(action)
 
   const canEditWithoutTracking = allowed(Actions.editWithoutTracking)
-  const isPrivileged = isOwner || isEditor || isWriter || canEditWithoutTracking
-  const canHandleAttachments =
-    (isPrivileged || isAnnotator) && allowed(Actions.updateAttachment)
+  const isPrivileged = isOwner || isEditor || isWriter
+  const canEditFiles = (isPrivileged || isAnnotator) && !isViewingMode
+  const canUpdateAttachments = canEditFiles && allowed(Actions.updateAttachment)
 
   return {
     /* track changes */
@@ -109,11 +109,11 @@ export const getCapabilities = (
 
     /* file handling */
     downloadFiles: true,
-    changeDesignation: canHandleAttachments,
-    moveFile: isPrivileged || isAnnotator,
-    replaceFile: canHandleAttachments,
-    uploadFile: canHandleAttachments,
-    detachFile: isPrivileged || isAnnotator,
+    changeDesignation: canUpdateAttachments,
+    moveFile: canEditFiles,
+    replaceFile: canUpdateAttachments,
+    uploadFile: canUpdateAttachments,
+    detachFile: canEditFiles,
     setMainManuscript: allowed(Actions.setMainManuscript),
 
     /* editor */
