@@ -135,11 +135,15 @@ export const getCapabilities = (
     moveFile: isOwner() || isEditor() || isWriter() || isAnnotator(),
     replaceFile:
       (isOwner() || isEditor() || isWriter() || isAnnotator()) &&
-      allowed(Actions.updateAttachment),
+      allowed(Actions.updateAttachment) &&
+      !isViewingMode,
     uploadFile:
       (isOwner() || isEditor() || isWriter() || isAnnotator()) &&
-      allowed(Actions.updateAttachment),
-    detachFile: isOwner() || isEditor() || isWriter() || isAnnotator(),
+      allowed(Actions.updateAttachment) &&
+      !isViewingMode,
+    detachFile:
+      (isOwner() || isEditor() || isWriter() || isAnnotator()) &&
+      !isViewingMode,
     handleQualityReport: isOwner() || isEditor() || isWriter(),
     setMainManuscript: allowed(Actions.setMainManuscript),
     /* dashboard actions */
