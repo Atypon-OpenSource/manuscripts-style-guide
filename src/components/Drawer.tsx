@@ -16,8 +16,6 @@
 import React from 'react'
 import styled, { keyframes } from 'styled-components'
 
-import { AddedIcon, AddIcon } from './icons'
-
 export interface DrawerProps {
   title: string
 
@@ -37,6 +35,7 @@ const slideIn = keyframes`
 
 const DrawerContainer = styled.div<{ width?: string }>`
   width: ${(props) => props.width || '300px'};
+  padding: 40px 0 0 0;
   background: ${(props) => props.theme.colors.background.primary};
   border-right: 1px solid ${(props) => props.theme.colors.border.secondary};
   height: 100%;
@@ -101,7 +100,7 @@ export const DrawerIcon = styled.span`
 `
 
 const DrawerTitle = styled.h2`
-  padding: 8px 16px 6px 16px;
+  padding: 16px 16px 48px 16px;
   margin: 0;
   font-weight: ${(props) => props.theme.font.weight.normal};
   font-size: ${(props) => props.theme.font.size.large};
