@@ -17,26 +17,18 @@ import { Project, UserProfile } from '@manuscripts/json-schema'
 import React from 'react'
 
 export type Capabilities = {
-  /* suggestions */
+  /* track changes */
   handleSuggestion: boolean
+  editWithoutTracking: boolean
   rejectOwnSuggestion: boolean
-  createSuggestion: boolean
-  viewSuggestion: boolean
+
   /* comments */
-  seeEditorToolbar: boolean
-  seeReferencesButtons: boolean
   handleOwnComments: boolean
   resolveOwnComment: boolean
   handleOthersComments: boolean
   resolveOthersComment: boolean
   createComment: boolean
-  /* production notes */
-  viewNotes: boolean
-  createNotes: boolean
-  handleNotes: boolean // Approve rejecet owns and others
-  /* history */
-  viewHistory: boolean
-  restoreVersion: boolean
+
   /* file handling */
   downloadFiles: boolean
   changeDesignation: boolean
@@ -44,24 +36,15 @@ export type Capabilities = {
   replaceFile: boolean
   uploadFile: boolean
   detachFile: boolean
-  handleQualityReport: boolean
   setMainManuscript: boolean
-  /* dashboard actions */
-  // completeTask: boolean
-  rejectTask: boolean
-  acceptTask: boolean
-  resolveOnHoldTask: boolean
-  putOnHoldTask: boolean
-  changeDueDate: boolean
-  previewAccess: boolean
-  editWithoutTracking: boolean
-  accessEditor: boolean
+
+  /* editor */
   formatArticle: boolean
   editArticle: boolean
   editMetadata: boolean
-  shareProject: boolean
   editCitationsAndRefs: boolean
-  applySaveChanges: boolean
+  seeEditorToolbar: boolean
+  seeReferencesButtons: boolean
 }
 
 enum Actions {
@@ -70,6 +53,7 @@ enum Actions {
   updateDueDate = 'update-due-date',
   addNote = 'add-note',
   setMainManuscript = 'set-main-manuscript',
+  editWithoutTracking = 'edit-without-tracking',
 }
 
 export interface ProviderProps {
@@ -91,78 +75,54 @@ export const getCapabilities = (
   actions?: string[],
   isViewingMode?: boolean
 ): Capabilities => {
-  const isEditor = () =>
-    !!(profile && project?.editors?.includes(profile.userID))
-  const isOwner = () => !!(profile && project?.owners?.includes(profile.userID))
-  const isWriter = () =>
-    !!(profile && project?.writers?.includes(profile.userID))
-  const isAnnotator = () =>
-    !!(profile && project?.annotators?.includes(profile.userID))
-  const isProofer = () =>
-    !!(profile && project?.proofers?.includes(profile.userID))
-  const isViewer = () =>
-    !!(profile && project?.viewers?.includes(profile.userID)) || isViewingMode
-  const isProdEditor = () => role == 'pe'
+  const userID = profile?.userID
+
+  const isMemberOf = (group?: string[]) =>
+    group?.includes(userID ?? '') ?? false
+
+  const isOwner = isMemberOf(project?.owners)
+  const isEditor = isMemberOf(project?.editors)
+  const isWriter = isMemberOf(project?.writers)
+  const isAnnotator = isMemberOf(project?.annotators)
+  const isProofer = isMemberOf(project?.proofers)
+  const isViewer = isMemberOf(project?.viewers) || isViewingMode
+
   const allowed = (action: string) => !!actions?.includes(action)
 
+  const canEditWithoutTracking = allowed(Actions.editWithoutTracking)
+  const isPrivileged = isOwner || isEditor || isWriter
+  const canEditFiles = (isPrivileged || isAnnotator) && !isViewingMode
+  const canUpdateAttachments = canEditFiles && allowed(Actions.updateAttachment)
+
   return {
-    /* suggestions */
-    handleSuggestion: isOwner() || isEditor() || isWriter(),
-    editWithoutTracking: isWriter(),
-    rejectOwnSuggestion: !isViewer(),
-    createSuggestion: !isViewer(),
-    viewSuggestion: true,
-    seeEditorToolbar: !isViewer(),
-    seeReferencesButtons: !isViewer(),
+    /* track changes */
+    handleSuggestion: isPrivileged,
+    editWithoutTracking: canEditWithoutTracking,
+    rejectOwnSuggestion: !isViewer,
+
     /* comments */
-    handleOwnComments: !isViewer(),
-    handleOthersComments: isOwner(),
-    resolveOwnComment: !isViewer(),
-    resolveOthersComment: !(isViewer() || isAnnotator() || isProofer()),
-    createComment: !isViewer(),
-    /* production notes */
-    viewNotes: true,
-    createNotes: !isViewer() && allowed(Actions.addNote),
-    handleNotes: isOwner() || isEditor() || isWriter() || isAnnotator(), // Approve rejecet owns and others
-    /* history */
-    viewHistory: false,
-    restoreVersion: isOwner() || isEditor() || isWriter(),
+    handleOwnComments: !isViewer,
+    handleOthersComments: isOwner,
+    resolveOwnComment: !isViewer,
+    resolveOthersComment: isOwner || isEditor,
+    createComment: !isViewer,
+
     /* file handling */
     downloadFiles: true,
-    changeDesignation:
-      (isOwner() || isEditor() || isWriter() || isAnnotator()) &&
-      allowed(Actions.updateAttachment),
-    moveFile: isOwner() || isEditor() || isWriter() || isAnnotator(),
-    replaceFile:
-      (isOwner() || isEditor() || isWriter() || isAnnotator()) &&
-      allowed(Actions.updateAttachment) &&
-      !isViewingMode,
-    uploadFile:
-      (isOwner() || isEditor() || isWriter() || isAnnotator()) &&
-      allowed(Actions.updateAttachment) &&
-      !isViewingMode,
-    detachFile:
-      (isOwner() || isEditor() || isWriter() || isAnnotator()) &&
-      !isViewingMode,
-    handleQualityReport: isOwner() || isEditor() || isWriter(),
+    changeDesignation: canUpdateAttachments,
+    moveFile: canEditFiles,
+    replaceFile: canUpdateAttachments,
+    uploadFile: canUpdateAttachments,
+    detachFile: canEditFiles,
     setMainManuscript: allowed(Actions.setMainManuscript),
-    /* dashboard actions */
-    // completeTask: !isViewer() && allowed(Actions.proceed),
-    rejectTask: isProdEditor(),
-    acceptTask: isProdEditor(),
-    resolveOnHoldTask: isProdEditor(),
-    putOnHoldTask: isProdEditor(),
-    changeDueDate: isProdEditor() && allowed(Actions.updateDueDate),
-    previewAccess: true,
-    accessEditor: true,
-    /* menu */
-    formatArticle: !isViewer(),
+
     /* editor */
-    editArticle: !isViewer(),
-    editMetadata: !(isViewer() || isProofer()) || isAnnotator(),
-    editCitationsAndRefs: !(isViewer() || isProofer()),
-    shareProject: isOwner(),
-    applySaveChanges: !(isAnnotator() || isProofer()),
+    editArticle: !isViewer,
+    formatArticle: !isViewer,
+    editMetadata: !(isViewer || isProofer),
+    editCitationsAndRefs: !(isViewer || isProofer),
+    seeEditorToolbar: !isViewer,
+    seeReferencesButtons: !isViewer,
   }
 }
 
