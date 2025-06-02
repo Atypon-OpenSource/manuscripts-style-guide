@@ -18,19 +18,12 @@ import styled, { keyframes } from 'styled-components'
 
 import { AddedIcon, AddIcon } from './icons'
 
-interface DrawerProps {
-  items: Array<{
-    id: string
-    label: string
-    country?: string
-    city?: string
-    state?: string
-  }>
-  selectedIds?: string[]
+export interface DrawerProps {
   title: string
-  onSelect: (id: string) => void
+
   onBack: () => void
   width?: string
+  children: React.ReactNode
 }
 
 const slideIn = keyframes`
@@ -56,7 +49,7 @@ const DrawerContainer = styled.div<{ width?: string }>`
   z-index: 1;
 `
 
-const BackButton = styled.button`
+const DrawerBackButton = styled.button`
   padding: 8px 16px;
   border: none;
   background: none;
@@ -75,14 +68,14 @@ const BackButton = styled.button`
   }
 `
 
-const ItemsList = styled.ul`
+export const DrawerItemsList = styled.ul`
   list-style: none;
   padding: 0;
   margin: 0;
   overflow-y: auto;
 `
 
-const ListItem = styled.li<{ selected?: boolean }>`
+export const DrawerListItem = styled.li<{ selected?: boolean }>`
   padding: 8px 16px;
   cursor: pointer;
   display: flex;
@@ -99,7 +92,7 @@ const ListItem = styled.li<{ selected?: boolean }>`
   }
 `
 
-const Icon = styled.span`
+export const DrawerIcon = styled.span`
   width: 20px;
   height: 20px;
   display: inline-flex;
@@ -116,20 +109,20 @@ const DrawerTitle = styled.h2`
   color: ${(props) => props.theme.colors.text.secondary};
 `
 
-const LabelContainer = styled.div`
+export const DrawerLabelContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: 4px;
 `
 
-const ItemLabel = styled.span`
+export const DrawerItemLabel = styled.span`
   font-weight: ${(props) => props.theme.font.weight.normal};
   font-size: ${(props) => props.theme.font.size.medium};
   font-family: ${(props) => props.theme.font.family.sans};
   color: ${(props) => props.theme.colors.text.primary};
 `
 
-const ItemMeta = styled.span`
+export const DrawerItemMeta = styled.span`
   font-weight: ${(props) => props.theme.font.weight.normal};
   font-size: ${(props) => props.theme.font.size.small};
   font-family: ${(props) => props.theme.font.family.sans};
@@ -137,56 +130,19 @@ const ItemMeta = styled.span`
 `
 
 export const Drawer: React.FC<DrawerProps> = ({
-  items,
-  selectedIds = [],
   title,
-  onSelect,
   onBack,
   width,
+  children,
 }) => {
   return (
     <DrawerContainer data-cy="drawer" width={width}>
-      <BackButton onClick={onBack}>
+      <DrawerBackButton onClick={onBack}>
         <span>←</span>
         Back
-      </BackButton>
+      </DrawerBackButton>
       <DrawerTitle>{title}</DrawerTitle>
-      <ItemsList>
-        {items.map((item) => (
-          <ListItem
-            data-cy="item"
-            key={item.id}
-            selected={selectedIds?.includes(item.id)}
-            onClick={() => onSelect(item.id)}
-          >
-            <Icon>
-              {selectedIds?.includes(item.id) ? (
-                <AddedIcon width={22} height={22} />
-              ) : (
-                <AddIcon width={22} height={22} />
-              )}
-            </Icon>
-            <LabelContainer>
-              <ItemLabel>{item.label}</ItemLabel>
-              <ItemMeta>
-                {item.city && (
-                  <>
-                    {item.city}
-                    {item.state || item.country ? ', ' : ''}
-                  </>
-                )}
-                {item.state && (
-                  <>
-                    {item.state}
-                    {item.country ? ', ' : ''}
-                  </>
-                )}
-                {item.country && <>{item.country}</>}
-              </ItemMeta>
-            </LabelContainer>
-          </ListItem>
-        ))}
-      </ItemsList>
+      {children}
     </DrawerContainer>
   )
 }
