@@ -65,12 +65,13 @@ export const ModalHeader = styled.div`
   position: absolute;
   right: 0;
   top: 0;
-  z-index: 1;
+  z-index: 3;
 `
 
 export const CloseButton = styled(RoundIconButton)<{ size?: number }>`
   box-shadow: none;
   text-indent: -99999px;
+  z-index: 2;
 
   ::before,
   ::after {
@@ -135,6 +136,7 @@ export const ModelContent = styled.div`
 
 export const ScrollableModalContent = styled(ModelContent)`
   overflow-y: auto;
+  max-height: 100%;
 `
 
 export const StyledModal = styled(ReactModalAdapter).attrs({
