@@ -102,5 +102,8 @@
     "storybook": "7.6.10",
     "typeface-lato": "1.1.13",
     "typescript": "4.9.5"
+  },
+  "engines": {
+    "node": ">=20.16.0"
   }
 }
