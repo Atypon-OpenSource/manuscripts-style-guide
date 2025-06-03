@@ -32,7 +32,7 @@
   },
   "dependencies": {
     "@headlessui/react": "2.2.3",
-    "@manuscripts/json-schema": "2.2.11",
+    "@manuscripts/json-schema": "2.2.12",
     "date-fns": "2.30.0",
     "formik": "2.4.6",
     "lodash": "4.17.21",
@@ -102,8 +102,5 @@
     "storybook": "7.6.10",
     "typeface-lato": "1.1.13",
     "typescript": "4.9.5"
-  },
-  "resolutions": {
-    "jackspeak": "2.1.1"
   }
 }
