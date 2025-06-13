@@ -20,52 +20,25 @@ import React from 'react'
 
 import { Drawer } from '../src/components/Drawer'
 
-const items = [
-  {
-    id: '1',
-    label: 'Item 1',
-  },
-  {
-    id: '2',
-    label: 'Item 2',
-  },
-  {
-    id: '3',
-    label: 'Item 3',
-  },
-]
-
 storiesOf('Drawer', module)
   .add('default', () => (
     <div style={{ height: '400px' }}>
-      <Drawer
-        items={items}
-        selectedIds={['1']}
-        title="Select Items"
-        onSelect={action('selected')}
-        onBack={action('back')}
-      />
+      <Drawer title="Select Items" onBack={action('back')}>
+        <p>Some drawable content</p>
+      </Drawer>
     </div>
   ))
   .add('with multiple selections', () => (
     <div style={{ height: '400px' }}>
-      <Drawer
-        items={items}
-        selectedIds={['1', '2']}
-        title="Select Multiple Items"
-        onSelect={action('selected')}
-        onBack={action('back')}
-      />
+      <Drawer title="Select Multiple Items" onBack={action('back')}>
+        <p>Some drawable content</p>
+      </Drawer>
     </div>
   ))
   .add('without selection', () => (
     <div style={{ height: '400px' }}>
-      <Drawer
-        items={items}
-        selectedIds={[]}
-        title="Choose Items"
-        onSelect={action('selected')}
-        onBack={action('back')}
-      />
+      <Drawer title="Choose Items" onBack={action('back')}>
+        <p>Some drawable content</p>
+      </Drawer>
     </div>
   ))
