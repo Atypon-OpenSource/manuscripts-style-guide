@@ -18,7 +18,7 @@ import React from 'react'
 
 import { IconProps } from './types'
 
-const BookIcon: React.FC<IconProps> = (props: IconProps) => (
+const ChatIcon: React.FC<IconProps> = (props: IconProps) => (
   <svg
     width="16"
     height="16"
@@ -28,18 +28,29 @@ const BookIcon: React.FC<IconProps> = (props: IconProps) => (
     {...props}
   >
     <path
-      fillRule="evenodd"
-      clipRule="evenodd"
-      d="M5 14.5C3.89543 14.5 3 13.6046 3 12.5V1.5C3 1.22386 2.77614 1 2.5 1C2.22386 1 2 1.22386 2 1.5V12.5C2 14.1569 3.34315 15.5 5 15.5H13C13.5523 15.5 14 15.0523 14 14.5V3C14 2.44771 13.5523 2 13 2H12.5C12.2239 2 12 2.22386 12 2.5C12 2.77614 12.2239 3 12.5 3H13V14.5H5Z"
-      fill="#353535"
+      d="M3.5 4.5V9.5L0.5 14.5H13.5C14.605 14.5 15.5 13.605 15.5 12.5V4.5C15.5 3.395 14.605 2.5 13.5 2.5H5.5C4.395 2.5 3.5 3.395 3.5 4.5Z"
+      fill="white"
+      fillOpacity="0.01"
+      stroke="#353535"
+      strokeMiterlimit="10"
+      strokeLinecap="round"
+      strokeLinejoin="round"
     />
     <path
-      fillRule="evenodd"
-      clipRule="evenodd"
-      d="M3.5 0C2.67157 -3.62117e-08 2 0.671573 2 1.5C2 2.32843 2.67157 3 3.5 3L12.5 3C12.7761 3 13 2.77614 13 2.5V0.5C13 0.223858 12.7761 4.05473e-07 12.5 3.93403e-07L3.5 0ZM3 1.5C3 1.22386 3.22386 1 3.5 1L12 1V2L3.5 2C3.22386 2 3 1.77614 3 1.5Z"
-      fill="#353535"
+      d="M6.5 6.5H12.5"
+      stroke="#353535"
+      strokeMiterlimit="10"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+    <path
+      d="M6.5 10.5H9.5"
+      stroke="#353535"
+      strokeMiterlimit="10"
+      strokeLinecap="round"
+      strokeLinejoin="round"
     />
   </svg>
 )
 
-export default BookIcon
+export default ChatIcon
