@@ -18,7 +18,11 @@ import React, { ChangeEvent } from 'react'
 import styled from 'styled-components'
 
 import { ButtonGroup, PrimaryButton, SecondaryButton } from './Button'
-import { AttentionGreenIcon, AttentionOrangeIcon, AttentionRedIcon } from './icons'
+import {
+  AttentionGreenIcon,
+  AttentionOrangeIcon,
+  AttentionRedIcon,
+} from './icons'
 import { StyledModal } from './StyledModal'
 import { TextField } from './TextField'
 
@@ -101,7 +105,7 @@ export enum Category {
   error = 'error',
   confirmation = 'confirmation',
   warning = 'warning',
-  success = 'success'
+  success = 'success',
 }
 
 interface ButtonProps {
