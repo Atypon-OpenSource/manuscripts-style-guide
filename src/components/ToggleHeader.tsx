@@ -72,7 +72,7 @@ export const ToggleIcon = styled.div<{ isOpen: boolean }>`
   svg {
     width: 19px;
     height: 19px;
-    transform: rotate(${(props) => (props.isOpen ? '0deg' : '270deg')}); // Rotate based on isOpen state
+    transform: rotate(${(props) => (props.isOpen ? '0deg' : '270deg')});
     transition: transform 0.2s ease; // Smooth transition for rotation
   }
 `
