@@ -47,10 +47,13 @@ const dangerBtnStyles = css`
 
 const disabledBtnStyles = css`
   cursor: default;
-  background-color: ${(props) =>
-    props.theme.colors.background.tertiary} !important;
-  border-color: ${(props) => props.theme.colors.border.secondary} !important;
-  color: ${(props) => props.theme.colors.text.onDark} !important;
+  ${(props) =>
+    btnColors(
+      props.theme.colors.text.onDark,
+      props.theme.colors.background.tertiary,
+      props.theme.colors.border.secondary,
+      false
+    )}
 `
 
 const miniBtnStyles = css`
@@ -88,8 +91,11 @@ const btnStyles = css<{
   }
 
   ${(props) => props.danger && dangerBtnStyles}
-  ${(props) => props.disabled && disabledBtnStyles}
   ${(props) => props.mini && miniBtnStyles}
+
+  :disabled {
+    ${disabledBtnStyles}
+  }
 `
 
 const btnColors = (
