@@ -177,6 +177,5 @@ export const isImageFile = (name: string) => {
 }
 
 const getExtension = (name: string) => {
-  const index = name.indexOf('.')
-  return index ? name.substring(index + 1) : ''
+  return name.toLowerCase().split('.').pop() || ''
 }
