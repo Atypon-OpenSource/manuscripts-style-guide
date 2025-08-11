@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 import React from 'react'
-import { AnyStyledComponent } from 'styled-components'
+import { DefaultTheme, StyledComponent } from 'styled-components'
 
 import {
   HorizontalEndResizerButtonInner,
@@ -26,7 +26,14 @@ import {
 import { ResizerDirection, ResizerSide } from './types'
 
 type Inners = {
-  [direction in ResizerDirection]: { [side in ResizerSide]: AnyStyledComponent }
+  [direction in ResizerDirection]: {
+    [side in ResizerSide]: StyledComponent<
+      'button',
+      DefaultTheme,
+      object,
+      never
+    >
+  }
 }
 
 const inners: Inners = {
@@ -66,7 +73,7 @@ export class ResizerButton extends React.PureComponent<Props> {
         isCollapsed={isCollapsed}
         isVisible={isVisible}
         onClick={onClick}
-        onMouseDown={(event: MouseEvent) => event.preventDefault()}
+        onMouseDown={(event: React.MouseEvent) => event.preventDefault()}
       />
     )
   }
