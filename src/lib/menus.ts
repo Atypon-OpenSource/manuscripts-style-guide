@@ -36,7 +36,7 @@ export interface MenuSpec {
   isEnabled: boolean
   run?: () => void
   submenu?: (MenuSpec | MenuSeparator)[]
-  isAllowed?: boolean
+  isHidden?: boolean
 }
 
 export interface Menu extends MenuSpec {
