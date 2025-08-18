@@ -16,6 +16,7 @@
 
 export { Theme } from './theme'
 export * from './components/AlertMessage'
+export * from './components/Message'
 export * from './components/Button'
 export * from './components/ContextMenu'
 export * from './components/RadioButton'
@@ -61,4 +62,3 @@ export {
 export * from './lib/capabilities'
 export * from './lib/files'
 export * from './lib/menus'
-export { default as errorsDecoder } from './lib/errors-decoder'
