@@ -91,7 +91,8 @@ export const getCapabilities = (
 
   const canEditWithoutTracking = allowed(Actions.editWithoutTracking)
   const isPrivileged = isOwner || isEditor || isWriter
-  const canEditFiles = (isPrivileged || isAnnotator) && !isViewingMode
+  const canEditFiles =
+    (isPrivileged || isAnnotator || isProofer) && !isViewingMode
   const canUpdateAttachments = canEditFiles && allowed(Actions.updateAttachment)
 
   return {
