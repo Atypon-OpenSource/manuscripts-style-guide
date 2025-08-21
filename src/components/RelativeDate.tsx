@@ -29,11 +29,28 @@ export const RelativeDate: React.FC<RelativeDateProps> = ({
   }
 
   const formatter = new Intl.RelativeTimeFormat('en', { style: 'short' })
-  let value = Math.floor((date - Date.now()) / 3600000)
-  let unit: Intl.RelativeTimeFormatUnit = 'hour'
-  if (Math.abs(value) > 24) {
-    value = Math.floor(value / 24)
+  const msAgo = Date.now() - date
+  const minutesAgo = msAgo / 60000
+
+  const HOUR = 60
+  const DAY = 24 * 60
+
+  let value: number
+  let unit: Intl.RelativeTimeFormatUnit
+
+  if (minutesAgo < 1) {
+    return <span {...props}>just now</span>
+  } else if (minutesAgo < HOUR) {
+    value = Math.round(minutesAgo)
+    unit = 'minute'
+  } else if (minutesAgo < DAY) {
+    value = Math.round(minutesAgo / HOUR)
+    unit = 'hour'
+  } else {
+    value = Math.round(minutesAgo / DAY)
     unit = 'day'
   }
-  return <span {...props}>{formatter.format(value, unit)}</span>
+
+  // Make negative for "X ago" formatting
+  return <span {...props}>{formatter.format(-value, unit)}</span>
 }
