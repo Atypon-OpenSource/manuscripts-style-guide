@@ -84,15 +84,13 @@ export const getCapabilities = (
   const isEditor = isMemberOf(project?.editors)
   const isWriter = isMemberOf(project?.writers)
   const isAnnotator = isMemberOf(project?.annotators)
-  const isProofer = isMemberOf(project?.proofers)
   const isViewer = isMemberOf(project?.viewers) || isViewingMode
 
   const allowed = (action: string) => !!actions?.includes(action)
 
   const canEditWithoutTracking = allowed(Actions.editWithoutTracking)
   const isPrivileged = isOwner || isEditor || isWriter
-  const canEditFiles =
-    (isPrivileged || isAnnotator || isProofer) && !isViewingMode
+  const canEditFiles = (isPrivileged || isAnnotator) && !isViewingMode
   const canUpdateAttachments = canEditFiles && allowed(Actions.updateAttachment)
 
   return {
@@ -120,8 +118,8 @@ export const getCapabilities = (
     /* editor */
     editArticle: !isViewer,
     formatArticle: !isViewer,
-    editMetadata: !(isViewer || isProofer),
-    editCitationsAndRefs: !(isViewer || isProofer),
+    editMetadata: !isViewer,
+    editCitationsAndRefs: !isViewer,
     seeEditorToolbar: !isViewer,
     seeReferencesButtons: !isViewer,
   }
