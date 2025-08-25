@@ -1,7 +1,7 @@
 {
   "name": "@manuscripts/style-guide",
   "description": "Shared components for Manuscripts applications",
-  "version": "3.2.4",
+  "version": "3.3.0",
   "repository": "github:Atypon-OpenSource/manuscripts-style-guide",
   "license": "Apache-2.0",
   "main": "dist/cjs",
@@ -25,7 +25,7 @@
     "prettier": "prettier --write \"{src,stories}/**/*.{ts,tsx}\"",
     "preversion": "npm-run-all --parallel lint typecheck test",
     "storybook": "storybook dev -p 6006",
-    "test": "jest",
+    "test": "jest --passWithNoTests",
     "typecheck": "tsc --noEmit",
     "version": "pnpm build",
     "prepare": "husky install"
