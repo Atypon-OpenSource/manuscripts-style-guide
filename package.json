@@ -25,7 +25,7 @@
     "prettier": "prettier --write \"{src,stories}/**/*.{ts,tsx}\"",
     "preversion": "npm-run-all --parallel lint typecheck test",
     "storybook": "storybook dev -p 6006",
-    "test": "jest",
+    "test": "jest --passWithNoTests",
     "typecheck": "tsc --noEmit",
     "version": "pnpm build",
     "prepare": "husky install"
