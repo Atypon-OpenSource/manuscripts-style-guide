@@ -13,7 +13,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { BibliographyItem } from '@manuscripts/json-schema'
+
+import { BibliographyItem } from '@manuscripts/transform'
 
 let count = 0
 const newBibliographyItem = (): BibliographyItem => {

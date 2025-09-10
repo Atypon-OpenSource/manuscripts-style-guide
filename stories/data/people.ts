@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { UserProfile } from '@manuscripts/json-schema'
+import { UserProfile } from '@manuscripts/transform'
 
 export const people: UserProfile[] = [
   {
