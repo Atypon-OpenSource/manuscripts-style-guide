@@ -12,8 +12,8 @@ importers:
         specifier: 2.2.3
         version: 2.2.3(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@manuscripts/transform':
-        specifier: 4.2.18-LEAN-4873.7
-        version: 4.2.18-LEAN-4873.7(prosemirror-state@1.4.3)
+        specifier: 4.2.18-LEAN-4873.8
+        version: 4.2.18-LEAN-4873.8(prosemirror-state@1.4.3)
       date-fns:
         specifier: 2.30.0
         version: 2.30.0
@@ -1365,8 +1365,8 @@ packages:
       eslint-plugin-simple-import-sort: '>= 8'
       typescript: '*'
 
-  '@manuscripts/transform@4.2.18-LEAN-4873.7':
-    resolution: {integrity: sha512-Md90o3jByPFXEyU3a3bJYjQl1P9TiYNGpyJdOwbiwZGr/tHfveSlF9kwIlhnXdQvpoJPGMiA8HlHcYa225JQKw==, tarball: https://us-west4-npm.pkg.dev/atypon-artifact/lwf-virtual-npm-repo/@manuscripts/transform/-/@manuscripts/transform-4.2.18-LEAN-4873.7.tgz}
+  '@manuscripts/transform@4.2.18-LEAN-4873.8':
+    resolution: {integrity: sha512-q0JGvpBNcgY4JAsV3hygFfBnP4DySRAFkQnh1HgOajd+Dc7AyuJHSYSDMCSe5qpz0CQ3BktYtYLrwsA7vOXflQ==, tarball: https://us-west4-npm.pkg.dev/atypon-artifact/lwf-virtual-npm-repo/@manuscripts/transform/-/@manuscripts/transform-4.2.18-LEAN-4873.8.tgz}
     engines: {node: '>=20.16.0'}
 
   '@mdx-js/react@2.3.0':
@@ -8736,7 +8736,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@manuscripts/transform@4.2.18-LEAN-4873.7(prosemirror-state@1.4.3)':
+  '@manuscripts/transform@4.2.18-LEAN-4873.8(prosemirror-state@1.4.3)':
     dependencies:
       citeproc: 2.4.63
       jszip: 3.10.1
