@@ -84,7 +84,6 @@ export const getCapabilities = (
   const isEditor = isMemberOf(project?.editors)
   const isWriter = isMemberOf(project?.writers)
   const isAnnotator = isMemberOf(project?.annotators)
-  const isProofer = isMemberOf(project?.proofers)
   const isViewer = isMemberOf(project?.viewers) || isViewingMode
 
   const allowed = (action: string) => !!actions?.includes(action)
@@ -119,8 +118,8 @@ export const getCapabilities = (
     /* editor */
     editArticle: !isViewer,
     formatArticle: !isViewer,
-    editMetadata: !(isViewer || isProofer),
-    editCitationsAndRefs: !(isViewer || isProofer),
+    editMetadata: !isViewer,
+    editCitationsAndRefs: !isViewer,
     seeEditorToolbar: !isViewer,
     seeReferencesButtons: !isViewer,
   }
