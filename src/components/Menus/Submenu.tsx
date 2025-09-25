@@ -60,7 +60,9 @@ export const NestedSubmenusContainer = styled(SubmenusContainer)`
   overflow: visible;
 `
 
-const Separator = styled.div`
+const Separator = styled.div.attrs({
+  className: 'menu-separator',
+})`
   height: 0;
   border-bottom: 1px solid #e2e2e2;
   margin: 4px 0;
@@ -127,7 +129,7 @@ export const SubmenuLabel: React.FC<SubmenuProps> = ({ menu, handleClick }) => {
 
 export const Submenu: React.FC<SubmenuProps> = ({ menu, handleClick }) => {
   if (isMenuSeparator(menu)) {
-    return <Separator />
+    return <Separator className="active-menu"/>
   }
 
   if (menu.component) {
