@@ -61,7 +61,7 @@ export const NestedSubmenusContainer = styled(SubmenusContainer)`
 `
 
 const Separator = styled.div.attrs({
-  className: 'menu-separator'
+  className: 'menu-separator',
 })`
   height: 0;
   border-bottom: 1px solid #e2e2e2;
