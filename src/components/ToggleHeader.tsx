@@ -49,8 +49,7 @@ const ToggleHeaderContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 16px 8px;
-  margin: 8px;
+  padding: 16px;
   color: #353535;
 
   cursor: pointer;
