@@ -81,9 +81,11 @@ export const DraggableModal: React.FC<{
       pointerEventsOnBackdrop="none"
       style={{
         content: {
-          left: pos.left + 'px',
-          top: pos.top + 'px',
+          left: '0',
+          bottom: '0',
           transition: 'none',
+          position: 'fixed',
+          width: '100%',
         },
       }}
     >
@@ -99,5 +101,7 @@ export const DraggableModal: React.FC<{
 }
 
 const DraggableModalContainer = styled(ModalContainer)`
-  padding: 0 2rem 2rem 2rem;
+  padding: 1rem 1.5rem;
+  margin: 0;
+  height: 72px;
 `

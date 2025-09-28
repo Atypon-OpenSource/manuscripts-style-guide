@@ -160,7 +160,7 @@ export const StyledModal = styled(ReactModalAdapter).attrs({
     bottom: 0;
     background-color: ${(props) =>
       props.pointerEventsOnBackdrop === 'none'
-        ? 'rgba(0,0,0,0.1)'
+        ? 'transparent'
         : props.theme.colors.background.dark};
     z-index: 1000;
     display: flex;
