@@ -28,6 +28,7 @@ const delayedTransitionTime = totalTransitionTime - transitionDelay
 interface Props {
   modalClassName?: ReactModal.Classes
   pointerEventsOnBackdrop?: 'all' | 'none' | 'auto'
+  hideOverlay?: boolean
 }
 
 const ReactModalAdapter: React.FC<
@@ -159,7 +160,9 @@ export const StyledModal = styled(ReactModalAdapter).attrs({
     right: 0;
     bottom: 0;
     background-color: ${(props) =>
-      props.pointerEventsOnBackdrop === 'none'
+      props.hideOverlay
+        ? 'transparent'
+        : props.pointerEventsOnBackdrop === 'none'
         ? 'rgba(0,0,0,0.1)'
         : props.theme.colors.background.dark};
     z-index: 1000;
