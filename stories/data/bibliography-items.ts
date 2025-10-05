@@ -13,10 +13,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { BibliographyItem } from '@manuscripts/json-schema'
-
 let count = 0
-const newBibliographyItem = (): BibliographyItem => {
+const newBibliographyItem = () => {
   const index = count++
   return {
     _id: `MPBibliographyItem:${index}`,
@@ -33,7 +31,7 @@ const newBibliographyItem = (): BibliographyItem => {
   }
 }
 
-export const bibliographyItems: BibliographyItem[] = [
+export const bibliographyItems = [
   newBibliographyItem(),
   newBibliographyItem(),
   newBibliographyItem(),
