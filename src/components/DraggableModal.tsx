@@ -23,7 +23,8 @@ export const DraggableModal: React.FC<{
   children: React.ReactNode
   isOpen: boolean
   onRequestClose: () => void
-}> = ({ children, isOpen, onRequestClose }) => {
+  hideOverlay?: boolean
+}> = ({ children, isOpen, onRequestClose, hideOverlay }) => {
   const [pos, setPos] = useState({ left: 0, top: 0, prevX: 0, prevY: 0 })
   const [drag, setDrag] = useState(false)
 
@@ -79,11 +80,14 @@ export const DraggableModal: React.FC<{
       onRequestClose={onRequestClose}
       shouldCloseOnOverlayClick={false}
       pointerEventsOnBackdrop="none"
+      hideOverlay={hideOverlay}
       style={{
         content: {
-          left: pos.left + 'px',
-          top: pos.top + 'px',
+          left: '0',
+          bottom: '0',
           transition: 'none',
+          position: 'fixed',
+          width: '100%',
         },
       }}
     >
@@ -99,5 +103,8 @@ export const DraggableModal: React.FC<{
 }
 
 const DraggableModalContainer = styled(ModalContainer)`
-  padding: 0 2rem 2rem 2rem;
+  padding: 1rem 1.5rem;
+  margin: 0;
+  height: 72px;
+  border-radius: 0;
 `
