@@ -59,6 +59,5 @@ export {
   useDeepCompareMemo,
   useDeepCompareCallback,
 } from './hooks/use-deep-compare'
-export * from './lib/capabilities'
 export * from './lib/files'
 export * from './lib/menus'
