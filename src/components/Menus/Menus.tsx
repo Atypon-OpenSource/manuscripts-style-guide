@@ -15,7 +15,6 @@
  */
 
 import React, { Ref } from 'react'
-import Modal from 'react-modal'
 import styled from 'styled-components'
 
 import { Menu } from '../../lib/menus'

@@ -36,6 +36,7 @@ export interface MenuSpec {
   isEnabled: boolean
   run?: () => void
   submenu?: (MenuSpec | MenuSeparator)[]
+  isHidden?: boolean
 }
 
 export interface Menu extends MenuSpec {
@@ -52,4 +53,4 @@ export const isMenuSeparator = (menu: any): menu is MenuSeparator => {
   return menu?.role === 'separator'
 }
 
-export type MenuPointer = [number, number, number]
+export type MenuPointer = [number, number, number, number]

@@ -25,6 +25,7 @@ export interface Actions {
   label: string
   action: () => void
   icon: string
+  disabled?: boolean
   selected?: boolean
 }
 
@@ -49,6 +50,10 @@ const ContextMenuIconButton = styled(IconButton)`
     background-color: #f2f2f2;
     border-color: #f2f2f2;
   }
+  &[disabled] {
+    color: #c9c9c9 !important;
+    background-color: #fff !important;
+  }
 `
 
 // Dynamically map all icons from the imported Icons object
@@ -70,8 +75,9 @@ export const ContextMenu: React.FC<ContextMenuProps> = ({ actions }) => (
         <ContextMenuIconButton
           key={action.icon}
           data-tooltip-id={action.icon}
-          onClick={action.action}
+          onClick={action.disabled === true ? () => null : action.action}
           className={action.selected ? 'selected' : ''}
+          disabled={!!action.disabled}
         >
           <Icon width={18} height={18} />
           <Tooltip id={action.icon} place="bottom">

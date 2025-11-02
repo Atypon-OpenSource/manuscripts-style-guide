@@ -27,20 +27,31 @@ const delayedTransitionTime = totalTransitionTime - transitionDelay
 
 interface Props {
   modalClassName?: ReactModal.Classes
+  pointerEventsOnBackdrop?: 'all' | 'none' | 'auto'
+  hideOverlay?: boolean
 }
 
 const ReactModalAdapter: React.FC<
   ReactModal.Props & ThemeProps<ReactModal> & Props
-> = ({ className, modalClassName, ...props }) => (
-  <ReactModal
-    className={modalClassName}
-    portalClassName={className as string}
-    closeTimeoutMS={totalTransitionTime}
-    preventScroll={true}
-    appElement={document.getElementById('root') as HTMLElement}
-    {...props}
-  />
-)
+> = ({ className, modalClassName, ...props }) => {
+  props.style = props.style || {}
+  if (props.pointerEventsOnBackdrop == 'none') {
+    props.style.content = {
+      ...props.style.content,
+      pointerEvents: 'all',
+    }
+  }
+  return (
+    <ReactModal
+      className={modalClassName}
+      portalClassName={className as string}
+      closeTimeoutMS={totalTransitionTime}
+      preventScroll={true}
+      appElement={document.getElementById('root') as HTMLElement}
+      {...props}
+    />
+  )
+}
 
 export const ModalContainer = styled.div`
   background: ${(props) => props.theme.colors.background.primary};
@@ -55,12 +66,13 @@ export const ModalHeader = styled.div`
   position: absolute;
   right: 0;
   top: 0;
-  z-index: 1;
+  z-index: 3;
 `
 
 export const CloseButton = styled(RoundIconButton)<{ size?: number }>`
   box-shadow: none;
   text-indent: -99999px;
+  z-index: 2;
 
   ::before,
   ::after {
@@ -125,6 +137,7 @@ export const ModelContent = styled.div`
 
 export const ScrollableModalContent = styled(ModelContent)`
   overflow-y: auto;
+  max-height: 100%;
 `
 
 export const StyledModal = styled(ReactModalAdapter).attrs({
@@ -146,12 +159,18 @@ export const StyledModal = styled(ReactModalAdapter).attrs({
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: ${(props) => props.theme.colors.background.dark};
+    background-color: ${(props) =>
+      props.hideOverlay
+        ? 'transparent'
+        : props.pointerEventsOnBackdrop === 'none'
+        ? 'rgba(0,0,0,0.1)'
+        : props.theme.colors.background.dark};
     z-index: 1000;
     display: flex;
     justify-content: center;
     align-items: center;
     opacity: 0;
+    pointer-events: ${(props) => props.pointerEventsOnBackdrop || 'auto'};
 
     &--after-open {
       transition: opacity ${totalTransitionTime}ms ease-in-out;
