@@ -23,7 +23,7 @@ import {
   AttentionOrangeIcon,
   AttentionRedIcon,
 } from './icons'
-import { StyledModal } from './StyledModal'
+import { CloseButton, StyledModal } from './StyledModal'
 import { TextField } from './TextField'
 
 const Icon = styled.div`
@@ -32,11 +32,18 @@ const Icon = styled.div`
   display: inline-flex;
   align-items: center;
 `
-export const DialogModalBody = styled.div`
+
+export enum DialogSize {
+  sm = 'sm',
+  md = 'md',
+}
+
+
+export const DialogModalBody = styled.div<{ size?: DialogSize }>`
   border-radius: ${(props) => props.theme.grid.radius.default};
   box-shadow: ${(props) => props.theme.shadow.dropShadow};
   background: ${(props) => props.theme.colors.background.primary};
-  width: 350px;
+  width: ${(props) => (props.size === DialogSize.md ? '720px' : '350px')};
   max-width: 90vw;
   overflow: hidden;
   padding: ${(props) => props.theme.grid.unit * 6}px;
@@ -57,12 +64,15 @@ export const MessageContainer = styled.div`
   line-height: 1.5;
 `
 
-const HeaderContainer = styled.div`
+const HeaderContainer = styled.div<{ size?: DialogSize }>`
   align-items: center;
   color: ${(props) => props.theme.colors.text.primary};
   display: flex;
   font: ${(props) => props.theme.font.weight.bold}
-    ${(props) => props.theme.font.size.medium} / 1
+    ${(props) =>
+      props.size === DialogSize.md
+        ? props.theme.font.size.xlarge
+        : props.theme.font.size.medium} / 1
     ${(props) => props.theme.font.family.sans};
   line-height: 1.5;
 `
@@ -74,6 +84,12 @@ const ButtonsContainer = styled(ButtonGroup)`
 const ConfirmationTextField = styled(TextField)`
   margin-top: ${(props) => props.theme.grid.unit * 4}px;
   margin-bottom: ${(props) => props.theme.grid.unit * 8}px;
+`
+
+const CloseButtonContainer = styled.div`
+  position: absolute;
+  top: ${(props) => props.theme.grid.unit * -4}px;
+  right: ${(props) => props.theme.grid.unit * -4}px;
 `
 
 interface DialogState {
@@ -99,6 +115,8 @@ interface DialogProps {
   message: string | React.ReactElement
   className?: string
   children?: React.ReactNode
+  size?: DialogSize
+  dismissButton?: boolean
 }
 
 export enum Category {
@@ -176,6 +194,8 @@ export class Dialog extends React.Component<DialogProps, DialogState> {
       children,
       confirmFieldText,
       className,
+      size,
+      dismissButton,
     } = this.props
     const { primaryActionDisabled } = this.state
 
@@ -186,8 +206,13 @@ export class Dialog extends React.Component<DialogProps, DialogState> {
         shouldCloseOnOverlayClick={true}
         className={className}
       >
-        <DialogModalBody>
-          <HeaderContainer>
+        {dismissButton && (
+          <CloseButtonContainer>
+            <CloseButton onClick={() => actions.onClose?.()} />
+          </CloseButtonContainer>
+        )}
+        <DialogModalBody size={size}>
+          <HeaderContainer size={size}>
             {category === Category.error && (
               <Icon>
                 <AttentionRedIcon />

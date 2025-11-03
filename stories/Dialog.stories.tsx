@@ -18,7 +18,7 @@ import { action } from '@storybook/addon-actions'
 import { storiesOf } from '@storybook/react'
 import * as React from 'react'
 
-import { Category, Dialog, TextArea } from '../src'
+import { Category, Dialog, DialogSize, TextArea } from '../src'
 
 storiesOf('Dialog', module)
   .add('Confirmation Dialog', () => (
@@ -142,4 +142,25 @@ storiesOf('Dialog', module)
     >
       <TextArea rows={4} />
     </Dialog>
+  ))
+  .add('Medium Dialog with Dismiss Button', () => (
+    <Dialog
+      isOpen={true}
+      category={Category.confirmation}
+      header="Large Dialog with Close Button"
+      message="This is a medium-sized dialog (720px) with a dismiss button in the top-right corner. You can close it by clicking the X button, clicking outside the dialog, or using the action buttons below."
+      size={DialogSize.md}
+      dismissButton={true}
+      actions={{
+        primary: {
+          action: action('Confirm'),
+          title: 'Confirm',
+        },
+        secondary: {
+          action: action('Cancel'),
+          title: 'Cancel',
+        },
+        onClose: action('Dialog closed via X button'),
+      }}
+    />
   ))
