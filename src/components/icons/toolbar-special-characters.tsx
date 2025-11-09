@@ -38,4 +38,3 @@ const ToolbarSpecialCharactersIcon: React.FC<IconProps> = (props) => (
 )
 
 export default ToolbarSpecialCharactersIcon
-

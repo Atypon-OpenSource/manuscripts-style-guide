@@ -38,4 +38,3 @@ const ToolbarBoxedTextIcon: React.FC<IconProps> = (props) => (
 )
 
 export default ToolbarBoxedTextIcon
-
