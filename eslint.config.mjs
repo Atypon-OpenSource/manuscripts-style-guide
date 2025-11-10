@@ -29,12 +29,4 @@ const compat = new FlatCompat({
 export default defineConfig([
   ...compat.config(config),
   ...compat.extends('plugin:diff/diff'),
-  {
-    rules: {
-      '@typescript-eslint/explicit-module-boundary-types': 'off',
-      '@typescript-eslint/no-unused-vars': 'off',
-      'react/no-unescaped-entities': 'off',
-      'jsx-a11y/no-autofocus': 'off',
-    },
-  },
 ])
