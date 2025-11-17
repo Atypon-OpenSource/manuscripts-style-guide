@@ -63,7 +63,8 @@ const Svg = styled.svg`
       transform: scale(0.8);
     }
   }
-  animation: ${fadeIn} 0.3s ease-out forwards,
+  animation:
+    ${fadeIn} 0.3s ease-out forwards,
     autoFadeOut 3s ease-in-out forwards;
 `
 

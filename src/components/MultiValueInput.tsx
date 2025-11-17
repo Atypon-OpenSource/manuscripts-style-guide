@@ -157,8 +157,8 @@ export const MultiValueInput: React.FC<MultiValueInputProps> = ({
   const xplaceholder = placeholder
     ? placeholder
     : inputType === 'number'
-    ? 'Enter number and press enter'
-    : 'Enter text and press enter'
+      ? 'Enter number and press enter'
+      : 'Enter text and press enter'
 
   return (
     <Container>

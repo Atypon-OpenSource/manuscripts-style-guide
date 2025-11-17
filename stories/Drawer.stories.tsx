@@ -14,31 +14,54 @@
  * limitations under the License.
  */
 
-import { action } from '@storybook/addon-actions'
-import { storiesOf } from '@storybook/react'
-import React from 'react'
+import type { Meta, StoryObj } from '@storybook/react'
+import { fn } from '@storybook/test'
 
 import { Drawer } from '../src/components/Drawer'
 
-storiesOf('Drawer', module)
-  .add('default', () => (
+const meta: Meta<typeof Drawer> = {
+  title: 'Drawer',
+  component: Drawer,
+}
+
+export default meta
+type Story = StoryObj<typeof Drawer>
+
+export const Default: Story = {
+  args: {
+    title: 'Select Items',
+    onBack: fn(),
+    children: <p>Some drawable content</p>,
+  },
+  render: (args) => (
     <div style={{ height: '400px' }}>
-      <Drawer title="Select Items" onBack={action('back')}>
-        <p>Some drawable content</p>
-      </Drawer>
+      <Drawer {...args} />
     </div>
-  ))
-  .add('with multiple selections', () => (
+  ),
+}
+
+export const WithMultipleSelections: Story = {
+  args: {
+    title: 'Select Multiple Items',
+    onBack: fn(),
+    children: <p>Some drawable content</p>,
+  },
+  render: (args) => (
     <div style={{ height: '400px' }}>
-      <Drawer title="Select Multiple Items" onBack={action('back')}>
-        <p>Some drawable content</p>
-      </Drawer>
+      <Drawer {...args} />
     </div>
-  ))
-  .add('without selection', () => (
+  ),
+}
+
+export const WithoutSelection: Story = {
+  args: {
+    title: 'Choose Items',
+    onBack: fn(),
+    children: <p>Some drawable content</p>,
+  },
+  render: (args) => (
     <div style={{ height: '400px' }}>
-      <Drawer title="Choose Items" onBack={action('back')}>
-        <p>Some drawable content</p>
-      </Drawer>
+      <Drawer {...args} />
     </div>
-  ))
+  ),
+}

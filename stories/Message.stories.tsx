@@ -13,22 +13,49 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { storiesOf } from '@storybook/react'
-import React from 'react'
+import type { Meta, StoryObj } from '@storybook/react'
 
 import { AttentionGreenIcon, AttentionOrangeIcon, Message } from '../src/'
 
-storiesOf('Message', module)
-  .add('simple', () => <Message>Example of a message</Message>)
-  .add('with success icon', () => (
-    <Message icon={AttentionGreenIcon}>Example of a message</Message>
-  ))
-  .add('with warning icon', () => (
-    <Message icon={AttentionOrangeIcon}>Example of a message</Message>
-  ))
-  .add('centered', () => <Message isCentered>Example of a message</Message>)
-  .add('centered with icon', () => (
-    <Message isCentered icon={AttentionGreenIcon}>
-      Example of a message
-    </Message>
-  ))
+const meta: Meta<typeof Message> = {
+  title: 'Message',
+  component: Message,
+}
+
+export default meta
+type Story = StoryObj<typeof Message>
+
+export const Simple: Story = {
+  args: {
+    children: 'Example of a message',
+  },
+}
+
+export const WithSuccessIcon: Story = {
+  args: {
+    icon: AttentionGreenIcon,
+    children: 'Example of a message',
+  },
+}
+
+export const WithWarningIcon: Story = {
+  args: {
+    icon: AttentionOrangeIcon,
+    children: 'Example of a message',
+  },
+}
+
+export const Centered: Story = {
+  args: {
+    isCentered: true,
+    children: 'Example of a message',
+  },
+}
+
+export const CenteredWithIcon: Story = {
+  args: {
+    isCentered: true,
+    icon: AttentionGreenIcon,
+    children: 'Example of a message',
+  },
+}

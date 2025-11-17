@@ -14,132 +14,148 @@
  * limitations under the License.
  */
 
-import { action } from '@storybook/addon-actions'
-import { storiesOf } from '@storybook/react'
-import * as React from 'react'
+import type { Meta, StoryObj } from '@storybook/react'
+import { fn } from '@storybook/test'
 
 import { Category, Dialog, TextArea } from '../src'
 
-storiesOf('Dialog', module)
-  .add('Confirmation Dialog', () => (
-    <Dialog
-      isOpen={true}
-      category={Category.confirmation}
-      header="Are you sure?"
-      message="This action will update your status"
-      actions={{
+const meta: Meta<typeof Dialog> = {
+  title: 'Dialog',
+  component: Dialog,
+}
+
+export default meta
+type Story = StoryObj<typeof Dialog>
+
+export const ConfirmationDialog: Story = {
+  args: {
+    isOpen: true,
+    category: Category.confirmation,
+    header: 'Are you sure?',
+    message: 'This action will update your status',
+    actions: {
+      primary: {
+        action: fn(),
+        title: 'Confirm',
+      },
+      secondary: {
+        action: fn(),
+        title: 'Cancel',
+      },
+    },
+  },
+}
+
+export const ConfirmationDialogWithoutSecondaryAction: Story = {
+  args: {
+    isOpen: true,
+    category: Category.confirmation,
+    header: 'Are you sure?',
+    message: 'This action will update your status',
+    actions: {
+      primary: {
+        action: fn(),
+        title: 'Confirm',
+      },
+    },
+  },
+}
+
+export const ConfirmationDialogWithDestructivePrimaryAction: Story = {
+  args: {
+    isOpen: true,
+    category: Category.confirmation,
+    header: 'Are you sure?',
+    message:
+      'This action will cause everything to blow up at 9:00 (9:30 in Newfoundland)',
+    actions: {
+      primary: {
+        action: fn(),
+        title: 'Confirm',
+        isDestructive: true,
+      },
+      secondary: {
+        action: fn(),
+        title: 'Cancel',
+      },
+    },
+  },
+}
+
+export const ConfirmationDialogWithDestructivePrimaryActionAndConfirmationInput: Story =
+  {
+    args: {
+      isOpen: true,
+      category: Category.confirmation,
+      header: 'Are you sure?',
+      message:
+        'This action will cause everything to blow up at 9:00 (9:30 in Newfoundland)',
+      actions: {
         primary: {
-          action: action('Confirm'),
-          title: 'Confirm',
-        },
-        secondary: {
-          action: action('Cancel'),
-          title: 'Cancel',
-        },
-      }}
-    />
-  ))
-  .add('Confirmation Dialog without secondary action', () => (
-    <Dialog
-      isOpen={true}
-      category={Category.confirmation}
-      header="Are you sure?"
-      message="This action will update your status"
-      actions={{
-        primary: {
-          action: action('Confirm'),
-          title: 'Confirm',
-        },
-      }}
-    />
-  ))
-  .add('Confirmation Dialog with destructive primary action', () => (
-    <Dialog
-      isOpen={true}
-      category={Category.confirmation}
-      header="Are you sure?"
-      message="This action will cause everything to blow up at 9:00 (9:30 in Newfoundland)"
-      actions={{
-        primary: {
-          action: action('Confirm'),
-          title: 'Confirm',
+          action: fn(),
+          title: 'Blow everything!',
           isDestructive: true,
         },
         secondary: {
-          action: action('Cancel'),
+          action: fn(),
           title: 'Cancel',
         },
-      }}
-    />
-  ))
-  .add(
-    'Confirmation Dialog with destructive primary action and Confirmation Input',
-    () => (
-      <Dialog
-        isOpen={true}
-        category={Category.confirmation}
-        header="Are you sure?"
-        message="This action will cause everything to blow up at 9:00 (9:30 in Newfoundland)"
-        actions={{
-          primary: {
-            action: action('You killed Kenny'),
-            title: 'Blow everything!',
-            isDestructive: true,
-          },
-          secondary: {
-            action: action('Cancel'),
-            title: 'Cancel',
-          },
-        }}
-        confirmFieldText={'blow up'}
-      />
-    )
-  )
-  .add('Error dialog', () => (
-    <Dialog
-      isOpen={true}
-      category={Category.error}
-      header="Well that was a mistake"
-      message="Please restart the Internet"
-      actions={{
-        primary: {
-          action: action('OK'),
-          title: 'OK',
-        },
-      }}
-    />
-  ))
-  .add('Error dialog with overflowing text', () => (
-    <Dialog
-      isOpen={true}
-      category={Category.error}
-      header="Import error"
-      message="There was an error importing SupercalifragilisticexpialidociousSupercalifragilisticexpialidociousSupercalifragilisticexpialidocious.docx"
-      actions={{
-        primary: {
-          action: action('OK'),
-          title: 'OK',
-        },
-      }}
-    />
-  ))
-  .add('Dialog with extra children', () => (
-    <Dialog
-      isOpen={true}
-      category={Category.confirmation}
-      header="Are you sure?"
-      message="Lorem ipsum dolor sit amet"
-      actions={{
-        primary: {
-          action: action('Confirm'),
-          title: 'Confirm',
-        },
-        secondary: {
-          action: action('Cancel'),
-          title: 'Cancel',
-        },
-      }}
-    >
+      },
+      confirmFieldText: 'blow up',
+    },
+  }
+
+export const ErrorDialog: Story = {
+  args: {
+    isOpen: true,
+    category: Category.error,
+    header: 'Well that was a mistake',
+    message: 'Please restart the Internet',
+    actions: {
+      primary: {
+        action: fn(),
+        title: 'OK',
+      },
+    },
+  },
+}
+
+export const ErrorDialogWithOverflowingText: Story = {
+  args: {
+    isOpen: true,
+    category: Category.error,
+    header: 'Import error',
+    message:
+      'There was an error importing SupercalifragilisticexpialidociousSupercalifragilisticexpialidociousSupercalifragilisticexpialidocious.docx',
+    actions: {
+      primary: {
+        action: fn(),
+        title: 'OK',
+      },
+    },
+  },
+}
+
+export const DialogWithExtraChildren: Story = {
+  args: {
+    isOpen: true,
+    category: Category.confirmation,
+    header: 'Are you sure?',
+    message: 'Lorem ipsum dolor sit amet',
+    actions: {
+      primary: {
+        action: fn(),
+        title: 'Confirm',
+      },
+      secondary: {
+        action: fn(),
+        title: 'Cancel',
+      },
+    },
+  },
+  render: (args) => (
+    <Dialog {...args}>
       <TextArea rows={4} />
     </Dialog>
-  ))
+  ),
+}

@@ -13,14 +13,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { storiesOf } from '@storybook/react'
-import React from 'react'
+import type { Meta, StoryObj } from '@storybook/react'
 
 import { Menus } from '../src/components/Menus/Menus'
 import { useMenus } from '../src/hooks/use-menus'
 import { MenuSpec } from '../src/lib/menus'
 
-storiesOf('Menus', module).add('Menus', () => {
+const meta: Meta = {
+  title: 'Menus',
+}
+
+export default meta
+type Story = StoryObj
+
+const MenusComponent = () => {
   const edit: MenuSpec = {
     id: 'edit',
     label: 'Edit',
@@ -355,4 +361,8 @@ storiesOf('Menus', module).add('Menus', () => {
   const { menus, ref, handleClick } = useMenus([edit, insert, format])
 
   return <Menus menus={menus} innerRef={ref} handleClick={handleClick} />
-})
+}
+
+export const Menus_: Story = {
+  render: () => <MenusComponent />,
+}

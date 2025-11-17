@@ -14,8 +14,7 @@
  * limitations under the License.
  */
 
-import { storiesOf } from '@storybook/react'
-import * as React from 'react'
+import type { Meta, StoryObj } from '@storybook/react'
 import styled, { DefaultTheme, ThemeProps } from 'styled-components'
 
 const StorySection = styled.div`
@@ -43,8 +42,13 @@ const Div = styled.div<{
   padding: 16px;
 `
 
-storiesOf('Theme/Colors', module)
-  .add('Basic', () => (
+const metaColors: Meta = {
+  title: 'Theme/Colors',
+}
+
+export const Basic: StoryObj = {
+  ...metaColors,
+  render: () => (
     <>
       <StorySection>
         <StorySectionInner>
@@ -152,8 +156,12 @@ storiesOf('Theme/Colors', module)
         </StorySectionInner>
       </StorySection>
     </>
-  ))
-  .add('Buttons', () => (
+  ),
+}
+
+export const Buttons: StoryObj = {
+  ...metaColors,
+  render: () => (
     <>
       <h2>Default</h2>
       <StorySection>
@@ -420,8 +428,12 @@ storiesOf('Theme/Colors', module)
         </StorySectionInner>
       </StorySection>
     </>
-  ))
-  .add('Colors Palette', () => (
+  ),
+}
+
+export const ColorsPalette: StoryObj = {
+  ...metaColors,
+  render: () => (
     <StorySection>
       <StorySectionInner>
         <h1>GREYS</h1>
@@ -434,20 +446,6 @@ storiesOf('Theme/Colors', module)
         <Div bgColor={(props) => '#6e6e6e'} style={{ color: 'white' }}>
           greyMuted
         </Div>
-        {/*<Div*/}
-        {/*  bgColor={(props) => '#585858'}*/}
-        {/*  style={{ color: 'white' }}*/}
-        {/*>*/}
-        {/*  scorpionGrey*/}
-        {/*</Div>*/}
-        {/*<Div*/}
-        {/*  bgColor={(props) => '#6c6c6c'}*/}
-        {/*  style={{ color: 'white' }}*/}
-        {/*>*/}
-        {/*  lightGrey*/}
-        {/*</Div>*/}
-        {/*<Div bgColor={(props) => '#949494'}> dustyGrey </Div>*/}
-        {/*<Div bgColor={(props) => '#d8d8d8'}> altoGrey </Div>*/}
         <Div bgColor={(props) => '#d8d8d8'}> mercuryGrey </Div>
         <Div bgColor={(props) => '#e2e2e2'}> seashellGrey </Div>
         <Div bgColor={(props) => '#fcfcfc'}> alabasterGrey </Div>
@@ -466,24 +464,9 @@ storiesOf('Theme/Colors', module)
         </Div>
         <Div bgColor={(props) => '#bce7f6'}>manuscriptsLight</Div>
         <Div bgColor={(props) => '#f5fbfc'}>manuscriptsXLight2</Div>
-        {/*<Div bgColor={(props) => '#e1f5fe'}> iceBlue </Div>*/}
-        {/*<Div bgColor={(props) => '#edf1f4'}>*/}
-        {/*  {' '}*/}
-        {/*  linkWaterBlue{' '}*/}
-        {/*</Div>*/}
-        {/*<Div bgColor={(props) => '#f0fafe'}> powderBlue </Div>*/}
-        {/*<Div bgColor={(props) => '#f2fbff'}> aliceBlue </Div>*/}
       </StorySectionInner>
       <StorySectionInner>
         <h1>GREENS</h1>
-        {/*<Div bgColor={(props) => '#8dd439'}>*/}
-        {/*  {' '}*/}
-        {/*  deYorkGreen{' '}*/}
-        {/*</Div>*/}
-        {/*<Div bgColor={(props) => '#a8cd95'}>*/}
-        {/*  {' '}*/}
-        {/*  pineGladeGreen{' '}*/}
-        {/*</Div>*/}
         <Div bgColor={(props) => '#36b260'}> killarneyGreen </Div>
         <Div bgColor={(props) => '#b2c0ac'}> springGreen </Div>
         <Div bgColor={(props) => '#dff0d7'}> peppermintGreen </Div>
@@ -491,9 +474,6 @@ storiesOf('Theme/Colors', module)
       <StorySectionInner>
         <h1>REDS</h1>
         <Div bgColor={(props) => '#f35143'}> punchRed </Div>
-        {/*<Div bgColor={(props) => '#cd593c'}> darkCoral </Div>*/}
-        {/*<Div bgColor={(props) => '#e26969'}> sungloRed </Div>*/}
-        {/*<Div bgColor={(props) => '#d2a1a1'}> eunryRed </Div>*/}
         <Div bgColor={(props) => '#f5c1b7'}> mandysRed </Div>
         <Div bgColor={(props) => '#fff1f0'}> chablisRed </Div>
       </StorySectionInner>
@@ -501,18 +481,22 @@ storiesOf('Theme/Colors', module)
         <h1>YELLOWS</h1>
         <Div bgColor={(props) => '#fe8f1f'}>zestOrange</Div>
         <Div bgColor={(props) => '#ffbd26'}>manuscriptsSecondary</Div>
-        {/*<Div bgColor={(props) => '#b6a651'}> huskYellow </Div>*/}
-        {/*<Div bgColor={(props) => '#ffe08b'}>*/}
-        {/*  {' '}*/}
-        {/*  salomieYellow{' '}*/}
-        {/*</Div>*/}
         <Div bgColor={(props) => '#ffe0b2'}> wheatYellow </Div>
         <Div bgColor={(props) => '#fffcdb'}> butteryYellow </Div>
       </StorySectionInner>
     </StorySection>
-  ))
-storiesOf('Theme', module)
-  .add('Typography', () => (
+  ),
+}
+
+const meta: Meta = {
+  title: 'Theme',
+}
+
+export default meta
+type Story = StoryObj
+
+export const Typography: Story = {
+  render: () => (
     <>
       <StorySection>
         <StorySectionInner>
@@ -576,8 +560,11 @@ storiesOf('Theme', module)
         </StorySectionInner>
       </StorySection>
     </>
-  ))
-  .add('Grid', () => (
+  ),
+}
+
+export const Grid: Story = {
+  render: () => (
     <StorySection>
       <StorySectionInner>
         <h1>Unit</h1>
@@ -598,4 +585,5 @@ storiesOf('Theme', module)
         <Div>editorMaxWidth - 960</Div>
       </StorySectionInner>
     </StorySection>
-  ))
+  ),
+}

@@ -59,13 +59,16 @@ const ContextMenuIconButton = styled(IconButton)`
 // Dynamically map all icons from the imported Icons object
 const icons: { [key: string]: React.FC<IconProps> } = Object.entries(
   Icons
-).reduce((acc, [name, IconComponent]) => {
-  // Remove the "Icon" suffix from the name (e.g., "AddCommentIcon" -> "AddComment")
-  const iconName = name.replace(/Icon$/, '')
-  // @ts-ignore
-  acc[iconName] = IconComponent
-  return acc
-}, {} as { [key: string]: React.FC<IconProps> })
+).reduce(
+  (acc, [name, IconComponent]) => {
+    // Remove the "Icon" suffix from the name (e.g., "AddCommentIcon" -> "AddComment")
+    const iconName = name.replace(/Icon$/, '')
+    // @ts-ignore
+    acc[iconName] = IconComponent
+    return acc
+  },
+  {} as { [key: string]: React.FC<IconProps> }
+)
 
 export const ContextMenu: React.FC<ContextMenuProps> = ({ actions }) => (
   <IconButtonGroup size={32}>
