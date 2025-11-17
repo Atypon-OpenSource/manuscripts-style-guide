@@ -14,7 +14,6 @@
  * limitations under the License.
  */
 import type { Meta, StoryObj } from '@storybook/react'
-import React from 'react'
 import styled from 'styled-components'
 
 import * as Icons from '../src/components/icons'

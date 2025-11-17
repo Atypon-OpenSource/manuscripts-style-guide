@@ -14,7 +14,6 @@
  * limitations under the License.
  */
 import type { Meta, StoryObj } from '@storybook/react'
-import React from 'react'
 
 import { Menus } from '../src/components/Menus/Menus'
 import { useMenus } from '../src/hooks/use-menus'

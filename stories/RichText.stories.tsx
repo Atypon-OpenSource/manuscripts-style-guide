@@ -15,7 +15,6 @@
  */
 import type { Meta, StoryObj } from '@storybook/react'
 import { fn } from '@storybook/test'
-import React from 'react'
 
 import { RichText } from '../src/components/RichText/RichText'
 import { RichTextField } from '../src/components/RichText/RichTextField'
