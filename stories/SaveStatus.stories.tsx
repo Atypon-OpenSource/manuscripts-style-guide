@@ -14,12 +14,32 @@
  * limitations under the License.
  */
 
-import { storiesOf } from '@storybook/react'
-import * as React from 'react'
+import type { Meta, StoryObj } from '@storybook/react'
 
 import { SaveStatus } from '../src'
 
-storiesOf('SaveStatus', module)
-  .add('Saved', () => <SaveStatus status="saved" />)
-  .add('Saving', () => <SaveStatus status="saving" />)
-  .add('Offline', () => <SaveStatus status="offline" />)
+const meta: Meta<typeof SaveStatus> = {
+  title: 'SaveStatus',
+  component: SaveStatus,
+}
+
+export default meta
+type Story = StoryObj<typeof SaveStatus>
+
+export const Saved: Story = {
+  args: {
+    status: 'saved',
+  },
+}
+
+export const Saving: Story = {
+  args: {
+    status: 'saving',
+  },
+}
+
+export const Offline: Story = {
+  args: {
+    status: 'offline',
+  },
+}

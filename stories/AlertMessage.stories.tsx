@@ -14,69 +14,92 @@
  * limitations under the License.
  */
 
-import { action } from '@storybook/addon-actions'
-import { storiesOf } from '@storybook/react'
+import type { Meta, StoryObj } from '@storybook/react'
+import { fn } from '@storybook/test'
 import React from 'react'
 
 import { AlertMessage, AlertMessageType } from '../src/'
 
-storiesOf('AlertMessage', module)
-  .add('success', () => (
-    <AlertMessage type={AlertMessageType.success}>
-      Example of overall success message. Lorem ipsum dolor sit amet.
-    </AlertMessage>
-  ))
-  .add('error', () => (
-    <AlertMessage type={AlertMessageType.error}>
-      Example of overall error message. Lorem ipsum dolor sit amet.
-    </AlertMessage>
-  ))
-  .add('info', () => (
-    <AlertMessage type={AlertMessageType.info}>
-      Example of overall info message. Lorem ipsum dolor sit amet.
-    </AlertMessage>
-  ))
-  .add('warning', () => (
-    <AlertMessage type={AlertMessageType.warning}>
-      Example of overall warning message. Lorem ipsum dolor sit amet.
-    </AlertMessage>
-  ))
-  .add('without close button', () => (
-    <AlertMessage type={AlertMessageType.warning} hideCloseButton={true}>
-      Example of overall warning message. Lorem ipsum dolor sit amet.
-    </AlertMessage>
-  ))
-  .add('with dismiss text', () => (
-    <AlertMessage
-      type={AlertMessageType.warning}
-      dismissButton={{ text: 'Dismiss' }}
-    >
-      Example of overall warning message. Lorem ipsum dolor sit amet.
-    </AlertMessage>
-  ))
-  .add('with static width', () => (
+const meta: Meta<typeof AlertMessage> = {
+  title: 'AlertMessage',
+  component: AlertMessage,
+}
+
+export default meta
+type Story = StoryObj<typeof AlertMessage>
+
+export const Success: Story = {
+  args: {
+    type: AlertMessageType.success,
+    children: 'Example of overall success message. Lorem ipsum dolor sit amet.',
+  },
+}
+
+export const Error: Story = {
+  args: {
+    type: AlertMessageType.error,
+    children: 'Example of overall error message. Lorem ipsum dolor sit amet.',
+  },
+}
+
+export const Info: Story = {
+  args: {
+    type: AlertMessageType.info,
+    children: 'Example of overall info message. Lorem ipsum dolor sit amet.',
+  },
+}
+
+export const Warning: Story = {
+  args: {
+    type: AlertMessageType.warning,
+    children: 'Example of overall warning message. Lorem ipsum dolor sit amet.',
+  },
+}
+
+export const WithoutCloseButton: Story = {
+  args: {
+    type: AlertMessageType.warning,
+    hideCloseButton: true,
+    children: 'Example of overall warning message. Lorem ipsum dolor sit amet.',
+  },
+}
+
+export const WithDismissText: Story = {
+  args: {
+    type: AlertMessageType.warning,
+    dismissButton: { text: 'Dismiss' },
+    children: 'Example of overall warning message. Lorem ipsum dolor sit amet.',
+  },
+}
+
+export const WithStaticWidth: Story = {
+  args: {
+    type: AlertMessageType.info,
+    dismissButton: {
+      action: fn(),
+      text: 'Click Here',
+    },
+    children: 'Example of overall warning message. Lorem ipsum dolor sit amet.',
+  },
+  render: (args) => (
     <div style={{ width: 800 }}>
-      <AlertMessage
-        type={AlertMessageType.info}
-        dismissButton={{
-          action: action('button clicked'),
-          text: 'Click Here',
-        }}
-      >
-        Example of overall warning message. Lorem ipsum dolor sit amet.
-      </AlertMessage>
+      <AlertMessage {...args} />
     </div>
-  ))
-  .add('with small container', () => (
+  ),
+}
+
+export const WithSmallContainer: Story = {
+  args: {
+    type: AlertMessageType.info,
+    dismissButton: {
+      action: fn(),
+      text: 'Click Here',
+    },
+    children: 'Example of overall warning message. Lorem ipsum dolor sit amet.',
+  },
+  render: (args) => (
     <div style={{ width: 250 }}>
-      <AlertMessage
-        type={AlertMessageType.info}
-        dismissButton={{
-          action: action('button clicked'),
-          text: 'Click Here',
-        }}
-      >
-        Example of overall warning message. Lorem ipsum dolor sit amet.
-      </AlertMessage>
+      <AlertMessage {...args} />
     </div>
-  ))
+  ),
+}
