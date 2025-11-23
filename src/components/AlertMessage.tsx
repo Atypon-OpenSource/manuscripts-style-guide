@@ -15,7 +15,6 @@
  */
 
 import React from 'react'
-import { SizeMe } from 'react-sizeme'
 import styled, { AnyStyledComponent, css } from 'styled-components'
 
 import { IconButton, IconTextButton } from './Button'
@@ -163,27 +162,21 @@ export class AlertMessage extends React.Component<Props, State> {
 
     return (
       isOpen && (
-        <SizeMe>
-          {() => (
-            <AlertContainer className={'alert-message'}>
-              <InnerContainer>
-                <InformativeIcon>{<AlertIcon />}</InformativeIcon>
-                <TextContainer>{children}</TextContainer>
-                {dismissButton && (
-                  <TextButton
-                    onClick={
-                      dismissButton.action
-                        ? dismissButton.action
-                        : this.handleClose
-                    }
-                  >
-                    {dismissButton.text}
-                  </TextButton>
-                )}
-              </InnerContainer>
-            </AlertContainer>
-          )}
-        </SizeMe>
+        <AlertContainer className={'alert-message'}>
+          <InnerContainer>
+            <InformativeIcon>{<AlertIcon />}</InformativeIcon>
+            <TextContainer>{children}</TextContainer>
+            {dismissButton && (
+              <TextButton
+                onClick={
+                  dismissButton.action ? dismissButton.action : this.handleClose
+                }
+              >
+                {dismissButton.text}
+              </TextButton>
+            )}
+          </InnerContainer>
+        </AlertContainer>
       )
     )
   }
