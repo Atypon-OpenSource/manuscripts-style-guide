@@ -163,8 +163,8 @@ export const StyledModal = styled(ReactModalAdapter).attrs({
       props.hideOverlay
         ? 'transparent'
         : props.pointerEventsOnBackdrop === 'none'
-        ? 'rgba(0,0,0,0.1)'
-        : props.theme.colors.background.dark};
+          ? 'rgba(0,0,0,0.1)'
+          : props.theme.colors.background.dark};
     z-index: 1000;
     display: flex;
     justify-content: center;
@@ -190,7 +190,8 @@ export const StyledModal = styled(ReactModalAdapter).attrs({
     position: relative;
     outline: none;
     opacity: 0;
-    transition: opacity ${delayedTransitionTime}ms ease-in-out,
+    transition:
+      opacity ${delayedTransitionTime}ms ease-in-out,
       top ${delayedTransitionTime}ms ease-in-out;
     transition-delay: ${transitionDelay}ms;
 

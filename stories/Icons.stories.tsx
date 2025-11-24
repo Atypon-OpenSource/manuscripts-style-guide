@@ -13,8 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { storiesOf } from '@storybook/react'
-import * as React from 'react'
+import type { Meta, StoryObj } from '@storybook/react'
 import styled from 'styled-components'
 
 import * as Icons from '../src/components/icons'
@@ -148,14 +147,23 @@ const iconList: { name: string; Component: React.FC<IconProps> }[] = [
   { name: 'ToolbarUnindentIcon', Component: Icons.ToolbarUnindentIcon },
 ]
 
-storiesOf('Icons', module).add('Icons', () => (
-  <IconsContainer>
-    <style>{style}</style>
-    {iconList.map(({ name, Component }) => (
-      <IconElement key={name}>
-        <Component />
-        <p>{name}</p>
-      </IconElement>
-    ))}
-  </IconsContainer>
-))
+const meta: Meta = {
+  title: 'Icons',
+}
+
+export default meta
+type Story = StoryObj
+
+export const Icons_: Story = {
+  render: () => (
+    <IconsContainer>
+      <style>{style}</style>
+      {iconList.map(({ name, Component }) => (
+        <IconElement key={name}>
+          <Component />
+          <p>{name}</p>
+        </IconElement>
+      ))}
+    </IconsContainer>
+  ),
+}
