@@ -86,7 +86,7 @@ const Text = styled.span`
   margin-left: 0.5em;
   font-family: ${(props) => props.theme.font.family.Lato};
   font-size: 14px;
-  font-weight: 700;
+  font-weight: 400;
 `
 const FailedContainer = styled(Container)`
   path {
