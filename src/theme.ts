@@ -28,6 +28,11 @@ interface Colors {
   brand: Brand
   button: Button
   text: Text & Alerts & Variations
+  outline: Outline
+}
+
+interface Outline {
+  focus: string
 }
 interface Font {
   family: FontFamily

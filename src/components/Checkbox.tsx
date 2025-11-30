@@ -67,7 +67,7 @@ export const CheckboxLabel = styled.label<{
   }
 
   input:focus-visible + div::before {
-    outline: 2px solid #3dadff;
+    outline: 2px solid ${(props) => props.theme.colors.outline.focus};
     outline-offset: 2px;
   }
 `

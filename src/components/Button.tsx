@@ -152,7 +152,7 @@ export const SecondaryButton = styled(ButtonTemplate)`
   }
 
   &:focus-visible {
-    outline: 3px solid #3dadff;
+    outline: 3px solid ${(props) => props.theme.colors.outline.focus};
     outline-offset: 4px;
   }
 `
@@ -177,7 +177,7 @@ export const PrimaryButton = styled(ButtonTemplate)`
   }
 
   &:focus-visible {
-    outline: 3px solid #3dadff !important;
+    outline: 3px solid ${(props) => props.theme.colors.outline.focus} !important;
     outline-offset: 4px;
   }
 

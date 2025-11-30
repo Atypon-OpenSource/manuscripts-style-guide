@@ -77,7 +77,7 @@ export const ToggleIcon = styled.div<{ isOpen: boolean }>`
   cursor: pointer;
 
   &:focus-visible {
-    outline: 2px solid #3dadff;
+    outline: 2px solid ${(props) => props.theme.colors.outline.focus};
     outline-offset: 2px;
   }
 
