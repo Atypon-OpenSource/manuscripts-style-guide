@@ -84,9 +84,10 @@ const Container = styled.div<{ isOpen: boolean }>`
   align-items: center;
   cursor: pointer;
   padding: 8px 16px 8px 4px;
+  outline: none;
   ${(props) => props.isOpen && 'background: #f2fbfc;'}
 
-  &:hover {
+  &:hover, &:focus {
     background: #f2fbfc;
   }
 
@@ -101,21 +102,127 @@ const activeContent = (menu: Menu) => (menu.isActive ? '✓' : '')
 export interface SubmenuProps {
   menu: Menu | MenuSeparator
   handleClick: (position: number[]) => void
+  closeAll: () => void
 }
 
-export const SubmenuLabel: React.FC<SubmenuProps> = ({ menu, handleClick }) => {
+export const SubmenuLabel: React.FC<SubmenuProps> = ({
+  menu,
+  handleClick,
+  closeAll,
+}) => {
   if (isMenuSeparator(menu)) {
     return null
   }
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
+    if (isMenuSeparator(menu)) {
+      return
+    }
+
+    const currentElement = e.currentTarget
+    const submenuContainer = currentElement.closest('[data-submenu-container]')
+
+    if (!submenuContainer) {
+      return
+    }
+
+    const items = submenuContainer
+      ? (Array.from(
+          submenuContainer.querySelectorAll('[data-submenu-item]')
+        ) as HTMLElement[])
+      : []
+    const currentIndex = items.indexOf(currentElement)
+
+    switch (e.key) {
+      case 'ArrowDown': {
+        e.preventDefault()
+        e.stopPropagation()
+        const nextIndex = currentIndex + 1
+        const nextItem = items[nextIndex] || items[0]
+        nextItem?.focus()
+        break
+      }
+      case 'ArrowUp': {
+        e.preventDefault()
+        e.stopPropagation()
+        const prevIndex = currentIndex - 1
+        const prevItem = items[prevIndex] || items[items.length - 1]
+        prevItem?.focus()
+        break
+      }
+      case 'ArrowRight': {
+        if (menu.submenu) {
+          e.preventDefault()
+          e.stopPropagation()
+          handleClick([])
+        }
+        break
+      }
+      case 'ArrowLeft': {
+        e.preventDefault()
+        e.stopPropagation()
+
+        // Find parent submenu container (going up from current container)
+        const currentContainer = currentElement.closest(
+          '[data-submenu-container]'
+        )
+        const parentContainer = currentContainer?.parentElement?.closest(
+          '[data-submenu-container]'
+        )
+
+        if (parentContainer) {
+          const parentLabel = parentContainer.querySelector(
+            ':scope > [data-submenu-item]'
+          ) as HTMLElement
+          parentLabel?.focus()
+        } else {
+          // At top level: go back to main menu heading
+          const menuContainer = currentElement.closest('[data-cy="menu"]')
+          const menuHeading = menuContainer?.querySelector(
+            '[tabindex]'
+          ) as HTMLElement
+          menuHeading?.focus()
+        }
+        break
+      }
+      case 'Escape': {
+        e.preventDefault()
+        e.stopPropagation()
+        closeAll()
+        // Return focus to menu heading
+        const menuContainer = currentElement.closest(
+          '[data-cy="menu"]'
+        ) as HTMLElement
+        const menuHeading = menuContainer?.querySelector(
+          '[tabindex]'
+        ) as HTMLElement
+        menuHeading?.focus()
+
+        break
+      }
+      case 'Enter': {
+        e.preventDefault()
+        e.stopPropagation()
+        if (menu.isEnabled) {
+          handleClick([])
+        }
+        break
+      }
+    }
+  }
+
   return (
     <Container
       isOpen={menu.isOpen}
       data-cy={'submenu'}
+      data-submenu-item
       className={menu.isEnabled ? '' : 'disabled'}
+      tabIndex={-1}
       onMouseDown={(e) => {
         e.preventDefault()
         handleClick([])
       }}
+      onKeyDown={handleKeyDown}
     >
       <Active>{activeContent(menu)}</Active>
       <Text>{menu.label}</Text>
@@ -125,7 +232,11 @@ export const SubmenuLabel: React.FC<SubmenuProps> = ({ menu, handleClick }) => {
   )
 }
 
-export const Submenu: React.FC<SubmenuProps> = ({ menu, handleClick }) => {
+export const Submenu: React.FC<SubmenuProps> = ({
+  menu,
+  handleClick,
+  closeAll,
+}) => {
   if (isMenuSeparator(menu)) {
     return <Separator />
   }
@@ -135,19 +246,22 @@ export const Submenu: React.FC<SubmenuProps> = ({ menu, handleClick }) => {
   }
 
   if (!menu.submenu) {
-    return <SubmenuLabel menu={menu} handleClick={handleClick} />
+    return (
+      <SubmenuLabel menu={menu} handleClick={handleClick} closeAll={closeAll} />
+    )
   }
 
   return (
     <SubmenuContainer data-cy={'submenu'}>
-      <SubmenuLabel menu={menu} handleClick={handleClick} />
+      <SubmenuLabel menu={menu} handleClick={handleClick} closeAll={closeAll} />
       {menu.submenu && menu.isOpen && (
-        <NestedSubmenusContainer>
+        <NestedSubmenusContainer data-submenu-container>
           {menu.submenu.map((submenu, index) => (
             <Submenu
               key={`menu-${index}`}
               menu={submenu}
               handleClick={(i) => handleClick([index, ...i])}
+              closeAll={closeAll}
             />
           ))}
         </NestedSubmenusContainer>

@@ -176,6 +176,7 @@ export const NavDropdownButton: React.FunctionComponent<
     onClick={onClick}
     isOpen={isOpen}
     className={'dropdown-toggle'}
+    tabIndex={0}
   >
     <NavDropdownButtonText>{children}</NavDropdownButtonText>
     {!!notificationsCount && (

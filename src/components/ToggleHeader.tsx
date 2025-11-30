@@ -30,15 +30,22 @@ export const ToggleHeader: React.FC<SectionHeaderProps> = ({
   isOpen,
   onToggle,
 }) => {
+  const handleToggle = (e: React.MouseEvent | React.KeyboardEvent) => {
+    e.stopPropagation()
+    onToggle()
+  }
+
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === 'Enter') {
+      e.preventDefault()
+      handleToggle(e)
+    }
+  }
+
   return (
-    <ToggleHeaderContainer
-      onClick={(e) => {
-        e.stopPropagation()
-        onToggle()
-      }}
-    >
+    <ToggleHeaderContainer onClick={handleToggle}>
       <span>{title}</span>
-      <ToggleIcon isOpen={isOpen}>
+      <ToggleIcon isOpen={isOpen} onKeyDown={handleKeyDown} tabIndex={0}>
         {isOpen ? <TriangleExpandedIcon /> : <TriangleCollapsedIcon />}
       </ToggleIcon>
     </ToggleHeaderContainer>
@@ -68,6 +75,11 @@ export const ToggleIcon = styled.div<{ isOpen: boolean }>`
   border: 1px solid #e2e2e2;
   text-align: center;
   cursor: pointer;
+
+  &:focus-visible {
+    outline: 2px solid #3dadff;
+    outline-offset: 2px;
+  }
 
   svg {
     width: 19px;
