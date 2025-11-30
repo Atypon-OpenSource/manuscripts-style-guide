@@ -150,7 +150,9 @@ export const Menus: React.FC<MenusProps> = ({
             isEnabled={menu.isEnabled}
           >
             <MenuHeading
-              ref={(el) => (menuHeadingsRef.current[index] = el)}
+              ref={(el) => {
+                menuHeadingsRef.current[index] = el
+              }}
               onMouseDown={(e) => {
                 e.preventDefault()
                 handleClick([index])
