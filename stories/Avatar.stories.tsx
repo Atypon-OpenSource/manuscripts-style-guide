@@ -14,17 +14,48 @@
  * limitations under the License.
  */
 
-import { storiesOf } from '@storybook/react'
-import * as React from 'react'
+import type { Meta, StoryObj } from '@storybook/react'
 
 import { Avatar } from '../src'
 import image from './assets/melnitz.jpg'
 
-storiesOf('Avatar', module)
-  .add('with image', () => <Avatar src={image} size={32} />)
-  .add('with image, large', () => <Avatar src={image} size={60} />)
-  .add('without image', () => <Avatar size={32} />)
-  .add('without image, large', () => <Avatar size={60} />)
-  .add('without image, custom color', () => (
-    <Avatar size={32} color={'#ff0000'} />
-  ))
+const meta: Meta<typeof Avatar> = {
+  title: 'Avatar',
+  component: Avatar,
+}
+
+export default meta
+type Story = StoryObj<typeof Avatar>
+
+export const WithImage: Story = {
+  args: {
+    src: image,
+    size: 32,
+  },
+}
+
+export const WithImageLarge: Story = {
+  args: {
+    src: image,
+    size: 60,
+  },
+}
+
+export const WithoutImage: Story = {
+  args: {
+    size: 32,
+  },
+}
+
+export const WithoutImageLarge: Story = {
+  args: {
+    size: 60,
+  },
+}
+
+export const WithoutImageCustomColor: Story = {
+  args: {
+    size: 32,
+    color: '#ff0000',
+  },
+}

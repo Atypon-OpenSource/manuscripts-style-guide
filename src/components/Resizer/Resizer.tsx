@@ -58,7 +58,7 @@ interface State {
 }
 
 export class Resizer extends React.Component<Props, State> {
-  public resizerRef: React.RefObject<HTMLDivElement> = React.createRef()
+  public resizerRef: React.RefObject<HTMLDivElement | null> = React.createRef()
 
   public state = {
     isHovering: false,
