@@ -126,25 +126,29 @@ export const SubmenuLabel: React.FC<SubmenuProps> = ({
       return
     }
 
-    const items = submenuContainer
-      ? (Array.from(
-          submenuContainer.querySelectorAll('[data-submenu-item]')
-        ) as HTMLElement[])
-      : []
+    const items = Array.from(
+      submenuContainer.querySelectorAll('[data-submenu-item]')
+    ) as HTMLElement[]
     const currentIndex = items.indexOf(currentElement)
 
+    const focusMenuHeading = () => {
+      const menuContainer = currentElement.closest('[data-cy="menu"]')
+      const menuHeading = menuContainer?.querySelector(
+        '[tabindex]'
+      ) as HTMLElement
+      menuHeading?.focus()
+    }
+
+    e.preventDefault()
+    e.stopPropagation()
     switch (e.key) {
       case 'ArrowDown': {
-        e.preventDefault()
-        e.stopPropagation()
         const nextIndex = currentIndex + 1
         const nextItem = items[nextIndex] || items[0]
         nextItem?.focus()
         break
       }
       case 'ArrowUp': {
-        e.preventDefault()
-        e.stopPropagation()
         const prevIndex = currentIndex - 1
         const prevItem = items[prevIndex] || items[items.length - 1]
         prevItem?.focus()
@@ -152,21 +156,21 @@ export const SubmenuLabel: React.FC<SubmenuProps> = ({
       }
       case 'ArrowRight': {
         if (menu.submenu) {
-          e.preventDefault()
-          e.stopPropagation()
           handleClick([])
+          // Focus first submenu item after it opens
+          setTimeout(() => {
+            const nestedContainer = currentElement.nextElementSibling
+            const firstItem = nestedContainer?.querySelector(
+              '[data-submenu-item]'
+            ) as HTMLElement
+            firstItem?.focus()
+          }, 0)
         }
         break
       }
       case 'ArrowLeft': {
-        e.preventDefault()
-        e.stopPropagation()
-
         // Find parent submenu container (going up from current container)
-        const currentContainer = currentElement.closest(
-          '[data-submenu-container]'
-        )
-        const parentContainer = currentContainer?.parentElement?.closest(
+        const parentContainer = submenuContainer?.parentElement?.closest(
           '[data-submenu-container]'
         )
 
@@ -177,32 +181,16 @@ export const SubmenuLabel: React.FC<SubmenuProps> = ({
           parentLabel?.focus()
         } else {
           // At top level: go back to main menu heading
-          const menuContainer = currentElement.closest('[data-cy="menu"]')
-          const menuHeading = menuContainer?.querySelector(
-            '[tabindex]'
-          ) as HTMLElement
-          menuHeading?.focus()
+          focusMenuHeading()
         }
         break
       }
       case 'Escape': {
-        e.preventDefault()
-        e.stopPropagation()
         closeAll()
-        // Return focus to menu heading
-        const menuContainer = currentElement.closest(
-          '[data-cy="menu"]'
-        ) as HTMLElement
-        const menuHeading = menuContainer?.querySelector(
-          '[tabindex]'
-        ) as HTMLElement
-        menuHeading?.focus()
-
+        focusMenuHeading()
         break
       }
       case 'Enter': {
-        e.preventDefault()
-        e.stopPropagation()
         if (menu.isEnabled) {
           handleClick([])
         }

@@ -34,7 +34,7 @@ const MenuHeading = styled.div<{ isOpen: boolean }>`
   padding: 4px 8px;
   cursor: pointer;
 
-  &:focus {
+  &:focus-visible {
     outline: 2px solid ${(props) => props.theme.colors.outline.focus};
     outline-offset: -2px;
   }
@@ -121,16 +121,16 @@ export const Menus: React.FC<MenusProps> = ({
         if (menu && !menu.isOpen) {
           handleClick([currentIndex])
         }
-        // Focus first submenu item after menu opens
+        // Focus first menu item after it opens
         const menuContainer = event.currentTarget.children[
           currentIndex
         ] as HTMLElement
-        const firstItem = menuContainer?.querySelector(
-          '[data-submenu-item]'
-        ) as HTMLElement
-
-        firstItem?.focus()
-
+        setTimeout(() => {
+          const firstItem = menuContainer?.querySelector(
+            '[data-submenu-item]'
+          ) as HTMLElement
+          firstItem?.focus()
+        }, 0)
         break
       }
     }
