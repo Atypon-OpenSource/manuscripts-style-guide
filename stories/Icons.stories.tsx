@@ -118,6 +118,7 @@ const iconList: { name: string; Component: React.FC<IconProps> }[] = [
   { name: 'SaveStatusOfflineIcon', Component: Icons.SaveStatusOfflineIcon },
   { name: 'SaveStatusSavedIcon', Component: Icons.SaveStatusSavedIcon },
   { name: 'SaveStatusSavingIcon', Component: Icons.SaveStatusSavingIcon },
+  { name: 'SaveStatusErrorIcon', Component: Icons.SaveStatusErrorIcon },
   { name: 'ScrollIcon', Component: Icons.ScrollIcon },
   { name: 'SearchIcon', Component: Icons.SearchIcon },
   { name: 'SystemUserAvatarIcon', Component: Icons.SystemUserAvatarIcon },
