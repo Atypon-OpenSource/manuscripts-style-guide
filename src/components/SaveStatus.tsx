@@ -18,7 +18,7 @@ import React from 'react'
 import styled from 'styled-components'
 
 import {
-  AttentionRedIcon,
+  SaveStatusErrorIcon,
   SaveStatusOfflineIcon,
   SaveStatusSavedIcon,
   SaveStatusSavingIcon,
@@ -61,7 +61,7 @@ export const SaveStatus: React.FC<Props> = ({ status }) => {
       return (
         <FailedContainer>
           <PopPop>
-            <AttentionRedIcon />
+            <SaveStatusErrorIcon />
           </PopPop>
           <FailedText>Failed To Save</FailedText>
         </FailedContainer>
