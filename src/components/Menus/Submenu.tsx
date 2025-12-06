@@ -230,7 +230,7 @@ export const Submenu: React.FC<SubmenuProps> = ({
   }
 
   if (menu.component) {
-    return <menu.component menu={menu} handleClick={handleClick} />
+    return <menu.component menu={menu} handleClick={handleClick} closeAll={closeAll} />
   }
 
   if (!menu.submenu) {
