@@ -157,6 +157,7 @@ interface DropdownButtonProps {
   onClick?: React.MouseEventHandler
   removeChevron?: boolean
   children: React.ReactNode
+  buttonRef?: React.Ref<HTMLButtonElement>
 }
 
 export const NavDropdownButton: React.FunctionComponent<
@@ -169,8 +170,10 @@ export const NavDropdownButton: React.FunctionComponent<
   notificationsCount,
   onClick,
   removeChevron,
+  buttonRef,
 }) => (
   <NavDropdownButtonContainer
+    ref={buttonRef}
     as={as}
     disabled={disabled}
     onClick={onClick}
