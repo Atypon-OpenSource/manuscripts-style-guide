@@ -63,7 +63,7 @@ export const SaveStatus: React.FC<Props> = ({ status }) => {
           <PopPop>
             <SaveStatusErrorIcon />
           </PopPop>
-          <FailedText>Failed To Save</FailedText>
+          <FailedText>Save error</FailedText>
         </FailedContainer>
       )
     default:
@@ -95,7 +95,7 @@ const FailedContainer = styled(Container)`
   }
 `
 const FailedText = styled(Text)`
-  color: ${(props) => props.theme.colors.text.error};
+  color: ${(props) => props.theme.colors.text.secondary};
 `
 
 const RotateContinuous = styled.div`
