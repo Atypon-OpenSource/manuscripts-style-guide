@@ -1,7 +1,7 @@
 {
   "name": "@manuscripts/style-guide",
   "description": "Shared components for Manuscripts applications",
-  "version": "3.3.11-LEAN-5090.1",
+  "version": "3.3.12",
   "repository": "github:Atypon-OpenSource/manuscripts-style-guide",
   "license": "Apache-2.0",
   "main": "dist/cjs",
@@ -41,7 +41,7 @@
     "prosemirror-keymap": "1.2.3",
     "prosemirror-model": "1.25.0",
     "prosemirror-state": "1.4.3",
-    "prosemirror-view": "1.40.0",
+    "prosemirror-view": "1.41.0",
     "react": "19.2.0",
     "react-dnd": "16.0.1",
     "react-dnd-html5-backend": "16.0.1",
