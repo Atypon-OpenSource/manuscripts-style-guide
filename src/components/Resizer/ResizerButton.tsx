@@ -74,6 +74,7 @@ export class ResizerButton extends React.PureComponent<Props> {
         isVisible={isVisible}
         onClick={onClick}
         onMouseDown={(event: React.MouseEvent) => event.preventDefault()}
+        tabIndex={0}
       />
     )
   }

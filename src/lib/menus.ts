@@ -24,6 +24,7 @@ export interface MenuShortcut {
 export interface MenuComponentProps {
   menu: Menu
   handleClick: (position: number[]) => void
+  closeAll: () => void
 }
 
 export interface MenuSpec {

@@ -139,9 +139,14 @@ export const useMenus = (menus: MenuSpec[]) => {
     }
   }, [])
 
+  const closeAll = useCallback(() => {
+    setPointer(initialPointer)
+  }, [])
+
   return {
     menus: state,
     handleClick,
+    closeAll,
     ref,
   }
 }
