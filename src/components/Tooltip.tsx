@@ -14,7 +14,6 @@
  * limitations under the License.
  */
 import React from 'react'
-import { Tooltip as ReactTooltip } from 'react-tooltip'
 import styled from 'styled-components'
 
 const StyledTooltipWrapper = styled.div`
@@ -41,21 +40,5 @@ const StyledTooltipWrapper = styled.div`
 const defaultOpenEvents = ['click', 'mouseenter']
 export const Tooltip = (props: React.ComponentProps<typeof ReactTooltip>) => (
   <StyledTooltipWrapper>
-    <ReactTooltip
-      positionStrategy="fixed"
-      offset={10}
-      openEvents={{
-        mouseenter: true,
-        mouseover: true,
-        click: false,
-      }}
-      closeEvents={{
-        mouseleave: true,
-        mouseout: true,
-        blur: true,
-        click: false,
-      }}
-      {...props}
-    />
   </StyledTooltipWrapper>
 )
