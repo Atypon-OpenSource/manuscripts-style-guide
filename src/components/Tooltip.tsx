@@ -14,6 +14,7 @@
  * limitations under the License.
  */
 import React from 'react'
+import { Tooltip as ReactTooltip } from 'react-tooltip'
 import styled from 'styled-components'
 
 const StyledTooltipWrapper = styled.div`
