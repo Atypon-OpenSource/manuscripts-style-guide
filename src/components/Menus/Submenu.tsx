@@ -51,6 +51,10 @@ export const SubmenusContainer = styled.div`
   &[data-placement='right-start'] {
     top: 8px;
   }
+
+  &:focus-visible {
+    outline: none;
+  }
 `
 
 export const NestedSubmenusContainer = styled(SubmenusContainer)`
@@ -182,6 +186,7 @@ export const SubmenuLabel: React.FC<SubmenuProps> = ({
         } else {
           // At top level: go back to main menu heading
           focusMenuHeading()
+          closeAll()
         }
         break
       }

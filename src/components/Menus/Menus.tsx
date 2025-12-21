@@ -164,7 +164,7 @@ export const Menus: React.FC<MenusProps> = ({
 
             {menu.isEnabled && menu.isOpen && menu.submenu && (
               <SubmenusContainerWrapper>
-                <SubmenusContainer data-submenu-container>
+                <SubmenusContainer data-submenu-container tabIndex={-1}>
                   {menu.submenu.map((submenu, sindex) => {
                     return (
                       <Submenu
