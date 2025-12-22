@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import React, { Ref } from 'react'
+import React, { Ref, useEffect, useRef } from 'react'
 import styled from 'styled-components'
 
 import { Menu } from '../../lib/menus'
@@ -33,6 +33,11 @@ const MenusContainer = styled.div`
 const MenuHeading = styled.div<{ isOpen: boolean }>`
   padding: 4px 8px;
   cursor: pointer;
+
+  &:focus-visible {
+    outline: 2px solid ${(props) => props.theme.colors.outline.focus};
+    outline-offset: -2px;
+  }
 `
 
 const MenuContainer = styled.div<{ isEnabled: boolean }>`
@@ -53,15 +58,90 @@ interface MenusProps {
   menus: Menu[]
   innerRef: Ref<HTMLDivElement>
   handleClick: (position: number[]) => void
+  closeAll: () => void
 }
 
 export const Menus: React.FC<MenusProps> = ({
   menus,
   innerRef,
   handleClick,
+  closeAll,
 }) => {
+  const menuHeadingsRef = useRef<(HTMLDivElement | null)[]>([])
+
+  // Set roving tabindex: only first menu button is tabbable
+  useEffect(() => {
+    menuHeadingsRef.current.forEach((heading, index) => {
+      if (heading) {
+        heading.tabIndex = index === 0 ? 0 : -1
+      }
+    })
+  }, [menus])
+
+  const handleKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
+    const target = event.target as HTMLElement
+
+    const currentIndex = menuHeadingsRef.current.findIndex(
+      (heading) => heading === target
+    )
+
+    if (currentIndex === -1) {
+      return
+    }
+
+    switch (event.key) {
+      case 'ArrowRight': {
+        event.preventDefault()
+        const nextIndex = (currentIndex + 1) % menuHeadingsRef.current.length
+        menuHeadingsRef.current[nextIndex]?.focus()
+        break
+      }
+      case 'ArrowLeft': {
+        event.preventDefault()
+        const prevIndex =
+          (currentIndex - 1 + menuHeadingsRef.current.length) %
+          menuHeadingsRef.current.length
+        menuHeadingsRef.current[prevIndex]?.focus()
+        break
+      }
+      case 'Enter': {
+        event.preventDefault()
+        handleClick([currentIndex])
+        break
+      }
+      case 'Escape': {
+        event.preventDefault()
+        event.stopPropagation()
+        closeAll()
+        break
+      }
+      case 'ArrowDown': {
+        event.preventDefault()
+        const menu = menus[currentIndex]
+        if (menu && !menu.isOpen) {
+          handleClick([currentIndex])
+        }
+        // Focus first menu item after it opens
+        const menuContainer = event.currentTarget.children[
+          currentIndex
+        ] as HTMLElement
+        setTimeout(() => {
+          const firstItem = menuContainer?.querySelector(
+            '[data-submenu-item]'
+          ) as HTMLElement
+          firstItem?.focus()
+        }, 0)
+        break
+      }
+    }
+  }
+
   return (
-    <MenusContainer ref={innerRef} data-cy={'manuscript-menus'}>
+    <MenusContainer
+      ref={innerRef}
+      data-cy={'manuscript-menus'}
+      onKeyDown={handleKeyDown}
+    >
       {menus.map((menu, index) => {
         return (
           <MenuContainer
@@ -70,6 +150,9 @@ export const Menus: React.FC<MenusProps> = ({
             isEnabled={menu.isEnabled}
           >
             <MenuHeading
+              ref={(el) => {
+                menuHeadingsRef.current[index] = el
+              }}
               onMouseDown={(e) => {
                 e.preventDefault()
                 handleClick([index])
@@ -81,13 +164,14 @@ export const Menus: React.FC<MenusProps> = ({
 
             {menu.isEnabled && menu.isOpen && menu.submenu && (
               <SubmenusContainerWrapper>
-                <SubmenusContainer>
+                <SubmenusContainer data-submenu-container tabIndex={-1}>
                   {menu.submenu.map((submenu, sindex) => {
                     return (
                       <Submenu
                         key={`${index}-${sindex}`}
                         menu={submenu}
                         handleClick={(i) => handleClick([index, sindex, ...i])}
+                        closeAll={closeAll}
                       />
                     )
                   })}
