@@ -150,6 +150,11 @@ export const SecondaryButton = styled(ButtonTemplate)`
         false
       )}
   }
+
+  &:focus-visible {
+    outline: 3px solid ${(props) => props.theme.colors.outline.focus};
+    outline-offset: 4px;
+  }
 `
 
 export const PrimaryButton = styled(ButtonTemplate)`
@@ -169,6 +174,11 @@ export const PrimaryButton = styled(ButtonTemplate)`
         props.theme.colors.button.primary.border.hover,
         false
       )}
+  }
+
+  &:focus-visible {
+    outline: 3px solid ${(props) => props.theme.colors.outline.focus} !important;
+    outline-offset: 4px;
   }
 
   &:not([disabled]):active {

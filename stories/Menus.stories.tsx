@@ -358,9 +358,16 @@ const MenusComponent = () => {
     ],
   }
 
-  const { menus, ref, handleClick } = useMenus([edit, insert, format])
+  const { menus, ref, handleClick, closeAll } = useMenus([edit, insert, format])
 
-  return <Menus menus={menus} innerRef={ref} handleClick={handleClick} />
+  return (
+    <Menus
+      menus={menus}
+      innerRef={ref}
+      handleClick={handleClick}
+      closeAll={closeAll}
+    />
+  )
 }
 
 export const Menus_: Story = {
