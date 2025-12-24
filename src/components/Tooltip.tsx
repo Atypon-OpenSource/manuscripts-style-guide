@@ -38,7 +38,6 @@ const StyledTooltipWrapper = styled.div`
   }
 `
 
-const defaultOpenEvents = ['click', 'mouseenter']
 export const Tooltip = (props: React.ComponentProps<typeof ReactTooltip>) => (
   <StyledTooltipWrapper>
     <ReactTooltip
