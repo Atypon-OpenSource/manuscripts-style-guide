@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import React from 'react'
+import React, { ReactNode } from 'react'
 
 import {
   FileAudioIcon,
@@ -91,7 +91,7 @@ const extension2type = new Map<string, FileType>([
   ['txt', FileType.PlainText],
 ])
 
-const type2icon = new Map<FileType | undefined, JSX.Element>([
+const type2icon = new Map<FileType | undefined, ReactNode>([
   [
     FileType.Audio,
     <FileAudioIcon key={FileType.Audio} className="file-icon" />,

@@ -18,7 +18,7 @@ import React from 'react'
 import styled from 'styled-components'
 
 import {
-  AttentionRedIcon,
+  SaveStatusErrorIcon,
   SaveStatusOfflineIcon,
   SaveStatusSavedIcon,
   SaveStatusSavingIcon,
@@ -61,9 +61,9 @@ export const SaveStatus: React.FC<Props> = ({ status }) => {
       return (
         <FailedContainer>
           <PopPop>
-            <AttentionRedIcon />
+            <SaveStatusErrorIcon />
           </PopPop>
-          <FailedText>Failed To Save</FailedText>
+          <FailedText>Save error</FailedText>
         </FailedContainer>
       )
     default:
@@ -86,7 +86,7 @@ const Text = styled.span`
   margin-left: 0.5em;
   font-family: ${(props) => props.theme.font.family.Lato};
   font-size: 14px;
-  font-weight: 700;
+  font-weight: 400;
 `
 const FailedContainer = styled(Container)`
   path {
@@ -95,7 +95,7 @@ const FailedContainer = styled(Container)`
   }
 `
 const FailedText = styled(Text)`
-  color: ${(props) => props.theme.colors.text.error};
+  color: ${(props) => props.theme.colors.text.secondary};
 `
 
 const RotateContinuous = styled.div`

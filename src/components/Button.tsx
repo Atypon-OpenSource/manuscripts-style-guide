@@ -81,7 +81,11 @@ const btnStyles = css<{
   justify-content: center;
   outline: none;
   padding: 7px ${(props) => props.theme.grid.unit * 3}px;
-  transition: border 0.1s, color 0.1s, background-color 0.1s, color 0.1s,
+  transition:
+    border 0.1s,
+    color 0.1s,
+    background-color 0.1s,
+    color 0.1s,
     filter 0.1s;
   vertical-align: middle;
   white-space: nowrap;
@@ -146,6 +150,11 @@ export const SecondaryButton = styled(ButtonTemplate)`
         false
       )}
   }
+
+  &:focus-visible {
+    outline: 3px solid ${(props) => props.theme.colors.outline.focus};
+    outline-offset: 4px;
+  }
 `
 
 export const PrimaryButton = styled(ButtonTemplate)`
@@ -165,6 +174,11 @@ export const PrimaryButton = styled(ButtonTemplate)`
         props.theme.colors.button.primary.border.hover,
         false
       )}
+  }
+
+  &:focus-visible {
+    outline: 3px solid ${(props) => props.theme.colors.outline.focus} !important;
+    outline-offset: 4px;
   }
 
   &:not([disabled]):active {

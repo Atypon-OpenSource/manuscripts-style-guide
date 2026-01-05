@@ -45,7 +45,6 @@ export * from './components/Badge'
 export * from './components/NavDropdown'
 export * from './components/Dropdown'
 export * from './components/LoadingOverlay'
-export * from './components/DatePicker'
 export * from './components/Text'
 export * from './components/RelativeDate'
 export * from './components/Menus'
@@ -59,6 +58,5 @@ export {
   useDeepCompareMemo,
   useDeepCompareCallback,
 } from './hooks/use-deep-compare'
-export * from './lib/capabilities'
 export * from './lib/files'
 export * from './lib/menus'
