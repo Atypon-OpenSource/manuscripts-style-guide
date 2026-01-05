@@ -11,9 +11,6 @@ importers:
       '@headlessui/react':
         specifier: 2.2.9
         version: 2.2.9(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
-      '@manuscripts/json-schema':
-        specifier: 2.2.12
-        version: 2.2.12
       date-fns:
         specifier: 2.30.0
         version: 2.30.0
@@ -1341,9 +1338,6 @@ packages:
       eslint-plugin-react-hooks: '>= 4'
       eslint-plugin-simple-import-sort: '>= 8'
       typescript: '*'
-
-  '@manuscripts/json-schema@2.2.12':
-    resolution: {integrity: sha512-MCz11Dhc1kric1oU9cnYHboPgEwwccWfuuU1XhAEilDIFe8KszAeQk5i4GBGlGLddp/Gvkr6N1gtzLl36mTE7A==}
 
   '@mdx-js/react@3.1.1':
     resolution: {integrity: sha512-f++rKLQgUVYDAtECQ6fn/is15GkEH9+nZPM3MS0RcxVqoTfawHvDlSCH7JbMhAM6uJ32v3eXLvLmLvjGu7PTQw==}
@@ -7063,12 +7057,6 @@ snapshots:
       typescript: 5.9.2
     transitivePeerDependencies:
       - supports-color
-
-  '@manuscripts/json-schema@2.2.12':
-    dependencies:
-      ajv: 8.17.1
-      deepmerge: 4.3.1
-      uuid: 9.0.1
 
   '@mdx-js/react@3.1.1(@types/react@19.2.3)(react@18.3.1)':
     dependencies:
