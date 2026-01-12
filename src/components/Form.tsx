@@ -56,3 +56,78 @@ export interface FormErrors {
 export interface ErrorProps {
   error?: string | null | Record<string, unknown>
 }
+
+// Shared layout primitives
+export const FormContainer = styled.div`
+  width: 100%;
+  max-width: 720px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: ${(props) => props.theme.grid.unit * 4}px;
+  padding: ${(props) => props.theme.grid.unit * 4}px;
+  box-sizing: border-box;
+`
+
+export const FormSection = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: ${(props) => props.theme.grid.unit * 3}px;
+`
+
+export const FormRow = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: ${(props) => props.theme.grid.unit * 2}px;
+`
+
+export const FormField = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: ${(props) => props.theme.grid.unit}px;
+`
+
+export const FormActionsBar = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: ${(props) => props.theme.grid.unit * 2}px;
+  margin-top: ${(props) => props.theme.grid.unit * 3}px;
+`
+
+export const FormTitle = styled.h2`
+  margin: 0;
+  font: ${(props) => props.theme.font.weight.medium}
+    ${(props) => props.theme.font.size.xlarge} /
+    ${(props) => props.theme.font.lineHeight.normal}
+    ${(props) => props.theme.font.family.sans};
+  color: ${(props) => props.theme.colors.text.primary};
+`
+
+export const FormSubtitle = styled.p`
+  margin: 0;
+  color: ${(props) => props.theme.colors.text.secondary};
+  font: ${(props) => props.theme.font.weight.normal}
+    ${(props) => props.theme.font.size.medium} /
+    ${(props) => props.theme.font.lineHeight.large}
+    ${(props) => props.theme.font.family.sans};
+`
+
+export const InputLabel = styled.label`
+  display: inline-flex;
+  align-items: center;
+  gap: ${(props) => props.theme.grid.unit}px;
+  color: ${(props) => props.theme.colors.text.secondary};
+  font: ${(props) => props.theme.font.weight.normal}
+    ${(props) => props.theme.font.size.normal} /
+    ${(props) => props.theme.font.lineHeight.normal}
+    ${(props) => props.theme.font.family.sans};
+`
+
+export const InputHelperText = styled.span`
+  color: ${(props) => props.theme.colors.text.muted};
+  font: ${(props) => props.theme.font.weight.normal}
+    ${(props) => props.theme.font.size.small} /
+    ${(props) => props.theme.font.lineHeight.normal}
+    ${(props) => props.theme.font.family.sans};
+`

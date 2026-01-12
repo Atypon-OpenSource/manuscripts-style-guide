@@ -35,10 +35,8 @@ const Input = styled.input`
       text-align: left;
 
       &::before {
-        border: 2px solid ${(props) => props.theme.colors.background.primary};
+        border: 1.5px solid ${(props) => props.theme.colors.border.field.default};
         border-radius: 50%;
-        box-shadow: 0 0 0 1px
-          ${(props) => props.theme.colors.text.primary};
         box-sizing: border-box;
         content: ' ';
         display: block;
@@ -48,18 +46,31 @@ const Input = styled.input`
         top: ${(props) => props.theme.grid.unit}px;
         width: 18px;
         z-index: 0;
+        background: ${(props) => props.theme.colors.background.primary};
+        box-shadow: none;
       }
     }
 
     &:checked + label::before {
-      background: ${(props) => props.theme.colors.brand.medium};
-      box-shadow: 0 0 0 1px ${(props) => props.theme.colors.brand.medium};
+      background: ${(props) => props.theme.colors.background.primary};
+      box-shadow: inset 0 0 0 4px
+        ${(props) => props.theme.colors.brand.medium};
+      border-color: ${(props) => props.theme.colors.brand.medium};
     }
     &:hover,
     &:focus {
       + label::before {
-        box-shadow: 0 0 0 1px ${(props) => props.theme.colors.brand.medium};
+        border-color: ${(props) => props.theme.colors.brand.medium};
       }
+    }
+    &:disabled + label {
+      color: ${(props) => props.theme.colors.text.muted};
+      cursor: not-allowed;
+    }
+    &:disabled + label::before {
+      background: ${(props) => props.theme.colors.background.fifth};
+      border-color: ${(props) => props.theme.colors.border.field.default};
+      box-shadow: none;
     }
   }
 `

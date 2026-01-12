@@ -36,39 +36,47 @@ export const CheckboxLabel = styled.label<{
   div {
     align-items: center;
     color: ${(props) =>
-      props.disabled ? '#aaa' : props.theme.colors.text.secondary};
+      props.disabled
+        ? props.theme.colors.text.muted
+        : props.theme.colors.text.secondary};
     display: flex;
     flex-wrap: nowrap;
     line-height: 16px;
-    margin: 16px 0 8px;
+    margin: 8px 0;
 
     &::before {
       content: ' ';
       display: inline-block;
       flex-shrink: 0;
-      width: 16px;
-      height: 16px;
-      border: 1px solid ${(props) => props.theme.colors.text.secondary};
+      width: 18px;
+      height: 18px;
+      border: 1.5px solid ${(props) => props.theme.colors.border.field.default};
       border-radius: 4px;
-      margin-right: 1em;
+      margin-right: 12px;
       text-align: center;
+      background: ${(props) => props.theme.colors.background.primary};
     }
   }
 
   input:checked + div::before {
-    background: ${(props) => props.theme.colors.brand.default};
-    border-color: ${(props) => props.theme.colors.brand.default};
-    color: white;
+    background: ${(props) => props.theme.colors.brand.medium};
+    border-color: ${(props) => props.theme.colors.brand.medium};
+    color: ${(props) => props.theme.colors.background.primary};
     content: '✓';
   }
 
   input:focus + div::before {
-    border-color: ${(props) => props.theme.colors.button.primary.border.hover};
+    border-color: ${(props) => props.theme.colors.brand.medium};
   }
 
   input:focus-visible + div::before {
     outline: 2px solid ${(props) => props.theme.colors.outline.focus};
     outline-offset: 2px;
+  }
+
+  input:disabled + div::before {
+    background: ${(props) => props.theme.colors.background.fifth};
+    border-color: ${(props) => props.theme.colors.border.field.default};
   }
 `
 
