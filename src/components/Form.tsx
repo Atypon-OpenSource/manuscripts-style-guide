@@ -113,7 +113,7 @@ export const FormSubtitle = styled.p`
     ${(props) => props.theme.font.family.sans};
 `
 
-export const InputLabel = styled.label`
+export const Label = styled.label`
   display: inline-flex;
   align-items: center;
   gap: ${(props) => props.theme.grid.unit}px;
