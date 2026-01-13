@@ -57,10 +57,7 @@ export interface ErrorProps {
   error?: string | null | Record<string, unknown>
 }
 
-// Shared layout primitives
 export const FormContainer = styled.div`
-  width: 100%;
-  max-width: 720px;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
@@ -68,23 +65,32 @@ export const FormContainer = styled.div`
   padding: ${(props) => props.theme.grid.unit * 4}px;
   box-sizing: border-box;
 `
-
-export const FormSection = styled.div`
+export const FormRow = styled.div<{
+  direction?: 'row' | 'column'
+  justify?: string
+  align?: string
+}>`
   display: flex;
-  flex-direction: column;
-  gap: ${(props) => props.theme.grid.unit * 3}px;
-`
-
-export const FormRow = styled.div`
-  display: flex;
-  flex-direction: column;
+  flex-direction: ${(props) => props.direction ?? 'column'};
   gap: ${(props) => props.theme.grid.unit * 2}px;
+  margin-bottom: ${(props) => props.theme.grid.unit * 4}px;
+  justify-content: ${(props) => props.justify ?? 'flex-start'};
+  align-items: ${(props) =>
+    props.align ?? (props.direction === 'row' ? 'center' : 'stretch')};
+  flex-wrap: ${(props) => (props.direction === 'row' ? 'wrap' : 'nowrap')};
 `
 
-export const FormField = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: ${(props) => props.theme.grid.unit}px;
+export const FormLabel = styled.legend`
+  &:not(:first-child) {
+    margin-top: 24px;
+  }
+  margin-bottom: 12px;
+  font: ${(props) => props.theme.font.weight.normal}
+    ${(props) => props.theme.font.size.xlarge} /
+    ${(props) => props.theme.font.lineHeight.large}
+    ${(props) => props.theme.font.family.sans};
+  letter-spacing: -0.4px;
+  color: ${(props) => props.theme.colors.text.secondary};
 `
 
 export const FormActionsBar = styled.div`
@@ -122,6 +128,17 @@ export const Label = styled.label`
     ${(props) => props.theme.font.size.normal} /
     ${(props) => props.theme.font.lineHeight.normal}
     ${(props) => props.theme.font.family.sans};
+`
+
+export const LabelText = styled.div`
+  font: ${(props) => props.theme.font.weight.normal}
+    ${(props) => props.theme.font.size.normal} / 1
+    ${(props) => props.theme.font.family.sans};
+  letter-spacing: -0.2px;
+  color: ${(props) => props.theme.colors.text.primary};
+  &::before {
+    margin-right: 8px !important;
+  }
 `
 
 export const InputHelperText = styled.span`

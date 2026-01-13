@@ -17,6 +17,9 @@
 import React from 'react'
 import styled from 'styled-components'
 
+const CHECK_TICK_SVG =
+  "data:image/svg+xml,%3Csvg width='16' height='12' viewBox='0 0 16 12' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M2 6.2L6.2 10.4L14 2' stroke='%23FFFFFF' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E"
+
 export const CheckboxLabel = styled.label<{
   disabled?: boolean
 }>`
@@ -48,8 +51,8 @@ export const CheckboxLabel = styled.label<{
       content: ' ';
       display: inline-block;
       flex-shrink: 0;
-      width: 18px;
-      height: 18px;
+      width: 16px;
+      height: 16px;
       border: 1.5px solid ${(props) => props.theme.colors.border.field.default};
       border-radius: 4px;
       margin-right: 12px;
@@ -61,8 +64,11 @@ export const CheckboxLabel = styled.label<{
   input:checked + div::before {
     background: ${(props) => props.theme.colors.brand.medium};
     border-color: ${(props) => props.theme.colors.brand.medium};
-    color: ${(props) => props.theme.colors.background.primary};
-    content: '✓';
+    content: '';
+    background-image: url(${CHECK_TICK_SVG});
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 12px 10px;
   }
 
   input:focus + div::before {
