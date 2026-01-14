@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import React from 'react'
+import React, { useEffect, useRef } from 'react'
 import styled from 'styled-components'
 
 import { IconButton, IconButtonGroup } from './Button'
@@ -50,6 +50,11 @@ const ContextMenuIconButton = styled(IconButton)`
     background-color: #f2f2f2;
     border-color: #f2f2f2;
   }
+  &:not([disabled]):focus-visible {
+    outline: 4px solid #3dadff;
+    outline-offset: -2px;
+    background-color: transparent !important;
+  }
   &[disabled] {
     color: #c9c9c9 !important;
     background-color: #fff !important;
@@ -70,24 +75,65 @@ const icons: { [key: string]: React.FC<IconProps> } = Object.entries(
   {} as { [key: string]: React.FC<IconProps> }
 )
 
-export const ContextMenu: React.FC<ContextMenuProps> = ({ actions }) => (
-  <IconButtonGroup size={32}>
-    {actions.map((action) => {
-      const Icon = icons[action.icon]
-      return (
-        <ContextMenuIconButton
-          key={action.icon}
-          data-tooltip-id={action.icon}
-          onClick={action.disabled === true ? () => null : action.action}
-          className={action.selected ? 'selected' : ''}
-          disabled={!!action.disabled}
-        >
-          <Icon width={18} height={18} />
-          <Tooltip id={action.icon} place="bottom">
-            {action.label}
-          </Tooltip>
-        </ContextMenuIconButton>
-      )
-    })}
-  </IconButtonGroup>
-)
+export const ContextMenu: React.FC<ContextMenuProps> = ({ actions }) => {
+  const containerRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    if (!containerRef.current) {
+      return
+    }
+
+    const buttons = Array.from(
+      containerRef.current.querySelectorAll('button:not([disabled])')
+    ) as HTMLElement[]
+
+    if (buttons.length === 0) {
+      return
+    }
+
+    // Set tabindex: first button is tabbable, others are not
+    buttons.forEach((button, index) => {
+      button.tabIndex = index === 0 ? 0 : -1
+    })
+
+    // Add keyboard navigation
+    buttons.forEach((button, index) => {
+      const handleKeyDown = (event: KeyboardEvent) => {
+        if (event.key === 'ArrowRight' || event.key === 'ArrowLeft') {
+          event.preventDefault()
+
+          const nextIndex =
+            event.key === 'ArrowRight'
+              ? (index + 1) % buttons.length
+              : (index - 1 + buttons.length) % buttons.length
+
+          buttons[nextIndex]?.focus()
+        }
+      }
+
+      button.addEventListener('keydown', handleKeyDown)
+    })
+  }, [actions])
+
+  return (
+    <IconButtonGroup size={32} ref={containerRef}>
+      {actions.map((action) => {
+        const Icon = icons[action.icon]
+        return (
+          <ContextMenuIconButton
+            key={action.icon}
+            data-tooltip-id={action.icon}
+            onClick={action.disabled === true ? () => null : action.action}
+            className={action.selected ? 'selected' : ''}
+            disabled={!!action.disabled}
+          >
+            <Icon width={18} height={18} />
+            <Tooltip id={action.icon} place="bottom">
+              {action.label}
+            </Tooltip>
+          </ContextMenuIconButton>
+        )
+      })}
+    </IconButtonGroup>
+  )
+}
