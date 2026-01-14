@@ -19,43 +19,96 @@ import styled, { css } from 'styled-components'
 
 import { ErrorProps } from './Form'
 
-export const commonStyles = css<ErrorProps>`
+export interface TextFieldProps
+  extends React.InputHTMLAttributes<HTMLInputElement> {
+  error?: boolean | string
+  variant?: 'small' | 'large'
+}
+
+export const commonStyles = css<TextFieldProps>`
   border: 1px solid
     ${(props) =>
       props.error
         ? props.theme.colors.border.error
         : props.theme.colors.border.field.default};
-  border-radius: ${(props) => props.theme.grid.radius.small};
+  border-radius: 3px;
   box-sizing: border-box;
   font: ${(props) => props.theme.font.weight.normal}
     ${(props) => props.theme.font.size.medium} / 1
     ${(props) => props.theme.font.family.sans};
+  line-height: ${(props) => props.theme.font.lineHeight.large};
   outline: none;
-  padding: 10px ${(props) => props.theme.grid.unit * 4}px;
+  padding: ${(props) => {
+    if (props.variant === 'small') {
+      return '0 12px'
+    }
+    if (props.variant === 'large') {
+      return '4px 16px'
+    }
+    return '0 12px'
+  }};
+  min-height: ${(props) => {
+    if (props.variant === 'small') {
+      return '32px'
+    }
+    if (props.variant === 'large') {
+      return '40px'
+    }
+    return '40px'
+  }};
   position: relative;
   width: 100%;
+  background-color: #fff;
+  color: ${(props) => props.theme.colors.text.primary};
+
+  &::placeholder {
+    color: var(--greys-muted-text-grey-c-9-c-9-c-9, #6e6e6e);
+    opacity: 1;
+    font-family: ${(props) => props.theme.font.family.sans};
+    font-size: ${(props) => props.theme.font.size.medium};
+    font-style: italic;
+    font-weight: ${(props) => props.theme.font.weight.normal};
+    line-height: ${(props) => props.theme.font.lineHeight.large};
+  }
+
+  &:hover:not(:disabled) {
+    background-color: #f2fbfc;
+  }
+
+  &:focus:not(:disabled) {
+    border: 2px solid
+      ${(props) =>
+        props.error
+          ? props.theme.colors.border.error
+          : props.theme.colors.brand.default};
+    box-shadow: 0 0 0 2px
+      ${(props) =>
+        props.error
+          ? `${props.theme.colors.border.error}1a`
+          : `${props.theme.colors.brand.default}1a`};
+    background-color: #f2fbfc;
+
+    &::placeholder {
+      color: #c9c9c9;
+    }
+  }
+
+  &:disabled {
+    background-color: #f5f5f5;
+    border-color: #e4e4e4;
+    color: #b3b3b3;
+    cursor: not-allowed;
+  }
+
   ${(props) => props.error && 'z-index: 2'};
-
-  &:focus {
-    border-color: ${(props) => props.theme.colors.border.field.hover};
-    background-color: ${(props) => props.theme.colors.background.fifth};
-  }
-
-  &:hover {
-    background-color: ${(props) => props.theme.colors.background.fifth};
-  }
-
-  &:invalid {
-    box-shadow: none;
-  }
 `
 
-export const TextField = styled.input<ErrorProps>`
+export const TextField = styled.input<TextFieldProps>`
   display: block;
   ${commonStyles}
 `
 
-export const TextArea = styled.textarea`
+export const TextArea = styled.textarea<TextFieldProps>`
   ${commonStyles}
   max-width: 100%;
 `

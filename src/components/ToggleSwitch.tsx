@@ -23,22 +23,17 @@ export interface ToggleSwitchProps {
   onChange: (checked: boolean) => void
   label?: string
   id?: string
+  labelPosition?: 'left' | 'right'
 }
 
 const Track = styled.button<{ checked: boolean; disabled?: boolean }>`
   position: relative;
-  width: 36px;
-  height: 20px;
+  width: 30px;
+  height: 16px;
   border-radius: 999px;
-  border: 1.5px solid
-    ${(props) =>
-      props.checked
-        ? props.theme.colors.brand.medium
-        : props.theme.colors.border.field.default};
+  border: 1px solid ${(props) => (props.checked ? '#0d79d0' : '#6E6E6E')};
   background: ${(props) =>
-    props.checked
-      ? props.theme.colors.brand.medium
-      : props.theme.colors.background.primary};
+    props.checked ? '#0d79d0' : '#6E6E6E'};
   padding: 0;
   cursor: ${(props) => (props.disabled ? 'not-allowed' : 'pointer')};
   transition:
@@ -46,39 +41,53 @@ const Track = styled.button<{ checked: boolean; disabled?: boolean }>`
     border-color 120ms ease,
     box-shadow 120ms ease;
   outline: none;
-
-  &:hover {
-    border-color: ${(props) =>
-      props.checked
-        ? props.theme.colors.brand.dark
-        : props.theme.colors.border.field.hover};
-  }
+  flex-shrink: 0;
 
   &:focus-visible {
-    box-shadow: 0 0 0 2px ${(props) => props.theme.colors.outline.focus};
+    box-shadow: 0 0 0 2px #0d79d04d;
   }
 
   &:disabled {
-    background: ${(props) => props.theme.colors.background.fifth};
-    border-color: ${(props) => props.theme.colors.border.field.default};
+    background: #c9c9c9;
+    border-color: #c9c9c9;
   }
 `
 
 const Thumb = styled.span<{ checked: boolean; disabled?: boolean }>`
   position: absolute;
-  top: 2px;
-  left: ${(props) => (props.checked ? '18px' : '2px')};
-  width: 16px;
-  height: 16px;
+  top: 0;
+  left: ${(props) => (props.checked ? '14px' : '0px')};
+  width: 14px;
+  height: 14px;
   border-radius: 50%;
-  background: ${(props) =>
-    props.disabled
-      ? props.theme.colors.border.field.default
-      : props.theme.colors.background.primary};
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
-  transition:
-    left 120ms ease,
-    background-color 120ms ease;
+  background: #fff;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  transition: left 120ms ease;
+
+  ${(props) =>
+    props.disabled &&
+    `
+    background: #fdfdfd;
+    box-shadow: none;
+  `}
+`
+
+const LabelText = styled.span<{ disabled?: boolean }>`
+  color: ${(props) =>
+    props.disabled ? '#b3b3b3' : props.theme.colors.text.primary};
+  font: ${(props) => props.theme.font.weight.normal}
+    ${(props) => props.theme.font.size.medium} / 1
+    ${(props) => props.theme.font.family.sans};
+  line-height: 20px;
+`
+
+const Container = styled.label<{ labelPosition: 'left' | 'right' }>`
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  flex-direction: ${(props) =>
+    props.labelPosition === 'left' ? 'row' : 'row-reverse'};
 `
 
 export const ToggleSwitch: React.FC<ToggleSwitchProps> = ({
@@ -87,19 +96,11 @@ export const ToggleSwitch: React.FC<ToggleSwitchProps> = ({
   onChange,
   label,
   id,
+  labelPosition = 'left',
 }) => {
   return (
-    <label style={{ display: 'inline-flex', alignItems: 'center', gap: 8 }}>
-      {label && (
-        <span
-          style={{
-            color: disabled ? '#aaa' : undefined,
-            fontSize: '14px',
-          }}
-        >
-          {label}
-        </span>
-      )}
+    <Container labelPosition={labelPosition}>
+      {label && <LabelText disabled={disabled}>{label}</LabelText>}
       <Track
         id={id}
         type="button"
@@ -112,6 +113,6 @@ export const ToggleSwitch: React.FC<ToggleSwitchProps> = ({
       >
         <Thumb checked={checked} disabled={disabled} />
       </Track>
-    </label>
+    </Container>
   )
 }

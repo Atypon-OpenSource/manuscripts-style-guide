@@ -26,8 +26,8 @@ const Container = styled.div`
   flex-wrap: wrap;
   gap: 4px;
   align-items: center;
-  padding: 0;
-  background: hotpink
+  padding: 4px 8px;
+  background: ${(props) => props.theme.colors.background.primary};
 
 
   &:hover Input {

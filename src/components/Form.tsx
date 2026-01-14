@@ -65,6 +65,13 @@ export const FormContainer = styled.div`
   padding: ${(props) => props.theme.grid.unit * 4}px;
   box-sizing: border-box;
 `
+
+export const FormField = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+`
+
 export const FormRow = styled.div<{
   direction?: 'row' | 'column'
   justify?: string
@@ -147,4 +154,14 @@ export const InputHelperText = styled.span`
     ${(props) => props.theme.font.size.small} /
     ${(props) => props.theme.font.lineHeight.normal}
     ${(props) => props.theme.font.family.sans};
+`
+
+export const InputErrorText = styled.span`
+  color: ${(props) => props.theme.colors.text.error};
+  font: ${(props) => props.theme.font.weight.normal}
+    ${(props) => props.theme.font.size.small} /
+    ${(props) => props.theme.font.lineHeight.normal}
+    ${(props) => props.theme.font.family.sans};
+  display: block;
+  margin-top: 4px;
 `

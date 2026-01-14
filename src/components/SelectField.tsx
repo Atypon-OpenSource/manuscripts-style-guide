@@ -27,75 +27,128 @@ export type OptionType = {
 interface Props {
   id?: string
   options: OptionType[]
+  error?: boolean
+  variant?: 'small' | 'large'
+  isDisabled?: boolean
 }
 
 const selectStyles = (
-  theme: DefaultTheme
+  theme: DefaultTheme,
+  error?: boolean,
+  variant?: 'small' | 'large'
 ): StylesConfig<OptionType, false> => ({
   control: (base, state) => ({
     ...base,
-    minHeight: 40,
-    borderRadius: theme.grid.radius.small,
-    borderColor: state.isFocused
-      ? theme.colors.brand.medium
-      : theme.colors.border.field.default,
+    minHeight: variant === 'large' ? 40 : 32,
+    borderRadius: 3,
+    fontFamily: theme.font.family.sans,
+    fontSize: theme.font.size.medium,
+    borderColor: error
+      ? theme.colors.border.error
+      : state.isFocused
+        ? theme.colors.brand.default
+        : theme.colors.border.field.default,
     boxShadow: state.isFocused
-      ? `0 0 0 2px ${theme.colors.button.primary.border.hover}1a`
+      ? `0 0 0 2px ${error ? theme.colors.border.error : theme.colors.brand.default}1a`
       : 'none',
     '&:hover': {
-      borderColor: theme.colors.border.field.hover,
+      borderColor: error
+        ? theme.colors.border.error
+        : state.isFocused
+          ? theme.colors.brand.default
+          : '#6E6E6E',
+      backgroundColor: !state.isDisabled ? '#F2FBFC' : 'transparent',
     },
     backgroundColor: state.isDisabled
-      ? theme.colors.background.fifth
-      : theme.colors.background.primary,
+      ? '#F5F5F5'
+      : state.isFocused
+        ? '#F2FBFC'
+        : theme.colors.background.primary,
     transition: 'border-color 120ms ease, box-shadow 120ms ease',
+    cursor: state.isDisabled ? 'not-allowed' : 'pointer',
+  }),
+  valueContainer: (base) => ({
+    ...base,
+    padding: '0 8px',
+  }),
+  singleValue: (base, state) => ({
+    ...base,
+    color: state.isDisabled ? '#B3B3B3' : theme.colors.text.primary,
+    fontFamily: theme.font.family.sans,
+    fontSize: theme.font.size.medium,
   }),
   option: (base, state) => ({
     ...base,
+    fontFamily: theme.font.family.sans,
+    fontSize: theme.font.size.medium,
     backgroundColor: state.isSelected
-      ? theme.colors.brand.medium
+      ? theme.colors.brand.default
       : state.isFocused
-        ? theme.colors.background.fifth
+        ? '#F2FBFC'
         : theme.colors.background.primary,
-    color: state.isSelected
-      ? theme.colors.background.primary
-      : theme.colors.text.primary,
+    color: state.isSelected ? '#FFF' : theme.colors.text.primary,
+    '&:active': {
+      backgroundColor: theme.colors.brand.default,
+      color: '#FFF',
+    },
   }),
   menu: (base) => ({
     ...base,
-    borderRadius: theme.grid.radius.small,
+    borderRadius: 3,
     overflow: 'hidden',
+    boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
   }),
   placeholder: (base) => ({
     ...base,
-    color: theme.colors.text.muted,
+    color: 'var(--greys-muted-text-grey-c-9-c-9-c-9, #6e6e6e)',
+    fontStyle: 'italic',
+    fontFamily: theme.font.family.sans,
+    fontSize: theme.font.size.medium,
+    fontWeight: theme.font.weight.normal,
+    lineHeight: theme.font.lineHeight.large,
+  }),
+  dropdownIndicator: (base, state) => ({
+    ...base,
+    color: state.isDisabled ? '#B3B3B3' : '#6E6E6E',
+    '&:hover': {
+      color: state.isDisabled ? '#B3B3B3' : theme.colors.text.primary,
+    },
   }),
 })
 
-export const SelectField: React.FC<Props & FieldProps> = ({
+export const SelectField: React.FC<Props & Partial<FieldProps>> = ({
   id,
   options,
   field,
   form,
+  error,
+  variant,
+  isDisabled,
+  ...rest
 }) => {
   const theme = useTheme() as DefaultTheme
+  const name = field?.name || ''
+  const value = field?.value
+
   return (
     <Select<OptionType>
       inputId={id}
       options={options}
-      name={field.name}
-      classNamePrefix={field.name}
-      value={options?.find((option) => option.value === field.value)}
+      name={name}
+      classNamePrefix={name}
+      value={options?.find((option) => option.value === value)}
       onChange={(option: OptionType | null) =>
-        form.setFieldValue(field.name, option?.value)
+        form?.setFieldValue(name, option?.value)
       }
-      onBlur={field.onBlur}
-      styles={selectStyles(theme)}
+      onBlur={field?.onBlur}
+      styles={selectStyles(theme, error, variant)}
+      isDisabled={form?.isSubmitting || isDisabled}
+      {...rest}
       theme={(base) => ({
         ...base,
         colors: {
           ...base.colors,
-          primary: theme.colors.brand.medium || base.colors.primary,
+          primary: theme.colors.brand.default || base.colors.primary,
         },
       })}
     />
