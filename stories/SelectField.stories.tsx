@@ -15,7 +15,7 @@
  */
 
 import type { Meta, StoryObj } from '@storybook/react'
-import { Field, Form, Formik } from 'formik'
+import { Field, Formik } from 'formik'
 import React from 'react'
 import styled from 'styled-components'
 
