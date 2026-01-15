@@ -79,12 +79,13 @@ export const ContextMenu: React.FC<ContextMenuProps> = ({ actions }) => {
   const containerRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
-    if (!containerRef.current) {
+    const container = containerRef.current
+    if (!container) {
       return
     }
 
     const buttons = Array.from(
-      containerRef.current.querySelectorAll('button:not([disabled])')
+      container.querySelectorAll('button:not([disabled])')
     ) as HTMLElement[]
 
     if (buttons.length === 0) {
@@ -97,22 +98,31 @@ export const ContextMenu: React.FC<ContextMenuProps> = ({ actions }) => {
     })
 
     // Add keyboard navigation
-    buttons.forEach((button, index) => {
-      const handleKeyDown = (event: KeyboardEvent) => {
-        if (event.key === 'ArrowRight' || event.key === 'ArrowLeft') {
-          event.preventDefault()
-
-          const nextIndex =
-            event.key === 'ArrowRight'
-              ? (index + 1) % buttons.length
-              : (index - 1 + buttons.length) % buttons.length
-
-          buttons[nextIndex]?.focus()
-        }
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key !== 'ArrowRight' && event.key !== 'ArrowLeft') {
+        return
       }
 
-      button.addEventListener('keydown', handleKeyDown)
-    })
+      const target = event.target as HTMLElement
+      const currentIndex = buttons.indexOf(target)
+      if (currentIndex === -1) {
+        return
+      }
+      event.preventDefault()
+
+      const nextIndex =
+        event.key === 'ArrowRight'
+          ? (currentIndex + 1) % buttons.length
+          : (currentIndex - 1 + buttons.length) % buttons.length
+
+      buttons[nextIndex]?.focus()
+    }
+
+    container.addEventListener('keydown', handleKeyDown)
+
+    return () => {
+      container.removeEventListener('keydown', handleKeyDown)
+    }
   }, [actions])
 
   return (
