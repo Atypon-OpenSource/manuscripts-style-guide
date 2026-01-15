@@ -56,7 +56,7 @@ const selectStyles = (
         ? theme.colors.border.error
         : state.isFocused
           ? theme.colors.brand.default
-          : '#6E6E6E',
+          : theme.colors.text.secondary,
       backgroundColor: !state.isDisabled ? '#F2FBFC' : 'transparent',
     },
     backgroundColor: state.isDisabled
@@ -100,7 +100,7 @@ const selectStyles = (
   }),
   placeholder: (base) => ({
     ...base,
-    color: 'var(--greys-muted-text-grey-c-9-c-9-c-9, #6e6e6e)',
+    color: theme.colors.text.secondary,
     fontStyle: 'italic',
     fontFamily: theme.font.family.sans,
     fontSize: theme.font.size.medium,
@@ -109,7 +109,7 @@ const selectStyles = (
   }),
   dropdownIndicator: (base, state) => ({
     ...base,
-    color: state.isDisabled ? '#B3B3B3' : '#6E6E6E',
+    color: state.isDisabled ? '#B3B3B3' : theme.colors.text.secondary,
     '&:hover': {
       color: state.isDisabled ? '#B3B3B3' : theme.colors.text.primary,
     },

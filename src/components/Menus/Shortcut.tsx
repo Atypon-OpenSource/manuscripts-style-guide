@@ -23,7 +23,7 @@ const isMac = /Mac/.test(window.navigator.platform)
 
 export const ShortcutContainer = styled.div`
   display: inline-flex;
-  color: #6e6e6e;
+  color: ${(props) => props.theme.colors.text.secondary};
   margin-left: 16px;
   flex-shrink: 0;
   justify-content: flex-end;

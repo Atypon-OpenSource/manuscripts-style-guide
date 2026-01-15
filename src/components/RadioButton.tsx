@@ -68,7 +68,7 @@ const Input = styled.input`
   }
 
   &:hover:not(:disabled) + label::before {
-    border-color: #6e6e6e;
+    border-color: ${(props) => props.theme.colors.text.secondary};
   }
 
   &:focus-visible + label::before {
@@ -77,7 +77,7 @@ const Input = styled.input`
   }
 
   &:disabled + label {
-    color: #6e6e6e;
+    color: ${(props) => props.theme.colors.text.secondary};
     cursor: not-allowed;
   }
 

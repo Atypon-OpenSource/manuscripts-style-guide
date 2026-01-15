@@ -50,26 +50,25 @@ const ToggleStory = ({
   )
 }
 
-export const Unchecked: Story = {
-  render: () => <ToggleStory label="Toggle is off" />,
-}
-
-export const Checked: Story = {
-  render: () => <ToggleStory label="Toggle is on" initialChecked />,
-}
-
-export const Disabled: Story = {
-  render: () => <ToggleStory label="Toggle is disabled" disabled />,
-}
-
-export const LabelRight: Story = {
+export const ToggleSwitchStates: Story = {
   render: () => (
-    <ToggleStory label="Label on right" labelPosition="right" initialChecked />
-  ),
-}
-
-export const LabelLeft: Story = {
-  render: () => (
-    <ToggleStory label="Label on left" labelPosition="left" initialChecked />
+    <div
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        gap: '16px',
+        padding: '20px',
+      }}
+    >
+      <ToggleStory label="Toggle is off" />
+      <ToggleStory label="Toggle is on" initialChecked />
+      <ToggleStory label="Toggle is disabled" disabled />
+      <ToggleStory
+        label="Label on right"
+        labelPosition="right"
+        initialChecked
+      />
+      <ToggleStory label="Label on left" labelPosition="left" initialChecked />
+    </div>
   ),
 }

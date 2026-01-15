@@ -40,7 +40,7 @@ export interface IconProps {
 }
 
 const ContextMenuIconButton = styled(IconButton)`
-  color: #6e6e6e;
+  color: ${(props) => props.theme.colors.text.secondary};
   &:not([disabled]).selected {
     background-color: #c9c9c9;
   }

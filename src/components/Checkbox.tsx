@@ -85,7 +85,7 @@ export const CheckboxLabel = styled.label<{
     border-color: ${(props) => props.theme.colors.border.field.default};
   }
   input:disabled + div {
-    color: #6e6e6e;
+    color: ${(props) => props.theme.colors.text.secondary};
   }
 
   input:checked:disabled + div::before {

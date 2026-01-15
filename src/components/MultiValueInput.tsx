@@ -62,7 +62,7 @@ const RemoveButton = styled.button`
   width: 10px;
   height: 10px;
   color: white;
-  background: #6e6e6e;
+  background: ${(props) => props.theme.colors.text.secondary};
   margin-left: 4px;
   border: none;
   border-radius: 100%;

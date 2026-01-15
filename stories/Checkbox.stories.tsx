@@ -49,26 +49,24 @@ const CheckboxStory = ({
   )
 }
 
-export const Unchecked: Story = {
-  render: () => <CheckboxStory label="Checkbox unchecked" />,
-}
-
-export const Checked: Story = {
-  render: () => <CheckboxStory defaultChecked label="Checkbox checked" />,
-}
-
-export const DisabledUnchecked: Story = {
+export const CheckboxStates: Story = {
   render: () => (
-    <CheckboxStory disabled label="Checkbox unchecked (disabled)" />
-  ),
-}
-
-export const DisabledChecked: Story = {
-  render: () => (
-    <CheckboxStory
-      disabled
-      defaultChecked
-      label="Checkbox checked (disabled)"
-    />
+    <div
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        gap: '16px',
+        padding: '20px',
+      }}
+    >
+      <CheckboxStory label="Checkbox unchecked" />
+      <CheckboxStory defaultChecked label="Checkbox checked" />
+      <CheckboxStory disabled label="Checkbox unchecked (disabled)" />
+      <CheckboxStory
+        disabled
+        defaultChecked
+        label="Checkbox checked (disabled)"
+      />
+    </div>
   ),
 }

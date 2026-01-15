@@ -62,7 +62,7 @@ export const commonStyles = css<TextFieldProps>`
   color: ${(props) => props.theme.colors.text.primary};
 
   &::placeholder {
-    color: var(--greys-muted-text-grey-c-9-c-9-c-9, #6e6e6e);
+    color: ${(props) => props.theme.colors.text.secondary};
     opacity: 1;
     font-family: ${(props) => props.theme.font.family.sans};
     font-size: ${(props) => props.theme.font.size.medium};

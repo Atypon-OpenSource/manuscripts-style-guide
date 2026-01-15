@@ -31,9 +31,11 @@ const Track = styled.button<{ checked: boolean; disabled?: boolean }>`
   width: 30px;
   height: 16px;
   border-radius: 999px;
-  border: 1px solid ${(props) => (props.checked ? '#0d79d0' : '#6E6E6E')};
+  border: 1px solid
+    ${(props) =>
+      props.checked ? '#0d79d0' : props.theme.colors.text.secondary};
   background: ${(props) =>
-    props.checked ? '#0d79d0' : '#6E6E6E'};
+    props.checked ? '#0d79d0' : props.theme.colors.text.secondary};
   padding: 0;
   cursor: ${(props) => (props.disabled ? 'not-allowed' : 'pointer')};
   transition:
