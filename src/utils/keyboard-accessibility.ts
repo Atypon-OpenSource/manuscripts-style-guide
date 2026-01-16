@@ -229,7 +229,7 @@ export function addArrowKeyNavigation(
     if (shouldHandle && nextIndex !== null && nextIndex !== currentIndex) {
       event.preventDefault()
       updateTabIndex(items, nextIndex)
-      items[nextIndex]?.focus()
+      items[nextIndex].focus()
     }
   }
 
