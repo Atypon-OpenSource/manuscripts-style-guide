@@ -17,6 +17,7 @@
 import React, { useEffect, useRef } from 'react'
 import styled from 'styled-components'
 
+import { addArrowKeyNavigation } from '../utils/keyboard-accessibility'
 import { IconButton, IconButtonGroup } from './Button'
 import * as Icons from './icons' // Dynamically import all icons
 import { Tooltip } from './Tooltip'
@@ -51,7 +52,7 @@ const ContextMenuIconButton = styled(IconButton)`
     border-color: #f2f2f2;
   }
   &:not([disabled]):focus-visible {
-    outline: 4px solid #3dadff;
+    outline: 4px solid var(--focus-outline-color, #3dadff);
     outline-offset: -2px;
     background-color: transparent !important;
   }
@@ -84,45 +85,14 @@ export const ContextMenu: React.FC<ContextMenuProps> = ({ actions }) => {
       return
     }
 
-    const buttons = Array.from(
-      container.querySelectorAll('button:not([disabled])')
-    ) as HTMLElement[]
-
-    if (buttons.length === 0) {
-      return
-    }
-
-    // Set tabindex: first button is tabbable, others are not
-    buttons.forEach((button, index) => {
-      button.tabIndex = index === 0 ? 0 : -1
+    // Add arrow key navigation with roving tabindex
+    const cleanup = addArrowKeyNavigation(container, {
+      selector: 'button:not([disabled])',
+      direction: 'horizontal',
+      loop: true,
     })
 
-    // Add keyboard navigation
-    const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key !== 'ArrowRight' && event.key !== 'ArrowLeft') {
-        return
-      }
-
-      const target = event.target as HTMLElement
-      const currentIndex = buttons.indexOf(target)
-      if (currentIndex === -1) {
-        return
-      }
-      event.preventDefault()
-
-      const nextIndex =
-        event.key === 'ArrowRight'
-          ? (currentIndex + 1) % buttons.length
-          : (currentIndex - 1 + buttons.length) % buttons.length
-
-      buttons[nextIndex]?.focus()
-    }
-
-    container.addEventListener('keydown', handleKeyDown)
-
-    return () => {
-      container.removeEventListener('keydown', handleKeyDown)
-    }
+    return cleanup
   }, [actions])
 
   return (

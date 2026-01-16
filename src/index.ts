@@ -60,3 +60,7 @@ export {
 } from './hooks/use-deep-compare'
 export * from './lib/files'
 export * from './lib/menus'
+export {
+  makeKeyboardActivatable,
+  addArrowKeyNavigation,
+} from './utils/keyboard-accessibility'
