@@ -31,23 +31,23 @@ export const Default: Story = {
     actions: [
       {
         label: 'Bold',
-        icon: 'Bold',
+        icon: 'ToolbarBold',
         action: () => console.log('Bold clicked'),
       },
       {
         label: 'Italic',
-        icon: 'Italic',
+        icon: 'ToolbarItalic',
         action: () => console.log('Italic clicked'),
       },
       {
         label: 'Underline',
-        icon: 'Underline',
+        icon: 'ToolbarUnderline',
         action: () => console.log('Underline clicked'),
       },
       {
-        label: 'Strikethrough',
-        icon: 'Strikethrough',
-        action: () => console.log('Strikethrough clicked'),
+        label: 'Code',
+        icon: 'ToolbarCode',
+        action: () => console.log('Code clicked'),
       },
     ],
   },
@@ -58,24 +58,24 @@ export const WithDisabledActions: Story = {
     actions: [
       {
         label: 'Bold',
-        icon: 'Bold',
+        icon: 'ToolbarBold',
         action: () => console.log('Bold clicked'),
       },
       {
         label: 'Italic',
-        icon: 'Italic',
+        icon: 'ToolbarItalic',
         action: () => console.log('Italic clicked'),
         disabled: true,
       },
       {
         label: 'Underline',
-        icon: 'Underline',
+        icon: 'ToolbarUnderline',
         action: () => console.log('Underline clicked'),
       },
       {
-        label: 'Strikethrough',
-        icon: 'Strikethrough',
-        action: () => console.log('Strikethrough clicked'),
+        label: 'Code',
+        icon: 'ToolbarCode',
+        action: () => console.log('Code clicked'),
         disabled: true,
       },
     ],
@@ -87,24 +87,24 @@ export const WithSelectedAction: Story = {
     actions: [
       {
         label: 'Bold',
-        icon: 'Bold',
+        icon: 'ToolbarBold',
         action: () => console.log('Bold clicked'),
         selected: true,
       },
       {
         label: 'Italic',
-        icon: 'Italic',
+        icon: 'ToolbarItalic',
         action: () => console.log('Italic clicked'),
       },
       {
         label: 'Underline',
-        icon: 'Underline',
+        icon: 'ToolbarUnderline',
         action: () => console.log('Underline clicked'),
       },
       {
-        label: 'Strikethrough',
-        icon: 'Strikethrough',
-        action: () => console.log('Strikethrough clicked'),
+        label: 'Code',
+        icon: 'ToolbarCode',
+        action: () => console.log('Code clicked'),
       },
     ],
   },
