@@ -63,4 +63,8 @@ export * from './lib/menus'
 export {
   makeKeyboardActivatable,
   addArrowKeyNavigation,
+  KeyboardNavigationMixin,
+  type MakeKeyboardActivatableOptions,
+  type AddArrowKeyNavigationOptions,
+  type KeyboardNavigationMixinOptions,
 } from './utils/keyboard-accessibility'
