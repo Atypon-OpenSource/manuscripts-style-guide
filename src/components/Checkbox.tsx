@@ -65,6 +65,11 @@ export const CheckboxLabel = styled.label<{
   input:focus + div::before {
     border-color: ${(props) => props.theme.colors.button.primary.border.hover};
   }
+
+  input:focus-visible + div::before {
+    outline: 2px solid ${(props) => props.theme.colors.outline.focus};
+    outline-offset: 2px;
+  }
 `
 
 export const CheckboxField = styled.input.attrs({
