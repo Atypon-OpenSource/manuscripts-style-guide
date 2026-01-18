@@ -19,13 +19,20 @@ import styled, { css } from 'styled-components'
 
 import { ErrorProps } from './Form'
 
-export interface TextFieldProps
-  extends React.InputHTMLAttributes<HTMLInputElement> {
+export interface BaseTextFieldProps {
   error?: boolean | string
   variant?: 'small' | 'large'
 }
 
-export const commonStyles = css<TextFieldProps>`
+export interface TextFieldProps
+  extends React.InputHTMLAttributes<HTMLInputElement>,
+    BaseTextFieldProps {}
+
+export interface TextAreaProps
+  extends React.TextareaHTMLAttributes<HTMLTextAreaElement>,
+    BaseTextFieldProps {}
+
+export const commonStyles = css<BaseTextFieldProps>`
   border: 1px solid
     ${(props) =>
       props.error
@@ -108,7 +115,7 @@ export const TextField = styled.input<TextFieldProps>`
   ${commonStyles}
 `
 
-export const TextArea = styled.textarea<TextFieldProps>`
+export const TextArea = styled.textarea<TextAreaProps>`
   ${commonStyles}
   max-width: 100%;
 `
