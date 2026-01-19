@@ -14,6 +14,7 @@
  * limitations under the License.
  */
 
+import { Field } from 'formik'
 import React from 'react'
 import styled, { css } from 'styled-components'
 
@@ -88,11 +89,6 @@ export const commonStyles = css<BaseTextFieldProps>`
         props.error
           ? props.theme.colors.border.error
           : props.theme.colors.brand.default};
-    box-shadow: 0 0 0 2px
-      ${(props) =>
-        props.error
-          ? `${props.theme.colors.border.error}1a`
-          : `${props.theme.colors.brand.default}1a`};
     background-color: #f2fbfc;
 
     &::placeholder {
@@ -119,6 +115,12 @@ export const TextArea = styled.textarea<TextAreaProps>`
   ${commonStyles}
   max-width: 100%;
 `
+
+export const YearInput = styled.input<TextFieldProps>`
+  ${commonStyles}
+`
+
+export const YearField = styled(Field).attrs({ as: YearInput })``
 
 export const TextFieldGroup = styled.div`
   & ${TextField}:first-of-type {

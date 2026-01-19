@@ -73,7 +73,6 @@ const Input = styled.input`
 
   &:focus-visible + label::before {
     border-color: #0d79d0;
-    box-shadow: 0 0 0 2px #0d79d04d;
   }
 
   &:disabled + label {

@@ -48,9 +48,7 @@ const selectStyles = (
       : state.isFocused
         ? theme.colors.brand.default
         : theme.colors.border.field.default,
-    boxShadow: state.isFocused
-      ? `0 0 0 2px ${error ? theme.colors.border.error : theme.colors.brand.default}1a`
-      : 'none',
+    boxShadow: 'none',
     '&:hover': {
       borderColor: error
         ? theme.colors.border.error

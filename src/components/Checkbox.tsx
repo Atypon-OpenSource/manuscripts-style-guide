@@ -77,7 +77,6 @@ export const CheckboxLabel = styled.label<{
 
   input:focus-visible + div::before {
     outline: none;
-    box-shadow: 0 0 0 2px ${(props) => `${props.theme.colors.brand.medium}4d`};
   }
 
   input:disabled + div::before {
