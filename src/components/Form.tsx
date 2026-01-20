@@ -89,9 +89,9 @@ export const FormRow = styled.div<{
 
 export const FormLabel = styled.legend`
   &:not(:first-child) {
-    margin-top: 24px;
+    margin-top: 15px;
   }
-  margin-bottom: 12px;
+  margin-bottom: 25px;
   font: ${(props) => props.theme.font.weight.normal}
     ${(props) => props.theme.font.size.xlarge} /
     ${(props) => props.theme.font.lineHeight.large}
