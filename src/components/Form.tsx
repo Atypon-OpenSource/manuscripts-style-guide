@@ -91,7 +91,7 @@ export const FormLabel = styled.legend`
   &:not(:first-child) {
     margin-top: 15px;
   }
-  margin-bottom: 25px;
+  margin-bottom: 15px;
   font: ${(props) => props.theme.font.weight.normal}
     ${(props) => props.theme.font.size.xlarge} /
     ${(props) => props.theme.font.lineHeight.large}
