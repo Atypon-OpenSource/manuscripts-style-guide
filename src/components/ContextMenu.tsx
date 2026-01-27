@@ -18,8 +18,7 @@ import React, { useEffect, useRef } from 'react'
 import styled from 'styled-components'
 
 import { IconButton, IconButtonGroup } from './Button'
-import * as Icons from './icons' // Dynamically import all icons
-import { Tooltip } from './Tooltip'
+import * as Icons from './icons'
 
 export interface Actions {
   label: string
@@ -126,24 +125,21 @@ export const ContextMenu: React.FC<ContextMenuProps> = ({ actions }) => {
   }, [actions])
 
   return (
-    <IconButtonGroup size={32} ref={containerRef}>
-      {actions.map((action) => {
-        const Icon = icons[action.icon]
-        return (
-          <ContextMenuIconButton
-            key={action.icon}
-            data-tooltip-id={action.icon}
-            onClick={action.disabled === true ? () => null : action.action}
-            className={action.selected ? 'selected' : ''}
-            disabled={!!action.disabled}
-          >
-            <Icon width={18} height={18} />
-            <Tooltip id={action.icon} place="bottom">
-              {action.label}
-            </Tooltip>
-          </ContextMenuIconButton>
-        )
-      })}
-    </IconButtonGroup>
+  <IconButtonGroup size={32}>
+    {actions.map((action) => {
+      const Icon = icons[action.icon]
+      return (
+        <ContextMenuIconButton
+          key={action.icon}
+          data-tooltip-content={action.label}
+          onClick={action.disabled === true ? () => null : action.action}
+          className={action.selected ? 'selected' : ''}
+          disabled={!!action.disabled}
+        >
+          <Icon width={18} height={18} />
+        </ContextMenuIconButton>
+      )
+    })}
+  </IconButtonGroup>
   )
 }
