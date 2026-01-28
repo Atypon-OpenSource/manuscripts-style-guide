@@ -48,6 +48,7 @@ const CheckboxStory = ({
     </CheckboxLabel>
   )
 }
+// checkbox states
 export const CheckboxStates: Story = {
   render: () => (
     <div
