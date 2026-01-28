@@ -18,49 +18,72 @@ import React from 'react'
 import styled from 'styled-components'
 
 const Input = styled.input`
-    position: absolute;
-    left: -9999px;
-    opacity: 0;
+  border: 0;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
 
-    + label {
-      cursor: pointer;
-      margin: 0;
-      display: inline-block;
-      font-size: ${(props) => props.theme.font.size.large};
-      color: ${(props) => props.theme.colors.text.primary};
-      line-height: ${(props) => props.theme.font.lineHeight.large};
-      margin-bottom: ${(props) => props.theme.grid.unit}px;
-      position: relative;
-      padding-left: ${(props) => props.theme.grid.unit * 7}px;
-      text-align: left;
+  + label {
+    cursor: pointer;
+    margin: 0;
+    display: inline-flex;
+    align-items: center;
+    font-family: ${(props) => props.theme.font.family.sans};
+    font-size: ${(props) => props.theme.font.size.normal};
+    font-weight: ${(props) => props.theme.font.weight.normal};
+    color: ${(props) => props.theme.colors.text.primary};
+    line-height: 20px;
+    margin-bottom: ${(props) => props.theme.grid.unit}px;
+    position: relative;
+    padding-left: 24px;
+    text-align: left;
+    user-select: none;
 
-      &::before {
-        border: 2px solid ${(props) => props.theme.colors.background.primary};
-        border-radius: 50%;
-        box-shadow: 0 0 0 1px
-          ${(props) => props.theme.colors.text.primary};
-        box-sizing: border-box;
-        content: ' ';
-        display: block;
-        height: 18px;
-        position: absolute;
-        left: 0;
-        top: ${(props) => props.theme.grid.unit}px;
-        width: 18px;
-        z-index: 0;
-      }
+    &::before {
+      border: 1.5px solid ${(props) => props.theme.colors.border.field.default};
+      border-radius: 50%;
+      box-sizing: border-box;
+      content: ' ';
+      display: block;
+      height: 16px;
+      width: 16px;
+      position: absolute;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      background: ${(props) => props.theme.colors.background.primary};
     }
+  }
 
-    &:checked + label::before {
-      background: ${(props) => props.theme.colors.brand.medium};
-      box-shadow: 0 0 0 1px ${(props) => props.theme.colors.brand.medium};
-    }
-    &:hover,
-    &:focus {
-      + label::before {
-        box-shadow: 0 0 0 1px ${(props) => props.theme.colors.brand.medium};
-      }
-    }
+  &:checked + label::before {
+    background: ${(props) => props.theme.colors.background.primary};
+    box-shadow: inset 0 0 0 4px #0d79d0;
+    border-color: #0d79d0;
+  }
+
+  &:hover:not(:disabled) + label::before {
+    border-color: ${(props) => props.theme.colors.text.secondary};
+  }
+
+  &:focus-visible + label::before {
+    border-color: #0d79d0;
+  }
+
+  &:disabled + label {
+    color: ${(props) => props.theme.colors.text.secondary};
+    cursor: not-allowed;
+  }
+
+  &:disabled + label::before {
+    background: #c9c9c9;
+    filter: grayscale(1) opacity(0.4);
+    border-color: #e4e4e4;
   }
 `
 

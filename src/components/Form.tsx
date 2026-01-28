@@ -56,3 +56,112 @@ export interface FormErrors {
 export interface ErrorProps {
   error?: string | null | Record<string, unknown>
 }
+
+export const FormContainer = styled.div`
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: ${(props) => props.theme.grid.unit * 4}px;
+  padding: ${(props) => props.theme.grid.unit * 4}px;
+  box-sizing: border-box;
+`
+
+export const FormField = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+`
+
+export const FormRow = styled.div<{
+  direction?: 'row' | 'column'
+  justify?: string
+  align?: string
+}>`
+  display: flex;
+  flex-direction: ${(props) => props.direction ?? 'column'};
+  gap: ${(props) => props.theme.grid.unit * 2}px;
+  margin-bottom: ${(props) => props.theme.grid.unit * 4}px;
+  justify-content: ${(props) => props.justify ?? 'flex-start'};
+  align-items: ${(props) =>
+    props.align ?? (props.direction === 'row' ? 'center' : 'stretch')};
+  flex-wrap: ${(props) => (props.direction === 'row' ? 'wrap' : 'nowrap')};
+`
+
+export const FormLabel = styled.legend`
+  &:not(:first-child) {
+    margin-top: 15px;
+  }
+  margin-bottom: 15px;
+  font: ${(props) => props.theme.font.weight.normal}
+    ${(props) => props.theme.font.size.xlarge} /
+    ${(props) => props.theme.font.lineHeight.large}
+    ${(props) => props.theme.font.family.sans};
+  letter-spacing: -0.4px;
+  color: ${(props) => props.theme.colors.text.secondary};
+`
+
+export const FormActionsBar = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: ${(props) => props.theme.grid.unit * 2}px;
+  margin-top: ${(props) => props.theme.grid.unit * 3}px;
+`
+
+export const FormTitle = styled.h2`
+  margin: 0;
+  font: ${(props) => props.theme.font.weight.medium}
+    ${(props) => props.theme.font.size.xlarge} /
+    ${(props) => props.theme.font.lineHeight.normal}
+    ${(props) => props.theme.font.family.sans};
+  color: ${(props) => props.theme.colors.text.primary};
+`
+
+export const FormSubtitle = styled.p`
+  margin: 0;
+  color: ${(props) => props.theme.colors.text.secondary};
+  font: ${(props) => props.theme.font.weight.normal}
+    ${(props) => props.theme.font.size.medium} /
+    ${(props) => props.theme.font.lineHeight.large}
+    ${(props) => props.theme.font.family.sans};
+`
+
+export const Label = styled.label`
+  display: inline-flex;
+  align-items: center;
+  gap: ${(props) => props.theme.grid.unit}px;
+  color: ${(props) => props.theme.colors.text.secondary};
+  font: ${(props) => props.theme.font.weight.normal}
+    ${(props) => props.theme.font.size.normal} /
+    ${(props) => props.theme.font.lineHeight.normal}
+    ${(props) => props.theme.font.family.sans};
+`
+
+export const LabelText = styled.div`
+  font: ${(props) => props.theme.font.weight.normal}
+    ${(props) => props.theme.font.size.normal} / 1
+    ${(props) => props.theme.font.family.sans};
+  letter-spacing: -0.2px;
+  color: ${(props) => props.theme.colors.text.primary};
+  &::before {
+    margin-right: 8px !important;
+  }
+`
+
+export const InputHelperText = styled.span`
+  color: ${(props) => props.theme.colors.text.muted};
+  font: ${(props) => props.theme.font.weight.normal}
+    ${(props) => props.theme.font.size.small} /
+    ${(props) => props.theme.font.lineHeight.normal}
+    ${(props) => props.theme.font.family.sans};
+`
+
+export const InputErrorText = styled.span`
+  color: ${(props) => props.theme.colors.text.error};
+  font: ${(props) => props.theme.font.weight.normal}
+    ${(props) => props.theme.font.size.small} /
+    ${(props) => props.theme.font.lineHeight.normal}
+    ${(props) => props.theme.font.family.sans};
+  display: block;
+  margin-top: 4px;
+`
