@@ -125,21 +125,21 @@ export const ContextMenu: React.FC<ContextMenuProps> = ({ actions }) => {
   }, [actions])
 
   return (
-  <IconButtonGroup size={32}>
-    {actions.map((action) => {
-      const Icon = icons[action.icon]
-      return (
-        <ContextMenuIconButton
-          key={action.icon}
-          data-tooltip-content={action.label}
-          onClick={action.disabled === true ? () => null : action.action}
-          className={action.selected ? 'selected' : ''}
-          disabled={!!action.disabled}
-        >
-          <Icon width={18} height={18} />
-        </ContextMenuIconButton>
-      )
-    })}
-  </IconButtonGroup>
+    <IconButtonGroup size={32} ref={containerRef}>
+      {actions.map((action) => {
+        const Icon = icons[action.icon]
+        return (
+          <ContextMenuIconButton
+            key={action.icon}
+            data-tooltip-content={action.label}
+            onClick={action.disabled === true ? () => null : action.action}
+            className={action.selected ? 'selected' : ''}
+            disabled={!!action.disabled}
+          >
+            <Icon width={18} height={18} />
+          </ContextMenuIconButton>
+        )
+      })}
+    </IconButtonGroup>
   )
 }
