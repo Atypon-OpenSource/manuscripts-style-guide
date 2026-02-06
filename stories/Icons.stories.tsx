@@ -18,6 +18,7 @@ import styled from 'styled-components'
 
 import * as Icons from '../src/components/icons'
 import { IconProps } from '../src/components/icons/types'
+import React from 'react'
 
 const IconsContainer = styled.div`
   width: 900px;
@@ -61,6 +62,8 @@ const iconList: { name: string; Component: React.FC<IconProps> }[] = [
   { name: 'AttentionRedIcon', Component: Icons.AttentionRedIcon },
   { name: 'AvatarIcon', Component: Icons.AvatarIcon },
   { name: 'BookIcon', Component: Icons.BookIcon },
+  { name: 'CheckboxIcon', Component: Icons.CheckboxIcon },
+  { name: 'CheckboxCheckedIcon', Component: Icons.CheckboxCheckedIcon },
   { name: 'CitationCountIcon', Component: Icons.CitationCountIcon },
   { name: 'CommentReplyIcon', Component: Icons.CommentReplyIcon },
   { name: 'CommentResolveIcon', Component: Icons.CommentResolveIcon },
@@ -87,6 +90,7 @@ const iconList: { name: string; Component: React.FC<IconProps> }[] = [
   { name: 'FileTableIcon', Component: Icons.FileTableIcon },
   { name: 'FileUnknownIcon', Component: Icons.FileUnknownIcon },
   { name: 'FileVideoIcon', Component: Icons.FileVideoIcon },
+  { name: 'FilterIcon', Component: Icons.FilterIcon },
   { name: 'HandleInspectorIcon', Component: Icons.HandleInspectorIcon },
   { name: 'HandleOutlineIcon', Component: Icons.HandleOutlineIcon },
   { name: 'HelpIcon', Component: Icons.HelpIcon },
