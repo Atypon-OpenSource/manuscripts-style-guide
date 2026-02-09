@@ -70,13 +70,13 @@ export const commonStyles = css<BaseTextFieldProps>`
   color: ${(props) => props.theme.colors.text.primary};
 
   &::placeholder {
-    color: ${(props) => props.theme.colors.text.secondary};
+    color: ${(props) => props.theme.colors.text.greyMuted};
     opacity: 1;
     font-family: ${(props) => props.theme.font.family.sans};
     font-size: ${(props) => props.theme.font.size.medium};
     font-style: italic;
     font-weight: ${(props) => props.theme.font.weight.normal};
-    line-height: ${(props) => props.theme.font.lineHeight.large};
+    line-height: 32px;
   }
 
   &:hover:not(:disabled) {
@@ -92,7 +92,7 @@ export const commonStyles = css<BaseTextFieldProps>`
     background-color: #f2fbfc;
 
     &::placeholder {
-      color: #c9c9c9;
+      color: ${(props) => props.theme.colors.text.greyMuted};
     }
   }
 

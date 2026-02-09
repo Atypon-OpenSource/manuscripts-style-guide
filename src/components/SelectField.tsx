@@ -98,7 +98,7 @@ const selectStyles = (
   }),
   placeholder: (base) => ({
     ...base,
-    color: theme.colors.text.secondary,
+    color: theme.colors.text.greyMuted || theme.colors.text.secondary,
     fontStyle: 'italic',
     fontFamily: theme.font.family.sans,
     fontSize: theme.font.size.medium,

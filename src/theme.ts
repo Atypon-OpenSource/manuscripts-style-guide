@@ -110,6 +110,7 @@ interface Text {
   muted: string
   onDark: string
   onLight: string
+  greyMuted?: string
 }
 
 interface FontFamily {
