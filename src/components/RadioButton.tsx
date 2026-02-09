@@ -63,16 +63,16 @@ const Input = styled.input`
 
   &:checked + label::before {
     background: ${(props) => props.theme.colors.background.primary};
-    box-shadow: inset 0 0 0 4px #0d79d0;
-    border-color: #0d79d0;
+    box-shadow: inset 0 0 0 4px ${(props) => props.theme.colors.brand.default};
+    border-color: ${(props) => props.theme.colors.brand.default};
   }
 
   &:hover:not(:disabled) + label::before {
-    border-color: ${(props) => props.theme.colors.text.secondary};
+    border-color: ${(props) => props.theme.colors.text.greyMuted};
   }
 
   &:focus-visible + label::before {
-    border-color: #0d79d0;
+    border-color: ${(props) => props.theme.colors.brand.default};
   }
 
   &:disabled + label {

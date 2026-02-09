@@ -70,7 +70,7 @@ export const commonStyles = css<BaseTextFieldProps>`
   color: ${(props) => props.theme.colors.text.primary};
 
   &::placeholder {
-    color: ${(props) => props.theme.colors.text.greyMuted};
+    color: ${(props) => props.theme.colors.text.greyMuted || '#6E6E6E'};
     opacity: 1;
     font-family: ${(props) => props.theme.font.family.sans};
     font-size: ${(props) => props.theme.font.size.medium};
@@ -81,6 +81,7 @@ export const commonStyles = css<BaseTextFieldProps>`
 
   &:hover:not(:disabled) {
     background-color: #f2fbfc;
+    border-color: ${(props) => props.theme.colors.text.greyMuted};
   }
 
   &:focus:not(:disabled) {
@@ -90,10 +91,21 @@ export const commonStyles = css<BaseTextFieldProps>`
           ? props.theme.colors.border.error
           : props.theme.colors.brand.default};
     background-color: #f2fbfc;
+    padding: ${(props) => {
+      if (props.variant === 'small') {
+        return '0 11px'
+      }
+      if (props.variant === 'large') {
+        return '3px 15px'
+      }
+      return '0 11px'
+    }};
+  }
 
-    &::placeholder {
-      color: ${(props) => props.theme.colors.text.greyMuted};
-    }
+  &:focus::placeholder {
+    color: ${(props) =>
+      props.theme.colors.text.greyLight || '#C9C9C9'} !important;
+    opacity: 1 !important;
   }
 
   &:disabled {

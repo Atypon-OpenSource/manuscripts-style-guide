@@ -48,15 +48,17 @@ const selectStyles = (
       : state.isFocused
         ? theme.colors.brand.default
         : theme.colors.border.field.default,
+    borderWidth: state.isFocused ? 2 : 1,
     boxShadow: 'none',
     '&:hover': {
       borderColor: error
         ? theme.colors.border.error
         : state.isFocused
           ? theme.colors.brand.default
-          : theme.colors.text.secondary,
+          : theme.colors.text.greyMuted || theme.colors.text.secondary,
       backgroundColor: !state.isDisabled ? '#F2FBFC' : 'transparent',
     },
+    padding: state.isFocused ? '0 7px' : '0 8px',
     backgroundColor: state.isDisabled
       ? '#F5F5F5'
       : state.isFocused
@@ -96,9 +98,14 @@ const selectStyles = (
     overflow: 'hidden',
     boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
   }),
-  placeholder: (base) => ({
+  placeholder: (base, state) => ({
     ...base,
-    color: theme.colors.text.greyMuted || theme.colors.text.secondary,
+    color:
+      state.isFocused || state.selectProps.menuIsOpen
+        ? theme.colors.text.greyLight || '#C9C9C9'
+        : theme.colors.text.greyMuted ||
+          theme.colors.text.secondary ||
+          '#6E6E6E',
     fontStyle: 'italic',
     fontFamily: theme.font.family.sans,
     fontSize: theme.font.size.medium,
