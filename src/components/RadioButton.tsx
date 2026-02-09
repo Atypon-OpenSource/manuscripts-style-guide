@@ -87,12 +87,23 @@ const Input = styled.input`
   }
 `
 
-interface RadioProps {
+interface RadioProps extends React.InputHTMLAttributes<HTMLInputElement> {
   checked?: boolean
   id: string
   label: string | React.ReactNode
   name?: string
 }
+
+const RadioButtonContainer = styled.span`
+  display: inline-flex;
+  align-items: center;
+  position: relative;
+  margin-right: ${(props) => props.theme.grid.unit * 4}px;
+
+  &:last-child {
+    margin-right: 0;
+  }
+`
 
 export const RadioButton: React.FunctionComponent<RadioProps> = ({
   checked,
@@ -101,8 +112,8 @@ export const RadioButton: React.FunctionComponent<RadioProps> = ({
   name,
   ...rest
 }) => (
-  <>
+  <RadioButtonContainer>
     <Input checked={checked} type="radio" name={name} id={id} {...rest} />
     <label htmlFor={id}>{label}</label>
-  </>
+  </RadioButtonContainer>
 )

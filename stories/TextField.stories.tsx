@@ -17,12 +17,13 @@
 import type { Meta, StoryObj } from '@storybook/react'
 import { fn } from '@storybook/test'
 import { Field, FieldProps, Form, Formik } from 'formik'
+import React from 'react'
 
 import {
   AutoSaveInput,
   EditIcon,
   TextField,
-  TextFieldContainer,
+  FormFieldContainer,
   TextFieldError,
   TextFieldErrorItem,
   TextFieldGroup,
@@ -157,35 +158,35 @@ export const AutoSaveOnBlur: StoryObj = {
 }
 
 // Container stories
-const metaContainer: Meta<typeof TextFieldContainer> = {
+const metaContainer: Meta<typeof FormFieldContainer> = {
   title: 'TextField/Container',
-  component: TextFieldContainer,
+  component: FormFieldContainer,
 }
 
-export const ContainerDefault: StoryObj<typeof TextFieldContainer> = {
+export const ContainerDefault: StoryObj<typeof FormFieldContainer> = {
   ...metaContainer,
   render: () => (
-    <TextFieldContainer>
+    <FormFieldContainer>
       <TextField />
-    </TextFieldContainer>
+    </FormFieldContainer>
   ),
 }
 
-export const ContainerWithLabel: StoryObj<typeof TextFieldContainer> = {
+export const ContainerWithLabel: StoryObj<typeof FormFieldContainer> = {
   ...metaContainer,
   render: () => (
-    <TextFieldContainer label={'Name'}>
+    <FormFieldContainer label={'Name'}>
       <TextField />
-    </TextFieldContainer>
+    </FormFieldContainer>
   ),
 }
 
-export const ContainerWithError: StoryObj<typeof TextFieldContainer> = {
+export const ContainerWithError: StoryObj<typeof FormFieldContainer> = {
   ...metaContainer,
   render: () => (
-    <TextFieldContainer error={'There was an error'}>
+    <FormFieldContainer error={'There was an error'}>
       <TextField />
-    </TextFieldContainer>
+    </FormFieldContainer>
   ),
 }
 
@@ -199,12 +200,12 @@ export const GroupContainerDefault: StoryObj<typeof TextFieldGroupContainer> = {
   ...metaGroupContainer,
   render: () => (
     <TextFieldGroupContainer>
-      <TextFieldContainer>
+      <FormFieldContainer>
         <TextField name={'foo'} />
-      </TextFieldContainer>
-      <TextFieldContainer>
+      </FormFieldContainer>
+      <FormFieldContainer>
         <TextField name={'foo'} />
-      </TextFieldContainer>
+      </FormFieldContainer>
     </TextFieldGroupContainer>
   ),
 }

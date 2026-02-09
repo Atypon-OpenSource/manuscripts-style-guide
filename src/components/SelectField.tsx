@@ -15,7 +15,7 @@
  */
 
 import { FieldProps } from 'formik'
-import React from 'react'
+import React, { FC } from 'react'
 import Select, { StylesConfig } from 'react-select'
 import { DefaultTheme, useTheme } from 'styled-components'
 
@@ -30,6 +30,7 @@ interface Props {
   error?: boolean
   variant?: 'small' | 'large'
   isDisabled?: boolean
+  isLoading?: boolean
 }
 
 const selectStyles = (
@@ -121,7 +122,7 @@ const selectStyles = (
   }),
 })
 
-export const SelectField: React.FC<Props & Partial<FieldProps>> = ({
+export const SelectField: FC<Props & Partial<FieldProps>> = ({
   id,
   options,
   field,

@@ -14,43 +14,65 @@
  * limitations under the License.
  */
 
-import React from 'react'
+import React, {
+  Children,
+  cloneElement,
+  Fragment,
+  FunctionComponent,
+  ReactElement,
+  ReactNode,
+} from 'react'
+import styled from 'styled-components'
 
 import { ErrorProps } from './Form'
 import { TextFieldLabel } from './TextField'
 import { TextFieldError, TextFieldErrorItem } from './TextFieldError'
 
-interface TextFieldContainerProps {
+interface FormFieldContainerProps {
   label?: string
-  error?: React.ReactNode | undefined
-  children: React.ReactElement<ErrorProps>
+  error?: ReactNode | undefined
+  info?: ReactNode | undefined
+  id?: string
+  children: ReactElement<ErrorProps>
 }
 
-export const TextFieldContainer: React.FunctionComponent<
-  TextFieldContainerProps
-> = ({ label, error, children }) => {
-  const childrenWithErrorProp = React.Children.map(
+export const FormFieldContainer: FunctionComponent<FormFieldContainerProps> = ({
+  label,
+  error,
+  info,
+  id,
+  children,
+}) => {
+  const childrenWithErrorProp = Children.map(
     children,
-    (child: React.ReactElement<ErrorProps>) =>
-      React.cloneElement(child, {
+    (child: ReactElement<ErrorProps>) =>
+      cloneElement(child, {
         error: error ? String(error) : undefined,
       })
   )
 
   return (
-    <React.Fragment>
+    <Fragment>
       {label ? (
-        <TextFieldLabel>
+        <TextFieldLabel htmlFor={id}>
           {label} {childrenWithErrorProp}
         </TextFieldLabel>
       ) : (
         childrenWithErrorProp
       )}
+      {info && !error && <FormFieldInfo>{info}</FormFieldInfo>}
       {error && (
         <TextFieldError>
           <TextFieldErrorItem>{error}</TextFieldErrorItem>
         </TextFieldError>
       )}
-    </React.Fragment>
+    </Fragment>
   )
 }
+
+const FormFieldInfo = styled.div`
+  font-family: ${(props) => props.theme.font.family.sans};
+  font-size: ${(props) => props.theme.font.size.small};
+  color: ${(props) => props.theme.colors.text.secondary};
+  margin-top: 4px;
+`
