@@ -26,7 +26,7 @@ const Section = styled.div`
 
 const Heading = styled.div<{ marginBottom?: string }>`
   display: flex;
-  padding: 0 ${(props) => props.theme.grid.unit * 2}px;
+  padding: 0;
   cursor: pointer;
   margin: ${(props) => props.theme.grid.unit * 4}px
     ${(props) => props.theme.grid.unit * 6}px

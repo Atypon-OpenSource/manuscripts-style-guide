@@ -32,7 +32,9 @@ export const TextFieldContainer: React.FunctionComponent<
   const childrenWithErrorProp = React.Children.map(
     children,
     (child: React.ReactElement<ErrorProps>) =>
-      React.cloneElement(child, { error: String(error) }) // Convert error to string
+      React.cloneElement(child, {
+        error: error ? String(error) : undefined,
+      })
   )
 
   return (

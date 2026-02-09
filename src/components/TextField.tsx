@@ -149,16 +149,16 @@ export const TextFieldGroup = styled.div`
 `
 
 export const TextFieldLabel = styled.label`
+  display: block;
   font-family: ${(props) => props.theme.font.family.sans};
-  text-transform: uppercase;
-  color: ${(props) => props.theme.colors.text.secondary};
+  color: ${(props) => props.theme.colors.text.primary};
+  font-size: ${(props) => props.theme.font.size.normal};
+  font-weight: ${(props) => props.theme.font.weight.normal};
+  line-height: ${(props) => props.theme.font.lineHeight.normal};
 
-  & ${TextField} {
-    margin-top: ${(props) => props.theme.grid.unit}px;
-  }
-
-  & ${TextArea} {
-    margin-top: ${(props) => props.theme.grid.unit}px;
+  > * {
+    margin-top: ${(props) => props.theme.grid.unit * 2}px;
+    display: block;
   }
 `
 
