@@ -94,7 +94,7 @@ interface RadioProps extends React.InputHTMLAttributes<HTMLInputElement> {
   name?: string
 }
 
-const RadioButtonContainer = styled.span`
+const RadioButtonContainer = styled.div`
   display: inline-flex;
   align-items: center;
   position: relative;
@@ -105,14 +105,14 @@ const RadioButtonContainer = styled.span`
   }
 `
 
-export const RadioButton: React.FunctionComponent<RadioProps> = ({
+export const RadioButton: React.FC<RadioProps> = ({
   checked,
   id,
   label,
   name,
   ...rest
 }) => (
-  <RadioButtonContainer>
+  <RadioButtonContainer className="radio-button-container">
     <Input checked={checked} type="radio" name={name} id={id} {...rest} />
     <label htmlFor={id}>{label}</label>
   </RadioButtonContainer>

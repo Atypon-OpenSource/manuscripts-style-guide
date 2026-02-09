@@ -34,9 +34,17 @@ export interface StyledRadioGroupProps {
 
 const RadioWrapper = styled.div`
   display: flex;
+  flex-direction: row;
   flex-wrap: wrap;
   gap: ${(props) => props.theme.grid.unit * 4}px;
   padding: ${(props) => props.theme.grid.unit * 2}px 0;
+
+  & > * {
+    margin-right: ${(props) => props.theme.grid.unit * 4}px;
+    &:last-child {
+      margin-right: 0;
+    }
+  }
 `
 
 export const StyledRadioGroup: FC<StyledRadioGroupProps> = ({

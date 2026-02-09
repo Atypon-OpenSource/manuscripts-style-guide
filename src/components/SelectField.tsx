@@ -31,6 +31,7 @@ interface Props {
   variant?: 'small' | 'large'
   isDisabled?: boolean
   isLoading?: boolean
+  isSearchable?: boolean
 }
 
 const selectStyles = (
