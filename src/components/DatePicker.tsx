@@ -24,11 +24,13 @@ import styled from 'styled-components'
 import { CalendarIcon } from './icons'
 
 export interface DatePickerProps {
+  id?: string
   date?: Date
   originalDate?: Date
   handleDateChange: (date: Date | null) => void
   placeholder?: string
   showTimeSelect?: boolean
+  required?: boolean
 }
 
 const ErrorFallback = ({ error }: { error: Error }) => (
@@ -39,11 +41,13 @@ const ErrorFallback = ({ error }: { error: Error }) => (
 )
 
 export const DatePicker: React.FC<DatePickerProps> = ({
+  id,
   originalDate,
   date,
   handleDateChange,
   placeholder,
   showTimeSelect,
+  required,
 }) => {
   const [selectedDate, setSelectedDate] = useState<Date | null>(date || null)
 
@@ -60,6 +64,7 @@ export const DatePicker: React.FC<DatePickerProps> = ({
     <ErrorBoundary FallbackComponent={ErrorFallback}>
       <Calendar>
         <ReactDatePicker
+          id={id}
           selected={selectedDate}
           onChange={handleChange}
           placeholderText={placeholder}
@@ -68,6 +73,7 @@ export const DatePicker: React.FC<DatePickerProps> = ({
           dateFormat={format}
           className="calendar-input"
           popperPlacement="bottom"
+          required={required}
         />
         <IconWrapper>
           <CalendarIcon width={16} height={16} />
