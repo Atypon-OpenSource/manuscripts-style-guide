@@ -261,7 +261,7 @@ export function withNavigableListItem<P extends object>(
 }
 
 /** HOC for styled element to make sure focus stays trapped in this container view */
-export function withFocusScope<P extends object>(Component: ComponentType<P>) {
+export function withFocusTrap<P extends object>(Component: ComponentType<P>) {
   return forwardRef<HTMLElement, P>((props, forwardedRef) => {
     const containerRef = useRef<HTMLElement | null>(null)
 
