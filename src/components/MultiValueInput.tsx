@@ -170,7 +170,7 @@ export const MultiValueInput: React.FC<MultiValueInputProps> = ({
       {values.map((value, index) => (
         <Chip key={index}>
           {value}
-          <RemoveButton onClick={() => handleRemoveValue(index)}>
+          <RemoveButton onClick={(e) => e.detail !== 0 && handleRemoveValue(index)}>
             &times;
           </RemoveButton>
         </Chip>
