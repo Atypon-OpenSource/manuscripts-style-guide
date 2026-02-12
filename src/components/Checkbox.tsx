@@ -97,6 +97,4 @@ export const CheckboxLabel = styled.label<{
 
 export const CheckboxField = styled.input.attrs({
   type: 'checkbox',
-})<{ type?: string }>`
-  ${outlineStyle}
-`
+})<{ type?: string }>``
