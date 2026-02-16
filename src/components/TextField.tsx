@@ -76,7 +76,7 @@ export const commonStyles = css<BaseTextFieldProps>`
     font-size: ${(props) => props.theme.font.size.medium};
     font-style: italic;
     font-weight: ${(props) => props.theme.font.weight.normal};
-    line-height: 32px;
+    line-height: ${(props) => props.theme.font.lineHeight.large};
   }
 
   &:hover:not(:disabled) {

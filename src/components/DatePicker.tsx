@@ -18,7 +18,6 @@ import 'react-datepicker/dist/react-datepicker.css'
 
 import React, { useState } from 'react'
 import ReactDatePicker from 'react-datepicker'
-import { ErrorBoundary } from 'react-error-boundary'
 import styled from 'styled-components'
 
 import { CalendarIcon } from './icons'
@@ -32,13 +31,6 @@ export interface DatePickerProps {
   showTimeSelect?: boolean
   required?: boolean
 }
-
-const ErrorFallback = ({ error }: { error: Error }) => (
-  <div role="alert">
-    <p>Something went wrong:</p>
-    <pre>{error.message}</pre>
-  </div>
-)
 
 export const DatePicker: React.FC<DatePickerProps> = ({
   id,
@@ -61,25 +53,23 @@ export const DatePicker: React.FC<DatePickerProps> = ({
     : 'd MMM yyyy, EEEE'
 
   return (
-    <ErrorBoundary FallbackComponent={ErrorFallback}>
-      <Calendar>
-        <ReactDatePicker
-          id={id}
-          selected={selectedDate}
-          onChange={handleChange}
-          placeholderText={placeholder}
-          minDate={originalDate}
-          showTimeSelect={showTimeSelect}
-          dateFormat={format}
-          className="calendar-input"
-          popperPlacement="bottom"
-          required={required}
-        />
-        <IconWrapper>
-          <CalendarIcon width={16} height={16} />
-        </IconWrapper>
-      </Calendar>
-    </ErrorBoundary>
+    <Calendar>
+      <ReactDatePicker
+        id={id}
+        selected={selectedDate}
+        onChange={handleChange}
+        placeholderText={placeholder}
+        minDate={originalDate}
+        showTimeSelect={showTimeSelect}
+        dateFormat={format}
+        className="calendar-input"
+        popperPlacement="bottom"
+        required={required}
+      />
+      <IconWrapper>
+        <CalendarIcon width={16} height={16} />
+      </IconWrapper>
+    </Calendar>
   )
 }
 
@@ -109,7 +99,7 @@ const Calendar = styled.div`
       font-size: ${(props) => props.theme.font.size.medium};
       font-style: italic;
       font-weight: ${(props) => props.theme.font.weight.normal};
-      line-height: 32px;
+      line-height: ${(props) => props.theme.font.lineHeight.large};
     }
 
     input:focus::placeholder {
@@ -223,7 +213,7 @@ const Calendar = styled.div`
       font-size: ${(props) => props.theme.font.size.medium};
       font-style: italic;
       font-weight: ${(props) => props.theme.font.weight.normal};
-      line-height: 32px;
+      line-height: ${(props) => props.theme.font.lineHeight.large};
     }
 
     &:focus {
