@@ -106,13 +106,13 @@ const activeContent = (menu: Menu) => (menu.isActive ? '✓' : '')
 export interface SubmenuProps {
   menu: Menu | MenuSeparator
   handleClick: (position: number[]) => void
-  closeAll: () => void
+  close: (depth?: number) => void
 }
 
 export const SubmenuLabel: React.FC<SubmenuProps> = ({
   menu,
   handleClick,
-  closeAll,
+  close,
 }) => {
   if (isMenuSeparator(menu)) {
     return null
@@ -179,6 +179,11 @@ export const SubmenuLabel: React.FC<SubmenuProps> = ({
         )
 
         if (parentContainer) {
+          if (menu.position) {
+            // Close the current submenu
+            const currentDepth = menu.position.length - 2
+            close(currentDepth)
+          }
           const parentLabel = parentContainer.querySelector(
             ':scope > [data-submenu-item]'
           ) as HTMLElement
@@ -186,12 +191,12 @@ export const SubmenuLabel: React.FC<SubmenuProps> = ({
         } else {
           // At top level: go back to main menu heading
           focusMenuHeading()
-          closeAll()
+          close()
         }
         break
       }
       case 'Escape': {
-        closeAll()
+        close()
         focusMenuHeading()
         break
       }
@@ -228,25 +233,25 @@ export const SubmenuLabel: React.FC<SubmenuProps> = ({
 export const Submenu: React.FC<SubmenuProps> = ({
   menu,
   handleClick,
-  closeAll,
+  close,
 }) => {
   if (isMenuSeparator(menu)) {
     return <Separator />
   }
 
   if (menu.component) {
-    return <menu.component menu={menu} handleClick={handleClick} closeAll={closeAll} />
+    return (
+      <menu.component menu={menu} handleClick={handleClick} close={close} />
+    )
   }
 
   if (!menu.submenu) {
-    return (
-      <SubmenuLabel menu={menu} handleClick={handleClick} closeAll={closeAll} />
-    )
+    return <SubmenuLabel menu={menu} handleClick={handleClick} close={close} />
   }
 
   return (
     <SubmenuContainer data-cy={'submenu'}>
-      <SubmenuLabel menu={menu} handleClick={handleClick} closeAll={closeAll} />
+      <SubmenuLabel menu={menu} handleClick={handleClick} close={close} />
       {menu.submenu && menu.isOpen && (
         <NestedSubmenusContainer data-submenu-container>
           {menu.submenu.map((submenu, index) => (
@@ -254,7 +259,7 @@ export const Submenu: React.FC<SubmenuProps> = ({
               key={`menu-${index}`}
               menu={submenu}
               handleClick={(i) => handleClick([index, ...i])}
-              closeAll={closeAll}
+              close={close}
             />
           ))}
         </NestedSubmenusContainer>
