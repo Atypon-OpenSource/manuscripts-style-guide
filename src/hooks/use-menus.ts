@@ -60,6 +60,7 @@ const getSubmenuState = (
     const current = [...position, index]
     return {
       ...spec,
+      position: current,
       submenu: spec.submenu && getSubmenuState(spec.submenu, pointer, current),
       isOpen: isPart(pointer, current),
     } as Menu
@@ -70,6 +71,7 @@ const getMenuState = (specs: MenuSpec[], pointer: MenuPointer): Menu[] => {
     const position = [index]
     return {
       ...spec,
+      position,
       submenu: spec.submenu && getSubmenuState(spec.submenu, pointer, position),
       isOpen: isPart(pointer, position),
     } as Menu
@@ -139,14 +141,17 @@ export const useMenus = (menus: MenuSpec[]) => {
     }
   }, [])
 
-  const closeAll = useCallback(() => {
-    setPointer(initialPointer)
+  const close = useCallback((depth?: number) => {
+    // if depth undefined, then close all.
+    setPointer(
+      depth === undefined ? initialPointer : transformPointer(depth, -1)
+    )
   }, [])
 
   return {
     menus: state,
     handleClick,
-    closeAll,
+    close,
     ref,
   }
 }

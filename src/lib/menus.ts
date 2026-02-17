@@ -24,7 +24,7 @@ export interface MenuShortcut {
 export interface MenuComponentProps {
   menu: Menu
   handleClick: (position: number[]) => void
-  closeAll: () => void
+  close: (depth?: number) => void
 }
 
 export interface MenuSpec {
@@ -43,6 +43,7 @@ export interface MenuSpec {
 export interface Menu extends MenuSpec {
   isOpen: boolean
   submenu?: (Menu | MenuSeparator)[]
+  position?: number[]
 }
 
 export type MenuSeparator = {
