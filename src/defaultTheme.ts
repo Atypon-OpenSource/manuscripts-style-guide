@@ -1,5 +1,5 @@
 /*!
- * © 2019 Atypon Systems LLC
+ * © 2026 Atypon Systems LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,25 +14,25 @@
  * limitations under the License.
  */
 
-import { createGlobalStyle, DefaultTheme } from 'styled-components'
-import 'typeface-lato'
 import * as colors from './colors'
+import type { Theme } from './theme'
 
 const fontFamily = '"Lato", sans-serif'
 
-export const GlobalStyle = createGlobalStyle`
-  body {
-    // @ts-ignore
-    background-color: ${props => props.theme.colors.background.primary};
-    // @ts-ignore
-    color: ${props => props.theme.colors.text.primary};
-    // @ts-ignore
-    font-family: ${props => props.theme.font.family.sans};
-    margin: 0;
-  }
-`
-
-export const theme: DefaultTheme = {
+/**
+ * Default theme implementing the full Theme interface.
+ * Consumer apps can use this as a base and override
+ * or extend with app-specific values:
+ *
+ * @example
+ * import { defaultTheme } from '@manuscripts/style-guide'
+ * const theme = {
+ *   ...defaultTheme,
+ *   name: 'My App',
+ *   colors: { ...defaultTheme.colors, background: { ...defaultTheme.colors.background, primary: '#fff' } }
+ * }
+ */
+export const defaultTheme: Theme = {
   name: 'Manuscripts',
   colors: {
     background: {
@@ -41,11 +41,17 @@ export const theme: DefaultTheme = {
       tertiary: colors.mercuryGrey,
       fifth: colors.manuscriptsXLight2,
       dark: 'rgba(0,0,0,0.5)',
-      error: colors.chablisRed,
+      error: colors.mandysRed,
       info: colors.manuscriptsXLight2,
       success: colors.peppermintGreen,
-      warning: colors.butteryYellow,
-      selected: colors.aliceBlue
+      warning: colors.wheatYellow,
+      selected: colors.aliceBlue,
+      muted: colors.greyMuted,
+      tracked: {
+        active: colors.graphBlue1,
+        default: colors.greyLight,
+        hover: colors.greyLight,
+      },
     },
     border: {
       error: colors.mandysRed,
@@ -55,10 +61,16 @@ export const theme: DefaultTheme = {
       primary: colors.manuscriptsLight,
       secondary: colors.mercuryGrey,
       tertiary: colors.seashellGrey,
+      muted: colors.greyLight,
       field: {
         active: colors.manuscriptsLight,
         default: colors.mercuryGrey,
         hover: colors.manuscriptsLight,
+      },
+      tracked: {
+        active: colors.graphBlue1,
+        default: colors.greyLight,
+        hover: colors.greyLight,
       },
     },
     brand: {
@@ -143,7 +155,7 @@ export const theme: DefaultTheme = {
       primary: colors.greyDark,
       secondary: colors.greyMuted,
       tertiary: colors.manuscriptsBlue,
-      muted: colors.mercuryGrey,
+      muted: colors.greyLight,
       onDark: colors.white,
       onLight: colors.greyMuted,
       error: colors.punchRed,
@@ -151,11 +163,15 @@ export const theme: DefaultTheme = {
       success: colors.killarneyGreen,
       warning: colors.zestOrange,
     },
+    outline: {
+      focus: colors.focusBlue,
+    },
   },
   font: {
     family: {
       sans: fontFamily,
       serif: 'serif',
+      Lato: 'Lato',
     },
     size: {
       xlarge: '20px',
