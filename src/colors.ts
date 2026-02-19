@@ -1,5 +1,5 @@
 /*!
- * © 2019 Atypon Systems LLC
+ * © 2026 Atypon Systems LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -28,6 +28,8 @@ export const manuscriptsSecondary = '#ffbd26'
 export const black = '#000'
 export const greyDark = '#353535'
 export const greyMuted = '#6e6e6e'
+export const greyMutedText = '#c9c9c9'
+export const greyLight = '#c9c9c9'
 export const mercuryGrey = '#e2e2e2'
 export const seashellGrey = '#f2f2f2'
 export const alabasterGrey = '#fafafa'
@@ -36,6 +38,9 @@ export const white = '#fff'
 /* BLUES */
 export const jellyBeanBlue = '#2781a1'
 export const aliceBlue = '#f2fbfc'
+export const powderBlue = '#ddf3fa'
+export const focusBlue = '#3DADFF'
+export const graphBlue1 = '#20AEDF'
 
 /* REDS */
 export const punchRed = '#f35143'
