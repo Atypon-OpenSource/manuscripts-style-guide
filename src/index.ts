@@ -15,8 +15,6 @@
  */
 
 export { Theme } from './theme'
-export { defaultTheme } from './defaultTheme'
-export * as colors from './colors'
 export * from './components/AlertMessage'
 export * from './components/Message'
 export * from './components/Button'

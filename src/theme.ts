@@ -87,12 +87,10 @@ interface Background {
   dark: string
   selected: string
   tracked: States
-  muted: string
 }
 interface Border {
   field: States
   tracked: States
-  muted: string
 }
 interface Brand {
   dark: string
