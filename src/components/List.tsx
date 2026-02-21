@@ -16,7 +16,6 @@
 import React, {
   ComponentType,
   forwardRef,
-  KeyboardEvent,
   useCallback,
   useEffect,
   useRef,
@@ -24,6 +23,7 @@ import React, {
 import styled from 'styled-components'
 
 import { outlineStyle } from './Button'
+import { getFocusableElements, trapFocus } from '../hooks/use-focus-cycle'
 
 function mergeRefs<T>(
   ...refs: (React.Ref<T | null> | undefined)[]
@@ -39,26 +39,12 @@ function mergeRefs<T>(
   }
 }
 
-function getFocusableElements(element: HTMLElement) {
-  const selectors = [
-    'button:not([disabled])',
-    'input:not([disabled])',
-    'textarea:not([disabled])',
-    'select:not([disabled])',
-    'a[href]',
-    '[tabindex]:not([tabindex="-1"])',
-  ]
-  return Array.from(
-    element.querySelectorAll(selectors.join(','))
-  ) as HTMLElement[]
-}
-
 /** This to keep focus on the list in case list item has a focusable element
  *  - Tab of the last child in current list item will move to the next list item
  *  - Tab+Shift of the first child will return focus to current list item
  */
 function handleTabWithinListItem(
-  e: KeyboardEvent<HTMLElement>,
+  e: KeyboardEvent,
   items: HTMLElement[]
 ) {
   if (e.key !== 'Tab') {
@@ -124,7 +110,7 @@ export function withListNavigation<P extends object>(
 
       // TODO:: replace that with the `navigation-utils.ts` in LEAN-5122
       const handleKeyDown = useCallback(
-        (e: KeyboardEvent<HTMLElement>) => {
+        (e: KeyboardEvent) => {
           const items = getListItems()
 
           const handled = handleTabWithinListItem(e, items)
@@ -225,7 +211,7 @@ export function withNavigableListItem<P extends object>(
         }
       }, [])
 
-      const handleKeyDown = useCallback((e: KeyboardEvent<HTMLElement>) => {
+      const handleKeyDown = useCallback((e: KeyboardEvent) => {
         const listItem = listItemRef.current
         const element = e.target
         if (element && listItem && element === listItem && e.key === 'Enter') {
@@ -265,31 +251,10 @@ export function withFocusTrap<P extends object>(Component: ComponentType<P>) {
   return forwardRef<HTMLElement, P>((props, forwardedRef) => {
     const containerRef = useRef<HTMLElement | null>(null)
 
-    const handleKeyDown = useCallback((e: KeyboardEvent<HTMLElement>) => {
-      const element = containerRef.current
-      if (element && e.key === 'Tab') {
-        const focusableElements = getFocusableElements(element)
-        if (focusableElements.length === 0) {
-          return
-        }
-
-        const firstElement = focusableElements[0]
-        const lastElement = focusableElements[focusableElements.length - 1]
-        const activeElement = document.activeElement
-
-        if (e.shiftKey) {
-          if (firstElement === activeElement) {
-            e.preventDefault()
-            lastElement.focus()
-          }
-        } else {
-          if (lastElement === activeElement) {
-            e.preventDefault()
-            firstElement.focus()
-          }
-        }
-      }
-    }, [])
+    const handleKeyDown = useCallback(
+      (e: KeyboardEvent) => trapFocus(e, containerRef.current),
+      []
+    )
 
     return (
       <Component

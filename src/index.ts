@@ -56,6 +56,7 @@ export * from './components/SelectedItemsBox'
 export * from './hooks/use-dropdown'
 export * from './hooks/use-menus'
 export * from './hooks/use-scroll-detection'
+export * from './hooks/use-focus-cycle'
 export {
   useDeepCompareMemo,
   useDeepCompareCallback,
