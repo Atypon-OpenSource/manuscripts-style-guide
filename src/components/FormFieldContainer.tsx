@@ -26,7 +26,7 @@ import styled from 'styled-components'
 
 import { ErrorProps } from './Form'
 import { TextFieldLabel } from './TextField'
-import { TextFieldError, TextFieldErrorItem } from './TextFieldError'
+import { TextFieldError, TextFieldErrorItem } from './FormCommon'
 
 interface FormFieldContainerProps {
   label?: string

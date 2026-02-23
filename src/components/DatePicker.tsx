@@ -95,7 +95,7 @@ const Calendar = styled.div`
         props.theme.colors.text.secondary ||
         '#6E6E6E'};
       opacity: 1;
-      font-family: ${(props) => props.theme.font.family.sans};
+      font-family: 'PT Sans', sans-serif;
       font-size: ${(props) => props.theme.font.size.medium};
       font-style: italic;
       font-weight: ${(props) => props.theme.font.weight.normal};
@@ -209,7 +209,7 @@ const Calendar = styled.div`
         props.theme.colors.text.secondary ||
         '#6E6E6E'};
       opacity: 1;
-      font-family: ${(props) => props.theme.font.family.sans};
+      font-family: 'PT Sans', sans-serif;
       font-size: ${(props) => props.theme.font.size.medium};
       font-style: italic;
       font-weight: ${(props) => props.theme.font.weight.normal};

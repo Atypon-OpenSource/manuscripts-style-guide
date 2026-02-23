@@ -109,7 +109,7 @@ const selectStyles = (
           theme.colors.text.secondary ||
           '#6E6E6E',
     fontStyle: 'italic',
-    fontFamily: theme.font.family.sans,
+    fontFamily: "'PT Sans', sans-serif",
     fontSize: theme.font.size.medium,
     fontWeight: theme.font.weight.normal,
     lineHeight: theme.font.lineHeight.large,

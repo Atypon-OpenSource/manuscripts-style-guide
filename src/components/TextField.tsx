@@ -72,7 +72,7 @@ export const commonStyles = css<BaseTextFieldProps>`
   &::placeholder {
     color: ${(props) => props.theme.colors.text.greyMuted || '#6E6E6E'};
     opacity: 1;
-    font-family: ${(props) => props.theme.font.family.sans};
+    font-family: 'PT Sans', sans-serif;
     font-size: ${(props) => props.theme.font.size.medium};
     font-style: italic;
     font-weight: ${(props) => props.theme.font.weight.normal};
