@@ -60,6 +60,7 @@ export const CheckboxLabel = styled.label<{
       border: 1.5px solid ${(props) => props.theme.colors.border.field.default};
       border-radius: 3px;
       margin-right: 10px;
+      margin-left: 4px;
       text-align: center;
       background: ${(props) => props.theme.colors.background.primary};
     }
@@ -76,7 +77,8 @@ export const CheckboxLabel = styled.label<{
   }
 
   input:focus-visible + div::before {
-    outline: none;
+    outline: 2px solid ${(props) => props.theme.colors.outline.focus};
+    outline-offset: 2px;
   }
 
   input:disabled + div::before {
