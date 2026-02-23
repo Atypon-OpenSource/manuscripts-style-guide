@@ -58,14 +58,14 @@ interface MenusProps {
   menus: Menu[]
   innerRef: Ref<HTMLDivElement>
   handleClick: (position: number[]) => void
-  closeAll: () => void
+  close: (depth?: number) => void
 }
 
 export const Menus: React.FC<MenusProps> = ({
   menus,
   innerRef,
   handleClick,
-  closeAll,
+  close,
 }) => {
   const menuHeadingsRef = useRef<(HTMLDivElement | null)[]>([])
 
@@ -112,7 +112,7 @@ export const Menus: React.FC<MenusProps> = ({
       case 'Escape': {
         event.preventDefault()
         event.stopPropagation()
-        closeAll()
+        close()
         break
       }
       case 'ArrowDown': {
@@ -171,7 +171,7 @@ export const Menus: React.FC<MenusProps> = ({
                         key={`${index}-${sindex}`}
                         menu={submenu}
                         handleClick={(i) => handleClick([index, sindex, ...i])}
-                        closeAll={closeAll}
+                        close={close}
                       />
                     )
                   })}

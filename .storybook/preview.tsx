@@ -1,21 +1,22 @@
 import type { Preview } from '@storybook/react'
-import React from "react";
-import {DndProvider} from "react-dnd";
-import {HTML5Backend} from "react-dnd-html5-backend";
-import {ThemeProvider} from "styled-components";
-import {theme} from "./theme";
+import React from 'react'
+import { DndProvider } from 'react-dnd'
+import { HTML5Backend } from 'react-dnd-html5-backend'
+import { ThemeProvider } from 'styled-components'
+import 'typeface-lato'
+import { defaultTheme } from '../src/defaultTheme'
 
 const preview: Preview = {
   decorators: [
     (Story) => {
       return (
         <DndProvider backend={HTML5Backend}>
-          <ThemeProvider theme={theme}>
+          <ThemeProvider theme={defaultTheme}>
             <Story />
           </ThemeProvider>
         </DndProvider>
       )
-    }
+    },
   ],
   parameters: {
     actions: { argTypesRegex: '^on[A-Z].*' },
