@@ -20,29 +20,29 @@ export const Badge = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 2px;
+  padding: ${(props) => props.theme.grid.unit / 2}px;
   border-radius: 50px;
 `
 export const WarningBadge = styled.div`
   position: absolute;
-  top: -6px;
-  right: -6px;
-  background-color: #fe8f1f;
-  color: white;
-  border-radius: 50%;
-  min-width: 14px;
-  height: 14px;
-  font-family: 'Lato', sans-serif;
+  top: -${(props) => props.theme.grid.unit * 1.5}px;
+  right: -${(props) => props.theme.grid.unit * 1.5}px;
   display: flex;
   align-items: center;
   justify-content: space-around;
+  color: ${(props) => props.theme.colors.text.onLight};
+  background-color: ${(props) => props.theme.colors.text.warning};
+  border-radius: 50%;
+  min-width: ${(props) => props.theme.grid.unit * 3.5}px;
+  height: ${(props) => props.theme.grid.unit * 3.5}px;
+  font-family: ${(props) => props.theme.font.family.sans};
   font-size: 9px;
-  font-weight: 400;
+  font-weight:  ${(props) => props.theme.font.weight.normal};
   line-height: 1;
   z-index: 10;
 `
 export const ErrorBadge = styled(WarningBadge)`
-  background-color: #f35143;
+  background-color: ${(props) => props.theme.colors.text.error};
 `
 export const IconWrapper = styled.span`
   position: relative;
