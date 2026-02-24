@@ -27,7 +27,7 @@ interface Colors {
   border: Border & Alerts & Variations
   brand: Brand
   button: Button
-  text: Text & Variations
+  text: Text & Alerts & Variations
   outline: Outline
 }
 

@@ -158,6 +158,10 @@ export const defaultTheme: Theme = {
       muted: colors.greyLight,
       onDark: colors.white,
       onLight: colors.greyMuted,
+      error: colors.punchRed,
+      info: colors.jellyBeanBlue,
+      success: colors.killarneyGreen,
+      warning: colors.contrastOrange
     },
     outline: {
       focus: colors.focusBlue,
