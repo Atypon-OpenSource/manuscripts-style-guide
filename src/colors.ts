@@ -47,13 +47,17 @@ export const punchRed = '#f35143'
 export const mandysRed = '#f5c1b7'
 export const chablisRed = '#fff1f0'
 export const darkRed = '#c74237'
+export const contrastRed = '#cf1322'
 
 /* GREENS */
 export const killarneyGreen = '#36b260'
 export const springGreen = '#b2c0ac'
 export const peppermintGreen = '#dff0d7'
+export const veryLightGreen = '#eefbe9'
+export const contrastGreen = '#31a056'
 
 /* YELLOWS */
-export const zestOrange = '#fe8f1f'
 export const wheatYellow = '#ffe0b2'
 export const butteryYellow = '#fffcdb'
+export const contrastOrange = '#fa5700'
+export const veryLightYellow = '#fff9e5'

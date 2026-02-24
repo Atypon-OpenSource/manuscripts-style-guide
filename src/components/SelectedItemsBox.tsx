@@ -16,8 +16,6 @@
 import React from 'react'
 import styled from 'styled-components'
 
-import { XIcon } from './icons/x'
-
 interface SelectedItem {
   id: string
   label: string
