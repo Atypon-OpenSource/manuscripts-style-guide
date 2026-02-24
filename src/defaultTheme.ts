@@ -48,9 +48,9 @@ export const defaultTheme: Theme = {
       selected: colors.aliceBlue,
       muted: colors.greyMuted,
       tracked: {
-        active: colors.graphBlue1,
-        default: colors.greyLight,
-        hover: colors.greyLight,
+        active: colors.veryLightBlue,
+        default: colors.white,
+        hover: colors.seashellGrey,
       },
     },
     border: {
