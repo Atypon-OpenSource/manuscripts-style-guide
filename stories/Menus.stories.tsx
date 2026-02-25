@@ -358,14 +358,14 @@ const MenusComponent = () => {
     ],
   }
 
-  const { menus, ref, handleClick, closeAll } = useMenus([edit, insert, format])
+  const { menus, ref, handleClick, close } = useMenus([edit, insert, format])
 
   return (
     <Menus
       menus={menus}
       innerRef={ref}
       handleClick={handleClick}
-      closeAll={closeAll}
+      close={close}
     />
   )
 }

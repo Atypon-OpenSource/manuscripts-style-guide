@@ -140,6 +140,27 @@ export const ScrollableModalContent = styled(ModelContent)`
   max-height: 100%;
 `
 
+export const ModalCardBody = styled.div<{ width?: number | string }>`
+  box-sizing: border-box;
+  padding: ${(props) => 6 * props.theme.grid.unit}px;
+  background-color: ${(props) => props.theme.colors.background.primary};
+  width: ${(props) =>
+    props.width
+      ? typeof props.width === 'number'
+        ? `${props.width}px`
+        : props.width
+      : '640px'};
+  max-width: 60vw;
+  max-height: 80vh;
+`
+export const ModalTitle = styled.h2`
+  font-family: ${(props) => props.theme.font.family.sans};
+  font-size: ${(props) => props.theme.font.size.medium};
+  font-weight: ${(props) => props.theme.font.weight.bold};
+  color: ${(props) => props.theme.colors.text.primary};
+  margin: 0 0 20px 0;
+`
+
 export const StyledModal = styled(ReactModalAdapter).attrs({
   closeTimeoutMS: totalTransitionTime,
   overlayClassName: {
