@@ -62,6 +62,22 @@ export const Modal: React.FC<ModalProps> = ({
     }
   }, [isOpen])
 
+  useEffect(() => {
+    const dialog = dialogRef.current
+    if (!dialog) {
+      return
+    }
+
+    const handleNativeClose = () => {
+      if (isOpen) {
+        onClose()
+      }
+    }
+
+    dialog.addEventListener('close', handleNativeClose)
+    return () => dialog.removeEventListener('close', handleNativeClose)
+  }, [isOpen, onClose])
+
   return (
     <Dialog ref={dialogRef}>
       <ModalContentWrapper>
