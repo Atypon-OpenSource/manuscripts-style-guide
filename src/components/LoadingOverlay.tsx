@@ -14,40 +14,23 @@
  * limitations under the License.
  */
 import React from 'react'
-import Modal from 'react-modal'
+import styled from 'styled-components'
 
 export const LoadingOverlay: React.FC<{ children: React.ReactNode }> = ({
   children,
-}) => (
-  <>
-    <Modal
-      isOpen={true}
-      style={{
-        overlay: {
-          position: 'fixed',
-          top: 0,
-          left: 0,
-          right: 0,
-          bottom: 0,
-          backgroundColor: 'white',
-          zIndex: 20,
-        },
-        content: {
-          position: 'fixed',
-          top: 0,
-          left: 0,
-          right: 0,
-          bottom: 0,
-          background: 'white',
-          display: 'flex',
-          flexDirection: 'column',
-          padding: 0,
-          overflow: 'auto',
-          border: 'none',
-        },
-      }}
-    >
-      <>{children}</>
-    </Modal>
-  </>
-)
+}) => <Overlay>{children}</Overlay>
+
+const Overlay = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: white;
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+  overflow: auto;
+  border: none;
+  z-index: 20;
+`
