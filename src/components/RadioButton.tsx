@@ -63,16 +63,16 @@ const Input = styled.input`
 
   &:checked + label::before {
     background: ${(props) => props.theme.colors.background.primary};
-    box-shadow: inset 0 0 0 4px #0d79d0;
-    border-color: #0d79d0;
+    box-shadow: inset 0 0 0 4px ${(props) => props.theme.colors.brand.default};
+    border-color: ${(props) => props.theme.colors.brand.default};
   }
 
   &:hover:not(:disabled) + label::before {
-    border-color: ${(props) => props.theme.colors.text.secondary};
+    border-color: ${(props) => props.theme.colors.text.greyMuted};
   }
 
   &:focus-visible + label::before {
-    border-color: #0d79d0;
+    border-color: ${(props) => props.theme.colors.brand.default};
   }
 
   &:disabled + label {
@@ -87,22 +87,33 @@ const Input = styled.input`
   }
 `
 
-interface RadioProps {
+interface RadioProps extends React.InputHTMLAttributes<HTMLInputElement> {
   checked?: boolean
   id: string
   label: string | React.ReactNode
   name?: string
 }
 
-export const RadioButton: React.FunctionComponent<RadioProps> = ({
+const RadioButtonContainer = styled.div`
+  display: inline-flex;
+  align-items: center;
+  position: relative;
+  margin-right: ${(props) => props.theme.grid.unit * 4}px;
+
+  &:last-child {
+    margin-right: 0;
+  }
+`
+
+export const RadioButton: React.FC<RadioProps> = ({
   checked,
   id,
   label,
   name,
   ...rest
 }) => (
-  <>
+  <RadioButtonContainer className="radio-button-container">
     <Input checked={checked} type="radio" name={name} id={id} {...rest} />
     <label htmlFor={id}>{label}</label>
-  </>
+  </RadioButtonContainer>
 )

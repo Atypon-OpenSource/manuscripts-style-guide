@@ -41,6 +41,7 @@ export const aliceBlue = '#f2fbfc'
 export const powderBlue = '#ddf3fa'
 export const focusBlue = '#3DADFF'
 export const graphBlue1 = '#20AEDF'
+export const veryLightBlue = '#e6f7fc'
 
 /* REDS */
 export const punchRed = '#f35143'
