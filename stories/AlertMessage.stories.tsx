@@ -1,5 +1,5 @@
 /*!
- * © 2019 Atypon Systems LLC
+ * © 2025 Atypon Systems LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,12 +16,19 @@
 
 import type { Meta, StoryObj } from '@storybook/react'
 import { fn } from '@storybook/test'
+import React from 'react'
 
-import { AlertMessage, AlertMessageType } from '../src/'
+import { AlertMessage } from '../src/'
 
 const meta: Meta<typeof AlertMessage> = {
   title: 'AlertMessage',
   component: AlertMessage,
+  argTypes: {
+    variant: {
+      control: 'select',
+      options: ['success', 'error', 'info', 'warning'],
+    },
+  },
 }
 
 export default meta
@@ -29,75 +36,85 @@ type Story = StoryObj<typeof AlertMessage>
 
 export const Success: Story = {
   args: {
-    type: AlertMessageType.success,
-    children: 'Example of overall success message. Lorem ipsum dolor sit amet.',
+    variant: 'success',
+    message: 'Example of overall info message. Lorem ipsum dolor sit amet.',
   },
 }
 
 export const Error: Story = {
   args: {
-    type: AlertMessageType.error,
-    children: 'Example of overall error message. Lorem ipsum dolor sit amet.',
+    variant: 'error',
+    message: 'Example of overall danger message. Lorem ipsum dolor sit amet.',
   },
 }
 
 export const Info: Story = {
   args: {
-    type: AlertMessageType.info,
-    children: 'Example of overall info message. Lorem ipsum dolor sit amet.',
+    variant: 'info',
+    message: 'Example of overall info message. Lorem ipsum dolor sit amet.',
   },
 }
 
 export const Warning: Story = {
   args: {
-    type: AlertMessageType.warning,
-    children: 'Example of overall warning message. Lorem ipsum dolor sit amet.',
+    variant: 'warning',
+    message: 'Example of overall warning message. Lorem ipsum dolor sit amet.',
   },
 }
 
-export const WithoutCloseButton: Story = {
+export const WithLink: Story = {
   args: {
-    type: AlertMessageType.warning,
-    hideCloseButton: true,
-    children: 'Example of overall warning message. Lorem ipsum dolor sit amet.',
+    variant: 'info',
+    title: 'Update available',
+    message: 'A new version has been released.',
+    link: { label: 'Learn more', onClick: fn() },
+  },
+}
+
+export const WithCloseIcon: Story = {
+  args: {
+    variant: 'warning',
+    title: 'Warning',
+    message: 'Your session will expire in 5 minutes.',
+    closeConfig: { variant: 'icon', onClick: fn() },
   },
 }
 
 export const WithDismissText: Story = {
   args: {
-    type: AlertMessageType.warning,
-    dismissButton: { text: 'Dismiss' },
-    children: 'Example of overall warning message. Lorem ipsum dolor sit amet.',
+    variant: 'error',
+    title: 'Connection lost',
+    message: 'Unable to reach the server.',
+    closeConfig: { variant: 'text', label: 'Dismiss', onClick: fn() },
   },
 }
 
-export const WithStaticWidth: Story = {
+export const MessageOnly: Story = {
   args: {
-    type: AlertMessageType.info,
-    dismissButton: {
-      action: fn(),
-      text: 'Click Here',
-    },
-    children: 'Example of overall warning message. Lorem ipsum dolor sit amet.',
+    variant: 'success',
+    message: 'File uploaded successfully.',
   },
-  render: (args) => (
-    <div style={{ width: 800 }}>
-      <AlertMessage {...args} />
-    </div>
-  ),
 }
 
-export const WithSmallContainer: Story = {
+export const WithLinkAndClose: Story = {
   args: {
-    type: AlertMessageType.info,
-    dismissButton: {
-      action: fn(),
-      text: 'Click Here',
-    },
-    children: 'Example of overall warning message. Lorem ipsum dolor sit amet.',
+    variant: 'info',
+    title: 'New feature',
+    message: 'Check out the new collaboration tools.',
+    link: { label: 'View details', onClick: fn() },
+    closeConfig: { variant: 'icon', onClick: fn() },
+  },
+}
+
+export const InSmallContainer: Story = {
+  args: {
+    variant: 'warning',
+    title: 'Caution',
+    message:
+      'This is a long description that should wrap properly inside a small container to test responsive behavior.',
   },
   render: (args) => (
-    <div style={{ width: 250 }}>
+    <div style={{ width: 300 }}>
       <AlertMessage {...args} />
     </div>
   ),
