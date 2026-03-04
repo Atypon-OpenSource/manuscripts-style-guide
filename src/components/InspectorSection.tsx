@@ -26,7 +26,7 @@ const Section = styled.div`
 
 const Heading = styled.div<{ marginBottom?: string }>`
   display: flex;
-  padding: 0 ${(props) => props.theme.grid.unit * 2}px;
+  padding: 0;
   cursor: pointer;
   margin: ${(props) => props.theme.grid.unit * 4}px
     ${(props) => props.theme.grid.unit * 6}px
@@ -78,12 +78,14 @@ interface Props {
   title: React.ReactNode
   contentStyles?: CSSProperties
   children?: React.ReactNode
+  collapsible?: boolean
 }
 
 export const InspectorSection: React.FC<Props> = ({
   title,
   contentStyles,
   children,
+  collapsible = true,
 }) => {
   const [expanded, setExpanded] = useState(true)
 
@@ -92,19 +94,22 @@ export const InspectorSection: React.FC<Props> = ({
       <Line />
 
       <Heading
-        onClick={() => setExpanded(!expanded)}
+        onClick={() => collapsible && setExpanded(!expanded)}
         marginBottom={(!(expanded && children) && '40px') || undefined}
+        style={{ cursor: collapsible ? 'pointer' : 'default' }}
       >
         <HeadingText>{title}</HeadingText>
-        <ExpanderButton
-          aria-label={'Toggle expand section'}
-          onClick={() => setExpanded(!expanded)}
-          style={{
-            transform: expanded ? 'rotate(0deg)' : 'rotate(180deg)',
-          }}
-        >
-          <ArrowDownCircleIcon />
-        </ExpanderButton>
+        {collapsible && (
+          <ExpanderButton
+            aria-label={'Toggle expand section'}
+            onClick={() => setExpanded(!expanded)}
+            style={{
+              transform: expanded ? 'rotate(0deg)' : 'rotate(180deg)',
+            }}
+          >
+            <ArrowDownCircleIcon />
+          </ExpanderButton>
+        )}
       </Heading>
 
       {expanded && children && <div style={contentStyles}>{children}</div>}
