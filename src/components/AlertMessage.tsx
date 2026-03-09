@@ -42,7 +42,7 @@ interface CloseConfig {
 export interface AlertMessageProps {
   title?: string
   message: string
-  variant: AlertVariant
+  variant: 'success' | 'error' | 'info' | 'warning'
   link?: AlertLink
   closeConfig?: CloseConfig
   className?: string
