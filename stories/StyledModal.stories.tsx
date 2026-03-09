@@ -248,6 +248,50 @@ export const NoOverlay: Story = {
   render: () => <NoOverlayStory />,
 }
 
+const OnRequestCloseStory: React.FC = () => {
+  const [isOpen, setIsOpen] = useState(true)
+  const [message, setMessage] = useState<string | null>(null)
+
+  return (
+    <>
+      <PrimaryButton onClick={() => setIsOpen(true)}>Open Modal</PrimaryButton>
+      {message != null && <p style={{ marginTop: 8 }}>{message}</p>}
+      <StyledModal
+        isOpen={isOpen}
+        onRequestClose={(e) => {
+          setMessage('onRequestClose ran (Esc or backdrop)')
+          setIsOpen(false)
+        }}
+      >
+        <ModalContainer>
+          <ModalHeader>
+            <CloseButton onClick={() => setIsOpen(false)} />
+          </ModalHeader>
+          <ModalCardBody>
+            <ModalTitle>onRequestClose</ModalTitle>
+            <p>One callback for both Esc and backdrop. Called with the Event on Esc so you can preventDefault() to block closing.</p>
+            <Footer>
+              <SecondaryButton onClick={() => setIsOpen(false)}>Cancel</SecondaryButton>
+              <PrimaryButton onClick={() => setIsOpen(false)}>Confirm</PrimaryButton>
+            </Footer>
+          </ModalCardBody>
+        </ModalContainer>
+      </StyledModal>
+    </>
+  )
+}
+
+export const OnRequestClose: Story = {
+  render: () => <OnRequestCloseStory />,
+  parameters: {
+    docs: {
+      description: {
+        story: '`onRequestClose` is called when the user presses Esc or clicks the backdrop. On Esc the event is passed so you can call `e.preventDefault()` to prevent closing.',
+      },
+    },
+  },
+}
+
 const Footer = styled.div`
   display: flex;
   justify-content: flex-end;

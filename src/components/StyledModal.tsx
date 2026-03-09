@@ -23,7 +23,7 @@ import { SidebarStyles } from './Sidebar'
 
 interface StyledModalProps {
   isOpen: boolean
-  onRequestClose: () => void
+  onRequestClose: (e?: Event) => void
   shouldCloseOnOverlayClick?: boolean
   hideOverlay?: boolean
   pointerEventsOnBackdrop?: 'all' | 'none' | 'auto'
@@ -43,6 +43,7 @@ export const StyledModal: React.FC<StyledModalProps> = ({
   style,
 }) => {
   const dialogRef = useRef<HTMLDialogElement>(null)
+  const closedByCancelRef = useRef(false)
 
   useEffect(() => {
     const dialog = dialogRef.current
@@ -64,15 +65,29 @@ export const StyledModal: React.FC<StyledModalProps> = ({
     }
 
     const handleNativeClose = (wasOpen: boolean) => {
-      if (wasOpen) {
+      if (wasOpen && !closedByCancelRef.current) {
         onRequestClose()
       }
+      closedByCancelRef.current = false
     }
 
     const listener = () => handleNativeClose(isOpen)
     dialog.addEventListener('close', listener)
     return () => dialog.removeEventListener('close', listener)
   }, [isOpen, onRequestClose])
+
+  useEffect(() => {
+    const dialog = dialogRef.current
+    if (!dialog) {
+      return
+    }
+    const handleCancel = (e: Event) => {
+      closedByCancelRef.current = true
+      onRequestClose(e)
+    }
+    dialog.addEventListener('cancel', handleCancel)
+    return () => dialog.removeEventListener('cancel', handleCancel)
+  }, [onRequestClose])
 
   const handleBackdropClick = (e: React.MouseEvent<HTMLDialogElement>) => {
     if (shouldCloseOnOverlayClick && e.target === dialogRef.current) {
@@ -123,12 +138,18 @@ const Dialog = styled.dialog<{
   &::backdrop {
     ${(props) => {
       if (props.$hideOverlay) {
-        return css`background: transparent;`
+        return css`
+          background: transparent;
+        `
       }
       if (props.$pointerEventsOnBackdrop === 'none') {
-        return css`background: rgba(0, 0, 0, 0.1);`
+        return css`
+          background: rgba(0, 0, 0, 0.1);
+        `
       }
-      return css`background: ${props.theme.colors.background.dark};`
+      return css`
+        background: ${props.theme.colors.background.dark};
+      `
     }}
     opacity: 1;
     pointer-events: ${(props) => props.$pointerEventsOnBackdrop || 'auto'};
