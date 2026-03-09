@@ -103,7 +103,11 @@ export const AlertMessage: React.FC<AlertMessageProps> = ({
         {title && <Title>{title}</Title>}
         <MessageRow>
           <Message>{message}</Message>
-          {link && <ActionLink onClick={link.onClick}>{link.label}</ActionLink>}
+          {link && (
+            <ActionLink type="button" onClick={link.onClick}>
+              {link.label}
+            </ActionLink>
+          )}
         </MessageRow>
       </Content>
 
