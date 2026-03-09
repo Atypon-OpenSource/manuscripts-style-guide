@@ -63,14 +63,15 @@ export const StyledModal: React.FC<StyledModalProps> = ({
       return
     }
 
-    const handleNativeClose = () => {
-      if (isOpen) {
+    const handleNativeClose = (wasOpen: boolean) => {
+      if (wasOpen) {
         onRequestClose()
       }
     }
 
-    dialog.addEventListener('close', handleNativeClose)
-    return () => dialog.removeEventListener('close', handleNativeClose)
+    const listener = () => handleNativeClose(isOpen)
+    dialog.addEventListener('close', listener)
+    return () => dialog.removeEventListener('close', listener)
   }, [isOpen, onRequestClose])
 
   const handleBackdropClick = (e: React.MouseEvent<HTMLDialogElement>) => {
