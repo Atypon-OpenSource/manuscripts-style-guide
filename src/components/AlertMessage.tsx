@@ -53,6 +53,26 @@ const variantIcons = {
   warning: AttentionOrangeIcon,
 } as const
 
+interface AlertCloseActionProps {
+  closeConfig: NonNullable<AlertMessageProps['closeConfig']>
+  onClose: () => void
+}
+
+const AlertCloseAction: React.FC<AlertCloseActionProps> = ({
+  closeConfig,
+  onClose,
+}) => (
+  <CloseAction>
+    {closeConfig.variant === 'icon' ? (
+      <CloseIconButton onClick={onClose}>
+        <XIcon />
+      </CloseIconButton>
+    ) : (
+      <DismissButton onClick={onClose}>{closeConfig.label}</DismissButton>
+    )}
+  </CloseAction>
+)
+
 export const AlertMessage: React.FC<AlertMessageProps> = ({
   title,
   message,
@@ -67,26 +87,6 @@ export const AlertMessage: React.FC<AlertMessageProps> = ({
   const handleClose = () => {
     setIsOpen(false)
     closeConfig?.onClick?.()
-  }
-
-  const renderCloseAction = () => {
-    if (!closeConfig) {
-      return null
-    }
-
-    return (
-      <CloseAction>
-        {closeConfig.variant === 'icon' ? (
-          <CloseIconButton onClick={handleClose}>
-            <XIcon />
-          </CloseIconButton>
-        ) : (
-          <DismissButton onClick={handleClose}>
-            {closeConfig.label}
-          </DismissButton>
-        )}
-      </CloseAction>
-    )
   }
 
   if (!isOpen) {
@@ -111,7 +111,9 @@ export const AlertMessage: React.FC<AlertMessageProps> = ({
         </MessageRow>
       </Content>
 
-      {renderCloseAction()}
+      {closeConfig && (
+        <AlertCloseAction closeConfig={closeConfig} onClose={handleClose} />
+      )}
     </Alert>
   )
 }
