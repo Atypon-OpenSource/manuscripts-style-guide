@@ -114,8 +114,6 @@ export const commonStyles = css<BaseTextFieldProps>`
     color: #b3b3b3;
     cursor: not-allowed;
   }
-
-  ${(props) => props.error && 'z-index: 2'};
 `
 
 export const TextField = styled.input<TextFieldProps>`
