@@ -33,18 +33,16 @@ interface AlertLink {
   onClick: () => void
 }
 
-interface CloseConfig {
-  onClick?: () => void
-  variant?: 'icon' | 'text'
-  label?: string
-}
-
 export interface AlertMessageProps {
   title?: string
   message: string
   variant: 'success' | 'error' | 'info' | 'warning'
   link?: AlertLink
-  closeConfig?: CloseConfig
+  closeConfig?: {
+    onClick?: () => void
+    variant?: 'icon' | 'text'
+    label?: string
+  }
   className?: string
 }
 
