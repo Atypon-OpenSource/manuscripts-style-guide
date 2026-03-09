@@ -97,7 +97,7 @@ export const FormLabel = styled.legend`
     ${(props) => props.theme.font.lineHeight.large}
     ${(props) => props.theme.font.family.sans};
   letter-spacing: -0.4px;
-  color: ${(props) => props.theme.colors.text.secondary};
+  color: ${(props) => props.theme.colors.text.primary};
 `
 
 export const FormActionsBar = styled.div`

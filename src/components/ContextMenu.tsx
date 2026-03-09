@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import React from 'react'
+import React, { useEffect, useRef } from 'react'
 import styled from 'styled-components'
 
 import { IconButton, IconButtonGroup } from './Button'
@@ -49,6 +49,11 @@ const ContextMenuIconButton = styled(IconButton)`
     background-color: #f2f2f2;
     border-color: #f2f2f2;
   }
+  &:not([disabled]):focus-visible {
+    outline: 4px solid #3dadff;
+    outline-offset: -2px;
+    background-color: transparent !important;
+  }
   &[disabled] {
     color: #c9c9c9 !important;
     background-color: #fff !important;
@@ -69,21 +74,72 @@ const icons: { [key: string]: React.FC<IconProps> } = Object.entries(
   {} as { [key: string]: React.FC<IconProps> }
 )
 
-export const ContextMenu: React.FC<ContextMenuProps> = ({ actions }) => (
-  <IconButtonGroup size={32}>
-    {actions.map((action) => {
-      const Icon = icons[action.icon]
-      return (
-        <ContextMenuIconButton
-          key={action.icon}
-          data-tooltip-content={action.label}
-          onClick={action.disabled === true ? () => null : action.action}
-          className={action.selected ? 'selected' : ''}
-          disabled={!!action.disabled}
-        >
-          <Icon width={18} height={18} />
-        </ContextMenuIconButton>
-      )
-    })}
-  </IconButtonGroup>
-)
+export const ContextMenu: React.FC<ContextMenuProps> = ({ actions }) => {
+  const containerRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    const container = containerRef.current
+    if (!container) {
+      return
+    }
+
+    const buttons = Array.from(
+      container.querySelectorAll('button:not([disabled])')
+    ) as HTMLElement[]
+
+    if (buttons.length === 0) {
+      return
+    }
+
+    // Set tabindex: first button is tabbable, others are not
+    buttons.forEach((button, index) => {
+      button.tabIndex = index === 0 ? 0 : -1
+    })
+
+    // Add keyboard navigation
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key !== 'ArrowRight' && event.key !== 'ArrowLeft') {
+        return
+      }
+
+      const target = event.target as HTMLElement
+      const currentIndex = buttons.indexOf(target)
+      if (currentIndex === -1) {
+        return
+      }
+      event.preventDefault()
+
+      const nextIndex =
+        event.key === 'ArrowRight'
+          ? (currentIndex + 1) % buttons.length
+          : (currentIndex - 1 + buttons.length) % buttons.length
+
+      buttons[nextIndex]?.focus()
+    }
+
+    container.addEventListener('keydown', handleKeyDown)
+
+    return () => {
+      container.removeEventListener('keydown', handleKeyDown)
+    }
+  }, [actions])
+
+  return (
+    <IconButtonGroup size={32} ref={containerRef}>
+      {actions.map((action) => {
+        const Icon = icons[action.icon]
+        return (
+          <ContextMenuIconButton
+            key={action.icon}
+            data-tooltip-content={action.label}
+            onClick={action.disabled === true ? () => null : action.action}
+            className={action.selected ? 'selected' : ''}
+            disabled={!!action.disabled}
+          >
+            <Icon width={18} height={18} />
+          </ContextMenuIconButton>
+        )
+      })}
+    </IconButtonGroup>
+  )
+}

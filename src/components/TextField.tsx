@@ -70,9 +70,9 @@ export const commonStyles = css<BaseTextFieldProps>`
   color: ${(props) => props.theme.colors.text.primary};
 
   &::placeholder {
-    color: ${(props) => props.theme.colors.text.secondary};
+    color: ${(props) => props.theme.colors.text.greyMuted || '#6E6E6E'};
     opacity: 1;
-    font-family: ${(props) => props.theme.font.family.sans};
+    font-family: 'PT Sans', sans-serif;
     font-size: ${(props) => props.theme.font.size.medium};
     font-style: italic;
     font-weight: ${(props) => props.theme.font.weight.normal};
@@ -81,6 +81,7 @@ export const commonStyles = css<BaseTextFieldProps>`
 
   &:hover:not(:disabled) {
     background-color: #f2fbfc;
+    border-color: ${(props) => props.theme.colors.text.greyMuted};
   }
 
   &:focus:not(:disabled) {
@@ -90,10 +91,21 @@ export const commonStyles = css<BaseTextFieldProps>`
           ? props.theme.colors.border.error
           : props.theme.colors.brand.default};
     background-color: #f2fbfc;
+    padding: ${(props) => {
+      if (props.variant === 'small') {
+        return '0 11px'
+      }
+      if (props.variant === 'large') {
+        return '3px 15px'
+      }
+      return '0 11px'
+    }};
+  }
 
-    &::placeholder {
-      color: #c9c9c9;
-    }
+  &:focus::placeholder {
+    color: ${(props) =>
+      props.theme.colors.text.greyLight || '#C9C9C9'} !important;
+    opacity: 1 !important;
   }
 
   &:disabled {
@@ -149,16 +161,16 @@ export const TextFieldGroup = styled.div`
 `
 
 export const TextFieldLabel = styled.label`
+  display: block;
   font-family: ${(props) => props.theme.font.family.sans};
-  text-transform: uppercase;
-  color: ${(props) => props.theme.colors.text.secondary};
+  color: ${(props) => props.theme.colors.text.primary};
+  font-size: ${(props) => props.theme.font.size.normal};
+  font-weight: ${(props) => props.theme.font.weight.normal};
+  line-height: ${(props) => props.theme.font.lineHeight.normal};
 
-  & ${TextField} {
-    margin-top: ${(props) => props.theme.grid.unit}px;
-  }
-
-  & ${TextArea} {
-    margin-top: ${(props) => props.theme.grid.unit}px;
+  > * {
+    margin-top: ${(props) => props.theme.grid.unit * 2}px;
+    display: block;
   }
 `
 
