@@ -61,6 +61,7 @@ const iconList: { name: string; Component: React.FC<IconProps> }[] = [
   { name: 'AttentionRedIcon', Component: Icons.AttentionRedIcon },
   { name: 'AvatarIcon', Component: Icons.AvatarIcon },
   { name: 'BookIcon', Component: Icons.BookIcon },
+  { name: 'CalendarIcon', Component: Icons.CalendarIcon },
   { name: 'CitationCountIcon', Component: Icons.CitationCountIcon },
   { name: 'CommentReplyIcon', Component: Icons.CommentReplyIcon },
   { name: 'CommentResolveIcon', Component: Icons.CommentResolveIcon },
@@ -76,6 +77,7 @@ const iconList: { name: string; Component: React.FC<IconProps> }[] = [
   { name: 'FileCorruptedIcon', Component: Icons.FileCorruptedIcon },
   { name: 'FileDocumentIcon', Component: Icons.FileDocumentIcon },
   { name: 'FileFigureIcon', Component: Icons.FileFigureIcon },
+  { name: 'GlobeIcon', Component: Icons.GlobeIcon },
   {
     name: 'FileGraphicalAbstractIcon',
     Component: Icons.FileGraphicalAbstractIcon,
