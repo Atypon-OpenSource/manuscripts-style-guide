@@ -441,3 +441,18 @@ export const IconButtonGroup = styled.div<{ size?: number }>`
     height: ${(props) => props.size || 28}px;
   }
 `
+
+export const TextButton = styled(IconTextButton)`
+  color: inherit;
+  margin-left: ${(props) => props.theme.grid.unit * 4}px;
+
+  g[fill] {
+    fill: currentColor;
+  }
+
+  &:not([disabled]):focus,
+  &:not([disabled]):hover {
+    color: inherit;
+    filter: brightness(80%);
+  }
+`

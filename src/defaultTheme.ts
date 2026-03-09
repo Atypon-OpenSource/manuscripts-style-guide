@@ -41,10 +41,10 @@ export const defaultTheme: Theme = {
       tertiary: colors.mercuryGrey,
       fifth: colors.manuscriptsXLight2,
       dark: 'rgba(0,0,0,0.5)',
-      error: colors.mandysRed,
-      info: colors.manuscriptsXLight2,
-      success: colors.peppermintGreen,
-      warning: colors.wheatYellow,
+      error: colors.chablisRed,
+      info: colors.aliceBlue,
+      success: colors.veryLightGreen,
+      warning: colors.veryLightYellow,
       selected: colors.aliceBlue,
       muted: colors.greyMuted,
       tracked: {
@@ -54,10 +54,10 @@ export const defaultTheme: Theme = {
       },
     },
     border: {
-      error: colors.mandysRed,
-      info: colors.manuscriptsBlue,
-      success: colors.springGreen,
-      warning: colors.wheatYellow,
+      error: colors.contrastRed,
+      info: colors.jellyBeanBlue,
+      success: colors.contrastGreen,
+      warning: colors.contrastOrange,
       primary: colors.manuscriptsLight,
       secondary: colors.mercuryGrey,
       tertiary: colors.seashellGrey,
@@ -161,7 +161,7 @@ export const defaultTheme: Theme = {
       error: colors.punchRed,
       info: colors.jellyBeanBlue,
       success: colors.killarneyGreen,
-      warning: colors.zestOrange,
+      warning: colors.contrastOrange
     },
     outline: {
       focus: colors.focusBlue,
