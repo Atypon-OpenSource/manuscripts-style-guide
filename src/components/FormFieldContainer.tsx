@@ -17,7 +17,6 @@
 import React, {
   Children,
   cloneElement,
-  Fragment,
   FunctionComponent,
   ReactElement,
   ReactNode,
@@ -52,23 +51,32 @@ export const FormFieldContainer: FunctionComponent<FormFieldContainerProps> = ({
   )
 
   return (
-    <Fragment>
-      {label ? (
-        <TextFieldLabel htmlFor={id}>
-          {label} {childrenWithErrorProp}
-        </TextFieldLabel>
-      ) : (
-        childrenWithErrorProp
+    <FieldContainerWrapper>
+      {label && (
+        <LabelWrapper>
+          <TextFieldLabel htmlFor={id}>{label}</TextFieldLabel>
+        </LabelWrapper>
       )}
+      {childrenWithErrorProp}
       {info && !error && <FormFieldInfo>{info}</FormFieldInfo>}
       {error && (
         <TextFieldError>
           <TextFieldErrorItem>{error}</TextFieldErrorItem>
         </TextFieldError>
       )}
-    </Fragment>
+    </FieldContainerWrapper>
   )
 }
+
+const FieldContainerWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+`
+
+const LabelWrapper = styled.div`
+  margin-bottom: ${(props) => props.theme.grid.unit}px;
+`
 
 const FormFieldInfo = styled.div`
   font-family: ${(props) => props.theme.font.family.sans};

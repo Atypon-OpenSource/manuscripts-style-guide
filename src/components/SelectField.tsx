@@ -23,7 +23,6 @@ export type OptionType = {
   label: string
   value: string
 }
-
 interface Props {
   id?: string
   options: OptionType[]
@@ -34,7 +33,7 @@ interface Props {
   isSearchable?: boolean
 }
 
-const selectStyles = (
+export const selectStyles = (
   theme: DefaultTheme,
   error?: boolean,
   variant?: 'small' | 'large'
@@ -96,6 +95,7 @@ const selectStyles = (
   }),
   menu: (base) => ({
     ...base,
+    marginTop: 0,
     borderRadius: 3,
     overflow: 'hidden',
     boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
