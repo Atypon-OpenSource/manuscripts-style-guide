@@ -162,6 +162,7 @@ export const TextFieldGroup = styled.div`
 
 export const TextFieldLabel = styled.label`
   display: block;
+  width: 100%;
   font-family: ${(props) => props.theme.font.family.sans};
   color: ${(props) => props.theme.colors.text.primary};
   font-size: ${(props) => props.theme.font.size.normal};
