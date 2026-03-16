@@ -25,7 +25,7 @@
     "prettier": "prettier --write \"{src,stories}/**/*.{ts,tsx}\"",
     "preversion": "npm-run-all --parallel lint typecheck test",
     "storybook": "storybook dev -p 6006",
-    "test": "jest --passWithNoTests",
+    "test": "vitest run",
     "typecheck": "tsc --noEmit",
     "version": "pnpm build",
     "prepare": "husky install"
@@ -69,7 +69,9 @@
     "@storybook/react": "8.5.3",
     "@storybook/react-webpack5": "8.5.3",
     "@storybook/test": "8.5.3",
-    "@types/jest": "30.0.0",
+    "@testing-library/jest-dom": "^6.9.1",
+    "@testing-library/react": "^16.3.2",
+    "@testing-library/user-event": "^14.6.1",
     "@types/lodash": "4.17.16",
     "@types/node": "^20.19.25",
     "@types/react": "19.2.3",
@@ -80,7 +82,6 @@
     "@types/styled-components": "5.1.34",
     "@typescript-eslint/eslint-plugin": "8.46.4",
     "@typescript-eslint/parser": "8.46.4",
-    "babel-jest": "30.0.5",
     "babel-loader": "9.1.3",
     "eslint": "9.39.1",
     "eslint-config-prettier": "10.1.8",
@@ -98,14 +99,14 @@
     "eslint-plugin-simple-import-sort": "12.1.1",
     "eslint-plugin-storybook": "10.0.6",
     "husky": "8.0.3",
-    "jest": "30.0.5",
-    "jest-environment-jsdom": "30.0.5",
+    "jsdom": "^24.1.3",
     "npm-run-all": "4.1.5",
     "prettier": "3.6.2",
     "rimraf": "6.0.1",
     "storybook": "8.5.3",
     "typeface-lato": "1.1.13",
-    "typescript": "5.9.2"
+    "typescript": "5.9.2",
+    "vitest": "^3.2.4"
   },
   "engines": {
     "node": ">=20.16.0"
