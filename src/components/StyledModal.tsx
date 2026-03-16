@@ -23,11 +23,12 @@ import { SidebarStyles } from './Sidebar'
 
 interface StyledModalProps {
   isOpen: boolean
-  onRequestClose: (e?: Event) => void
+  onRequestClose?: (e?: Event) => void
   shouldCloseOnOverlayClick?: boolean
   hideOverlay?: boolean
   pointerEventsOnBackdrop?: 'all' | 'none' | 'auto'
   children: React.ReactNode
+  className?: string
   style?: {
     content?: React.CSSProperties
   }
@@ -40,6 +41,7 @@ export const StyledModal: React.FC<StyledModalProps> = ({
   hideOverlay = false,
   pointerEventsOnBackdrop,
   children,
+  className,
   style,
 }) => {
   const dialogRef = useRef<HTMLDialogElement>(null)
@@ -66,7 +68,7 @@ export const StyledModal: React.FC<StyledModalProps> = ({
 
     const handleNativeClose = (wasOpen: boolean) => {
       if (wasOpen && !closedByCancelRef.current) {
-        onRequestClose()
+        onRequestClose?.()
       }
       closedByCancelRef.current = false
     }
@@ -83,7 +85,7 @@ export const StyledModal: React.FC<StyledModalProps> = ({
     }
     const handleCancel = (e: Event) => {
       closedByCancelRef.current = true
-      onRequestClose(e)
+      onRequestClose?.(e)
     }
     dialog.addEventListener('cancel', handleCancel)
     return () => dialog.removeEventListener('cancel', handleCancel)
@@ -91,7 +93,7 @@ export const StyledModal: React.FC<StyledModalProps> = ({
 
   const handleBackdropClick = (e: React.MouseEvent<HTMLDialogElement>) => {
     if (shouldCloseOnOverlayClick && e.target === dialogRef.current) {
-      onRequestClose()
+      onRequestClose?.()
     }
   }
 
@@ -101,6 +103,7 @@ export const StyledModal: React.FC<StyledModalProps> = ({
       onClick={handleBackdropClick}
       $hideOverlay={hideOverlay}
       $pointerEventsOnBackdrop={pointerEventsOnBackdrop}
+      className={className}
       style={style?.content}
     >
       {children}
