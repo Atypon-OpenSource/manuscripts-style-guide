@@ -1,0 +1,50 @@
+/*!
+ * © 2026 Atypon Systems LLC
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *    http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+import React from 'react'
+
+import { IconProps } from './types'
+
+export const GlobeIcon: React.FC<IconProps> = (props) => (
+  <svg
+    width="16"
+    height="16"
+    viewBox="0 0 16 16"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    {...props}
+  >
+    <path
+      d="M15 8C15 4.13401 11.866 1 8 1C4.13401 1 1 4.13401 1 8C1 11.866 4.13401 15 8 15V16C3.58172 16 0 12.4183 0 8C0 3.58172 3.58172 0 8 0C12.4183 0 16 3.58172 16 8C16 12.4183 12.4183 16 8 16V15C11.866 15 15 11.866 15 8Z"
+      fill="currentColor"
+    />
+    <path d="M15.5 7.5V8.5L1 8.5L1 7.5L15.5 7.5Z" fill="currentColor" />
+    <path
+      d="M10.5 8C10.5 5.89548 10.1247 4.03808 9.55859 2.74414C9.27493 2.09576 8.96317 1.63356 8.66748 1.34766C8.37657 1.06641 8.15238 1 8 1C7.84762 1 7.62343 1.06641 7.33252 1.34766C7.03683 1.63356 6.72507 2.09576 6.44141 2.74414C5.87533 4.03808 5.5 5.89548 5.5 8C5.5 10.1045 5.87533 11.9619 6.44141 13.2559C6.72507 13.9042 7.03683 14.3664 7.33252 14.6523C7.62343 14.9336 7.84762 15 8 15V16C6.067 16 4.5 12.4183 4.5 8C4.5 3.58172 6.067 0 8 0C9.933 0 11.5 3.58172 11.5 8C11.5 12.4183 9.933 16 8 16V15C8.15238 15 8.37657 14.9336 8.66748 14.6523C8.96317 14.3664 9.27493 13.9042 9.55859 13.2559C10.1247 11.9619 10.5 10.1045 10.5 8Z"
+      fill="currentColor"
+    />
+    <path
+      d="M8 5.5C6.43859 5.5 5.00301 5.27085 3.93994 4.88428C3.41056 4.69177 2.94707 4.45051 2.60645 4.15771C2.26743 3.86625 2 3.47669 2 3H3C3 3.07559 3.04069 3.21233 3.2583 3.39941C3.47429 3.58507 3.816 3.77497 4.28174 3.94434C5.20928 4.28162 6.52384 4.5 8 4.5C9.47616 4.5 10.7907 4.28162 11.7183 3.94434C12.184 3.77497 12.5257 3.58507 12.7417 3.39941C12.9593 3.21233 13 3.07559 13 3H14C14 3.47669 13.7326 3.86625 13.3936 4.15771C13.0529 4.45051 12.5894 4.69177 12.0601 4.88428C10.997 5.27085 9.56141 5.5 8 5.5Z"
+      fill="currentColor"
+    />
+    <path
+      d="M8 10.5C9.56141 10.5 10.997 10.7292 12.0601 11.1157C12.5894 11.3082 13.0529 11.5495 13.3936 11.8423C13.7326 12.1338 14 12.5233 14 13H13C13 12.9244 12.9593 12.7877 12.7417 12.6006C12.5257 12.4149 12.184 12.225 11.7183 12.0557C10.7907 11.7184 9.47616 11.5 8 11.5C6.52384 11.5 5.20928 11.7184 4.28174 12.0557C3.816 12.225 3.47429 12.4149 3.2583 12.6006C3.04069 12.7877 3 12.9244 3 13H2C2 12.5233 2.26743 12.1337 2.60645 11.8423C2.94707 11.5495 3.41056 11.3082 3.93994 11.1157C5.00301 10.7292 6.43859 10.5 8 10.5Z"
+      fill="currentColor"
+    />
+  </svg>
+)
+
+export default GlobeIcon
