@@ -41,9 +41,7 @@ const slideIn = keyframes`
 
 const DrawerContainer = withFocusTrap(styled.div<{ width?: string }>`
   width: ${(props) => props.width || '300px'};
-  padding: 40px 0 0 0;
   background: ${(props) => props.theme.colors.background.primary};
-  border-right: 1px solid ${(props) => props.theme.colors.border.secondary};
   height: 100%;
   display: flex;
   flex-direction: column;
