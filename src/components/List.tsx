@@ -178,6 +178,20 @@ export function withListNavigation<P extends object>(
         }
       }, [getListItems])
 
+      useEffect(() => {
+        const element = containerRef.current
+        if (!element) {
+          return
+        }
+        const focusableItem = element.querySelector('[tabindex="0"]')
+        // in case we remove the focused item will reset focus to the first element
+        if (!focusableItem) {
+          element
+            .querySelector('[tabindex="-1"]')
+            ?.setAttribute('tabindex', '0')
+        }
+      })
+
       return (
         <Component
           ref={mergeRefs(containerRef, forwardedRef)}
