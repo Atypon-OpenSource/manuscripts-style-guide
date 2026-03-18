@@ -17,7 +17,7 @@
 import React from 'react'
 
 import { IconProps } from './types'
-
+// meaningless change
 const ORCIDIcon: React.FC<IconProps> = (props) => (
   <svg
     width="32"
