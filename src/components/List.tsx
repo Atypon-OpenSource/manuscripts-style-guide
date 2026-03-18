@@ -17,7 +17,7 @@ import React, {
   ComponentType,
   forwardRef,
   useCallback,
-  useEffect,
+  useLayoutEffect,
   useRef,
 } from 'react'
 import styled from 'styled-components'
@@ -178,18 +178,29 @@ export function withListNavigation<P extends object>(
         }
       }, [getListItems])
 
-      useEffect(() => {
+      useLayoutEffect(() => {
         const element = containerRef.current
         if (!element) {
           return
         }
-        const focusableItem = element.querySelector('[tabindex="0"]')
-        // in case we remove the focused item will reset focus to the first element
-        if (!focusableItem) {
-          element
-            .querySelector('[tabindex="-1"]')
-            ?.setAttribute('tabindex', '0')
+
+        const firstItem = element.querySelector<HTMLElement>('[data-list-item]')
+        if (!firstItem) {
+          return
         }
+
+        if (firstItem.tabIndex === 0) {
+          return
+        }
+
+        const tabbedElement = element.querySelector<HTMLElement>(
+          '[data-list-item][tabindex="0"]'
+        )
+        if (tabbedElement) {
+          tabbedElement.tabIndex = -1
+        }
+        // reset tabIndex to the first element
+        firstItem.tabIndex = 0
       })
 
       return (
@@ -217,14 +228,6 @@ export function withNavigableListItem<P extends object>(
     forwardRef<HTMLElement, P>((props, forwardedRef) => {
       const listItemRef = useRef<HTMLElement | null>(null)
 
-      useEffect(() => {
-        const element = listItemRef.current
-        if (element) {
-          const isFirst = !element.previousElementSibling
-          element.setAttribute('tabindex', isFirst ? '0' : '-1')
-        }
-      }, [])
-
       const handleKeyDown = useCallback((e: KeyboardEvent) => {
         const listItem = listItemRef.current
         const element = e.target
@@ -245,6 +248,7 @@ export function withNavigableListItem<P extends object>(
 
       return (
         <Component
+          tabIndex={-1}
           data-list-item
           ref={mergeRefs(listItemRef, forwardedRef)}
           onKeyDown={handleKeyDown}
