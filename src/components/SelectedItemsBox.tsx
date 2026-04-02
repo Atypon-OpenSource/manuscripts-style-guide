@@ -84,6 +84,11 @@ const RemoveButton = styled.button`
   padding: 0;
   font-family: ${(props) => props.theme.font.family.sans};
   font-weight: ${(props) => props.theme.font.weight.light};
+
+  &:not([disabled]):focus-visible {
+    outline: 1px solid ${(props) => props.theme.colors.outline.focus};
+    outline-offset: 2px;
+  }
 `
 
 export const SelectedItemsBox: React.FC<SelectedItemsBoxProps> = ({
