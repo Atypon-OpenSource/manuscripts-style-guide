@@ -85,9 +85,13 @@ export const DraggableModal: React.FC<{
         content: {
           left: '0',
           bottom: '0',
+          top: 'auto',
+          margin: '0',
           transition: 'none',
           position: 'fixed',
           width: '100%',
+          maxWidth: '100%',
+          maxHeight: 'none',
         },
       }}
     >

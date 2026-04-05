@@ -15,6 +15,12 @@
  */
 import React from 'react'
 import styled, { keyframes } from 'styled-components'
+import { SecondaryButton } from './Button'
+import {
+  withFocusTrap,
+  withListNavigation,
+  withNavigableListItem,
+} from './List'
 
 export interface DrawerProps {
   title: string
@@ -33,11 +39,9 @@ const slideIn = keyframes`
   }
 `
 
-const DrawerContainer = styled.div<{ width?: string }>`
+const DrawerContainer = withFocusTrap(styled.div<{ width?: string }>`
   width: ${(props) => props.width || '300px'};
-  padding: 40px 0 0 0;
   background: ${(props) => props.theme.colors.background.primary};
-  border-right: 1px solid ${(props) => props.theme.colors.border.secondary};
   height: 100%;
   display: flex;
   flex-direction: column;
@@ -46,10 +50,11 @@ const DrawerContainer = styled.div<{ width?: string }>`
   right: 0;
   top: 0;
   z-index: 1;
-`
+`)
 
-const DrawerBackButton = styled.button`
-  padding: 8px 16px;
+const DrawerBackButton = styled(SecondaryButton)`
+  margin: 0 12px;
+  padding: 8px 4px;
   border: none;
   background: none;
   font-weight: ${(props) => props.theme.font.weight.normal};
@@ -58,7 +63,7 @@ const DrawerBackButton = styled.button`
   color: ${(props) => props.theme.colors.brand.default};
   cursor: pointer;
   display: flex;
-  align-items: center;
+  justify-content: start;
   gap: 4px;
 
   &:hover {
@@ -67,14 +72,16 @@ const DrawerBackButton = styled.button`
   }
 `
 
-export const DrawerItemsList = styled.ul`
+export const DrawerItemsList = withListNavigation(styled.ul`
   list-style: none;
-  padding: 0;
+  padding: 8px;
   margin: 0;
   overflow-y: auto;
-`
+`)
 
-export const DrawerListItem = styled.li<{ selected?: boolean }>`
+export const DrawerListItem = withNavigableListItem(styled.li<{
+  selected?: boolean
+}>`
   padding: 8px 16px;
   cursor: pointer;
   display: flex;
@@ -89,7 +96,7 @@ export const DrawerListItem = styled.li<{ selected?: boolean }>`
   &:last-child {
     border-bottom: none;
   }
-`
+`)
 
 export const DrawerIcon = styled.span`
   width: 20px;
