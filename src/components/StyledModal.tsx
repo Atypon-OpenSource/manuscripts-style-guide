@@ -1,5 +1,5 @@
 /*!
- * © 2019 Atypon Systems LLC
+ * © 2026 Atypon Systems LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,44 +14,164 @@
  * limitations under the License.
  */
 
-import React from 'react'
-import ReactModal from 'react-modal'
-import styled, { ThemeProps } from 'styled-components'
+import React, { useEffect, useRef } from 'react'
+import { createPortal } from 'react-dom'
+import styled, { css } from 'styled-components'
 
 import { RoundIconButton } from './Button'
 import { SidebarStyles } from './Sidebar'
 
-const totalTransitionTime = 800
-const transitionDelay = 300
-const delayedTransitionTime = totalTransitionTime - transitionDelay
-
-interface Props {
-  modalClassName?: ReactModal.Classes
-  pointerEventsOnBackdrop?: 'all' | 'none' | 'auto'
+interface StyledModalProps {
+  isOpen: boolean
+  onRequestClose?: (e?: Event) => void
+  shouldCloseOnOverlayClick?: boolean
   hideOverlay?: boolean
+  pointerEventsOnBackdrop?: 'all' | 'none' | 'auto'
+  children: React.ReactNode
+  className?: string
+  style?: {
+    content?: React.CSSProperties
+  }
 }
 
-const ReactModalAdapter: React.FC<
-  ReactModal.Props & ThemeProps<ReactModal> & Props
-> = ({ className, modalClassName, ...props }) => {
-  props.style = props.style || {}
-  if (props.pointerEventsOnBackdrop == 'none') {
-    props.style.content = {
-      ...props.style.content,
-      pointerEvents: 'all',
+export const StyledModal: React.FC<StyledModalProps> = ({
+  isOpen,
+  onRequestClose,
+  shouldCloseOnOverlayClick = true,
+  hideOverlay = false,
+  pointerEventsOnBackdrop,
+  children,
+  className,
+  style,
+}) => {
+  const dialogRef = useRef<HTMLDialogElement>(null)
+  const closedByCancelRef = useRef(false)
+
+  useEffect(() => {
+    const dialog = dialogRef.current
+    if (!dialog) {
+      return
+    }
+
+    if (isOpen && !dialog.open) {
+      dialog.showModal()
+    } else if (!isOpen && dialog.open) {
+      dialog.close()
+    }
+  }, [isOpen])
+
+  useEffect(() => {
+    const dialog = dialogRef.current
+    if (!dialog) {
+      return
+    }
+
+    const handleNativeClose = (wasOpen: boolean) => {
+      if (wasOpen && !closedByCancelRef.current) {
+        onRequestClose?.()
+      }
+      closedByCancelRef.current = false
+    }
+
+    const listener = () => handleNativeClose(isOpen)
+    dialog.addEventListener('close', listener)
+    return () => dialog.removeEventListener('close', listener)
+  }, [isOpen, onRequestClose])
+
+  useEffect(() => {
+    const dialog = dialogRef.current
+    if (!dialog) {
+      return
+    }
+    const handleCancel = (e: Event) => {
+      closedByCancelRef.current = true
+      onRequestClose?.(e)
+    }
+    dialog.addEventListener('cancel', handleCancel)
+    return () => dialog.removeEventListener('cancel', handleCancel)
+  }, [onRequestClose])
+
+  const handleBackdropClick = (e: React.MouseEvent<HTMLDialogElement>) => {
+    if (shouldCloseOnOverlayClick && e.target === dialogRef.current) {
+      onRequestClose?.()
     }
   }
-  return (
-    <ReactModal
-      className={modalClassName}
-      portalClassName={className as string}
-      closeTimeoutMS={totalTransitionTime}
-      preventScroll={true}
-      appElement={document.getElementById('root') as HTMLElement}
-      {...props}
-    />
+
+  return createPortal(
+    <Dialog
+      ref={dialogRef}
+      onClick={handleBackdropClick}
+      $hideOverlay={hideOverlay}
+      $pointerEventsOnBackdrop={pointerEventsOnBackdrop}
+      className={className}
+      style={style?.content}
+    >
+      {children}
+    </Dialog>,
+    document.body
   )
 }
+
+const Dialog = styled.dialog<{
+  $hideOverlay?: boolean
+  $pointerEventsOnBackdrop?: 'all' | 'none' | 'auto'
+}>`
+  background: transparent;
+  border: none;
+  position: relative;
+  outline: none;
+  padding: 0;
+  overflow: visible;
+  opacity: 1;
+  transition:
+    opacity 0.5s ease-in-out,
+    display 0.5s ease allow-discrete,
+    overlay 0.5s ease allow-discrete;
+
+  &:not([open]) {
+    opacity: 0;
+  }
+
+  @starting-style {
+    &[open] {
+      opacity: 0;
+    }
+  }
+
+  &::backdrop {
+    ${(props) => {
+      if (props.$hideOverlay) {
+        return css`
+          background: transparent;
+        `
+      }
+      if (props.$pointerEventsOnBackdrop === 'none') {
+        return css`
+          background: rgba(0, 0, 0, 0.1);
+        `
+      }
+      return css`
+        background: ${props.theme.colors.background.dark};
+      `
+    }}
+    opacity: 1;
+    pointer-events: ${(props) => props.$pointerEventsOnBackdrop || 'auto'};
+    transition:
+      opacity 0.5s ease-in-out,
+      display 0.5s ease allow-discrete,
+      overlay 0.5s ease allow-discrete;
+  }
+
+  &:not([open])::backdrop {
+    opacity: 0;
+  }
+
+  @starting-style {
+    &[open]::backdrop {
+      opacity: 0;
+    }
+  }
+`
 
 export const ModalContainer = styled.div`
   background: ${(props) => props.theme.colors.background.primary};
@@ -153,6 +273,7 @@ export const ModalCardBody = styled.div<{ width?: number | string }>`
   max-width: 60vw;
   max-height: 80vh;
 `
+
 export const ModalTitle = styled.h2`
   font-family: ${(props) => props.theme.font.family.sans};
   font-size: ${(props) => props.theme.font.size.medium};
@@ -160,71 +281,3 @@ export const ModalTitle = styled.h2`
   color: ${(props) => props.theme.colors.text.primary};
   margin: 0 0 20px 0;
 `
-
-export const StyledModal = styled(ReactModalAdapter).attrs({
-  closeTimeoutMS: totalTransitionTime,
-  overlayClassName: {
-    base: 'Overlay',
-    afterOpen: 'Overlay--after-open',
-    beforeClose: 'Overlay--before-close',
-  },
-  modalClassName: {
-    base: 'Modal',
-    afterOpen: 'Modal--after-open',
-    beforeClose: 'Modal--before-close',
-  },
-})`
-  .Overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: ${(props) =>
-      props.hideOverlay
-        ? 'transparent'
-        : props.pointerEventsOnBackdrop === 'none'
-          ? 'rgba(0,0,0,0.1)'
-          : props.theme.colors.background.dark};
-    z-index: 1000;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    opacity: 0;
-    pointer-events: ${(props) => props.pointerEventsOnBackdrop || 'auto'};
-
-    &--after-open {
-      transition: opacity ${totalTransitionTime}ms ease-in-out;
-      opacity: 1;
-    }
-
-    &--before-close {
-      transition: opacity ${delayedTransitionTime}ms ease-in-out;
-      transition-delay: ${transitionDelay}ms;
-      opacity: 0;
-    }
-  }
-
-  .Modal {
-    background: transparent;
-    border: none;
-    position: relative;
-    outline: none;
-    opacity: 0;
-    transition:
-      opacity ${delayedTransitionTime}ms ease-in-out,
-      top ${delayedTransitionTime}ms ease-in-out;
-    transition-delay: ${transitionDelay}ms;
-
-    &--after-open {
-      opacity: 1;
-    }
-
-    &--before-close {
-      transition-delay: 0ms;
-      opacity: 0;
-    }
-  }
-`
-
-// adapted from https://github.com/reactjs/react-modal/issues/603

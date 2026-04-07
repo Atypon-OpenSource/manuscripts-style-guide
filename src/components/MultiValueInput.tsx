@@ -72,6 +72,11 @@ const RemoveButton = styled.button`
   &:hover {
     background: black;
   }
+
+  &:not([disabled]):focus-visible {
+    outline: 1px solid ${(props) => props.theme.colors.outline.focus};
+    outline-offset: 2px;
+  }
 `
 
 const Input = styled.input`
@@ -165,7 +170,10 @@ export const MultiValueInput: React.FC<MultiValueInputProps> = ({
       {values.map((value, index) => (
         <Chip key={index}>
           {value}
-          <RemoveButton onMouseUp={() => handleRemoveValue(index)}>
+          <RemoveButton
+            type={'button'}
+            onClick={() => handleRemoveValue(index)}
+          >
             &times;
           </RemoveButton>
         </Chip>
