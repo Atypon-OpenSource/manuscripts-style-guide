@@ -14,68 +14,14 @@
  * limitations under the License.
  */
 import React from 'react'
+import { useField } from 'formik'
 
 import { DatePicker } from '../DatePicker'
 import { FormFieldContainer } from '../FormFieldContainer'
 
-type CalendarDatePickerProps = {
-  date?: Date
-  originalDate?: Date
-  handleDateChange: (name: string, date: string) => void
-  placeholder?: string
+export interface DatePickerFieldProps {
   name: string
-  showTimeSelect?: boolean
-  required?: boolean
-}
-
-export const CalendarDatePicker: React.FC<CalendarDatePickerProps> = ({
-  originalDate,
-  date,
-  handleDateChange,
-  placeholder,
-  name,
-  showTimeSelect,
-  required,
-}) => {
-  const handleChange = (date: Date | null) => {
-    if (date) {
-      let formattedDate: string
-
-      if (showTimeSelect) {
-        formattedDate = date.toISOString().split('.')[0] + 'Z'
-      } else {
-        const year = date.getFullYear()
-        const month = String(date.getMonth() + 1).padStart(2, '0')
-        const day = String(date.getDate()).padStart(2, '0')
-        formattedDate = `${year}-${month}-${day}T00:00:00Z`
-      }
-
-      handleDateChange(name, formattedDate)
-    } else {
-      handleDateChange(name, '')
-    }
-  }
-
-  return (
-    <DatePicker
-      date={date}
-      originalDate={originalDate}
-      handleDateChange={handleChange}
-      placeholder={placeholder}
-      showTimeSelect={showTimeSelect}
-      required={required}
-    />
-  )
-}
-
-export type DatePickerFieldProps = Omit<
-  CalendarDatePickerProps,
-  'date'
-> & {
-  label?: string
-  value?: string
-  error?: string
-  disabled?: boolean
+  label: string
   required?: boolean
   showTimeSelect?: boolean
   info?: string
@@ -83,25 +29,33 @@ export type DatePickerFieldProps = Omit<
 
 export const DatePickerField: React.FC<DatePickerFieldProps> = ({
   label,
-  value,
-  originalDate,
-  handleDateChange,
-  error,
-  placeholder,
   name,
-  showTimeSelect,
+  showTimeSelect = false,
   info,
   required,
-}) => (
-  <FormFieldContainer label={label} error={error} info={info} id={name}>
-    <CalendarDatePicker
-      originalDate={originalDate}
-      showTimeSelect={showTimeSelect}
-      placeholder={placeholder}
-      date={value ? new Date(value) : undefined}
-      name={name}
-      handleDateChange={handleDateChange}
-      required={required}
-    />
-  </FormFieldContainer>
-)
+}) => {
+  const [field, meta, helpers] = useField(name)
+  const error = meta.touched && meta.error ? meta.error : undefined
+
+  const handleChange = (date: Date | null) => {
+    let formattedDate = ''
+    if (date) {
+      formattedDate = showTimeSelect
+        ? date.toISOString().split('.')[0] + 'Z'
+        : date.toISOString().split('T')[0] + 'T00:00:00Z'
+    }
+    helpers.setValue(formattedDate)
+  }
+
+  return (
+    <FormFieldContainer label={label} error={error} info={info} id={name}>
+      <DatePicker
+        date={field.value ? new Date(field.value) : undefined}
+        handleDateChange={handleChange}
+        placeholder={`Select ${label}`}
+        showTimeSelect={showTimeSelect}
+        required={required}
+      />
+    </FormFieldContainer>
+  )
+}

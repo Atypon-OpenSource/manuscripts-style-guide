@@ -14,25 +14,19 @@
  * limitations under the License.
  */
 
-import React, {
-  Children,
-  cloneElement,
-  FunctionComponent,
-  ReactElement,
-  ReactNode,
-} from 'react'
+import { FunctionComponent, ReactElement, ReactNode } from 'react'
 import styled from 'styled-components'
 
-import { ErrorProps } from './Form'
 import { TextFieldLabel } from './TextField'
 import { TextFieldError, TextFieldErrorItem } from './FormCommon'
 
 interface FormFieldContainerProps {
-  label?: string
-  error?: ReactNode | undefined
-  info?: ReactNode | undefined
-  id?: string
-  children: ReactElement<ErrorProps>
+  label: string
+  id: string
+  error?: ReactNode
+  info?: ReactNode
+  children: ReactElement
+  className?: string
 }
 
 export const FormFieldContainer: FunctionComponent<FormFieldContainerProps> = ({
@@ -41,26 +35,29 @@ export const FormFieldContainer: FunctionComponent<FormFieldContainerProps> = ({
   info,
   id,
   children,
+  className,
 }) => {
-  const childrenWithErrorProp = Children.map(
-    children,
-    (child: ReactElement<ErrorProps>) =>
-      cloneElement(child, {
-        error: error ? String(error) : undefined,
-      })
-  )
-
   return (
-    <FieldContainerWrapper>
+    <FieldContainerWrapper
+      className={className}
+      role="group"
+      aria-invalid={!!error}
+      aria-labelledby={label ? `${id}-label` : undefined}
+      aria-describedby={error ? `${id}-error` : info ? `${id}-info` : undefined}
+    >
       {label && (
         <LabelWrapper>
-          <TextFieldLabel htmlFor={id}>{label}</TextFieldLabel>
+          <TextFieldLabel id={`${id}-label`} htmlFor={id}>
+            {label}
+          </TextFieldLabel>
         </LabelWrapper>
       )}
-      {childrenWithErrorProp}
-      {info && !error && <FormFieldInfo>{info}</FormFieldInfo>}
+      {children}
+      {info && !error && (
+        <FormFieldInfo id={`${id}-info`}>{info}</FormFieldInfo>
+      )}
       {error && (
-        <TextFieldError>
+        <TextFieldError id={`${id}-error`} role="alert">
           <TextFieldErrorItem>{error}</TextFieldErrorItem>
         </TextFieldError>
       )}
@@ -82,5 +79,5 @@ const FormFieldInfo = styled.div`
   font-family: ${(props) => props.theme.font.family.sans};
   font-size: ${(props) => props.theme.font.size.small};
   color: ${(props) => props.theme.colors.text.secondary};
-  margin-top: 4px;
+  margin-top: ${(props) => props.theme.grid.unit}px;
 `

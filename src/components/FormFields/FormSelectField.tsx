@@ -13,64 +13,73 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import React, { useMemo } from 'react'
-import Select from 'react-select'
+import React from 'react'
+import Select, { StylesConfig, GroupBase, Props } from 'react-select'
 import { DefaultTheme, useTheme } from 'styled-components'
+import { useField } from 'formik'
 
 import { FormFieldContainer } from '../FormFieldContainer'
 import { selectStyles } from '../SelectField'
 
-import type { FormSelectFieldProps, GroupBase } from './types'
+export type OptionShape = {
+  label: string
+  value: string
+}
+
+export interface FormSelectFieldProps<
+  Option extends OptionShape,
+  IsMulti extends boolean = false,
+  Group extends GroupBase<Option> = GroupBase<Option>,
+> {
+  name: string
+  label: string
+  options?: Option[]
+  isLoading?: boolean
+  info?: string
+  isMulti?: IsMulti
+  disabled?: boolean
+  components?: Props<Option, IsMulti, Group>['components']
+  noOptionsMessage?: Props<Option, IsMulti, Group>['noOptionsMessage']
+}
+
+export { GroupBase }
 
 export const FormSelectField = <
-  Option,
+  Option extends OptionShape,
   Multi extends boolean = false,
   Group extends GroupBase<Option> = GroupBase<Option>,
 >({
+  name,
   label,
-  error,
-  full,
-  info,
-  isDisabled,
-  isLoading,
   options,
-  id: idProp,
-  shouldDisableForOneOption = true,
-  ...props
-}: FormSelectFieldProps<Option, Multi, Group>) => {
+  isLoading,
+  info,
+  isMulti,
+  disabled,
+  components,
+  noOptionsMessage,
+}: FormSelectFieldProps<Option, Multi, Group>): React.ReactElement => {
   const theme = useTheme() as DefaultTheme
-  const id = useMemo(() => idProp ?? `select-${crypto.randomUUID()}`, [idProp])
+  const [field, meta, helpers] = useField(name)
+  const error = meta.touched && meta.error ? meta.error : undefined
 
-  const optionsWithoutPlaceholder = useMemo(() => {
-    return options?.filter((item) => {
-      return (
-        typeof item === 'object' &&
-        ((item as { label: string; value: string })?.value ?? '').trim() !== ''
-      )
-    })
-  }, [options])
+  const optionCount = options?.filter(item => item.value?.trim() !== '').length || 0
 
-  const hasOneOption =
-    optionsWithoutPlaceholder?.length === 1 && shouldDisableForOneOption
-
-  const _isDisabled =
-    isDisabled || props.disabled || !optionsWithoutPlaceholder?.length
-
-  const _info = isLoading
-    ? undefined
-    : optionsWithoutPlaceholder?.length
-      ? info
-      : 'No options available'
+  const isDisabledState = disabled || optionCount === 0
+  const displayInfo = isLoading ? undefined : optionCount ? info : 'No options available'
 
   return (
-    <FormFieldContainer label={label} error={error} info={_info} id={id}>
+    <FormFieldContainer label={label} error={error} info={displayInfo} id={name}>
       <Select<Option, Multi, Group>
-        inputId={id}
-        options={options as Option[]}
-        isDisabled={_isDisabled}
+        inputId={name}
+        options={options}
+        isDisabled={isDisabledState}
         isLoading={isLoading}
-        styles={selectStyles(theme, !!error) as any}
-        isSearchable={hasOneOption ? false : props.isSearchable}
+        placeholder={`Select ${label}`}
+        styles={selectStyles(theme, !!error) as unknown as StylesConfig<Option, Multi, Group>}
+        isMulti={isMulti}
+        components={components}
+        noOptionsMessage={noOptionsMessage}
         theme={(base) => ({
           ...base,
           colors: {
@@ -78,7 +87,13 @@ export const FormSelectField = <
             primary: theme.colors.brand.default || base.colors.primary,
           },
         })}
-        {...(props as any)}
+        value={field.value}
+        onChange={(newValue) => {
+          helpers.setValue(newValue)
+        }}
+        onBlur={() => {
+          helpers.setTouched(true)
+        }}
       />
     </FormFieldContainer>
   )

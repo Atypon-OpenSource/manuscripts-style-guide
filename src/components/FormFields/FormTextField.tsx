@@ -13,27 +13,37 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import React, { useMemo } from 'react'
+import React from 'react'
+import { useField } from 'formik'
 
 import { FormFieldContainer } from '../FormFieldContainer'
 import { TextField } from '../TextField'
 
-import type { FormTextFieldProps } from './types'
+export interface FormTextFieldProps {
+  name: string
+  label: string
+  required?: boolean
+  info?: string
+}
 
 export const FormTextField: React.FC<FormTextFieldProps> = ({
   label,
-  error,
-  small,
-  full,
   required,
   info,
-  id: idProp,
-  ...props
+  name,
 }) => {
-  const id = useMemo(() => idProp || `input-${crypto.randomUUID()}`, [idProp])
+  const [field, meta] = useField(name)
+  const error = meta.touched && meta.error ? meta.error : undefined
+
   return (
-    <FormFieldContainer label={label} error={error} info={info} id={id}>
-      <TextField id={id} required={required} error={error} {...props} />
+    <FormFieldContainer label={label} error={error} info={info} id={name}>
+      <TextField 
+        id={name} 
+        required={required} 
+        error={error} 
+        placeholder={`Type ${label}`}
+        {...field} 
+      />
     </FormFieldContainer>
   )
 }

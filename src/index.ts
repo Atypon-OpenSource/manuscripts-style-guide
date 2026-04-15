@@ -22,11 +22,6 @@ export * from './components/Message'
 export * from './components/Button'
 export * from './components/ContextMenu'
 export * from './components/RadioButton'
-export {
-  StyledRadioGroup,
-  type StyledRadioGroupOption,
-  type StyledRadioGroupProps,
-} from './components/RadioGroup'
 export * from './components/Avatar'
 export * from './components/Dialog'
 export * from './components/DraggableModal'
