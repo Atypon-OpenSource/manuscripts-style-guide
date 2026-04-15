@@ -26,29 +26,18 @@ export type OptionShape = {
   value: string
 }
 
-export interface FormSelectFieldProps<
-  Option extends OptionShape,
-  IsMulti extends boolean = false,
-  Group extends GroupBase<Option> = GroupBase<Option>,
-> extends Omit<Props<Option, IsMulti, Group>, 'value' | 'onChange' | 'onBlur'> {
+export interface FormSelectFieldProps
+  extends Omit<Props<OptionShape, boolean, GroupBase<OptionShape>>, 'value' | 'onChange' | 'onBlur'> {
   name: string
   label: string
-  options?: Option[]
+  options?: OptionShape[]
   isLoading?: boolean
   info?: string
-  isMulti?: IsMulti
+  isMulti?: boolean
   disabled?: boolean
-  components?: Props<Option, IsMulti, Group>['components']
-  noOptionsMessage?: Props<Option, IsMulti, Group>['noOptionsMessage']
 }
 
-export { GroupBase }
-
-export const FormSelectField = <
-  Option extends OptionShape,
-  Multi extends boolean = false,
-  Group extends GroupBase<Option> = GroupBase<Option>,
->({
+export const FormSelectField = ({
   name,
   label,
   options,
@@ -60,7 +49,7 @@ export const FormSelectField = <
   noOptionsMessage,
   placeholder,
   ...props
-}: FormSelectFieldProps<Option, Multi, Group>): React.ReactElement => {
+}: FormSelectFieldProps): React.ReactElement => {
   const theme = useTheme() as DefaultTheme
   const [field, meta, helpers] = useField(name)
   const error = meta.touched && meta.error ? meta.error : undefined
@@ -72,13 +61,13 @@ export const FormSelectField = <
 
   return (
     <FormFieldContainer label={label} error={error} info={displayInfo} id={name}>
-      <Select<Option, Multi, Group>
+      <Select<OptionShape, boolean, GroupBase<OptionShape>>
         inputId={name}
         options={options}
         isDisabled={isDisabledState}
         isLoading={isLoading}
         placeholder={placeholder || `Select ${label}`}
-        styles={selectStyles(theme, !!error) as unknown as StylesConfig<Option, Multi, Group>}
+        styles={selectStyles(theme, !!error) as unknown as StylesConfig<OptionShape, boolean, GroupBase<OptionShape>>}
         isMulti={isMulti}
         components={components}
         noOptionsMessage={noOptionsMessage}
@@ -96,7 +85,7 @@ export const FormSelectField = <
         onBlur={() => {
           helpers.setTouched(true)
         }}
-        {...(props as any)}
+        {...(props)}
       />
     </FormFieldContainer>
   )
