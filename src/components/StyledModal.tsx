@@ -103,7 +103,7 @@ export const StyledModal: React.FC<StyledModalProps> = ({
       onClick={handleBackdropClick}
       $hideOverlay={hideOverlay}
       $pointerEventsOnBackdrop={pointerEventsOnBackdrop}
-      className={className}
+      className={className ? `Modal ${className}` : 'Modal'}
       style={style?.content}
     >
       {children}
