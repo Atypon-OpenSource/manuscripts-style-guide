@@ -30,7 +30,7 @@ export interface FormSelectFieldProps<
   Option extends OptionShape,
   IsMulti extends boolean = false,
   Group extends GroupBase<Option> = GroupBase<Option>,
-> {
+> extends Omit<Props<Option, IsMulti, Group>, 'value' | 'onChange' | 'onBlur'> {
   name: string
   label: string
   options?: Option[]
@@ -58,6 +58,8 @@ export const FormSelectField = <
   disabled,
   components,
   noOptionsMessage,
+  placeholder,
+  ...props
 }: FormSelectFieldProps<Option, Multi, Group>): React.ReactElement => {
   const theme = useTheme() as DefaultTheme
   const [field, meta, helpers] = useField(name)
@@ -75,7 +77,7 @@ export const FormSelectField = <
         options={options}
         isDisabled={isDisabledState}
         isLoading={isLoading}
-        placeholder={`Select ${label}`}
+        placeholder={placeholder || `Select ${label}`}
         styles={selectStyles(theme, !!error) as unknown as StylesConfig<Option, Multi, Group>}
         isMulti={isMulti}
         components={components}
@@ -94,6 +96,7 @@ export const FormSelectField = <
         onBlur={() => {
           helpers.setTouched(true)
         }}
+        {...(props as any)}
       />
     </FormFieldContainer>
   )

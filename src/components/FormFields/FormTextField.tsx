@@ -17,9 +17,9 @@ import React from 'react'
 import { useField } from 'formik'
 
 import { FormFieldContainer } from '../FormFieldContainer'
-import { TextField } from '../TextField'
+import { TextField, TextFieldProps } from '../TextField'
 
-export interface FormTextFieldProps {
+export interface FormTextFieldProps extends Omit<TextFieldProps, 'error' | 'value' | 'onChange' | 'onBlur'> {
   name: string
   label: string
   required?: boolean
@@ -31,6 +31,8 @@ export const FormTextField: React.FC<FormTextFieldProps> = ({
   required,
   info,
   name,
+  placeholder,
+  ...props
 }) => {
   const [field, meta] = useField(name)
   const error = meta.touched && meta.error ? meta.error : undefined
@@ -41,8 +43,9 @@ export const FormTextField: React.FC<FormTextFieldProps> = ({
         id={name} 
         required={required} 
         error={error} 
-        placeholder={`Type ${label}`}
+        placeholder={placeholder || `Type ${label}`}
         {...field} 
+        {...props}
       />
     </FormFieldContainer>
   )
