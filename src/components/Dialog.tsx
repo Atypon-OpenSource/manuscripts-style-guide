@@ -90,6 +90,8 @@ interface DialogProps {
     secondary?: {
       action: () => void
       title: string
+      /** Plain text styled as destructive (e.g. “Discard”) — default is filled secondary button */
+      variant?: 'default' | 'textDanger'
     }
     onClose?: () => void
   }
@@ -115,6 +117,43 @@ interface ButtonProps {
   action: () => void
   hasForm?: boolean
 }
+
+const SecondaryTextDanger = styled.button.attrs({ type: 'button' })`
+  align-items: center;
+  background: none;
+  border: none;
+  border-radius: ${(props) => props.theme.grid.radius.small};
+  color: ${(props) => props.theme.colors.text.error};
+  cursor: pointer;
+  display: inline-flex;
+  flex-shrink: 0;
+  font: ${(props) => props.theme.font.weight.normal}
+    ${(props) => props.theme.font.size.medium} /
+    ${(props) => props.theme.font.lineHeight.large}
+    ${(props) => props.theme.font.family.sans};
+  justify-content: center;
+  outline: none;
+  padding: 7px ${(props) => props.theme.grid.unit * 3}px;
+  text-decoration: none;
+  transition:
+    color 0.1s,
+    opacity 0.1s;
+
+  &:not([disabled]):hover,
+  &:not([disabled]):focus-visible {
+    text-decoration: underline;
+  }
+
+  &:not([disabled]):focus-visible {
+    outline: 3px solid ${(props) => props.theme.colors.outline.focus};
+    outline-offset: 2px;
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+  }
+`
 
 const PrimaryAction = (props: ButtonProps) =>
   props.isDestructive ? (
@@ -151,11 +190,18 @@ const PrimaryAction = (props: ButtonProps) =>
     </PrimaryButton>
   )
 
-const SecondaryAction = (props: ButtonProps) => (
-  <SecondaryButton disabled={props.disabled} onClick={props.action}>
-    {props.title}
-  </SecondaryButton>
-)
+const SecondaryAction = (
+  props: ButtonProps & { variant?: 'default' | 'textDanger' }
+) =>
+  props.variant === 'textDanger' ? (
+    <SecondaryTextDanger disabled={props.disabled} onClick={props.action}>
+      {props.title}
+    </SecondaryTextDanger>
+  ) : (
+    <SecondaryButton disabled={props.disabled} onClick={props.action}>
+      {props.title}
+    </SecondaryButton>
+  )
 
 export class Dialog extends React.Component<DialogProps, DialogState> {
   public state: DialogState = {
@@ -234,6 +280,7 @@ export class Dialog extends React.Component<DialogProps, DialogState> {
               action={props.actions.secondary.action}
               hasForm={!!this.props.confirmFieldText}
               title={props.actions.secondary.title}
+              variant={props.actions.secondary.variant ?? 'default'}
             />
             <PrimaryAction
               action={props.actions.primary.action}
@@ -253,6 +300,7 @@ export class Dialog extends React.Component<DialogProps, DialogState> {
             <SecondaryAction
               action={props.actions.secondary.action}
               title={props.actions.secondary.title}
+              variant={props.actions.secondary.variant ?? 'default'}
             />
           </>
         )

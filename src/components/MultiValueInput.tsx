@@ -29,7 +29,6 @@ const Container = styled.div`
   padding: 4px 8px;
   background: ${(props) => props.theme.colors.background.primary};
 
-
   &:hover Input {
     background-color: ${(props) => props.theme.colors.background.fifth};
   }

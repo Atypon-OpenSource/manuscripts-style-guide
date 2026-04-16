@@ -43,10 +43,7 @@ function mergeRefs<T>(
  *  - Tab of the last child in current list item will move to the next list item
  *  - Tab+Shift of the first child will return focus to current list item
  */
-function handleTabWithinListItem(
-  e: KeyboardEvent,
-  items: HTMLElement[]
-) {
+function handleTabWithinListItem(e: KeyboardEvent, items: HTMLElement[]) {
   if (e.key !== 'Tab') {
     return false
   }

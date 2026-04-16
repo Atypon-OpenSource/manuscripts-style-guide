@@ -66,7 +66,6 @@ export const CheckboxLabel = styled.label<{
     }
   }
 
-
   input:checked + div::before {
     background-color: transparent !important;
     border-color: transparent !important;
