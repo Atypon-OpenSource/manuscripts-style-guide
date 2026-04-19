@@ -125,10 +125,7 @@ export const NotificationsBadge = styled(Badge)<DropdownProps>`
     props.isOpen
       ? props.theme.colors.background.success
       : props.theme.colors.brand.default};
-  color: ${(props) =>
-    props.isOpen
-      ? props.theme.colors.text.success
-      : props.theme.colors.text.onDark};
+  color: ${(props) => props.theme.colors.text.onDark};
   font-family: ${(props) => props.theme.font.family.sans};
   font-size: 9px;
   margin-left: 4px;
