@@ -150,6 +150,7 @@ const iconList: { name: string; Component: React.FC<IconProps> }[] = [
   { name: 'UploadIcon', Component: Icons.UploadIcon },
   { name: 'VerticalEllipsisIcon', Component: Icons.VerticalEllipsisIcon },
   { name: 'ToolbarUnindentIcon', Component: Icons.ToolbarUnindentIcon },
+  { name: 'XIcon', Component: Icons.XIcon },
 ]
 
 const meta: Meta = {
