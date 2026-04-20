@@ -184,7 +184,7 @@ export const MultiValueInput: React.FC<MultiValueInputProps> = ({
         onChange={handleInputChange}
         onKeyDown={handleKeyDown}
         onBlur={handleBlur}
-        placeholder={xplaceholder}
+        placeholder={values.length > 0 ? '' : xplaceholder}
       />
     </Container>
   )
