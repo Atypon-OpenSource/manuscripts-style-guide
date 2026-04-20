@@ -16,7 +16,7 @@
 
 import 'react-datepicker/dist/react-datepicker.css'
 
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import ReactDatePicker from 'react-datepicker'
 import styled from 'styled-components'
 
@@ -42,6 +42,10 @@ export const DatePicker: React.FC<DatePickerProps> = ({
   required,
 }) => {
   const [selectedDate, setSelectedDate] = useState<Date | null>(date || null)
+
+  useEffect(() => {
+    setSelectedDate(date ?? null)
+  }, [date])
 
   const handleChange = (date: Date | null) => {
     setSelectedDate(date)
