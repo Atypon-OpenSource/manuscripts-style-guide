@@ -1,5 +1,5 @@
 /*!
- * © 2019 Atypon Systems LLC
+ * © 2026 Atypon Systems LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,7 +15,7 @@
  */
 
 import React from 'react'
-import styled, { AnyStyledComponent, css } from 'styled-components'
+import styled from 'styled-components'
 
 import { IconButton, IconTextButton } from './Button'
 import {
@@ -23,165 +23,164 @@ import {
   AttentionGreenIcon,
   AttentionOrangeIcon,
   AttentionRedIcon,
+  XIcon,
 } from './icons'
 
-const buttonStyles = css`
-  color: inherit;
-  margin-left: ${(props) => props.theme.grid.unit * 4}px;
+export type AlertVariant = 'success' | 'error' | 'info' | 'warning'
 
-  g[fill] {
-    fill: currentColor;
+interface AlertLink {
+  label: string
+  onClick: () => void
+}
+
+export interface AlertMessageProps {
+  title?: string
+  message: string
+  variant: 'success' | 'error' | 'info' | 'warning'
+  link?: AlertLink
+  closeConfig?: {
+    onClick?: () => void
+    variant?: 'icon' | 'text'
+    label?: string
   }
-
-  &:not([disabled]):focus,
-  &:not([disabled]):hover {
-    color: inherit;
-    filter: brightness(80%);
-  }
-`
-export const TextButton = styled(IconTextButton)`
-  ${buttonStyles}
-`
-
-const CloseIconButton = styled(IconButton).attrs({
-  defaultColor: true,
-  size: 16,
-})`
-  ${buttonStyles}
-`
-
-const InformativeIcon = styled.div`
-  height: 24px;
-  margin-right: ${(props) => props.theme.grid.unit * 3}px;
-  display: flex;
-  align-items: center;
-`
-
-const InnerContainer = styled.div`
-  align-items: center;
-  display: flex;
-  flex: 1;
-`
-
-const BaseAlertContainer = styled.div`
-  align-items: center;
-  border-radius: ${(props) => props.theme.grid.radius.small};
-  display: flex;
-  flex-shrink: 0;
-  font: ${(props) => props.theme.font.weight.normal}
-    ${(props) => props.theme.font.size.medium} / 1
-    ${(props) => props.theme.font.family.sans};
-  justify-content: space-between;
-  padding: ${(props) => props.theme.grid.unit * 3}px;
-  white-space: normal;
-`
-
-const SuccessAlertContainer = styled(BaseAlertContainer)`
-  background-color: ${(props) => props.theme.colors.background.success};
-  border: solid 1px ${(props) => props.theme.colors.border.success};
-  color: ${(props) => props.theme.colors.text.success};
-`
-
-const ErrorAlertContainer = styled(BaseAlertContainer)`
-  background-color: ${(props) => props.theme.colors.background.error};
-  border: solid 1px ${(props) => props.theme.colors.border.error};
-  color: ${(props) => props.theme.colors.text.error};
-`
-
-const InfoAlertContainer = styled(BaseAlertContainer)`
-  background-color: ${(props) => props.theme.colors.background.info};
-  border: solid 1px ${(props) => props.theme.colors.border.info};
-  color: ${(props) => props.theme.colors.text.info};
-`
-
-const WarningAlertContainer = styled(BaseAlertContainer)`
-  background-color: ${(props) => props.theme.colors.background.warning};
-  border: solid 1px ${(props) => props.theme.colors.border.warning};
-  color: ${(props) => props.theme.colors.text.warning};
-`
-
-const TextContainer = styled.div`
-  flex: 1 1 auto;
-  display: flex;
-  align-items: center;
-  word-break: break-word;
-`
-
-const SuccessIcon = styled(AttentionGreenIcon)`
-  transform: scale(0.75, 0.75);
-`
-
-interface State {
-  isOpen: boolean
+  className?: string
 }
 
-interface Dismiss {
-  text: string
-  action?: () => void
-}
-
-export enum AlertMessageType {
-  success = 'success',
-  error = 'error',
-  warning = 'warning',
-  info = 'info',
-}
-
-interface Props {
-  type: AlertMessageType
-  dismissButton?: Dismiss
-  hideCloseButton?: boolean
-  children: React.ReactNode
-}
-
-const alertIcons: { [key in AlertMessageType]: React.FC } = {
-  success: SuccessIcon,
+const variantIcons = {
+  success: AttentionGreenIcon,
   error: AttentionRedIcon,
   info: AttentionBlueIcon,
   warning: AttentionOrangeIcon,
+} as const
+
+interface AlertCloseActionProps {
+  closeConfig: NonNullable<AlertMessageProps['closeConfig']>
+  onClose: () => void
 }
 
-const alertContainers: { [key in AlertMessageType]: AnyStyledComponent } = {
-  success: SuccessAlertContainer,
-  error: ErrorAlertContainer,
-  info: InfoAlertContainer,
-  warning: WarningAlertContainer,
+const AlertCloseAction: React.FC<AlertCloseActionProps> = ({
+  closeConfig,
+  onClose,
+}) => (
+  <CloseAction>
+    {closeConfig.variant === 'icon' ? (
+      <CloseIconButton onClick={onClose}>
+        <XIcon />
+      </CloseIconButton>
+    ) : (
+      <DismissButton onClick={onClose}>{closeConfig.label}</DismissButton>
+    )}
+  </CloseAction>
+)
+
+export const AlertMessage: React.FC<AlertMessageProps> = ({
+  title,
+  message,
+  variant,
+  link,
+  closeConfig,
+  className,
+}) => {
+  const [isOpen, setIsOpen] = React.useState(true)
+  const AlertIcon = variantIcons[variant]
+
+  const handleClose = () => {
+    setIsOpen(false)
+    closeConfig?.onClick?.()
+  }
+
+  if (!isOpen) {
+    return null
+  }
+
+  return (
+    <Alert $variant={variant} className={className}>
+      <IconWrapper $hasTitle={!!title}>
+        <AlertIcon />
+      </IconWrapper>
+
+      <Content>
+        {title && <Title>{title}</Title>}
+        <MessageRow>
+          <Message>{message}</Message>
+          {link && (
+            <ActionLink type="button" onClick={link.onClick}>
+              {link.label}
+            </ActionLink>
+          )}
+        </MessageRow>
+      </Content>
+
+      {closeConfig && (
+        <AlertCloseAction closeConfig={closeConfig} onClose={handleClose} />
+      )}
+    </Alert>
+  )
 }
 
-export class AlertMessage extends React.Component<Props, State> {
-  public state: State = {
-    isOpen: true,
-  }
+const Alert = styled.div<{ $variant: AlertVariant }>`
+  align-items: center;
+  background-color: ${(props) => props.theme.colors.background[props.$variant]};
+  border: 1px solid ${(props) => props.theme.colors.border[props.$variant]};
+  border-radius: ${(props) => props.theme.grid.radius.small};
+  color: ${(props) => props.theme.colors.text.primary};
+  display: flex;
+  font: ${(props) => props.theme.font.weight.normal}
+    ${(props) => props.theme.font.size.normal} / 1
+    ${(props) => props.theme.font.family.Lato};
+  gap: ${(props) => props.theme.grid.unit * 3}px;
+  padding: ${(props) => props.theme.grid.unit * 3}px;
+`
 
-  public render() {
-    const { hideCloseButton, dismissButton, children, type } = this.props
-    const { isOpen } = this.state
+const IconWrapper = styled.div<{ $hasTitle: boolean }>`
+  display: flex;
+  align-self: ${(props) => (props.$hasTitle ? 'flex-start' : 'center')};
+`
 
-    const AlertContainer = alertContainers[type]
-    const AlertIcon = alertIcons[type]
+const Content = styled.div`
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: ${(props) => props.theme.grid.unit}px;
+`
 
-    return (
-      isOpen && (
-        <AlertContainer className={'alert-message'}>
-          <InnerContainer>
-            <InformativeIcon>{<AlertIcon />}</InformativeIcon>
-            <TextContainer>{children}</TextContainer>
-            {dismissButton && (
-              <TextButton
-                onClick={
-                  dismissButton.action ? dismissButton.action : this.handleClose
-                }
-              >
-                {dismissButton.text}
-              </TextButton>
-            )}
-          </InnerContainer>
-        </AlertContainer>
-      )
-    )
-  }
+const Title = styled.span`
+  font-weight: ${(props) => props.theme.font.weight.semibold};
+`
 
-  private handleClose = () => {
-    this.setState({ isOpen: false })
-  }
-}
+const MessageRow = styled.div`
+  display: flex;
+  align-items: baseline;
+  gap: ${(props) => props.theme.grid.unit * 2}px;
+`
+
+const ActionLink = styled.button`
+  font-size: ${(props) => props.theme.font.size.normal};
+  color: inherit;
+  text-decoration: underline;
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: 0;
+`
+
+const Message = styled.div`
+  font-size: ${(props) => props.theme.font.size.normal};
+`
+
+const CloseIconButton = styled(IconButton)`
+  width: ${(props) => props.theme.grid.unit * 6}px;
+  height: ${(props) => props.theme.grid.unit * 6}px;
+`
+
+const CloseAction = styled.div`
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  margin-left: auto;
+`
+
+const DismissButton = styled(IconTextButton)`
+  font-size: ${(props) => props.theme.font.size.normal};
+  color: inherit;
+`

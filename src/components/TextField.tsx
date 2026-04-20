@@ -114,8 +114,6 @@ export const commonStyles = css<BaseTextFieldProps>`
     color: #b3b3b3;
     cursor: not-allowed;
   }
-
-  ${(props) => props.error && 'z-index: 2'};
 `
 
 export const TextField = styled.input<TextFieldProps>`
@@ -162,6 +160,7 @@ export const TextFieldGroup = styled.div`
 
 export const TextFieldLabel = styled.label`
   display: block;
+  width: 100%;
   font-family: ${(props) => props.theme.font.family.sans};
   color: ${(props) => props.theme.colors.text.primary};
   font-size: ${(props) => props.theme.font.size.normal};

@@ -16,10 +16,10 @@ const Example: React.FunctionComponent<{
 )
 ```
 
-## Development
+## Development  
 
 Run `yarn build` to build the `dist` folder for distribution.
 
-Run `yarn dev` to automatically rebuild when a file is changed.
+Run `yarn dev` to automatically rebuild when a file is changed. 
 
 If a component needs new theme properties, add the types to `src/theme.ts` and add the corresponding values to `.storybook/theme.ts`.
