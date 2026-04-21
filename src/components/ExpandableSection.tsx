@@ -33,13 +33,26 @@ export const ExpandableSection: FC<ExpandableSectionProps> = ({
 }) => {
   const [open, setOpen] = useState<boolean>(defaultOpen)
 
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault()
+      setOpen((prev) => !prev)
+    }
+  }
+
   return (
     <Container bordered={bordered}>
-      <Header onClick={() => setOpen((prev) => !prev)}>
+      <Header
+        onClick={() => setOpen((prev) => !prev)}
+        onKeyDown={handleKeyDown}
+        tabIndex={0}
+        role="button"
+        aria-expanded={open}
+      >
         <Title>{title}</Title>
         <ArrowIcon open={open} />
       </Header>
-      <ContentOuter open={open}>
+      <ContentOuter open={open} inert={!open || undefined}>
         <ContentInner>
           <div>{children}</div>
         </ContentInner>
