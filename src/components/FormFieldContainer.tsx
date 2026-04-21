@@ -71,6 +71,7 @@ export const FormFieldContainer: FunctionComponent<FormFieldContainerProps> = ({
 }
 
 const FormFieldInfo = styled.div`
+  width: 100%;
   font-family: ${(props) => props.theme.font.family.sans};
   font-size: ${(props) => props.theme.font.size.small};
   color: ${(props) => props.theme.colors.text.secondary};

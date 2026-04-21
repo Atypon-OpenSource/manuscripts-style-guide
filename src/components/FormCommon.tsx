@@ -65,6 +65,7 @@ export const TextWithGenerationWrapper = styled.div`
 
 export const TextFieldError = styled.div`
   margin-top: 4px;
+  width: 100%;
 `
 
 export const TextFieldErrorItem = styled.div`
