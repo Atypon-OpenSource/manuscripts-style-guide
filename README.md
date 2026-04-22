@@ -14,7 +14,7 @@ const Example: React.FunctionComponent<{
     <PrimaryButton onClick={handleClick}>Done</PrimaryButton>
   </div>
 )
-```
+``` 
 
 ## Development  
 
