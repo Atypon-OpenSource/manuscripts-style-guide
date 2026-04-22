@@ -90,7 +90,6 @@ interface DialogProps {
     secondary?: {
       action: () => void
       title: string
-      /** Plain text styled as destructive (e.g. “Discard”) — default is filled secondary button */
       variant?: 'default' | 'textDanger'
     }
     onClose?: () => void
