@@ -13,34 +13,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import React from 'react'
-
 import { IconProps } from './types'
 
 export const XIcon = (props: IconProps) => (
   <svg
-    width={30}
-    height={30}
-    viewBox="0 0 30 30"
+    width="14"
+    height="14"
+    viewBox="0 0 14 14"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
     {...props}
   >
     <path
-      fillRule="evenodd"
-      clipRule="evenodd"
-      d="M3.34921 12.4923C3.01447 12.1576 3.01447 11.6187 3.34921 11.2839L12.7654 
-        1.86772C13.1001 1.53298 13.639 1.53298 13.9738 1.86772C14.3085 2.20246 
-        14.3085 2.74135 13.9738 3.07609L4.55758 12.4923C4.22284 12.8271 3.68395 
-        12.8271 3.34921 12.4923Z"
-    />
-    <path
-      fillRule="evenodd"
-      clipRule="evenodd"
-      d="M3.34921 1.86667C3.01447 2.20141 3.01447 2.74029 3.34921 3.07503L12.7654 
-        12.4913C13.1001 12.826 13.639 12.826 13.9738 12.4913C14.3085 12.1565 
-        14.3085 11.6176 13.9738 11.2829L4.55758 1.86667C4.22284 1.53193 3.68395 
-        1.53193 3.34921 1.86667Z"
+      d="M14 1.415L12.585 0L7 5.585L1.415 0L0 1.415L5.585 7L0 12.585L1.415 14L7 8.415L12.585 14L14 12.585L8.415 7L14 1.415Z"
+      fill={props.fill || '#353535'}
     />
   </svg>
 )
