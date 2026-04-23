@@ -25,6 +25,7 @@ interface SelectedItemsBoxProps extends React.HTMLAttributes<HTMLElement> {
   items: SelectedItem[]
   onRemove: (id: string) => void
   placeholder?: string
+  disabled?: boolean
 }
 
 const BoxContainer = styled.div`
@@ -33,6 +34,12 @@ const BoxContainer = styled.div`
   padding: 8px;
   min-height: 120px;
   background: ${(props) => props.theme.colors.background.primary};
+
+  &[disabled] {
+    color: #707070 !important;
+    background: #f5f5f5;
+    cursor: not-allowed;
+  }
 `
 
 const ItemsList = styled.div`
@@ -57,14 +64,15 @@ const Placeholder = styled.div`
     ${(props) => props.theme.font.family.sans};
 `
 
-const Item = styled.div`
+const Item = styled.div<{ disabled?: boolean }>`
   display: flex;
   align-items: center;
   gap: 4px;
-  background: #f2f2f2;
+  background: ${(props) => (props.disabled ? '#dddcdc' : '#f2f2f2')};
   border-radius: 6px;
   padding: 4px;
-  color: ${(props) => props.theme.colors.text.primary};
+  color: ${(props) =>
+    props.disabled ? '#707070' : props.theme.colors.text.primary};
   font: ${(props) => props.theme.font.weight.normal}
     ${(props) => props.theme.font.size.small}
     ${(props) => props.theme.font.family.sans};
@@ -102,14 +110,16 @@ export const SelectedItemsBox: React.FC<SelectedItemsBoxProps> = ({
       {items.length > 0 ? (
         <ItemsList>
           {items.map((item) => (
-            <Item key={item.id} data-cy="item">
+            <Item key={item.id} data-cy="item" disabled={!!props.disabled}>
               {item.label}
-              <RemoveButton
+              {!props.disabled && (
+                <RemoveButton
                 onClick={() => onRemove(item.id)}
                 aria-label={`Remove ${item.label}`}
               >
-                x
+                  x
               </RemoveButton>
+              )}
             </Item>
           ))}
         </ItemsList>
