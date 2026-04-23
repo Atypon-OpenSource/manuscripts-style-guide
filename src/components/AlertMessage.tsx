@@ -84,17 +84,21 @@ export const AlertMessage: React.FC<AlertMessageProps> = ({
   const [isOpen, setIsOpen] = React.useState(true)
   const AlertIcon = variantIcons[variant]
 
-  const handleClose = () => {
-    setIsOpen(false)
-    closeConfig?.onClick?.()
-  }
+  const handleClose = () => setIsOpen(false)
 
-  if (!isOpen) {
-    return null
+  const handleTransitionEnd = (e: React.TransitionEvent) => {
+    if (!isOpen && e.propertyName === 'opacity') {
+      closeConfig?.onClick?.()
+    }
   }
 
   return (
-    <Alert $variant={variant} className={className}>
+    <Alert
+      $variant={variant}
+      className={className}
+      data-open={isOpen ? '' : undefined}
+      onTransitionEnd={handleTransitionEnd}
+    >
       <IconWrapper $hasTitle={!!title}>
         <AlertIcon />
       </IconWrapper>
@@ -130,6 +134,21 @@ const Alert = styled.div<{ $variant: AlertVariant }>`
     ${(props) => props.theme.font.family.Lato};
   gap: ${(props) => props.theme.grid.unit * 3}px;
   padding: ${(props) => props.theme.grid.unit * 3}px;
+  opacity: 1;
+  transition:
+    opacity 200ms ease-out,
+    display 200ms allow-discrete;
+
+  &:not([data-open]) {
+    display: none;
+    opacity: 0;
+  }
+
+  @starting-style {
+    &[data-open] {
+      opacity: 0;
+    }
+  }
 `
 
 const IconWrapper = styled.div<{ $hasTitle: boolean }>`
