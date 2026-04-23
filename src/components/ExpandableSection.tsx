@@ -53,7 +53,7 @@ export const ExpandableSection: FC<ExpandableSectionProps> = ({
         <ArrowIcon open={open} />
       </Header>
       <ContentOuter open={open} inert={!open || undefined}>
-        <ContentInner open={open}>
+        <ContentInner>
           <div>{children}</div>
         </ContentInner>
       </ContentOuter>
@@ -92,10 +92,11 @@ const ArrowIcon = styled(ArrowDownCircleIcon)<{ open: boolean }>`
 const ContentOuter = styled.div<{ open: boolean }>`
   display: grid;
   grid-template-rows: ${(props) => (props.open ? '1fr' : '0fr')};
+  overflow: hidden;
   transition: grid-template-rows 0.25s ease;
 `
 
-const ContentInner = styled.div<{ open: boolean }>`
-  overflow: ${(props) => (props.open ? 'visible' : 'hidden')};
+const ContentInner = styled.div`
+  overflow: visible;
   min-height: 0;
 `
