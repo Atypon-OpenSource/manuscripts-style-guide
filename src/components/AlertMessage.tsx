@@ -84,12 +84,9 @@ export const AlertMessage: React.FC<AlertMessageProps> = ({
   const [isOpen, setIsOpen] = React.useState(true)
   const AlertIcon = variantIcons[variant]
 
-  const handleClose = () => setIsOpen(false)
-
-  const handleTransitionEnd = (e: React.TransitionEvent) => {
-    if (!isOpen && e.propertyName === 'opacity') {
-      closeConfig?.onClick?.()
-    }
+  const handleClose = () => {
+    setIsOpen(false)
+    setTimeout(() => closeConfig?.onClick?.(), 175)
   }
 
   return (
@@ -97,7 +94,6 @@ export const AlertMessage: React.FC<AlertMessageProps> = ({
       $variant={variant}
       className={className}
       data-open={isOpen ? '' : undefined}
-      onTransitionEnd={handleTransitionEnd}
     >
       <IconWrapper $hasTitle={!!title}>
         <AlertIcon />
