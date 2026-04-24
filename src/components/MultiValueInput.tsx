@@ -165,9 +165,9 @@ export const MultiValueInput: React.FC<MultiValueInputProps> = ({
       : 'Enter text and press enter'
 
   return (
-    <Container>
+    <Container className={'multi-value-input'}>
       {values.map((value, index) => (
-        <Chip key={index}>
+        <Chip key={index} className={'chip'}>
           {value}
           <RemoveButton
             type={'button'}
