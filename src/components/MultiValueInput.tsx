@@ -29,7 +29,6 @@ const Container = styled.div`
   padding: 4px 8px;
   background: ${(props) => props.theme.colors.background.primary};
 
-
   &:hover Input {
     background-color: ${(props) => props.theme.colors.background.fifth};
   }
@@ -185,7 +184,7 @@ export const MultiValueInput: React.FC<MultiValueInputProps> = ({
         onChange={handleInputChange}
         onKeyDown={handleKeyDown}
         onBlur={handleBlur}
-        placeholder={xplaceholder}
+        placeholder={values.length > 0 ? '' : xplaceholder}
       />
     </Container>
   )
