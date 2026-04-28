@@ -18,7 +18,7 @@ const Example: React.FunctionComponent<{
 
 ## Development  
 
-Run `yarn build` to build the `dist` folder for distribution.
+Run `yarn build` to build the `dist` folder for distribution. 
 
 Run `yarn dev` to automatically rebuild when a file is changed. 
 
