@@ -16,7 +16,7 @@ const Example: React.FunctionComponent<{
 )
 ``` 
 
-## Development  
+## Development
 
 Run `yarn build` to build the `dist` folder for distribution. 
 
