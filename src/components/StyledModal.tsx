@@ -32,6 +32,7 @@ interface StyledModalProps {
   style?: {
     content?: React.CSSProperties
   }
+  ariaLabelledby?: string
 }
 
 export const StyledModal: React.FC<StyledModalProps> = ({
@@ -43,6 +44,7 @@ export const StyledModal: React.FC<StyledModalProps> = ({
   children,
   className,
   style,
+  ariaLabelledby,
 }) => {
   const dialogRef = useRef<HTMLDialogElement>(null)
   const closedByCancelRef = useRef(false)
@@ -105,6 +107,7 @@ export const StyledModal: React.FC<StyledModalProps> = ({
       $pointerEventsOnBackdrop={pointerEventsOnBackdrop}
       className={className ? `Modal ${className}` : 'Modal'}
       style={style?.content}
+      aria-labelledby={ariaLabelledby ? ariaLabelledby : undefined}
     >
       {children}
     </Dialog>,

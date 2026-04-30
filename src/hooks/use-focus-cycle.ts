@@ -75,15 +75,22 @@ export function trapFocus(e: KeyboardEvent, element: HTMLElement | null) {
  * Creates focus cycling within a container element.
  * When Tab reaches the last focusable element, focus loops back to the first.
  * When Shift+Tab reaches the first element, focus loops back to the last.
+ *
+ * @param enabled When false, the document listener is not registered (e.g. modal closed).
  */
 export const useFocusCycle = (
-  containerRef: RefObject<HTMLDivElement | null>
+  containerRef: RefObject<HTMLDivElement | null>,
+  enabled: boolean = true
 ) => {
   useEffect(() => {
+    if (!enabled) {
+      return
+    }
+
     const handleKeyDown = (e: KeyboardEvent) =>
       trapFocus(e, containerRef.current as HTMLElement)
 
     document.addEventListener('keydown', handleKeyDown)
     return () => document.removeEventListener('keydown', handleKeyDown)
-  }, [containerRef])
+  }, [containerRef, enabled])
 }
