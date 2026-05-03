@@ -92,8 +92,9 @@ const ArrowIcon = styled(ArrowDownCircleIcon)<{ open: boolean }>`
 const ContentOuter = styled.div<{ open: boolean }>`
   display: grid;
   grid-template-rows: ${(props) => (props.open ? '1fr' : '0fr')};
-  overflow: hidden;
-  transition: grid-template-rows 0.25s ease;
+  overflow: ${(props) => (props.open ? 'visible' : 'hidden')};
+  transition: grid-template-rows 0.25s ease,
+    overflow 0s ${(props) => (props.open ? '0.25s' : '0s')} allow-discrete;
 `
 
 const ContentInner = styled.div`
