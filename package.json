@@ -14,7 +14,9 @@
   "keywords": [
     "react"
   ],
-  "sideEffects": false,
+    "sideEffects": [
+    "**/*.css"
+  ],
   "scripts": {
     "build": "npm-run-all --parallel build:*",
     "build:cjs": "tsc --outDir dist/cjs --module commonjs",
