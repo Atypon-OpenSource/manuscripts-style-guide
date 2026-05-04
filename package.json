@@ -14,7 +14,7 @@
   "keywords": [
     "react"
   ],
-    "sideEffects": [
+  "sideEffects": [
     "**/*.css"
   ],
   "scripts": {
