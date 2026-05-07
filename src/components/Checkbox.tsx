@@ -36,7 +36,7 @@ export const CheckboxLabel = styled.label<{
     width: 1px;
   }
 
-  div {
+  > div {
     align-items: center;
     font-family: ${(props) => props.theme.font.family.sans};
     font-size: ${(props) => props.theme.font.size.normal};
@@ -65,7 +65,6 @@ export const CheckboxLabel = styled.label<{
       background: ${(props) => props.theme.colors.background.primary};
     }
   }
-
 
   input:checked + div::before {
     background-color: transparent !important;

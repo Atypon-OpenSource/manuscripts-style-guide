@@ -43,10 +43,7 @@ function mergeRefs<T>(
  *  - Tab of the last child in current list item will move to the next list item
  *  - Tab+Shift of the first child will return focus to current list item
  */
-function handleTabWithinListItem(
-  e: KeyboardEvent,
-  items: HTMLElement[]
-) {
+function handleTabWithinListItem(e: KeyboardEvent, items: HTMLElement[]) {
   if (e.key !== 'Tab') {
     return false
   }
@@ -184,6 +181,16 @@ export function withListNavigation<P extends object>(
           return
         }
 
+        if (element.hasAttribute('disabled')) {
+          const tabbedElement = element.querySelector<HTMLElement>(
+            '[data-list-item][tabindex="0"]'
+          )
+          if (tabbedElement) {
+            tabbedElement.tabIndex = -1
+          }
+          return
+        }
+
         const firstItem = element.querySelector<HTMLElement>('[data-list-item]')
         if (!firstItem) {
           return
@@ -214,6 +221,13 @@ export function withListNavigation<P extends object>(
     })
   )`
     outline: none;
+    &[disabled] {
+      pointer-events: none;
+      user-select: none;
+      border-color: #e4e4e4;
+      color: #b3b3b3;
+      opacity: 0.5;
+    }
   `
 }
 

@@ -62,8 +62,12 @@ const CardModalStory: React.FC = () => {
             <ModalTitle>Card Modal</ModalTitle>
             <p>A simple card-style modal with a title and content.</p>
             <Footer>
-              <SecondaryButton onClick={() => setIsOpen(false)}>Cancel</SecondaryButton>
-              <PrimaryButton onClick={() => setIsOpen(false)}>Confirm</PrimaryButton>
+              <SecondaryButton onClick={() => setIsOpen(false)}>
+                Cancel
+              </SecondaryButton>
+              <PrimaryButton onClick={() => setIsOpen(false)}>
+                Confirm
+              </PrimaryButton>
             </Footer>
           </ModalCardBody>
         </ModalContainer>
@@ -81,7 +85,9 @@ const SidebarModalStory: React.FC = () => {
 
   return (
     <>
-      <PrimaryButton onClick={() => setIsOpen(true)}>Open Sidebar Modal</PrimaryButton>
+      <PrimaryButton onClick={() => setIsOpen(true)}>
+        Open Sidebar Modal
+      </PrimaryButton>
       <StyledModal
         isOpen={isOpen}
         onRequestClose={() => setIsOpen(false)}
@@ -122,7 +128,9 @@ const DangerModalStory: React.FC = () => {
 
   return (
     <>
-      <PrimaryButton onClick={() => setIsOpen(true)}>Open Danger Modal</PrimaryButton>
+      <PrimaryButton onClick={() => setIsOpen(true)}>
+        Open Danger Modal
+      </PrimaryButton>
       <StyledModal
         isOpen={isOpen}
         onRequestClose={() => setIsOpen(false)}
@@ -134,10 +142,17 @@ const DangerModalStory: React.FC = () => {
           </ModalHeader>
           <ModalCardBody>
             <ModalTitle>Delete Item</ModalTitle>
-            <p>Are you sure you want to delete this item? This action cannot be undone.</p>
+            <p>
+              Are you sure you want to delete this item? This action cannot be
+              undone.
+            </p>
             <Footer>
-              <SecondaryButton onClick={() => setIsOpen(false)}>Cancel</SecondaryButton>
-              <PrimaryButton danger={true} onClick={() => setIsOpen(false)}>Delete</PrimaryButton>
+              <SecondaryButton onClick={() => setIsOpen(false)}>
+                Cancel
+              </SecondaryButton>
+              <PrimaryButton danger={true} onClick={() => setIsOpen(false)}>
+                Delete
+              </PrimaryButton>
             </Footer>
           </ModalCardBody>
         </ModalContainer>
@@ -155,7 +170,9 @@ const InfoModalStory: React.FC = () => {
 
   return (
     <>
-      <PrimaryButton onClick={() => setIsOpen(true)}>Open Info Modal</PrimaryButton>
+      <PrimaryButton onClick={() => setIsOpen(true)}>
+        Open Info Modal
+      </PrimaryButton>
       <StyledModal
         isOpen={isOpen}
         onRequestClose={() => setIsOpen(false)}
@@ -201,9 +218,15 @@ const MultipleActionsStory: React.FC = () => {
             <ModalTitle>Unsaved Changes</ModalTitle>
             <p>You have unsaved changes. What would you like to do?</p>
             <Footer>
-              <TertiaryButton onClick={() => setIsOpen(false)}>Discard</TertiaryButton>
-              <SecondaryButton onClick={() => setIsOpen(false)}>Save as Draft</SecondaryButton>
-              <PrimaryButton onClick={() => setIsOpen(false)}>Publish</PrimaryButton>
+              <TertiaryButton onClick={() => setIsOpen(false)}>
+                Discard
+              </TertiaryButton>
+              <SecondaryButton onClick={() => setIsOpen(false)}>
+                Save as Draft
+              </SecondaryButton>
+              <PrimaryButton onClick={() => setIsOpen(false)}>
+                Publish
+              </PrimaryButton>
             </Footer>
           </ModalCardBody>
         </ModalContainer>
@@ -221,7 +244,9 @@ const NoOverlayStory: React.FC = () => {
 
   return (
     <>
-      <PrimaryButton onClick={() => setIsOpen(true)}>Open No-Overlay Modal</PrimaryButton>
+      <PrimaryButton onClick={() => setIsOpen(true)}>
+        Open No-Overlay Modal
+      </PrimaryButton>
       <StyledModal
         isOpen={isOpen}
         onRequestClose={() => setIsOpen(false)}
@@ -235,7 +260,9 @@ const NoOverlayStory: React.FC = () => {
             <ModalTitle>No Overlay</ModalTitle>
             <p>This modal has a transparent backdrop.</p>
             <Footer>
-              <PrimaryButton onClick={() => setIsOpen(false)}>Close</PrimaryButton>
+              <PrimaryButton onClick={() => setIsOpen(false)}>
+                Close
+              </PrimaryButton>
             </Footer>
           </ModalCardBody>
         </ModalContainer>
@@ -269,10 +296,17 @@ const OnRequestCloseStory: React.FC = () => {
           </ModalHeader>
           <ModalCardBody>
             <ModalTitle>onRequestClose</ModalTitle>
-            <p>One callback for both Esc and backdrop. Called with the Event on Esc so you can preventDefault() to block closing.</p>
+            <p>
+              One callback for both Esc and backdrop. Called with the Event on
+              Esc so you can preventDefault() to block closing.
+            </p>
             <Footer>
-              <SecondaryButton onClick={() => setIsOpen(false)}>Cancel</SecondaryButton>
-              <PrimaryButton onClick={() => setIsOpen(false)}>Confirm</PrimaryButton>
+              <SecondaryButton onClick={() => setIsOpen(false)}>
+                Cancel
+              </SecondaryButton>
+              <PrimaryButton onClick={() => setIsOpen(false)}>
+                Confirm
+              </PrimaryButton>
             </Footer>
           </ModalCardBody>
         </ModalContainer>
@@ -286,7 +320,8 @@ export const OnRequestClose: Story = {
   parameters: {
     docs: {
       description: {
-        story: '`onRequestClose` is called when the user presses Esc or clicks the backdrop. On Esc the event is passed so you can call `e.preventDefault()` to prevent closing.',
+        story:
+          '`onRequestClose` is called when the user presses Esc or clicks the backdrop. On Esc the event is passed so you can call `e.preventDefault()` to prevent closing.',
       },
     },
   },

@@ -29,7 +29,6 @@ const Container = styled.div`
   padding: 4px 8px;
   background: ${(props) => props.theme.colors.background.primary};
 
-
   &:hover Input {
     background-color: ${(props) => props.theme.colors.background.fifth};
   }
@@ -166,9 +165,9 @@ export const MultiValueInput: React.FC<MultiValueInputProps> = ({
       : 'Enter text and press enter'
 
   return (
-    <Container>
+    <Container className={'multi-value-input'}>
       {values.map((value, index) => (
-        <Chip key={index}>
+        <Chip key={index} className={'chip'}>
           {value}
           <RemoveButton
             type={'button'}
@@ -185,7 +184,7 @@ export const MultiValueInput: React.FC<MultiValueInputProps> = ({
         onChange={handleInputChange}
         onKeyDown={handleKeyDown}
         onBlur={handleBlur}
-        placeholder={xplaceholder}
+        placeholder={values.length > 0 ? '' : xplaceholder}
       />
     </Container>
   )

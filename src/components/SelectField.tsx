@@ -29,6 +29,7 @@ interface Props {
   options: OptionType[]
   error?: boolean
   variant?: 'small' | 'large'
+  listMaxHeight?: string
   isDisabled?: boolean
   isLoading?: boolean
   isSearchable?: boolean
@@ -37,7 +38,8 @@ interface Props {
 const selectStyles = (
   theme: DefaultTheme,
   error?: boolean,
-  variant?: 'small' | 'large'
+  variant?: 'small' | 'large',
+  listMaxHeight?: string
 ): StylesConfig<OptionType, false> => ({
   control: (base, state) => ({
     ...base,
@@ -100,6 +102,10 @@ const selectStyles = (
     overflow: 'hidden',
     boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
   }),
+  menuList: (base) => ({
+    ...base,
+    maxHeight: listMaxHeight || '300px',
+  }),
   placeholder: (base, state) => ({
     ...base,
     color:
@@ -131,6 +137,7 @@ export const SelectField: FC<Props & Partial<FieldProps>> = ({
   error,
   variant,
   isDisabled,
+  listMaxHeight,
   ...rest
 }) => {
   const theme = useTheme() as DefaultTheme
@@ -148,7 +155,7 @@ export const SelectField: FC<Props & Partial<FieldProps>> = ({
         form?.setFieldValue(name, option?.value)
       }
       onBlur={field?.onBlur}
-      styles={selectStyles(theme, error, variant)}
+      styles={selectStyles(theme, error, variant, listMaxHeight)}
       isDisabled={form?.isSubmitting || isDisabled}
       {...rest}
       theme={(base) => ({
