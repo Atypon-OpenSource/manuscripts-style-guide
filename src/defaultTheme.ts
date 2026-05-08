@@ -39,6 +39,7 @@ export const defaultTheme: Theme = {
       primary: colors.white,
       secondary: colors.alabasterGrey,
       tertiary: colors.mercuryGrey,
+      quaternary: colors.seashellGrey,
       fifth: colors.manuscriptsXLight2,
       dark: 'rgba(0,0,0,0.5)',
       error: colors.chablisRed,
@@ -178,7 +179,7 @@ export const defaultTheme: Theme = {
       },
       info: { background: colors.manuscriptsIcons, color: colors.white },
       bordered: {
-        background: colors.seashellGrey,
+        background: colors.mercuryGrey,
         color: colors.greyDark,
         border: colors.mercuryGrey,
       },

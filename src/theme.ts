@@ -81,6 +81,7 @@ interface Variations {
   primary: string
   secondary: string
   tertiary: string
+  quaternary?: string
   fifth?: string
 }
 
