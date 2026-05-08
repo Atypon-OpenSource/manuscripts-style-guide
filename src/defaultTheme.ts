@@ -161,10 +161,29 @@ export const defaultTheme: Theme = {
       error: colors.punchRed,
       info: colors.jellyBeanBlue,
       success: colors.killarneyGreen,
-      warning: colors.contrastOrange
+      warning: colors.contrastOrange,
     },
     outline: {
       focus: colors.focusBlue,
+    },
+    badge: {
+      default: {
+        background: colors.mercuryGrey,
+        color: colors.greyDark,
+      },
+      primary: { background: colors.manuscriptsBlueDark, color: colors.white },
+      warning: {
+        background: colors.manuscriptsSecondary,
+        color: colors.greyDark,
+      },
+      info: { background: colors.manuscriptsIcons, color: colors.white },
+      bordered: {
+        background: colors.seashellGrey,
+        color: colors.greyDark,
+        border: colors.mercuryGrey,
+      },
+      success: { background: colors.contrastGreen, color: colors.white },
+      dark: { background: colors.greyMuted, color: colors.white },
     },
   },
   font: {
