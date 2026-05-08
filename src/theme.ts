@@ -125,6 +125,7 @@ interface Badge {
   bordered: BadgeVariant
   success: BadgeVariant
   dark: BadgeVariant
+  orange: BadgeVariant
 }
 interface Text {
   muted: string

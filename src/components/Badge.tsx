@@ -25,6 +25,7 @@ export type BadgeVariant =
   | 'bordered'
   | 'success'
   | 'dark'
+  | 'orange'
 export type BadgeSize = 'sm' | 'md'
 
 interface BadgeProps {
