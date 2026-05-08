@@ -73,4 +73,5 @@ const BadgeContainer = styled.div<{
     props.theme.colors.badge[props.$variant].border
       ? `1px solid ${props.theme.colors.badge[props.$variant].border}`
       : 'none'};
+  min-width: max-content;
 `

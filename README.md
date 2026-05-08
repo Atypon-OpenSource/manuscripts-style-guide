@@ -4,7 +4,7 @@ React components for Manuscripts applications.
 
 ## Example usage
 
-```tsx
+```tsx 
 import { PrimaryButton } from '@manuscripts/style-guide'
 
 const Example: React.FunctionComponent<{
@@ -14,12 +14,12 @@ const Example: React.FunctionComponent<{
     <PrimaryButton onClick={handleClick}>Done</PrimaryButton>
   </div>
 )
-```
+``` 
 
-## Development
+## Development 
 
-Run `yarn build` to build the `dist` folder for distribution.
+Run `yarn build` to build the `dist` folder for distribution. 
 
-Run `yarn dev` to automatically rebuild when a file is changed. 
+Run `yarn dev` to automatically rebuild when a file is changed.
 
-If a component needs new theme properties, add the types to `src/theme.ts` and add the corresponding values to `.storybook/theme.ts`.
+If a component needs new theme properties, add the types to `src/theme.ts` and add the corresponding values to `.storybook/theme.ts`. 

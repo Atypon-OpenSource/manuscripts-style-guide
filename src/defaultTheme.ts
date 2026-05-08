@@ -179,7 +179,7 @@ export const defaultTheme: Theme = {
       },
       info: { background: colors.manuscriptsIcons, color: colors.white },
       bordered: {
-        background: colors.mercuryGrey,
+        background: colors.seashellGrey,
         color: colors.greyDark,
         border: colors.mercuryGrey,
       },
