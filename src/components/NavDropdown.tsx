@@ -18,7 +18,6 @@ import React from 'react'
 import { NavLink } from 'react-router-dom'
 import styled, { css } from 'styled-components'
 
-import { Badge } from './Badge'
 import { SecondaryButton } from './Button'
 import { ArrowUpIcon } from './icons'
 
@@ -120,7 +119,7 @@ export const NavDropdownToggle = styled(ArrowUpIcon)`
   }
 `
 
-export const NotificationsBadge = styled(Badge)<DropdownProps>`
+export const NotificationsBadge = styled.div<DropdownProps>`
   background-color: ${(props) =>
     props.isOpen
       ? props.theme.colors.background.success
@@ -132,6 +131,11 @@ export const NotificationsBadge = styled(Badge)<DropdownProps>`
   max-height: 10px;
   min-width: 10px;
   min-height: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2px;
+  border-radius: 50px;
 `
 
 export const NavDropdownButtonContainer = styled(SecondaryButton).attrs(
