@@ -40,3 +40,10 @@ export const PrimarySmallText = styled.div`
 export const SecondarySmallText = styled(PrimarySmallText)`
   color: ${(props) => props.theme.colors.text.secondary};
 `
+
+export const SectionTitle = styled.div`
+  font-size: ${(props) => props.theme.font.size.medium};
+  font-weight: ${(props) => props.theme.font.weight.semibold};
+  color: ${(props) => props.theme.colors.text.primary};
+  padding-bottom: ${(props) => props.theme.grid.unit * 4}px;
+`
