@@ -91,15 +91,12 @@ export const commonStyles = css<BaseTextFieldProps>`
           ? props.theme.colors.border.error
           : props.theme.colors.brand.default};
     background-color: #f2fbfc;
-    padding: ${(props) => {
-      if (props.variant === 'small') {
-        return '0 11px'
-      }
-      if (props.variant === 'large') {
-        return '3px 15px'
-      }
-      return '0 11px'
-    }};
+    ${(props) =>
+      props.variant &&
+      css<BaseTextFieldProps>`
+        padding: ${(props) =>
+          props.variant === 'small' ? '0 11px' : '3px 15px'};
+      `}
   }
 
   &:focus::placeholder {
