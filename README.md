@@ -12,7 +12,7 @@ const Example: React.FunctionComponent<{
 }> = ({ handleClick }) => (
   <div>
     <PrimaryButton onClick={handleClick}>Done</PrimaryButton>
-  </div>
+  </div> 
 )
 ``` 
 
