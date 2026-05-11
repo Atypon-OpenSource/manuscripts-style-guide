@@ -77,7 +77,7 @@ const selectStyles = (
   }),
   singleValue: (base, state) => ({
     ...base,
-    color: state.isDisabled ? '#B3B3B3' : theme.colors.text.primary,
+    color: state.isDisabled ? '#B3B3B3' : theme.colors.text.greyMuted,
     fontFamily: theme.font.family.sans,
     fontSize: theme.font.size.medium,
   }),
