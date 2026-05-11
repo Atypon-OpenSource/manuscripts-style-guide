@@ -21,9 +21,13 @@ export const Shortcut = styled.span`
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-width: 20px;
-  padding: 2px 6px;
-  border-radius: 4px;
-  background: ${({ theme }) => theme.colors.background.secondary};
+  min-width: 28px;
+  height: 28px;
+  border-radius: ${({ theme }) => theme.grid.radius.small};
+  background: ${({ theme }) => theme.colors.background.primary};
   font-size: ${({ theme }) => theme.font.size.small};
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.10), 0 1px 2px -1px rgba(0, 0, 0, 0.10);
+`
+export const ShortcutConnector = styled.span`
+  padding: 0 ${({ theme }) =>theme.grid.unit * 2}px;
 `
