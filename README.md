@@ -4,7 +4,7 @@ React components for Manuscripts applications.
 
 ## Example usage 
 
-```tsx 
+```tsx
 import { PrimaryButton } from '@manuscripts/style-guide'
 
 const Example: React.FunctionComponent<{
