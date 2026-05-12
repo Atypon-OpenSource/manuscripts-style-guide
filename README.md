@@ -2,13 +2,13 @@
 
 React components for Manuscripts applications.
 
-## Example usage
+## Example usage 
 
-```tsx 
+```tsx
 import { PrimaryButton } from '@manuscripts/style-guide'
 
 const Example: React.FunctionComponent<{
-  handleClick: React.MouseEventHandler<HTMLButtonElement>
+  handleClick: React.MouseEventHandler<HTMLButtonElement> 
 }> = ({ handleClick }) => (
   <div>
     <PrimaryButton onClick={handleClick}>Done</PrimaryButton>
