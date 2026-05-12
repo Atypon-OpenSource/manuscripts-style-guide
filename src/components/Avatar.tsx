@@ -19,11 +19,31 @@ import styled from 'styled-components'
 
 import { AvatarIcon, ProfileIcon } from './icons'
 
+const INITIALS_PALETTE = [
+  '#1a9bc7',
+  '#31a056',
+  '#e65100',
+  '#6a1b9a',
+  '#c62828',
+  '#1565c0',
+  '#558b2f',
+  '#00695c',
+]
+
+const getInitials = (name: string): string => {
+  const words = name.trim().split(/\s+/)
+  if (words.length === 1) {
+    return words[0].slice(0, 2).toUpperCase()
+  }
+  return (words[0][0] + words[words.length - 1][0]).toUpperCase()
+}
+
 interface AvatarProps {
   src?: string
   size: number
   color?: string
   opacity?: number
+  name?: string
 }
 
 const AvatarContainer = styled.div<{ opacity: number }>`
@@ -55,12 +75,29 @@ const StyledAvatar = styled(ProfileIcon)<{
   }
 `
 
+const InitialsCircle = styled.div<{ size: number; bg: string }>`
+  width: ${(props) => props.size}px;
+  height: ${(props) => props.size}px;
+  border-radius: 50%;
+  background: ${(props) => props.bg};
+  color: #ffffff;
+  font-weight: bold;
+  font-size: ${(props) => Math.round(props.size * 0.4)}px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  user-select: none;
+  flex-shrink: 0;
+`
+
 export const Avatar: React.FC<AvatarProps> = (props) => {
   const [srcError, setSrcError] = useState(false)
 
   const handleSrcError = useCallback(() => {
     setSrcError(true)
   }, [])
+
+  const showInitials = (!props.src || srcError) && !!props.name
 
   return (
     <AvatarContainer opacity={props.opacity || 1}>
@@ -70,6 +107,13 @@ export const Avatar: React.FC<AvatarProps> = (props) => {
           size={props.size}
           onError={handleSrcError}
         />
+      ) : showInitials ? (
+        <InitialsCircle
+          size={props.size}
+          bg={INITIALS_PALETTE[props.name!.charCodeAt(0) % INITIALS_PALETTE.length]}
+        >
+          {getInitials(props.name!)}
+        </InitialsCircle>
       ) : (
         <StyledAvatar
           height={props.size}

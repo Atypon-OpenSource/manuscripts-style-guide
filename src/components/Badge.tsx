@@ -74,6 +74,7 @@ const BadgeContainer = styled.div<{
       ? `1px solid ${props.theme.colors.badge[props.$variant].border}`
       : 'none'};
   min-width: max-content;
+  text-transform: capitalize;
 `
 
 export const WarningBadge = styled.div`
