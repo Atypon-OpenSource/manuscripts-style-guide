@@ -1,6 +1,6 @@
 # Manuscripts Style Guide
 
-React components for Manuscripts applications.
+React components for Manuscripts applications. 
 
 ## Example usage
 
