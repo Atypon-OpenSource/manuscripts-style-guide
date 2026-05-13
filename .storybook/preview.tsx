@@ -3,7 +3,7 @@ import React from 'react'
 import { DndProvider } from 'react-dnd'
 import { HTML5Backend } from 'react-dnd-html5-backend'
 import { ThemeProvider } from 'styled-components'
-import 'typeface-lato'
+import '@fontsource/lato'
 import { defaultTheme } from '../src/defaultTheme'
 
 const preview: Preview = {
