@@ -1,4 +1,4 @@
-# Manuscripts Style Guide
+# Manuscripts Style Guide 
 
 React components for Manuscripts applications. 
 
