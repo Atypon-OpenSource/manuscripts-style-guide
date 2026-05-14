@@ -1,6 +1,6 @@
-# Manuscripts Style Guide
+# Manuscripts Style Guide 
 
-React components for Manuscripts applications.
+React components for Manuscripts applications. 
 
 ## Example usage 
 
@@ -16,7 +16,7 @@ const Example: React.FunctionComponent<{
 )
 ``` 
 
-## Development 
+## Development  
 
 Run `yarn build` to build the `dist` folder for distribution. 
 
