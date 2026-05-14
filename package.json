@@ -27,7 +27,8 @@
     "storybook": "storybook dev -p 6006",
     "typecheck": "tsc --noEmit",
     "version": "pnpm build",
-    "prepare": "husky"
+    "prepare": "husky",
+    "test": "echo 'No tests implemented' && exit 0"
   },
   "dependencies": {
     "@headlessui/react": "2.2.10",
