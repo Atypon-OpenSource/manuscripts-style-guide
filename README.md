@@ -1,14 +1,14 @@
-# Manuscripts Style Guide
+# Manuscripts Style Guide 
 
-React components for Manuscripts applications.
+React components for Manuscripts applications. 
 
-## Example usage
+## Example usage 
 
-```tsx 
+```tsx
 import { PrimaryButton } from '@manuscripts/style-guide'
 
 const Example: React.FunctionComponent<{
-  handleClick: React.MouseEventHandler<HTMLButtonElement>
+  handleClick: React.MouseEventHandler<HTMLButtonElement> 
 }> = ({ handleClick }) => (
   <div>
     <PrimaryButton onClick={handleClick}>Done</PrimaryButton>
@@ -16,7 +16,7 @@ const Example: React.FunctionComponent<{
 )
 ``` 
 
-## Development 
+## Development  
 
 Run `yarn build` to build the `dist` folder for distribution. 
 
