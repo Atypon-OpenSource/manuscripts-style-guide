@@ -95,6 +95,7 @@ const iconList: { name: string; Component: React.FC<IconProps> }[] = [
   { name: 'ImageLeftIcon', Component: Icons.ImageLeftIcon },
   { name: 'ImageDefaultIcon', Component: Icons.ImageDefaultIcon },
   { name: 'ImageRightIcon', Component: Icons.ImageRightIcon },
+  { name: 'InfoCircleIcon', Component: Icons.InfoCircleIcon },
   { name: 'InspectorPluginIcon', Component: Icons.InspectorPluginIcon },
   { name: 'LinkIcon', Component: Icons.LinkIcon },
   { name: 'LogoutIcon', Component: Icons.LogoutIcon },
@@ -149,6 +150,7 @@ const iconList: { name: string; Component: React.FC<IconProps> }[] = [
   { name: 'UploadIcon', Component: Icons.UploadIcon },
   { name: 'VerticalEllipsisIcon', Component: Icons.VerticalEllipsisIcon },
   { name: 'ToolbarUnindentIcon', Component: Icons.ToolbarUnindentIcon },
+  { name: 'XIcon', Component: Icons.XIcon },
 ]
 
 const meta: Meta = {

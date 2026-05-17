@@ -81,6 +81,11 @@ export const InspectorTab = styled(Tab)`
       border-color: ${(props) => props.theme.colors.brand.default};
       color: ${(props) => props.theme.colors.brand.default};
     }
+
+    &[data-headlessui-state~='selected'][data-headlessui-state~='focus'] {
+      outline: 2px solid ${(props) => props.theme.colors.outline.focus};
+      outline-offset: -2px;
+    }
   }
 `
 

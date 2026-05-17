@@ -1,5 +1,5 @@
 /*!
- * © 2020 Atypon Systems LLC
+ * © 2025 Atypon Systems LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,24 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import React from 'react'
-import styled from 'styled-components'
+import { defineConfig } from 'vitest/config'
 
-export const LoadingOverlay: React.FC<{ children: React.ReactNode }> = ({
-  children,
-}) => <Overlay>{children}</Overlay>
-
-const Overlay = styled.div`
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: white;
-  display: flex;
-  flex-direction: column;
-  padding: 0;
-  overflow: auto;
-  border: none;
-  z-index: 20;
-`
+export default defineConfig({
+  test: {
+    environment: 'jsdom',
+    include: ['**/__tests__/**/*.test.{ts,tsx}'],
+    passWithNoTests: true,
+  },
+})
