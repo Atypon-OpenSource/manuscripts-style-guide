@@ -12,13 +12,13 @@ const Example: React.FunctionComponent<{
 }> = ({ handleClick }) => (
   <div>
     <PrimaryButton onClick={handleClick}>Done</PrimaryButton>
-  </div>
+  </div> 
 )
-``` 
+```  
 
 ## Development  
 
-Run `yarn build` to build the `dist` folder for distribution. 
+Run `yarn build` to build the `dist` folder for distribution.  
 
 Run `yarn dev` to automatically rebuild when a file is changed.
 
