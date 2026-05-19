@@ -39,6 +39,7 @@ export const defaultTheme: Theme = {
       primary: colors.white,
       secondary: colors.alabasterGrey,
       tertiary: colors.mercuryGrey,
+      quaternary: colors.seashellGrey,
       fifth: colors.manuscriptsXLight2,
       dark: 'rgba(0,0,0,0.5)',
       error: colors.chablisRed,
@@ -184,6 +185,7 @@ export const defaultTheme: Theme = {
       },
       success: { background: colors.contrastGreen, color: colors.white },
       dark: { background: colors.greyMuted, color: colors.white },
+      orange: { background: colors.contrastOrange, color: colors.white },
     },
   },
   font: {
