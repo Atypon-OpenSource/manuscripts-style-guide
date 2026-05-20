@@ -34,7 +34,7 @@ interface StyledModalProps {
   }
 }
 
-export const StyledModal: React.FC<StyledModalProps> = ({
+export const StyledModalContent: React.FC<StyledModalProps> = ({
   isOpen,
   onRequestClose,
   shouldCloseOnOverlayClick = true,
@@ -97,7 +97,7 @@ export const StyledModal: React.FC<StyledModalProps> = ({
     }
   }
 
-  return createPortal(
+  return (
     <Dialog
       ref={dialogRef}
       onClick={e => {
@@ -110,7 +110,13 @@ export const StyledModal: React.FC<StyledModalProps> = ({
       style={style?.content}
     >
       {children}
-    </Dialog>,
+    </Dialog>
+  )
+}
+
+export const StyledModal: React.FC<StyledModalProps> = (props) => {
+  return createPortal(
+    <StyledModalContent {...props} />,
     document.body
   )
 }
