@@ -100,7 +100,10 @@ export const StyledModal: React.FC<StyledModalProps> = ({
   return createPortal(
     <Dialog
       ref={dialogRef}
-      onClick={handleBackdropClick}
+      onClick={e => {
+        e.stopPropagation() // modal called deep inside components treed propagates click to things that never expect it causing errors
+        handleBackdropClick(e)
+      }}
       $hideOverlay={hideOverlay}
       $pointerEventsOnBackdrop={pointerEventsOnBackdrop}
       className={className ? `Modal ${className}` : 'Modal'}
