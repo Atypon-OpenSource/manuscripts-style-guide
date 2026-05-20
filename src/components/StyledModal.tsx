@@ -54,7 +54,7 @@ export const StyledModalContent: React.FC<StyledModalProps> = ({
     }
 
     if (isOpen && !dialog.open) {
-      if (hideOverlay) {
+      if (hideOverlay) { // overlay is to be hidden - the content under needs to stay interactive - showModal() disable all under the modal
         dialog.show()
       } else {
         dialog.showModal()
@@ -136,6 +136,7 @@ const Dialog = styled.dialog<{
   outline: none;
   padding: 0;
   overflow: visible;
+  z-index: 100;
   opacity: 1;
   transition:
     opacity 0.5s ease-in-out,
