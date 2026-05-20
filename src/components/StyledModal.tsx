@@ -54,7 +54,12 @@ export const StyledModalContent: React.FC<StyledModalProps> = ({
     }
 
     if (isOpen && !dialog.open) {
-      dialog.showModal()
+      if (hideOverlay) {
+        dialog.show()
+      } else {
+        dialog.showModal()
+      }
+      
     } else if (!isOpen && dialog.open) {
       dialog.close()
     }
@@ -101,7 +106,7 @@ export const StyledModalContent: React.FC<StyledModalProps> = ({
     <Dialog
       ref={dialogRef}
       onClick={e => {
-        e.stopPropagation() // modal called deep inside components treed propagates click to things that never expect it causing errors
+        e.stopPropagation() // modal called deep inside components tree propagates click to things that never expect it causing errors
         handleBackdropClick(e)
       }}
       $hideOverlay={hideOverlay}
