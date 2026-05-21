@@ -1,7 +1,7 @@
 {
   "name": "@manuscripts/style-guide",
   "description": "Shared components for Manuscripts applications",
-  "version": "3.5.23-LEAN-5633.1",
+  "version": "3.5.25",
   "repository": "github:Atypon-OpenSource/manuscripts-style-guide",
   "license": "Apache-2.0",
   "main": "dist/cjs",
@@ -107,6 +107,6 @@
     "typescript": "5.9.2"
   },
   "engines": {
-    "node": ">=20.16.0"
+    "node": ">=22"
   }
 }

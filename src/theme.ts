@@ -81,6 +81,7 @@ interface Variations {
   primary: string
   secondary: string
   tertiary: string
+  quaternary?: string
   fifth?: string
 }
 
@@ -124,6 +125,7 @@ interface Badge {
   bordered: BadgeVariant
   success: BadgeVariant
   dark: BadgeVariant
+  orange: BadgeVariant
 }
 interface Text {
   muted: string
