@@ -41,6 +41,11 @@ const selectStyles = (
   variant?: 'small' | 'large',
   listMaxHeight?: string
 ): StylesConfig<OptionType, false> => ({
+  container: (base, state) => ({
+    ...base,
+    cursor: state.isDisabled ? 'not-allowed' : 'default',
+    pointerEvents: state.isDisabled ? 'auto' : base.pointerEvents,
+  }),
   control: (base, state) => ({
     ...base,
     minHeight: variant === 'large' ? 40 : 32,
@@ -70,6 +75,7 @@ const selectStyles = (
         : theme.colors.background.primary,
     transition: 'border-color 120ms ease, box-shadow 120ms ease',
     cursor: state.isDisabled ? 'not-allowed' : 'pointer',
+    pointerEvents: state.isDisabled ? 'none' : base.pointerEvents,
   }),
   valueContainer: (base) => ({
     ...base,
