@@ -48,6 +48,7 @@ export const defaultTheme: Theme = {
       warning: colors.veryLightYellow,
       selected: colors.aliceBlue,
       muted: colors.greyMuted,
+      disabled: colors.disabled,
       tracked: {
         active: colors.veryLightBlue,
         default: colors.white,

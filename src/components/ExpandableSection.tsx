@@ -93,7 +93,8 @@ const ContentOuter = styled.div<{ open: boolean }>`
   display: grid;
   grid-template-rows: ${(props) => (props.open ? '1fr' : '0fr')};
   overflow: ${(props) => (props.open ? 'visible' : 'hidden')};
-  transition: grid-template-rows 0.25s ease,
+  transition:
+    grid-template-rows 0.25s ease,
     overflow 0s ${(props) => (props.open ? '0.25s' : '0s')} allow-discrete;
 `
 
