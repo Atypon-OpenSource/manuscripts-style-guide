@@ -7,7 +7,7 @@ React components for Manuscripts applications.
 ```tsx
 import { PrimaryButton } from '@manuscripts/style-guide'
 
-const Example: React.FunctionComponent<{
+const Example: React.FunctionComponent<{ 
   handleClick: React.MouseEventHandler<HTMLButtonElement> 
 }> = ({ handleClick }) => (
   <div>
