@@ -110,7 +110,11 @@ export const Avatar: React.FC<AvatarProps> = (props) => {
       ) : showInitials ? (
         <InitialsCircle
           size={props.size}
-          bg={INITIALS_PALETTE[props.name!.charCodeAt(0) % INITIALS_PALETTE.length]}
+          bg={
+            INITIALS_PALETTE[
+              props.name!.charCodeAt(0) % INITIALS_PALETTE.length
+            ]
+          }
         >
           {getInitials(props.name!)}
         </InitialsCircle>

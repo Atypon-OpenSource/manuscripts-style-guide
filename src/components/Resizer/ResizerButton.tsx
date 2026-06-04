@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import React from 'react'
+import React, { useCallback } from 'react'
 import { DefaultTheme, StyledComponent } from 'styled-components'
 
 import {
@@ -47,23 +47,28 @@ const inners: Inners = {
   },
 }
 
-interface Props extends React.HTMLProps<HTMLButtonElement> {
+interface ResizerButtonProps {
   direction: ResizerDirection
-  isCollapsed: boolean
-  isVisible: boolean
+  isCollapsed?: boolean
+  isVisible?: boolean
+  onClick?: React.MouseEventHandler
   side: ResizerSide
   buttonInner?: React.ComponentType<ResizerButtonInnerProps>
 }
 
-export class ResizerButton extends React.PureComponent<Props> {
-  public static defaultProps = {
-    isCollapsed: false,
-    isVisible: false,
-  }
-
-  public render() {
-    const { buttonInner, direction, side, isCollapsed, onClick, isVisible } =
-      this.props
+export const ResizerButton: React.FC<ResizerButtonProps> = React.memo(
+  ({
+    buttonInner,
+    direction,
+    side,
+    isCollapsed = false,
+    isVisible = false,
+    onClick,
+  }) => {
+    const preventMouseDown = useCallback(
+      (event: React.MouseEvent) => event.preventDefault(),
+      []
+    )
 
     const ResizerButtonInner = buttonInner || inners[direction][side]
 
@@ -73,9 +78,11 @@ export class ResizerButton extends React.PureComponent<Props> {
         isCollapsed={isCollapsed}
         isVisible={isVisible}
         onClick={onClick}
-        onMouseDown={(event: React.MouseEvent) => event.preventDefault()}
+        onMouseDown={preventMouseDown}
         tabIndex={0}
       />
     )
   }
-}
+)
+
+ResizerButton.displayName = 'ResizerButton'
