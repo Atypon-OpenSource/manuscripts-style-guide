@@ -41,19 +41,20 @@ export const ExpandableSection: FC<ExpandableSectionProps> = ({
   }
 
   return (
-    <Container bordered={bordered}>
+    <Container bordered={bordered} data-cy="expandable-section">
       <Header
         onClick={() => setOpen((prev) => !prev)}
         onKeyDown={handleKeyDown}
         tabIndex={0}
         role="button"
         aria-expanded={open}
+        data-cy="expandable-section-header"
       >
         <Title>{title}</Title>
         <ArrowIcon open={open} />
       </Header>
-      <ContentOuter open={open} inert={!open || undefined}>
-        <ContentInner>
+      <ContentOuter open={open} inert={!open || undefined} data-cy="expandable-section-content-outer">
+        <ContentInner data-cy="expandable-section-content">
           <div>{children}</div>
         </ContentInner>
       </ContentOuter>
@@ -90,12 +91,14 @@ const ArrowIcon = styled(ArrowDownCircleIcon)<{ open: boolean }>`
 `
 
 const ContentOuter = styled.div<{ open: boolean }>`
-  display: grid;
-  grid-template-rows: ${(props) => (props.open ? '1fr' : '0fr')};
-  overflow: ${(props) => (props.open ? 'visible' : 'hidden')};
-  transition:
-    grid-template-rows 0.25s ease,
-    overflow 0s ${(props) => (props.open ? '0.25s' : '0s')} allow-discrete;
+  display: ${(props) => (props.open ? 'block' : 'none')};
+  // TODO: Uncomment this when we have a better solution for the overflow issue
+  // display: grid;
+  // grid-template-rows: ${(props) => (props.open ? '1fr' : '0fr')};
+  // overflow: ${(props) => (props.open ? 'visible' : 'hidden')};
+  // transition:
+  //   grid-template-rows 0.25s ease,
+  //   overflow 0s ${(props) => (props.open ? '0.25s' : '0s')} allow-discrete;
 `
 
 const ContentInner = styled.div`
