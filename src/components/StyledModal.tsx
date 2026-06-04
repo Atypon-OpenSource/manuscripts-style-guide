@@ -34,7 +34,7 @@ interface StyledModalProps {
   }
 }
 
-export const StyledModal: React.FC<StyledModalProps> = ({
+export const StyledModalContent: React.FC<StyledModalProps> = ({
   isOpen,
   onRequestClose,
   shouldCloseOnOverlayClick = true,
@@ -54,7 +54,12 @@ export const StyledModal: React.FC<StyledModalProps> = ({
     }
 
     if (isOpen && !dialog.open) {
-      dialog.showModal()
+      if (hideOverlay) { // overlay is to be hidden - the content under needs to stay interactive - showModal() disable all under the modal
+        dialog.show()
+      } else {
+        dialog.showModal()
+      }
+      
     } else if (!isOpen && dialog.open) {
       dialog.close()
     }
@@ -97,17 +102,26 @@ export const StyledModal: React.FC<StyledModalProps> = ({
     }
   }
 
-  return createPortal(
+  return (
     <Dialog
       ref={dialogRef}
-      onClick={handleBackdropClick}
+      onClick={e => {
+        e.stopPropagation() // modal called deep inside components tree propagates click to things that never expect it causing errors
+        handleBackdropClick(e)
+      }}
       $hideOverlay={hideOverlay}
       $pointerEventsOnBackdrop={pointerEventsOnBackdrop}
       className={className ? `Modal ${className}` : 'Modal'}
       style={style?.content}
     >
       {children}
-    </Dialog>,
+    </Dialog>
+  )
+}
+
+export const StyledModal: React.FC<StyledModalProps> = (props) => {
+  return createPortal(
+    <StyledModalContent {...props} />,
     document.body
   )
 }
@@ -122,6 +136,7 @@ const Dialog = styled.dialog<{
   outline: none;
   padding: 0;
   overflow: visible;
+  z-index: 100;
   opacity: 1;
   transition:
     opacity 0.5s ease-in-out,
