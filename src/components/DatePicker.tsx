@@ -30,6 +30,7 @@ export interface DatePickerProps {
   placeholder?: string
   showTimeSelect?: boolean
   required?: boolean
+  disabled?: boolean
 }
 
 export const DatePicker: React.FC<DatePickerProps> = ({
@@ -40,6 +41,7 @@ export const DatePicker: React.FC<DatePickerProps> = ({
   placeholder,
   showTimeSelect,
   required,
+  disabled,
 }) => {
   const [selectedDate, setSelectedDate] = useState<Date | null>(date || null)
 
@@ -69,6 +71,7 @@ export const DatePicker: React.FC<DatePickerProps> = ({
         className="calendar-input"
         popperPlacement="bottom"
         required={required}
+        disabled={disabled}
       />
       <IconWrapper>
         <CalendarIcon width={16} height={16} />
@@ -231,6 +234,18 @@ const Calendar = styled.div`
     &:hover {
       border-color: ${(props) => props.theme.colors.text.greyMuted};
       background-color: #f2fbfc;
+    }
+
+    &:disabled {
+      cursor: not-allowed;
+      background-color: ${(props) => props.theme.colors.background.disabled};
+      border-color: ${(props) => props.theme.colors.border.field.default};
+      color: ${(props) => props.theme.colors.text.secondary};
+
+      &:hover {
+        border-color: ${(props) => props.theme.colors.border.field.default};
+        background-color: ${(props) => props.theme.colors.background.disabled};
+      }
     }
   }
 `
