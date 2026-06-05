@@ -41,20 +41,19 @@ export const ExpandableSection: FC<ExpandableSectionProps> = ({
   }
 
   return (
-    <Container bordered={bordered} data-cy="expandable-section">
+    <Container bordered={bordered}>
       <Header
         onClick={() => setOpen((prev) => !prev)}
         onKeyDown={handleKeyDown}
         tabIndex={0}
         role="button"
         aria-expanded={open}
-        data-cy="expandable-section-header"
       >
         <Title>{title}</Title>
         <ArrowIcon open={open} />
       </Header>
-      <ContentOuter open={open} inert={!open || undefined} data-cy="expandable-section-content-outer">
-        <ContentInner data-cy="expandable-section-content">
+      <ContentOuter open={open} inert={!open || undefined}>
+        <ContentInner>
           <div>{children}</div>
         </ContentInner>
       </ContentOuter>
