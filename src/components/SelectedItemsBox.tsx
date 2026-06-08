@@ -114,11 +114,11 @@ export const SelectedItemsBox: React.FC<SelectedItemsBoxProps> = ({
               {item.label}
               {!props.disabled && (
                 <RemoveButton
-                onClick={() => onRemove(item.id)}
-                aria-label={`Remove ${item.label}`}
-              >
+                  onClick={() => onRemove(item.id)}
+                  aria-label={`Remove ${item.label}`}
+                >
                   x
-              </RemoveButton>
+                </RemoveButton>
               )}
             </Item>
           ))}
