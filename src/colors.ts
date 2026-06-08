@@ -34,6 +34,7 @@ export const mercuryGrey = '#e2e2e2'
 export const seashellGrey = '#f2f2f2'
 export const alabasterGrey = '#fafafa'
 export const white = '#fff'
+export const disabled = '#f5f5f5'
 
 /* BLUES */
 export const jellyBeanBlue = '#2781a1'
