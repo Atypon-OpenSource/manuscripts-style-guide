@@ -90,6 +90,7 @@ interface Background {
   selected: string
   tracked: States
   muted: string
+  disabled: string
 }
 interface Border {
   field: States

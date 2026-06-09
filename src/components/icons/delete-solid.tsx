@@ -17,7 +17,10 @@ import React from 'react'
 
 import { IconProps } from './types'
 
-const DeleteSolidIcon: React.FC<IconProps> = ({ color = '#6E6E6E', ...props }) => (
+const DeleteSolidIcon: React.FC<IconProps> = ({
+  color = '#6E6E6E',
+  ...props
+}) => (
   <svg
     width="20"
     height="20"

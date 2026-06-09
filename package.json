@@ -1,7 +1,7 @@
 {
   "name": "@manuscripts/style-guide",
   "description": "Shared components for Manuscripts applications",
-  "version": "3.5.25",
+  "version": "3.5.31",
   "repository": "github:Atypon-OpenSource/manuscripts-style-guide",
   "license": "Apache-2.0",
   "main": "dist/cjs",
@@ -31,6 +31,7 @@
     "test": "vitest run",
     "typecheck": "tsc --noEmit",
     "version": "pnpm build",
+    "unlink-all": "git checkout -- pnpm-workspace.yaml pnpm-lock.yaml && rm -rf node_modules && pnpm install",
     "prepare": "husky install"
   },
   "dependencies": {
@@ -45,7 +46,6 @@
     "prosemirror-state": "1.4.3",
     "prosemirror-view": "1.41.0",
     "react": "19.2.0",
-    "react-datepicker": "^7.6.0",
     "react-dnd": "16.0.1",
     "react-dnd-html5-backend": "16.0.1",
     "react-dom": "19.2.0",
@@ -75,7 +75,6 @@
     "@types/lodash": "4.17.16",
     "@types/node": "^20.19.25",
     "@types/react": "19.2.3",
-    "@types/react-datepicker": "^7.0.0",
     "@types/react-dom": "19.2.3",
     "@types/react-router-dom": "5.3.3",
     "@types/styled-components": "5.1.34",

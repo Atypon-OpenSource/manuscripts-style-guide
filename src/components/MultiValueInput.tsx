@@ -26,7 +26,7 @@ const Container = styled.div`
   flex-wrap: wrap;
   gap: 4px;
   align-items: center;
-  padding: 4px 8px;
+  padding: 0;
   background: ${(props) => props.theme.colors.background.primary};
 
   &:hover Input {
@@ -48,6 +48,7 @@ const Chip = styled.span`
   padding: ${(props) => props.theme.grid.unit}px;
   font-size: ${(props) => props.theme.font.size.small};
   line-height: ${(props) => props.theme.font.lineHeight.normal};
+  margin-left: 10px;
 
   & + Input {
     padding-left: 0;
@@ -84,7 +85,6 @@ const Input = styled.input`
   border: none;
   flex: 1;
   min-width: 6em;
-  padding: 10px 16px;
 
   appearance: none;
   -moz-appearance: textfield;
