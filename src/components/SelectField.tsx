@@ -104,6 +104,7 @@ const selectStyles = (
   }),
   menu: (base) => ({
     ...base,
+    marginTop: 2,
     borderRadius: 3,
     overflow: 'hidden',
     boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
