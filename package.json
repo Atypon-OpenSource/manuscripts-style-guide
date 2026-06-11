@@ -1,7 +1,7 @@
 {
   "name": "@manuscripts/style-guide",
   "description": "Shared components for Manuscripts applications",
-  "version": "3.5.31-LEAN-5633.0",
+  "version": "3.5.31",
   "repository": "github:Atypon-OpenSource/manuscripts-style-guide",
   "license": "Apache-2.0",
   "main": "dist/cjs",
@@ -31,6 +31,7 @@
     "test": "vitest run",
     "typecheck": "tsc --noEmit",
     "version": "pnpm build",
+    "unlink-all": "git checkout -- pnpm-workspace.yaml pnpm-lock.yaml && rm -rf node_modules && pnpm install",
     "prepare": "husky install"
   },
   "dependencies": {
