@@ -1,4 +1,5 @@
 # Manuscripts Style Guide 
+# 2026-06-11 16:44:00
 
 React components for Manuscripts applications.
 
@@ -23,3 +24,4 @@ Run `yarn build` to build the `dist` folder for distribution.
 Run `yarn dev` to automatically rebuild when a file is changed.
 
 If a component needs new theme properties, add the types to `src/theme.ts` and add the corresponding values to `.storybook/theme.ts`. 
+
