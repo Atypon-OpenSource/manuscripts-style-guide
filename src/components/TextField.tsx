@@ -18,11 +18,9 @@ import { Field } from 'formik'
 import React from 'react'
 import styled, { css } from 'styled-components'
 
-import { ErrorProps } from './Form'
-
 export interface BaseTextFieldProps {
-  error?: boolean | string
-  variant?: 'small' | 'large'
+  $error?: boolean | string
+  $variant?: 'small' | 'large'
 }
 
 export interface TextFieldProps
@@ -36,7 +34,7 @@ export interface TextAreaProps
 export const commonStyles = css<BaseTextFieldProps>`
   border: 1px solid
     ${(props) =>
-      props.error
+      props.$error
         ? props.theme.colors.border.error
         : props.theme.colors.border.field.default};
   border-radius: 3px;
@@ -47,19 +45,19 @@ export const commonStyles = css<BaseTextFieldProps>`
   line-height: ${(props) => props.theme.font.lineHeight.large};
   outline: none;
   padding: ${(props) => {
-    if (props.variant === 'small') {
+    if (props.$variant === 'small') {
       return '0 12px'
     }
-    if (props.variant === 'large') {
+    if (props.$variant === 'large') {
       return '4px 16px'
     }
     return '0 12px'
   }};
   min-height: ${(props) => {
-    if (props.variant === 'small') {
+    if (props.$variant === 'small') {
       return '32px'
     }
-    if (props.variant === 'large') {
+    if (props.$variant === 'large') {
       return '40px'
     }
     return '40px'
@@ -87,15 +85,15 @@ export const commonStyles = css<BaseTextFieldProps>`
   &:focus:not(:disabled) {
     border: 2px solid
       ${(props) =>
-        props.error
+        props.$error
           ? props.theme.colors.border.error
           : props.theme.colors.brand.default};
     background-color: #f2fbfc;
     ${(props) =>
-      props.variant &&
+      props.$variant &&
       css<BaseTextFieldProps>`
         padding: ${(props) =>
-          props.variant === 'small' ? '0 11px' : '3px 15px'};
+          props.$variant === 'small' ? '0 11px' : '3px 15px'};
       `}
   }
 

@@ -70,9 +70,9 @@ export const outlineStyle = css`
 `
 
 const btnStyles = css<{
-  danger?: boolean
+  $danger?: boolean
   disabled?: boolean
-  mini?: boolean
+  $mini?: boolean
 }>`
   align-items: center;
   background: transparent;
@@ -101,10 +101,10 @@ const btnStyles = css<{
     margin-left: ${(props) => props.theme.grid.unit}px;
   }
 
-  ${(props) => props.danger && dangerBtnStyles}
-  ${(props) => props.mini && miniBtnStyles}
+  ${(props) => props.$danger && dangerBtnStyles}
+  ${(props) => props.$mini && miniBtnStyles}
 
-  :disabled {
+  &:disabled {
     ${disabledBtnStyles}
   }
 
@@ -127,7 +127,7 @@ const btnColors = (
 
 const ButtonTemplate = styled.button.attrs((props) => ({
   type: props.type || 'button',
-}))`
+}))<{ $danger?: boolean; $mini?: boolean }>`
   ${btnStyles}
 `
 
@@ -240,13 +240,13 @@ export const IconTextButton = styled(ButtonTemplate)`
 `
 
 export const ToggleButton = styled(ButtonTemplate)<{
-  selected?: boolean
+  $selected?: boolean
 }>`
   color: ${(props) => props.theme.colors.text.primary};
   background-color: ${(props) =>
-    props.selected ? props.theme.colors.background.fifth : 'transparent'};
+    props.$selected ? props.theme.colors.background.fifth : 'transparent'};
   border-color: ${(props) =>
-    props.selected
+    props.$selected
       ? props.theme.colors.border.primary
       : props.theme.colors.border.secondary};
 
@@ -269,7 +269,7 @@ export const ToggleButton = styled(ButtonTemplate)<{
   svg {
     path[stroke] {
       stroke: ${(props) =>
-        props.selected
+        props.$selected
           ? props.theme.colors.brand.medium
           : props.theme.colors.text.primary};
     }
@@ -277,14 +277,14 @@ export const ToggleButton = styled(ButtonTemplate)<{
     rect[fill],
     path[fill] {
       fill: ${(props) =>
-        props.selected
+        props.$selected
           ? props.theme.colors.brand.medium
           : props.theme.colors.text.primary};
     }
   }
 `
 export const ToggleButtonAlt = styled(ButtonTemplate)<{
-  selected?: boolean
+  $selected?: boolean
 }>`
   color: ${(props) => props.theme.colors.text.primary};
   border-color: transparent;
@@ -292,7 +292,7 @@ export const ToggleButtonAlt = styled(ButtonTemplate)<{
   border-bottom: 1px solid transparent;
   border-radius: 0;
   ${(props) =>
-    props.selected && 'border-color: ' + props.theme.colors.border.info};
+    props.$selected && 'border-color: ' + props.theme.colors.border.info};
 
   font-size: ${(props) => props.theme.font.size.normal};
   padding: 0 ${(props) => props.theme.grid.unit}px;
@@ -303,7 +303,7 @@ export const ToggleButtonAlt = styled(ButtonTemplate)<{
   }
 `
 const svgColors = css<{
-  iconColor?: string
+  $iconColor?: string
 }>`
   svg {
     g[stroke] {
@@ -316,25 +316,25 @@ const svgColors = css<{
 
   svg {
     path[stroke] {
-      stroke: ${(props) => props.iconColor || 'currentColor'};
+      stroke: ${(props) => props.$iconColor || 'currentColor'};
     }
     text[fill],
     rect[fill],
     path[fill] {
-      fill: ${(props) => props.iconColor || 'currentColor'};
+      fill: ${(props) => props.$iconColor || 'currentColor'};
     }
   }
 `
 const IconButtonTemplate = styled(ButtonTemplate)<{
-  defaultColor?: boolean
-  size?: number
-  iconColor?: string
+  $defaultColor?: boolean
+  $size?: number
+  $iconColor?: string
 }>`
   padding: 0;
-  height: ${(props) => props.size || 40}px;
-  width: ${(props) => props.size || 40}px;
+  height: ${(props) => props.$size || 40}px;
+  width: ${(props) => props.$size || 40}px;
 
-  ${(props) => !props.defaultColor && svgColors}
+  ${(props) => !props.$defaultColor && svgColors}
 `
 
 export const IconButton = styled(IconButtonTemplate)`
@@ -368,7 +368,7 @@ export const IconButton = styled(IconButtonTemplate)`
 `
 
 export const RoundIconButton = styled(IconButton).attrs((props) => ({
-  defaultColor: true,
+  $defaultColor: true,
 }))`
   background: ${(props) => props.theme.colors.background.primary};
   border: 5px solid ${(props) => props.theme.colors.background.primary} !important;
@@ -430,14 +430,14 @@ export const ButtonGroup = styled.div`
   }
 `
 
-export const IconButtonGroup = styled.div<{ size?: number }>`
+export const IconButtonGroup = styled.div<{ $size?: number }>`
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
   align-items: center;
   button {
-    width: ${(props) => props.size || 28}px;
-    height: ${(props) => props.size || 28}px;
+    width: ${(props) => props.$size || 28}px;
+    height: ${(props) => props.$size || 28}px;
   }
 `
 

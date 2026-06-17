@@ -28,8 +28,8 @@ const opacityTransition = `opacity 200ms ease-in-out 100ms`
 const transformTransition = `transform 100ms ease-in-out`
 
 export interface ResizerButtonInnerProps {
-  isCollapsed: boolean
-  isVisible: boolean
+  $isCollapsed: boolean
+  $isVisible: boolean
 }
 
 const ResizerButtonInner = styled.button<ResizerButtonInnerProps>`
@@ -49,7 +49,7 @@ const ResizerButtonInner = styled.button<ResizerButtonInnerProps>`
     background-color: #ddd;
     border-radius: ${toggleArrowDepth}px;
     position: absolute;
-    opacity: ${(props) => (props.isVisible ? 1 : 0.5)};
+    opacity: ${(props) => (props.$isVisible ? 1 : 0.5)};
     transition: ${transformTransition}, ${opacityTransition};
   }
 
@@ -106,10 +106,10 @@ export const HorizontalEndResizerButtonInner = styled(
   &:hover,
   &:focus {
     &::before {
-      transform: rotate(${(props) => (props.isCollapsed ? '-40deg' : '40deg')});
+      transform: rotate(${(props) => (props.$isCollapsed ? '-40deg' : '40deg')});
     }
     &::after {
-      transform: rotate(${(props) => (props.isCollapsed ? '40deg' : '-40deg')});
+      transform: rotate(${(props) => (props.$isCollapsed ? '40deg' : '-40deg')});
     }
   }
 `
@@ -127,10 +127,10 @@ export const HorizontalStartResizerButtonInner = styled(
   &:hover,
   &:focus {
     &::before {
-      transform: rotate(${(props) => (props.isCollapsed ? '40deg' : '-40deg')});
+      transform: rotate(${(props) => (props.$isCollapsed ? '40deg' : '-40deg')});
     }
     &::after {
-      transform: rotate(${(props) => (props.isCollapsed ? '-40deg' : '40deg')});
+      transform: rotate(${(props) => (props.$isCollapsed ? '-40deg' : '40deg')});
     }
   }
 `
@@ -167,10 +167,10 @@ export const VerticalEndResizerButtonInner = styled(VerticalResizerButtonInner)`
   &:hover,
   &:focus {
     &::before {
-      transform: rotate(${(props) => (props.isCollapsed ? '40deg' : '-40deg')});
+      transform: rotate(${(props) => (props.$isCollapsed ? '40deg' : '-40deg')});
     }
     &::after {
-      transform: rotate(${(props) => (props.isCollapsed ? '-40deg' : '40deg')});
+      transform: rotate(${(props) => (props.$isCollapsed ? '-40deg' : '40deg')});
     }
   }
 `
@@ -190,10 +190,10 @@ export const VerticalStartResizerButtonInner = styled(
   &:hover,
   &:focus {
     &::before {
-      transform: rotate(${(props) => (props.isCollapsed ? '-40deg' : '40deg')});
+      transform: rotate(${(props) => (props.$isCollapsed ? '-40deg' : '40deg')});
     }
     &::after {
-      transform: rotate(${(props) => (props.isCollapsed ? '40deg' : '-40deg')});
+      transform: rotate(${(props) => (props.$isCollapsed ? '40deg' : '-40deg')});
     }
   }
 `

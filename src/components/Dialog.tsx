@@ -158,7 +158,7 @@ const PrimaryAction = (props: ButtonProps) =>
   props.isDestructive ? (
     props.hasForm ? (
       <PrimaryButton
-        danger={true}
+        $danger={true}
         disabled={props.disabled}
         form="formDialog"
         type="submit"
@@ -167,7 +167,7 @@ const PrimaryAction = (props: ButtonProps) =>
       </PrimaryButton>
     ) : (
       <PrimaryButton
-        danger={true}
+        $danger={true}
         disabled={props.disabled}
         onClick={props.action}
         autoFocus={true}

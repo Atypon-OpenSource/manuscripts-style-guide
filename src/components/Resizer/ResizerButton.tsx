@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 import React, { useCallback } from 'react'
-import { DefaultTheme, StyledComponent } from 'styled-components'
+import { DefaultTheme } from 'styled-components'
 
 import {
   HorizontalEndResizerButtonInner,
@@ -25,18 +25,8 @@ import {
 } from './ResizerButtonInner'
 import { ResizerDirection, ResizerSide } from './types'
 
-type Inners = {
-  [direction in ResizerDirection]: {
-    [side in ResizerSide]: StyledComponent<
-      'button',
-      DefaultTheme,
-      object,
-      never
-    >
-  }
-}
 
-const inners: Inners = {
+const inners = {
   column: {
     end: VerticalEndResizerButtonInner,
     start: VerticalStartResizerButtonInner,
@@ -75,8 +65,8 @@ export const ResizerButton: React.FC<ResizerButtonProps> = React.memo(
     return (
       <ResizerButtonInner
         aria-expanded={!isCollapsed}
-        isCollapsed={isCollapsed}
-        isVisible={isVisible}
+        $isCollapsed={isCollapsed}
+        $isVisible={isVisible}
         onClick={onClick}
         onMouseDown={preventMouseDown}
         tabIndex={0}

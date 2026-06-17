@@ -16,10 +16,10 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
 
-import { commonStyles } from './TextField'
+import { BaseTextFieldProps, commonStyles } from './TextField'
 
 // Styled Components
-const Container = styled.div`
+const Container = styled.div<BaseTextFieldProps>`
   ${commonStyles}
 
   display: flex;
@@ -79,7 +79,7 @@ const RemoveButton = styled.button`
   }
 `
 
-const Input = styled.input`
+const Input = styled.input<BaseTextFieldProps>`
   ${commonStyles}
 
   border: none;
