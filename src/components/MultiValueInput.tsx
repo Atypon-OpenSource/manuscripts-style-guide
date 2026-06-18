@@ -112,15 +112,15 @@ export const MultiValueInput: React.FC<MultiValueInputProps> = ({
   id,
   inputType,
   placeholder = '',
-  initialValues = [],
+  initialValues,
   onChange,
 }) => {
-  const [values, setValues] = useState<string[]>(initialValues)
+  const [values, setValues] = useState<string[]>(initialValues ?? [])
   const [currentValue, setCurrentValue] = useState<string>('')
 
   // reset initial state on form reset
   useEffect(() => {
-    setValues(initialValues)
+    setValues(initialValues ?? [])
     setCurrentValue('')
   }, [initialValues])
 
