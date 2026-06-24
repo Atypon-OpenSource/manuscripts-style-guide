@@ -424,7 +424,7 @@ export const ButtonGroup = styled.div`
   display: flex;
   justify-content: flex-end;
   align-items: center;
-
+  gap: 4px;
   button:not(:first-child) {
     margin-left: ${(props) => props.theme.grid.unit}px;
   }
