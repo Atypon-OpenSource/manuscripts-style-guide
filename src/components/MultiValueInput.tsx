@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 
 import { BaseTextFieldProps, commonStyles } from './TextField'
@@ -112,11 +112,17 @@ export const MultiValueInput: React.FC<MultiValueInputProps> = ({
   id,
   inputType,
   placeholder = '',
-  initialValues = [],
+  initialValues,
   onChange,
 }) => {
-  const [values, setValues] = useState<string[]>(initialValues)
+  const [values, setValues] = useState<string[]>(initialValues ?? [])
   const [currentValue, setCurrentValue] = useState<string>('')
+
+  // reset initial state on form reset
+  useEffect(() => {
+    setValues(initialValues ?? [])
+    setCurrentValue('')
+  }, [initialValues])
 
   // Add a value when "Enter" is pressed
   const handleAddValue = (value: string) => {
