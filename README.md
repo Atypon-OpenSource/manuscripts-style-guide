@@ -9,7 +9,7 @@ React components for Manuscripts applications.
 import { PrimaryButton } from '@manuscripts/style-guide'
 
 const Example: React.FunctionComponent<{ 
-  handleClick: React.MouseEventHandler<HTMLButtonElement>  
+  handleClick: React.MouseEventHandler<HTMLButtonElement>   
 }> = ({ handleClick }) => (
   <div> 
     <PrimaryButton onClick={handleClick}>Done</PrimaryButton>
