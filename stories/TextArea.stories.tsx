@@ -25,7 +25,7 @@ const meta: Meta<typeof TextArea> = {
   component: TextArea,
   argTypes: {
     disabled: { control: 'boolean' },
-    error: { control: 'text' },
+    $error: { control: 'text' },
   },
 }
 
@@ -83,7 +83,7 @@ export const TextAreaStates: Story = {
       </StateLabel>
       <FormField>
         <Label>Label</Label>
-        <TextArea value="Some content..." onChange={() => {}} rows={4} error />
+        <TextArea value="Some content..." onChange={() => {}} rows={4} $error />
         <InputErrorText>Error message</InputErrorText>
       </FormField>
 

@@ -50,9 +50,9 @@ export const ExpandableSection: FC<ExpandableSectionProps> = ({
         aria-expanded={open}
       >
         <Title>{title}</Title>
-        <ArrowIcon open={open} />
+        <ArrowIcon $open={open} />
       </Header>
-      <ContentOuter open={open} inert={!open || undefined}>
+      <ContentOuter $open={open} inert={!open || undefined}>
         <ContentInner>
           <div>{children}</div>
         </ContentInner>
@@ -84,18 +84,18 @@ const Title = styled.span`
   color: ${(props) => props.theme.colors.text.primary};
 `
 
-const ArrowIcon = styled(ArrowDownCircleIcon)<{ open: boolean }>`
+const ArrowIcon = styled(ArrowDownCircleIcon)<{ $open: boolean }>`
   transition: transform 0.25s ease;
-  transform: rotate(${(props) => (props.open ? '180deg' : '0deg')});
+  transform: rotate(${(props) => (props.$open ? '180deg' : '0deg')});
 `
 
-const ContentOuter = styled.div<{ open: boolean }>`
+const ContentOuter = styled.div<{ $open: boolean }>`
   display: grid;
-  grid-template-rows: ${(props) => (props.open ? '1fr' : '0fr')};
-  overflow: ${(props) => (props.open ? 'visible' : 'hidden')};
+  grid-template-rows: ${(props) => (props.$open ? '1fr' : '0fr')};
+  overflow: ${(props) => (props.$open ? 'visible' : 'hidden')};
   transition:
     grid-template-rows 0.25s ease,
-    overflow 0s ${(props) => (props.open ? '0.25s' : '0s')} allow-discrete;
+    overflow 0s ${(props) => (props.$open ? '0.25s' : '0s')} allow-discrete;
 `
 
 const ContentInner = styled.div`
