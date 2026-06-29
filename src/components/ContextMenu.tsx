@@ -125,7 +125,7 @@ export const ContextMenu: React.FC<ContextMenuProps> = ({ actions }) => {
   }, [actions])
 
   return (
-    <IconButtonGroup size={32} ref={containerRef}>
+    <IconButtonGroup $size={32} ref={containerRef}>
       {actions.map((action) => {
         const Icon = icons[action.icon]
         return (

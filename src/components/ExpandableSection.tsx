@@ -50,7 +50,7 @@ export const ExpandableSection: FC<ExpandableSectionProps> = ({
         aria-expanded={open}
       >
         <Title>{title}</Title>
-        <ArrowIcon open={open} />
+        <ArrowIcon $open={open} />
       </Header>
       <ContentOuter open={open} inert={!open || undefined}>
         <ContentInner>
@@ -84,14 +84,17 @@ const Title = styled.span`
   color: ${(props) => props.theme.colors.text.primary};
 `
 
-const ArrowIcon = styled(ArrowDownCircleIcon)<{ open: boolean }>`
+const ArrowIcon = styled(ArrowDownCircleIcon)<{ $open: boolean }>`
   transition: transform 0.25s ease;
-  transform: rotate(${(props) => (props.open ? '180deg' : '0deg')});
+  transform: rotate(${(props) => (props.$open ? '180deg' : '0deg')});
 `
 
 const ContentOuter = styled.div<{ open: boolean }>`
   display: ${(props) => (props.open ? 'block' : 'none')};
   // TODO: Uncomment this when we have a better solution for the overflow issue
+  // ISSUE: the width of the container is not limited
+  // - it is wider than the parent container 
+  // and the truncation is not working as expected
   // display: grid;
   // grid-template-rows: ${(props) => (props.open ? '1fr' : '0fr')};
   // overflow: ${(props) => (props.open ? 'visible' : 'hidden')};
