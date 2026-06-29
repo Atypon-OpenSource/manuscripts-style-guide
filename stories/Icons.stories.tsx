@@ -98,6 +98,8 @@ const iconList: { name: string; Component: React.FC<IconProps> }[] = [
   { name: 'InfoCircleIcon', Component: Icons.InfoCircleIcon },
   { name: 'InspectorPluginIcon', Component: Icons.InspectorPluginIcon },
   { name: 'LinkIcon', Component: Icons.LinkIcon },
+  { name: 'ExternalLinkIcon', Component: Icons.ExternalLinkIcon },
+  { name: 'ConvertLinkIcon', Component: Icons.ConvertLinkIcon },
   { name: 'LogoutIcon', Component: Icons.LogoutIcon },
   { name: 'ManuscriptIcon', Component: Icons.ManuscriptIcon },
   { name: 'OutlineBlockQuoteIcon', Component: Icons.OutlineBlockQuoteIcon },
