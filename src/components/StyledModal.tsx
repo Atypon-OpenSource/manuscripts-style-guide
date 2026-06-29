@@ -58,12 +58,12 @@ export const StyledModalContent: React.FC<StyledModalProps> = ({
     }
 
     if (isOpen && !dialog.open) {
-      if (hideOverlay) { // overlay is to be hidden - the content under needs to stay interactive - showModal() disable all under the modal
+      if (hideOverlay) {
+        // overlay is to be hidden - the content under needs to stay interactive - showModal() disable all under the modal
         dialog.show()
       } else {
         dialog.showModal()
       }
-      
     } else if (!isOpen && dialog.open) {
       dialog.close()
     }
@@ -109,7 +109,7 @@ export const StyledModalContent: React.FC<StyledModalProps> = ({
   return (
     <Dialog
       ref={dialogRef}
-      onClick={e => {
+      onClick={(e) => {
         e.stopPropagation() // modal called deep inside components tree propagates click to things that never expect it causing errors
         handleBackdropClick(e)
       }}
@@ -126,10 +126,7 @@ export const StyledModalContent: React.FC<StyledModalProps> = ({
 }
 
 export const StyledModal: React.FC<StyledModalProps> = (props) => {
-  return createPortal(
-    <StyledModalContent {...props} />,
-    document.body
-  )
+  return createPortal(<StyledModalContent {...props} />, document.body)
 }
 
 const Dialog = styled.dialog<{
