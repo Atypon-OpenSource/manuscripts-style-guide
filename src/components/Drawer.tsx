@@ -39,8 +39,8 @@ const slideIn = keyframes`
   }
 `
 
-const DrawerContainer = withFocusTrap(styled.div<{ width?: string }>`
-  width: ${(props) => props.width || '300px'};
+const DrawerContainer = withFocusTrap(styled.div<{ $width?: string }>`
+  width: ${(props) => props.$width || '300px'};
   background: ${(props) => props.theme.colors.background.primary};
   height: 100%;
   display: flex;
@@ -142,7 +142,7 @@ export const Drawer: React.FC<DrawerProps> = ({
   children,
 }) => {
   return (
-    <DrawerContainer data-cy="drawer" width={width}>
+    <DrawerContainer data-cy="drawer" $width={width}>
       <DrawerBackButton onClick={onBack}>
         <span>←</span>
         Back

@@ -9,9 +9,9 @@ React components for Manuscripts applications.
 import { PrimaryButton } from '@manuscripts/style-guide'
 
 const Example: React.FunctionComponent<{ 
-  handleClick: React.MouseEventHandler<HTMLButtonElement> 
+  handleClick: React.MouseEventHandler<HTMLButtonElement>   
 }> = ({ handleClick }) => (
-  <div>
+  <div> 
     <PrimaryButton onClick={handleClick}>Done</PrimaryButton>
   </div> 
 )
@@ -19,7 +19,7 @@ const Example: React.FunctionComponent<{
 
 ## Development  
 
-Run `yarn build` to build the `dist` folder for distribution.   
+Run `yarn build` to build the `dist` folder for distribution.     
 
 Run `yarn dev` to automatically rebuild when a file is changed.
 

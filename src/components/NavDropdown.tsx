@@ -28,9 +28,9 @@ export const NavDropdownContainer = styled.div`
 `
 
 export const NavDropdown = styled.div<{
-  direction?: 'left' | 'right'
-  minWidth?: number
-  top?: number
+  $direction?: 'left' | 'right'
+  $minWidth?: number
+  $top?: number
 }>`
   border: 1px solid ${(props) => props.theme.colors.border.secondary};
   border-radius: ${(props) => props.theme.grid.radius.small};
@@ -43,9 +43,9 @@ export const NavDropdown = styled.div<{
   font-weight: ${(props) => props.theme.font.weight.normal};
   max-height: 80vh;
   max-width: 300px;
-  ${(props) => props.minWidth && 'min-width: ' + props.minWidth + 'px;'}
-  ${(props) => (props.direction === 'right' ? ' right: 0' : 'left : 0')};
-  top: ${(props) => (props.top ? props.top : props.theme.grid.unit * 10)}px;
+  ${(props) => props.$minWidth && 'min-width: ' + props.$minWidth + 'px;'}
+  ${(props) => (props.$direction === 'right' ? ' right: 0' : 'left : 0')};
+  top: ${(props) => (props.$top ? props.$top : props.theme.grid.unit * 10)}px;
   position: absolute;
   z-index: 10;
 `
@@ -60,7 +60,7 @@ export const InvitedBy = styled.div`
   margin-top: ${(props) => props.theme.grid.unit * 2}px;
 `
 
-const commonStyles = css<{ disabled?: boolean }>`
+const commonStyles = css<{ $disabled?: boolean }>`
   display: flex;
   justify-content: space-between;
   padding: ${(props) => props.theme.grid.unit * 3}px
@@ -69,21 +69,21 @@ const commonStyles = css<{ disabled?: boolean }>`
   text-decoration: none;
   white-space: nowrap;
   color: ${(props) =>
-    props.disabled
+    props.$disabled
       ? props.theme.colors.text.secondary
       : props.theme.colors.text.primary};
-  pointer-events: ${(props) => (props.disabled ? 'none' : 'unset')};
+  pointer-events: ${(props) => (props.$disabled ? 'none' : 'unset')};
 
   &:hover {
     background: ${(props) => props.theme.colors.background.fifth};
   }
 `
 
-export const NavDropdownLink = styled(NavLink)`
+export const NavDropdownLink = styled(NavLink)<{ $disabled?: boolean }>`
   ${commonStyles};
 `
 
-export const NavDropdownElement = styled.div`
+export const NavDropdownElement = styled.div<{ $disabled?: boolean }>`
   ${commonStyles};
 
   cursor: pointer;
@@ -107,7 +107,7 @@ export const NavDropdownButtonText = styled.div`
 `
 
 interface DropdownProps {
-  isOpen: boolean
+  $isOpen: boolean
 }
 
 export const NavDropdownToggle = styled(ArrowUpIcon)`
@@ -121,7 +121,7 @@ export const NavDropdownToggle = styled(ArrowUpIcon)`
 
 export const NotificationsBadge = styled.div<DropdownProps>`
   background-color: ${(props) =>
-    props.isOpen
+    props.$isOpen
       ? props.theme.colors.background.success
       : props.theme.colors.brand.default};
   color: ${(props) => props.theme.colors.text.onDark};
@@ -138,11 +138,7 @@ export const NotificationsBadge = styled.div<DropdownProps>`
   border-radius: 50px;
 `
 
-export const NavDropdownButtonContainer = styled(SecondaryButton).attrs(
-  (props: DropdownProps) => ({
-    selected: props.isOpen,
-  })
-)<DropdownProps>`
+export const NavDropdownButtonContainer = styled(SecondaryButton)<DropdownProps>`
   .inheritColors path {
     fill: currentColor;
     stroke: currentColor;
@@ -178,13 +174,13 @@ export const NavDropdownButton: React.FunctionComponent<
     as={as}
     disabled={disabled}
     onClick={onClick}
-    isOpen={isOpen}
+    $isOpen={isOpen}
     className={'dropdown-toggle'}
     tabIndex={0}
   >
     <NavDropdownButtonText>{children}</NavDropdownButtonText>
     {!!notificationsCount && (
-      <NotificationsBadge isOpen={isOpen}>
+      <NotificationsBadge $isOpen={isOpen}>
         {notificationsCount}
       </NotificationsBadge>
     )}
