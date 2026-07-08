@@ -65,11 +65,11 @@ export const InputStates: Story = {
       </StateLabel>
       <FormField>
         <Label>Label</Label>
-        <TextField variant="large" placeholder="Placeholder" />
+        <TextField $variant="large" placeholder="Placeholder" />
       </FormField>
       <FormField>
         <Label>Label</Label>
-        <TextField variant="small" placeholder="Placeholder" />
+        <TextField $variant="small" placeholder="Placeholder" />
       </FormField>
 
       <StateLabel>
@@ -80,7 +80,7 @@ export const InputStates: Story = {
       <FormField>
         <Label>Label</Label>
         <TextField
-          variant="large"
+          $variant="large"
           placeholder="Placeholder"
           className="hover-state-large"
         />
@@ -89,7 +89,7 @@ export const InputStates: Story = {
       <FormField>
         <Label>Label</Label>
         <TextField
-          variant="small"
+          $variant="small"
           placeholder="Placeholder"
           className="hover-state-small"
         />
@@ -104,11 +104,11 @@ export const InputStates: Story = {
       <FormField>
         <Label>Label</Label>
         {/* eslint-disable-next-line jsx-a11y/no-autofocus */}
-        <TextField variant="large" placeholder="Placeholder" autoFocus />
+        <TextField $variant="large" placeholder="Placeholder" autoFocus />
       </FormField>
       <FormField>
         <Label>Label</Label>
-        <TextField variant="small" placeholder="Placeholder" />
+        <TextField $variant="small" placeholder="Placeholder" />
       </FormField>
 
       <StateLabel>
@@ -118,11 +118,11 @@ export const InputStates: Story = {
       </StateLabel>
       <FormField>
         <Label>Label</Label>
-        <TextField variant="large" value="Content" onChange={() => {}} />
+        <TextField $variant="large" value="Content" onChange={() => {}} />
       </FormField>
       <FormField>
         <Label>Label</Label>
-        <TextField variant="small" value="Content" onChange={() => {}} />
+        <TextField $variant="small" value="Content" onChange={() => {}} />
       </FormField>
 
       <StateLabel>
@@ -132,11 +132,11 @@ export const InputStates: Story = {
       </StateLabel>
       <FormField>
         <Label>Label</Label>
-        <TextField variant="large" value="Content" onChange={() => {}} />
+        <TextField $variant="large" value="Content" onChange={() => {}} />
       </FormField>
       <FormField>
         <Label>Label</Label>
-        <TextField variant="small" value="Content" onChange={() => {}} />
+        <TextField $variant="small" value="Content" onChange={() => {}} />
       </FormField>
 
       <StateLabel>
@@ -146,12 +146,12 @@ export const InputStates: Story = {
       </StateLabel>
       <FormField>
         <Label>Label</Label>
-        <TextField variant="large" placeholder="Placeholder" error />
+        <TextField $variant="large" placeholder="Placeholder" $error />
         <InputErrorText>Error message</InputErrorText>
       </FormField>
       <FormField>
         <Label>Label</Label>
-        <TextField variant="small" placeholder="Placeholder" error />
+        <TextField $variant="small" placeholder="Placeholder" $error />
         <InputErrorText>Error message</InputErrorText>
       </FormField>
 
@@ -162,12 +162,12 @@ export const InputStates: Story = {
       </StateLabel>
       <FormField>
         <Label>Label</Label>
-        <TextField variant="large" value="Content" onChange={() => {}} error />
+        <TextField $variant="large" value="Content" onChange={() => {}} $error />
         <InputErrorText>Error message</InputErrorText>
       </FormField>
       <FormField>
         <Label>Label</Label>
-        <TextField variant="small" value="Content" onChange={() => {}} error />
+        <TextField $variant="small" value="Content" onChange={() => {}} $error />
         <InputErrorText>Error message</InputErrorText>
       </FormField>
 
@@ -178,11 +178,11 @@ export const InputStates: Story = {
       </StateLabel>
       <FormField>
         <Label>Label</Label>
-        <TextField variant="large" placeholder="Placeholder" disabled />
+        <TextField $variant="large" placeholder="Placeholder" disabled />
       </FormField>
       <FormField>
         <Label>Label</Label>
-        <TextField variant="small" placeholder="Placeholder" disabled />
+        <TextField $variant="small" placeholder="Placeholder" disabled />
       </FormField>
 
       <StateLabel>
@@ -193,7 +193,7 @@ export const InputStates: Story = {
       <FormField>
         <Label>Label</Label>
         <TextField
-          variant="large"
+          $variant="large"
           value="Content"
           onChange={() => {}}
           disabled
@@ -202,7 +202,7 @@ export const InputStates: Story = {
       <FormField>
         <Label>Label</Label>
         <TextField
-          variant="small"
+          $variant="small"
           value="Content"
           onChange={() => {}}
           disabled

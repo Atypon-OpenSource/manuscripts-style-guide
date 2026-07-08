@@ -219,7 +219,7 @@ export const GroupContainerOneError: StoryObj<typeof TextFieldGroupContainer> =
           foo: 'There was an error',
         }}
       >
-        <TextField name={'foo'} error={'There was an error'} />
+        <TextField name={'foo'} $error={'There was an error'} />
         <TextField name={'bar'} />
       </TextFieldGroupContainer>
     ),
@@ -236,9 +236,9 @@ export const GroupContainerAnotherError: StoryObj<
         baz: 'There was another error',
       }}
     >
-      <TextField name={'foo'} error={'There was an error'} />
+      <TextField name={'foo'} $error={'There was an error'} />
       <TextField name={'bar'} />
-      <TextField name={'baz'} error={'There was another error'} />
+      <TextField name={'baz'} $error={'There was another error'} />
     </TextFieldGroupContainer>
   ),
 }
@@ -255,9 +255,9 @@ export const GroupContainerMultipleErrors: StoryObj<
         baz: 'There was a third error',
       }}
     >
-      <TextField name={'foo'} error={'There was an error'} />
-      <TextField name={'bar'} error={'There was another error'} />
-      <TextField name={'baz'} error={'There was a third error'} />
+      <TextField name={'foo'} $error={'There was an error'} />
+      <TextField name={'bar'} $error={'There was another error'} />
+      <TextField name={'baz'} $error={'There was a third error'} />
     </TextFieldGroupContainer>
   ),
 }

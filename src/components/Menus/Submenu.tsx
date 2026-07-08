@@ -82,14 +82,14 @@ const Arrow = styled(TriangleCollapsedIcon)`
   margin-left: 8px;
 `
 
-const Container = styled.div<{ isOpen: boolean }>`
+const Container = styled.div<{ $isOpen: boolean }>`
   position: relative;
   display: flex;
   align-items: center;
   cursor: pointer;
   padding: 8px 16px 8px 4px;
   outline: none;
-  ${(props) => props.isOpen && 'background: #f2fbfc;'}
+  ${(props) => props.$isOpen && 'background: #f2fbfc;'}
 
   &:hover, &:focus {
     background: #f2fbfc;
@@ -211,7 +211,7 @@ export const SubmenuLabel: React.FC<SubmenuProps> = ({
 
   return (
     <Container
-      isOpen={menu.isOpen}
+      $isOpen={menu.isOpen}
       data-cy={'submenu'}
       data-submenu-item
       className={menu.isEnabled ? '' : 'disabled'}

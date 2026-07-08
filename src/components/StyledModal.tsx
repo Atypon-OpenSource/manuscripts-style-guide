@@ -215,8 +215,8 @@ export const CloseButton = styled(RoundIconButton)<{ size?: number }>`
   text-indent: -99999px;
   z-index: 2;
 
-  ::before,
-  ::after {
+  &::before,
+  &::after {
     background-color: ${(props) => props.theme.colors.text.secondary};
     border-radius: 2px;
     content: ' ';
@@ -228,7 +228,7 @@ export const CloseButton = styled(RoundIconButton)<{ size?: number }>`
     top: calc(50% - 7px);
     left: calc(50% - 1px);
   }
-  ::after {
+  &::after {
     transform: rotate(45deg);
   }
 `
@@ -281,15 +281,15 @@ export const ScrollableModalContent = styled(ModelContent)`
   max-height: 100%;
 `
 
-export const ModalCardBody = styled.div<{ width?: number | string }>`
+export const ModalCardBody = styled.div<{ $width?: number | string }>`
   box-sizing: border-box;
   padding: ${(props) => 6 * props.theme.grid.unit}px;
   background-color: ${(props) => props.theme.colors.background.primary};
   width: ${(props) =>
-    props.width
-      ? typeof props.width === 'number'
-        ? `${props.width}px`
-        : props.width
+    props.$width
+      ? typeof props.$width === 'number'
+        ? `${props.$width}px`
+        : props.$width
       : '640px'};
   max-width: 60vw;
   max-height: 80vh;
