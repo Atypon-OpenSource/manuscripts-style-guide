@@ -424,10 +424,7 @@ export const ButtonGroup = styled.div`
   display: flex;
   justify-content: flex-end;
   align-items: center;
-
-  button:not(:first-child) {
-    margin-left: ${(props) => props.theme.grid.unit}px;
-  }
+  gap: ${(props) => props.theme.grid.unit * 2}px;
 `
 
 export const IconButtonGroup = styled.div<{ $size?: number }>`
