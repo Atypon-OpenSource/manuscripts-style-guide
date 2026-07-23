@@ -228,4 +228,3 @@ export const States: Story = {
     </StatesGrid>
   ),
 }
-

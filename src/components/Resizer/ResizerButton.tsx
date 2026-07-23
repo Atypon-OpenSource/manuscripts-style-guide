@@ -25,7 +25,6 @@ import {
 } from './ResizerButtonInner'
 import { ResizerDirection, ResizerSide } from './types'
 
-
 const inners = {
   column: {
     end: VerticalEndResizerButtonInner,

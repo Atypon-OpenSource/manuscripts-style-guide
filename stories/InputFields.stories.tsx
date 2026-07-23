@@ -162,12 +162,22 @@ export const InputStates: Story = {
       </StateLabel>
       <FormField>
         <Label>Label</Label>
-        <TextField $variant="large" value="Content" onChange={() => {}} $error />
+        <TextField
+          $variant="large"
+          value="Content"
+          onChange={() => {}}
+          $error
+        />
         <InputErrorText>Error message</InputErrorText>
       </FormField>
       <FormField>
         <Label>Label</Label>
-        <TextField $variant="small" value="Content" onChange={() => {}} $error />
+        <TextField
+          $variant="small"
+          value="Content"
+          onChange={() => {}}
+          $error
+        />
         <InputErrorText>Error message</InputErrorText>
       </FormField>
 

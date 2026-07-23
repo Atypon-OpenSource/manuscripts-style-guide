@@ -26,8 +26,10 @@ export const Shortcut = styled.span`
   border-radius: ${({ theme }) => theme.grid.radius.small};
   background: ${({ theme }) => theme.colors.background.primary};
   font-size: ${({ theme }) => theme.font.size.small};
-  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.10), 0 1px 2px -1px rgba(0, 0, 0, 0.10);
+  box-shadow:
+    0 1px 3px 0 rgba(0, 0, 0, 0.1),
+    0 1px 2px -1px rgba(0, 0, 0, 0.1);
 `
 export const ShortcutConnector = styled.span`
-  padding: 0 ${({ theme }) =>theme.grid.unit * 2}px;
+  padding: 0 ${({ theme }) => theme.grid.unit * 2}px;
 `

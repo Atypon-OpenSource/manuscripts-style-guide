@@ -23,6 +23,8 @@ interface ExpandableSectionProps {
   children: ReactNode
   defaultOpen?: boolean
   bordered?: boolean
+  className?: string
+  icon?: FC<React.SVGAttributes<SVGElement>>
 }
 
 export const ExpandableSection: FC<ExpandableSectionProps> = ({
@@ -30,6 +32,8 @@ export const ExpandableSection: FC<ExpandableSectionProps> = ({
   children,
   defaultOpen = true,
   bordered = false,
+  className,
+  icon: Icon,
 }) => {
   const [open, setOpen] = useState<boolean>(defaultOpen)
 
@@ -41,7 +45,7 @@ export const ExpandableSection: FC<ExpandableSectionProps> = ({
   }
 
   return (
-    <Container bordered={bordered}>
+    <Container bordered={bordered} className={className}>
       <Header
         onClick={() => setOpen((prev) => !prev)}
         onKeyDown={handleKeyDown}
@@ -50,7 +54,7 @@ export const ExpandableSection: FC<ExpandableSectionProps> = ({
         aria-expanded={open}
       >
         <Title>{title}</Title>
-        <ArrowIcon $open={open} />
+        <ArrowIcon as={Icon ?? ArrowDownCircleIcon} $open={open} />
       </Header>
       <ContentOuter $open={open} inert={!open || undefined}>
         <ContentInner>

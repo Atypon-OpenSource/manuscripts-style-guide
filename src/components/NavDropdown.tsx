@@ -138,7 +138,9 @@ export const NotificationsBadge = styled.div<DropdownProps>`
   border-radius: 50px;
 `
 
-export const NavDropdownButtonContainer = styled(SecondaryButton)<DropdownProps>`
+export const NavDropdownButtonContainer = styled(
+  SecondaryButton
+)<DropdownProps>`
   .inheritColors path {
     fill: currentColor;
     stroke: currentColor;
