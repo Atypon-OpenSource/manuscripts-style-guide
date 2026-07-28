@@ -3,7 +3,7 @@
 
 React components for Manuscripts applications.
 
-## Example usage 
+## Example usage
 
 ```tsx
 import { PrimaryButton } from '@manuscripts/style-guide'
