@@ -52,7 +52,7 @@ export const ExpandableSection: FC<ExpandableSectionProps> = ({
         <Title>{title}</Title>
         <ArrowIcon $open={open} />
       </Header>
-      <ContentOuter $open={open} inert={!open || undefined}>
+      <ContentOuter open={open} inert={!open || undefined}>
         <ContentInner>
           <div>{children}</div>
         </ContentInner>
@@ -89,13 +89,18 @@ const ArrowIcon = styled(ArrowDownCircleIcon)<{ $open: boolean }>`
   transform: rotate(${(props) => (props.$open ? '180deg' : '0deg')});
 `
 
-const ContentOuter = styled.div<{ $open: boolean }>`
-  display: grid;
-  grid-template-rows: ${(props) => (props.$open ? '1fr' : '0fr')};
-  overflow: ${(props) => (props.$open ? 'visible' : 'hidden')};
-  transition:
-    grid-template-rows 0.25s ease,
-    overflow 0s ${(props) => (props.$open ? '0.25s' : '0s')} allow-discrete;
+const ContentOuter = styled.div<{ open: boolean }>`
+  display: ${(props) => (props.open ? 'block' : 'none')};
+  // TODO: Uncomment this when we have a better solution for the overflow issue
+  // ISSUE: the width of the container is not limited
+  // - it is wider than the parent container 
+  // and the truncation is not working as expected
+  // display: grid;
+  // grid-template-rows: ${(props) => (props.open ? '1fr' : '0fr')};
+  // overflow: ${(props) => (props.open ? 'visible' : 'hidden')};
+  // transition:
+  //   grid-template-rows 0.25s ease,
+  //   overflow 0s ${(props) => (props.open ? '0.25s' : '0s')} allow-discrete;
 `
 
 const ContentInner = styled.div`
