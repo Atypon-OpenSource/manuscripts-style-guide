@@ -21,7 +21,7 @@ const RAW_COUNTRY_OPTIONS: { name: string; value: string }[] = [
   { name: 'Albania', value: 'Albania' },
   { name: 'Algeria', value: 'Algeria' },
   { name: 'American Samoa', value: 'American Samoa' },
-  { name: 'Andorra', value:  'Andorra' },
+  { name: 'Andorra', value: 'Andorra' },
   { name: 'Angola', value: 'Angola' },
   { name: 'Anguilla', value: 'Anguilla' },
   { name: 'Antarctica', value: 'Antarctica' },

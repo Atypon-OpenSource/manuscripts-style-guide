@@ -97,7 +97,7 @@ const ContentOuter = styled.div<{ open: boolean }>`
   display: ${(props) => (props.open ? 'block' : 'none')};
   // TODO: Uncomment this when we have a better solution for the overflow issue
   // ISSUE: the width of the container is not limited
-  // - it is wider than the parent container 
+  // - it is wider than the parent container
   // and the truncation is not working as expected
   // display: grid;
   // grid-template-rows: ${(props) => (props.open ? '1fr' : '0fr')};
