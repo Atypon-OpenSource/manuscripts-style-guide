@@ -1,7 +1,7 @@
 {
   "name": "@manuscripts/style-guide",
   "description": "Shared components for Manuscripts applications",
-  "version": "3.7.1",
+  "version": "3.7.2-LEAN-6049.0",
   "repository": "github:Atypon-OpenSource/manuscripts-style-guide",
   "license": "Apache-2.0",
   "main": "dist/cjs",
@@ -21,7 +21,9 @@
   },
   "typesVersions": {
     "*": {
-      "mui": ["dist/types/mui/index.d.ts"]
+      "mui": [
+        "dist/types/mui/index.d.ts"
+      ]
     }
   },
   "files": [
