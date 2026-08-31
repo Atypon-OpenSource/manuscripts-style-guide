@@ -106,10 +106,14 @@ export const HorizontalEndResizerButtonInner = styled(
   &:hover,
   &:focus {
     &::before {
-      transform: rotate(${(props) => (props.$isCollapsed ? '-40deg' : '40deg')});
+      transform: rotate(
+        ${(props) => (props.$isCollapsed ? '-40deg' : '40deg')}
+      );
     }
     &::after {
-      transform: rotate(${(props) => (props.$isCollapsed ? '40deg' : '-40deg')});
+      transform: rotate(
+        ${(props) => (props.$isCollapsed ? '40deg' : '-40deg')}
+      );
     }
   }
 `
@@ -127,10 +131,14 @@ export const HorizontalStartResizerButtonInner = styled(
   &:hover,
   &:focus {
     &::before {
-      transform: rotate(${(props) => (props.$isCollapsed ? '40deg' : '-40deg')});
+      transform: rotate(
+        ${(props) => (props.$isCollapsed ? '40deg' : '-40deg')}
+      );
     }
     &::after {
-      transform: rotate(${(props) => (props.$isCollapsed ? '-40deg' : '40deg')});
+      transform: rotate(
+        ${(props) => (props.$isCollapsed ? '-40deg' : '40deg')}
+      );
     }
   }
 `
@@ -167,10 +175,14 @@ export const VerticalEndResizerButtonInner = styled(VerticalResizerButtonInner)`
   &:hover,
   &:focus {
     &::before {
-      transform: rotate(${(props) => (props.$isCollapsed ? '40deg' : '-40deg')});
+      transform: rotate(
+        ${(props) => (props.$isCollapsed ? '40deg' : '-40deg')}
+      );
     }
     &::after {
-      transform: rotate(${(props) => (props.$isCollapsed ? '-40deg' : '40deg')});
+      transform: rotate(
+        ${(props) => (props.$isCollapsed ? '-40deg' : '40deg')}
+      );
     }
   }
 `
@@ -190,10 +202,14 @@ export const VerticalStartResizerButtonInner = styled(
   &:hover,
   &:focus {
     &::before {
-      transform: rotate(${(props) => (props.$isCollapsed ? '-40deg' : '40deg')});
+      transform: rotate(
+        ${(props) => (props.$isCollapsed ? '-40deg' : '40deg')}
+      );
     }
     &::after {
-      transform: rotate(${(props) => (props.$isCollapsed ? '40deg' : '-40deg')});
+      transform: rotate(
+        ${(props) => (props.$isCollapsed ? '40deg' : '-40deg')}
+      );
     }
   }
 `

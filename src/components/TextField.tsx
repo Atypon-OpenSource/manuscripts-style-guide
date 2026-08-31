@@ -24,11 +24,11 @@ export interface BaseTextFieldProps {
 }
 
 export interface TextFieldProps
-  extends React.InputHTMLAttributes<HTMLInputElement>,
-    BaseTextFieldProps {}
+  extends React.InputHTMLAttributes<HTMLInputElement>, BaseTextFieldProps {}
 
 export interface TextAreaProps
-  extends React.TextareaHTMLAttributes<HTMLTextAreaElement>,
+  extends
+    React.TextareaHTMLAttributes<HTMLTextAreaElement>,
     BaseTextFieldProps {}
 
 export const commonStyles = css<BaseTextFieldProps>`

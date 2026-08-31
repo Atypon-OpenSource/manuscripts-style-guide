@@ -25,7 +25,8 @@ export interface BaseDateInputProps {
 }
 
 export interface DateInputProps
-  extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'type'>,
+  extends
+    Omit<React.InputHTMLAttributes<HTMLInputElement>, 'type'>,
     BaseDateInputProps {}
 
 const inputStyles = css<BaseDateInputProps>`
