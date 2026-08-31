@@ -17,12 +17,12 @@ import React from 'react'
 
 import { IconProps } from './types'
 
-const ArrowDownIcon: React.FC<IconProps> = (props) => (
+const ArrowDownIcon: React.FC<IconProps> = ({ fill = '#6E6E6E', ...props }) => (
   <svg
     width="16"
     height="16"
     viewBox="0 0 16 16"
-    fill="none"
+    fill={fill}
     xmlns="http://www.w3.org/2000/svg"
     {...props}
   >
@@ -30,7 +30,6 @@ const ArrowDownIcon: React.FC<IconProps> = (props) => (
       fillRule="evenodd"
       clipRule="evenodd"
       d="M11.0625 6L12 6.9375L8 10.9375L4 6.9375L4.9375 6L8 9.0625L11.0625 6Z"
-      fill="#6E6E6E"
     />
   </svg>
 )

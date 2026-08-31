@@ -7,6 +7,23 @@
   "main": "dist/cjs",
   "module": "dist/es",
   "types": "dist/types",
+  "exports": {
+    ".": {
+      "types": "./dist/types/index.d.ts",
+      "import": "./dist/es/index.js",
+      "require": "./dist/cjs/index.js"
+    },
+    "./mui": {
+      "types": "./dist/types/mui/index.d.ts",
+      "import": "./dist/es/mui/index.js",
+      "require": "./dist/cjs/mui/index.js"
+    }
+  },
+  "typesVersions": {
+    "*": {
+      "mui": ["dist/types/mui/index.d.ts"]
+    }
+  },
   "files": [
     "dist",
     "styles"
@@ -34,7 +51,10 @@
     "prepare": "husky"
   },
   "dependencies": {
+    "@emotion/react": "11.14.0",
+    "@emotion/styled": "11.14.1",
     "@headlessui/react": "2.2.10",
+    "@mui/material": "6.4.5",
     "formik": "2.4.9",
     "prosemirror-commands": "1.7.1",
     "prosemirror-history": "1.4.1",

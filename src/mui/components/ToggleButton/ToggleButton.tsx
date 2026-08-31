@@ -1,5 +1,5 @@
 /*!
- * © 2024 Atypon Systems LLC
+ * © 2026 Atypon Systems LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,23 +13,30 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
+import MuiToggleButton, {
+  ToggleButtonProps as MuiToggleButtonProps,
+} from '@mui/material/ToggleButton'
 import React from 'react'
 
-import { IconProps } from './types'
+export interface ToggleButtonProps
+  extends Omit<MuiToggleButtonProps, 'size' | 'value'> {
+  danger?: boolean
+  size?: 'small' | 'medium' | 'large'
+  value?: MuiToggleButtonProps['value']
+}
 
-const AttentionBlueIcon: React.FC<IconProps> = ({fill = '#1A9BC7', ...props}) => (
-  <svg
-    width="20"
-    height="20"
-    viewBox="0 0 20 20"
-    fill={fill}
-    xmlns="http://www.w3.org/2000/svg"
-    {...props}
-  >
-    <path
-      d="M9 15H11V9H9V15ZM10 0C4.475 0 0 4.475 0 10C0 15.525 4.475 20 10 20C15.525 20 20 15.525 20 10C20 4.475 15.525 0 10 0ZM10 18C5.59 18 2 14.41 2 10C2 5.59 5.59 2 10 2C14.41 2 18 5.59 18 10C18 14.41 14.41 18 10 18ZM9 7H11V5H9V7Z"
-    />
-  </svg>
+export const ToggleButton = ({
+  danger,
+  size = 'medium',
+  color,
+  value = 'toggle',
+  ...rest
+}: ToggleButtonProps) => (
+  <MuiToggleButton
+    value={value}
+    color={danger ? 'error' : color}
+    size={size}
+    {...rest}
+  />
 )
-
-export default AttentionBlueIcon
