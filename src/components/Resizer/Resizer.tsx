@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 import React, { useCallback, useEffect, useRef, useState } from 'react'
-import { DefaultTheme, StyledComponent } from 'styled-components'
+import { DefaultTheme } from 'styled-components'
 
 import { ResizerButton } from './ResizerButton'
 import { ResizerButtonInnerProps } from './ResizerButtonInner'
@@ -26,13 +26,7 @@ import {
 } from './ResizerInner'
 import { ResizerDirection, ResizerSide } from './types'
 
-type Inners = {
-  [direction in ResizerDirection]: {
-    [side in ResizerSide]: StyledComponent<'div', DefaultTheme, object, never>
-  }
-}
-
-const inners: Inners = {
+const inners = {
   column: {
     end: VerticalEndResizerInner,
     start: VerticalStartResizerInner,

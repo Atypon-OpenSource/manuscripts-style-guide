@@ -32,23 +32,23 @@ const SystemUserAvatarContainer = styled.div`
   position: relative;
 `
 
-const RoundedImage = styled.img<{ size: number }>`
-  width: ${(props) => props.size}px;
-  height: ${(props) => props.size}px;
+const RoundedImage = styled.img<{ $size: number }>`
+  width: ${(props) => props.$size}px;
+  height: ${(props) => props.$size}px;
   border-radius: 50%;
   align-items: center;
   justify-content: center;
 `
 
 const StyledAvatar = styled(SystemUserAvatarIcon)<{
-  color?: string
+  $color?: string
 }>`
   path {
-    fill: ${(props) => props.color || props.theme.colors.text.secondary};
+    fill: ${(props) => props.$color || props.theme.colors.text.secondary};
   }
 
   &:hover path {
-    fill: ${(props) => props.color || props.theme.colors.text.info};
+    fill: ${(props) => props.$color || props.theme.colors.text.info};
   }
 `
 
@@ -64,14 +64,14 @@ export const Avatar: React.FC<SystemUserAvatarProps> = (props) => {
       {props.src && !srcError ? (
         <RoundedImage
           src={props.src}
-          size={props.size}
+          $size={props.size}
           onError={handleSrcError}
         />
       ) : (
         <StyledAvatar
           height={props.size}
           width={props.size}
-          color={props.color}
+          $color={props.color}
         />
       )}
     </SystemUserAvatarContainer>

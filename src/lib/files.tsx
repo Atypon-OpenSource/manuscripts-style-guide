@@ -22,6 +22,7 @@ import {
   FileDocumentIcon,
   FileFigureIcon,
   FileGraphicalAbstractIcon,
+  FileHeadshotGridIcon,
   FileImageIcon,
   FileLatexIcon,
   FilePdfIcon,
@@ -43,6 +44,7 @@ export enum FileType {
   PlainText,
   Figure,
   GraphicalAbstract,
+  HeadshotGrid,
 }
 
 const extension2type = new Map<string, FileType>([
@@ -154,6 +156,10 @@ const type2icon = new Map<FileType | undefined, ReactNode>([
       key={FileType.GraphicalAbstract}
       className="file-icon"
     />,
+  ],
+  [
+    FileType.HeadshotGrid,
+    <FileHeadshotGridIcon key={FileType.HeadshotGrid} className="file-icon" />,
   ],
   [undefined, <FileUnknownIcon key={undefined} className="file-icon" />],
 ])

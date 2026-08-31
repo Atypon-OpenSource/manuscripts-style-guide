@@ -30,7 +30,7 @@ const MenusContainer = styled.div`
   font-size: 14px;
 `
 
-const MenuHeading = styled.div<{ isOpen: boolean }>`
+const MenuHeading = styled.div<{ $isOpen: boolean }>`
   padding: 4px 8px;
   cursor: pointer;
 
@@ -40,16 +40,16 @@ const MenuHeading = styled.div<{ isOpen: boolean }>`
   }
 `
 
-const MenuContainer = styled.div<{ isEnabled: boolean }>`
+const MenuContainer = styled.div<{ $isEnabled: boolean }>`
   position: relative;
 
   & ${MenuHeading} {
     background-color: ${(props) => props.theme.colors.background.secondary};
     line-height: 24px;
-    color: ${(props) => (props.isEnabled ? '#353535' : '#e2e2e2')};
+    color: ${(props) => (props.$isEnabled ? '#353535' : '#e2e2e2')};
 
     &:hover {
-      background-color: ${(props) => (props.isEnabled ? '#f2fbfc' : '#fff')};
+      background-color: ${(props) => (props.$isEnabled ? '#f2fbfc' : '#fff')};
     }
   }
 `
@@ -147,7 +147,7 @@ export const Menus: React.FC<MenusProps> = ({
           <MenuContainer
             data-cy={'menu'}
             key={`menu-${index}`}
-            isEnabled={menu.isEnabled}
+            $isEnabled={menu.isEnabled}
           >
             <MenuHeading
               ref={(el) => {
@@ -157,7 +157,7 @@ export const Menus: React.FC<MenusProps> = ({
                 e.preventDefault()
                 handleClick([index])
               }}
-              isOpen={menu.isOpen}
+              $isOpen={menu.isOpen}
             >
               <Text>{menu.label}</Text>
             </MenuHeading>

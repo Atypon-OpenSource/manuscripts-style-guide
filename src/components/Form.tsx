@@ -73,18 +73,18 @@ export const FormField = styled.div`
 `
 
 export const FormRow = styled.div<{
-  direction?: 'row' | 'column'
-  justify?: string
-  align?: string
+  $direction?: 'row' | 'column'
+  $justify?: string
+  $align?: string
 }>`
   display: flex;
-  flex-direction: ${(props) => props.direction ?? 'column'};
+  flex-direction: ${(props) => props.$direction ?? 'column'};
   gap: ${(props) => props.theme.grid.unit * 2}px;
   margin-bottom: ${(props) => props.theme.grid.unit * 4}px;
-  justify-content: ${(props) => props.justify ?? 'flex-start'};
+  justify-content: ${(props) => props.$justify ?? 'flex-start'};
   align-items: ${(props) =>
-    props.align ?? (props.direction === 'row' ? 'center' : 'stretch')};
-  flex-wrap: ${(props) => (props.direction === 'row' ? 'wrap' : 'nowrap')};
+    props.$align ?? (props.$direction === 'row' ? 'center' : 'stretch')};
+  flex-wrap: ${(props) => (props.$direction === 'row' ? 'wrap' : 'nowrap')};
 `
 
 export const FormLabel = styled.legend`

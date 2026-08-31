@@ -46,43 +46,43 @@ interface AvatarProps {
   name?: string
 }
 
-const AvatarContainer = styled.div<{ opacity: number }>`
+const AvatarContainer = styled.div<{ $opacity: number }>`
   display: flex;
   align-items: center;
   justify-content: center;
   position: relative;
-  opacity: ${(props) => props.opacity};
+  opacity: ${(props) => props.$opacity};
 `
 
-const RoundedImage = styled.img<{ size: number }>`
-  width: ${(props) => props.size}px;
-  height: ${(props) => props.size}px;
+const RoundedImage = styled.img<{ $size: number }>`
+  width: ${(props) => props.$size}px;
+  height: ${(props) => props.$size}px;
   border-radius: 50%;
   align-items: center;
   justify-content: center;
 `
 
 const StyledAvatar = styled(ProfileIcon)<{
-  color?: string
-  opacity?: number
+  $color?: string
+  $opacity?: number
 }>`
   path {
-    fill: ${(props) => props.color || props.theme.colors.text.secondary};
+    fill: ${(props) => props.$color || props.theme.colors.text.secondary};
   }
 
   &:hover path {
-    fill: ${(props) => props.color || props.theme.colors.text.info};
+    fill: ${(props) => props.$color || props.theme.colors.text.info};
   }
 `
 
-const InitialsCircle = styled.div<{ size: number; bg: string }>`
-  width: ${(props) => props.size}px;
-  height: ${(props) => props.size}px;
+const InitialsCircle = styled.div<{ $size: number; $bg: string }>`
+  width: ${(props) => props.$size}px;
+  height: ${(props) => props.$size}px;
   border-radius: 50%;
-  background: ${(props) => props.bg};
+  background: ${(props) => props.$bg};
   color: #ffffff;
   font-weight: bold;
-  font-size: ${(props) => Math.round(props.size * 0.4)}px;
+  font-size: ${(props) => Math.round(props.$size * 0.4)}px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -100,17 +100,17 @@ export const Avatar: React.FC<AvatarProps> = (props) => {
   const showInitials = (!props.src || srcError) && !!props.name
 
   return (
-    <AvatarContainer opacity={props.opacity || 1}>
+    <AvatarContainer $opacity={props.opacity || 1}>
       {props.src && !srcError ? (
         <RoundedImage
           src={props.src}
-          size={props.size}
+          $size={props.size}
           onError={handleSrcError}
         />
       ) : showInitials ? (
         <InitialsCircle
-          size={props.size}
-          bg={
+          $size={props.size}
+          $bg={
             INITIALS_PALETTE[
               props.name!.charCodeAt(0) % INITIALS_PALETTE.length
             ]
@@ -122,7 +122,7 @@ export const Avatar: React.FC<AvatarProps> = (props) => {
         <StyledAvatar
           height={props.size}
           width={props.size}
-          color={props.color}
+          $color={props.color}
         />
       )}
     </AvatarContainer>

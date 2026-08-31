@@ -26,16 +26,16 @@ export interface ToggleSwitchProps {
   labelPosition?: 'left' | 'right'
 }
 
-const Track = styled.button<{ checked: boolean; disabled?: boolean }>`
+const Track = styled.button<{ $checked: boolean; disabled?: boolean }>`
   position: relative;
   width: 30px;
   height: 16px;
   border-radius: 999px;
   border: 1px solid
     ${(props) =>
-      props.checked ? '#0d79d0' : props.theme.colors.text.secondary};
+      props.$checked ? '#0d79d0' : props.theme.colors.text.secondary};
   background: ${(props) =>
-    props.checked ? '#0d79d0' : props.theme.colors.text.secondary};
+    props.$checked ? '#0d79d0' : props.theme.colors.text.secondary};
   padding: 0;
   cursor: ${(props) => (props.disabled ? 'not-allowed' : 'pointer')};
   transition:
@@ -55,10 +55,10 @@ const Track = styled.button<{ checked: boolean; disabled?: boolean }>`
   }
 `
 
-const Thumb = styled.span<{ checked: boolean; disabled?: boolean }>`
+const Thumb = styled.span<{ $checked: boolean; $disabled?: boolean }>`
   position: absolute;
   top: 0;
-  left: ${(props) => (props.checked ? '14px' : '0px')};
+  left: ${(props) => (props.$checked ? '14px' : '0px')};
   width: 14px;
   height: 14px;
   border-radius: 50%;
@@ -67,29 +67,29 @@ const Thumb = styled.span<{ checked: boolean; disabled?: boolean }>`
   transition: left 120ms ease;
 
   ${(props) =>
-    props.disabled &&
+    props.$disabled &&
     `
     background: #fdfdfd;
     box-shadow: none;
   `}
 `
 
-const LabelText = styled.span<{ disabled?: boolean }>`
+const LabelText = styled.span<{ $disabled?: boolean }>`
   color: ${(props) =>
-    props.disabled ? '#b3b3b3' : props.theme.colors.text.primary};
+    props.$disabled ? '#b3b3b3' : props.theme.colors.text.primary};
   font: ${(props) => props.theme.font.weight.normal}
     ${(props) => props.theme.font.size.medium} / 1
     ${(props) => props.theme.font.family.sans};
   line-height: 20px;
 `
 
-const Container = styled.label<{ labelPosition: 'left' | 'right' }>`
+const Container = styled.label<{ $labelPosition: 'left' | 'right' }>`
   display: inline-flex;
   align-items: center;
   gap: 8px;
   cursor: pointer;
   flex-direction: ${(props) =>
-    props.labelPosition === 'left' ? 'row' : 'row-reverse'};
+    props.$labelPosition === 'left' ? 'row' : 'row-reverse'};
 `
 
 export const ToggleSwitch: React.FC<ToggleSwitchProps> = ({
@@ -101,19 +101,19 @@ export const ToggleSwitch: React.FC<ToggleSwitchProps> = ({
   labelPosition = 'left',
 }) => {
   return (
-    <Container labelPosition={labelPosition}>
-      {label && <LabelText disabled={disabled}>{label}</LabelText>}
+    <Container $labelPosition={labelPosition}>
+      {label && <LabelText $disabled={disabled}>{label}</LabelText>}
       <Track
         id={id}
         type="button"
         role="switch"
         aria-checked={checked}
         aria-label={label}
-        checked={checked}
+        $checked={checked}
         disabled={disabled}
         onClick={() => !disabled && onChange(!checked)}
       >
-        <Thumb checked={checked} disabled={disabled} />
+        <Thumb $checked={checked} $disabled={disabled} />
       </Track>
     </Container>
   )

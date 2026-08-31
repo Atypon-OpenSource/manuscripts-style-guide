@@ -58,12 +58,12 @@ export const StyledModalContent: React.FC<StyledModalProps> = ({
     }
 
     if (isOpen && !dialog.open) {
-      if (hideOverlay) { // overlay is to be hidden - the content under needs to stay interactive - showModal() disable all under the modal
+      if (hideOverlay) {
+        // overlay is to be hidden - the content under needs to stay interactive - showModal() disable all under the modal
         dialog.show()
       } else {
         dialog.showModal()
       }
-      
     } else if (!isOpen && dialog.open) {
       dialog.close()
     }
@@ -109,7 +109,7 @@ export const StyledModalContent: React.FC<StyledModalProps> = ({
   return (
     <Dialog
       ref={dialogRef}
-      onClick={e => {
+      onClick={(e) => {
         e.stopPropagation() // modal called deep inside components tree propagates click to things that never expect it causing errors
         handleBackdropClick(e)
       }}
@@ -126,10 +126,7 @@ export const StyledModalContent: React.FC<StyledModalProps> = ({
 }
 
 export const StyledModal: React.FC<StyledModalProps> = (props) => {
-  return createPortal(
-    <StyledModalContent {...props} />,
-    document.body
-  )
+  return createPortal(<StyledModalContent {...props} />, document.body)
 }
 
 const Dialog = styled.dialog<{
@@ -215,8 +212,8 @@ export const CloseButton = styled(RoundIconButton)<{ size?: number }>`
   text-indent: -99999px;
   z-index: 2;
 
-  ::before,
-  ::after {
+  &::before,
+  &::after {
     background-color: ${(props) => props.theme.colors.text.secondary};
     border-radius: 2px;
     content: ' ';
@@ -228,7 +225,7 @@ export const CloseButton = styled(RoundIconButton)<{ size?: number }>`
     top: calc(50% - 7px);
     left: calc(50% - 1px);
   }
-  ::after {
+  &::after {
     transform: rotate(45deg);
   }
 `
@@ -281,15 +278,15 @@ export const ScrollableModalContent = styled(ModelContent)`
   max-height: 100%;
 `
 
-export const ModalCardBody = styled.div<{ width?: number | string }>`
+export const ModalCardBody = styled.div<{ $width?: number | string }>`
   box-sizing: border-box;
   padding: ${(props) => 6 * props.theme.grid.unit}px;
   background-color: ${(props) => props.theme.colors.background.primary};
   width: ${(props) =>
-    props.width
-      ? typeof props.width === 'number'
-        ? `${props.width}px`
-        : props.width
+    props.$width
+      ? typeof props.$width === 'number'
+        ? `${props.$width}px`
+        : props.$width
       : '640px'};
   max-width: 60vw;
   max-height: 80vh;

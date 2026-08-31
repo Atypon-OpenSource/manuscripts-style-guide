@@ -20,22 +20,23 @@ import styled, { css } from 'styled-components'
 import { CalendarIcon } from './icons'
 
 export interface BaseDateInputProps {
-  error?: boolean | string
-  variant?: 'small' | 'large'
+  $error?: boolean | string
+  $variant?: 'small' | 'large'
 }
 
 export interface DateInputProps
-  extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'type'>,
+  extends
+    Omit<React.InputHTMLAttributes<HTMLInputElement>, 'type'>,
     BaseDateInputProps {}
 
 const inputStyles = css<BaseDateInputProps>`
   box-sizing: border-box;
   width: 100%;
-  min-height: ${(props) => (props.variant === 'small' ? '32px' : '40px')};
+  min-height: ${(props) => (props.$variant === 'small' ? '32px' : '40px')};
   padding: 0 36px 0 12px;
   border: 1px solid
     ${(props) =>
-      props.error
+      props.$error
         ? props.theme.colors.border.error
         : props.theme.colors.border.field.default};
   border-radius: 3px;
@@ -70,7 +71,7 @@ const inputStyles = css<BaseDateInputProps>`
   &:focus:not(:disabled) {
     border: 2px solid
       ${(props) =>
-        props.error
+        props.$error
           ? props.theme.colors.border.error
           : props.theme.colors.brand.default};
     background-color: #f2fbfc;
