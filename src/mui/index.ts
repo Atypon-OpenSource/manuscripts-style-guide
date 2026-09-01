@@ -14,9 +14,6 @@
  * limitations under the License.
  */
 
-// Experimental MUI track - opt in via `@manuscripts/style-guide/mui`.
-// Fully additive; the styled-components exports at the package root are
-// untouched.
 export * from './theme'
 export * from './components/Button'
 export * from './components/IconButton'

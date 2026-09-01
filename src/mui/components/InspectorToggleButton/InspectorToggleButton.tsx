@@ -29,10 +29,6 @@ const InspectorToggleButtonRoot = styled(IconButton)(({ theme }) => ({
   boxShadow: '0 0 8px 0 rgba(0, 0, 0, 0.12)',
 }))
 
-/**
- * Shared circular edge handle chrome for inspector / sidebar panels.
- * Hosts own position via `sx` or a styled wrapper.
- */
 export const InspectorToggleButton = ({
   size = 'medium',
   type = 'button',

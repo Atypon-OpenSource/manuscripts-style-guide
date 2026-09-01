@@ -18,11 +18,6 @@ import { createTheme } from '@mui/material/styles'
 
 import { palette } from './palette'
 
-/**
- * Experimental, MUI-native theme. Independent from `defaultTheme.ts`
- * (styled-components) - not an adapter over it, but sourced from the same
- * visual values via `./palette` so the two tracks don't visually drift.
- */
 export const muiTheme = createTheme({
   palette: {
     primary: palette.primary,
@@ -48,17 +43,17 @@ export const muiTheme = createTheme({
   breakpoints: {
     values: {
       xs: 0,
-      sm: 360, // grid.mobile
-      md: 768, // grid.tablet
-      lg: 1024, // grid.smallDesktop
-      xl: 1280, // grid.desktop
+      sm: 360,
+      md: 768,
+      lg: 1024,
+      xl: 1280,
     },
   },
   components: {
     MuiButton: {
       styleOverrides: {
         root: {
-          borderRadius: 4, // grid.radius.small, matches existing Button.tsx
+          borderRadius: 4,
         },
         outlined: {
           borderColor: palette.grey[300],
@@ -72,7 +67,7 @@ export const muiTheme = createTheme({
     MuiIconButton: {
       styleOverrides: {
         root: {
-          borderRadius: 4, // grid.radius.small
+          borderRadius: 4,
         },
       },
     },

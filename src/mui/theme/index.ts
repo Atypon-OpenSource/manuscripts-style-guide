@@ -16,6 +16,8 @@
 
 export { muiTheme } from './theme'
 export { palette } from './palette'
-// re-exported so consumers only ever import from `@manuscripts/style-guide/mui`
-export { ThemeProvider as MuiThemeProvider } from '@mui/material/styles'
+export {
+  styled,
+  ThemeProvider as MuiThemeProvider,
+} from '@mui/material/styles'
 

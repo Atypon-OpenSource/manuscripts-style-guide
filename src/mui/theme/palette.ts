@@ -14,61 +14,55 @@
  * limitations under the License.
  */
 
-// Deliberately decoupled from `../../colors.ts` (kept untouched) - this is the
-// deduped palette for the experimental MUI track: dead tokens are dropped and
-// the greyMutedText/greyLight duplicate is collapsed to one value. Hex values
-// are copied manually so visuals stay identical to the existing theme.
 export const palette = {
   primary: {
-    dark: '#0b6bb8', // manuscriptsBlueDark
-    main: '#0d79d0', // manuscriptsBlue
-    light: '#bce7f6', // manuscriptsLight
+    dark: '#0b6bb8',
+    main: '#0d79d0',
+    light: '#bce7f6',
     contrastText: '#fff',
   },
   secondary: {
-    main: '#353535', // manuscriptsSecondary
+    main: '#353535',
   },
   error: {
-    dark: '#c74237', // darkRed
-    main: '#e1200e', // punchRed
-    light: '#f5c1b7', // mandysRed
+    dark: '#c74237',
+    main: '#e1200e',
+    light: '#f5c1b7',
     contrastText: '#fff',
   },
   success: {
-    dark: '#31a056', // contrastGreen
-    main: '#36b260', // killarneyGreen
-    light: '#eefbe9', // veryLightGreen
+    dark: '#31a056',
+    main: '#36b260',
+    light: '#eefbe9',
     contrastText: '#fff',
   },
   warning: {
-    dark: '#fa5700', // contrastOrange
-    main: '#fe8f1f', // zestOrange (only survivor of the yellow/orange family)
-    light: '#fffcdb', // butteryYellow
+    dark: '#fa5700',
+    main: '#fe8f1f',
+    light: '#fffcdb',
     contrastText: '#353535',
   },
   info: {
-    main: '#1a9bc7', // manuscriptsIcons
-    light: '#f5fbfc', // manuscriptsXLight2
+    main: '#1a9bc7',
+    light: '#f5fbfc',
     contrastText: '#fff',
   },
   grey: {
-    50: '#fafafa', // alabasterGrey
-    100: '#f2f2f2', // seashellGrey
-    200: '#f5f5f5', // disabled
-    300: '#e2e2e2', // mercuryGrey
-    400: '#c9c9c9', // greyLight (greyMutedText duplicate dropped)
-    700: '#6e6e6e', // greyMuted
-    900: '#353535', // greyDark
+    50: '#fafafa',
+    100: '#f2f2f2',
+    200: '#f5f5f5',
+    300: '#e2e2e2',
+    400: '#c9c9c9',
+    700: '#6e6e6e',
+    900: '#353535',
   },
   common: {
     black: '#000',
     white: '#fff',
   },
-  focus: '#3DADFF', // focusBlue, used for the focus-visible outline
-  // hover/active accents not covered by the palette entries above (used by
-  // consumers building selected/active nav-style states on top of Button)
+  focus: '#3DADFF',
   brand: {
-    medium: '#1a9bc7', // manuscriptsIcons, same value as info.main
-    xlight: '#ddf3fa', // manuscriptsXLight
+    medium: '#1a9bc7',
+    xlight: '#ddf3fa',
   },
 } as const
