@@ -73,7 +73,7 @@ export const Variations: Story = {
       <StorySectionInner>
         <h2>Mini</h2>
         <Div>
-          <Button variant="primary" mini onClick={fn()}>
+          <Button variant="primary" size="small" onClick={fn()}>
             Primary
           </Button>
         </Div>
