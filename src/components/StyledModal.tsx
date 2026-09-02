@@ -24,6 +24,7 @@ import { SidebarStyles } from './Sidebar'
 interface StyledModalProps {
   isOpen: boolean
   onRequestClose?: (e?: Event) => void
+  onExited?: () => void
   shouldCloseOnOverlayClick?: boolean
   hideOverlay?: boolean
   pointerEventsOnBackdrop?: 'all' | 'none' | 'auto'
@@ -47,6 +48,7 @@ export const StyledModalContent: React.FC<StyledModalProps> = ({
   style,
   ariaLabelledby,
   id,
+  onExited,
 }) => {
   const dialogRef = useRef<HTMLDialogElement>(null)
   const closedByCancelRef = useRef(false)
@@ -59,13 +61,23 @@ export const StyledModalContent: React.FC<StyledModalProps> = ({
 
     if (isOpen && !dialog.open) {
       if (hideOverlay) {
-        // overlay is to be hidden - the content under needs to stay interactive - showModal() disable all under the modal
+        // overlay is to be hidden - the content under needs to stay interactive - showModal() disables all under the modal
         dialog.show()
       } else {
         dialog.showModal()
       }
     } else if (!isOpen && dialog.open) {
+      const handleTransitionEnd = (e: TransitionEvent) => {
+        if (e.target !== dialog) return
+        if (e.pseudoElement !== '') return // ::backdrop reports target as the dialog
+        if (e.propertyName !== 'opacity') return
+        if (dialog.open) return // that was the opening transition
+        onExited?.()
+      }
+      dialog.addEventListener('transitionend', handleTransitionEnd)
       dialog.close()
+      return () =>
+        dialog.removeEventListener('transitionend', handleTransitionEnd)
     }
   }, [isOpen])
 
