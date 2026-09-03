@@ -21,7 +21,7 @@ import styled, { css } from 'styled-components'
 import { RoundIconButton } from './Button'
 import { SidebarStyles } from './Sidebar'
 
-interface StyledModalProps {
+export interface StyledModalProps {
   isOpen: boolean
   onRequestClose?: (e?: Event) => void
   onExited?: () => void
