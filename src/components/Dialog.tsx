@@ -101,6 +101,7 @@ interface DialogProps {
   className?: string
   children?: React.ReactNode,
   portaled?: boolean
+  onExited?: () => void
 }
 
 export enum Category {
@@ -224,6 +225,7 @@ export class Dialog extends React.Component<DialogProps, DialogState> {
       children,
       confirmFieldText,
       className,
+      onExited
     } = this.props
     const { primaryActionDisabled } = this.state
     const { Parent } = this
@@ -234,6 +236,7 @@ export class Dialog extends React.Component<DialogProps, DialogState> {
         onRequestClose={actions.onClose}
         shouldCloseOnOverlayClick={true}
         className={className}
+        onExited={onExited}
       >
         <DialogModalBody>
           <HeaderContainer>
