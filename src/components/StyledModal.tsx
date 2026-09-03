@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import React, { useEffect, useRef } from 'react'
+import React, { useEffect, useMemo, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
 import styled, { css } from 'styled-components'
 
@@ -52,6 +52,7 @@ export const StyledModalContent: React.FC<StyledModalProps> = ({
 }) => {
   const dialogRef = useRef<HTMLDialogElement>(null)
   const closedByCancelRef = useRef(false)
+  const [isHidden, setHidden] = useState(false)
 
   useEffect(() => {
     const dialog = dialogRef.current
@@ -67,12 +68,15 @@ export const StyledModalContent: React.FC<StyledModalProps> = ({
         dialog.showModal()
       }
     } else if (!isOpen && dialog.open) {
+      console.log('TRANSITION IS TO BE ASSIGNED')
       const handleTransitionEnd = (e: TransitionEvent) => {
         if (e.target !== dialog) return
         if (e.pseudoElement !== '') return // ::backdrop reports target as the dialog
         if (e.propertyName !== 'opacity') return
         if (dialog.open) return // that was the opening transition
+        console.log('TRANSITION END EXECUTED')
         onExited?.()
+        setHidden(true)
       }
       dialog.addEventListener('transitionend', handleTransitionEnd)
       dialog.close()
@@ -116,6 +120,12 @@ export const StyledModalContent: React.FC<StyledModalProps> = ({
     if (shouldCloseOnOverlayClick && e.target === dialogRef.current) {
       onRequestClose?.()
     }
+  }
+
+  if ((!isOpen && !dialogRef.current?.open) || isHidden) {
+    // needed to prevent rendering dialogs when inactive
+    // once isOpen is switch off after dialog is active - keep it rendered until it's properly hidden
+    return null
   }
 
   return (
