@@ -68,7 +68,6 @@ export const StyledModalContent: React.FC<StyledModalProps> = ({
 
   useEffect(() => {
     const dialog = dialogRef.current
-    console.log(dialog)
     if (!dialog || !visible) {
       return
     }
