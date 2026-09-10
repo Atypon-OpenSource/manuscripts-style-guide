@@ -46,12 +46,7 @@ const ConvertToWebLinkIcon: React.FC<IconProps> = (props) => (
     />
     <defs>
       <clipPath id="clip0_24947_17192">
-        <rect
-          width="14"
-          height="14"
-          fill="white"
-          transform="translate(1 1)"
-        />
+        <rect width="14" height="14" fill="white" transform="translate(1 1)" />
       </clipPath>
     </defs>
   </svg>
