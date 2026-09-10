@@ -19,8 +19,10 @@ import React from 'react'
 
 export type ButtonVariant = 'primary' | 'secondary' | 'tertiary'
 
-export interface ButtonProps
-  extends Omit<MuiButtonProps, 'variant' | 'color' | 'size'> {
+export interface ButtonProps extends Omit<
+  MuiButtonProps,
+  'variant' | 'color' | 'size'
+> {
   variant?: ButtonVariant
   danger?: boolean
   size?: 'small' | 'medium' | 'large'

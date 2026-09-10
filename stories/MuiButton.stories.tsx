@@ -20,7 +20,13 @@ import { fn } from '@storybook/test'
 import React from 'react'
 import styled from 'styled-components'
 
-import { Button, IconButton, InspectorToggleButton, muiTheme, ToggleButton } from '../src/mui'
+import {
+  Button,
+  IconButton,
+  InspectorToggleButton,
+  muiTheme,
+  ToggleButton,
+} from '../src/mui'
 
 const StorySection = styled.div`
   display: flex;

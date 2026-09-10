@@ -19,8 +19,10 @@ import MuiToggleButton, {
 } from '@mui/material/ToggleButton'
 import React from 'react'
 
-export interface ToggleButtonProps
-  extends Omit<MuiToggleButtonProps, 'size' | 'value'> {
+export interface ToggleButtonProps extends Omit<
+  MuiToggleButtonProps,
+  'size' | 'value'
+> {
   danger?: boolean
   size?: 'small' | 'medium' | 'large'
   value?: MuiToggleButtonProps['value']

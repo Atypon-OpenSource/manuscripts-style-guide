@@ -17,7 +17,10 @@ import React from 'react'
 
 import { IconProps } from './types'
 
-const VerticalEllipsisIcon: React.FC<IconProps> = ({ fill = '#1A9BC7', ...props }) => (
+const VerticalEllipsisIcon: React.FC<IconProps> = ({
+  fill = '#1A9BC7',
+  ...props
+}) => (
   <svg
     width="16"
     height="16"

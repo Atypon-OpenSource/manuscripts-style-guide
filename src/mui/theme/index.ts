@@ -16,8 +16,4 @@
 
 export { muiTheme } from './theme'
 export { palette } from './palette'
-export {
-  styled,
-  ThemeProvider as MuiThemeProvider,
-} from '@mui/material/styles'
-
+export { styled, ThemeProvider as MuiThemeProvider } from '@mui/material/styles'

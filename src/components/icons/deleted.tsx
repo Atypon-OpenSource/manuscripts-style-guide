@@ -38,13 +38,7 @@ const DeleteIcon: React.FC<IconProps> = ({ fill = '#F35143', ...props }) => (
       clipRule="evenodd"
       d="M4.5 0C3.67157 0 3 0.671573 3 1.5V3.5C3 4.32843 3.67157 5 4.5 5H8.5C9.32843 5 10 4.32843 10 3.5V1.5C10 0.671573 9.32843 0 8.5 0H4.5ZM9 1.5C9 1.22386 8.77614 1 8.5 1H4.5C4.22386 1 4 1.22386 4 1.5C4 1.77614 4.22386 2 4.5 2H8.5C8.77614 2 9 1.77614 9 1.5Z"
     />
-    <rect
-      className="icon_element"
-      y="2"
-      width="13"
-      height="3"
-      rx="1.5"
-    />
+    <rect className="icon_element" y="2" width="13" height="3" rx="1.5" />
     <path
       className="icon_element"
       fillRule="evenodd"
