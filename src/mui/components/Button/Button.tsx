@@ -37,7 +37,7 @@ const variantMap: Record<
 > = {
   primary: { variant: 'contained', color: 'primary' },
   secondary: { variant: 'outlined', color: 'secondary' },
-  tertiary: { variant: 'text', color: 'primary' },
+  tertiary: { variant: 'text', color: 'secondary' },
 }
 
 export const Button = ({
