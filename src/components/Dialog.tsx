@@ -23,7 +23,7 @@ import {
   AttentionOrangeIcon,
   AttentionRedIcon,
 } from './icons'
-import { StyledModal } from './StyledModal'
+import { StyledModal, StyledModalContent } from './StyledModal'
 import { TextField } from './TextField'
 
 const Icon = styled.div`
@@ -99,7 +99,9 @@ interface DialogProps {
   header: string | React.ReactElement
   message: string | React.ReactElement
   className?: string
-  children?: React.ReactNode
+  children?: React.ReactNode,
+  portaled?: boolean
+  onExited?: () => void
 }
 
 export enum Category {
@@ -211,6 +213,8 @@ export class Dialog extends React.Component<DialogProps, DialogState> {
     this.setDisabledBtnState(!!this.props.confirmFieldText)
   }
 
+  Parent = this.props.portaled ? StyledModal : StyledModalContent
+
   public render() {
     const {
       actions,
@@ -221,15 +225,18 @@ export class Dialog extends React.Component<DialogProps, DialogState> {
       children,
       confirmFieldText,
       className,
+      onExited
     } = this.props
     const { primaryActionDisabled } = this.state
+    const { Parent } = this
 
     return (
-      <StyledModal
+      <Parent
         isOpen={isOpen}
         onRequestClose={actions.onClose}
         shouldCloseOnOverlayClick={true}
         className={className}
+        onExited={onExited}
       >
         <DialogModalBody>
           <HeaderContainer>
@@ -266,7 +273,7 @@ export class Dialog extends React.Component<DialogProps, DialogState> {
           </MessageContainer>
           {this.renderButtons(this.props, primaryActionDisabled)}
         </DialogModalBody>
-      </StyledModal>
+      </Parent>
     )
   }
 
