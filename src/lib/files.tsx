@@ -162,11 +162,11 @@ const type2icon = new Map<FileType | undefined, ReactNode>([
     />,
   ],
   [
-    
-  [
-    FileType.Caption,
-    <CaptionIcon key={FileType.Caption} className="file-icon" />,
-  ],FileType.HeadshotGrid,
+    [
+      FileType.Caption,
+      <CaptionIcon key={FileType.Caption} className="file-icon" />,
+    ],
+    FileType.HeadshotGrid,
     <FileHeadshotGridIcon key={FileType.HeadshotGrid} className="file-icon" />,
   ],
   [undefined, <FileUnknownIcon key={undefined} className="file-icon" />],
