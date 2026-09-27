@@ -16,6 +16,7 @@
 import React, { ReactNode } from 'react'
 
 import {
+  CaptionIcon,
   FileAudioIcon,
   FileCodeIcon,
   FileCompressedIcon,
@@ -45,6 +46,7 @@ export enum FileType {
   Figure,
   GraphicalAbstract,
   HeadshotGrid,
+  Caption,
 }
 
 const extension2type = new Map<string, FileType>([
@@ -90,6 +92,8 @@ const extension2type = new Map<string, FileType>([
   ['tar.gz', FileType.CompressedFile],
   ['tgz', FileType.CompressedFile],
 
+  ['vtt', FileType.Caption],
+  ['srt', FileType.Caption],
   ['txt', FileType.PlainText],
 ])
 
@@ -158,7 +162,11 @@ const type2icon = new Map<FileType | undefined, ReactNode>([
     />,
   ],
   [
-    FileType.HeadshotGrid,
+    
+  [
+    FileType.Caption,
+    <CaptionIcon key={FileType.Caption} className="file-icon" />,
+  ],FileType.HeadshotGrid,
     <FileHeadshotGridIcon key={FileType.HeadshotGrid} className="file-icon" />,
   ],
   [undefined, <FileUnknownIcon key={undefined} className="file-icon" />],
