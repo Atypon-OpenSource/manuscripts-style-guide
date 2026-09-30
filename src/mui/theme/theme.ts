@@ -28,10 +28,43 @@ export const muiTheme = createTheme({
     info: palette.info,
     grey: palette.grey,
     common: palette.common,
+    text: {
+      primary: palette.grey[900],
+      secondary: palette.grey[700],
+      disabled: palette.grey[400],
+    },
   },
   typography: {
     fontFamily: '"Lato", sans-serif',
     fontSize: 14,
+    fontWeightRegular: 400,
+    fontWeightMedium: 500,
+    fontWeightBold: 700,
+    h1: {
+      fontSize: '20px',
+      fontWeight: 700,
+      lineHeight: 1.25,
+    },
+    h2: {
+      fontSize: '18px',
+      fontWeight: 700,
+      lineHeight: '24px',
+    },
+    h3: {
+      fontSize: '16px',
+      fontWeight: 700,
+      lineHeight: '24px',
+    },
+    body1: {
+      fontSize: '14px',
+      fontWeight: 400,
+      lineHeight: '16px',
+    },
+    caption: {
+      fontSize: '12px',
+      fontWeight: 400,
+      lineHeight: '14px',
+    },
     button: {
       textTransform: 'none',
       fontWeight: 400,
