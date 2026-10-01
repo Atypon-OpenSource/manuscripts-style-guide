@@ -24,6 +24,9 @@ export interface IconButtonProps extends Omit<MuiIconButtonProps, 'size'> {
   bordered?: boolean
   size?: MuiIconButtonProps['size']
   danger?: boolean
+  href?: string
+  target?: React.HTMLAttributeAnchorTarget
+  rel?: string
 }
 
 const IconButtonRoot = styled(MuiIconButton, {
