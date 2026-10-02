@@ -15,7 +15,7 @@
  */
 
 import { Field } from 'formik'
-import React from 'react'
+import React, { useRef, useState } from 'react'
 import styled, { css } from 'styled-components'
 
 export interface BaseTextFieldProps {
@@ -30,6 +30,10 @@ export interface TextAreaProps
   extends
     React.TextareaHTMLAttributes<HTMLTextAreaElement>,
     BaseTextFieldProps {}
+
+export interface TextAreaCapped extends TextAreaProps {
+  max?: number
+}
 
 export const commonStyles = css<BaseTextFieldProps>`
   border: 1px solid
@@ -119,6 +123,28 @@ export const TextField = styled.input<TextFieldProps>`
 export const TextArea = styled.textarea<TextAreaProps>`
   ${commonStyles}
   max-width: 100%;
+`
+
+export const TextAreaCapped = ({ maxlength, ...props }) => {
+  const [length, setLength] = useState(0)
+  return (
+    <div>
+      <TextArea
+        {...props}
+        onChange={(e) => setLength(e.target.value.length)}
+        maxlength={new String(maxlength)}
+      />
+      <LengthIndicator>
+        {length} / {maxlength}
+      </LengthIndicator>
+    </div>
+  )
+}
+
+const LengthIndicator = styled.div`
+  text-align: right;
+  margin-top: 4px;
+  font-size: 12px;
 `
 
 export const YearInput = styled.input<TextFieldProps>`
