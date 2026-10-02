@@ -125,7 +125,7 @@ export const TextArea = styled.textarea<TextAreaProps>`
   max-width: 100%;
 `
 
-export const TextAreaCapped = ({ maxlength, ...props }) => {
+export const TextAreaWithCounter = ({ maxlength, ...props }) => {
   const [length, setLength] = useState(0)
   return (
     <div>
