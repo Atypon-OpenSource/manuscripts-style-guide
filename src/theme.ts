@@ -27,7 +27,6 @@ interface Colors {
   border: Border & Alerts & Variations
   brand: Brand
   button: Button
-  badge: Badge
   text: Text & Alerts & Variations
   outline: Outline
 }
@@ -112,22 +111,6 @@ interface Button {
   error: Elements
 }
 
-interface BadgeVariant {
-  background: string
-  color: string
-  border?: string
-}
-
-interface Badge {
-  default: BadgeVariant
-  primary: BadgeVariant
-  warning: BadgeVariant
-  info: BadgeVariant
-  bordered: BadgeVariant
-  success: BadgeVariant
-  dark: BadgeVariant
-  orange: BadgeVariant
-}
 interface Text {
   muted: string
   onDark: string

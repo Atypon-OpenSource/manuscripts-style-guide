@@ -13,11 +13,4 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-export * from './theme'
-export * from './components/Chip'
-export * from './components/Button'
-export * from './components/IconButton'
-export * from './components/InspectorToggleButton'
-export * from './components/ToggleButton'
-export * from './components/Typography'
+export * from './Chip'
