@@ -125,17 +125,24 @@ export const TextArea = styled.textarea<TextAreaProps>`
   max-width: 100%;
 `
 
-export const TextAreaWithCounter = ({ maxlength, ...props }) => {
+export const TextAreaWithCounter: React.FC<
+  TextAreaProps & { maxLength: number }
+> = ({ maxLength, onChange, ...props }) => {
   const [length, setLength] = useState(0)
+  // a controlled textarea is counted by its value
+  const count = typeof props.value === 'string' ? props.value.length : length
   return (
     <div>
       <TextArea
         {...props}
-        onChange={(e) => setLength(e.target.value.length)}
-        maxlength={new String(maxlength)}
+        maxLength={maxLength}
+        onChange={(e) => {
+          setLength(e.target.value.length)
+          onChange?.(e)
+        }}
       />
       <LengthIndicator>
-        {length} / {maxlength}
+        {count} / {maxLength}
       </LengthIndicator>
     </div>
   )
