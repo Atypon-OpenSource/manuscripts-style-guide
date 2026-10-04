@@ -67,7 +67,7 @@ const selectStyles = (
           : theme.colors.text.greyMuted || theme.colors.text.secondary,
       backgroundColor: !state.isDisabled ? '#F2FBFC' : 'transparent',
     },
-    padding: state.isFocused ? '0 1px 0 7px' : '0 2px 0 8px',
+    padding: state.isFocused ? '0 1px 0 7px' : '1px 2px 1px 8px',
     backgroundColor: state.isDisabled
       ? '#F5F5F5'
       : state.isFocused

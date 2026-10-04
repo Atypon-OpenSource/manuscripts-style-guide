@@ -14,10 +14,4 @@
  * limitations under the License.
  */
 
-export * from './theme'
-export * from './components/Avatar'
-export * from './components/Button'
-export * from './components/IconButton'
-export * from './components/InspectorToggleButton'
-export * from './components/ToggleButton'
-export * from './components/Typography'
+export * from './Typography'
