@@ -61,6 +61,7 @@ export const palette = {
     white: '#fff',
   },
   focus: '#3DADFF',
+  amber: '#ffbd26',
   brand: {
     medium: '#1a9bc7',
     xlight: '#ddf3fa',
