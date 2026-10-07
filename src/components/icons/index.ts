@@ -15,6 +15,7 @@
  */
 
 export { default as AddAuthorIcon } from './add-author'
+export { default as AddCircleIcon } from './add-circle'
 export { default as AddCommentIcon } from './add-comment'
 export { default as AddFigureIcon } from './add-figure'
 export { default as AddedIcon } from './added'
@@ -39,6 +40,7 @@ export { default as AffiliationPlaceholderIcon } from './affiliation-placeholder
 export { default as BookIcon } from './book'
 export { default as CalendarIcon } from './calendar'
 export { default as CameraIcon } from './camera'
+export { default as CaptionIcon } from './caption'
 export { default as ChatIcon } from './chat'
 export { default as SystemUserAvatarIcon } from './system-user-avatar'
 export { default as CitationCountIcon } from './citation-count'
