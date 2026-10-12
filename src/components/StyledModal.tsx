@@ -14,16 +14,23 @@
  * limitations under the License.
  */
 
-import React, { useEffect, useRef } from 'react'
+import React, {
+  useEffect,
+  useLayoutEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react'
 import { createPortal } from 'react-dom'
 import styled, { css } from 'styled-components'
 
 import { RoundIconButton } from './Button'
 import { SidebarStyles } from './Sidebar'
 
-interface StyledModalProps {
+export interface StyledModalProps {
   isOpen: boolean
   onRequestClose?: (e?: Event) => void
+  onExited?: () => void
   shouldCloseOnOverlayClick?: boolean
   hideOverlay?: boolean
   pointerEventsOnBackdrop?: 'all' | 'none' | 'auto'
@@ -47,27 +54,40 @@ export const StyledModalContent: React.FC<StyledModalProps> = ({
   style,
   ariaLabelledby,
   id,
+  onExited,
 }) => {
   const dialogRef = useRef<HTMLDialogElement>(null)
   const closedByCancelRef = useRef(false)
+  const [visible, setVisible] = useState(false)
+
+  useLayoutEffect(() => {
+    if (isOpen) {
+      setVisible(true)
+    }
+  }, [isOpen])
 
   useEffect(() => {
     const dialog = dialogRef.current
-    if (!dialog) {
+    if (!dialog || !visible) {
       return
     }
 
     if (isOpen && !dialog.open) {
       if (hideOverlay) {
-        // overlay is to be hidden - the content under needs to stay interactive - showModal() disable all under the modal
+        // overlay is to be hidden - the content under needs to stay interactive - showModal() disables all under the modal
         dialog.show()
       } else {
         dialog.showModal()
       }
     } else if (!isOpen && dialog.open) {
+      const timeout = setTimeout(() => {
+        setVisible(false)
+        onExited?.()
+      }, TRANSITION_TIME + 50)
       dialog.close()
+      return () => clearTimeout(timeout)
     }
-  }, [isOpen])
+  }, [isOpen, setVisible, visible])
 
   useEffect(() => {
     const dialog = dialogRef.current
@@ -82,7 +102,10 @@ export const StyledModalContent: React.FC<StyledModalProps> = ({
       closedByCancelRef.current = false
     }
 
-    const listener = () => handleNativeClose(isOpen)
+    const listener = (e: Event) => {
+      e.preventDefault()
+      handleNativeClose(isOpen)
+    }
     dialog.addEventListener('close', listener)
     return () => dialog.removeEventListener('close', listener)
   }, [isOpen, onRequestClose])
@@ -104,6 +127,11 @@ export const StyledModalContent: React.FC<StyledModalProps> = ({
     if (shouldCloseOnOverlayClick && e.target === dialogRef.current) {
       onRequestClose?.()
     }
+  }
+
+  if (!visible) {
+    // need to keep it visible until animation is finished
+    return null
   }
 
   return (
@@ -129,6 +157,8 @@ export const StyledModal: React.FC<StyledModalProps> = (props) => {
   return createPortal(<StyledModalContent {...props} />, document.body)
 }
 
+const TRANSITION_TIME = 500
+
 const Dialog = styled.dialog<{
   $hideOverlay?: boolean
   $pointerEventsOnBackdrop?: 'all' | 'none' | 'auto'
@@ -142,9 +172,9 @@ const Dialog = styled.dialog<{
   z-index: 100;
   opacity: 1;
   transition:
-    opacity 0.5s ease-in-out,
-    display 0.5s ease allow-discrete,
-    overlay 0.5s ease allow-discrete;
+    opacity ${TRANSITION_TIME}ms ease-in-out,
+    display ${TRANSITION_TIME}ms ease allow-discrete,
+    overlay ${TRANSITION_TIME}ms ease allow-discrete;
 
   &:not([open]) {
     opacity: 0;
@@ -175,9 +205,9 @@ const Dialog = styled.dialog<{
     opacity: 1;
     pointer-events: ${(props) => props.$pointerEventsOnBackdrop || 'auto'};
     transition:
-      opacity 0.5s ease-in-out,
-      display 0.5s ease allow-discrete,
-      overlay 0.5s ease allow-discrete;
+      opacity ${TRANSITION_TIME}ms ease-in-out,
+      display ${TRANSITION_TIME}ms ease allow-discrete,
+      overlay ${TRANSITION_TIME}ms ease allow-discrete;
   }
 
   &:not([open])::backdrop {

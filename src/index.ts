@@ -27,7 +27,6 @@ export {
   type StyledRadioGroupOption,
   type StyledRadioGroupProps,
 } from './components/RadioGroup'
-export * from './components/Avatar'
 export * from './components/Dialog'
 export * from './components/DraggableModal'
 export * from './components/Checkbox'

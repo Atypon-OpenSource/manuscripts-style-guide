@@ -97,6 +97,13 @@ export const muiTheme = createTheme({
         },
       },
     },
+    MuiAvatar: {
+      styleOverrides: {
+        root: {
+          fontWeight: 700,
+        },
+      },
+    },
     MuiIconButton: {
       styleOverrides: {
         root: {
