@@ -31,10 +31,6 @@ export interface TextAreaProps
     React.TextareaHTMLAttributes<HTMLTextAreaElement>,
     BaseTextFieldProps {}
 
-export interface TextAreaCapped extends TextAreaProps {
-  max?: number
-}
-
 export const commonStyles = css<BaseTextFieldProps>`
   border: 1px solid
     ${(props) =>
@@ -122,36 +118,60 @@ export const TextField = styled.input<TextFieldProps>`
 
 export const TextArea = styled.textarea<TextAreaProps>`
   ${commonStyles}
+  padding-top: ${(props) => {
+    if (props.$variant === 'large') {
+      return '12px'
+    }
+    return '0'
+  }};
+  padding-bottom: ${(props) => {
+    if (props.$variant === 'large') {
+      return '12px'
+    }
+    return '0'
+  }};
+  &:focus:not(:disabled) {
+    ${(props) =>
+      props.$variant &&
+      css<BaseTextFieldProps>`
+        padding: ${(props) =>
+          props.$variant === 'small' ? '0 11px' : '12px 15px'};
+      `}
+  }
   max-width: 100%;
 `
 
 export const TextAreaWithCounter: React.FC<
-  TextAreaProps & { maxLength: number }
-> = ({ maxLength, onChange, ...props }) => {
+  TextAreaProps & { maxLength: number, warningOffset?: number }
+> = ({ maxLength, onChange, warningOffset = 15, ...props }) => {
   const [length, setLength] = useState(0)
   // a controlled textarea is counted by its value
   const count = typeof props.value === 'string' ? props.value.length : length
+  const limitIsClose = count + warningOffset >= maxLength
   return (
     <div>
       <TextArea
         {...props}
+        $error={limitIsClose}
         maxLength={maxLength}
+        $variant='large'
         onChange={(e) => {
           setLength(e.target.value.length)
           onChange?.(e)
         }}
       />
-      <LengthIndicator>
+      <LengthIndicator $error={limitIsClose}>
         {count} / {maxLength}
       </LengthIndicator>
     </div>
   )
 }
 
-const LengthIndicator = styled.div`
+const LengthIndicator = styled.div<{ $error: boolean }>`
   text-align: right;
   margin-top: 4px;
   font-size: 12px;
+  color: ${(props) => props.$error ? props.theme.colors.border.error : 'inherit'}
 `
 
 export const YearInput = styled.input<TextFieldProps>`
