@@ -147,6 +147,7 @@ export const Menus: React.FC<MenusProps> = ({
           <MenuContainer
             data-cy={'menu'}
             key={`menu-${index}`}
+            data-help-id={`${menu.id}`}
             $isEnabled={menu.isEnabled}
           >
             <MenuHeading

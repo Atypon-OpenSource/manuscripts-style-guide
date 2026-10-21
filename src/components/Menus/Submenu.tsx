@@ -251,7 +251,7 @@ export const Submenu: React.FC<SubmenuProps> = ({
   }
 
   return (
-    <SubmenuContainer data-cy={'submenu'}>
+    <SubmenuContainer data-cy={'submenu'} data-help-id={`${menu.id}`}>
       <SubmenuLabel menu={menu} handleClick={handleClick} close={close} />
       {menu.submenu && menu.isOpen && (
         <NestedSubmenusContainer data-submenu-container>
